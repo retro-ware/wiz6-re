@@ -177,7 +177,7 @@ class Func:
 
     def _is_scratch(self, r):
         """si/di saved by the prologue but used only as cgen's own index temp: every write is
-        `mov r, reg16`, read only as a memory index before the next label, write or call."""
+        `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call.
         X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
         lo, hi = self.body, self.epi if self.epi is not None else self.e
         labels = set()
@@ -196,7 +196,7 @@ class Func:
             if disp:
                 disp = not (i.mnemonic == 'jmp' and i.op_str == 'cx')
                 continue
-            if a in labels or i.mnemonic in ('call', 'ret') or i.group(X.X86_GRP_JUMP):
+            if a in labels or i.mnemonic in ('call', 'ret', 'jmp'):     # a jcc's fall-through keeps it
                 live = False
             ops = list(i.operands)
             idx = any(o.type == X.X86_OP_MEM and X86 in (o.mem.base, o.mem.index) for o in ops)
@@ -207,7 +207,6 @@ class Func:
             elif idx:
                 if not live or reg:
                     return False
-                live = False            # one use per write
             elif reg:
                 if i.mnemonic != 'mov' or reg != [0] or ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM) or \
                         ops[1].size != 2:
