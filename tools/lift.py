@@ -1055,7 +1055,9 @@ class Lifter:
         for k, x in ga['n'].items():
             n[k] = n.get(k, 0) + x
         if self.tcount.get(t) != len(conds) + n.get(t, 0) + self.pending(t) or \
-                self.tcount.get(j) != 1 + n.get(j, 0) + self.pending(j):
+                (self.tcount.get(j) != 1 + n.get(j, 0) + self.pending(j) and
+                 not (j == self.f.epi and self.tcount.get(j, 0) > n.get(j, 0) + self.pending(j))):
+            # (both arms may join at the epilogue, which other returns jump to as well)
             return False
         n[t] = n.get(t, 0) + len(conds)
         n[j] = n.get(j, 0) + 1
