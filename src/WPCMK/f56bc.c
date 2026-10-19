@@ -1,7 +1,3 @@
-#asm
-	extrn play_sound_:near
-	extrn print_skill_value_:near
-#endasm
 extern char char_skills[];
 extern char skill_points_left;
 extern int menu_clicked;
@@ -14,7 +10,6 @@ char *skills;
 	int added[10];
 	int points;
 	int l28;
-	register int rsi;
 	points = (unsigned char)skill_points_left;
 	fill_window(win, 32, 3, 0);
 	refresh_window(win);
@@ -72,20 +67,11 @@ L5946:
 	switch (key) {
 case 1:
 	if (added[row] <= 0) goto L59ad;
-	rsi = (row << 1);
-	char_skills[*(int *)(skills + rsi)]--;
-#asm
-	db 08bh,0d8h,003h,0ddh,0ffh,04fh,0e8h
-#endasm
+	char_skills[*(int *)(skills + (row << 1))]--;
+	added[row]--;
 	points++;
-#asm
-	db 0b8h,001h,000h,050h
-	call play_sound_
-	db 059h,08bh,046h,0fch,0d1h,0e0h,08bh,0f0h,08bh,05eh,00ah,08bh,018h,08ah,087h,0a4h
-	db 055h,02ah,0e4h,050h,08bh,046h,0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call print_skill_value_
-	db 083h,0c4h,006h
-#endasm
+	play_sound(1);
+	print_skill_value(cursor_win, (row + 3), (unsigned char)char_skills[*(int *)(skills + (row << 1))]);
 	print_skill_value(cursor_win, 14, points);
 	goto L59b5;
 L59ad:
@@ -105,25 +91,13 @@ L59ef:
 	put_char(cursor_win, 100, 4);
 	goto L5b02;
 case 3:
-	;
-#asm
-l5a17:
-	db 08bh,046h,0fch,0d1h,0e0h,08bh,0f0h,08bh,05eh,00ah,08bh,018h,080h,0bfh,0a4h,055h
-	db 064h,073h,051h
-#endasm
+	if ((unsigned)char_skills[*(int *)(skills + (row << 1))] >= 100) goto L5a7b;
 	if (points <= 0) goto L5a7b;
-#asm
-	db 0feh,087h,0a4h,055h,08bh,0d8h,003h,0ddh,0ffh,047h,0e8h
-#endasm
+	char_skills[*(int *)(skills + (row << 1))]++;
+	added[row]++;
 	points--;
-#asm
-	db 0b8h,001h,000h,050h
-	call play_sound_
-	db 059h,08bh,046h,0fch,0d1h,0e0h,08bh,0f0h,08bh,05eh,00ah,08bh,018h,08ah,087h,0a4h
-	db 055h,02ah,0e4h,050h,08bh,046h,0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call print_skill_value_
-	db 083h,0c4h,006h
-#endasm
+	play_sound(1);
+	print_skill_value(cursor_win, (row + 3), (unsigned char)char_skills[*(int *)(skills + (row << 1))]);
 	print_skill_value(cursor_win, 14, points);
 	goto L5a83;
 L5a7b:

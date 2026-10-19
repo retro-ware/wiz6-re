@@ -1,11 +1,10 @@
-#asm
-	extrn print_int_:near
-#endasm
 extern char char_class;
+extern char char_skills[];
 extern char g5632;
 extern char skill_points_left;
 extern int g5670[];
-draw_skill_page(win, win2, page)
+draw_skill_page(win, win2, page, p10)
+char *p10;
 {
 	int i;
 	int l4;
@@ -14,7 +13,6 @@ draw_skill_page(win, win2, page)
 	int l10;
 	int l12;
 	int count;
-	register int rsi;
 	switch ((unsigned char)char_class) {
 case 0:
 	set_class_skill_masks(20477, 20488, 20496, 20502);
@@ -133,24 +131,13 @@ L5f69:
 	set_cursor(win, 1, (count + 3));
 	print_message((i + 5500), win, l12);
 	set_cursor(win, 16, (count + 3));
-#asm
-	db 0b8h,001h,000h,050h,0b8h,003h,000h,050h,08bh,05eh,0feh,08ah,087h,0a4h,055h,02ah
-	db 0e4h,050h,0ffh,076h,004h
-	call print_int_
-	db 083h,0c4h,008h,08bh,046h,0feh,08bh,04eh,0f2h,0d1h,0e1h,08bh,0f1h,08bh,05eh,00ah
-	db 089h,000h
-#endasm
+	print_int(win, (unsigned char)char_skills[i], 3, 1);
+	*(int *)(p10 + (count << 1)) = i;
 	count++;
 L5fdf:
 	i++;
 L5fe2:
-	;
-#asm
-l5fe2:
-	db 08bh,046h,0feh,03bh,046h,0f6h,07fh,003h
-#endasm
-	goto L5f69;
-L5fed:
+	if (i <= l10) goto L5f69;
 	set_cursor(win, 1, 14);
 	print_message(5530, win, 9);
 	set_cursor(win, 16, 14);

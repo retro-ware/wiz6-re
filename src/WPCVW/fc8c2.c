@@ -7,7 +7,8 @@ extern char pc_race[];
 extern char pc_sex[];
 extern int pc_item_id[];
 /* Check whether member p4 may equip item p6 by class, race and sex masks. */
-can_equip_item(p4, p6)
+can_equip_item(p4, p6, p8)
+char *p8;
 {
 	int l2;
 	int l4;
@@ -19,25 +20,23 @@ can_equip_item(p4, p6)
 	int l28;
 	char x28[52];
 	int l82;
-	register int rsi;
 	l8 = 0;
 	l2 = 0;
 Lc8d3:
-	;
-#asm
-lc8d3:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,0c7h,000h,0ffh,0ffh
-#endasm
+	*(int *)(p8 + (l2 << 1)) = -1;
 	l2++;
 	if (l2 < 10) goto Lc8d3;
 	l2 = 0;
 	goto Lcbd6;
 Lc8f4:
 	l6 = -1;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h
-	db 0c1h,08bh,0d8h,08ah,087h,02ch,044h,02ah,0e4h,0e9h,0bbh,000h
-#endasm
+	switch ((unsigned char)pc_item_type[((432 * p4) + (l2 << 3))]) {
+case 0:
+case 1:
+case 2:
+case 3:
+case 12:
+case 16:
 	if (p6) goto Lc922;
 	l6 = 0;
 	goto Lc94b;
@@ -47,49 +46,38 @@ Lc922:
 	l6 = 1;
 Lc94b:
 	goto Lc9dd;
+case 4:
 	l6 = 1;
-#asm
-	db 0e9h,087h,000h
-#endasm
+	goto Lc9dd;
+case 5:
 	l6 = 2;
-#asm
-	db 0e9h,07fh,000h
-#endasm
+	goto Lc9dd;
+case 6:
 	l6 = 3;
-#asm
-	db 0e9h,077h,000h
-#endasm
+	goto Lc9dd;
+case 7:
 	l6 = 4;
-#asm
-	db 0ebh,070h
-#endasm
+	goto Lc9dd;
+case 8:
 	l6 = 5;
-#asm
-	db 0ebh,069h
-#endasm
+	goto Lc9dd;
+case 9:
 	l6 = 6;
-#asm
-	db 0ebh,062h
-#endasm
+	goto Lc9dd;
+case 10:
 	l6 = 7;
-#asm
-	db 0ebh,05bh
-#endasm
+	goto Lc9dd;
+case 11:
 	l6 = 1;
-#asm
-	db 0ebh,054h
-#endasm
+	goto Lc9dd;
+case 13:
+case 14:
+case 15:
 	if (!((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4)) goto Lc9ac;
 	l6 = 1;
 Lc9ac:
 	goto Lc9dd;
-#asm
-	db 015h,0c9h,015h,0c9h,015h,0c9h,015h,0c9h,04eh,0c9h,056h,0c9h,05eh,0c9h,066h,0c9h
-	db 06dh,0c9h,074h,0c9h,07bh,0c9h,082h,0c9h,015h,0c9h,089h,0c9h,089h,0c9h,089h,0c9h
-	db 015h,0c9h
-lc9d0:
-	db 03dh,011h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0aeh,0c9h
-#endasm
+	}
 Lc9dd:
 	if (p6 != 1) goto Lcb08;
 	l4 = (unsigned char)pc_equipped[(432 * p4)];
@@ -148,9 +136,7 @@ Lcb28:
 	if (test_bit(&l28, (unsigned char)pc_class[(432 * p4)]) != 1) goto Lcbd3;
 	if (test_bit(&l26, (unsigned char)pc_race[(432 * p4)]) != 1) goto Lcbd3;
 	if (test_bit(&l24, (unsigned char)pc_sex[(432 * p4)]) != 1) goto Lcbd3;
-#asm
-	db 08bh,046h,0feh,08bh,04eh,0f8h,0d1h,0e1h,08bh,0f1h,08bh,05eh,008h,089h,000h
-#endasm
+	*(int *)(p8 + (l8 << 1)) = l2;
 	l8++;
 Lcbd3:
 	l2++;

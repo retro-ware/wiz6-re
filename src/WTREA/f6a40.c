@@ -1,41 +1,16 @@
-#asm
-	extrn print_message_:near
-	extrn set_cursor_:near
-#endasm
-draw_trap_list(p4, p6, p8)
+draw_trap_list(p4, p6, p8, p10, p12)
 char *p4;
+char *p12;
 {
 	register int rsi;
-	register int rdi;
 	draw_chest_list_box(p4, 0);
 	defer_window_draw(p4);
 	rsi = -2;
-#asm
-l6a5c:
-	db 08bh,046h,006h,003h,0c6h,07ch,069h,03bh,046h,00ah,07dh,064h,08bh,0c6h,040h,040h
-	db 050h,0b8h,002h,000h,050h,0ffh,076h,004h
-	call set_cursor_
-	db 083h,0c4h,006h,083h,07eh,008h,001h,075h,009h
-#endasm
-	if (rsi) goto L6a89;
-#asm
-	db 0b8h,006h,000h,0ebh,003h
-#endasm
-L6a89:
-	;
-#asm
-l6a89:
-	db 0b8h,012h,000h
-#endasm
-L6a8c:
-	;
-#asm
-l6a8c:
-	db 050h,0ffh,076h,004h,08bh,046h,006h,003h,0c6h,0d1h,0e0h,08bh,0f8h,08bh,05eh,00ch
-	db 08bh,001h,005h,0b4h,014h,050h
-	call print_message_
-	db 083h,0c4h,006h
-#endasm
+L6a5c:
+	if ((p6 + rsi) < 0) goto L6acc;
+	if ((p6 + rsi) >= p10) goto L6acc;
+	set_cursor(p4, 2, (rsi + 2));
+	print_message((*(int *)(p12 + ((p6 + rsi) << 1)) + 5300), p4, ((p8 == 1) && (!rsi) ? 6 : 18));
 	if (p8 != 1) goto L6acc;
 	if (rsi) goto L6acc;
 L6ab2:
@@ -44,9 +19,7 @@ L6ab2:
 	goto L6ab2;
 L6acc:
 	rsi++;
-#asm
-	db 083h,0feh,002h,07eh,08ah
-#endasm
+	if (rsi <= 2) goto L6a5c;
 	resume_window_draw(p4);
 	refresh_window(p4);
 }

@@ -15,10 +15,8 @@ play_spell_animation(p4, p6, p8, p10, p12, p14, p16)
 	int l24;
 	int l26;
 	char l38[12];
-	register int rsi;
 	if (p4) goto L6989;
-	rsi = (44 * p6);
-	if (((char *)monster_groups[p4] + rsi)[31]) goto L6989;
+	if (((char *)monster_groups[p4] + (44 * p6))[31]) goto L6989;
 	return;
 L6989:
 	reset_animation();

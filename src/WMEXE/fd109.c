@@ -12,7 +12,6 @@ run_combat_round()
 	char *l2;
 	int l4;
 	int l6;
-	register int rsi;
 	reset_effects();
 	refresh_all_windows();
 	g435a = 100;
@@ -70,8 +69,7 @@ Ld1dc:
 	fb85f(3519, -1, 6);
 	combat_delay((g4fc8 / 2));
 Ld226:
-	rsi = (unsigned char)l2[33];
-	if ((unsigned char)(l2 + rsi)[24] != g435a) goto Ld29f;
+	if ((unsigned char)(l2 + (unsigned char)l2[33])[24] != g435a) goto Ld29f;
 	if ((unsigned)l2[36] <= 0) goto Ld288;
 	if (l2[43] != 3) goto Ld288;
 	l2[43] = 0;
@@ -88,8 +86,7 @@ Ld288:
 Ld29d:
 	goto Ld2b2;
 Ld29f:
-	rsi = (unsigned char)l2[33];
-	if ((l2 + rsi)[24]) goto Ld2b2;
+	if ((l2 + (unsigned char)l2[33])[24]) goto Ld2b2;
 	l2[33]++;
 Ld2b2:
 	if ((unsigned)l2[33] <= 3) goto Ld2bf;

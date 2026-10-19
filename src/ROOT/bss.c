@@ -151,8 +151,7 @@
 	global g44f5_:byte,1
 	global g44f6_:byte,2
 	global pc_equipped_:byte,1
-	global g44f9_:byte,1
-	global g44fa_:byte,6
+	global g44f9_:byte,7
 	global g4500_:byte,4
 	global g4504_:byte,6
 	global g450a_:byte,2
@@ -191,8 +190,7 @@
 	global g453c_:byte,9
 	global g4545_:byte,3
 	global g4548_:byte,1
-	global g4549_:byte,1
-	global g454a_:byte,6
+	global g4549_:byte,7
 	global g4550_:byte,52
 	global pc_portrait_:byte,1
 	global pc_race_:byte,1

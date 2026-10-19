@@ -32,7 +32,6 @@ char *p4;
 	int l62;
 	char x62[26];
 	int l90;
-	register int rsi;
 	l10 = (unsigned char)p4[31];
 	l12 = (unsigned char)p4[32];
 	get_combatant_name(20492, g435e, g435c);
@@ -122,8 +121,7 @@ Lb72b:
 Lb731:
 	goto Lb779;
 Lb733:
-	rsi = (44 * g435c);
-	if (((*(int *)((char *)monster_groups[g435e] + rsi) * 5) - 2) >= l14) goto Lb779;
+	if (((*(int *)((char *)monster_groups[g435e] + (44 * g435c)) * 5) - 2) >= l14) goto Lb779;
 	if (cfg_level == 2) goto Lb773;
 	if (random(7)) goto Lb773;
 	g50fc = 1;

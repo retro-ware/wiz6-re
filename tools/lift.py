@@ -173,6 +173,40 @@ class Func:
                 self.epi = x
                 break
         self.epi_end = self.epi + len(pat) if self.epi is not None else None
+        self.scratch = {r for r in self.regs if self._is_scratch(r)}
+
+    def _is_scratch(self, r):
+        """si/di saved by the prologue but used only as cgen's own index temp: every write is
+        `mov r, reg16`, read only as a memory index before the next label, write or call."""
+        X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
+        lo, hi = self.body, self.epi if self.epi is not None else self.e
+        labels = set()
+        for i in self.seen.values():
+            if (i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH) and i.operands and \
+                    i.operands[0].type == X.X86_OP_IMM:
+                labels.add(i.operands[0].imm & 0xffff)
+        live, writes = False, 0
+        for a in self.addrs:
+            if not lo <= a < hi:
+                continue
+            i = self.seen[a]
+            if a in labels or i.mnemonic in ('call', 'ret') or i.group(X.X86_GRP_JUMP):
+                live = False
+            ops = list(i.operands)
+            idx = any(o.type == X.X86_OP_MEM and X86 in (o.mem.base, o.mem.index) for o in ops)
+            reg = [k for k, o in enumerate(ops) if o.type == X.X86_OP_REG and o.reg == X86]
+            if idx:
+                if not live or reg:
+                    return False
+                live = False            # one use per write
+            elif reg:
+                if i.mnemonic != 'mov' or reg != [0] or ops[1].type != X.X86_OP_REG or ops[1].size != 2:
+                    return False
+                live, writes = True, writes + 1
+            elif i.mnemonic in ('push', 'pop', 'xchg') or i.mnemonic.startswith(('rep', 'movs', 'stos', 'lods', 'cmps', 'scas')):
+                if any(o.type == X.X86_OP_REG and o.reg == X86 for o in ops) or i.mnemonic[:4] in ('movs', 'stos', 'lods', 'cmps', 'scas', 'rep ', 'repn', 'repe'):
+                    return False
+        return writes > 0
 
 
 # ---------------------------------------------------------------- symbolic execution
@@ -330,7 +364,7 @@ class Lifter:
 
     def run(self):
         f = self.f
-        self.regvars = set(f.regs)
+        self.regvars = set(f.regs) - f.scratch
         body = [a for a in f.addrs if a >= f.body and not (f.epi is not None and f.epi <= a < f.epi_end)]
         self.targets, self.tcount = set(), {}
         self.skip_to, self.nolabel = 0, set()

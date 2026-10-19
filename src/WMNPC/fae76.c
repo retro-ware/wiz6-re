@@ -3,16 +3,14 @@ char *p4;
 {
 	int l2;
 	int l4;
-	register int rsi;
 	l2 = 0;
 	l4 = 0;
 Lae87:
 	if (l2 == p6) goto Laeb0;
-	rsi = (l2 << 1);
-	if (*(int *)(p4 + rsi) != -1) goto Laea3;
+	if (*(int *)(p4 + (l2 << 1)) != -1) goto Laea3;
 	return 0;
 Laea3:
-	if (*(int *)(p4 + rsi) != 1) goto Laeab;
+	if (*(int *)(p4 + (l2 << 1)) != 1) goto Laeab;
 	l4++;
 Laeab:
 	l2++;

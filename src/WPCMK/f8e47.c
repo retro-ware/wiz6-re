@@ -1,6 +1,4 @@
-#asm
-	extrn set_six_ratings_:near
-#endasm
+extern char char_class;
 extern char char_race;
 extern char g5589;
 extern char g558a;
@@ -22,67 +20,52 @@ L8e6c:
 	if (char_race != 6) goto L8e76;
 	l4--;
 L8e76:
-	;
-#asm
-l8e76:
-	db 0a0h,00fh,056h,02ah,0e4h,0e9h,06fh,001h,08bh,046h,0fch,040h,050h,050h,050h,050h
-	db 050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,069h,001h
-#endasm
+	switch ((unsigned char)char_class) {
+case 0:
+case 3:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 1:
 	spell_picks_left = 2;
-#asm
-	db 08bh,046h,0fch,040h,040h,040h,050h,08bh,046h,0fch,040h,040h,050h,050h,050h,08bh
-	db 046h,0fch,040h,040h,040h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,044h,001h
-#endasm
+	set_six_ratings((l4 + 3), (l4 + 3), (l4 + 2), (l4 + 2), (l4 + 2), (l4 + 3));
+	break;
+case 2:
 	g5589 = 2;
-#asm
-	db 08bh,046h,0fch,040h,040h,040h,050h,08bh,046h,0fch,040h,040h,050h,08bh,046h,0fch
-	db 040h,040h,040h,050h,050h,08bh,046h,0fch,040h,040h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,01ah,001h,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,007h,001h
-#endasm
+	set_six_ratings((l4 + 2), (l4 + 2), (l4 + 3), (l4 + 3), (l4 + 2), (l4 + 3));
+	break;
+case 4:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 5:
 	g558a = 2;
-#asm
-	db 08bh,046h,0fch,040h,040h,050h,050h,08bh,046h,0fch,040h,040h,040h,050h,050h,08bh
-	db 046h,0fch,040h,040h,050h,08bh,046h,0fch,040h,040h,040h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,0ddh,000h,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,0cah,000h
-#endasm
+	set_six_ratings((l4 + 3), (l4 + 2), (l4 + 3), (l4 + 3), (l4 + 2), (l4 + 2));
+	break;
+case 6:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 7:
 	g558b = 2;
-#asm
-	db 08bh,046h,0fch,040h,040h,050h,08bh,046h,0fch,005h,004h,000h,050h,08bh,046h,0fch
-	db 040h,040h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,0a6h,000h,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0e9h,093h,000h
-#endasm
+	set_six_ratings((l4 + 2), (l4 + 2), (l4 + 2), (l4 + 2), (l4 + 4), (l4 + 2));
+	break;
+case 8:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 9:
 	spell_picks_left = 1;
 	g5589 = 1;
-#asm
-	db 08bh,046h,0fch,040h,040h,040h,050h,050h,08bh,046h,0fch,040h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0ebh,071h,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0ebh,05fh,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0ebh,04dh,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0ebh,03bh,08bh,046h,0fch,040h,050h,050h,050h,050h,050h,050h
-	call set_six_ratings_
-	db 083h,0c4h,00ch,0ebh,029h,07eh,08eh,091h,08eh,0b6h,08eh,07eh,08eh,0e0h,08eh,0f3h
-	db 08eh,01dh,08fh,030h,08fh,054h,08fh,067h,08fh,089h,08fh,09bh,08fh,0adh,08fh,0bfh
-	db 08fh
-l8fed:
-	db 03dh,00eh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0d1h,08fh
-#endasm
-L8ffa:
-	;
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 3), (l4 + 3));
+	break;
+case 10:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 11:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 12:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+case 13:
+	set_six_ratings((l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1), (l4 + 1));
+	break;
+	}
 }

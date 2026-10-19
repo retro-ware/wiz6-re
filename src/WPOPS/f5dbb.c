@@ -10,15 +10,15 @@ pick_target_monster(attacker, group)
 	int l6;
 	int l8;
 	int l10;
-	register int rsi;
 	l10 = 1;
 	l6 = 0;
 	goto L5def;
 L5dce:
-	rsi = (44 * l6);
+	;
 #asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,02ah,0ffh,074h
-	db 005h
+l5dce:
+	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh
+	db 09fh,0a8h,043h,080h,078h,02ah,0ffh,074h,005h
 #endasm
 	l10 = 0;
 L5dec:
@@ -54,19 +54,9 @@ L5e7c:
 L5e81:
 	if (*(int *)((char *)view_pos_group + ((l2 * 10) + ((unsigned char)g0092[((attacker * 5) + l4)] << 1))) != group) goto L5f55;
 	l6 = 0;
-#asm
-	db 0e9h,078h,000h
-#endasm
+	goto L5f3c;
 L5ec4:
-	;
-#asm
-l5ec4:
-	db 08bh,046h,0feh,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,050h,08bh,046h
-	db 004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,003h,046h,0fch,08bh,0d8h,08ah,087h
-	db 092h,000h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,050h,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,040h,02ah
-	db 098h,08bh,0c8h,058h,03bh,0c1h,075h,02dh
-#endasm
+	if (((l2 * 10) + (unsigned char)g0092[((attacker * 5) + l4)]) != ((char *)monster_groups[group] + (44 * l6))[42]) goto L5f39;
 	if (!g5043[((group * 9) + l6)]) goto L5f2b;
 	if (l8 != attacker) goto L5f36;
 L5f2b:

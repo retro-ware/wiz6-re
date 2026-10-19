@@ -405,6 +405,17 @@ class Printer:
                          not getattr(st, 'epi', False)] + [-1])
         out, owners = [], []
         fell = False           # a 'return x' fell into the epilogue just before
+        # a bare return inside a switch that the epilogue directly follows is a break (cgen puts
+        # the epilogue at the first return; the original has it after the switch)
+        brk, open_sw = set(), []
+        for k, st in enumerate(sts):
+            if st.kind == 'switch':
+                open_sw.append(k)
+            elif st.kind == 'endsw' and open_sw:
+                k0 = open_sw.pop()
+                if k + 1 < len(sts) and getattr(sts[k + 1], 'epi', False) and not open_sw:
+                    brk |= {j for j in range(k0 + 1, k) if sts[j].kind == 'ret' and
+                            not getattr(sts[j], 'epi', False) and sts[j].rv is None}
         for k, st in enumerate(sts):
             lab = []
             if st.s in labels:
@@ -451,7 +462,7 @@ class Printer:
                 elif st.rv is not None:
                     out.append('\treturn %s;' % self.ex(st.rv))
                 else:
-                    out.append('\treturn;')
+                    out.append('\tbreak;' if k in brk else '\treturn;')
             fell = kd == 'ret' and getattr(st, 'fall', False)
             owners += [st] * (len(out) - len(owners))
         if out and out[-1].endswith(':'):
@@ -512,7 +523,8 @@ class Printer:
         # (the first function of a file), so define that symbol ourselves
         bp_used = T.larr or any(k in ('p', 'l') for k, w in list(T.sizes) + list(T.ptr))
         frame = ['#asm', '$20004 equ 1', '#endasm'] if f.frame and not bp_used and not locs else []
-        regs = ['\tregister %s%s;' % (T.ctype(('r', r)), self.ln('r' + r)) for r in ('si', 'di') if r in f.regs]
+        regs = ['\tregister %s%s;' % (T.ctype(('r', r)), self.ln('r' + r)) for r in ('si', 'di')
+                if r in f.regs and r not in f.scratch]
         head = []
         own = self.img.fname(f.s) + '_'
         ext = sorted(self.asm_ext - {own})

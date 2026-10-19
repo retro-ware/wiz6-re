@@ -1,74 +1,55 @@
-extern char g454a[];
-extern char pc_equipped[];
-extern char pc_item_count[];
-extern char pc_item_qty[];
-extern int g435c;
-extern int pc_item_id[];
-use_item_charge_x(p4)
-{
-	int l2;
-	int l4;
-	char x4[12];
-	int l18;
-	register int rsi;
-	register int rdi;
-	if ((unsigned)pc_item_qty[((432 * g435c) + (p4 << 3))] <= 0) goto L722a;
-	pc_item_qty[((432 * g435c) + (p4 << 3))]--;
 #asm
-	db 074h,003h,0e9h,065h,001h
-#endasm
-L70c5:
-	l4 = 0;
-L70ca:
-	if ((unsigned char)pc_equipped[((432 * g435c) + l4)] != p4) goto L7143;
-#asm
-	db 08bh,046h,0fch,0ebh,03fh
-#endasm
-	clear_hand_attack_x(l4);
-	goto L7132;
-	g454a[(432 * g435c)] = 0;
-#asm
-	db 0ebh,033h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,048h,045h,003h
-	db 05eh,0fch,088h,087h,048h,045h,0ebh,01dh,0e6h,070h,0e6h,070h,0efh,070h,0ffh,070h
-	db 0ffh,070h,0ffh,070h,0ffh,070h,0ffh,070h
+	public use_item_charge_x_
+	extrn calc_carried_weight_x_:near
+	extrn clear_hand_attack_x_:near
+	extrn get_load_category_x_:near
+use_item_charge_x_:
+	db 055h,08bh,0ech,083h,0c4h,0eeh,057h,056h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh
+	db 04eh,004h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,080h,0bfh,02eh,044h
+	db 000h,077h,003h,0e9h,06eh,001h
+l70bc:
+	db 0feh,08fh,02eh,044h,074h,003h,0e9h,065h,001h
+l70c5:
+	db 0c7h,046h,0fch,000h,000h
+l70ca:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,003h,046h,0fch,08bh,0d8h,08ah,087h,0f8h,044h
+	db 02ah,0e4h,03bh,046h,004h,075h,062h,08bh,046h,0fch,0ebh,03fh,0ffh,076h,0fch
+	call clear_hand_attack_x_
+	db 059h,0ebh,043h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,0c6h,087h,04ah,045h
+	db 000h,0ebh,033h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,048h,045h
+	db 003h,05eh,0fch,088h,087h,048h,045h,0ebh,01dh,0e6h,070h,0e6h,070h,0efh,070h,0ffh
+	db 070h,0ffh,070h,0ffh,070h,0ffh,070h,0ffh,070h
 l7125:
 	db 03dh,008h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,015h,071h
+l7132:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,003h,046h,0fch,08bh,0d8h,0c6h,087h,0f8h,044h
+	db 0ffh
+l7143:
+	db 0ffh,046h,0fch,08bh,046h,0fch,03dh,008h,000h,07dh,003h,0e9h,079h,0ffh
+l7151:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,04eh,004h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
+	db 003h,0c1h,08bh,0d8h,0c7h,087h,028h,044h,000h,000h,0b8h,0b0h,001h,0f7h,02eh,05ch
+	db 043h,08bh,0d8h,0feh,08fh,094h,045h,08bh,046h,004h,089h,046h,0feh,0ebh,066h
+l7180:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
+	db 003h,0c1h,08bh,0f0h,005h,030h,044h,08bh,0f0h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h
+	db 003h,0c1h,08bh,0f8h,005h,028h,044h,08bh,0f8h,08ch,0d9h,08eh,0c1h,0b9h,004h,000h
+	db 0f3h,0a5h,0c7h,046h,0fch,000h,000h
+l71b7:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,003h,046h,0fch,08bh,0d8h,08ah,087h,0f8h,044h
+	db 02ah,0e4h,08bh,04eh,0feh,041h,03bh,0c1h,075h,007h,08ah,046h,0feh,088h,087h,0f8h
+	db 044h
+l71d8:
+	db 0ffh,046h,0fch,08bh,046h,0fch,03dh,008h,000h,07ch,0d4h,0ffh,046h,0feh
+l71e6:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,094h,045h,02ah,0e4h,03bh
+	db 046h,0feh,07fh,086h,0ffh,036h,05ch,043h
+	call calc_carried_weight_x_
+	db 059h,0ffh,036h,05ch,043h
+	call get_load_category_x_
+	db 059h,08bh,0f0h,08dh,07eh,0eeh,08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h,08ah
+	db 046h,0f8h,050h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,058h,088h,087h,08dh
+	db 045h
+l722a:
+	db 05eh,05fh,08bh,0e5h,05dh,0c3h
 #endasm
-L7132:
-	pc_equipped[((432 * g435c) + l4)] = 255;
-L7143:
-	l4++;
-#asm
-	db 08bh,046h,0fch,03dh,008h,000h,07dh,003h
-#endasm
-	goto L70ca;
-L7151:
-	*(int *)((char *)pc_item_id + ((432 * g435c) + (p4 << 3))) = 0;
-	pc_item_count[(432 * g435c)]--;
-	l2 = p4;
-	goto L71e6;
-L7180:
-	rsi = (((432 * g435c) + (l2 << 3)) + 17456);
-	rdi = (((432 * g435c) + (l2 << 3)) + 17448);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,004h,000h,0f3h,0a5h,0c7h,046h,0fch,000h,000h
-#endasm
-L71b7:
-	if ((unsigned char)pc_equipped[((432 * g435c) + l4)] != (l2 + 1)) goto L71d8;
-	pc_equipped[((432 * g435c) + l4)] = *(char *)&l2;
-L71d8:
-	l4++;
-	if (l4 < 8) goto L71b7;
-	l2++;
-L71e6:
-	if ((unsigned char)pc_item_count[(432 * g435c)] > l2) goto L7180;
-	calc_carried_weight_x(g435c);
-	rsi = get_load_category_x(g435c);
-	rdi = &l18;
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h,08ah,046h,0f8h,050h,0b8h,0b0h,001h
-	db 0f7h,02eh,05ch,043h,08bh,0d8h,058h,088h,087h,08dh,045h
-#endasm
-L722a:
-	;
-}

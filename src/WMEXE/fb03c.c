@@ -26,7 +26,6 @@ char *p4;
 	int l10;
 	int l12;
 	int l14;
-	register int rsi;
 	g019d[monster_groups[0]] = party_count;
 	l8 = (unsigned char)p4[31];
 	l10 = (unsigned char)p4[32];
@@ -71,8 +70,7 @@ Lb211:
 Lb217:
 	goto Lb290;
 Lb21a:
-	rsi = (44 * g435c);
-	l14 = (((*(int *)((char *)monster_groups[g435e] + rsi) * 3) + 88) - ((unsigned char)g00df[(l6 * 6)] * l4));
+	l14 = (((*(int *)((char *)monster_groups[g435e] + (44 * g435c)) * 3) + 88) - ((unsigned char)g00df[(l6 * 6)] * l4));
 	if (random(100) <= l14) goto Lb290;
 	if (cfg_level == 2) goto Lb28a;
 	if (random(7)) goto Lb28a;
