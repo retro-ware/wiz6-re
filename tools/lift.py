@@ -568,7 +568,9 @@ class Lifter:
             rd, wr = i.regs_access()
             reads = {R16.get(r) or (R8[r][0] if r in R8 else None) for r in rd}
             writes = {R16.get(r) or (R8[r][0] if r in R8 else None) for r in wr}
-            if self.side in reads or any(self.R.get(x) == ('sx', self.R[self.side]) for x in reads):
+            sw = m == 'jmp' and ops[0].type == X.X86_OP_IMM and (ops[0].imm & 0xffff) in self.switches and \
+                self.side == 'ax'           # switch (f(..)): the dispatch reads ax
+            if self.side in reads or sw or any(self.R.get(x) == ('sx', self.R[self.side]) for x in reads):
                 self.side = None
             elif self.side in writes or i.group(X.X86_GRP_JUMP) or m in BRANCH or m == 'call' or \
                     m == 'push' and not self.stack or \

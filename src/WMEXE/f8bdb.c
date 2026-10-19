@@ -1,8 +1,3 @@
-#asm
-	extrn f7ddc_:near
-	extrn f825f_:near
-	extrn random_:near
-#endasm
 extern char g019d[];
 extern int g4fc8;
 extern int group_monster_rec[];
@@ -24,57 +19,38 @@ L8c10:
 	goto L8ee9;
 L8c24:
 	if (random(100) <= ((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[150] - p10)) goto L8e42;
-#asm
-l8c4d:
-	db 0b8h,00ah,000h,050h
-	call random_
-	db 059h,0e9h,0dah,001h
-#endasm
+	switch (random(10)) {
+case 0:
 	f7ddc(p4, l2, 4, 7, p8, 12, p10);
 	goto L8e3f;
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,08bh,046h,008h,0d1h
-	db 0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,00ah,0b8h,004h,000h,050h,0b8h,002h,000h
-	db 050h,0b8h,094h,00dh,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f825f_
-	db 083h,0c4h,018h,0e9h,092h,001h,0b8h,000h,000h,050h,050h,050h,0b8h,002h,000h,050h
-	db 0ffh,076h,008h,0b8h,000h,000h,050h,0ffh,076h,00ah,0b8h,002h,000h,050h,0b8h,009h
-	db 000h,050h,0b8h,092h,00dh,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f825f_
-	db 083h,0c4h,018h,0e9h,063h,001h,0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,001h
-	db 000h,050h,08bh,046h,008h,0d1h,0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,00ah,0b8h
-	db 003h,000h,050h,0b8h,004h,000h,050h,0b8h,093h,00dh,050h,0ffh,076h,0feh,0ffh,076h
-	db 004h
-	call f825f_
-	db 083h,0c4h,018h,0e9h,02fh,001h,0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,004h
-	db 000h,050h,0ffh,076h,008h,0b8h,000h,000h,050h,0ffh,076h,00ah,0b8h,008h,000h,050h
-	db 0b8h,005h,000h,050h,0b8h,098h,00dh,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0feh,000h,0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0b8h,000h
-	db 000h,050h,050h,050h,0b8h,001h,000h,050h,08bh,046h,00ah,005h,0e7h,0ffh,050h,0b8h
-	db 003h,000h,050h,0b8h,00bh,000h,050h,0b8h,0a1h,00dh,050h,0ffh,076h,0feh,0ffh,076h
-	db 004h
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0cah,000h,0ffh,076h,00ah,0b8h,000h,000h,050h,08bh,046h,008h
-	db 0d1h,0e0h,050h,0b8h,004h,000h,050h,08bh,046h,008h,0d1h,0e0h,050h,0ffh,076h,0feh
-	db 0ffh,076h,004h
-	call f7ddc_
-	db 083h,0c4h,00eh,0e9h,0a4h,000h,0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,002h
-	db 000h,050h,0ffh,076h,008h,0b8h,000h,000h,050h,0ffh,076h,00ah,0b8h,007h,000h,050h
-	db 0b8h,00ah,000h,050h,0b8h,097h,00dh,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f825f_
-	db 083h,0c4h,018h,0ebh,074h,0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0b8h,000h,000h
-	db 050h,050h,050h,0b8h,001h,000h,050h,08bh,046h,00ah,005h,0e7h,0ffh,050h,0b8h,002h
-	db 000h,050h,0b8h,00bh,000h,050h,0b8h,09dh,00dh,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f825f_
-	db 083h,0c4h,018h,0ebh,041h,0ffh,076h,00ah,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h
-	db 007h,000h,050h,0b8h,004h,000h,050h,0ffh,076h,0feh,0ffh,076h,004h
-	call f7ddc_
-	db 083h,0c4h,00eh,0ebh,021h,058h,08ch,079h,08ch,0adh,08ch,0dch,08ch,010h,08dh,041h
-	db 08dh,075h,08dh,09bh,08dh,0cbh,08dh,0feh,08dh
-l8e32:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,01eh,08eh
-#endasm
+case 1:
+	f825f(p4, l2, 3476, 2, 4, p10, 0, (p8 << 1), 4, p8, 0, 0);
+	goto L8e3f;
+case 2:
+	f825f(p4, l2, 3474, 9, 2, p10, 0, p8, 2, 0, 0, 0);
+	goto L8e3f;
+case 3:
+	f825f(p4, l2, 3475, 4, 3, p10, 0, (p8 << 1), 1, p8, 0, 0);
+	goto L8e3f;
+case 4:
+	f825f(p4, l2, 3480, 5, 8, p10, 0, p8, 4, p8, 0, 0);
+	goto L8e3f;
+case 5:
+	f825f(p4, l2, 3489, 11, 3, (p10 + -25), 1, 0, 0, 0, 14, 6);
+	goto L8e3f;
+case 6:
+	f7ddc(p4, l2, (p8 << 1), 4, (p8 << 1), 0, p10);
+	goto L8e3f;
+case 7:
+	f825f(p4, l2, 3479, 10, 7, p10, 0, p8, 2, p8, 0, 0);
+	goto L8e3f;
+case 8:
+	f825f(p4, l2, 3485, 11, 2, (p10 + -25), 1, 0, 0, 0, 14, 6);
+	goto L8e3f;
+case 9:
+	f7ddc(p4, l2, 4, 7, p8, 1, p10);
+	goto L8e3f;
+	}
 L8e3f:
 	goto L8ee6;
 L8e42:
