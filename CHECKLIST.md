@@ -65,6 +65,10 @@
 - [x] Promoted run 42 (si/di index temps reused across statements and jcc fall-throughs): 890 functions in C (602 asm-free; 1304 left), sbuild all 12 OK
 - [x] Promoted run 43 (ternaries whose arms join at the epilogue): 890 functions in C (616 asm-free; 1248 left), sbuild all 12 OK
 - [x] Promoted run 44 (adjacent ifs merged into &&/|| conditions, split again on mismatch): 890 functions in C (633 asm-free; 1202 left), sbuild all 12 OK
+- [x] Promoted run 45 (if ((rsi = f()) != K) on register variables; cgen's long-branch hop keeps si/di index temps live): 890 functions in C (649 asm-free; 1164 left), sbuild all 12 OK
+- [x] Promoted run 46 (two-char struct params; clamp ternaries with push ax; cmp; pop ax): 890 functions in C (662 asm-free; 1135 left), sbuild all 12 OK
+- [x] Promoted run 47 (&&/|| merges through labels only the merged condition jumps to): 890 functions in C (676 asm-free; 1085 left), sbuild all 12 OK
+- [x] Promoted runs 48/49 (x += 2 as inc; inc on pointer-typed vars; a jmp after a jump-table dispatch back before the cases is a goto, not the default): 890 functions in C (680 asm-free; 1048 left), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
