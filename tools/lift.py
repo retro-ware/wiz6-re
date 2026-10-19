@@ -195,7 +195,10 @@ class Func:
             ops = list(i.operands)
             idx = any(o.type == X.X86_OP_MEM and X86 in (o.mem.base, o.mem.index) for o in ops)
             reg = [k for k, o in enumerate(ops) if o.type == X.X86_OP_REG and o.reg == X86]
-            if idx:
+            if i.mnemonic == 'movsw':
+                if not live:            # the struct copy of a by-value argument
+                    return False
+            elif idx:
                 if not live or reg:
                     return False
                 live = False            # one use per write
@@ -381,6 +384,7 @@ class Lifter:
         self.out, self.dead = {}, False
         self.raw = False
         self.skip = None
+        self.structs = set()    # (function, size): calls returning a struct passed on by value
         self.st_start = f.body
         prev_end = f.body
         self.find_switches()
@@ -545,6 +549,8 @@ class Lifter:
         elif m in ALU:
             d, s = ops
             if d.type == X.X86_OP_REG and d.reg == X.X86_REG_SP:
+                if self.struct_arg(i):
+                    return
                 raise Unlift('sp adjust')
             same = s.type == X.X86_OP_REG and d.type == X.X86_OP_REG and s.reg == d.reg
             if same and m in ('or', 'and'):
@@ -778,6 +784,29 @@ class Lifter:
         self.skip_to = last.address + last.size
         return True
 
+    def struct_arg(self, i):
+        """sub sp,N; mov ax,sp; mov dx,ss; mov es,dx; mov si,cx; mov di,ax; movsw x N/2: a struct
+        that a call returned (its address in cx) passed by value. Pushed as N/2 stack words."""
+        d, s = i.operands
+        if i.mnemonic != 'sub' or s.type != X.X86_OP_IMM or s.imm not in (2, 4, 6, 8) or self.R.get('cx') is None:
+            return False
+        want = ['mov ax, sp', 'mov dx, ss', 'mov es, dx', 'mov si, cx', 'mov di, ax'] + ['movsw'] * (s.imm // 2)
+        p, last = i.address + i.size, None
+        for w in want:
+            x = self.f.seen.get(p)
+            if x is None or (x.mnemonic + (' ' + x.op_str if x.op_str and x.mnemonic != 'movsw' else '')) != w or \
+                    p != i.address + i.size and p in self.targets:
+                return False
+            last, p = x, p + x.size
+        src = self.R['cx']
+        if src[0] != 'call':
+            return False
+        self.structs.add((src[1], s.imm))
+        self.stack += [('pad',)] * (s.imm // 2 - 1) + [('sv', src, s.imm)]
+        del self.R['cx']
+        self.skip_to = last.address + last.size
+        return True
+
     def call(self, i):
         op = i.operands[0]
         if op.type != X.X86_OP_IMM:
@@ -814,6 +843,7 @@ class Lifter:
                 args[k:k + 2] = [E]
             k += 1
         del self.stack[len(self.stack) - n:]
+        args = [x for x in args if x != ('pad',)]
         # pushes still pending: this call is an argument of a later one (f(a, g(x)))
         self.R = {}
         self.R['ax'] = ('call', fn[:-1] if fn.endswith('_') else fn, args, i.address)

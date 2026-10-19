@@ -317,6 +317,8 @@ class Printer:
             if size == 1:
                 return '%s[%s]' % (n, self.ex(idx))
             return '*(%s *)(%s + %s)' % (CTYPE[size], n, self.ex(idx))
+        if k == 'sv':           # a struct a call returned, passed by value
+            return self.ex(e[1])
         if k == '=':
             return '(%s = %s)' % (self.ex(e[1]), self.ex(e[2]))
         if k == '?':
@@ -531,6 +533,10 @@ class Printer:
         if ext:
             head += ['#asm'] + ['\textrn %s:near' % x for x in ext] + ['#endasm']
         head += sorted(self.ext_vars.values())
+        for n in sorted({n for _, n in self.L.structs}):
+            head.append('struct s%d { int w[%d]; };' % (n, n // 2))
+        for fn, n in sorted(self.L.structs):
+            head.append('struct s%d %s();' % (n, fn))
         doc = symnames.doc(self.img.name, f.s)
         if doc:
             head.append('/* %s */' % doc.replace('*/', '* /'))
