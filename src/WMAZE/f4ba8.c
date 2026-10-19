@@ -30,13 +30,9 @@ draw_member_status_m(p4)
 	l6 = ((p4 / 2) << 2);
 	set_cursor(l88, l4, l6);
 	print_string_hi(l88, ((432 * p4) + 17384), 3);
-	rsi = strlen(((432 * p4) + 17384));
-	goto L4c24;
-L4c12:
+	for (rsi = strlen(((432 * p4) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(l88, 32, 3);
-	rsi++;
-L4c24:
-	if (rsi < 7) goto L4c12;
+	}
 	l90 = ((member_portrait[p4] * 9) + 72);
 	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(l88, l4, ((l6 + rsi) + 1));

@@ -148,9 +148,7 @@ L9751:
 	g5040++;
 	goto L91c4;
 L9758:
-	g5040 = g521e;
-	goto L98bb;
-L9761:
+	for (g5040 = g521e; g5040 >= 0; g5040--) {
 	rsi = g50ce;
 	rsi--;
 	goto L984d;
@@ -188,9 +186,7 @@ L98b1:
 	rsi--;
 L98b2:
 	if (rsi >= 0) goto L985c;
-	g5040--;
-L98bb:
-	if (g5040 >= 0) goto L9761;
+	}
 	draw_view_frame_m();
 	return;
 }

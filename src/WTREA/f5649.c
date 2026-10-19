@@ -43,17 +43,13 @@ L570d:
 L5738:
 	print_string(main_window, &l26, -5);
 L574a:
-	rsi = 0;
-	goto L57d9;
-L5750:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	l112 = (((rsi % 2) * 9) + 2);
 	l114 = ((rsi / 2) + 1);
 	set_cursor(win, l112, l114);
 	print_string_hi(win, ((432 * rsi) + 17384), 3);
 	set_click_region(rsi, ((unsigned char)win[2] + l112), ((unsigned char)win[3] + l114), (((strlen(((432 * rsi) + 17384)) + (unsigned char)win[2]) + l112) - 1), ((unsigned char)win[3] + l114));
-	rsi++;
-L57d9:
-	if (rsi < party_count) goto L5750;
+	}
 	set_click_region(party_count, ((unsigned char)main_window[2] + l108), ((unsigned char)main_window[3] + l110), (((strlen(&l26) + (unsigned char)main_window[2]) + l108) - 1), ((unsigned char)main_window[3] + l110));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
 	sel = -1;

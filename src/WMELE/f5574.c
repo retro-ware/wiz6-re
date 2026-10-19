@@ -13,13 +13,9 @@ load_group_pics()
 	for (i = 0; i < 3; i++) {
 	g4326[i] = 0;
 	}
-	g = 1;
-	goto L55c1;
-L5599:
+	for (g = 1; g <= monster_group_count; g++) {
 	g019b[monster_groups[g]] = (char)f4858((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[209]);
-	g++;
-L55c1:
-	if (g <= monster_group_count) goto L5599;
+	}
 	if (((unsigned)g43b8[210] <= 0) || ((unsigned char)g43b8[210] == cur_sound)) goto L55e6;
 	load_sound_mele((unsigned char)g43b8[210]);
 L55e6:

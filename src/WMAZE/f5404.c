@@ -11,9 +11,7 @@ kill_party(p4)
 	int l2;
 	redraw_maze_view();
 	show_maze_message(p4);
-	l2 = 0;
-	goto L5463;
-L541b:
+	for (l2 = 0; l2 < party_count; l2++) {
 	if ((unsigned)pc_condition[(432 * l2)] >= 3) goto L5438;
 	play_sound(((unsigned char)pc_sex[(432 * l2)] + 8));
 L5438:
@@ -22,9 +20,7 @@ L5438:
 	*(int *)((char *)pc_stamina + (432 * l2)) = 0;
 	draw_member_status_m(l2);
 	wait_animating_m(2);
-	l2++;
-L5463:
-	if (l2 < party_count) goto L541b;
+	}
 	wait_animating_m((message_delay << 1));
 	erase_window(main_window, 1);
 	game_state = 8;

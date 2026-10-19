@@ -33,13 +33,9 @@ f5078(p4, p6)
 	set_cursor(l88, l4, l6);
 	if (p6) goto L5101;
 	print_string_hi(l88, ((432 * p4) + 17384), 3);
-	rsi = strlen(((432 * p4) + 17384));
-	goto L50fa;
-L50e8:
+	for (rsi = strlen(((432 * p4) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(l88, 32, 3);
-	rsi++;
-L50fa:
-	if (rsi < 7) goto L50e8;
+	}
 	goto L5122;
 L5101:
 	print_long(l88, *(int *)((char *)pc_gold + (432 * p4)), *(int *)((char *)g43fe + (432 * p4)), 7, 5);

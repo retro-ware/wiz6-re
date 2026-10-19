@@ -20,11 +20,9 @@ character_menu()
 	menu_win = create_window(21, 7, 19, 13, 21, -1, 0, 0);
 L9fc4:
 	draw_creation_screen(sheet_win, prompt_win);
-	l2 = 0;
-L9fd7:
+	for (l2 = 0; l2 <= 5; l2++) {
 	enabled[l2] = 1;
-	l2++;
-	if (l2 <= 5) goto L9fd7;
+	}
 	l26 = -1;
 	if (find_free_roster_slot() != -1) goto La002;
 	enabled[0] = 0;

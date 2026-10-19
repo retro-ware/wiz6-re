@@ -27,13 +27,9 @@ draw_member_card(win, member)
 	l6 = (((member / 2) << 2) + 2);
 	set_cursor(win, l4, l6);
 	print_string_hi(win, ((432 * member) + 17384), 3);
-	i = strlen(((432 * member) + 17384));
-	goto L4a43;
-L4a31:
+	for (i = strlen(((432 * member) + 17384)); i < 7; i++) {
 	put_char_hi(win, 32, 3);
-	i++;
-L4a43:
-	if (i < 7) goto L4a31;
+	}
 	l88 = ((member_portrait[member] * 9) + 72);
 	for (i = 0; i < 3; i++) {
 	set_cursor(win, l4, ((l6 + i) + 1));

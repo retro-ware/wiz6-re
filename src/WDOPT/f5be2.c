@@ -281,58 +281,26 @@ L5e5c:
 	draw_maze_view_dopt();
 	drv_op_be(win, 0);
 	draw_map_border(cols, rows);
-	row = 0;
-	goto L5ec2;
-L5e8d:
-	col = 0;
-	goto L5eb7;
-L5e94:
+	for (row = 0; row < rows; row++) {
+	for (col = 0; col < cols; col++) {
 	map_cell(((party_x + col) - center), ((party_y - row) + center), col, row);
-	col++;
-L5eb7:
-	if (col < cols) goto L5e94;
-	row++;
-L5ec2:
-	if (row < rows) goto L5e8d;
-	row = 0;
-	goto L5ef2;
-L5ed1:
-	col = 0;
-	goto L5ee7;
-L5ed8:
+	}
+	}
+	for (row = 0; row < rows; row++) {
+	for (col = 0; col < cols; col++) {
 	set_map_corner(col, row);
-	col++;
-L5ee7:
-	if (col < cols) goto L5ed8;
-	row++;
-L5ef2:
-	if (row < rows) goto L5ed1;
-	row = 0;
-	goto L5f3c;
-L5f01:
-	col = 0;
-	goto L5f31;
-L5f08:
+	}
+	}
+	for (row = 0; row < rows; row++) {
+	for (col = 0; col < cols; col++) {
 	draw_map_floor(col, row, *(int *)((char *)g50c6 + ((col * 10) + (row << 1))));
-	col++;
-L5f31:
-	if (col < cols) goto L5f08;
-	row++;
-L5f3c:
-	if (row < rows) goto L5f01;
-	row = 0;
-	goto L5f8e;
-L5f4b:
-	col = 0;
-	goto L5f83;
-L5f52:
+	}
+	}
+	for (row = 0; row < rows; row++) {
+	for (col = 0; col < cols; col++) {
 	draw_map_walls(col, row, *(int *)((char *)g50fe + ((col * 10) + (row << 1))), *(int *)((char *)g5132 + ((col * 10) + (row << 1))), *(int *)((char *)g517a + ((col * 10) + (row << 1))));
-	col++;
-L5f83:
-	if (col < cols) goto L5f52;
-	row++;
-L5f8e:
-	if (row < rows) goto L5f4b;
+	}
+	}
 	draw_map_party(center, center, g51b4);
 	drv_op_c2(picture_win);
 	if (!check_screen_click()) goto L5fba;

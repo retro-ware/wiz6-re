@@ -26,11 +26,9 @@ L92c6:
 	l4 = create_window(20, 4, 20, 16, 25, -1, 0, 0);
 L92f7:
 	l28 = draw_skills_page(l4, p4, p6, l26, &l48);
-	l2 = 0;
-L9315:
+	for (l2 = 0; l2 <= 4; l2++) {
 	l24[l2] = 1;
-	l2++;
-	if (l2 <= 4) goto L9315;
+	}
 	l24[l26] = 0;
 	l14 = -1;
 	if (l52) goto L934c;

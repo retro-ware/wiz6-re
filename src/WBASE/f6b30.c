@@ -15,22 +15,14 @@ remove_party_member(i)
 	int j;
 	roster_slot_used[member_pcfile_index[i]] = 1;
 	party_count--;
-	j = i;
-	goto L6b91;
-L6b54:
+	for (j = i; j < party_count; j++) {
 	*(struct s432 *)((char *)party + (432 * j)) = *(struct s432 *)((char *)g4598 + (432 * j));
 	member_pcfile_index[j] = g43de[j];
 	member_portrait[j] = g43d2[j];
-	j++;
-L6b91:
-	if (j < party_count) goto L6b54;
+	}
 	fill_window(g4fba, 32, 3, 0);
 	fill_window(g4fb8, 32, 3, 0);
-	j = 0;
-	goto L6bd7;
-L6bcd:
+	for (j = 0; j < party_count; j++) {
 	draw_member_panel(j);
-	j++;
-L6bd7:
-	if (j < party_count) goto L6bcd;
+	}
 }

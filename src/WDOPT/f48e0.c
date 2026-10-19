@@ -37,17 +37,13 @@ L48f6:
 L49c5:
 	print_string(main_window, &cancel_hilite, -5);
 L49d7:
-	rsi = 0;
-	goto L4a66;
-L49dd:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	x = (((rsi % 2) * 9) + 2);
 	y = ((rsi / 2) + 1);
 	set_cursor(win, x, y);
 	print_string_hi(win, ((432 * rsi) + 17384), 3);
 	set_click_region(rsi, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((432 * rsi) + 17384)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
-	rsi++;
-L4a66:
-	if (rsi < party_count) goto L49dd;
+	}
 	set_click_region(party_count, ((unsigned char)main_window[2] + cancel_x), ((unsigned char)main_window[3] + cancel_y), (((strlen(&cancel_hilite) + (unsigned char)main_window[2]) + cancel_x) - 1), ((unsigned char)main_window[3] + cancel_y));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
 	sel = -1;

@@ -28,13 +28,9 @@ do_master_options()
 	defer_window_draw(g4fba);
 	defer_window_draw(g4fb8);
 	if (party_count <= 0) goto L70fc;
-	cur_member = 0;
-	goto L70f3;
-L70e7:
+	for (cur_member = 0; cur_member < party_count; cur_member++) {
 	draw_member_panel(cur_member);
-	cur_member++;
-L70f3:
-	if (cur_member < party_count) goto L70e7;
+	}
 L70fc:
 	resume_window_draw(g4fba);
 	resume_window_draw(g4fb8);
@@ -47,11 +43,9 @@ L7125:
 	erase_window(bottom_line_win, 0);
 	win = create_window(0, 19, 40, 5, 15, -1, 0, 0);
 	fill_window(win, 32, 3, 0);
-	choice = 0;
-L7185:
+	for (choice = 0; choice <= 8; choice++) {
 	enabled[choice] = 1;
-	choice++;
-	if (choice <= 8) goto L7185;
+	}
 	l22 = -1;
 	if (party_count >= 1) goto L71b4;
 	enabled[1] = 0;

@@ -15,13 +15,9 @@ check_secret_detect()
 	if ((g4ed0 <= 0) || (random(100) >= g4ed2)) goto La516;
 	g4f86 = 1;
 La516:
-	l2 = 0;
-	goto La52e;
-La51d:
+	for (l2 = 0; l2 < party_count; l2++) {
 	l16[l2] = 0;
-	l2++;
-La52e:
-	if (l2 < party_count) goto La51d;
+	}
 	l2 = 0;
 	goto La5bf;
 La53f:

@@ -148,9 +148,7 @@ Lf13c:
 	pclist_race++;
 	goto Lebaf;
 Lf143:
-	pclist_race = g52f8;
-	goto Lf2a6;
-Lf14c:
+	for (pclist_race = g52f8; pclist_race >= 0; pclist_race--) {
 	rsi = g51a8;
 	rsi--;
 	goto Lf238;
@@ -188,9 +186,7 @@ Lf29c:
 	rsi--;
 Lf29d:
 	if (rsi >= 0) goto Lf247;
-	pclist_race--;
-Lf2a6:
-	if (pclist_race >= 0) goto Lf14c;
+	}
 	fe964();
 	return;
 #asm

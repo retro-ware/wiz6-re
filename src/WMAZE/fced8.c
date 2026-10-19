@@ -64,13 +64,9 @@ Ld105:
 Ld110:
 	defer_window_draw(win);
 	set_cursor(win, 1, 3);
-	l2 = 0;
-	goto Ld143;
-Ld12f:
+	for (l2 = 0; l2 < target; l2++) {
 	put_char(win, 97, 12);
-	l2++;
-Ld143:
-	if (l2 < target) goto Ld12f;
+	}
 	resume_window_draw(win);
 	l62 = 1;
 Ld157:
@@ -105,13 +101,9 @@ Ld268:
 	strength = 18;
 Ld273:
 	set_cursor(win, 1, 1);
-	l2 = 0;
-	goto Ld2a5;
-Ld288:
+	for (l2 = 0; l2 < strength; l2++) {
 	put_char(win, 97, (l60 == 1 ? 4 : 6));
-	l2++;
-Ld2a5:
-	if (l2 < strength) goto Ld288;
+	}
 	clear_window_area(win, (unsigned char)win[6], 1, 18, 1);
 	resume_window_draw(win);
 	refresh_window(win);

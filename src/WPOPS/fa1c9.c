@@ -149,9 +149,7 @@ La8df:
 	view_depth++;
 	goto La352;
 La8e6:
-	view_depth = g5258;
-	goto Laa49;
-La8ef:
+	for (view_depth = g5258; view_depth >= 0; view_depth--) {
 	rsi = view_object_count;
 	rsi--;
 	goto La9db;
@@ -189,9 +187,7 @@ Laa3f:
 	rsi--;
 Laa40:
 	if (rsi >= 0) goto La9ea;
-	view_depth--;
-Laa49:
-	if (view_depth >= 0) goto La8ef;
+	}
 	draw_view_frame();
 	return;
 #asm

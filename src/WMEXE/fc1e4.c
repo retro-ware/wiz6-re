@@ -13,13 +13,9 @@ char *p4;
 	int l2;
 	int l4;
 	l4 = (*(int *)p4 + 90);
-	l2 = 1;
-	goto Lc25e;
-Lc1fc:
+	for (l2 = 1; l2 <= monster_group_count; l2++) {
 	l4 = ((l4 - ((unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[122] * (unsigned char)g019d[monster_groups[l2]])) - (((unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[137] - (unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[137]) << 1));
-	l2++;
-Lc25e:
-	if (l2 <= monster_group_count) goto Lc1fc;
+	}
 	if (g4354 != 1) goto Lc273;
 	l4 = 0;
 Lc273:

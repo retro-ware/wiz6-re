@@ -446,32 +446,45 @@ class Printer:
             fwd = {k for k, st in enumerate(sts[:epi_k]) if st.kind == 'ret' and st.rv is None and k not in brk}
             if fwd:
                 labels.add(sts[epi_k].s)
-        # v = C; L: body; v++; if (v < K) goto L  with C < K: a for loop (cgen tests it at the
-        # bottom with no initial jmp, and forgets its CSE registers after it)
+        # v = I; L: body; v++; if (v < K) goto L: a for loop. cgen tests it at the bottom, with no
+        # initial jmp when constant I and K satisfy the test, else after 'jmp T' (T: the test).
+        # It forgets its CSE registers after the loop.
         refs = {}
         for st in sts:
             if st.kind in ('if', 'goto'):
                 refs[st.target] = refs.get(st.target, 0) + 1
         fors, forend = {}, {}
+        ops = {'<': int.__lt__, '<=': int.__le__, '>': int.__gt__, '>=': int.__ge__, '!=': int.__ne__}
         for j, st in enumerate(sts):
             c = getattr(st, 'cond', None)
-            if st.kind != 'if' or j < 3 or c[0] != '<' or c[1][0] != 'v' or c[2][0] != 'c':
+            if st.kind != 'if' or j < 3 or c[0] not in ops or c[1][0] != 'v':
                 continue
             k = next((x for x in range(j) if sts[x].s == st.target), None)
             if k is None or k < 1 or refs.get(st.target) != 1 or st.target in cases or st.target in default:
                 continue
-            a, inc = sts[k - 1], sts[j - 1]
-            if a.kind != 'asg' or a.lv != c[1] or a.rv[0] != 'c' or a.s in self.L.nobool or \
-                    inc.kind != 'inc' or inc.op != '+' or inc.lv != c[1] or k > j - 1 or \
-                    self.sdisp(a.rv[1]) >= self.sdisp(c[2][1]) or \
-                    inc.s in labels or inc.s in cases or inc.s in default or st.s in labels or \
-                    st.s in cases or st.s in default or a.s in cases or a.s in default or \
+            g = sts[k - 1]
+            top = k >= 2 and g.kind == 'goto' and g.target == st.s and refs.get(st.s) == 1
+            a, inc = sts[k - 2 if top else k - 1], sts[j - 1]
+            if a.kind != 'asg' or a.lv != c[1] or a.s in self.L.nobool or \
+                    inc.kind != 'inc' or inc.lv != c[1] or inc.s in labels or inc.s in cases or \
+                    inc.s in default or (st.s in labels) != top or st.s in cases or st.s in default or \
+                    a.s in cases or a.s in default or g.s in cases or g.s in default or \
+                    top and g.s in labels or \
                     any(x.kind in ('raw', 'switch', 'endsw') for x in sts[k - 1:j + 1]):
                 continue
-            fors[k - 1] = st
+            const = a.rv[0] == 'c' and c[2][0] == 'c' and ops[c[0]](self.sdisp(a.rv[1]), self.sdisp(c[2][1]))
+            if const == top:
+                continue
+            h = k - 2 if top else k - 1
+            fors[h] = (st, inc)
             forend[j - 1], forend[j] = False, True
             labels.discard(st.target)
-            for x in (a, inc, st):
+            group = [a, inc, st]
+            if top:
+                forend[k - 1] = False
+                labels.discard(st.s)
+                group.append(g)
+            for x in group:
                 x.forhead = a.s
         for k, st in enumerate(sts):
             lab = []
@@ -495,8 +508,8 @@ class Printer:
                         out.append('L%04x:' % tg[0])
                     out.append('\treturn;' if self.tail_goto[1] == self.f.epi else '\tgoto L%04x;' % self.tail_goto[1])
             elif k in fors:
-                c = fors[k].cond
-                out.append('\tfor (%s = %s; %s; %s++) {' % (self.ex(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1])))
+                c, op = fors[k][0].cond, '++' if fors[k][1].op == '+' else '--'
+                out.append('\tfor (%s = %s; %s; %s%s) {' % (self.ex(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1]), op))
             elif k in forend:
                 if forend[k]:
                     out.append('\t}')

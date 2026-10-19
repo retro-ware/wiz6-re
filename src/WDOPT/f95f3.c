@@ -149,9 +149,7 @@ L9d09:
 	g5412++;
 	goto L977c;
 L9d10:
-	g5412 = g55f0;
-	goto L9e73;
-L9d19:
+	for (g5412 = g55f0; g5412 >= 0; g5412--) {
 	rsi = g54a0;
 	rsi--;
 	goto L9e05;
@@ -189,9 +187,7 @@ L9e69:
 	rsi--;
 L9e6a:
 	if (rsi >= 0) goto L9e14;
-	g5412--;
-L9e73:
-	if (g5412 >= 0) goto L9d19;
+	}
 	draw_compass_icons_dopt();
 	return;
 }

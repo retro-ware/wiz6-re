@@ -36,11 +36,9 @@ view_character(member)
 Lae23:
 	draw_sheet(sheet, menu, member);
 	l38 = 1;
-	rsi = 0;
-Lae3a:
+	for (rsi = 0; rsi <= 11; rsi++) {
 	enabled[rsi] = 1;
-	rsi++;
-	if (rsi <= 11) goto Lae3a;
+	}
 	if (return_cmd != 4) goto Lae8f;
 	for (rsi = 0; rsi < 11; rsi++) {
 	enabled[rsi] = 0;

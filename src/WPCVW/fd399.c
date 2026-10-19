@@ -114,16 +114,12 @@ Ld4bf:
 Ld57f:
 	print_string(p6, &l218, -5);
 Ld591:
-	l4 = 0;
-	goto Ld62c;
-Ld599:
+	for (l4 = 0; l4 < l12; l4++) {
 	set_cursor(p4, 21, (l48[(l4 + 8)] + 9));
 	put_char(p4, 100, 5);
 	print_string(p4, ((l48[(l4 + 8)] << 4) + 21982), 4);
 	set_click_region(l4, ((unsigned char)p4[2] + 21), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9), ((unsigned char)p4[2] + 36), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9));
-	l4++;
-Ld62c:
-	if (l4 < l12) goto Ld599;
+	}
 	set_click_region(l12, ((unsigned char)p6[2] + l220), ((unsigned char)p6[3] + l222), (((strlen(&l218) + (unsigned char)p6[2]) + l220) - 1), ((unsigned char)p6[3] + l222));
 	set_click_region((l12 + 1), 255, 0, 0, 0);
 	l10 = -1;

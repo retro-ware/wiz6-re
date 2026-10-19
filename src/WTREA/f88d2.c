@@ -13,16 +13,12 @@ remove_loot_entry(idx)
 {
 	int l2;
 	loot_count--;
-	l2 = idx;
-	goto L8945;
-L88e4:
+	for (l2 = idx; l2 < loot_count; l2++) {
 	loot_item[l2] = g51d8[l2];
 	strcpy(((l2 * 18) + 20974), ((l2 * 18) + 20992));
 	g51e2[l2] = g51e4[l2];
 	g5268[l2] = g526a[l2];
 	g525a[l2] = g525c[l2];
 	g5274[l2] = g5276[l2];
-	l2++;
-L8945:
-	if (l2 < loot_count) goto L88e4;
+	}
 }

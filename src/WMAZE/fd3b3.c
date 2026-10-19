@@ -82,9 +82,7 @@ Ld67e:
 Ld6c1:
 	result = 0;
 	defer_window_draw(win);
-	l2 = 0;
-	goto Ld776;
-Ld6d5:
+	for (l2 = 0; l2 < tumblers; l2++) {
 	rolls[l2] = random(l6);
 	set_cursor(win, ((l2 * 3) + 1), 3);
 	print_int(win, rolls[l2], 2, 1);
@@ -97,9 +95,7 @@ Ld757:
 	result = (l70 + 1);
 Ld763:
 	print_string(win, l52, l72);
-	l2++;
-Ld776:
-	if (l2 < tumblers) goto Ld6d5;
+	}
 	resume_window_draw(win);
 	refresh_window(win);
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld7ac;

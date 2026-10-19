@@ -12,9 +12,7 @@ check_party_item_event()
 	int l8;
 	l8 = 1;
 	l6 = *(int *)(g4fa8 + (cell_event_index << 1));
-	l2 = 0;
-	goto Lc12e;
-Lc0e2:
+	for (l2 = 0; l2 < party_count; l2++) {
 	l4 = 0;
 	goto Lc118;
 Lc0e9:
@@ -24,9 +22,7 @@ Lc115:
 	l4++;
 Lc118:
 	if ((unsigned char)pc_item_count[(432 * l2)] > l4) goto Lc0e9;
-	l2++;
-Lc12e:
-	if (l2 < party_count) goto Lc0e2;
+	}
 	swap_level_flags(*(int *)((g4fa8 + (cell_event_index << 1)) + 288), (unsigned char)(g4fa8 + cell_event_index)[1584], l8);
 	if (l8) goto Lc17d;
 	set_event_flags(extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), 0, 2));

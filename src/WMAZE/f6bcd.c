@@ -20,11 +20,9 @@ disk_options_menu()
 	refresh_all_windows();
 	g503c = 1;
 	show_maze_message(2200);
-	l6 = 0;
-L6c40:
+	for (l6 = 0; l6 <= 5; l6++) {
 	l36[l6] = 1;
-	l6++;
-	if (l6 <= 5) goto L6c40;
+	}
 	l30 = 0;
 	l24 = -1;
 	l6 = maze_menu_select(l38, 2201, l36, 1, 1, 20, 3, 5, 0);

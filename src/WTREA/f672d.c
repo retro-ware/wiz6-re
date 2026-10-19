@@ -71,14 +71,10 @@ L687c:
 	print_string(win, 20682, 6);
 	goto L6907;
 L68c7:
-	l2 = 0;
-	goto L68fe;
-L68ce:
+	for (l2 = 0; l2 < trap_guess_len; l2++) {
 	l6 = (g5194[l2] == 1 ? 6 : 12);
 	put_char(win, (unsigned char)trap_guess_letters[l2], l6);
-	l2++;
-L68fe:
-	if (l2 < trap_guess_len) goto L68ce;
+	}
 L6907:
 	resume_window_draw(win);
 	refresh_window(win);

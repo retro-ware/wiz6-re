@@ -30,13 +30,9 @@ draw_member_status(member)
 	y = ((member / 2) << 2);
 	set_cursor(win, x, y);
 	print_string_hi(win, ((432 * member) + 17384), 3);
-	rsi = strlen(((432 * member) + 17384));
-	goto L4e32;
-L4e20:
+	for (rsi = strlen(((432 * member) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(win, 32, 3);
-	rsi++;
-L4e32:
-	if (rsi < 7) goto L4e20;
+	}
 	l90 = ((member_portrait[member] * 9) + 72);
 	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(win, x, ((y + rsi) + 1));

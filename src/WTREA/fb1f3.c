@@ -148,9 +148,7 @@ Lb909:
 	g5282++;
 	goto Lb37c;
 Lb910:
-	g5282 = g5460;
-	goto Lba73;
-Lb919:
+	for (g5282 = g5460; g5282 >= 0; g5282--) {
 	rsi = g5310;
 	rsi--;
 	goto Lba05;
@@ -188,9 +186,7 @@ Lba69:
 	rsi--;
 Lba6a:
 	if (rsi >= 0) goto Lba14;
-	g5282--;
-Lba73:
-	if (g5282 >= 0) goto Lb919;
+	}
 	draw_view_frame_t();
 	return;
 #asm

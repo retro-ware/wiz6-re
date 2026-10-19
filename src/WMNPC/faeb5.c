@@ -13,11 +13,9 @@ faeb5(p4)
 	int l34;
 	char x34[18];
 	int l54;
-	l4 = 0;
-Laec0:
+	for (l4 = 0; l4 <= 3; l4++) {
 	l24[l4] = 1;
-	l4++;
-	if (l4 <= 3) goto Laec0;
+	}
 	if (!((unsigned char)g51d3 & 2)) goto Laeed;
 	l24[0] = 0;
 	l24[1] = 0;

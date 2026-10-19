@@ -5,13 +5,9 @@ f861e(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
 	if ((p4 <= 0) || (p4 >= 6)) goto L8661;
-	l2 = 1;
-	goto L8656;
-L8637:
+	for (l2 = 1; l2 <= monster_group_count; l2++) {
 	f8149(l2, -10, p6, p8, p10, p12, p14);
-	l2++;
-L8656:
-	if (l2 <= monster_group_count) goto L8637;
+	}
 	goto L86a6;
 L8661:
 	f8149(0, -10, p6, p8, p10, p12, p14);

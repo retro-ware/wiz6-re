@@ -49,13 +49,9 @@ case 3:
 	}
 L56ce:
 	count = (count > monster_group_count ? monster_group_count : count);
-	key = 0;
-	goto L571e;
-L56e9:
+	for (key = 0; key < count; key++) {
 	set_click_region(key, (unsigned char)g438c[2], ((unsigned char)g438c[3] + key), ((unsigned char)g438c[2] + 19), ((unsigned char)g438c[3] + key));
-	key++;
-L571e:
-	if (key < count) goto L56e9;
+	}
 	set_click_region(count, ((unsigned char)win[2] + 7), ((unsigned char)win[3] + 3), ((strlen(&l170) + (unsigned char)win[2]) + 6), ((unsigned char)win[3] + 3));
 	set_click_region((count + 1), 255, 0, 0, 0);
 L577e:

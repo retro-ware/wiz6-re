@@ -32,13 +32,9 @@ draw_member_panel_mele(i)
 	y = ((i / 2) << 2);
 	set_cursor(win, x, y);
 	print_string_hi(win, ((432 * i) + 17384), 3);
-	rsi = strlen(((432 * i) + 17384));
-	goto L6069;
-L6057:
+	for (rsi = strlen(((432 * i) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(win, 32, 3);
-	rsi++;
-L6069:
-	if (rsi < 7) goto L6057;
+	}
 	portrait_glyph = ((member_portrait[i] * 9) + 72);
 	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(win, x, ((y + rsi) + 1));

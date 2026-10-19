@@ -18,22 +18,14 @@ L688b:
 	goto L6944;
 L68cc:
 	if (l4) goto L690c;
-	rsi = (unsigned char)g02ca[(rdi << 2)];
-	goto L6905;
-L68e4:
+	for (rsi = (unsigned char)g02ca[(rdi << 2)]; rsi < l2; rsi++) {
 	f685a(p4, rsi, (unsigned char)g02cb[(rdi << 2)], (unsigned char)g02cc[(rdi << 2)]);
-	rsi++;
-L6905:
-	if (rsi < l2) goto L68e4;
+	}
 	goto L6944;
 L690c:
-	rsi = (unsigned char)g02cb[(rdi << 2)];
-	goto L693f;
-L691e:
+	for (rsi = (unsigned char)g02cb[(rdi << 2)]; rsi < l2; rsi++) {
 	f685a(p4, (unsigned char)g02ca[(rdi << 2)], rsi, (unsigned char)g02cc[(rdi << 2)]);
-	rsi++;
-L693f:
-	if (rsi < l2) goto L691e;
+	}
 L6944:
 	rdi++;
 	if (rdi < 49) goto L688b;

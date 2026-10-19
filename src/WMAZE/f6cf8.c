@@ -31,11 +31,9 @@ maze_party_menu()
 	set_cursor(main_window, 3, 0);
 	print_message(2002, main_window, 18);
 	main_window[6]++;
-	l6 = 0;
-L6d93:
+	for (l6 = 0; l6 <= 8; l6++) {
 	l36[l6] = 1;
-	l6++;
-	if (l6 <= 8) goto L6d93;
+	}
 	if (party_count >= 2) goto L6db8;
 	l26 = 0;
 L6db8:

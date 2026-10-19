@@ -38,13 +38,9 @@ l5f92:
 	db 08bh,046h,004h,0e9h,009h,007h
 #endasm
 	show_trap_effect(0, 15);
-	i = 0;
-	goto L5fc2;
-L5fad:
+	for (i = 0; i < party_count; i++) {
 	trap_damage_member(i, (game_state_arg + 1), 8);
-	i++;
-L5fc2:
-	if (i < party_count) goto L5fad;
+	}
 	goto L66ae;
 	show_trap_effect(0, 16);
 	i = 0;

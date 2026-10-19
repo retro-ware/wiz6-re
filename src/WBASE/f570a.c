@@ -263,13 +263,9 @@ L5cd4:
 	if (!l4134) goto L5cf9;
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
 L5cf9:
-	l2 = 0;
-	goto L5d2a;
-L5d00:
+	for (l2 = 0; l2 < party_count; l2++) {
 	load_portrait((unsigned char)pc_portrait[(432 * l2)], member_portrait[l2]);
 	draw_member_panel(l2);
-	l2++;
-L5d2a:
-	if (l2 < party_count) goto L5d00;
+	}
 	return 0;
 }

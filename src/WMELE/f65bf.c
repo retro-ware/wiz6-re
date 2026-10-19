@@ -14,13 +14,9 @@ L65cc:
 	pos++;
 	goto L65cc;
 L65ec:
-	l4 = sprite_count[0];
-	goto L660f;
-L65f4:
+	for (l4 = sprite_count[0]; l4 > pos; l4--) {
 	*(struct s24 *)(*(char **)((char *)sprite_list + (l4 << 1))) = *(struct s24 *)(*(char **)((char *)sprite_count + (l4 << 1)));
-	l4--;
-L660f:
-	if (l4 > pos) goto L65f4;
+	}
 	if (pos < 12) goto L6627;
 L661d:
 	play_sound(0);

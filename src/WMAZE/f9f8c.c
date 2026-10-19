@@ -44,9 +44,7 @@ L9fbf:
 	l24 = extract_bits(l14, 12, 1);
 	l26 = (extract_bits(l14, 13, 1) == 1 ? 1 : -1);
 	l28 = extract_bits(l14, 14, 1);
-	l2 = 0;
-	goto La1a8;
-La07e:
+	for (l2 = 0; l2 < l16; l2++) {
 	l22 = f9f54(l12);
 	if ((l24 != 1) || (l22 == party_facing)) goto La0f7;
 	if (l26 != 1) goto La0ad;
@@ -58,15 +56,11 @@ La0bf:
 	if (l18) goto La0c8;
 	l20--;
 La0c8:
-	l4 = 0;
-	goto La0ef;
-La0cf:
+	for (l4 = 0; l4 < l20; l4++) {
 	wait_animating_m(l30);
 	party_facing = (((party_facing + l26) + 4) % 4);
 	redraw_maze_view();
-	l4++;
-La0ef:
-	if (l4 < l20) goto La0cf;
+	}
 La0f7:
 	wait_animating_m(l30);
 	party_facing = l22;
@@ -91,9 +85,7 @@ La18b:
 	g5232 = 0;
 La1a2:
 	redraw_maze_view();
-	l2++;
-La1a8:
-	if (l2 < l16) goto La07e;
+	}
 	wait_animating_m(l30);
 	return;
 }

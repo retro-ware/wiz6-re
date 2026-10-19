@@ -39,17 +39,13 @@ L5a49:
 L5b0a:
 	print_string(main_window, &l106, -5);
 L5b1c:
-	rsi = 0;
-	goto L5bab;
-L5b22:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	l112 = (((rsi % 2) * 9) + 2);
 	l114 = ((rsi / 2) + 1);
 	set_cursor(win, l112, l114);
 	print_string_hi(win, ((432 * rsi) + 17384), 3);
 	set_click_region(rsi, ((unsigned char)win[2] + l112), ((unsigned char)win[3] + l114), (((strlen(((432 * rsi) + 17384)) + (unsigned char)win[2]) + l112) - 1), ((unsigned char)win[3] + l114));
-	rsi++;
-L5bab:
-	if (rsi < party_count) goto L5b22;
+	}
 	set_click_region(party_count, ((unsigned char)main_window[2] + l108), ((unsigned char)main_window[3] + l110), (((strlen(&l106) + (unsigned char)main_window[2]) + l108) - 1), ((unsigned char)main_window[3] + l110));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
 	sel = -1;

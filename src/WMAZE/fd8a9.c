@@ -21,11 +21,9 @@ locked_door_menu(event)
 	for (l2 = 0; l2 < 6; l2++) {
 	lock_tumblers[l2] = random((l32 * 5));
 	}
-	l2 = 0;
-Ld912:
+	for (l2 = 0; l2 <= 2; l2++) {
 	enabled[l2] = 1;
-	l2++;
-	if (l2 <= 2) goto Ld912;
+	}
 	l20 = -1;
 	defer_window_draw(g4fb0);
 	win = create_window(0, 19, 19, 5, 10, -4, 0, 0);

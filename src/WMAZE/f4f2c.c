@@ -58,17 +58,13 @@ l4fbe:
 L5043:
 	print_string(main_window, &l26, -5);
 L5055:
-	rsi = 0;
-	goto L50e4;
-L505b:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	l112 = (((rsi % 2) * 9) + 2);
 	l114 = ((rsi / 2) + 1);
 	set_cursor(l4, l112, l114);
 	print_string_hi(l4, ((432 * rsi) + 17384), 3);
 	set_click_region(rsi, ((unsigned char)l4[2] + l112), ((unsigned char)l4[3] + l114), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l112) - 1), ((unsigned char)l4[3] + l114));
-	rsi++;
-L50e4:
-	if (rsi < party_count) goto L505b;
+	}
 	set_click_region(party_count, 255, 0, 0, 0);
 	if (p6 != 1) goto L515e;
 	set_click_region(party_count, ((unsigned char)main_window[2] + l108), ((unsigned char)main_window[3] + l110), (((strlen(&l26) + (unsigned char)main_window[2]) + l108) - 1), ((unsigned char)main_window[3] + l110));

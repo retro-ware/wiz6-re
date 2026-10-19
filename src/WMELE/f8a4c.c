@@ -149,9 +149,7 @@ L9162:
 	g5118++;
 	goto L8bd5;
 L9169:
-	g5118 = g52f6;
-	goto L92cc;
-L9172:
+	for (g5118 = g52f6; g5118 >= 0; g5118--) {
 	rsi = view_glyph_count;
 	rsi--;
 	goto L925e;
@@ -189,9 +187,7 @@ L92c2:
 	rsi--;
 L92c3:
 	if (rsi >= 0) goto L926d;
-	g5118--;
-L92cc:
-	if (g5118 >= 0) goto L9172;
+	}
 	draw_compass_icons();
 	return;
 #asm

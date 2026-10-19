@@ -10,11 +10,9 @@ do_modify_menu(p4, p6, p8)
 Lac89:
 	fill_window(p6, 32, 3, 0);
 	refresh_all_windows();
-	l2 = 0;
-Laca6:
+	for (l2 = 0; l2 <= 4; l2++) {
 	l24[l2] = 1;
-	l2++;
-	if (l2 <= 4) goto Laca6;
+	}
 	l18 = 0;
 	l14 = -1;
 	l4 = run_menu(p6, 650, l24, 2, 1, 18, 2, 5, count_enabled_before(l24, 4));

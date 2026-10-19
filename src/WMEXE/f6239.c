@@ -14,13 +14,9 @@ L6246:
 	l2++;
 	goto L6246;
 L6266:
-	l4 = sprite_count[0];
-	goto L6289;
-L626e:
+	for (l4 = sprite_count[0]; l4 > l2; l4--) {
 	*(struct s24 *)(*(char **)((char *)sprite_list + (l4 << 1))) = *(struct s24 *)(*(char **)((char *)sprite_count + (l4 << 1)));
-	l4--;
-L6289:
-	if (l4 > l2) goto L626e;
+	}
 	if (l2 < 12) goto L62a1;
 L6297:
 	play_sound(0);

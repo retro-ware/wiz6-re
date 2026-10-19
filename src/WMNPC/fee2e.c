@@ -148,9 +148,7 @@ Lf544:
 	g6aa4++;
 	goto Lefb7;
 Lf54b:
-	g6aa4 = g6c82;
-	goto Lf6ae;
-Lf554:
+	for (g6aa4 = g6c82; g6aa4 >= 0; g6aa4--) {
 	rsi = g6b32;
 	rsi--;
 	goto Lf640;
@@ -188,9 +186,7 @@ Lf6a4:
 	rsi--;
 Lf6a5:
 	if (rsi >= 0) goto Lf64f;
-	g6aa4--;
-Lf6ae:
-	if (g6aa4 >= 0) goto Lf554;
+	}
 	fed6c();
 	return;
 #asm

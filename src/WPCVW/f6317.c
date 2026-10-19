@@ -90,24 +90,18 @@ l669a:
 	db 083h,0c4h,00ah
 #endasm
 L66c8:
-	l2 = (unsigned char)pc_swag_count[(432 * p8)];
-	goto L6703;
-L66db:
+	for (l2 = (unsigned char)pc_swag_count[(432 * p8)]; l2 < 12; l2++) {
 	set_cursor(l4, 18, (l2 + 3));
 	put_char_hi(l4, 32, 3);
-	l2++;
-L6703:
-	if (l2 < 12) goto L66db;
+	}
 	l32 = 1;
 	resume_window_draw(l4);
 	fill_window(p6, 32, 3, 0);
 	refresh_window(l4);
 	refresh_window(p6);
-	l2 = 0;
-L673d:
+	for (l2 = 0; l2 <= 3; l2++) {
 	l26[l2] = 1;
-	l2++;
-	if (l2 <= 3) goto L673d;
+	}
 	if (((unsigned)pc_swag_count[(432 * p8)] < 12) && (pc_item_count[(432 * p8)])) goto L6771;
 	l26[0] = 0;
 L6771:

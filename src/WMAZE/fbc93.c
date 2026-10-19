@@ -58,13 +58,9 @@ Lbdb6:
 	refresh_all_windows();
 	get_message(l10, answer);
 	l10++;
-	l2 = 0;
-	goto Lbe6b;
-Lbe59:
+	for (l2 = 0; l2 < choices; l2++) {
 	enabled[l2] = 1;
-	l2++;
-Lbe6b:
-	if (l2 < choices) goto Lbe59;
+	}
 	enabled[choices] = -1;
 	if (l20 != 1) goto Lbf2d;
 	get_message(l10, &l188);

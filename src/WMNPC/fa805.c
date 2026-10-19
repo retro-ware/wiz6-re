@@ -85,11 +85,9 @@ La99f:
 	refresh_window(p4);
 	set_cursor(p4, (10 - ((strlen(20948) + 1) / 2)), 1);
 	print_string_hi(p4, 20948, 3);
-	l4 = 0;
-Laa25:
+	for (l4 = 0; l4 <= 1; l4++) {
 	l94[l4] = 1;
-	l4++;
-	if (l4 <= 1) goto Laa25;
+	}
 	l90 = -1;
 	l4 = f5e0c(p4, 1526, l94, 6, 3, 5, 1, 5, 0, 1);
 	if (l4) goto Laade;

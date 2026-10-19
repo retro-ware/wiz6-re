@@ -59,14 +59,10 @@ L8b33:
 	print_chest_prompt(5101, 2);
 	defer_window_draw(list_win);
 	fill_window(list_win, 32, 3, 0);
-	l2 = 0;
-	goto L8ba1;
-L8b64:
+	for (l2 = 0; l2 < loot_count; l2++) {
 	draw_loot_line(list_win, l2);
 	set_click_region(l2, ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + l2), ((unsigned char)list_win[2] + 19), ((unsigned char)list_win[3] + l2));
-	l2++;
-L8ba1:
-	if (l2 < loot_count) goto L8b64;
+	}
 	resume_window_draw(list_win);
 	set_click_region(loot_count, ((unsigned char)win[2] + l16), ((unsigned char)win[3] + l18), (((strlen(&l28) + (unsigned char)win[2]) + l16) - 1), ((unsigned char)win[3] + l18));
 	set_click_region((loot_count + 1), 255, 0, 0, 0);

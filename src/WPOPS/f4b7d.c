@@ -13,13 +13,9 @@ L4b8a:
 	pos++;
 	goto L4b8a;
 L4baa:
-	l4 = sprite_count[0];
-	goto L4bcd;
-L4bb2:
+	for (l4 = sprite_count[0]; l4 > pos; l4--) {
 	*(struct s24 *)(*(char **)((char *)sprite_list + (l4 << 1))) = *(struct s24 *)(*(char **)((char *)sprite_count + (l4 << 1)));
-	l4--;
-L4bcd:
-	if (l4 > pos) goto L4bb2;
+	}
 	if (pos < 12) goto L4be5;
 L4bdb:
 	play_sound(0);

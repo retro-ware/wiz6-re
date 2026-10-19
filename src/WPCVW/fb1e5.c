@@ -119,13 +119,9 @@ lb5de:
 	db 083h,0c4h,00ah
 #endasm
 Lb60c:
-	l2 = (unsigned char)pc_item_count[(432 * p6)];
-	goto Lb647;
-Lb61f:
+	for (l2 = (unsigned char)pc_item_count[(432 * p6)]; l2 < 10; l2++) {
 	set_cursor(p4, 38, (l2 + 9));
 	put_char_hi(p4, 32, 3);
-	l2++;
-Lb647:
-	if (l2 < 10) goto Lb61f;
+	}
 	g57fc = 1;
 }

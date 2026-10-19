@@ -33,13 +33,9 @@ L5d40:
 	i++;
 L5d43:
 	if (i < party_count) goto L5c8a;
-	i = 0;
-	goto L5d60;
-L5d56:
+	for (i = 0; i < party_count; i++) {
 	copy_member_to_combatant(i);
-	i++;
-L5d60:
-	if (i < party_count) goto L5d56;
+	}
 	i = 0;
 	goto L5e52;
 L5d71:

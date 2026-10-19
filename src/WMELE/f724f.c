@@ -17,13 +17,9 @@ end_combat_round()
 	clear_window(g438c, 0);
 	clear_window(party_picture_win, 0);
 	if (combat_over != 1) goto L72c4;
-	l2 = 0;
-	goto L72b0;
-L72a6:
+	for (l2 = 0; l2 < party_count; l2++) {
 	draw_member_panel_mele(l2);
-	l2++;
-L72b0:
-	if (l2 < party_count) goto L72a6;
+	}
 	end_encounter();
 	game_state = return_cmd;
 	goto L72cd;

@@ -67,18 +67,12 @@ L9142:
 	trap_guess_letters[l2] = 0;
 	g5194[l2] = 0;
 	}
-	l2 = 0;
-	goto L9317;
-L9306:
+	for (l2 = 0; l2 < party_count; l2++) {
 	tried[l2] = 0;
-	l2++;
-L9317:
-	if (l2 < party_count) goto L9306;
-	l2 = 0;
-L9325:
+	}
+	for (l2 = 0; l2 <= 4; l2++) {
 	tried[(l2 + 6)] = 1;
-	l2++;
-	if (l2 <= 4) goto L9325;
+	}
 	l22 = -1;
 L9343:
 	print_chest_prompt(5200, 2);

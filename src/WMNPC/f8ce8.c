@@ -231,13 +231,9 @@ L9335:
 	l54 = 1;
 	l56 = ((*(int *)((char *)pc_level + (432 * p6)) - (unsigned char)g00df[(l52 * 6)]) + 1);
 	l56 = (l56 >= 1 ? (l56 > 6 ? 6 : l56) : 1);
-	l6 = 0;
-	goto L942e;
-L93f5:
+	for (l6 = 0; l6 < l56; l6++) {
 	set_click_region(l6, (((unsigned char)l2[2] + l6) + 15), ((unsigned char)l2[3] + 3), (((unsigned char)l2[2] + l6) + 15), ((unsigned char)l2[3] + 3));
-	l6++;
-L942e:
-	if (l6 < l56) goto L93f5;
+	}
 	set_click_region(l56, ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3), ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3));
 	set_click_region((l56 + 1), 255, 0, 0, 0);
 	l72 = 1;

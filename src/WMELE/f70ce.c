@@ -5,13 +5,9 @@ extern int party_count;
 redraw_combat_screen()
 {
 	int i;
-	i = 0;
-	goto L70e5;
-L70db:
+	for (i = 0; i < party_count; i++) {
 	draw_member_panel_mele(i);
-	i++;
-L70e5:
-	if (i < party_count) goto L70db;
+	}
 	arrange_monster_positions();
 	show_encounter_view(0);
 	if (g5012) goto L7103;

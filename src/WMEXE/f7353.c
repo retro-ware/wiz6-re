@@ -36,13 +36,9 @@ draw_member_card_x(p4, p6)
 L73ba:
 	print_string(l88, ((432 * p4) + 17384), -4);
 L73d1:
-	rsi = strlen(((432 * p4) + 17384));
-	goto L73f5;
-L73e3:
+	for (rsi = strlen(((432 * p4) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(l88, 32, 3);
-	rsi++;
-L73f5:
-	if (rsi < 7) goto L73e3;
+	}
 	l90 = ((member_portrait[p4] * 9) + 72);
 	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(l88, l4, ((l6 + rsi) + 1));

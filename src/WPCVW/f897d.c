@@ -18,13 +18,9 @@ char *win;
 	return 0;
 L8993:
 	defer_window_draw(g5752);
-	rsi = 0;
-	goto L89ac;
-L89a0:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	draw_member_card(g5752, rsi);
-	rsi++;
-L89ac:
-	if (rsi < party_count) goto L89a0;
+	}
 	resume_window_draw(g5752);
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
@@ -41,9 +37,7 @@ L89ac:
 L8a5b:
 	print_string_hi(win, &l12, 3);
 L8a6c:
-	rsi = 0;
-	goto L8b20;
-L8a72:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	l18 = (((rsi % 2) * 9) + 22);
 	l20 = ((rsi / 2) + 1);
 	set_cursor(win, l18, l20);
@@ -54,9 +48,7 @@ L8ac7:
 	print_string_hi(win, ((432 * rsi) + 17384), 3);
 L8add:
 	set_click_region(rsi, ((unsigned char)win[2] + l18), ((unsigned char)win[3] + l20), (((strlen(((432 * rsi) + 17384)) + (unsigned char)win[2]) + l18) - 1), ((unsigned char)win[3] + l20));
-	rsi++;
-L8b20:
-	if (rsi < party_count) goto L8a72;
+	}
 	set_click_region(party_count, ((unsigned char)win[2] + l14), ((unsigned char)win[3] + l16), (((strlen(&l12) + (unsigned char)win[2]) + l14) - 1), ((unsigned char)win[3] + l16));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
 L8b7e:

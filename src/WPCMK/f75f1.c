@@ -9,11 +9,9 @@ choose_race()
 	char x4[16];
 	int l22;
 	int l44[11];
-	l4 = 0;
-L75fc:
+	for (l4 = 0; l4 <= 10; l4++) {
 	l44[l4] = 1;
-	l4++;
-	if (l4 <= 10) goto L75fc;
+	}
 	l22 = -1;
 	fill_window(prompt_win, 32, 3, 0);
 	refresh_window(prompt_win);

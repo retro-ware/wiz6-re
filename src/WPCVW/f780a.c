@@ -241,13 +241,9 @@ L7ee8:
 	power = 1;
 	l56 = ((*(int *)((char *)pc_level + (432 * member)) - (unsigned char)g00df[(spell * 6)]) + 1);
 	l56 = (l56 >= 1 ? (l56 > 6 ? 6 : l56) : 1);
-	l6 = 0;
-	goto L7fb7;
-L7f7e:
+	for (l6 = 0; l6 < l56; l6++) {
 	set_click_region(l6, (((unsigned char)l2[2] + l6) + 3), ((unsigned char)l2[3] + 12), (((unsigned char)l2[2] + l6) + 3), ((unsigned char)l2[3] + 12));
-	l6++;
-L7fb7:
-	if (l6 < l56) goto L7f7e;
+	}
 	set_click_region(l56, ((unsigned char)l2[2] + 1), ((unsigned char)l2[3] + 12), ((unsigned char)l2[2] + 1), ((unsigned char)l2[3] + 12));
 	set_click_region((l56 + 1), 255, 0, 0, 0);
 	l72 = 1;

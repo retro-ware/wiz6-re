@@ -7,13 +7,9 @@ f87ae(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24)
 	int l2;
 	g500a = 2;
 	if ((p4 <= 0) || (p4 >= 6)) goto L8802;
-	l2 = 1;
-	goto L87f7;
-L87cd:
+	for (l2 = 1; l2 <= monster_group_count; l2++) {
 	f86aa(l2, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24);
-	l2++;
-L87f7:
-	if (l2 <= monster_group_count) goto L87cd;
+	}
 	goto L885d;
 L8802:
 	f86aa(0, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24);

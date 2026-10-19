@@ -13,13 +13,9 @@ L48f8:
 	l2++;
 	goto L48f8;
 L4918:
-	l4 = sprite_count[0];
-	goto L493b;
-L4920:
+	for (l4 = sprite_count[0]; l4 > l2; l4--) {
 	*(struct s24 *)(*(char **)((char *)sprite_list + (l4 << 1))) = *(struct s24 *)(*(char **)((char *)sprite_count + (l4 << 1)));
-	l4--;
-L493b:
-	if (l4 > l2) goto L4920;
+	}
 	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = *(char *)&p4;
 	(*(char **)((char *)sprite_list + (l2 << 1)))[21] = p6;
 	*(int *)(*(char **)((char *)sprite_list + (l2 << 1))) = p8;

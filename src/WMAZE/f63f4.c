@@ -46,14 +46,10 @@ l6456:
 #endasm
 L6464:
 	if (((l8 <= 0) || (g5038)) || (game_state != 5)) goto L658a;
-	l2 = 0;
-	goto L649f;
-L6488:
+	for (l2 = 0; l2 < party_count; l2++) {
 	g450c[(432 * l2)] = 10;
 	draw_member_status_m(l2);
-	l2++;
-L649f:
-	if (l2 < party_count) goto L6488;
+	}
 	wait_animating_m(10);
 	l8--;
 	g4f80 += 60L;

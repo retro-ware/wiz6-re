@@ -11,11 +11,9 @@ choose_sex()
 	char x84[34];
 	int l120;
 	int l124[2];
-	l4 = 0;
-L7715:
+	for (l4 = 0; l4 <= 1; l4++) {
 	l124[l4] = 1;
-	l4++;
-	if (l4 <= 1) goto L7715;
+	}
 	l120 = -1;
 	fill_window(prompt_win, 32, 3, 0);
 	refresh_window(prompt_win);

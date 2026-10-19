@@ -234,13 +234,9 @@ L6a99:
 	level = 1;
 	max_level = ((*(int *)((char *)pc_level + (432 * member)) - (unsigned char)g00df[(spell * 6)]) + 1);
 	max_level = (max_level >= 1 ? (max_level > 6 ? 6 : max_level) : 1);
-	l6 = 0;
-	goto L6b92;
-L6b59:
+	for (l6 = 0; l6 < max_level; l6++) {
 	set_click_region(l6, (((unsigned char)l2[2] + l6) + 15), ((unsigned char)l2[3] + 3), (((unsigned char)l2[2] + l6) + 15), ((unsigned char)l2[3] + 3));
-	l6++;
-L6b92:
-	if (l6 < max_level) goto L6b59;
+	}
 	set_click_region(max_level, ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3), ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3));
 	set_click_region((max_level + 1), 255, 0, 0, 0);
 	l72 = 1;

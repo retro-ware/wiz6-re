@@ -11,9 +11,7 @@ check_group_surprise()
 	int g;
 	int member;
 	int roll;
-	g = 1;
-	goto L5564;
-L54e3:
+	for (g = 1; g <= monster_group_count; g++) {
 	member = 0;
 	goto L5558;
 L54ea:
@@ -25,7 +23,5 @@ L5555:
 	member++;
 L5558:
 	if (member < party_count) goto L54ea;
-	g++;
-L5564:
-	if (g <= monster_group_count) goto L54e3;
+	}
 }

@@ -38,17 +38,13 @@ L6304:
 L63d7:
 	print_string(main_window, &l26, -5);
 L63e9:
-	rsi = 0;
-	goto L6478;
-L63ef:
+	for (rsi = 0; rsi < party_count; rsi++) {
 	l32 = (((rsi % 2) * 9) + 2);
 	l34 = ((rsi / 2) + 1);
 	set_cursor(l4, l32, l34);
 	print_string_hi(l4, ((432 * rsi) + 17384), 3);
 	set_click_region(rsi, ((unsigned char)l4[2] + l32), ((unsigned char)l4[3] + l34), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l32) - 1), ((unsigned char)l4[3] + l34));
-	rsi++;
-L6478:
-	if (rsi < party_count) goto L63ef;
+	}
 	set_click_region(party_count, 255, 0, 0, 0);
 	if (p6 != 1) goto L64f2;
 	set_click_region(party_count, ((unsigned char)main_window[2] + l28), ((unsigned char)main_window[3] + l30), (((strlen(&l26) + (unsigned char)main_window[2]) + l28) - 1), ((unsigned char)main_window[3] + l30));
