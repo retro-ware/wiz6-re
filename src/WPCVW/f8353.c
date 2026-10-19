@@ -82,8 +82,7 @@ L853e:
 	l2++;
 	if (l2 < 6) goto L853e;
 L8581:
-	l6 = choose_spell(p4, p6, p8, 0);
-	if (l6 != -1) goto L859e;
+	if ((l6 = choose_spell(p4, p6, p8, 0)) != -1) goto L859e;
 	goto L8581;
 L859e:
 	g553c = -1;

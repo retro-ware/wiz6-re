@@ -58,8 +58,7 @@ L707a:
 	if (g5032 != 1) goto L7084;
 	redraw_maze_view();
 L7084:
-	l10 = test_bit(19976, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x));
-	if (l10 != 1) goto L70d9;
+	if ((l10 = test_bit(19976, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x))) != 1) goto L70d9;
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = l10;
 	g4354 = 0;

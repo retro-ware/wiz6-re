@@ -6,8 +6,7 @@ show_credits()
 {
 	int win;
 	int fd;
-	fd = open(make_data_path(20496, 1), 0);
-	if (fd != -1) goto L49f9;
+	if ((fd = open(make_data_path(20496, 1), 0)) != -1) goto L49f9;
 	exit_game(3);
 L49f9:
 	;

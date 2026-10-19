@@ -75,8 +75,7 @@ l96ed:
 	db 055h
 #endasm
 case 2:
-	loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)));
-	if (loot_item[loot_count] <= 0) goto L974f;
+	if ((loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)))) <= 0) goto L974f;
 	loot_count++;
 L974f:
 	goto L9763;

@@ -190,8 +190,7 @@ L69bd:
 l69bd:
 	db 0e9h,0a0h,000h
 #endasm
-	l30 = choose_item(l4, p6, 762, p8, 1);
-	if (l30 == -1) goto L6a19;
+	if ((l30 = choose_item(l4, p6, 762, p8, 1)) == -1) goto L6a19;
 	l28 = (l30 + 10);
 	if (!((unsigned char)pc_item_flags[((432 * p8) + (l28 << 3))] & 64)) goto L6a0d;
 	play_sound(0);

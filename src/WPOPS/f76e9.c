@@ -239,8 +239,7 @@ L7b42:
 	get_message(3501, &l152);
 	replace_char_with_string(&l152, &l160, 36);
 	print_combat_prompt(&l152, 0);
-	l182 = (unsigned char)pc_equipped[(432 * member)];
-	if (l182 == 255) goto L7c25;
+	if ((l182 = (unsigned char)pc_equipped[(432 * member)]) == 255) goto L7c25;
 	if (pc_item_type[((432 * member) + (l182 << 3))] != 3) goto L7c25;
 	l186 = 1;
 	choice = 8;
@@ -274,8 +273,7 @@ l7cfc:
 	db 083h,0beh,05eh,0ffh,0ffh,075h,003h,0e9h,06dh,000h
 #endasm
 L7d06:
-	l188 = (unsigned char)g44e5[(432 * member)];
-	if (l188 != 2) goto L7d2a;
+	if ((l188 = (unsigned char)g44e5[(432 * member)]) != 2) goto L7d2a;
 	if (choice == 4) goto L7d2a;
 	l188 = 0;
 L7d2a:
@@ -318,8 +316,7 @@ L7df0:
 	enabled[0] = 0;
 L7e39:
 	enabled[4] = -1;
-	choice = combat_menu_select(win, 3100, enabled, 3, 1, 9, 2, 5, 0);
-	if (choice != -1) goto L7e76;
+	if ((choice = combat_menu_select(win, 3100, enabled, 3, 1, 9, 2, 5, 0)) != -1) goto L7e76;
 	l168 = 1;
 L7e76:
 	goto L7fe6;
@@ -332,13 +329,11 @@ L7e76:
 	l168 = 1;
 L7e9d:
 	goto L7fe6;
-	choice = choose_combat_item(win, member);
-	if (choice != -1) goto L7ebb;
+	if ((choice = choose_combat_item(win, member)) != -1) goto L7ebb;
 	l168 = 1;
 L7ebb:
 	goto L7fe6;
-	choice = select_party_member(3611);
-	if (choice != -1) goto L7ed5;
+	if ((choice = select_party_member(3611)) != -1) goto L7ed5;
 	l168 = 1;
 L7ed5:
 	goto L7fe6;
@@ -408,8 +403,7 @@ l7ffa:
 	db 058h,088h,040h,01eh
 #endasm
 	rsi = (44 * member);
-	l164 = (unsigned char)(monster_groups + rsi)[31];
-	if (l164 < 1) goto L8074;
+	if ((l164 = (unsigned char)(monster_groups + rsi)[31]) < 1) goto L8074;
 	if (l164 > 5) goto L8074;
 #asm
 	db 08ah,086h,05ch,0ffh,02ah,0e4h,050h,0ffh,076h,0fah
@@ -422,8 +416,7 @@ L8074:
 	if (action) goto L818d;
 	if (l182 != 255) goto L80c9;
 	if ((unsigned char)pc_equipped[(432 * member)] != 255) goto L80c9;
-	l2 = pick_random_set_bit(((432 * member) + 17639));
-	if (l2 == -1) goto L80c6;
+	if ((l2 = pick_random_set_bit(((432 * member) + 17639))) == -1) goto L80c6;
 #asm
 	db 08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
 	db 058h,089h,040h,00ch
@@ -487,8 +480,7 @@ L81e5:
 	enabled[1] = 0;
 L820f:
 	enabled[3] = -1;
-	l2 = combat_menu_select(win, 3507, enabled, 3, 1, 14, 4, 5, 0);
-	if (l2 != 2) goto L8265;
+	if ((l2 = combat_menu_select(win, 3507, enabled, 3, 1, 14, 4, 5, 0)) != 2) goto L8265;
 	setmem(20556, 45, 0);
 	member = 0;
 	done_count = 0;

@@ -85,8 +85,7 @@ L922b:
 	l78 = (l46 / 256);
 	l76 = (l46 % 256);
 	if (g00e2[(l76 * 6)] != 1) goto L9273;
-	g578e = choose_member(p4, p6, 504, -1);
-	if (g578e != -1) goto L9273;
+	if ((g578e = choose_member(p4, p6, 504, -1)) != -1) goto L9273;
 	return;
 L9273:
 	cast_spell(p8, l76, l78, g578e, p4, p6);

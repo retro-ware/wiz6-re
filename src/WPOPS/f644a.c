@@ -350,8 +350,7 @@ L6eea:
 	refresh_all_windows();
 	rsi = (44 * member);
 	(monster_groups + rsi)[31] = 0;
-	l70 = select_party_member(3609);
-	if (l70 != -1) goto L6f3c;
+	if ((l70 = select_party_member(3609)) != -1) goto L6f3c;
 	return -1;
 L6f3c:
 	;
@@ -363,8 +362,7 @@ l6f3c:
 	goto L6f9d;
 L6f52:
 	if (g00e2[(spell * 6)] != 2) goto L6f9d;
-	l68 = select_monster_group(win, 3603, 3, 0);
-	if (l68 != -1) goto L6f89;
+	if ((l68 = select_monster_group(win, 3603, 3, 0)) != -1) goto L6f89;
 	return -1;
 L6f89:
 	;

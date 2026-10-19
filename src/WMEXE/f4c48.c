@@ -337,8 +337,7 @@ l522b:
 	l82 = (((432 * g435c) + (p6 << 4)) + 17624);
 	l114 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
 	if (p8 != 8) goto L5356;
-	l116 = (unsigned char)g44f9[(432 * g435c)];
-	if (l116 == 255) goto L5354;
+	if ((l116 = (unsigned char)g44f9[(432 * g435c)]) == 255) goto L5354;
 	if (pc_item_type[((432 * g435c) + (l116 << 3))] != 4) goto L5354;
 	l112 = *(int *)((char *)g44e8 + (432 * g435c));
 	*(int *)(l110 + 0) = *(int *)((char *)g44ea + (432 * g435c));
@@ -466,8 +465,7 @@ L55f1:
 	l128++;
 L55fb:
 	l126 += l128;
-	l100 = (random(((unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[212] - (((char *)monster_groups[l78] + rsi)[41] / 10))) + 1);
-	if (l100 >= 1) goto L563e;
+	if ((l100 = (random(((unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[212] - (((char *)monster_groups[l78] + rsi)[41] / 10))) + 1)) >= 1) goto L563e;
 	l100 = 1;
 L563e:
 	if (l100 <= 4) goto L5649;

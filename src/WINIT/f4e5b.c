@@ -5,8 +5,7 @@ load_fullscreen_pic(name, show)
 	int fd;
 	fullscreen_win = create_window(0, 0, 40, 25, 1, -1, 2, 0);
 	stop_sound();
-	fd = open(make_data_path(name, 1), 0);
-	if (fd != -1) goto L4eb2;
+	if ((fd = open(make_data_path(name, 1), 0)) != -1) goto L4eb2;
 	exit_game(12);
 L4eb2:
 	drv_op_be(fullscreen_win, 0);

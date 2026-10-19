@@ -14,10 +14,7 @@ L59aa:
 	flush_keys();
 	menu_clicked = 0;
 L59b3:
-	l2 = key_available(1);
-#asm
-	db 085h,0c0h,075h,03ah
-#endasm
+	if ((l2 = key_available(1))) goto L59fc;
 	l2 = check_click_regions(p6);
 	if (click_flag != 1) goto L59de;
 	menu_clicked = 1;
@@ -31,8 +28,7 @@ L59de:
 L59fa:
 	goto L59b3;
 L59fc:
-	l2 = char_index(p4, (unsigned char)(get_key(1)));
-	if (l2 < 0) goto L5a1a;
+	if ((l2 = char_index(p4, (unsigned char)(get_key(1)))) < 0) goto L5a1a;
 	return;
 L5a1a:
 	goto L59b3;

@@ -68,8 +68,7 @@ cast_chest_spell(p4, p6, p8, p10, p12, p14)
 #endasm
 	l10 = (*(int *)((char *)pc_level + (432 * p4)) > 12 ? 12 : *(int *)((char *)pc_level + (432 * p4)));
 	l6 = (p8 + 4);
-	l8 = ((((p8 * 5) + 65) - (game_state_arg << 1)) + l10);
-	if (l8 <= 95) goto L705e;
+	if ((l8 = ((((p8 * 5) + 65) - (game_state_arg << 1)) + l10)) <= 95) goto L705e;
 	l8 = 95;
 L705e:
 	reveal_trap_letters(p14, p4, l6, l8);
@@ -81,21 +80,18 @@ L705e:
 L70c0:
 	draw_member_status(p10);
 	goto L749e;
-	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L70fa;
+	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) >= 0) goto L70fa;
 	l2 = 0;
 L70fa:
 	g450d[(432 * p10)] = *(char *)&l2;
 	draw_member_status(p10);
 	goto L749e;
-	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
-	if (l2 > 0) goto L712e;
+	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) > 0) goto L712e;
 	l2 = 0;
 	g450f[(432 * p10)] = 0;
 L712e:
 	g458c[(432 * p10)] = *(char *)&l2;
-	l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5));
-	if (l2 > 0) goto L715e;
+	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) > 0) goto L715e;
 	l2 = 0;
 	g458c[(432 * p10)] = 0;
 L715e:
@@ -122,8 +118,7 @@ L71d4:
 	draw_member_status(p10);
 L71db:
 	goto L749e;
-	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L720e;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L720e;
 	l2 = 0;
 L720e:
 	g4511[(432 * p10)] = *(char *)&l2;

@@ -198,8 +198,7 @@ L737a:
 	f5d0c(20948, 1);
 L73bf:
 	goto L7f6d;
-	l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)));
-	if (l42 == -1) goto L741d;
+	if ((l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)))) == -1) goto L741d;
 	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l42 << 3))]] != 1) goto L7411;
 #asm
 	db 0ffh,076h,0d6h,0ffh,076h,004h
@@ -260,27 +259,23 @@ L7544:
 	db 0e9h,0feh,009h
 #endasm
 	goto L7f6d;
-	l42 = *(int *)(l36 + (l2 << 2));
-	if (l42 <= 0) goto L75ad;
+	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L75ad;
 	if (l42 >= 79) goto L75ad;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L75ad:
 	goto L7f6d;
-	l42 = *(int *)(l36 + (l2 << 2));
-	if (l42 <= 0) goto L7616;
+	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L7616;
 	if (l42 >= 79) goto L7616;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((game_state_arg * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7616:
 	goto L7f6d;
-	l42 = *(int *)(l36 + (l2 << 2));
-	if (l42 <= 0) goto L7647;
+	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L7647;
 	if (l42 >= 15) goto L7647;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7647:
 	goto L7f6d;
-	l42 = *(int *)(l36 + (l2 << 2));
-	if (l42 <= 0) goto L769b;
+	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L769b;
 	if (l42 >= 15) goto L769b;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
@@ -560,8 +555,7 @@ L7de8:
 	db 0ebh,04ah
 #endasm
 L7e56:
-	l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)]);
-	if (l54[2] == -1) goto L7e9d;
+	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) == -1) goto L7e9d;
 	f6835(l38, l54[2]);
 	npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
 L7e9d:

@@ -113,13 +113,11 @@ Laf39:
 	call do_trade_items_
 	db 083h,0c4h,006h,0e9h,05dh,001h
 #endasm
-	g43ca = choose_item(sheet, menu, 450, member, 0);
-	if (g43ca == -1) goto Lafe7;
+	if ((g43ca = choose_item(sheet, menu, 450, member, 0)) == -1) goto Lafe7;
 	show_item_info(menu, member, g43ca, 0);
 Lafe7:
 	goto Lb111;
-	g43ca = choose_item(sheet, menu, 402, member, 0);
-	if (g43ca == -1) goto Lb049;
+	if ((g43ca = choose_item(sheet, menu, 402, member, 0)) == -1) goto Lb049;
 	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 1)) goto Lb032;
 	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 2)) goto Lb032;
 	if (!((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 64)) goto Lb03c;
@@ -130,8 +128,7 @@ Lb03c:
 	remove_item(member, g43ca);
 Lb049:
 	goto Lb111;
-	g43ca = choose_item(sheet, menu, 400, member, 0);
-	if (g43ca == -1) goto Lb07b;
+	if ((g43ca = choose_item(sheet, menu, 400, member, 0)) == -1) goto Lb07b;
 	do_use_item(sheet, menu, member, g43ca);
 Lb07b:
 	goto Lb111;
@@ -146,8 +143,7 @@ Lb07b:
 	call do_skills_menu_
 	db 083h,0c4h,004h,0ebh,051h
 #endasm
-	cur_member = choose_member(sheet, menu, 500, member);
-	if (cur_member == -1) goto Lb0e6;
+	if ((cur_member = choose_member(sheet, menu, 500, member)) == -1) goto Lb0e6;
 	member = cur_member;
 	g57fc = 0;
 #asm

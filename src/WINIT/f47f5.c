@@ -23,8 +23,7 @@ L4806:
 	l15 = (char)((i / 10) + 48);
 	l14 = (char)((i % 10) + 48);
 	g4f84 = 20428;
-	fd = open(make_data_path(&fname, 1), 0);
-	if (fd != -1) goto L489e;
+	if ((fd = open(make_data_path(&fname, 1), 0)) != -1) goto L489e;
 	exit_game(10);
 L489e:
 	;

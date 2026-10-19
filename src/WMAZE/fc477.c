@@ -132,8 +132,7 @@ Lc6cf:
 	l4++;
 	if (l4 <= 9) goto Lc69f;
 	goto Lc8bf;
-	*(int *)((char *)pc_stamina + (432 * l6)) = clamp_value((*(int *)((char *)pc_stamina + (432 * l6)) - l14), 0, *(int *)((char *)pc_stamina_max + (432 * l6)));
-	if (*(int *)((char *)pc_stamina + (432 * l6)) > 0) goto Lc733;
+	if ((*(int *)((char *)pc_stamina + (432 * l6)) = clamp_value((*(int *)((char *)pc_stamina + (432 * l6)) - l14), 0, *(int *)((char *)pc_stamina_max + (432 * l6)))) > 0) goto Lc733;
 #asm
 	db 08ah,087h,00ch,045h,02ah,0e4h,08bh,0c8h,051h,0b8h,006h,000h,050h
 	call random_

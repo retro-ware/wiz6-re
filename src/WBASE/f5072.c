@@ -36,8 +36,7 @@ L50f1:
 	l17 = (char)((portrait / 14) + 49);
 	portrait = (portrait % 14);
 	stop_sound();
-	fd = open(make_data_path(&fname, 0), 0);
-	if (fd != -1) goto L512c;
+	if ((fd = open(make_data_path(&fname, 0), 0)) != -1) goto L512c;
 	exit_game(14);
 L512c:
 	lseek(fd, (long)((portrait * glyph_size) * 9), 0);

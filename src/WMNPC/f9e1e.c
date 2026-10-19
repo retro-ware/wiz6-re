@@ -18,8 +18,7 @@ f9e1e(p4, p6)
 	l4 = (l52 % 256);
 	if (g00e2[(l4 * 6)] != 1) goto L9eb2;
 	refresh_all_windows();
-	g5322 = f62ee(2032, 1);
-	if (g5322 != -1) goto L9eb2;
+	if ((g5322 = f62ee(2032, 1)) != -1) goto L9eb2;
 	l4 = -1;
 L9eb2:
 	if (l4 == -1) goto L9ed7;

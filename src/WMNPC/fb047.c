@@ -88,8 +88,7 @@ Lb246:
 	get_message(1576, 20948);
 	replace_char_with_string(20948, ((432 * member) + 17384), 94);
 	f5d0c(20948, 1);
-	l6 = (g4550[((432 * member) + g5274)] - (random(25) + 25));
-	if (l6 >= -100) goto Lb2a9;
+	if ((l6 = (g4550[((432 * member) + g5274)] - (random(25) + 25))) >= -100) goto Lb2a9;
 	l6 = -100;
 Lb2a9:
 	g4550[((432 * member) + g5274)] = *(char *)&l6;

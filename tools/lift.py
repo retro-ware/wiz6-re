@@ -341,6 +341,15 @@ class Lifter:
             self.invalidate(lv, None)
             self.side = None
             return p
+        c, t0 = kw.get('cond'), self.f.seen.get(self.st_start)
+        if kind == 'if' and p is not None and p.kind == 'asg' and p.e == self.st_start and c is not None and \
+                c[0] not in ('&&', '||') and c[1] == p.lv and p.lv[0] in ('v', 'm') and p.lv[1] != 'r' and \
+                size_of(p.lv) == 2 and t0 is not None and t0.mnemonic in ('test', 'cmp') and \
+                t0.op_str.startswith('ax, ') and t0.address + t0.size == a.address:
+            # 'mov lv, ax; test/cmp ax' is an assignment inside the condition: if ((lv = x) == 0)
+            self.sts.pop()
+            kw['cond'] = (c[0], ('=', p.lv, p.rv), c[2])
+            self.st_start = p.s
         st = St(kind, self.st_start, a.address + a.size, **kw)
         self.sts.append(st)
         self.st_start = st.e

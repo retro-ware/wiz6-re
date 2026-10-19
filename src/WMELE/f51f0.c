@@ -72,8 +72,7 @@ L5371:
 	if (c[19]) goto L5389;
 	c[35] = 0;
 L5389:
-	l8 = c[41];
-	if (l8 >= 0) goto L539b;
+	if ((l8 = c[41]) >= 0) goto L539b;
 #asm
 	db 040h,0ebh,00bh
 #endasm

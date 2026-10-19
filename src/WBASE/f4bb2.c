@@ -20,8 +20,7 @@ load_monster_pic_slot(mon, slot)
 	strcpy(&fname, 20473);
 	l19 = (char)((mon / 10) + 48);
 	l18 = (char)((mon % 10) + 48);
-	pic_fd = open(make_data_path(&fname, 1), 0);
-	if (pic_fd != -1) goto L4c34;
+	if ((pic_fd = open(make_data_path(&fname, 1), 0)) != -1) goto L4c34;
 	exit_game(21);
 L4c34:
 	;

@@ -35,8 +35,7 @@ L8905:
 	l6 = ((l6 + 1) % 10);
 	goto L88b2;
 L8914:
-	l2 = char_index(p4, (unsigned char)(get_key(1)));
-	if (l2 < 0) goto L8932;
+	if ((l2 = char_index(p4, (unsigned char)(get_key(1)))) < 0) goto L8932;
 	return;
 L8932:
 	goto L88b2;

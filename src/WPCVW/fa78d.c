@@ -36,8 +36,7 @@ La80c:
 	l17 = (char)((p4 / 14) + 49);
 	p4 = (p4 % 14);
 	stop_sound();
-	l2 = open(make_data_path(&l22, 0), 0);
-	if (l2 != -1) goto La847;
+	if ((l2 = open(make_data_path(&l22, 0), 0)) != -1) goto La847;
 	exit_game(14);
 La847:
 	lseek(l2, (long)((p4 * l24) * 9), 0);

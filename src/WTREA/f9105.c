@@ -91,8 +91,7 @@ L9325:
 #asm
 	db 0e9h,056h,002h
 #endasm
-	member = choose_party_member(5225, 0);
-	if (member == -1) goto L93dd;
+	if ((member = choose_party_member(5225, 0)) == -1) goto L93dd;
 	if (!is_member_able(member)) goto L93dd;
 	g501e = 1;
 	close_chest_windows(win, trap_win);
@@ -104,8 +103,7 @@ L93dd:
 l93dd:
 	db 0e9h,01bh,002h
 #endasm
-	member = choose_party_member(5223, 0);
-	if (member == -1) goto L9431;
+	if ((member = choose_party_member(5223, 0)) == -1) goto L9431;
 	if (tried[member]) goto L9429;
 	if (!is_member_able(member)) goto L9427;
 	inspect_chest(trap_win, member);
@@ -155,8 +153,7 @@ L954e:
 l954e:
 	db 0e9h,0aah,000h
 #endasm
-	member = choose_party_member(5224, 0);
-	if (member == -1) goto L95d0;
+	if ((member = choose_party_member(5224, 0)) == -1) goto L95d0;
 	if (!is_member_able(member)) goto L95d0;
 	spell_disarm_result = 0;
 	cast_spell_on_chest(win, trap_win, member);

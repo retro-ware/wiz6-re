@@ -16,8 +16,7 @@ L4623:
 	copy_through_char(&l22, 13652, 58);
 	prompt_insert_disk(&l22, 1, 0, 0);
 L464f:
-	l2 = open(make_data_path(p4, 1), 0);
-	if (l2 != -1) goto L4677;
+	if ((l2 = open(make_data_path(p4, 1), 0)) != -1) goto L4677;
 	exit_game(4);
 L4677:
 	drv_load_from_file(l2);

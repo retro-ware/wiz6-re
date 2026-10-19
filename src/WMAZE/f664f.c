@@ -114,8 +114,7 @@ L67b3:
 	f0a42(bottom_line_win, 0);
 	resume_window_draw(g4fb0);
 	refresh_all_windows();
-	l6 = open(&l3632, 769);
-	if (l6 != -1) goto L6822;
+	if ((l6 = open(&l3632, 769)) != -1) goto L6822;
 	show_error(&l3798);
 	if (!l3716) goto L6819;
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
@@ -140,8 +139,7 @@ l6822:
 	db 083h,0c4h,00ah
 #endasm
 	movmem(((game_state_arg * 10) + 20204), ((game_state_arg * 10) + 13304), 10);
-	l3592 = write(l6, 13304, 414);
-	if (l3592 > 0) goto L68fe;
+	if ((l3592 = write(l6, 13304, 414)) > 0) goto L68fe;
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L68f8;
@@ -167,8 +165,7 @@ L6950:
 	setmem(&l1850, 1346, 0);
 	setmem(&l3590, 1740, 0);
 L6976:
-	l3592 = write(l6, &l1850, g3304);
-	if (l3592 > 0) goto L69c5;
+	if ((l3592 = write(l6, &l1850, g3304)) > 0) goto L69c5;
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L69bf;
@@ -176,8 +173,7 @@ L6976:
 L69bf:
 	return -1;
 L69c5:
-	l3592 = write(l6, &l3590, g3306);
-	if (l3592 > 0) goto L6a14;
+	if ((l3592 = write(l6, &l3590, g3306)) > 0) goto L6a14;
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L6a0e;
@@ -212,8 +208,7 @@ L6a7c:
 	l40 = g4f7c;
 	l36 = g4f78;
 	l8 = party_count;
-	l3592 = write(l6, &l72, 66);
-	if (l3592 > 0) goto L6b26;
+	if ((l3592 = write(l6, &l72, 66)) > 0) goto L6b26;
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L6b20;

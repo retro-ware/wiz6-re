@@ -21,8 +21,7 @@ L8faf:
 	if (extract_bits(l2, 11, 1) != 1) goto L9015;
 	set_bit(((game_state_arg * 10) + 13304), l4, 0);
 L9015:
-	l4 = extract_bits(l2, 9, 2);
-	if (l4 <= 0) goto L9088;
+	if ((l4 = extract_bits(l2, 9, 2)) <= 0) goto L9088;
 #asm
 	db 0b8h,001h,000h,050h,08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,0a0h,005h
 	db 02ah,0e4h,050h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h

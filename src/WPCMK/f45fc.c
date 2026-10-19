@@ -14,8 +14,7 @@ L4608:
 L4630:
 	goto L4608;
 L4632:
-	key = char_index(keys, (unsigned char)(get_key(1)));
-	if (key < 0) goto L4650;
+	if ((key = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L4650;
 	return;
 L4650:
 	goto L4608;

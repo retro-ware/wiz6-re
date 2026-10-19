@@ -29,8 +29,7 @@ L5220:
 L523c:
 	goto L51f8;
 L523e:
-	key = char_index(keys, (unsigned char)(get_key(1)));
-	if (key < 0) goto L525c;
+	if ((key = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L525c;
 	return;
 L525c:
 	goto L51f8;

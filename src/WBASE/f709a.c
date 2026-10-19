@@ -95,8 +95,7 @@ L726a:
 l726a:
 	db 0e9h,0d1h,000h
 #endasm
-	cur_member = choose_party_member(1202);
-	if (cur_member == -1) goto L7289;
+	if ((cur_member = choose_party_member(1202)) == -1) goto L7289;
 	game_state = 17;
 	return_cmd = 4;
 L7289:
@@ -104,8 +103,7 @@ L7289:
 #asm
 	db 0e9h,0adh,000h
 #endasm
-	cur_member = choose_party_member(1203);
-	if (cur_member == -1) goto L72a6;
+	if ((cur_member = choose_party_member(1203)) == -1) goto L72a6;
 	remove_party_member(cur_member);
 L72a6:
 	if (party_count <= 0) goto L72b2;

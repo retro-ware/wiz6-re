@@ -173,8 +173,7 @@ case 3:
 #endasm
 	sound_mode = (char)((((unsigned char)sound_mode + i) + 6) % 6);
 	goto L7cee;
-	l4 = ((unsigned char)cfg_delay + i);
-	if (l4 < 0) goto L7c2a;
+	if ((l4 = ((unsigned char)cfg_delay + i)) < 0) goto L7c2a;
 	if (l4 > 255) goto L7c2a;
 	cfg_delay = *(char *)&l4;
 #asm
@@ -232,8 +231,7 @@ L7d9b:
 	stop_sound();
 	if (changed != 1) goto L7e36;
 	get_message(2258, &l110);
-	scenario_hdr_fd = open(make_data_path(20552, 0), 2);
-	if (scenario_hdr_fd != -1) goto L7df0;
+	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) != -1) goto L7df0;
 	exit_game(19);
 L7df0:
 	;
@@ -243,8 +241,7 @@ l7df0:
 	call lseek_
 	db 083h,0c4h,008h
 #endasm
-	written = write(scenario_hdr_fd, 13304, 414);
-	if (written != -1) goto L7e2e;
+	if ((written = write(scenario_hdr_fd, 13304, 414)) != -1) goto L7e2e;
 	show_error_text(&l110, 0);
 L7e2e:
 	close(scenario_hdr_fd);

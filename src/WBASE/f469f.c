@@ -29,8 +29,7 @@ L4707:
 	camp_anim_tick = ((camp_anim_tick + 1) % 10);
 	goto L46ab;
 L4717:
-	choice = char_index(keys, (unsigned char)(get_key(1)));
-	if (choice < 0) goto L4735;
+	if ((choice = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L4735;
 	return;
 L4735:
 	goto L46ab;

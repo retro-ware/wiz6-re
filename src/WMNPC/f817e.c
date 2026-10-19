@@ -69,21 +69,18 @@ f817e(p4, p6, p8, p10)
 L82cd:
 	f5078(p10, g527a);
 	goto L881c;
-	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L830d;
+	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) >= 0) goto L830d;
 	l2 = 0;
 L830d:
 	g450d[(432 * p10)] = *(char *)&l2;
 	f5078(p10, g527a);
 	goto L881c;
-	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
-	if (l2 > 0) goto L8347;
+	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) > 0) goto L8347;
 	l2 = 0;
 	g450f[(432 * p10)] = 0;
 L8347:
 	g458c[(432 * p10)] = *(char *)&l2;
-	l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5));
-	if (l2 > 0) goto L8377;
+	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) > 0) goto L8377;
 	l2 = 0;
 	g458c[(432 * p10)] = 0;
 L8377:
@@ -109,8 +106,7 @@ l83ee:
 L83f3:
 	f5078(p10, g527a);
 	goto L881c;
-	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L8433;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L8433;
 	l2 = 0;
 L8433:
 	g4511[(432 * p10)] = *(char *)&l2;

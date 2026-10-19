@@ -142,8 +142,7 @@ L7596:
 	refresh_all_windows();
 	rsi = (44 * member);
 	(monster_groups + rsi)[31] = 0;
-	l282 = select_party_member(3610);
-	if (l282 != -1) goto L762b;
+	if ((l282 = select_party_member(3610)) != -1) goto L762b;
 	return -1;
 L762b:
 	;
@@ -155,8 +154,7 @@ l762b:
 	goto L7690;
 L7642:
 	if (g00e2[(l276 * 6)] != 2) goto L7690;
-	l280 = select_monster_group(win, 3604, 3, 0);
-	if (l280 != -1) goto L767b;
+	if ((l280 = select_monster_group(win, 3604, 3, 0)) != -1) goto L767b;
 	return -1;
 L767b:
 	;

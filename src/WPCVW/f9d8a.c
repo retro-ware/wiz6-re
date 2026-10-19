@@ -14,12 +14,10 @@ do_merge_items(p4, p6, p8)
 	if ((unsigned)pc_item_count[(432 * p8)] >= 2) goto L9da3;
 	return;
 L9da3:
-	g43ca = choose_item(p4, p6, 406, p8, 0);
-	if (g43ca != -1) goto L9dc4;
+	if ((g43ca = choose_item(p4, p6, 406, p8, 0)) != -1) goto L9dc4;
 	return;
 L9dc4:
-	l4 = choose_item(p4, p6, 407, p8, 0);
-	if (l4 != -1) goto L9de5;
+	if ((l4 = choose_item(p4, p6, 407, p8, 0)) != -1) goto L9de5;
 	return;
 L9de5:
 	if (l4 != g43ca) goto L9df5;
@@ -36,8 +34,7 @@ L9df5:
 L9e4e:
 	if (*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) goto L9f4e;
 	if (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1) goto L9f4e;
-	l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))]);
-	if (l6 > 250) goto L9f12;
+	if ((l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))])) > 250) goto L9f12;
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = *(char *)&l6;
 	remove_item(p8, l4);
 	goto L9f4c;

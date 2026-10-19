@@ -66,12 +66,10 @@ Ld592:
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
-	l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)]);
-	if (l6 <= 95) goto Ld61c;
+	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) <= 95) goto Ld61c;
 	l6 = 95;
 Ld61c:
-	tumblers = ((l8 / 3) + 1);
-	if (tumblers <= 6) goto Ld633;
+	if ((tumblers = ((l8 / 3) + 1)) <= 6) goto Ld633;
 	tumblers = 6;
 Ld633:
 	l70 = 0;

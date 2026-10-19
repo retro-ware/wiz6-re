@@ -40,9 +40,15 @@ L8333:
 	goto L83ef;
 L8336:
 	l4 = (unsigned char)g019d[monster_groups[p4]];
-	l6 = (p6 < 0 ? -p6 : p6);
-	if (l6 <= l4) goto L8364;
-	l6 = l4;
+#asm
+	db 08bh,046h,006h,050h,03dh,000h,000h,058h,07dh,002h,0f7h,0d8h
+#endasm
+L8356:
+	;
+#asm
+l8356:
+	db 089h,046h,0fah,03bh,046h,0fch,07eh,006h,08bh,046h,0fch,089h,046h,0fah
+#endasm
 L8364:
 	l8 = random((l4 - l6));
 	l2 = l8;

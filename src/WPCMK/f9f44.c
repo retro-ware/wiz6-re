@@ -49,23 +49,19 @@ La020:
 #endasm
 	do_create_character();
 	goto La131;
-	sel = select_roster_character(prompt_win, menu_win, 1129);
-	if (sel == -1) goto La09f;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1129)) == -1) goto La09f;
 	view_character(g57b0[sel]);
 La09f:
 	goto La131;
-	sel = select_roster_character(prompt_win, menu_win, 1121);
-	if (sel == -1) goto La0c8;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1121)) == -1) goto La0c8;
 	delete_character(g57b0[sel]);
 La0c8:
 	goto La131;
-	sel = select_roster_character(prompt_win, menu_win, 1122);
-	if (sel == -1) goto La0f0;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1122)) == -1) goto La0f0;
 	rename_character(g57b0[sel]);
 La0f0:
 	goto La131;
-	sel = select_roster_character(prompt_win, menu_win, 1123);
-	if (sel == -1) goto La118;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1123)) == -1) goto La118;
 	change_portrait(g57b0[sel]);
 La118:
 	goto La131;

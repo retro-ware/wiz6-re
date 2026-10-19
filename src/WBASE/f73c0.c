@@ -14,8 +14,7 @@ L73cc:
 L73f4:
 	goto L73cc;
 L73f6:
-	choice = char_index(keys, (unsigned char)(get_key(1)));
-	if (choice < 0) goto L7414;
+	if ((choice = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L7414;
 	return;
 L7414:
 	goto L73cc;

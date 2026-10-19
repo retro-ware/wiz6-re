@@ -121,8 +121,7 @@ l629d:
 #endasm
 L62a2:
 	goto L655b;
-	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L62d5;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L62d5;
 	l2 = 0;
 L62d5:
 	g4511[(432 * p10)] = *(char *)&l2;

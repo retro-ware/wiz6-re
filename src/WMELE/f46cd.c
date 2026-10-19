@@ -20,8 +20,7 @@ load_monster_pic_mele(mon, slot)
 	strcpy(&fname, 20474);
 	l19 = (char)((mon / 10) + 48);
 	l18 = (char)((mon % 10) + 48);
-	pic_fd = open(make_data_path(&fname, 1), 0);
-	if (pic_fd != -1) goto L474f;
+	if ((pic_fd = open(make_data_path(&fname, 1), 0)) != -1) goto L474f;
 	exit_game(21);
 L474f:
 	;

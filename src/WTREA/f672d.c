@@ -17,8 +17,7 @@ L673a:
 	if (g5194[l4]) goto L67a0;
 	if (random(100) <= 50) goto L67a0;
 	if (random(100) >= accuracy) goto L679d;
-	l8 = char_index(20702, (unsigned char)trap_guess_letters[l4]);
-	if (l8 < 0) goto L6795;
+	if ((l8 = char_index(20702, (unsigned char)trap_guess_letters[l4])) < 0) goto L6795;
 	g5194[l4] = 1;
 	g50de[l8] = 36;
 	goto L679d;

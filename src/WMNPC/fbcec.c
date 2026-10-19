@@ -6,15 +6,13 @@ char *p6;
 	int l2;
 	int l4;
 	int l6;
-	l6 = char_index(((p4 * 20) + 22746), 37);
-	if (l6 < 0) goto Lbd4c;
+	if ((l6 = char_index(((p4 * 20) + 22746), 37)) < 0) goto Lbd4c;
 	strncpy(p6, ((p4 * 20) + 22746), (l6 + 1));
 	*(p6 + l6) = 83;
 	(p6 + l6)[1] = 0;
 	goto Lbe75;
 Lbd4c:
-	l6 = char_index(((p4 * 20) + 22746), 64);
-	if (l6 < 0) goto Lbd9a;
+	if ((l6 = char_index(((p4 * 20) + 22746), 64)) < 0) goto Lbd9a;
 	strncpy(p6, ((p4 * 20) + 22746), l6);
 	*(p6 + l6) = 0;
 	goto Lbe75;

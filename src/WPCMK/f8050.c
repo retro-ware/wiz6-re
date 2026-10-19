@@ -47,8 +47,7 @@ L8118:
 	l2 = 0;
 	goto L8151;
 L8125:
-	l80 = (unsigned char)g54b6[(l2 << 3)];
-	if (l80 >= 1) goto L8143;
+	if ((l80 = (unsigned char)g54b6[(l2 << 3)]) >= 1) goto L8143;
 	l80 = 1;
 L8143:
 	char_load += (*(int *)((char *)g54b2 + (l2 << 3)) * l80);

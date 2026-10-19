@@ -35,8 +35,7 @@ L907d:
 	l17 = (char)((portrait / 14) + 49);
 	portrait = (portrait % 14);
 	stop_sound();
-	fd = open(make_data_path(&fname, 0), 0);
-	if (fd != -1) goto L90b8;
+	if ((fd = open(make_data_path(&fname, 0), 0)) != -1) goto L90b8;
 	exit_game(14);
 L90b8:
 	lseek(fd, (long)((portrait * size) * 9), 0);

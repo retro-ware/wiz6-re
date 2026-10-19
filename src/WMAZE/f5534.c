@@ -23,8 +23,7 @@ L5585:
 	g5036 = ((g5036 + 1) % 10);
 	goto L5540;
 L5595:
-	l2 = char_index(p4, (unsigned char)(get_key(1)));
-	if (l2 < 0) goto L55b3;
+	if ((l2 = char_index(p4, (unsigned char)(get_key(1)))) < 0) goto L55b3;
 	return;
 L55b3:
 	goto L5540;

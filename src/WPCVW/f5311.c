@@ -8,8 +8,7 @@ get_item_weight(item, member)
 	int qty;
 	qty = 1;
 	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (item << 3))]] != 1) goto L535b;
-	qty = (unsigned char)pc_item_qty[((432 * member) + (item << 3))];
-	if (qty >= 1) goto L535b;
+	if ((qty = (unsigned char)pc_item_qty[((432 * member) + (item << 3))]) >= 1) goto L535b;
 	qty = 1;
 L535b:
 	return (*(int *)((char *)pc_item_weight + ((432 * member) + (item << 3))) * qty);

@@ -67,21 +67,18 @@ cast_spell(p4, p6, p8, p10, p12, p14)
 L6c8b:
 	refresh_member_card(g5752, p10);
 	goto L7119;
-	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L6ccb;
+	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) >= 0) goto L6ccb;
 	l2 = 0;
 L6ccb:
 	g450d[(432 * p10)] = *(char *)&l2;
 	refresh_member_card(g5752, p10);
 	goto L7119;
-	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
-	if (l2 > 0) goto L6d05;
+	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) > 0) goto L6d05;
 	l2 = 0;
 	g450f[(432 * p10)] = 0;
 L6d05:
 	g458c[(432 * p10)] = *(char *)&l2;
-	l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5));
-	if (l2 > 0) goto L6d35;
+	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) > 0) goto L6d35;
 	l2 = 0;
 	g458c[(432 * p10)] = 0;
 L6d35:
@@ -108,8 +105,7 @@ L6db1:
 	refresh_member_card(g5752, p10);
 L6dbe:
 	goto L7119;
-	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
-	if (l2 >= 0) goto L6df1;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L6df1;
 	l2 = 0;
 L6df1:
 	g4511[(432 * p10)] = *(char *)&l2;
@@ -185,8 +181,7 @@ L701d:
 	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,080h,0bfh,094h,045h,000h,076h,032h
 #endasm
 	refresh_all_windows();
-	g43ca = choose_item(p12, p14, 481, p4, 0);
-	if (g43ca == -1) goto L706c;
+	if ((g43ca = choose_item(p12, p14, 481, p4, 0)) == -1) goto L706c;
 	show_item_info(p14, p4, g43ca, p8);
 L706c:
 	goto L7119;

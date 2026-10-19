@@ -48,16 +48,14 @@ case 0:
 	tick_effect_timers(1);
 	goto L6f16;
 case 1:
-	cur_member = choose_party_member_m(2026, 1);
-	if (cur_member == -1) goto L6e31;
+	if ((cur_member = choose_party_member_m(2026, 1)) == -1) goto L6e31;
 	tick_effect_timers(1);
 	game_state = 17;
 	return_cmd = 5;
 L6e31:
 	goto L6f16;
 case 2:
-	cur_member = choose_party_member_m(2029, 1);
-	if (cur_member == -1) goto L6e67;
+	if ((cur_member = choose_party_member_m(2029, 1)) == -1) goto L6e67;
 	if (!is_member_able(cur_member)) goto L6e67;
 	tick_effect_timers(1);
 	game_state = 19;
@@ -65,8 +63,7 @@ case 2:
 L6e67:
 	goto L6f16;
 case 3:
-	cur_member = choose_party_member_m(2031, 1);
-	if (cur_member == -1) goto L6ead;
+	if ((cur_member = choose_party_member_m(2031, 1)) == -1) goto L6ead;
 	if (!is_member_able(cur_member)) goto L6ead;
 	if ((unsigned)pc_item_count[(432 * cur_member)] <= 0) goto L6ead;
 	tick_effect_timers(1);

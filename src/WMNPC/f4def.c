@@ -27,8 +27,7 @@ L4e49:
 	strcpy(&l20, 20462);
 	l15 = (char)((p4 / 10) + 48);
 	l14 = (char)((p4 % 10) + 48);
-	l34 = open(make_data_path(&l20, 1), 0);
-	if (l34 != -1) goto L4e97;
+	if ((l34 = open(make_data_path(&l20, 1), 0)) != -1) goto L4e97;
 	exit_game(15);
 L4e97:
 	;

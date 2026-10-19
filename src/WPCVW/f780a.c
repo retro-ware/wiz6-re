@@ -354,8 +354,7 @@ L82be:
 	return -1;
 L8310:
 	if (g00e2[(spell * 6)] != 1) goto L8346;
-	g578e = choose_member(p4, p6, 502, -1);
-	if (g578e != -1) goto L8346;
+	if ((g578e = choose_member(p4, p6, 502, -1)) != -1) goto L8346;
 	return -1;
 L8346:
 	return ((power << 8) + spell);

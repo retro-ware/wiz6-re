@@ -52,8 +52,7 @@ L62b9:
 L631f:
 	l4 = 0;
 L6324:
-	l6 = (unsigned char)g450a[((432 * p4) + l4)];
-	if (l6 <= 0) goto L635a;
+	if ((l6 = (unsigned char)g450a[((432 * p4) + l4)]) <= 0) goto L635a;
 	if (l6 == 255) goto L635a;
 	l6 -= p10;
 	if (l6 >= 0) goto L6353;

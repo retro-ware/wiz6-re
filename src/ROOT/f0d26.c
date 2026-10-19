@@ -40,8 +40,7 @@ L0d6f:
 	goto L0df1;
 L0db0:
 	if (disk <= 2) goto L0df1;
-	fd = open(1404, 0);
-	if (fd != -1) goto L0ddb;
+	if ((fd = open(1404, 0)) != -1) goto L0ddb;
 	next_disk = disk;
 	disk = 2;
 	goto L0df1;
@@ -102,8 +101,7 @@ case 2:
 	goto L0fcf;
 	}
 L0fcf:
-	fd = open(path, 0);
-	if (fd == -1) goto L0ff2;
+	if ((fd = open(path, 0)) == -1) goto L0ff2;
 	ok = 1;
 	close(fd);
 L0ff2:
@@ -137,12 +135,10 @@ L1083:
 	flush_keys();
 	destroy_window(win, 0);
 	if (!reopen) goto L1120;
-	msg_fd = open(make_data_path(1503, 0), 0);
-	if (msg_fd != -1) goto L10ed;
+	if ((msg_fd = open(make_data_path(1503, 0), 0)) != -1) goto L10ed;
 	exit_game(17);
 L10ed:
-	scenario_fd = open(make_data_path(1511, (orig_disk == 0 ? 0 : 1)), 0);
-	if (scenario_fd != -1) goto L1120;
+	if ((scenario_fd = open(make_data_path(1511, (orig_disk == 0 ? 0 : 1)), 0)) != -1) goto L1120;
 	exit_game(18);
 L1120:
 	;

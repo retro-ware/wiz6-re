@@ -343,8 +343,7 @@ L83b6:
 	return -1;
 L8408:
 	if (g00e2[(spell * 6)] != 1) goto L8438;
-	g51d4 = choose_party_member(2030, 1);
-	if (g51d4 != -1) goto L8438;
+	if ((g51d4 = choose_party_member(2030, 1)) != -1) goto L8438;
 	return -1;
 L8438:
 	return ((level << 8) + spell);

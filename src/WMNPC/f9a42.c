@@ -55,8 +55,7 @@ L9bc0:
 	l2++;
 L9bc3:
 	if ((unsigned char)pc_swag_count[(432 * p6)] > l2) goto L9b9e;
-	p10 = l28;
-	if (p10 < g5324) goto L9be9;
+	if ((p10 = l28) < g5324) goto L9be9;
 	p10 = (g5324 - 1);
 L9be9:
 	refresh_all_windows();

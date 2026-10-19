@@ -16,8 +16,7 @@ add_party_member()
 	int pick;
 	register int rsi;
 	register int rdi;
-	pick = choose_pcfile_char();
-	if (pick == -1) goto L6b2a;
+	if ((pick = choose_pcfile_char()) == -1) goto L6b2a;
 	pcindex = pclist_pcindex[pick];
 	pcfile_record_io(&rec, pcindex, 0);
 	roster_slot_used[pcindex] = 2;

@@ -104,8 +104,7 @@ L57e8:
 	print_int(win, *(int *)((char *)pc_hp_max + (432 * member)), 4, 6);
 	print_msg_at(213, win, 10, 8, 4);
 	win[6] += 2;
-	l4 = ((*(int *)((char *)pc_stamina + (432 * member)) * 100) / *(int *)((char *)pc_stamina_max + (432 * member)));
-	if (l4 >= 1) goto L58fc;
+	if ((l4 = ((*(int *)((char *)pc_stamina + (432 * member)) * 100) / *(int *)((char *)pc_stamina_max + (432 * member)))) >= 1) goto L58fc;
 	if (*(int *)((char *)pc_stamina + (432 * member)) <= 0) goto L58fc;
 	l4 = 1;
 L58fc:

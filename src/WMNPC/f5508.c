@@ -18,8 +18,7 @@ f5508(p4, p6)
 	strcpy(&l22, 20474);
 	l19 = (char)((p4 / 10) + 48);
 	l18 = (char)((p4 % 10) + 48);
-	pic_fd = open(make_data_path(&l22, 1), 0);
-	if (pic_fd != -1) goto L557a;
+	if ((pic_fd = open(make_data_path(&l22, 1), 0)) != -1) goto L557a;
 	exit_game(21);
 L557a:
 	;

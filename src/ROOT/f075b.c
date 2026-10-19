@@ -1,6 +1,3 @@
-#asm
-	extrn load_message_block_:near
-#endasm
 extern char msg_block[];
 extern int msg_block_num;
 extern int msg_not_found;
@@ -14,20 +11,12 @@ get_message(msg, buf)
 	int dst;
 	char raw[255];
 	char x265[1];
-	entry = find_message_index(msg);
-#asm
-	db 085h,0c0h,075h,00ah
-#endasm
+	if ((entry = find_message_index(msg))) goto L077a;
 	msg_not_found = 1;
 	return;
 L077a:
-	;
-#asm
-l077a:
-	db 08bh,0d8h,08ah,047h,005h,02ah,0e4h,03bh,006h,03eh,030h,074h,005h,050h
-	call load_message_block_
-	db 059h
-#endasm
+	if ((unsigned char)entry[5] == msg_block_num) goto L078c;
+	load_message_block((unsigned char)entry[5]);
 L078c:
 	pos = *(int *)(entry + 2);
 	n = *(int *)entry;

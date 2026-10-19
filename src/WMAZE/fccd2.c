@@ -34,8 +34,7 @@ lcd5b:
 	db 0fch
 #endasm
 Lcd6c:
-	l4 = f7bd2(party_cell_x, party_cell_y, party_level, l4);
-	if (l4 == -1) goto Lcddf;
+	if ((l4 = f7bd2(party_cell_x, party_cell_y, party_level, l4)) == -1) goto Lcddf;
 #asm
 	db 08bh,01eh,0a8h,04fh,08bh,0f0h,080h,0b8h,060h,003h,007h,075h,02ah,0b8h,002h,000h
 	db 050h,0a1h,09ah,04fh,0d1h,0e0h,005h,008h,000h,050h,0d1h,0e6h,0ffh,0b0h,040h,002h

@@ -21,8 +21,7 @@ show_title_sequence()
 	int skipped;
 	flush_keys();
 	load_sound(39);
-	fd = open(make_data_path(20794, 1), 0);
-	if (fd != -1) goto L4f91;
+	if ((fd = open(make_data_path(20794, 1), 0)) != -1) goto L4f91;
 	exit_game(9);
 L4f91:
 	;

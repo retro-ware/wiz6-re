@@ -33,8 +33,7 @@ L4ca2:
 	g502c = ((g502c + 1) % 10);
 	goto L4c4b;
 L4cb2:
-	key = char_index(keys, (unsigned char)(get_key(1)));
-	if (key < 0) goto L4cd0;
+	if ((key = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L4cd0;
 	return;
 L4cd0:
 	goto L4c4b;

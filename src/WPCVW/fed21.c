@@ -71,8 +71,7 @@ Lee4a:
 	*(int *)((char *)pc_stamina_max + (432 * p8)) += l6;
 	get_message(5013, 21902);
 	set_cursor(p4, 15, 8);
-	l12 = ((*(int *)((char *)pc_stamina + (432 * p8)) * 100) / *(int *)((char *)pc_stamina_max + (432 * p8)));
-	if (l12 >= 1) goto Leeab;
+	if ((l12 = ((*(int *)((char *)pc_stamina + (432 * p8)) * 100) / *(int *)((char *)pc_stamina_max + (432 * p8)))) >= 1) goto Leeab;
 	if (*(int *)((char *)pc_stamina + (432 * p8)) <= 0) goto Leeab;
 	l12 = 1;
 Leeab:

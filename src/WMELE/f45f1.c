@@ -28,8 +28,7 @@ L464b:
 	strcpy(&fname, 20462);
 	l15 = (char)((n / 10) + 48);
 	l14 = (char)((n % 10) + 48);
-	fd = open(make_data_path(&fname, 1), 0);
-	if (fd != -1) goto L4699;
+	if ((fd = open(make_data_path(&fname, 1), 0)) != -1) goto L4699;
 	exit_game(15);
 L4699:
 	;

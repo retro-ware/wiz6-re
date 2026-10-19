@@ -11,8 +11,7 @@ char *text;
 {
 	int x;
 	int l4;
-	l4 = char_index(20462, (unsigned char)*text);
-	if (l4 < 0) goto L4ab7;
+	if ((l4 = char_index(20462, (unsigned char)*text)) < 0) goto L4ab7;
 #asm
 	db 0ebh,055h
 #endasm

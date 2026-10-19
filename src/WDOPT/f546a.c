@@ -65,12 +65,10 @@ L55ba:
 	if (get_bitfield((maze_data + 504), rsi, 4) != 14) goto L55d7;
 	l14 = g5168;
 L55d7:
-	l2 = test_bit((maze_data + 1082), rsi);
-	if (l2 != 1) goto L55f3;
+	if ((l2 = test_bit((maze_data + 1082), rsi)) != 1) goto L55f3;
 	l14 = g516a;
 L55f3:
-	l4 = test_bit((maze_data + 1178), rsi);
-	if (l4 != 1) goto L560f;
+	if ((l4 = test_bit((maze_data + 1178), rsi)) != 1) goto L560f;
 	l14 = pclist_sex;
 L560f:
 	if (l2 != 1) goto L5676;

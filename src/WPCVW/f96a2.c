@@ -20,8 +20,7 @@ do_trade_items(p4, p6, p8)
 	int l20;
 	register int rsi;
 	register int rdi;
-	l4 = choose_member(p4, p6, 501, -1);
-	if (l4 == -1) goto L96cb;
+	if ((l4 = choose_member(p4, p6, 501, -1)) == -1) goto L96cb;
 	if (l4 != p8) goto L96d1;
 L96cb:
 	return;

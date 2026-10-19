@@ -9,8 +9,7 @@ do_create_character()
 	char x6[8];
 	int l16;
 	draw_creation_screen(sheet_win, prompt_win);
-	l2 = find_free_roster_slot();
-	if (l2 != -1) goto L9679;
+	if ((l2 = find_free_roster_slot()) != -1) goto L9679;
 	return;
 L9679:
 	set_cursor(prompt_win, 1, 1);

@@ -34,8 +34,7 @@ L479b:
 	g506a = ((g506a + 1) % 10);
 	goto L4744;
 L47ab:
-	choice = char_index(keys, (unsigned char)(get_key(1)));
-	if (choice < 0) goto L47c9;
+	if ((choice = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L47c9;
 	return;
 L47c9:
 	goto L4744;

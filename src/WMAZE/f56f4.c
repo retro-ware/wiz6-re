@@ -20,8 +20,7 @@ try_move(p4)
 	save_position();
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
 	g5032 = 1;
-	l6 = get_bitfield((maze_data + 504), rsi, 4);
-	if (l6 == 1) goto L5740;
+	if ((l6 = get_bitfield((maze_data + 504), rsi, 4)) == 1) goto L5740;
 	if (l6 != 2) goto L575d;
 L5740:
 	if (get_bitfield((maze_data + 888), rsi, 2) != p4) goto L575d;

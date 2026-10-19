@@ -135,8 +135,7 @@ L5885:
 L58a1:
 	strcat(&path, 20539);
 L58b0:
-	fd = open(&path, 0);
-	if (fd != -1) goto L58fd;
+	if ((fd = open(&path, 0)) != -1) goto L58fd;
 	show_error_text(&disk_error_text, 1);
 	if (!l4134) goto L58f4;
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
@@ -159,8 +158,7 @@ L592f:
 	call lseek_
 	db 083h,0c4h,008h
 #endasm
-	l506 = read(fd, 13304, 414);
-	if (l506 > 0) goto L59a8;
+	if ((l506 = read(fd, 13304, 414)) > 0) goto L59a8;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L59a2;
@@ -183,8 +181,7 @@ L59ad:
 	l4 = 0;
 	goto L5b16;
 L5a21:
-	l506 = read(fd, &l1978, g3304);
-	if (l506 > 0) goto L5a76;
+	if ((l506 = read(fd, &l1978, g3304)) > 0) goto L5a76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L5a70;
@@ -192,8 +189,7 @@ L5a21:
 L5a70:
 	return -1;
 L5a76:
-	l506 = read(fd, &l3718, g3306);
-	if (l506 > 0) goto L5acb;
+	if ((l506 = read(fd, &l3718, g3306)) > 0) goto L5acb;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L5ac5;
@@ -215,8 +211,7 @@ L5b13:
 	l4++;
 L5b16:
 	if (l4 < g3318) goto L5a21;
-	l506 = read(fd, &l72, 66);
-	if (l506 > 0) goto L5b76;
+	if ((l506 = read(fd, &l72, 66)) > 0) goto L5b76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L5b70;
@@ -252,8 +247,7 @@ L5bcf:
 	l2 = 0;
 	goto L5cc9;
 L5c3e:
-	l506 = read(fd, &l504, 432);
-	if (l506 > 0) goto L5c93;
+	if ((l506 = read(fd, &l504, 432)) > 0) goto L5c93;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L5c8d;

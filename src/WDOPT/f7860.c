@@ -182,8 +182,7 @@ L7d3a:
 	spell = (l64 % 256);
 	if (g00e2[(spell * 6)] != 1) goto L7dd4;
 	refresh_all_windows();
-	g51b6 = choose_target_member(2032);
-	if (g51b6 != -1) goto L7dd4;
+	if ((g51b6 = choose_target_member(2032)) != -1) goto L7dd4;
 	spell = -1;
 L7dd4:
 	if (spell == -1) goto L7df9;

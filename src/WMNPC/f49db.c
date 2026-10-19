@@ -23,10 +23,7 @@ f49db(p4, p6, p8)
 	int l26;
 	int l28;
 	l20[0] = 0;
-	l2 = *(int *)((char *)view_pos_group + ((p4 * 10) + (p6 << 1)));
-#asm
-	db 085h,0c0h,075h,004h
-#endasm
+	if ((l2 = *(int *)((char *)view_pos_group + ((p4 * 10) + (p6 << 1))))) goto L4a0a;
 L4a06:
 	return;
 L4a0a:
@@ -56,8 +53,7 @@ L4af9:
 	if (l24) goto L4b2c;
 	l24 = (unsigned char)g00b0[((p4 * 5) + p6)];
 L4b2c:
-	l28 = (((g37fa[(((314 * l2) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + p8) + l26);
-	if (l28 >= 0) goto L4b84;
+	if ((l28 = (((g37fa[(((314 * l2) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + p8) + l26)) >= 0) goto L4b84;
 	l28 = 0;
 	goto L4b8f;
 L4b84:

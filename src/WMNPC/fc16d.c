@@ -17,8 +17,7 @@ char *p4;
 	l84 = 0;
 	l86 = 2;
 Lc19f:
-	*(int *)(l82 + 0) = char_index((l86 + ((char *)l82 + 2)), 47);
-	if (*(int *)(l82 + 0) == -1) goto Lc1d5;
+	if ((*(int *)(l82 + 0) = char_index((l86 + ((char *)l82 + 2)), 47)) == -1) goto Lc1d5;
 	l126[l84] = l86;
 	l86 = ((l86 + *(int *)(l82 + 0)) + 1);
 	l84++;

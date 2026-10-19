@@ -188,8 +188,7 @@ l12d6:
 	db 03dh,006h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0cah,012h
 #endasm
 L12e3:
-	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
-	if (want == disk_header) goto L1329;
+	if ((want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk)) == disk_header) goto L1329;
 	copy_through_char(&label, 13632, 58);
 	prompt_insert_disk(&label, disk, 1, 1);
 	refresh_all_windows();

@@ -345,8 +345,7 @@ L7649:
 L769b:
 	if (g00e2[(spell * 6)] != 1) goto L76c8;
 	refresh_all_windows();
-	g51b6 = choose_target_member(2030);
-	if (g51b6 != -1) goto L76c8;
+	if ((g51b6 = choose_target_member(2030)) != -1) goto L76c8;
 	return -1;
 L76c8:
 	return ((level << 8) + spell);

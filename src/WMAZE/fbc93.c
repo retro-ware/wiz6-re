@@ -83,8 +83,7 @@ Lbe6b:
 	if (l20 != 1) goto Lbf2d;
 	get_message(l10, &l188);
 	l6 = maze_menu_select(g522a, l10, enabled, (20 - ((strlen(&l188) + 1) / 2)), 1, 20, 4, 5, 0);
-	l222 = ((((unsigned char)answer[(l6 << 1)] * 10) + (unsigned char)answer[((l6 << 1) + 1)]) + -528);
-	if (l222 <= 0) goto Lbf2a;
+	if ((l222 = ((((unsigned char)answer[(l6 << 1)] * 10) + (unsigned char)answer[((l6 << 1) + 1)]) + -528)) <= 0) goto Lbf2a;
 	if (l222 >= 80) goto Lbf2a;
 	set_bit(((game_state_arg * 10) + 20204), l222, 0);
 Lbf2a:
@@ -112,8 +111,7 @@ Lbfef:
 	if (l16 <= 0) goto Lbffc;
 	play_sound(l16);
 Lbffc:
-	l4 = char_index(answer, (unsigned char)((l6 + 48)));
-	if (l4 == -1) goto Lc02f;
+	if ((l4 = char_index(answer, (unsigned char)((l6 + 48)))) == -1) goto Lc02f;
 	if (l18) goto Lc040;
 	if (((unsigned char)answer[l2] + -48) == l6) goto Lc040;
 Lc02f:

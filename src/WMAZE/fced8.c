@@ -55,8 +55,7 @@ Ld09e:
 	get_message(2112, &l52);
 	set_cursor(main_window, 21, 0);
 	print_string_hi(main_window, &l52, 3);
-	target = ((18 - ((unsigned char)pc_stats[(432 * member)] - l8)) + l8);
-	if (target >= 1) goto Ld0fa;
+	if ((target = ((18 - ((unsigned char)pc_stats[(432 * member)] - l8)) + l8)) >= 1) goto Ld0fa;
 	target = 1;
 Ld0fa:
 	if (target <= 18) goto Ld105;
@@ -103,8 +102,7 @@ Ld1e4:
 Ld220:
 	draw_member_status_m(member);
 Ld227:
-	strength = ((((random(l6) + random(l6)) + random(l6)) + random(l6)) / 4);
-	if (strength >= 1) goto Ld268;
+	if ((strength = ((((random(l6) + random(l6)) + random(l6)) + random(l6)) / 4)) >= 1) goto Ld268;
 	strength = 1;
 Ld268:
 	if (strength <= 18) goto Ld273;

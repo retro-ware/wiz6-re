@@ -344,8 +344,7 @@ L9734:
 L9786:
 	if (g00e2[(l52 * 6)] != 1) goto L97b9;
 	refresh_all_windows();
-	g5322 = f62ee(2030, 1);
-	if (g5322 != -1) goto L97b9;
+	if ((g5322 = f62ee(2030, 1)) != -1) goto L97b9;
 	return -1;
 L97b9:
 	return ((l54 << 8) + l52);

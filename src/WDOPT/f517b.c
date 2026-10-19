@@ -12,8 +12,7 @@ try_open_lock(power)
 	int result;
 	int ev;
 	register int rsi;
-	ev = find_lock_event();
-	if (ev != -1) goto L5195;
+	if ((ev = find_lock_event()) != -1) goto L5195;
 	return -1;
 L5195:
 	;
@@ -37,8 +36,7 @@ l5195:
 	jammed = 1;
 L5201:
 	result = 0;
-	roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2);
-	if (roll >= lock_level) goto L5246;
+	if ((roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2)) >= lock_level) goto L5246;
 	result = 1;
 L5246:
 	if (!jammed) goto L5251;
