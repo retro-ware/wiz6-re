@@ -373,6 +373,9 @@ class Printer:
             return (' %s ' % c[0]).join('(%s)' % self.cond(x) for x in c[1:])
         op, a, b = c
         if op in UNSIGNED:
+            if a[0] == 'm' and a[3] == 1 and b[0] == 'c' and b[1] < 256 and not self.T.is_data(a[2]):
+                # a byte through a pointer: compared in memory each time (a cast would load it once)
+                return '*(unsigned char *)%s %s %s' % (self.addr(a), UNSIGNED[op], self.ex(b))
             return '(%s)%s %s %s' % (self.unsigned(a, b), self.ex(a), UNSIGNED[op], self.ex(b))
         if b == ('c', 0) and op in ('==', '!='):
             x = self.ex(a)
