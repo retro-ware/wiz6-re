@@ -1,3 +1,4 @@
+extern char *monster_groups;
 extern int party_count;
 fc4e7(p4)
 {
@@ -8,9 +9,8 @@ fc4e7(p4)
 	l2 = 0;
 Lc501:
 	rsi = (44 * l4);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,022h,003h,073h,00eh,080h,078h,02bh,000h,075h,008h
-#endasm
+	if ((unsigned)(monster_groups + rsi)[34] >= 3) goto Lc521;
+	if ((monster_groups + rsi)[43]) goto Lc521;
 	return l4;
 Lc521:
 	l4 = ((party_count - 1) > p4 ? (p4 + 1) : p4);

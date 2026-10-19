@@ -33,6 +33,7 @@ lcd5b:
 	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,089h,046h
 	db 0fch
 #endasm
+Lcd6c:
 	l4 = f7bd2(party_cell_x, party_cell_y, party_level, l4);
 	if (l4 == -1) goto Lcddf;
 #asm
@@ -53,9 +54,7 @@ lcdc0:
 	return;
 Lcdda:
 	l4++;
-#asm
-	db 0ebh,08dh
-#endasm
+	goto Lcd6c;
 Lcddf:
 	if (l6 != 1) goto Lce03;
 	show_maze_message(2045);

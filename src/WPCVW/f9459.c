@@ -6,7 +6,6 @@ char *p6;
 	int l4;
 	int l6;
 	int l8;
-	register int rsi;
 	l6 = (unsigned char)p4[6];
 	l8 = (unsigned char)p4[7];
 	l4 = 0;
@@ -21,9 +20,7 @@ L948f:
 	if (l2 != 8) goto L9529;
 	if (l4 <= 0) goto L951f;
 	l4--;
-#asm
-	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
-#endasm
+	*(p6 + l4) = 0;
 	l6--;
 	set_cursor(p4, l6, l8);
 	put_char(p4, 32, 1);
@@ -48,15 +45,9 @@ L954e:
 	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
 #endasm
 L9561:
-	;
-#asm
-l9561:
-	db 08ah,046h,0feh,08bh,05eh,006h,08bh,076h,0fch,088h,000h
-#endasm
+	*(p6 + l4) = *(char *)&l2;
 	l4++;
-#asm
-	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
-#endasm
+	*(p6 + l4) = 0;
 	put_char(p4, (unsigned char)*(char *)&l2, p10);
 	l6++;
 L958d:

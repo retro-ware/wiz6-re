@@ -4,6 +4,7 @@
 	extrn maze_party_menu_:near
 #endasm
 extern char *g4f84;
+extern char *g4fa8;
 extern char g450c[];
 extern char g450d[];
 extern char g458d[];
@@ -41,12 +42,9 @@ maze_main_loop()
 	int l10;
 	int l12;
 	int l14;
-	register int rsi;
 	if (cell_event_index < 0) goto L7045;
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,03bh,006h
-	db 0e8h,04eh,07eh,003h,0a3h,0e8h,04eh
-#endasm
+	if ((unsigned char)(g4fa8 + party_level)[1728] <= cell_event_index) goto L7045;
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 L7045:
 	if (return_cmd == 23) goto L7062;
 	flood_mark_cells(party_level, party_cell_x, party_cell_y, 0);
@@ -201,10 +199,7 @@ L735b:
 	db 03bh,016h,08ah,04fh,075h,017h
 #endasm
 	g5034 = 1;
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,0a3h,0e8h
-	db 04eh
-#endasm
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 L745e:
 	goto L7471;
 L7460:

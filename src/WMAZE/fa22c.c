@@ -1,3 +1,5 @@
+extern char *g4fa8;
+extern int cell_event_index;
 extern int g5034;
 extern int g5232;
 extern int game_state_arg;
@@ -28,8 +30,9 @@ La2af:
 la2af:
 	db 08bh,01eh,0aah,04fh,08bh,036h,09ch,04fh,08ah,080h,0e0h,001h,02ah,0e4h,003h,006h
 	db 0a0h,04fh,0a3h,0a4h,04fh,08ah,080h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h
-	db 0a2h,04fh,08bh,01eh,0a8h,04fh,08ah,080h,0c0h,006h,02ah,0e4h,0a3h,0e8h,04eh
+	db 0a2h,04fh
 #endasm
+	cell_event_index = (unsigned char)(g4fa8 + rsi)[1728];
 	g5232 = 0;
 	if (l4 != game_state_arg) goto La2f2;
 	redraw_maze_view();

@@ -2,7 +2,9 @@
 	extrn play_sound_:near
 	extrn set_bitfield_:near
 #endasm
+extern char *g4fa8;
 extern int cell_event_index;
+extern int maze_data;
 fbaed()
 {
 	int l2;
@@ -26,12 +28,7 @@ fbaed()
 	db 083h,0c4h,008h
 #endasm
 	rsi = cell_event_index;
-#asm
-	db 08bh,01eh,0a8h,04fh,08ah,080h,030h,006h,02ah,0e4h,050h,0b8h,002h,000h,050h,0ffh
-	db 076h,0feh,0a1h,0aah,04fh,005h,078h,003h,050h
-	call set_bitfield_
-	db 083h,0c4h,008h
-#endasm
+	set_bitfield((maze_data + 888), l2, 2, (unsigned char)(g4fa8 + rsi)[1584]);
 	if (extract_bits(l4, 10, 1) != 1) goto Lbbb2;
 	redraw_maze_view();
 Lbbb2:

@@ -1,13 +1,9 @@
-#asm
-	extrn extract_bits_:near
-	extrn load_sound_bank_:near
-	extrn play_sound_:near
-	extrn set_event_flags_:near
-	extrn show_message_text_m_:near
-#endasm
+extern char *g4fa8;
 extern char g4518[];
 extern char g453a[];
 extern int bottom_line_win;
+extern int cell_event_index;
+extern int cur_sound;
 extern int event_screen_dirty;
 extern int g4edc;
 extern int g522a;
@@ -26,43 +22,24 @@ trap_event()
 	int l16;
 	char x16[78];
 	int l96;
-	register int rsi;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0fah
-#endasm
+	l6 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	if (extract_bits(l6, 8, 4) != 4) goto Lae8b;
 	kill_party(10000, 4);
 	return;
 Lae8b:
 	event_screen_dirty = 1;
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,080h,0b8h,030h,006h,000h,076h,035h,080h
-	db 0b8h,030h,006h,00eh,072h,01bh,08ah,080h,030h,006h,02ah,0e4h,03bh,006h,036h,043h
-	db 074h,005h,050h
-	call load_sound_bank_
-	db 059h
-#endasm
+	if ((unsigned)(g4fa8 + cell_event_index)[1584] <= 0) goto Laed5;
+	if ((unsigned)(g4fa8 + cell_event_index)[1584] < 14) goto Laec2;
+	if ((unsigned char)(g4fa8 + cell_event_index)[1584] == cur_sound) goto Laeb8;
+	load_sound_bank((unsigned char)(g4fa8 + cell_event_index)[1584]);
 Laeb8:
 	play_sound(14);
 	goto Laed5;
 Laec2:
-	;
-#asm
-laec2:
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,030h,006h,02ah,0e4h,050h
-	call play_sound_
-	db 059h
-#endasm
+	play_sound((unsigned char)(g4fa8 + cell_event_index)[1584]);
 Laed5:
-	;
-#asm
-laed5:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,083h,038h,000h,07eh,00ch
-	db 0b8h,000h,000h,050h,0ffh,030h
-	call show_message_text_m_
-	db 083h,0c4h,004h
-#endasm
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto Laef1;
+	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);
 Laef1:
 	defer_window_draw(main_window);
 	defer_window_draw(bottom_line_win);
@@ -83,12 +60,7 @@ Laef1:
 	play_sound(0);
 	wait_animating_m(message_delay);
 Lb000:
-	;
-#asm
-lb000:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0f4h
-#endasm
+	l12 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
 	l2 = 0;
 	goto Lb0d4;
 Lb01a:
@@ -109,15 +81,7 @@ Lb0d1:
 	l2++;
 Lb0d4:
 	if (l2 < party_count) goto Lb01a;
-#asm
-lb0e0:
-	db 0b8h,002h,000h,050h,0b8h,00dh,000h,050h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh
-	db 01eh,0a8h,04fh,0ffh,0b0h,040h,002h
-	call extract_bits_
-	db 083h,0c4h,006h,050h
-	call set_event_flags_
-	db 059h
-#endasm
+	set_event_flags(extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), 13, 2));
 	destroy_window(g522a, 0);
 	resume_window_draw(main_window);
 	resume_window_draw(bottom_line_win);

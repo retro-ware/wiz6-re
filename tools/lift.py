@@ -209,7 +209,8 @@ class Func:
                     return False
                 live = False            # one use per write
             elif reg:
-                if i.mnemonic != 'mov' or reg != [0] or ops[1].type != X.X86_OP_REG or ops[1].size != 2:
+                if i.mnemonic != 'mov' or reg != [0] or ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM) or \
+                        ops[1].size != 2:
                     return False
                 live, writes = True, writes + 1
             elif i.mnemonic in ('push', 'pop', 'xchg') or i.mnemonic.startswith(('rep', 'movs', 'stos', 'lods', 'cmps', 'scas')):
@@ -264,6 +265,8 @@ class Lifter:
             if idx is None or m.disp >= 0:
                 raise Unlift('frame address')
             return ('la', m.disp, size, idx)
+        if len(parts) == 2 and parts[0][:2] == ('v', 'g') and parts[0][3] == 2:
+            self.gptr.add(parts[0][2])      # [bx+si+d] with bx loaded from a global: a pointer
         return ('m', e, m.disp, size)
 
     def val(self, op):
@@ -391,6 +394,7 @@ class Lifter:
         self.raw = False
         self.skip = None
         self.structs = set()    # (function, size): calls returning a struct passed on by value
+        self.gptr = set()       # globals used as a base pointer
         self.st_start = f.body
         prev_end = f.body
         self.find_switches()

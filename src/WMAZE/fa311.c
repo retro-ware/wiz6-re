@@ -1,14 +1,15 @@
 #asm
 	extrn teleport_party_:near
 #endasm
+extern char *g4fa8;
+extern int cell_event_index;
 extern int g503e;
 extern int message_delay;
 do_teleport_event()
 {
-	char x0[2];
-	register int rsi;
+	int l2;
+	l2 = *(int *)(g4fa8 + (cell_event_index << 1));
 #asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,000h,089h,046h,0feh
 	db 0ebh,049h
 #endasm
 	teleport_party();

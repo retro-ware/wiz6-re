@@ -1,6 +1,7 @@
 #asm
 	extrn $ldv:near
 #endasm
+extern char *g4fa8;
 extern char g450c[];
 extern char pc_stats[];
 extern int main_window;
@@ -14,7 +15,7 @@ force_lock(member, event)
 	int l4;
 	int l6;
 	int l8;
-	char x8[2];
+	int l10;
 	char *win;
 	char x12[38];
 	int l52;
@@ -23,7 +24,6 @@ force_lock(member, event)
 	int strength;
 	int l60;
 	int l62;
-	register int rsi;
 	clear_click_flag();
 	win = create_window(20, 19, 20, 5, 20, -1, 0, 0);
 	fill_window(win, 32, 1, 0);
@@ -44,20 +44,11 @@ Lcff1:
 	fceb2(win, l2, 4, 7);
 	l2++;
 	if (l2 < 19) goto Lcff1;
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0f6h
-#endasm
-	rsi = event;
-#asm
-	db 08ah,080h,030h,006h,02ah,0e4h,089h,046h,0fch
-#endasm
+	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
+	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
 	l60 = 0;
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0fch
-#endasm
+	l4 = *(int *)((g4fa8 + (event << 1)) + 576);
 	if (extract_bits(l4, (party_facing << 1), 2) != 2) goto Ld09e;
 	l60 = 1;
 Ld09e:

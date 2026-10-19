@@ -1,3 +1,4 @@
+extern char *g4fa8;
 extern int cell_event_index;
 extern int maze_data;
 extern int party_facing;
@@ -27,9 +28,10 @@ fb53d()
 	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
 	db 046h,0fah,08bh,000h,0b9h,000h,001h,099h,0f7h,0f9h,089h,046h,0e0h,08bh,000h,099h
 	db 0f7h,0f9h,089h,056h,0e2h,08bh,080h,020h,001h,099h,0f7h,0f9h,089h,046h,0deh,08bh
-	db 080h,020h,001h,099h,0f7h,0f9h,089h,056h,0dch,0a1h,09ah,04fh,02bh,046h,0deh,005h
-	db 004h,000h,0b9h,004h,000h,099h,0f7h,0f9h,089h,056h,0e4h,083h,0fah,003h,075h,005h
+	db 080h,020h,001h,099h,0f7h,0f9h,089h,056h,0dch
 #endasm
+	l28 = (((party_facing - l34) + 4) % 4);
+	if (l28 != 3) goto Lb599;
 	l28 = -1;
 Lb599:
 	rsi = cell_event_index;
@@ -154,9 +156,7 @@ Lb97e:
 	wait_animating_m(2);
 Lb986:
 	rsi = cell_event_index;
-#asm
-	db 08bh,01eh,0a8h,04fh,080h,0b8h,0a0h,005h,000h,076h,008h
-#endasm
+	if ((unsigned)(g4fa8 + rsi)[1440] <= 0) goto Lb99d;
 	set_event_flags(2);
 Lb99d:
 	;

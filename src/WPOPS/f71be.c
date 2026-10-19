@@ -1,3 +1,4 @@
+extern char *monster_groups;
 extern char g00cc[];
 extern char g00e2[];
 extern char pc_item_count[];
@@ -140,9 +141,7 @@ L7596:
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,0c6h,040h,01fh,000h
-#endasm
+	(monster_groups + rsi)[31] = 0;
 	l282 = select_party_member(3610);
 	if (l282 != -1) goto L762b;
 	return -1;

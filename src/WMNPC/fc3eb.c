@@ -1,11 +1,11 @@
 fc3eb(p4)
+char *p4;
 {
 	int l2;
 	char l162[160];
 	int l164;
 	int l166;
 	int l168;
-	register int rsi;
 	strcpy(((char *)l162 + 80), p4);
 	l168 = 0;
 	l164 = 0;
@@ -23,12 +23,7 @@ Lc41e:
 	l2 = 0;
 	goto Lc48f;
 Lc475:
-	;
-#asm
-lc475:
-	db 08bh,05eh,0feh,003h,0ddh,08ah,087h,05eh,0ffh,08bh,08eh,058h,0ffh,003h,04eh,0feh
-	db 08bh,0f1h,08bh,05eh,004h,088h,000h
-#endasm
+	*(p4 + (l168 + l2)) = l162[l2];
 	l2++;
 Lc48f:
 	if (strlen(l162) > l2) goto Lc475;
@@ -36,8 +31,5 @@ Lc48f:
 Lc4aa:
 	l164 = l166;
 	if (l164 != -1) goto Lc40c;
-#asm
-lc4ba:
-	db 08bh,05eh,004h,08bh,0b6h,058h,0ffh,0c6h,000h,000h
-#endasm
+	*(p4 + l168) = 0;
 }

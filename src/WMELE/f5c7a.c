@@ -1,6 +1,7 @@
 #asm
 	extrn swapmem_:near
 #endasm
+extern char *monster_groups;
 extern char g458a[];
 extern char g458b[];
 extern char pc_condition[];
@@ -20,16 +21,10 @@ update_party_after_round()
 	char x4[476];
 	int tmp;
 	int any;
-	register int rsi;
 	i = 0;
 	goto L5d43;
 L5c8a:
-	rsi = (44 * i);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,022h,003h,072h,003h
-#endasm
-	goto L5d40;
-L5c9f:
+	if ((unsigned)(monster_groups + (44 * i))[34] >= 3) goto L5d40;
 	if (update_combatant(0, i, (unsigned char)g458a[(432 * i)], (unsigned char)g458b[(432 * i)]) != 1) goto L5d40;
 	draw_member_panel_mele(i);
 	play_sound(((unsigned char)pc_sex[(432 * i)] + 8));
@@ -85,10 +80,7 @@ L5e70:
 	if ((unsigned)pc_condition[(432 * i)] < 2) goto L5e82;
 	j++;
 L5e82:
-	rsi = (44 * i);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,02bh,002h,075h,006h
-#endasm
+	if ((monster_groups + (44 * i))[43] != 2) goto L5e9a;
 	any = 1;
 L5e9a:
 	i++;

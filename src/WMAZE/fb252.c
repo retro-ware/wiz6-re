@@ -1,3 +1,5 @@
+extern char *g4f84;
+extern char *g4fa8;
 extern int cell_event_index;
 extern int g4338;
 extern int g4f8a;
@@ -6,22 +8,13 @@ extern int party_facing;
 npc_event()
 {
 	int l2;
-	register int rsi;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0feh
-#endasm
+	l2 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	if (extract_bits(l2, 2, 1) != 1) goto Lb2a0;
 	g4f8a = extract_bits(l2, 0, 2);
 	if (g4f8a == party_facing) goto Lb2a0;
 	return;
 Lb2a0:
-	;
-#asm
-lb2a0:
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,030h,006h,02ah,0e4h,08bh,01eh
-	db 084h,04fh,089h,007h
-#endasm
+	*(int *)g4f84 = (unsigned char)(g4fa8 + cell_event_index)[1584];
 	g4338 = 1;
 	game_state = 18;
 	cell_event_index++;

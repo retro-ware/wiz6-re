@@ -1,3 +1,4 @@
+extern char *monster_groups;
 extern char g00df[];
 extern char g00e0[];
 extern char g00e2[];
@@ -348,9 +349,7 @@ L6eea:
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,0c6h,040h,01fh,000h
-#endasm
+	(monster_groups + rsi)[31] = 0;
 	l70 = select_party_member(3609);
 	if (l70 != -1) goto L6f3c;
 	return -1;

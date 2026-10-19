@@ -12,7 +12,6 @@ char *p4;
 	char *l86;
 	int l88;
 	int l90;
-	register int rsi;
 	l2 = 1;
 Lc7e5:
 	if (!l2) goto Lc890;
@@ -67,9 +66,7 @@ Lc8f7:
 	g5264[6]++;
 Lc904:
 	if (l2 < 0) goto Lc936;
-#asm
-	db 08bh,05eh,0aah,08bh,076h,0feh,0c6h,000h,000h
-#endasm
+	*(l86 + l2) = 0;
 	print_string(g5264, l86, p6);
 	g5264[6]++;
 	l86 += l2;

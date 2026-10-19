@@ -1,3 +1,4 @@
+extern char *monster_groups;
 extern char g44db[];
 extern char g44dc[];
 extern char g44e2[];
@@ -49,9 +50,7 @@ L7036:
 	g44e2[((432 * g435c) + (p4 << 4))] = *(char *)&l4;
 L705c:
 	rsi = (44 * g435c);
-#asm
-	db 08bh,01eh,0a8h,043h,0c6h,040h,01eh,00ah
-#endasm
+	(monster_groups + rsi)[30] = 10;
 	l2 = 0;
 L7072:
 	;

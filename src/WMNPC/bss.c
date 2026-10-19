@@ -96,7 +96,8 @@
 	global g58d2_:byte,2
 	global g58d4_:byte,2
 	global g58d6_:byte,2
-	global g58d8_:byte,3
+	global g58d8_:byte,2
+	global g58da_:byte,1
 	global g58db_:byte,1997
 	global g60a8_:byte,622
 	global g6316_:byte,1900

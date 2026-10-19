@@ -1,3 +1,4 @@
+extern char *g4fa8;
 extern int g4fb0;
 extern int lock_tumblers[];
 extern int main_window;
@@ -13,16 +14,9 @@ locked_door_menu(event)
 	int choice;
 	int l30;
 	int l32;
-	char x32[2];
-	register int rsi;
-#asm
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0deh
-#endasm
-	rsi = event;
-#asm
-	db 08ah,080h,030h,006h,02ah,0e4h,089h,046h,0e2h
-#endasm
+	int l34;
+	l34 = *(int *)((g4fa8 + (event << 1)) + 288);
+	l30 = (unsigned char)(g4fa8 + event)[1584];
 	l32 = extract_bits(l30, 0, 5);
 	l2 = 0;
 Ld8e7:

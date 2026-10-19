@@ -1,15 +1,14 @@
-#asm
-	extrn clear_combat_groups_:near
-	extrn generate_monster_group_:near
-#endasm
+extern char *g43b8;
 extern int combat_gold;
+extern int g4338;
+extern int g433a;
 extern int g4354;
 extern int g43c8;
+extern int treasure_id;
 /* Set up a new encounter: clear groups, generate monsters, roll surprise, fill party group. */
 start_encounter()
 {
 	char x0[4];
-	register int rsi;
 	g43c8 = 0;
 	combat_gold = 0;
 #asm
@@ -19,15 +18,9 @@ start_encounter()
 L62f3:
 	g4354 = 1;
 L62f9:
-	;
-#asm
-l62f9:
-	call clear_combat_groups_
-	db 0b8h,001h,000h,050h,0ffh,036h,03ah,043h
-	call generate_monster_group_
-	db 083h,0c4h,004h,08bh,01eh,0b8h,043h,08bh,036h,038h,043h,08ah,080h,0a2h,000h,02ah
-	db 0e4h,0a3h,0c4h,043h
-#endasm
+	clear_combat_groups();
+	generate_monster_group(g433a, 1);
+	treasure_id = (unsigned char)(g43b8 + g4338)[162];
 	check_group_surprise();
 	fill_party_group();
 }

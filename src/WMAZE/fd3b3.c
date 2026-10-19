@@ -1,7 +1,7 @@
 #asm
 	extrn fce81_:near
-	extrn resume_window_draw_:near
 #endasm
+extern char *g4fa8;
 extern char g452b[];
 extern int lock_tumblers[];
 extern int main_window;
@@ -17,7 +17,7 @@ pick_lock(member, event)
 	int l4;
 	int l6;
 	int l8;
-	char x8[2];
+	int l10;
 	int win;
 	char l52[40];
 	int result;
@@ -26,7 +26,6 @@ pick_lock(member, event)
 	int l70;
 	int l72;
 	int l74;
-	register int rsi;
 	clear_click_flag();
 	win = create_window(20, 19, 20, 5, 20, -1, 0, 0);
 	fill_window(win, 32, 1, 0);
@@ -63,16 +62,9 @@ Ld592:
 	put_char_hi(win, 32, 3);
 	l2++;
 	if (l2 < 5) goto Ld592;
-#asm
-	db 0ffh,076h,0f4h
-	call resume_window_draw_
-	db 059h,08bh,046h,006h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h
-	db 089h,046h,0f6h
-#endasm
-	rsi = event;
-#asm
-	db 08ah,080h,030h,006h,02ah,0e4h,089h,046h,0fch
-#endasm
+	resume_window_draw(win);
+	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
+	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
 	l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)]);
 	if (l6 <= 95) goto Ld61c;
@@ -83,10 +75,7 @@ Ld61c:
 	tumblers = 6;
 Ld633:
 	l70 = 0;
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0fch
-#endasm
+	l4 = *(int *)((g4fa8 + (event << 1)) + 576);
 	if (extract_bits(l4, (party_facing << 1), 2) != 2) goto Ld67e;
 	lock_tumblers[((party_x + party_y) % tumblers)] = 100;
 	l70 = 1;

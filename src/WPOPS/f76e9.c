@@ -2,6 +2,7 @@
 	extrn pick_target_monster_:near
 	extrn random_:near
 #endasm
+extern char *monster_groups;
 extern char g44e5[];
 extern char g44f5[];
 extern char g44f9[];
@@ -9,6 +10,7 @@ extern char g450c[];
 extern char g450d[];
 extern char g451a[];
 extern char g4592[];
+extern char g504c[];
 extern char pc_condition[];
 extern char pc_equipped[];
 extern char pc_item_count[];
@@ -61,11 +63,9 @@ choose_party_actions(win)
 	member = 0;
 	goto L7864;
 L76f9:
-	;
+	l180 = (monster_groups + (44 * member));
 #asm
-l76f9:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0c8h,0a1h,0a8h,043h,003h,0c1h,089h,086h,04ch
-	db 0ffh,0b8h,00ah,000h,050h
+	db 0b8h,00ah,000h,050h
 	call random_
 	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,093h,045h,02ah,0e4h
 	db 08bh,0c8h,058h,003h,0c1h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh
@@ -128,9 +128,7 @@ L788d:
 	if (g450c[(member * 432)]) goto L818d;
 	done_members[done_count] = member;
 	done_count++;
-#asm
-	db 0b9h,02ch,000h,0f7h,0e9h,08bh,0c8h,0a1h,0a8h,043h,003h,0c1h,089h,086h,04ch,0ffh
-#endasm
+	l180 = (monster_groups + (member * 44));
 	l2 = 0;
 L78e8:
 	enabled[l2] = 1;
@@ -140,11 +138,11 @@ L78e8:
 	l24 = 0;
 L7915:
 	rsi = (44 * member);
+	if ((monster_groups + rsi)[43]) goto L794e;
 #asm
-	db 08bh,01eh,0a8h,043h,080h,078h,02bh,000h,075h,027h,0b8h,0b0h,001h,0f7h,06eh,0fah
-	db 08bh,0d8h,08ah,087h,087h,045h,03ch,003h,074h,01ch,03ch,00dh,074h,018h,03ch,004h
-	db 074h,014h,03ch,006h,074h,010h,03ch,00ch,074h,00ch,080h,0bfh,02ch,045h,000h,075h
-	db 005h
+	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,087h,045h,03ch,003h,074h,01ch
+	db 03ch,00dh,074h,018h,03ch,004h,074h,014h,03ch,006h,074h,010h,03ch,00ch,074h,00ch
+	db 080h,0bfh,02ch,045h,000h,075h,005h
 #endasm
 L794e:
 	l28 = 0;
@@ -202,8 +200,9 @@ L7a84:
 #asm
 l7a84:
 	db 08bh,046h,0fah,03dh,003h,000h,07ch,01dh,0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,080h
-	db 0bfh,0e5h,044h,000h,075h,00fh,08bh,01eh,0a8h,043h,080h,078h,02bh,001h,074h,005h
+	db 0bfh,0e5h,044h,000h,075h,00fh
 #endasm
+	if ((monster_groups + rsi)[43] == 1) goto L7aa9;
 	enabled[0] = 0;
 L7aa9:
 	l18 = -1;
@@ -228,10 +227,9 @@ L7b42:
 	action = combat_menu_select(win, 3000, enabled, 1, 1, 6, (l72 > 9 ? 4 : 3), 5, 0);
 	choice = -1;
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,0c6h,040h,01fh,0ffh,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h
-	db 08bh,01eh,0a8h,043h,0c6h,040h,020h,000h
-#endasm
+	(monster_groups + rsi)[31] = 255;
+	rsi = (44 * member);
+	(monster_groups + rsi)[32] = 0;
 	l168 = 0;
 	l170 = 0;
 #asm
@@ -375,11 +373,8 @@ l7f1c:
 #endasm
 L7f3c:
 	rsi = (44 * l164);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,01fh,000h,076h,01fh,08ah,040h,01fh,02ah,0e4h,08bh
-	db 0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h,050h,08ah,040h,020h,02ah,0e4h,08bh,0c8h,058h
-	db 003h,0c1h,08bh,0d8h,0c6h,087h,04ch,050h,001h
-#endasm
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L7f6e;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
 L7f6e:
 	l164++;
 L7f72:
@@ -404,12 +399,20 @@ L7fe6:
 #asm
 l7ffa:
 	db 08bh,086h,05eh,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,058h,089h,040h,00ah,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,0c7h,040h,00ch,0ffh,0ffh,08ah,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,01eh,0a8h,043h,058h,088h,040h,01eh,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,01eh,0a8h,043h,08ah,040h,01fh,02ah,0e4h,089h,086h,05ch,0ffh,03dh
-	db 001h,000h,07ch,026h,03dh,005h,000h,07fh,021h,08ah,086h,05ch,0ffh,02ah,0e4h,050h
-	db 0ffh,076h,0fah
+	db 043h,058h,089h,040h,00ah
+#endasm
+	rsi = (44 * member);
+	*(int *)((monster_groups + rsi) + 12) = -1;
+#asm
+	db 08ah,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
+	db 058h,088h,040h,01eh
+#endasm
+	rsi = (44 * member);
+	l164 = (unsigned char)(monster_groups + rsi)[31];
+	if (l164 < 1) goto L8074;
+	if (l164 > 5) goto L8074;
+#asm
+	db 08ah,086h,05ch,0ffh,02ah,0e4h,050h,0ffh,076h,0fah
 	call pick_target_monster_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
 	db 058h,088h,040h,020h
@@ -437,17 +440,10 @@ l80d4:
 #endasm
 L80f8:
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,0c7h,040h,00ch,004h,000h
-#endasm
+	*(int *)((monster_groups + rsi) + 12) = 4;
 	goto L818d;
 L810c:
-	;
-#asm
-l810c:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,080h,0bfh,02ch,044h,002h,073h,066h
-#endasm
+	if ((unsigned)pc_item_type[((432 * member) + (l182 << 3))] >= 2) goto L818d;
 	if (g44f5[(432 * member)] == 1) goto L8143;
 	if (member >= 3) goto L818d;
 	if (l164 >= 3) goto L818d;
@@ -496,9 +492,7 @@ L820f:
 	setmem(20556, 45, 0);
 	member = 0;
 	done_count = 0;
-#asm
-	db 0e9h,075h,000h
-#endasm
+	goto L82da;
 L8265:
 	if (l2 != 1) goto L82da;
 	setmem(20556, 45, 0);
@@ -506,11 +500,8 @@ L8265:
 	goto L82bb;
 L8285:
 	rsi = (44 * l164);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,01fh,000h,076h,01fh,08ah,040h,01fh,02ah,0e4h,08bh
-	db 0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h,050h,08ah,040h,020h,02ah,0e4h,08bh,0c8h,058h
-	db 003h,0c1h,08bh,0d8h,0c6h,087h,04ch,050h,001h
-#endasm
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L82b7;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
 L82b7:
 	l164++;
 L82bb:
@@ -524,33 +515,23 @@ L82dd:
 	goto L839a;
 L82e5:
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,00fh,000h,076h,033h
-#endasm
+	if ((unsigned)(monster_groups + rsi)[15] <= 0) goto L832a;
 	if (random(100) <= ((unsigned char)g451a[(432 * member)] + 80)) goto L832a;
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,0c6h,040h,01eh,007h
-#endasm
+	(monster_groups + rsi)[30] = 7;
 L832a:
 	rsi = (44 * member);
-#asm
-	db 08bh,01eh,0a8h,043h,080h,078h,01eh,001h,074h,006h,080h,078h,01eh,005h,075h,004h
-#endasm
+	if ((monster_groups + rsi)[30] == 1) goto L8342;
+	if ((monster_groups + rsi)[30] != 5) goto L8346;
 L8342:
-	;
-#asm
-l8342:
-	db 0c6h,040h,018h,001h
-#endasm
+	(monster_groups + rsi)[24] = 1;
 L8346:
-	;
-#asm
-l8346:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,01eh,000h
-	db 075h,01ch,083h,078h,00ch,0ffh,075h,014h,0c6h,040h,019h,000h,0b8h,02ch,000h,0f7h
-	db 06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h,040h,01bh,000h
-#endasm
+	rsi = (44 * member);
+	if ((monster_groups + rsi)[30]) goto L8374;
+	if (*(int *)((monster_groups + rsi) + 12) != -1) goto L8372;
+	(monster_groups + rsi)[25] = 0;
+	rsi = (44 * member);
+	(monster_groups + rsi)[27] = 0;
 L8372:
 	goto L8397;
 L8374:

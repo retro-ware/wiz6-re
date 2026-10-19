@@ -165,6 +165,7 @@ class Printer:
         self.img = lifter.img
         self.names = names
         self.T = Types([s for s in lifter.sts if s.kind != 'raw'], self.img, lifter.f.locals)
+        self.T.ptr |= {('g', a) for a in getattr(lifter, 'gptr', ())}
         self.ext_vars = {}
         self.asm_ext = set()
         self.garr0 = {}

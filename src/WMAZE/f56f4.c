@@ -46,12 +46,16 @@ L57b5:
 	g4eca = 0;
 L5806:
 	if (l2 != 1) goto L590e;
-#asm
-l580f:
-	db 0a1h,03ch,036h,0e9h,0ech,000h
-#endasm
+	switch (game_state_arg) {
+case 0:
+case 2:
+case 3:
+case 4:
+case 6:
+case 11:
 	kill_party(10000, 4);
 	return 1;
+case 1:
 	if (party_level != 10) goto L58af;
 	redraw_maze_view();
 	play_sound(8);
@@ -84,9 +88,11 @@ L58af:
 	return 1;
 L58c3:
 	goto L590e;
-#asm
-	db 0ebh,047h
-#endasm
+case 5:
+	goto L590e;
+case 8:
+case 10:
+case 12:
 	if (game_state_arg != 12) goto L58d5;
 	if (party_level >= 9) goto L58e5;
 L58d5:
@@ -95,12 +101,7 @@ L58d5:
 	return 0;
 L58e5:
 	goto L590e;
-#asm
-	db 015h,058h,029h,058h,015h,058h,015h,058h,015h,058h,0c5h,058h,015h,058h,00eh,059h
-	db 0c7h,058h,00eh,059h,0c7h,058h,015h,058h,0c7h,058h
-l5901:
-	db 03dh,00dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0e7h,058h
-#endasm
+	}
 L590e:
 	if (l4 != 1) goto L5932;
 	switch (game_state_arg) {

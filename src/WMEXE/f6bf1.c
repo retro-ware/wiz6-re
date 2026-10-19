@@ -9,7 +9,6 @@ print_wrapped(p4, p6)
 	char x2[80];
 	int l84;
 	char *l86;
-	register int rsi;
 	strcpy(&l84, p4);
 	l86 = &l84;
 L6c0b:
@@ -34,9 +33,7 @@ L6c5f:
 	party_picture_win[6]++;
 L6c6c:
 	if (l2 < 0) goto L6c9e;
-#asm
-	db 08bh,05eh,0aah,08bh,076h,0feh,0c6h,000h,000h
-#endasm
+	*(l86 + l2) = 0;
 	print_string(party_picture_win, l86, p6);
 	party_picture_win[6]++;
 	l86 += l2;

@@ -1,10 +1,8 @@
 #asm
 	extrn print_string_:near
 #endasm
+extern char *g43b4;
 extern char *g4fae;
-extern char g019d[];
-extern char g019e[];
-extern int g43b4;
 draw_ally_group()
 {
 	char x0[2];
@@ -15,21 +13,21 @@ draw_ally_group()
 	set_cursor(g4fae, 4, 0);
 	print_message(3516, g4fae, 18);
 	clear_window_area(g4fae, 0, 1, 21, 1);
-	g019e[g43b4] = 0;
+	g43b4[414] = 0;
 	l4 = 0;
 	goto L4827;
 L4802:
 	rsi = (44 * l4);
-#asm
-	db 08bh,01eh,0b4h,043h,080h,078h,022h,002h,073h,010h,080h,078h,011h,000h,075h,00ah
-	db 080h,078h,010h,000h,075h,004h,0feh,087h,09eh,001h
-#endasm
+	if ((unsigned)(g43b4 + rsi)[34] >= 2) goto L4824;
+	if ((g43b4 + rsi)[17]) goto L4824;
+	if ((g43b4 + rsi)[16]) goto L4824;
+	g43b4[414]++;
 L4824:
 	l4++;
 L4827:
-	if ((unsigned char)g019d[g43b4] > l4) goto L4802;
+	if ((unsigned char)g43b4[413] > l4) goto L4802;
 	set_cursor(g4fae, 1, 1);
-	put_char(g4fae, (unsigned char)(((unsigned char)g019d[g43b4] + 48)), 4);
+	put_char(g4fae, (unsigned char)(((unsigned char)g43b4[413] + 48)), 4);
 	g4fae[6]++;
 #asm
 	db 0b8h,00ch,000h,050h,08bh,01eh,0b4h,043h,080h,0bfh,09dh,001h,001h,075h,005h,0b8h
@@ -51,6 +49,6 @@ l4881:
 	db 083h,0c4h,006h
 #endasm
 	set_cursor(g4fae, 20, 1);
-	put_char(g4fae, (unsigned char)(((unsigned char)g019e[g43b4] + 48)), 9);
+	put_char(g4fae, (unsigned char)(((unsigned char)g43b4[414] + 48)), 9);
 	resume_window_draw(g4fae);
 }

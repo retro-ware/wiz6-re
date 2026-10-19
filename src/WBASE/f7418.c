@@ -7,7 +7,6 @@ char *buf;
 	int len;
 	int x;
 	int y;
-	register int rsi;
 	x = (unsigned char)win[6];
 	y = (unsigned char)win[7];
 	len = 0;
@@ -22,9 +21,7 @@ L744e:
 	if (key != 8) goto L74e8;
 	if (len <= 0) goto L74de;
 	len--;
-#asm
-	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
-#endasm
+	*(buf + len) = 0;
 	x--;
 	set_cursor(win, x, y);
 	put_char(win, 32, 1);
@@ -49,15 +46,9 @@ L750d:
 	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
 #endasm
 L7520:
-	;
-#asm
-l7520:
-	db 08ah,046h,0feh,08bh,05eh,006h,08bh,076h,0fch,088h,000h
-#endasm
+	*(buf + len) = *(char *)&key;
 	len++;
-#asm
-	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
-#endasm
+	*(buf + len) = 0;
 	put_char(win, (unsigned char)*(char *)&key, color);
 	x++;
 L754c:
