@@ -211,9 +211,11 @@ class Func:
 
 # ---------------------------------------------------------------- symbolic execution
 class Lifter:
-    def __init__(self, img, s, e, names, demote=()):
+    def __init__(self, img, s, e, names, demote=(), noscratch=False):
         self.img, self.names = img, names
         self.f = Func(img, s, e)
+        if noscratch:           # this function's si/di are register variables after all
+            self.f.scratch = set()
         self.demote = set(demote)
         self.sts = []
 

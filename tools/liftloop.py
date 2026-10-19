@@ -58,7 +58,7 @@ class Loop:
             st['status'], st['why'] = 'asm', 'handwritten'
             return None
         for _ in range(50):
-            L = Lifter(self.img, s, e, self.names, st['demote'])
+            L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False))
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -172,6 +172,10 @@ class Loop:
             if x.kind != 'raw' and not getattr(x, 'epi', False) and any(x.s <= b < x.e for b in bad):
                 dem.add(x.s)
         dem -= set(st['demote'])
+        if not dem and L.f.scratch and not st.get('noscratch'):
+            # prologue/epilogue differ: si/di were register variables, not cgen's index temps
+            st['noscratch'], st['demote'] = True, []
+            return True
         if not dem:
             # mismatch in the prologue/epilogue/declarations
             st['status'], st['why'] = 'asm', 'mismatch outside statements %s' % sorted('%04x' % b for b in bad)[:4]

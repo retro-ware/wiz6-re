@@ -1,33 +1,28 @@
+extern int cell_event_index;
+extern int g5034;
+extern int game_state_arg;
+extern int party_facing;
+try_flag_event_at(event)
+{
+	int l2;
+	int l4;
+	int l6;
+	register int rsi;
 #asm
-	public try_flag_event_at_
-	extrn extract_bits_:near
-	extrn set_bit_:near
-	extrn set_event_flags_:near
-try_flag_event_at_:
-	db 055h,08bh,0ech,083h,0c4h,0fah,056h,08bh,046h,004h,0d1h,0e0h,08bh,0f0h,08bh,01eh
-	db 0a8h,04fh,08bh,080h,040h,002h,089h,046h,0feh,0b8h,001h,000h,050h,0b8h,00eh,000h
-	db 050h,0ffh,076h,0feh
-	call extract_bits_
-	db 083h,0c4h,006h,03dh,001h,000h,075h,01fh,0b8h,002h,000h,050h,0b8h,00ch,000h,050h
-	db 0ffh,076h,0feh
-	call extract_bits_
-	db 083h,0c4h,006h,03bh,006h,09ah,04fh,074h,008h,0b8h,000h,000h
-lcc59:
-	db 05eh,08bh,0e5h,05dh,0c3h
-lcc5e:
-	db 0b8h,008h,000h,050h,0b8h,000h,000h,050h,0ffh,076h,0feh
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0fch,0b8h,001h,000h,050h,0b8h,00ah,000h,050h,0ffh,076h
-	db 0feh
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0fah,050h,0ffh,076h,0fch,0a1h,03ch,036h,08bh,0d0h,0d1h
-	db 0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
-	call set_bit_
-	db 083h,0c4h,006h,08bh,046h,004h,0a3h,0e8h,04eh,0b8h,002h,000h,050h,0b8h,008h,000h
-	db 050h,0ffh,076h,0feh
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0fch,050h
-	call set_event_flags_
-	db 059h,08bh,046h,004h,040h,0a3h,0e8h,04eh,0c7h,006h,034h,050h,001h,000h,0b8h,001h
-	db 000h,0ebh,087h
+	db 08bh,046h,004h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
+	db 046h,0feh
 #endasm
+	if (extract_bits(l2, 14, 1) != 1) goto Lcc5e;
+	if (extract_bits(l2, 12, 2) == party_facing) goto Lcc5e;
+	return 0;
+Lcc5e:
+	l4 = extract_bits(l2, 0, 8);
+	l6 = extract_bits(l2, 10, 1);
+	set_bit(((game_state_arg * 10) + 20204), l4, l6);
+	cell_event_index = event;
+	l4 = extract_bits(l2, 8, 2);
+	set_event_flags(l4);
+	cell_event_index = (event + 1);
+	g5034 = 1;
+	return 1;
+}
