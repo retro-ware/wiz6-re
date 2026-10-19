@@ -3,6 +3,7 @@ extern int menu_clicked;
 extern int mouse_present;
 maze_menu_select(p4, p6, p8, p10, p12, p14, p16, p18, p20)
 char *p4;
+char *p8;
 {
 	int l2;
 	int l4;
@@ -16,7 +17,6 @@ char *p4;
 	int l660;
 	int l662;
 	int l664;
-	register int rsi;
 	if (p20 != 1) goto L5b4c;
 	l658 = (unsigned char)main_window[6];
 	l660 = (unsigned char)main_window[7];
@@ -31,20 +31,8 @@ L5b4c:
 	l4 = 0;
 	l2 = 0;
 L5b56:
-	;
-#asm
-l5b56:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L5c8d;
-L5b68:
-	;
-#asm
-l5b68:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L5c87;
-L5b70:
+	if (*(int *)(p8 + (l2 << 1)) == -1) goto L5c8d;
+	if (*(int *)(p8 + (l2 << 1)) != 1) goto L5c87;
 	l662 = (((l4 / p16) * p14) + p10);
 	l664 = ((l4 % p16) + p12);
 	set_cursor(p4, l662, l664);

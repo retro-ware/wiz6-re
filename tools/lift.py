@@ -180,11 +180,18 @@ class Func:
         `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call."""
         X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
         lo, hi = self.body, self.epi if self.epi is not None else self.e
-        labels = set()
+        labels, srcs = set(), {}
         for i in self.seen.values():
             if (i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH) and i.operands and \
                     i.operands[0].type == X.X86_OP_IMM:
                 labels.add(i.operands[0].imm & 0xffff)
+                srcs.setdefault(i.operands[0].imm & 0xffff, []).append(i.address)
+        # cgen's long branch 'jcc L; jmp far; L:' is one condition: L and that jmp end nothing
+        hops = set()
+        for i in self.seen.values():
+            if i.mnemonic == 'jmp' and i.address + i.size in labels and \
+                    len(srcs[i.address + i.size]) == 1 and srcs[i.address + i.size][0] + 2 == i.address:
+                hops |= {i.address, i.address + i.size}
         live, writes = False, 0
         disp = False            # inside a value-scan switch dispatch (push di .. jmp cx)
         for a in self.addrs:
@@ -196,7 +203,7 @@ class Func:
             if disp:
                 disp = not (i.mnemonic == 'jmp' and i.op_str == 'cx')
                 continue
-            if a in labels or i.mnemonic in ('call', 'ret', 'jmp'):     # a jcc's fall-through keeps it
+            if a not in hops and (a in labels or i.mnemonic in ('call', 'ret', 'jmp')):  # a jcc's fall-through keeps it
                 live = False
             ops = list(i.operands)
             idx = any(o.type == X.X86_OP_MEM and X86 in (o.mem.base, o.mem.index) for o in ops)
@@ -343,11 +350,15 @@ class Lifter:
             self.side = None
             return p
         c, t0 = kw.get('cond'), self.f.seen.get(self.st_start)
+        t1 = t0
+        if t0 is not None and t0.mnemonic == 'mov' and t0.op_str in ('ax, si', 'ax, di'):
+            t1 = self.f.seen.get(t0.address + t0.size)     # register variable: mov ax, reg; cmp ax, K
         if kind == 'if' and p is not None and p.kind == 'asg' and p.e == self.st_start and c is not None and \
-                c[0] not in ('&&', '||') and c[1] == p.lv and p.lv[0] in ('v', 'm') and p.lv[1] != 'r' and \
-                size_of(p.lv) == 2 and t0 is not None and t0.mnemonic in ('test', 'cmp') and \
-                t0.op_str.startswith('ax, ') and t0.operands[1].type != X.X86_OP_MEM and \
-                t0.address + t0.size == a.address:
+                c[0] not in ('&&', '||') and c[1] == p.lv and p.lv[0] in ('v', 'm') and \
+                (p.lv[1] != 'r') == (t1 is t0) and \
+                size_of(p.lv) == 2 and t1 is not None and t1.mnemonic in ('test', 'cmp') and \
+                t1.op_str.startswith('ax, ') and t1.operands[1].type != X.X86_OP_MEM and \
+                t1.address + t1.size == a.address:
             # 'mov lv, ax; test/cmp ax' is an assignment inside the condition: if ((lv = x) == 0)
             self.sts.pop()
             kw['cond'] = (c[0], ('=', p.lv, p.rv), c[2])

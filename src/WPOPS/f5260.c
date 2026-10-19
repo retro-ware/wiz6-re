@@ -2,30 +2,18 @@ extern int menu_clicked;
 extern int mouse_present;
 combat_menu_select(win, first_msg, enabled, x0, y0, col_width, rows, color, sel)
 char *win;
+char *enabled;
 {
 	int item;
 	int n;
 	char labels[330];
 	int x;
 	int y;
-	register int rsi;
 	n = 0;
 	item = 0;
 L5272:
-	;
-#asm
-l5272:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L53a5;
-L5284:
-	;
-#asm
-l5284:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L539f;
-L528c:
+	if (*(int *)(enabled + (item << 1)) == -1) goto L53a5;
+	if (*(int *)(enabled + (item << 1)) != 1) goto L539f;
 	x = (((n / rows) * col_width) + x0);
 	y = ((n % rows) + y0);
 	set_cursor(win, x, y);

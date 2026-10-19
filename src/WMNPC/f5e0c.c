@@ -3,6 +3,7 @@ extern int menu_clicked;
 extern int mouse_present;
 f5e0c(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
 char *p4;
+char *p8;
 {
 	int l2;
 	int l4;
@@ -16,7 +17,6 @@ char *p4;
 	int l285;
 	int l287;
 	char x287[1];
-	register int rsi;
 	if (p20 != 1) goto L5e80;
 	l281 = (unsigned char)main_window[6];
 	l283 = (unsigned char)main_window[7];
@@ -31,20 +31,8 @@ L5e80:
 	l4 = 0;
 	l2 = 0;
 L5e8a:
-	;
-#asm
-l5e8a:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L5fb3;
-L5e9c:
-	;
-#asm
-l5e9c:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L5fad;
-L5ea4:
+	if (*(int *)(p8 + (l2 << 1)) == -1) goto L5fb3;
+	if (*(int *)(p8 + (l2 << 1)) != 1) goto L5fad;
 	l285 = (((l4 / p16) * p14) + p10);
 	l287 = ((l4 % p16) + p12);
 	set_cursor(p4, l285, l287);

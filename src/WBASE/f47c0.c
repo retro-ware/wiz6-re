@@ -5,31 +5,19 @@ extern int picture_win;
 /* Draw a grid menu of messages from msgbase where enabled, let the player pick, return the item. */
 run_menu(win, msgbase, enabled, x0, y0, row_step, cols, color, sel)
 char *win;
+char *enabled;
 {
 	int item;
 	int count;
 	char texts[330];
 	int x;
 	int y;
-	register int rsi;
 	defer_window_draw(win);
 	count = 0;
 	item = 0;
 L47d9:
-	;
-#asm
-l47d9:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L48d5;
-L47eb:
-	;
-#asm
-l47eb:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L48cf;
-L47f3:
+	if (*(int *)(enabled + (item << 1)) == -1) goto L48d5;
+	if (*(int *)(enabled + (item << 1)) != 1) goto L48cf;
 	x = (((count / cols) * row_step) + x0);
 	y = ((count % cols) + y0);
 	set_cursor(win, x, y);

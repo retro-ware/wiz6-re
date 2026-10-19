@@ -14,7 +14,6 @@ f8bdb(p4, p6, p8, p10)
 	int l4;
 	int l6;
 	int l8;
-	register int rsi;
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);
 	if (l6 <= l4) goto L8c10;
@@ -79,9 +78,8 @@ l8e32:
 L8e3f:
 	goto L8ee6;
 L8e42:
-	rsi = (44 * l2);
-	if ((unsigned)((char *)monster_groups[p4] + rsi)[34] >= 3) goto L8ee6;
-	if (((char *)monster_groups[p4] + rsi)[43]) goto L8ee6;
+	if ((unsigned)((char *)monster_groups[p4] + (44 * l2))[34] >= 3) goto L8ee6;
+	if (((char *)monster_groups[p4] + (44 * l2))[43]) goto L8ee6;
 	clear_window_area(party_picture_win, 0, 2, 39, 4);
 	set_cursor(party_picture_win, 1, 2);
 	combat_delay(1);

@@ -7,20 +7,10 @@ char *p8;
 {
 	register int rsi;
 	register int rdi;
-	rdi = f7ade(*(int *)p8, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,05ah
-#endasm
-	rdi = f7ade(g4fa6, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,041h
-#endasm
+	if (((rdi = f7ade(*(int *)p8, p10, p12)) != -1) || ((rdi = f7ade(g4fa6, p10, p12)) != -1)) goto L7b94;
 	rsi = ((*(int *)p8 + 1) % 12);
 L7b61:
-	rdi = f7ade(rsi, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,01dh
-#endasm
+	if ((rdi = f7ade(rsi, p10, p12)) != -1) goto L7b94;
 	rsi = ((rsi + 1) % 12);
 	if (rsi != *(int *)p8) goto L7b92;
 	return 1;

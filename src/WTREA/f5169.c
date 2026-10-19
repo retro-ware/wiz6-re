@@ -3,6 +3,7 @@ extern int menu_clicked;
 extern int mouse_present;
 chest_menu_select(win, first_msg, enabled, x0, y0, col_width, rows, color, with_cancel)
 char *win;
+char *enabled;
 {
 	int key;
 	int n;
@@ -17,7 +18,6 @@ char *win;
 	int l287;
 	int l289;
 	char x289[1];
-	register int rsi;
 	if (with_cancel != 1) goto L51dd;
 	l283 = (unsigned char)main_window[6];
 	l285 = (unsigned char)main_window[7];
@@ -32,20 +32,8 @@ L51dd:
 	n = 0;
 	key = 0;
 L51e7:
-	;
-#asm
-l51e7:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L530e;
-L51f9:
-	;
-#asm
-l51f9:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L5308;
-L5201:
+	if (*(int *)(enabled + (key << 1)) == -1) goto L530e;
+	if (*(int *)(enabled + (key << 1)) != 1) goto L5308;
 	l287 = (((n / rows) * col_width) + x0);
 	l289 = ((n % rows) + y0);
 	set_cursor(win, l287, l289);

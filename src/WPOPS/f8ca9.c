@@ -7,20 +7,10 @@ char *pos;
 {
 	register int rsi;
 	register int rdi;
-	rdi = find_sprite_slot(*(int *)pos, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,05ah
-#endasm
-	rdi = find_sprite_slot(g4fa6, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,041h
-#endasm
+	if (((rdi = find_sprite_slot(*(int *)pos, p10, p12)) != -1) || ((rdi = find_sprite_slot(g4fa6, p10, p12)) != -1)) goto L8d22;
 	rsi = ((*(int *)pos + 1) % 12);
 L8cef:
-	rdi = find_sprite_slot(rsi, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,01dh
-#endasm
+	if ((rdi = find_sprite_slot(rsi, p10, p12)) != -1) goto L8d22;
 	rsi = ((rsi + 1) % 12);
 	if (rsi != *(int *)pos) goto L8d20;
 	return 1;

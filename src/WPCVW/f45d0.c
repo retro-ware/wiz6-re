@@ -3,6 +3,7 @@ extern int mouse_present;
 /* Vertical/grid menu of message strings, entries enabled per flag array; returns the chosen entry. */
 run_menu(p4, first_msg, enabled, p10, p12, p14, p16, p18, sel)
 char *p4;
+char *enabled;
 {
 	int item;
 	int l4;
@@ -10,24 +11,11 @@ char *p4;
 	int l411;
 	int l413;
 	char x413[1];
-	register int rsi;
 	l4 = 0;
 	item = 0;
 L45e2:
-	;
-#asm
-l45e2:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L4715;
-L45f4:
-	;
-#asm
-l45f4:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L470f;
-L45fc:
+	if (*(int *)(enabled + (item << 1)) == -1) goto L4715;
+	if (*(int *)(enabled + (item << 1)) != 1) goto L470f;
 	l411 = (((l4 / p16) * p14) + p10);
 	l413 = ((l4 % p16) + p12);
 	set_cursor(p4, l411, l413);

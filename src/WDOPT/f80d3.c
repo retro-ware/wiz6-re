@@ -8,20 +8,10 @@ char *p8;
 {
 	register int rsi;
 	register int rdi;
-	rdi = f8096(*(int *)p8, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,05ah
-#endasm
-	rdi = f8096(g4fa6, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,041h
-#endasm
+	if (((rdi = f8096(*(int *)p8, p10, p12)) != -1) || ((rdi = f8096(g4fa6, p10, p12)) != -1)) goto L814c;
 	rsi = ((*(int *)p8 + 1) % 12);
 L8119:
-	rdi = f8096(rsi, p10, p12);
-#asm
-	db 08bh,0c7h,03dh,0ffh,0ffh,075h,01dh
-#endasm
+	if ((rdi = f8096(rsi, p10, p12)) != -1) goto L814c;
 	rsi = ((rsi + 1) % 12);
 	if (rsi != *(int *)p8) goto L814a;
 	return 1;

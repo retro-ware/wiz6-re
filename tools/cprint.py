@@ -121,6 +121,9 @@ class Types:
         for (k, o), s in self.sizes.items():
             if k == 'l' and s == {1} and 2 in self.sizes.get(('l', o - 1), ()) and o - 1 not in self.larr:
                 self.hi_of[o] = o - 1
+        # bytes read at an odd param offset: that word param is a struct of two chars
+        self.pbytes = {o - 1 for (k, o), s in self.sizes.items() if k == 'p' and o % 2 and s == {1} and
+                       self.sizes.get(('p', o - 1), {1}) == {1} and ('p', o - 1) not in self.ptr}
         # a word read at the high half of a long
         self.hi16 = {}
         for (k, o), s in self.sizes.items():
@@ -210,6 +213,10 @@ class Printer:
 
     def var(self, v):
         n = self.name(v)
+        if v[1] == 'p' and v[3] == 1 and v[2] in self.T.pbytes:
+            return '%s.b0' % n
+        if v[1] == 'p' and v[3] == 1 and v[2] - 1 in self.T.pbytes:
+            return '%s.b1' % self.ln('p%d' % (v[2] - 1))
         if v[1] == 'l' and v[2] in self.T.elem_of:
             return '%s[%d]' % (self.ln('l%d' % -self.T.elem_of[v[2]][0]), self.T.elem_of[v[2]][1])
         if v[1] in ('l', 'p') and vkey(v) in self.T.hi16:
@@ -502,7 +509,7 @@ class Printer:
             off += 4 if self.declared_size(('v', 'p', off, 2)) == 4 else 2
         decl = []
         for off in params:
-            t = T.ctype(('p', off))
+            t = 'struct { char b0, b1; } ' if off in T.pbytes else T.ctype(('p', off))
             if t != 'int ':
                 decl.append('%s%s;' % (t, self.ln('p%d' % off)))
         # locals: the first declared lies closest to bp

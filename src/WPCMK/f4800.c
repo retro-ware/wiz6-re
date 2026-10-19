@@ -3,6 +3,7 @@ extern int mouse_present;
 /* Menu of consecutive messages with enabled flags laid out in columns; returns the chosen item index. */
 menu_select(win, first_msg, enabled, x0, y0, col_width, rows, color, sel)
 char *win;
+char *enabled;
 {
 	int item;
 	int n;
@@ -10,24 +11,11 @@ char *win;
 	int x;
 	int y;
 	char x413[1];
-	register int rsi;
 	n = 0;
 	item = 0;
 L4812:
-	;
-#asm
-l4812:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h
-#endasm
-	goto L4945;
-L4824:
-	;
-#asm
-l4824:
-	db 083h,038h,001h,074h,003h
-#endasm
-	goto L493f;
-L482c:
+	if (*(int *)(enabled + (item << 1)) == -1) goto L4945;
+	if (*(int *)(enabled + (item << 1)) != 1) goto L493f;
 	x = (((n / rows) * col_width) + x0);
 	y = ((n % rows) + y0);
 	set_cursor(win, x, y);
