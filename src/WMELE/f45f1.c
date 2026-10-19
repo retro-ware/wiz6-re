@@ -1,8 +1,6 @@
-#asm
-	extrn load_sound_slot_:near
-#endasm
 extern int cur_sound;
 extern int g33ec;
+extern int g33f2;
 extern long cur_sound_size;
 /* Load sound n from SOUNDnn.SND. */
 load_sound_mele(n)
@@ -31,14 +29,7 @@ L464b:
 	if ((fd = open(make_data_path(&fname, 1), 0)) != -1) goto L4699;
 	exit_game(15);
 L4699:
-	;
-#asm
-l4699:
-	db 0b8h,00eh,000h,050h,0ffh,036h,0f2h,033h,0ffh,036h,0f0h,033h,0b8h,000h,000h,0bah
-	db 000h,000h,052h,050h,0ffh,076h,0deh
-	call load_sound_slot_
-	db 083h,0c4h,00ch,085h,0c0h,074h,008h
-#endasm
+	if (!load_sound_slot(fd, 0L, *(int *)&cur_sound_size, g33f2, 14)) goto L46c2;
 	exit_game(16);
 L46c2:
 	close(fd);

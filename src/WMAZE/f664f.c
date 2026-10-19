@@ -1,6 +1,5 @@
 #asm
 	extrn copy_far_:near
-	extrn lseek_:near
 	extrn write_:near
 #endasm
 extern char g3592;
@@ -121,13 +120,7 @@ L67b3:
 L6819:
 	return -1;
 L6822:
-	;
-#asm
-l6822:
-	db 0b8h,000h,000h,050h,0b8h,000h,000h,0bah,000h,000h,052h,050h,0ffh,076h,0fah
-	call lseek_
-	db 083h,0c4h,008h
-#endasm
+	lseek(l6, 0L, 0);
 	show_maze_text(&l3838);
 #asm
 	db 0ffh,036h,004h,033h,0a1h,03ch,036h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,0d4h

@@ -1,8 +1,6 @@
-#asm
-	extrn load_sound_slot_:near
-#endasm
 extern int cur_sound;
 extern int g33ec;
+extern int g33f2;
 extern long cur_sound_size;
 f4def(p4)
 {
@@ -30,14 +28,7 @@ L4e49:
 	if ((l34 = open(make_data_path(&l20, 1), 0)) != -1) goto L4e97;
 	exit_game(15);
 L4e97:
-	;
-#asm
-l4e97:
-	db 0b8h,00eh,000h,050h,0ffh,036h,0f2h,033h,0ffh,036h,0f0h,033h,0b8h,000h,000h,0bah
-	db 000h,000h,052h,050h,0ffh,076h,0deh
-	call load_sound_slot_
-	db 083h,0c4h,00ch,085h,0c0h,074h,008h
-#endasm
+	if (!load_sound_slot(l34, 0L, *(int *)&cur_sound_size, g33f2, 14)) goto L4ec0;
 	exit_game(16);
 L4ec0:
 	close(l34);

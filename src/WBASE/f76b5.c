@@ -1,7 +1,6 @@
 #asm
 	extrn draw_setting_value_:near
 	extrn input_text_:near
-	extrn lseek_:near
 	extrn play_sound_:near
 #endasm
 extern char *main_window;
@@ -234,13 +233,7 @@ L7d9b:
 	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) != -1) goto L7df0;
 	exit_game(19);
 L7df0:
-	;
-#asm
-l7df0:
-	db 0b8h,000h,000h,050h,0b8h,000h,000h,0bah,000h,000h,052h,050h,0ffh,036h,0eah,04fh
-	call lseek_
-	db 083h,0c4h,008h
-#endasm
+	lseek(scenario_hdr_fd, 0L, 0);
 	if ((written = write(scenario_hdr_fd, 13304, 414)) != -1) goto L7e2e;
 	show_error_text(&l110, 0);
 L7e2e:

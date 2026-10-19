@@ -1,6 +1,3 @@
-#asm
-	extrn drv_op_ae_:near
-#endasm
 extern int fullscreen_win;
 extern int game_state;
 extern int video_flags;
@@ -24,14 +21,7 @@ show_title_sequence()
 	if ((fd = open(make_data_path(20794, 1), 0)) != -1) goto L4f91;
 	exit_game(9);
 L4f91:
-	;
-#asm
-l4f91:
-	db 0b8h,000h,000h,050h,0b8h,0aah,051h,0bah,000h,000h,052h,050h,0b8h,000h,000h,0bah
-	db 000h,000h,052h,050h,0ffh,076h,0fch
-	call drv_op_ae_
-	db 083h,0c4h,00ch
-#endasm
+	drv_op_ae(fd, 0L, 20906L, 0);
 	close(fd);
 	if (!(video_flags & 1)) goto L4fcd;
 	load_fullscreen_pic(20806, 0);

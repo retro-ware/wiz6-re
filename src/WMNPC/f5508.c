@@ -1,9 +1,8 @@
-#asm
-	extrn drv_op_ae_:near
-#endasm
 extern char g3812[];
 extern char pic_slot_loaded[];
 extern char pic_slot_monster[];
+extern int g36e2[];
+extern int g36e4[];
 extern int pic_fd;
 f5508(p4, p6)
 {
@@ -21,14 +20,7 @@ f5508(p4, p6)
 	if ((pic_fd = open(make_data_path(&l22, 1), 0)) != -1) goto L557a;
 	exit_game(21);
 L557a:
-	;
-#asm
-l557a:
-	db 0ffh,076h,006h,0b8h,03ah,001h,0f7h,06eh,006h,08bh,0d8h,0ffh,0b7h,0e4h,036h,0ffh
-	db 0b7h,0e2h,036h,0b8h,000h,000h,0bah,000h,000h,052h,050h,0ffh,036h,0e8h,04fh
-	call drv_op_ae_
-	db 083h,0c4h,00ch
-#endasm
+	drv_op_ae(pic_fd, 0L, *(int *)((char *)g36e2 + (314 * p6)), *(int *)((char *)g36e4 + (314 * p6)), p6);
 	close(pic_fd);
 	l2 = 0;
 	goto L55c5;

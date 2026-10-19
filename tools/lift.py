@@ -554,10 +554,16 @@ class Lifter:
             if v == ('c', 0) and p is not None and p.mnemonic == 'sub' and p.op_str == 'dx, dx' and \
                     ops[0].type == X.X86_OP_REG and ops[0].reg == X.X86_REG_DX:
                 v = ('cz',)       # cgen's zero extension: the high word of (long)(unsigned)x
+            p3, p6 = self.f.seen.get(i.address - 3), self.f.seen.get(i.address - 6)
+            if v[0] == 'c' and ops[0].type == X.X86_OP_REG and ops[0].reg == X.X86_REG_DX and \
+                    p3 is not None and p3.mnemonic == 'mov' and p3.op_str.startswith('dx, ') and \
+                    p6 is not None and p6.mnemonic == 'mov' and p6.op_str.startswith('ax, ') and \
+                    p6.operands[1].type == X.X86_OP_IMM:
+                v = ('ch', v[1])  # mov ax,K; mov dx,K2; push dx; push ax: a long constant
             self.stack.append(v)
         elif m == 'pop' and ops[0].type == X.X86_OP_REG and self.stack:
-            if self.stack[-1] == ('cz',):
-                self.stack[-1] = ('c', 0)
+            if self.stack[-1] == ('cz',) or self.stack[-1][0] == 'ch':
+                self.stack[-1] = ('c', 0 if self.stack[-1] == ('cz',) else self.stack[-1][1])
             self.setreg(ops[0], self.stack.pop())
         elif m in ('cwd', 'cdq'):     # capstone names 99 'cdq'
             self.R['dx'] = ('sx', self.reg('ax'))
@@ -868,11 +874,13 @@ class Lifter:
             E = pair(args[k], args[k + 1])
             if args[k + 1] == ('cz',) and args[k][0] != 'c' and size_of(args[k]) == 2:
                 args[k:k + 2] = [('U', args[k])]
+            elif args[k + 1][0] == 'ch' and args[k][0] == 'c':
+                args[k:k + 2] = [('cl', args[k][1] | args[k + 1][1] << 16)]
             elif E is not None and (args[k][0] == 'L0' or E[0] == 'L'):
                 args[k:k + 2] = [E]
             k += 1
         del self.stack[len(self.stack) - n:]
-        args = [('c', 0) if x == ('cz',) else x for x in args if x != ('pad',)]
+        args = [('c', 0) if x == ('cz',) else ('c', x[1]) if x[0] == 'ch' else x for x in args if x != ('pad',)]
         # pushes still pending: this call is an argument of a later one (f(a, g(x)))
         self.R = {}
         self.R['ax'] = ('call', fn[:-1] if fn.endswith('_') else fn, args, i.address)

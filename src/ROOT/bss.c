@@ -25,10 +25,12 @@
 	global record_packed_:byte,10
 	global main_window_:byte,2
 	global g3344_:byte,4
-	global sound_table_:byte,6
+	global sound_table_:byte,2
+	global g334a_:byte,4
 	global g334e_:byte,158
 	global g33ec_:byte,4
-	global cur_sound_size_:byte,416
+	global cur_sound_size_:byte,2
+	global g33f2_:byte,414
 	global sound_mode_:byte,1
 	global cfg_delay_:byte,1
 	global g3592_:byte,1
@@ -47,7 +49,8 @@
 	global anim_phase_:byte,2
 	global g3648_:byte,1
 	global g3649_:byte,1
-	global g364a_:byte,154
+	global g364a_:byte,152
+	global g36e2_:byte,2
 	global g36e4_:byte,51
 	global g3717_:byte,27
 	global g3732_:byte,10
