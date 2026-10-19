@@ -1,8 +1,8 @@
 #asm
 	extrn copy_far_:near
-	extrn write_:near
 #endasm
 extern char g3592;
+extern char party[];
 extern int bottom_line_win;
 extern int disk_header;
 extern int g3304;
@@ -30,6 +30,7 @@ extern int party_y;
 extern long g4f78;
 extern long g4f7c;
 extern long g4f80;
+struct s432 { int w[216]; };
 save_game()
 {
 	int l2;
@@ -75,8 +76,6 @@ save_game()
 	char x3798[38];
 	int l3838;
 	int l3840;
-	register int rsi;
-	register int rdi;
 	l3716 = 0;
 	l3718 = disk_header;
 	l3718 = ((g3592 == 5) && (l3718 > 0) ? (l3718 + 2) : l3718);
@@ -208,14 +207,8 @@ L6b26:
 	l2 = 0;
 	goto L6b99;
 L6b2d:
-	rsi = ((432 * l2) + 17384);
-	rdi = &l504;
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,0d8h,000h,0f3h,0a5h,0b8h,0b0h,001h,050h,08dh,086h,008h
-	db 0feh,050h,0ffh,076h,0fah
-	call write_
-	db 083h,0c4h,006h,089h,086h,0f8h,0f1h,03dh,000h,000h,07fh,034h
-#endasm
+	*(struct s432 *)(char *)(&l504) = *(struct s432 *)((char *)party + (432 * l2));
+	if ((l3592 = write(l6, &l504, 432)) > 0) goto L6b96;
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L6b90;

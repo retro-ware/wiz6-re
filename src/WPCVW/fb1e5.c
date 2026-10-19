@@ -4,6 +4,7 @@
 extern char g00cc[];
 extern char g44fa[];
 extern char g4548[];
+extern char g4549[];
 extern char g454a[];
 extern char pc_equipped[];
 extern char pc_item_count[];
@@ -13,6 +14,7 @@ extern char pc_item_type[];
 extern int g57fc;
 extern int item_row_color[];
 extern int pc_item_id[];
+struct s14 { int w[7]; };
 /* Draw armor class, equipped slots and the inventory list of member p6. */
 draw_inventory_panel(p4, p6)
 char *p4;
@@ -28,14 +30,8 @@ char *p4;
 	char x164[12];
 	int l178;
 	int l180;
-	register int rsi;
-	register int rdi;
-	rsi = get_load_category(p6);
-	rdi = &l178;
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh
-	db 0d8h,08ah,087h,049h,045h,098h,003h,086h,04eh,0ffh,089h,086h,04ch,0ffh
-#endasm
+	*(struct s14 *)(char *)(&l178) = *(struct s14 *)(char *)(get_load_category(p6));
+	l180 = (g4549[(432 * p6)] + l178);
 	set_cursor(p4, 21, 5);
 	print_msg2(217, p4, 15);
 	p4[6]++;

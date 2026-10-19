@@ -219,8 +219,9 @@ class Func:
             elif reg:
                 if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic == 'mov' and reg == [1]):
                     continue        # the temp scaled in place (shl si, cl), or copied out (mov cx, si)
-                if i.mnemonic != 'mov' or reg != [0] or ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM) or \
-                        ops[1].size != 2:
+                lea = i.mnemonic == 'lea' and reg == [0]        # a struct copy's source/dest address
+                if not lea and (i.mnemonic != 'mov' or reg != [0] or ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM) or
+                                ops[1].size != 2):
                     return False
                 live, writes = True, writes + 1
             elif i.mnemonic in ('push', 'pop', 'xchg') or i.mnemonic.startswith(('rep', 'movs', 'stos', 'lods', 'cmps', 'scas')):
