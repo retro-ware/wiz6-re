@@ -3,7 +3,6 @@
 	extrn inflict_status_:near
 	extrn random_:near
 	extrn show_trap_effect_:near
-	extrn wait_animating_:near
 #endasm
 extern char g4517[];
 extern char g451b[];
@@ -46,19 +45,20 @@ L5fad:
 	i++;
 L5fc2:
 	if (i < party_count) goto L5fad;
-#asm
-	db 0e9h,0e0h,006h
-#endasm
+	goto L66ae;
 	show_trap_effect(0, 16);
 	i = 0;
-	goto L6004;
+#asm
+	db 0ebh,021h
+#endasm
 L5fe3:
 	inflict_status(i, 5253, 10, 3, 10, 10, 50);
 	i++;
 L6004:
 	if (i < party_count) goto L5fe3;
+	goto L66ae;
 #asm
-	db 0e9h,09eh,006h,0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
+	db 0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
 	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,08dh,006h
 #endasm
@@ -72,7 +72,9 @@ L6004:
 #endasm
 	show_trap_effect(0, 2);
 	i = 0;
-	goto L6167;
+#asm
+	db 0e9h,0ech,000h
+#endasm
 L607b:
 	if (random(100) <= (unsigned char)g453c[(432 * i)]) goto L6164;
 #asm
@@ -108,13 +110,12 @@ L6164:
 	i++;
 L6167:
 	if (i < party_count) goto L607b;
-#asm
-l6173:
-	db 0e9h,038h,005h
-#endasm
+	goto L66ae;
 	show_trap_effect(0, 16);
 	i = 0;
-	goto L62b0;
+#asm
+	db 0e9h,024h,001h
+#endasm
 L618c:
 	inflict_status(i, 5265, 11, 9, 10, 10, 50);
 	if (((random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) || ((unsigned)pc_stats[(432 * i)] <= 3)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L622d;
@@ -137,15 +138,17 @@ L62ad:
 	i++;
 L62b0:
 	if (i < party_count) goto L618c;
+	goto L66ae;
 #asm
-l62bc:
-	db 0e9h,0efh,003h,0b8h,010h,000h,050h,0b8h,000h,000h,050h
+	db 0b8h,010h,000h,050h,0b8h,000h,000h,050h
 	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0deh,003h
 #endasm
 	show_trap_effect(0, 2);
 	i = 0;
-	goto L639a;
+#asm
+	db 0e9h,0b4h,000h
+#endasm
 L62e6:
 	if ((random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L6397;
 	*(int *)((char *)pc_hp_max + (432 * i)) -= (random(4) + 1);
@@ -164,22 +167,25 @@ L6397:
 	i++;
 L639a:
 	if (i < party_count) goto L62e6;
+	goto L66ae;
 #asm
-l63a6:
-	db 0e9h,005h,003h,0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
+	db 0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
 	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0f4h,002h
 #endasm
 	show_trap_effect(0, 16);
 	i = 0;
-	goto L63e7;
+#asm
+	db 0ebh,018h
+#endasm
 L63cf:
 	inflict_condition(i, 5263, 11, 2);
 	i++;
 L63e7:
 	if (i < party_count) goto L63cf;
+	goto L66ae;
 #asm
-	db 0e9h,0bbh,002h,0b8h,004h,000h,050h,0b8h,000h,000h,050h
+	db 0b8h,004h,000h,050h,0b8h,000h,000h,050h
 	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0aah,002h
 #endasm
@@ -213,46 +219,45 @@ L657e:
 	clear_window(party_picture_win, 1);
 	print_centered(party_picture_win, &l80, g50c8, 5);
 	play_sound(0);
-#asm
-	db 0ffh,036h,0cah,04fh
-	call wait_animating_
-	db 059h,0e9h,0ebh,000h
-#endasm
+	wait_animating(message_delay);
+	goto L66ae;
 	show_trap_effect(0, 3);
 	i = 0;
-	goto L660b;
+#asm
+	db 0ebh,033h
+#endasm
 L65d8:
 	trap_damage_member(i, (game_state_arg + 1), 8);
 	inflict_status(i, 5275, 5, 8, 10, 10, 50);
 	i++;
 L660b:
 	if (i < party_count) goto L65d8;
-#asm
-	db 0e9h,097h,000h
-#endasm
+	goto L66ae;
 	show_trap_effect(0, 0);
 	i = 0;
-	goto L663e;
+#asm
+	db 0ebh,015h
+#endasm
 L6629:
 	trap_damage_member(i, (game_state_arg + 1), 10);
 	i++;
 L663e:
 	if (i < party_count) goto L6629;
-#asm
-	db 0ebh,065h
-#endasm
+	goto L66ae;
 	show_trap_effect(0, 4);
 	i = 0;
-	goto L6676;
+#asm
+	db 0ebh,018h
+#endasm
 L665e:
 	inflict_condition(i, 5260, 11, 3);
 	i++;
 L6676:
 	if (i < party_count) goto L665e;
+	goto L66ae;
 #asm
-	db 0ebh,02dh,0aeh,066h,098h,05fh,0ceh,05fh,010h,060h,021h,060h,065h,060h,076h,061h
-	db 0bfh,062h,0d0h,062h,0a9h,063h,0bah,063h,0f3h,063h,004h,064h,0c3h,065h,017h,066h
-	db 049h,066h
+	db 0aeh,066h,098h,05fh,0ceh,05fh,010h,060h,021h,060h,065h,060h,076h,061h,0bfh,062h
+	db 0d0h,062h,0a9h,063h,0bah,063h,0f3h,063h,004h,064h,0c3h,065h,017h,066h,049h,066h
 l66a1:
 	db 03dh,010h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,081h,066h
 #endasm

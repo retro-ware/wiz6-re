@@ -1,67 +1,52 @@
-#asm
-	extrn f5690_:near
-	extrn f5a1e_:near
-	extrn f5af3_:near
-#endasm
 extern int g0002;
 extern int g5262;
 extern int g5264;
 extern int g5268;
 extern int loot_count;
+extern int message_delay;
 extern int view_pos_group;
 f5b21(p4)
 char *p4;
 {
 	int l2;
 	int l4;
+L5b27:
 	l4 = char_index(20484, (unsigned char)*p4);
 	if (l4 < 0) goto L5be0;
-#asm
-l5b44:
-	db 0e9h,089h,000h
-#endasm
+	switch (l4) {
+case 0:
 	p4++;
 	loot_count++;
-#asm
-	db 0e9h,08ch,000h
-#endasm
+	goto L5bdd;
+case 1:
 	p4++;
-#asm
-	db 0ffh,036h,0cah,04fh
-	call f5a1e_
-	db 059h,0e9h,07eh,000h
-#endasm
+	f5a1e(message_delay);
+	goto L5bdd;
+case 2:
 	p4++;
 	f5508((unsigned char)*p4, 4);
 	view_pos_group = 4;
 	f4572(4, 0);
 	f5690();
 	p4++;
-#asm
-	db 0ebh,04dh
-#endasm
+	goto L5bdd;
+case 3:
 	p4++;
 	view_pos_group = 0;
-#asm
-	call f5690_
-	db 0ebh,03fh
-#endasm
+	f5690();
+	goto L5bdd;
+case 4:
 	p4++;
 	clear_window(g5264, 1);
 	loot_count = 0;
-#asm
-	db 0ebh,026h
-#endasm
+	goto L5bdd;
+case 5:
 	p4++;
-#asm
-	db 0b8h,000h,000h,050h
-	call f5af3_
-	db 059h,0ebh,019h,047h,05bh,051h,05bh,05fh,05bh,090h,05bh,09eh,05bh,0b7h,05bh
-l5bd0:
-	db 03dh,006h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0c4h,05bh
-l5bdd:
-	db 0e9h,047h,0ffh
-#endasm
+	f5af3(0);
+	goto L5bdd;
+	}
+L5bdd:
+	goto L5b27;
 L5be0:
 	if (loot_count <= g5262) goto L5bf1;
 	f5af3(0);

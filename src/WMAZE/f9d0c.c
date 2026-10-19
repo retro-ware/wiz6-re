@@ -1,54 +1,42 @@
-#asm
-	extrn end_text_page_m_:near
-	extrn wait_animating_m_:near
-#endasm
 extern int cur_sound;
 extern int g0002;
 extern int g522a;
 extern int g522c;
 extern int g522e;
+extern int message_delay;
 print_text_line_m(p4)
 char *p4;
 {
 	int l2;
 	int l4;
+L9d12:
 	l4 = char_index(20488, (unsigned char)*p4);
 	if (l4 < 0) goto L9dd2;
-#asm
-l9d2f:
-	db 0e9h,090h,000h
-#endasm
+	switch (l4) {
+case 0:
 	p4++;
 	g522c++;
-#asm
-	db 0e9h,093h,000h
-#endasm
+	goto L9dcf;
+case 1:
 	p4++;
-#asm
-	db 0ffh,036h,0cah,04fh
-	call wait_animating_m_
-	db 059h,0e9h,085h,000h,0ffh,046h,004h
-#endasm
+	wait_animating_m(message_delay);
+	goto L9dcf;
+case 2:
+	*(int *)&p4 += 2;
+	goto L9dcf;
+case 3:
 	p4++;
-#asm
-	db 0e9h,07ch,000h
-#endasm
-	p4++;
-#asm
-	db 0e9h,076h,000h
-#endasm
+	goto L9dcf;
+case 4:
 	p4++;
 	clear_window(g522a, 1);
 	g522c = 0;
-#asm
-	db 0ebh,05dh
-#endasm
+	goto L9dcf;
+case 5:
 	p4++;
-#asm
-	db 0b8h,000h,000h,050h
-	call end_text_page_m_
-	db 059h,0ebh,050h
-#endasm
+	end_text_page_m(0);
+	goto L9dcf;
+case 6:
 	p4++;
 	if ((unsigned)*p4 < 14) goto L9da3;
 	if ((unsigned char)*p4 == cur_sound) goto L9d99;
@@ -60,13 +48,10 @@ L9da3:
 	play_sound((unsigned char)*p4);
 L9daf:
 	p4++;
-#asm
-	db 0ebh,01bh,032h,09dh,03ch,09dh,04ah,09dh,053h,09dh,059h,09dh,072h,09dh,07fh,09dh
-l9dc2:
-	db 03dh,007h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0b4h,09dh
-l9dcf:
-	db 0e9h,040h,0ffh
-#endasm
+	goto L9dcf;
+	}
+L9dcf:
+	goto L9d12;
 L9dd2:
 	if (g522c <= 4) goto L9de1;
 	end_text_page_m(0);

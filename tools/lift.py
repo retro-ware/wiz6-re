@@ -1217,10 +1217,11 @@ class Lifter:
         self.out.setdefault(t, []).append(dict(self.R))
 
     def fresh_switch(self, sw):
-        """sw is not emitted yet and all its cases lie ahead of the current jmp."""
+        """sw is not emitted yet and all its cases lie ahead of the current jmp (the default may be
+        a loop's top: a switch with no default ending in a jump back)."""
         if any(x.kind == 'switch' and x.sw is sw for x in self.sts):
             return False
-        tg = [t for v, t in sw['cases']] + ([sw['default']] if sw['default'] is not None else [])
+        tg = [t for v, t in sw['cases']]
         return all(t > self.cur.address for t in tg)
 
     def jump(self, t):
@@ -1290,14 +1291,15 @@ class Lifter:
                 return None
             # a default case is a stub 'jmp DEFAULT' right after the dispatch, back into the bodies
             default = None
-            stub = get(end)
-            if stub is not None and stub.mnemonic == 'jmp' and stub.operands[0].type == X.X86_OP_IMM and \
-                    (stub.operands[0].imm & 0xffff) < tbl:
-                default = stub.operands[0].imm & 0xffff
-                end += stub.size
             img = self.img
             tg = [img.code[tbl - img.cbase + 2 * k] | img.code[tbl - img.cbase + 2 * k + 1] << 8
                   for k in range(n)]
+            stub = get(end)
+            if stub is not None and stub.mnemonic == 'jmp' and stub.operands[0].type == X.X86_OP_IMM and \
+                    min(tg) <= (stub.operands[0].imm & 0xffff) < tbl:
+                # (a jmp before every case body is the statement after the switch, e.g. a loop's goto)
+                default = stub.operands[0].imm & 0xffff
+                end += stub.size
             skip = (end, default, jt.address + jt.size)
             cases = [((k + k0) & 0xffff, t) for k, t in enumerate(tg) if t not in skip]
             start = tbl if tbl + 2 * n == d else d

@@ -1,7 +1,3 @@
-#asm
-	extrn do_game_configuration_:near
-	extrn start_game_:near
-#endasm
 extern char roster_slot_used[];
 extern int anim_phase;
 extern int bottom_line_win;
@@ -45,6 +41,7 @@ L70fc:
 	init_camp_scene();
 	sel = (party_count < 6 ? 0 : 3);
 	game_state = -1;
+L7125:
 	if (game_state >= 0) goto L7341;
 	show_message_line(1001);
 	erase_window(bottom_line_win, 0);
@@ -83,42 +80,33 @@ L71ff:
 	choice = run_menu(win, 1002, enabled, 2, 1, 19, 4, 5, sel);
 	destroy_window(win, 0);
 	sel = (party_count < 6 ? 0 : 3);
-#asm
-	db 08bh,046h,0f8h,0e9h,0d6h,000h
-#endasm
+	switch (choice) {
+case 0:
 	add_party_member();
 	if (party_count != 6) goto L726a;
 	sel = 3;
 L726a:
-	;
-#asm
-l726a:
-	db 0e9h,0d1h,000h
-#endasm
+	goto L733e;
+case 1:
 	if ((cur_member = choose_party_member(1202)) == -1) goto L7289;
 	game_state = 17;
 	return_cmd = 4;
 L7289:
 	sel = 1;
-#asm
-	db 0e9h,0adh,000h
-#endasm
+	goto L733e;
+case 2:
 	if ((cur_member = choose_party_member(1203)) == -1) goto L72a6;
 	remove_party_member(cur_member);
 L72a6:
 	if (party_count <= 0) goto L72b2;
 	sel = 2;
 L72b2:
-	;
-#asm
-l72b2:
-	db 0e9h,089h,000h
-#endasm
+	goto L733e;
+case 5:
 	remove_all_members();
 	game_state = 16;
-#asm
-	db 0e9h,07dh,000h
-#endasm
+	goto L733e;
+case 3:
 	i = 0;
 	goto L72db;
 L72c8:
@@ -126,35 +114,28 @@ L72c8:
 	i++;
 L72db:
 	if (i < party_count) goto L72c8;
-#asm
-	db 0b8h,000h,000h,050h
-	call start_game_
-	db 059h,0ebh,050h,0b8h,001h,000h,050h
-	call start_game_
-	db 059h,0ebh,046h
-#endasm
+	start_game(0);
+	goto L733e;
+case 4:
+	start_game(1);
+	goto L733e;
+case 6:
 	return_cmd = 4;
-#asm
-	call do_game_configuration_
-	db 0ebh,03bh
-#endasm
+	do_game_configuration();
+	goto L733e;
+case 7:
 	remove_all_members();
 	close_game_windows();
 	game_state = 1;
-#asm
-	db 0ebh,02dh
-#endasm
+	goto L733e;
+case 8:
 	remove_all_members();
 	close_game_windows();
 	game_state = 3;
-#asm
-	db 0ebh,01fh,05bh,072h,06dh,072h,091h,072h,0c1h,072h,0eeh,072h,0b5h,072h,0f8h,072h
-	db 003h,073h,011h,073h
-l7331:
-	db 03dh,009h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,01fh,073h
-l733e:
-	db 0e9h,0e4h,0fdh
-#endasm
+	goto L733e;
+	}
+L733e:
+	goto L7125;
 L7341:
 	;
 }

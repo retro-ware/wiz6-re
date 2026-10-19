@@ -84,24 +84,21 @@ L9325:
 	l2++;
 	if (l2 <= 4) goto L9325;
 	l22 = -1;
+L9343:
 	print_chest_prompt(5200, 2);
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
 	l8 = chest_menu_select(win, 5201, ((char *)tried + 12), 2, 1, 10, 3, 5, 0);
-#asm
-	db 0e9h,056h,002h
-#endasm
+	switch (l8) {
+case 2:
 	if (((member = choose_party_member(5225, 0)) == -1) || (!is_member_able(member))) goto L93dd;
 	g501e = 1;
 	close_chest_windows(win, trap_win);
 	spring_trap(chest_trap, member);
 	return 0;
 L93dd:
-	;
-#asm
-l93dd:
-	db 0e9h,01bh,002h
-#endasm
+	goto L95fb;
+case 0:
 	if ((member = choose_party_member(5223, 0)) == -1) goto L9431;
 	if (tried[member]) goto L9429;
 	if (!is_member_able(member)) goto L9427;
@@ -112,11 +109,8 @@ L9427:
 L9429:
 	play_sound(0);
 L9431:
-	;
-#asm
-l9431:
-	db 0e9h,0c7h,001h
-#endasm
+	goto L95fb;
+case 1:
 	member = choose_party_member(5220, 0);
 	if ((member == -1) || (!is_member_able(member))) goto L954e;
 	l2 = disarm_chest(member, chest);
@@ -146,11 +140,8 @@ L9508:
 	resume_window_draw(main_window);
 	resume_window_draw(bottom_line_win);
 L954e:
-	;
-#asm
-l954e:
-	db 0e9h,0aah,000h
-#endasm
+	goto L95fb;
+case 3:
 	if (((member = choose_party_member(5224, 0)) == -1) || (!is_member_able(member))) goto L95d0;
 	spell_disarm_result = 0;
 	cast_spell_on_chest(win, trap_win, member);
@@ -165,18 +156,14 @@ L95a4:
 	spring_trap(chest_trap, member);
 	return 0;
 L95d0:
-	;
-#asm
-l95d0:
-	db 0ebh,029h
-#endasm
+	goto L95fb;
+case 4:
 	close_chest_windows(win, trap_win);
 	return -1;
+	}
+L95fb:
+	goto L9343;
 #asm
-	db 0e0h,093h,034h,094h,098h,093h,051h,095h,0d2h,095h
-l95ee:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0e4h,095h
-l95fb:
-	db 0e9h,045h,0fdh,0e9h,0d8h,0fdh
+	db 0e9h,0d8h,0fdh
 #endasm
 }

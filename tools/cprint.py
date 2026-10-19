@@ -460,7 +460,10 @@ class Printer:
             elif kd == 'asg':
                 out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(st.rv)))
             elif kd == 'cas':
-                out.append('\t%s %s= %s;' % (self.ex(st.lv), st.op, self.ex(st.rv)))
+                lv = self.ex(st.lv)
+                if getattr(st, 'incs', False) and st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr:
+                    lv = '*(int *)&' + lv       # inc; inc: cgen adds to a pointer with add, an int with incs
+                out.append('\t%s %s= %s;' % (lv, st.op, self.ex(st.rv)))
             elif kd == 'inc':
                 lv = self.ex(st.lv)
                 out.append('\t%s%s;' % ('(%s)' % lv if lv.startswith('*') else lv, '++' if st.op == '+' else '--'))
