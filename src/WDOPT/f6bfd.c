@@ -119,8 +119,7 @@ L6ef6:
 L6f13:
 	goto L6fb8;
 case 2:
-	if (realm == -1) goto L6f40;
-	if ((realm % 3) <= 0) goto L6f40;
+	if ((realm == -1) || ((realm % 3) <= 0)) goto L6f40;
 	draw_realm_icon(win, realm);
 	realm--;
 	redraw = 1;
@@ -138,8 +137,7 @@ L6f6a:
 L6f6f:
 	goto L6fb8;
 case 4:
-	if (realm == -1) goto L6f9c;
-	if (((realm % 3) + 1) >= 3) goto L6f9c;
+	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L6f9c;
 	draw_realm_icon(win, realm);
 	realm++;
 	redraw = 1;

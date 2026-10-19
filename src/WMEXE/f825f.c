@@ -22,9 +22,7 @@ L828b:
 L82a5:
 	l12 = p20;
 L82ab:
-	if (l10 != p18) goto L82bb;
-	if (l12 == p20) goto L82c3;
-L82bb:
+	if ((l10 == p18) && (l12 == p20)) goto L82c3;
 	show_combat_msg(3213);
 L82c3:
 	if (p6 < 0) goto L8336;

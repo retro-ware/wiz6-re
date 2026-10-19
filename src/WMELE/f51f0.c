@@ -59,8 +59,7 @@ L5328:
 L5353:
 	l8 = 0;
 L5358:
-	if ((unsigned)(c + l8)[14] <= 0) goto L5371;
-	if ((unsigned char)(c + l8)[14] == 255) goto L5371;
+	if (((unsigned)(c + l8)[14] <= 0) || ((unsigned char)(c + l8)[14] == 255)) goto L5371;
 	(c + l8)[14]--;
 L5371:
 	l8++;

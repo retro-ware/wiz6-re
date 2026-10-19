@@ -4,6 +4,7 @@
 	extrn print_combat_line_:near
 	extrn random_:near
 #endasm
+extern char *g43b8;
 extern char g018e[];
 extern char g44f6[];
 extern char g44f9[];
@@ -14,6 +15,7 @@ extern char g50ac;
 extern char pc_class[];
 extern char pc_equipped[];
 extern char pc_item_icon[];
+extern char pc_item_qty[];
 extern char pc_item_type[];
 extern int g4352;
 extern int g435c;
@@ -95,9 +97,7 @@ char *p4;
 	if (p8 != 8) goto L4cdf;
 	l76 = (unsigned char)g44f9[(432 * g435c)];
 L4cdf:
-	if (!p4[43]) goto L4d0a;
-	if (p8 == 4) goto L4d0a;
-	if (p8 == 8) goto L4d0a;
+	if (((!p4[43]) || (p8 == 4)) || (p8 == 8)) goto L4d0a;
 	get_message((random(2) + 3385), 20652);
 L4d0a:
 	if (l76 == 255) goto L4e22;
@@ -106,8 +106,7 @@ L4d0a:
 	if (p8 == 4) goto L4d5b;
 	if (p8 != 8) goto L4e22;
 L4d5b:
-	if (p8 != 4) goto L4d7c;
-	if (!l46) goto L4d7c;
+	if ((p8 != 4) || (!l46)) goto L4d7c;
 	l150 = l46;
 	get_message(3384, 20652);
 L4d7c:
@@ -155,8 +154,7 @@ l4e25:
 	goto L4f79;
 L4e3d:
 	get_message((p8 + 3350), 20652);
-	if (!p4[43]) goto L4e7a;
-	if ((p8 == 4) || (p8 == 8)) goto L4e7a;
+	if ((!p4[43]) || ((p8 == 4) || (p8 == 8))) goto L4e7a;
 	get_message((random(2) + 3385), 20652);
 L4e7a:
 	if (p8 == 4) goto L4e89;
@@ -302,11 +300,7 @@ L51ca:
 L51cc:
 	l124 = 9;
 L51d1:
-	if (l124 != 9) goto L51f5;
-	if ((unsigned)g4525[(432 * g435c)] > 0) goto L51f5;
-	if (pc_class[(432 * g435c)] == 12) goto L51f5;
-	if (pc_class[(432 * g435c)] != 13) goto L5206;
-L51f5:
+	if ((((l124 == 9) && ((unsigned)g4525[(432 * g435c)] <= 0)) && (pc_class[(432 * g435c)] != 12)) && (pc_class[(432 * g435c)] != 13)) goto L5206;
 	try_raise_skill(g435c, l124, 2);
 L5206:
 	rsi = get_load_category_x(g435c);
@@ -335,8 +329,7 @@ l522b:
 	l82 = (((432 * g435c) + (p6 << 4)) + 17624);
 	l114 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
 	if (p8 != 8) goto L5356;
-	if ((l116 = (unsigned char)g44f9[(432 * g435c)]) == 255) goto L5354;
-	if (pc_item_type[((432 * g435c) + (l116 << 3))] != 4) goto L5354;
+	if (((l116 = (unsigned char)g44f9[(432 * g435c)]) == 255) || (pc_item_type[((432 * g435c) + (l116 << 3))] != 4)) goto L5354;
 	l112 = *(int *)((char *)g44e8 + (432 * g435c));
 	*(int *)(l110 + 0) = *(int *)((char *)g44ea + (432 * g435c));
 	l82 = ((432 * g435c) + 17640);
@@ -347,17 +340,8 @@ L5354:
 	goto L5391;
 L5356:
 	if (p8 != 4) goto L5391;
-#asm
-	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,04eh,08eh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02ch,044h,03ch,00eh,074h,008h,03ch,00ch,073h,009h
-	db 03ch,002h,074h,005h
-#endasm
-L5380:
-	;
-#asm
-l5380:
-	db 0c6h,087h,02eh,044h,001h
-#endasm
+	if ((pc_item_type[((432 * g435c) + (l114 << 3))] != 14) && (((unsigned)pc_item_type[((432 * g435c) + (l114 << 3))] >= 12) || (pc_item_type[((432 * g435c) + (l114 << 3))] == 2))) goto L5385;
+	pc_item_qty[((432 * g435c) + (l114 << 3))] = 1;
 L5385:
 	l126 = 0;
 	use_item_charge_x(l114);
@@ -391,9 +375,7 @@ l5408:
 	db 089h,046h,090h,08bh,040h,046h,089h,046h,092h,003h,0deh,083h,0c3h,044h,089h,05eh
 	db 0aeh
 #endasm
-	if (p8 == 4) goto L5475;
-	if (p8 != 8) goto L547a;
-L5475:
+	if ((p8 != 4) && (p8 != 8)) goto L547a;
 	l126 = 0;
 L547a:
 	if (l78) goto L54a0;
@@ -416,8 +398,7 @@ L54a6:
 	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,040h,026h,098h,08bh,0c8h,058h,003h,0c1h
 	db 089h,046h,0a8h
 #endasm
-	if (l78) goto L54fc;
-	if (g4ecc <= 0) goto L54fc;
+	if ((l78) || (g4ecc <= 0)) goto L54fc;
 	l88 -= g4ece;
 L54fc:
 	l90 = (((*(char **)((char *)group_monster_rec + (l78 << 1)))[190] + l88) + l146);
@@ -435,24 +416,15 @@ L5555:
 	l86 = (l86 < 90 ? 90 : l86);
 	l90 = (l90 > 0 ? 0 : l90);
 L557b:
-	if ((unsigned)p4[22] > 0) goto L558d;
-	if ((unsigned)p4[15] > 0) goto L558d;
-	if ((unsigned)p4[23] <= 0) goto L5591;
-L558d:
+	if ((((unsigned)p4[22] <= 0) && ((unsigned)p4[15] <= 0)) && ((unsigned)p4[23] <= 0)) goto L5591;
 	l86 += 25;
 L5591:
 	rsi = (44 * l80);
-	if ((unsigned)((char *)monster_groups[l78] + rsi)[18] > 0) goto L55bc;
-	if ((unsigned)((char *)monster_groups[l78] + rsi)[16] > 0) goto L55bc;
-	if ((unsigned)((char *)monster_groups[l78] + rsi)[17] > 0) goto L55bc;
-	if (((char *)monster_groups[l78] + rsi)[34] != 2) goto L55c7;
-L55bc:
+	if (((((unsigned)((char *)monster_groups[l78] + rsi)[18] <= 0) && ((unsigned)((char *)monster_groups[l78] + rsi)[16] <= 0)) && ((unsigned)((char *)monster_groups[l78] + rsi)[17] <= 0)) && (((char *)monster_groups[l78] + rsi)[34] != 2)) goto L55c7;
 	l90 = 15;
 	l156 = 2;
 L55c7:
-	if ((unsigned)((char *)monster_groups[l78] + rsi)[22] > 0) goto L55d3;
-	if ((unsigned)((char *)monster_groups[l78] + rsi)[15] <= 0) goto L55d7;
-L55d3:
+	if (((unsigned)((char *)monster_groups[l78] + rsi)[22] <= 0) && ((unsigned)((char *)monster_groups[l78] + rsi)[15] <= 0)) goto L55d7;
 	l90 += 4;
 L55d7:
 	l128 = 0;
@@ -610,18 +582,10 @@ case 3:
 L596f:
 	goto L59aa;
 L5971:
-	if (l78) goto L59aa;
-	if ((unsigned char)g44f9[(432 * l80)] == 255) goto L59aa;
-	if (pc_item_type[((432 * l80) + ((unsigned char)g44f9[(432 * l80)] << 3))] != 11) goto L59aa;
+	if (((l78) || ((unsigned char)g44f9[(432 * l80)] == 255)) || (pc_item_type[((432 * l80) + ((unsigned char)g44f9[(432 * l80)] << 3))] != 11)) goto L59aa;
 	try_raise_skill(l80, 8, 0);
 L59aa:
-	if (!g435e) goto L59eb;
-	if (l158) goto L59eb;
-#asm
-	db 08bh,01eh,0b8h,043h,08ah,087h,0d2h,000h,03ch,000h,076h,027h,03ch,006h,074h,023h
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,08fh,0d2h,000h,08bh
-	db 01eh,0b8h,043h,08ah,087h,0d2h,000h,03ah,0c8h,075h,008h
-#endasm
+	if ((((!g435e) || (l158)) || (((unsigned)g43b8[210] <= 0) || (g43b8[210] == 6))) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] != g43b8[210])) goto L59eb;
 	play_sound(14);
 L59eb:
 	combat_delay((g4fc8 / 4));
@@ -666,9 +630,7 @@ L5ace:
 	if (l150 != -1) goto L5b4f;
 	if (g435e) goto L5b4a;
 	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] == 255) goto L5b43;
-	if (*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) != 458) goto L5b34;
-	if (g4352) goto L5b3b;
-L5b34:
+	if ((*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) == 458) && (g4352)) goto L5b3b;
 	l96 = 0;
 	goto L5b41;
 L5b3b:
@@ -682,9 +644,7 @@ L5b48:
 L5b4a:
 	l96 = 0;
 L5b4f:
-	if (p8 == 4) goto L5b5b;
-	if (p8 != 8) goto L5b99;
-L5b5b:
+	if ((p8 != 4) && (p8 != 8)) goto L5b99;
 	if (random(100) >= (unsigned char)g018e[monster_groups[l78]]) goto L5b99;
 	print_msg_centered(3214, 14, 3);
 	play_sound(7);

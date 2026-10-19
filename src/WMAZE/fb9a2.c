@@ -22,8 +22,7 @@ Lb9fc:
 	if (extract_bits(l2, 8, 1) != 1) goto Lba7b;
 	set_bit(((game_state_arg * 10) + 13304), l10, 0);
 Lba7b:
-	if (game_state_arg != 7) goto Lbac6;
-	if (l10 != 24) goto Lbac6;
+	if ((game_state_arg != 7) || (l10 != 24)) goto Lbac6;
 	set_bit(((game_state_arg * 10) + 20204), 18, 1);
 	set_bit(((game_state_arg * 10) + 13304), 18, 1);
 Lbac6:

@@ -36,8 +36,7 @@ L9315:
 	if (l52) goto L934c;
 	l20 = 0;
 L934c:
-	if ((l26 + 1) != 2) goto L9370;
-	if (l52) goto L9370;
+	if (((l26 + 1) != 2) || (l52)) goto L9370;
 	l50 = count_enabled_before(l24, (l26 + 2));
 	goto L9382;
 L9370:

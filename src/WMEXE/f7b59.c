@@ -13,9 +13,7 @@ L7b88:
 	movmem(((432 * p6) + 17722), (group_monster_rec[0] + 148), 14);
 L7ba9:
 	l2 = 0;
-	if (!p10) goto L7bdd;
-	if (random(100) <= ((unsigned char)((char *)group_monster_rec[p4] + p10)[148] - p14)) goto L7c3c;
-L7bdd:
+	if ((p10) && (random(100) <= ((unsigned char)((char *)group_monster_rec[p4] + p10)[148] - p14))) goto L7c3c;
 	((char *)monster_groups[p4] + (44 * p6))[34] = *(char *)&p12;
 	if (p12 < 3) goto L7c24;
 	kill_combatant(p4, p6);

@@ -41,7 +41,8 @@
 	global g517d_:byte,1
 	global g517e_:byte,6
 	global g5184_:byte,1
-	global g5185_:byte,13
+	global g5185_:byte,11
+	global g5190_:byte,2
 	global chest_trap_:byte,22
 	global g51a8_:byte,2
 	global g51aa_:byte,2

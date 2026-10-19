@@ -71,8 +71,7 @@ L5c7f:
 L5cb0:
 	switch (key) {
 case 1:
-	if (sel == -1) goto L5cdb;
-	if ((sel % 2) <= 0) goto L5cdb;
+	if ((sel == -1) || ((sel % 2) <= 0)) goto L5cdb;
 	draw_member_name(win, sel);
 	sel--;
 L5cdb:
@@ -88,13 +87,7 @@ L5cfc:
 L5d01:
 	goto L5d9f;
 case 3:
-	;
-#asm
-l5d04:
-	db 08bh,046h,0fah,03dh,0ffh,0ffh,074h,026h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
-	db 03dh,001h,000h,07dh,019h
-#endasm
-	if ((sel + 1) >= party_count) goto L5d32;
+	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L5d32;
 	draw_member_name(win, sel);
 	sel++;
 L5d32:

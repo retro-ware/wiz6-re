@@ -21,9 +21,7 @@ L4649:
 	i = 0;
 	goto L468c;
 L4660:
-	if ((unsigned)((char *)monster_groups[group] + (44 * i))[34] >= 2) goto L4689;
-	if (((char *)monster_groups[group] + (44 * i))[17]) goto L4689;
-	if (((char *)monster_groups[group] + (44 * i))[16]) goto L4689;
+	if ((((unsigned)((char *)monster_groups[group] + (44 * i))[34] >= 2) || (((char *)monster_groups[group] + (44 * i))[17])) || (((char *)monster_groups[group] + (44 * i))[16])) goto L4689;
 #asm
 	db 0feh,087h,09eh,001h
 #endasm

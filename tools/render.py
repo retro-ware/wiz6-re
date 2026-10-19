@@ -27,7 +27,8 @@ def render(iname):
         st = state.get('%04x' % s)
         path = R + '/src/%s/f%04x.c' % (iname, s)
         if st and st['status'] == 'ok':
-            L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False))
+            L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
+                       st.get('nobool', []))
             L.run()
             src, missing = Printer(L, names).source()
             if missing:

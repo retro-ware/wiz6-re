@@ -11,10 +11,7 @@ choose_monster_actions()
 	l2 = 1;
 	goto L8aa6;
 L8a5d:
-	if ((unsigned)g019d[g43b4] <= 0) goto L8a87;
-	if (random(4) != 1) goto L8a87;
-	if ((*(char **)((char *)group_monster_rec + (l2 << 1)))[208] != 22) goto L8a96;
-L8a87:
+	if ((((unsigned)g019d[g43b4] > 0) && (random(4) == 1)) && ((*(char **)((char *)group_monster_rec + (l2 << 1)))[208] != 22)) goto L8a96;
 	choose_group_actions(l2, 0);
 	goto L8aa3;
 L8a96:
@@ -26,8 +23,7 @@ L8aa6:
 	if ((unsigned)g019d[g43b4] <= 0) goto L8ae6;
 	l2 = 1;
 L8abf:
-	if (l2 >= monster_group_count) goto L8ad9;
-	if (random(3)) goto L8ad9;
+	if ((l2 >= monster_group_count) || (random(3))) goto L8ad9;
 	l2++;
 	goto L8abf;
 L8ad9:

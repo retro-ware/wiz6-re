@@ -155,8 +155,7 @@ L52d4:
 	game_state = 2;
 	if (!animating) goto L534b;
 L5334:
-	if (key_available(1)) goto L5349;
-	if (check_screen_click()) goto L5349;
+	if ((key_available(1)) || (check_screen_click())) goto L5349;
 	goto L5334;
 L5349:
 	goto L5353;

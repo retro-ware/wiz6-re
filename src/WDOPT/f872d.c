@@ -7,11 +7,8 @@ f872d(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto L877c;
-	if (!f82c3(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L877c;
-	if (game_state_arg == 10) goto L876e;
-	if (game_state_arg != 12) goto L8777;
-L876e:
+	if ((!p14) || (!f82c3(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L877c;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8777;
 	return 0;
 L8777:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L87bb;
-	if (p12 <= 8) goto L87c0;
-L87bb:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto L87c0;
 	return 0;
 L87c0:
 	goto L87d6;

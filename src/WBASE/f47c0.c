@@ -78,8 +78,7 @@ case 3:
 L4a3c:
 	goto L4aa8;
 case 4:
-	if ((sel % cols) >= (cols - 1)) goto L4a89;
-	if ((sel + 1) >= count) goto L4a89;
+	if (((sel % cols) >= (cols - 1)) || ((sel + 1) >= count)) goto L4a89;
 	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
 	sel++;
 L4a89:

@@ -77,8 +77,7 @@ L6233:
 	g450f[(432 * p10)] = *(char *)&l2;
 	break;
 case 46:
-	if (pc_condition[(432 * p10)] != 2) goto L62a2;
-	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L62a2;
+	if ((pc_condition[(432 * p10)] != 2) || ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)]))) goto L62a2;
 	g4517[(432 * p10)]--;
 	if (random(21) <= (unsigned char)g4517[(432 * p10)]) goto L629d;
 	pc_condition[(432 * p10)] = 3;
@@ -115,8 +114,7 @@ case 64:
 L6388:
 	break;
 case 77:
-	if (pc_condition[(432 * p10)] != 3) goto L63d7;
-	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L63d7;
+	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L63d7;
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;

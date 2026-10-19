@@ -70,8 +70,7 @@ L6731:
 	set_click_region(3, ((unsigned char)title_win[2] + 7), ((unsigned char)title_win[3] + 3), ((strlen(&cancel_text) + (unsigned char)title_win[2]) + 6), ((unsigned char)title_win[3] + 3));
 	set_click_region(4, 255, 0, 0, 0);
 L691a:
-	if (mouse_present) goto L6960;
-	if (on_cancel != 1) goto L6960;
+	if ((mouse_present) || (on_cancel != 1)) goto L6960;
 	set_cursor(title_win, 7, 3);
 	print_string(title_win, &cancel_text, -5);
 	draw_pcfile_list(list_win, top, 0, n);

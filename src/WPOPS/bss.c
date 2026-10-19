@@ -43,7 +43,8 @@
 	global g50dd_:byte,1
 	global g50de_:byte,6
 	global g50e4_:byte,1
-	global g50e5_:byte,13
+	global g50e5_:byte,11
+	global g50f0_:byte,2
 	global g50f2_:byte,22
 	global view_object_count_:byte,2
 	global g510a_:byte,2

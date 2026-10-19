@@ -68,9 +68,7 @@ Lc565:
 	return 8;
 Lc59e:
 	if ((l2 = fbf7f(p4, 4, 7)) == -1) goto Lc5e3;
-	if (g6a82 == 7) goto Lc5c5;
-	if (g6a82) goto Lc5d1;
-Lc5c5:
+	if ((g6a82 != 7) && (g6a82)) goto Lc5d1;
 	g58b6 = 1;
 	g58ca = g58ce;
 Lc5d1:
@@ -105,15 +103,12 @@ Lc664:
 	return 6;
 Lc67f:
 	if ((l2 = fbf7f(p4, 9, 11)) == -1) goto Lc6d3;
-	if (g5894 == -1) goto Lc6a6;
-	if (g5894) goto Lc6b4;
-Lc6a6:
+	if ((g5894 != -1) && (g5894)) goto Lc6b4;
 	g5894 = g589c;
 	g5896 = g589e;
 	goto Lc6cd;
 Lc6b4:
-	if (g589c == g5894) goto Lc6cd;
-	if (!g589c) goto Lc6cd;
+	if ((g589c == g5894) || (!g589c)) goto Lc6cd;
 	g58d0 = g589c;
 	g58d2 = g589e;
 Lc6cd:
@@ -134,8 +129,7 @@ Lc706:
 Lc719:
 	goto Lc72e;
 Lc71b:
-	if (g6a82 != 6) goto Lc72e;
-	if (l2) goto Lc72e;
+	if ((g6a82 != 6) || (l2)) goto Lc72e;
 	g58cc = 0;
 Lc72e:
 	if (l2) goto Lc737;
@@ -143,15 +137,12 @@ Lc72e:
 	db 0a3h,0ceh,058h
 #endasm
 Lc737:
-	if (g5894 == -1) goto Lc745;
-	if (g5894) goto Lc753;
-Lc745:
+	if ((g5894 != -1) && (g5894)) goto Lc753;
 	g5894 = l2;
 	g5896 = l4;
 	goto Lc76d;
 Lc753:
-	if (g5894 == l2) goto Lc76d;
-	if (!l2) goto Lc76d;
+	if ((g5894 == l2) || (!l2)) goto Lc76d;
 	g58d0 = l2;
 	g58d2 = l4;
 Lc76d:

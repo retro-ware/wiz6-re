@@ -11,8 +11,7 @@ L534f:
 	g5038 = 1;
 	return;
 L5366:
-	if (!key_available(1)) goto L5386;
-	if ((char)get_key(1) != 13) goto L5386;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L5386;
 	g5038 = 1;
 	return;
 L5386:

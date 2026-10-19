@@ -89,9 +89,7 @@ Lf174:
 	if (pc_race[(432 * p4)] != 5) goto Lf181;
 	l8 -= 2;
 Lf181:
-	if (pc_class[(432 * p4)] == 13) goto Lf18f;
-	if (pc_class[(432 * p4)] != 12) goto Lf1bb;
-Lf18f:
+	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto Lf1bb;
 	l2 = (*(int *)((char *)pc_level + (432 * p4)) <= 20 ? (*(int *)((char *)pc_level + (432 * p4)) / 2) : 20);
 	l2 += ((unsigned char)g452c[(432 * p4)] / 10);
 	l8 -= l2;

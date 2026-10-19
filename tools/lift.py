@@ -220,9 +220,10 @@ class Func:
 
 # ---------------------------------------------------------------- symbolic execution
 class Lifter:
-    def __init__(self, img, s, e, names, demote=(), noscratch=False, nomerge=False):
+    def __init__(self, img, s, e, names, demote=(), noscratch=False, nomerge=False, nobool=()):
         self.img, self.names = img, names
         self.nomerge = nomerge  # no || / && chains from compares on a kept register
+        self.nobool = set(nobool)   # if statements not to merge into && / || conditions
         self.f = Func(img, s, e)
         if noscratch:           # this function's si/di are register variables after all
             self.f.scratch = set()
@@ -1344,7 +1345,38 @@ class Lifter:
         return dict(cases=cases, default=default, start=d, end=p, kind='chain')
 
     # ---- after the walk
+    def jumps_to(self, s, e, t):
+        """Branches in [s, e) to t."""
+        return sum(1 for a in self.f.addrs if s <= a < e and (self.f.seen[a].group(X.X86_GRP_JUMP) or
+                   self.f.seen[a].mnemonic in BRANCH)
+                   and self.f.seen[a].operands[0].type == X.X86_OP_IMM
+                   and self.f.seen[a].operands[0].imm & 0xffff == t)
+
+    def merge_bools(self):
+        """Adjacent ifs become one short-circuit condition: same target -> ||, the first
+        skipping the second -> &&."""
+        changed = True
+        while changed:
+            changed = False
+            sts = []
+            for b in self.sts:
+                a = sts[-1] if sts else None
+                if a is not None and a.kind == b.kind == 'if' and a.e == b.s and \
+                        b.s not in self.targets and a.s not in self.nobool:
+                    c = None
+                    if a.target == b.target:
+                        c = ('||', a.cond, b.cond)
+                    elif a.target == b.e and self.tcount.get(b.e, 0) == self.jumps_to(a.s, a.e, b.e):
+                        c = ('&&', negate(a.cond), b.cond)
+                    if c is not None:
+                        sts[-1] = St('if', a.s, b.e, cond=c, target=b.target, merged=True)
+                        changed = True
+                        continue
+                sts.append(b)
+            self.sts = sts
     def post(self):
+        if not self.nomerge:
+            self.merge_bools()
         sts = []
         dead_sw = set()
         for st in self.sts:          # a switch and its end are demoted together

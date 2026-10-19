@@ -14,8 +14,6 @@ L76b2:
 L76d3:
 	l6++;
 L76d6:
-	if (l4 <= 0) goto L76e2;
-	if (l6 < 100) goto L76b2;
-L76e2:
+	if ((l4 > 0) && (l6 < 100)) goto L76b2;
 	return l2;
 }

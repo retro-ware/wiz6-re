@@ -66,9 +66,7 @@ la900:
 	call $ldv
 	db 089h,056h,0c4h,089h,046h,0c2h
 #endasm
-	if (!((unsigned char)l19 & 2)) goto La94e;
-	if (l84 == trap_guess_letters) goto La94e;
-	if (l84 == g51be) goto La94e;
+	if (((!((unsigned char)l19 & 2)) || (l84 == trap_guess_letters)) || (l84 == g51be)) goto La94e;
 	fa645(1529);
 	return l2;
 La94e:

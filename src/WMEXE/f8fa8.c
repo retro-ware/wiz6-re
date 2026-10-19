@@ -24,11 +24,7 @@ f8fa8(p4, p6, p8, p10, p12, p14, p16)
 	register int rdi;
 	combat_delay((g4fc8 / 4));
 	g5116 = 0;
-	if (!g435e) goto L8fd4;
-#asm
-	db 0a1h,05eh,043h,03dh,006h,000h,075h,031h
-#endasm
-L8fd4:
+	if ((g435e) && (g435e != 6)) goto L9005;
 	l4 = 6;
 	if ((unsigned)g019d[monster_groups[l4]] <= 0) goto L9003;
 	print_msg_centered(3217, 6, 2);
@@ -36,8 +32,7 @@ L8fd4:
 L9003:
 	goto L9032;
 L9005:
-	if (p16 <= 0) goto L901e;
-	if (monster_group_count >= 5) goto L901e;
+	if ((p16 <= 0) || (monster_group_count >= 5)) goto L901e;
 	monster_group_count++;
 	l4 = monster_group_count;
 	goto L9032;

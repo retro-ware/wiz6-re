@@ -9,10 +9,7 @@ L7bdb:
 	if ((unsigned char)(g4fa8 + rsi)[1296] == p8) goto L7bf2;
 	return -1;
 L7bf2:
-	if ((unsigned char)(g4fa8 + rsi)[1008] != p4) goto L7c35;
-	if ((unsigned char)(g4fa8 + rsi)[1152] != p6) goto L7c35;
-	if ((unsigned)(g4fa8 + rsi)[864] <= 0) goto L7c35;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440])) goto L7c35;
+	if (((((unsigned char)(g4fa8 + rsi)[1008] != p4) || ((unsigned char)(g4fa8 + rsi)[1152] != p6)) || ((unsigned)(g4fa8 + rsi)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440]))) goto L7c35;
 	return rsi;
 L7c35:
 	rsi++;

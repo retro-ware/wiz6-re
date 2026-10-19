@@ -7,8 +7,7 @@ char *p8;
 	n = 0;
 	rsi = 0;
 L633f:
-	if ((unsigned char)spell_table[(rsi * 6)] != realm) goto L637b;
-	if (test_bit(((432 * member) + 17776), rsi) != 1) goto L637b;
+	if (((unsigned char)spell_table[(rsi * 6)] != realm) || (test_bit(((432 * member) + 17776), rsi) != 1)) goto L637b;
 	*(int *)(p8 + (n << 1)) = rsi;
 	n++;
 L637b:

@@ -12,8 +12,7 @@ L78c6:
 	if ((p10 + rsi) >= p14) goto L794d;
 	set_cursor(p4, 2, (rsi + 2));
 	print_message((*(int *)(p16 + ((p10 + rsi) << 1)) + 4000), p4, ((p12 == 1) && (!rsi) ? realm_colors[p8] : 18));
-	if (p12 != 1) goto L794d;
-	if (rsi) goto L794d;
+	if ((p12 != 1) || (rsi)) goto L794d;
 L792a:
 	if ((unsigned)p4[6] >= 17) goto L794d;
 	put_char(p4, 32, realm_colors[p8]);

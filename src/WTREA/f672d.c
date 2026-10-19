@@ -14,8 +14,7 @@ reveal_trap_letters(win, member, letters, accuracy)
 	l4 = 0;
 	goto L67a3;
 L673a:
-	if (g5194[l4]) goto L67a0;
-	if (random(100) <= 50) goto L67a0;
+	if ((g5194[l4]) || (random(100) <= 50)) goto L67a0;
 	if (random(100) >= accuracy) goto L679d;
 	if ((l8 = char_index(20702, (unsigned char)trap_guess_letters[l4])) < 0) goto L6795;
 	g5194[l4] = 1;
@@ -43,8 +42,7 @@ L67d4:
 L67d7:
 	if (strlen(20702) > l2) goto L67c7;
 	if (random(100) >= accuracy) goto L683d;
-	if (l10 <= 0) goto L683b;
-	if (trap_guess_len >= 18) goto L683b;
+	if ((l10 <= 0) || (trap_guess_len >= 18)) goto L683b;
 	l4 = random(strlen(20702));
 #asm
 	db 08bh,05eh,0fch,080h,0bfh,0deh,050h,024h,074h,0e6h,08bh,05eh,0fch,08ah,087h,0deh
@@ -56,9 +54,7 @@ L67d7:
 L683b:
 	goto L6876;
 L683d:
-	if (l10 <= 0) goto L6876;
-	if (random(100) <= 50) goto L6876;
-	if (trap_guess_len >= 18) goto L6876;
+	if (((l10 <= 0) || (random(100) <= 50)) || (trap_guess_len >= 18)) goto L6876;
 	trap_guess_letters[trap_guess_len] = (char)(random(26) + 65);
 #asm
 	db 0d1h,0e3h,0c7h,087h,094h,051h,000h,000h

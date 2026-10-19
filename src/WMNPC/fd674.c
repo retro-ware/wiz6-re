@@ -111,8 +111,7 @@ Ld853:
 Ld863:
 	g6a82 = fc4c9((l82 + l80));
 	if ((l82 = fc282(l80, l82)) != -1) goto Ld853;
-	if (strlen(l80) <= 0) goto Ld89f;
-	if (npc_answer_topic()) goto Ld89f;
+	if ((strlen(l80) <= 0) || (npc_answer_topic())) goto Ld89f;
 	fd291();
 Ld89f:
 	if (g58c2 != 1) goto Ld73f;

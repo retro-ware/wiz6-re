@@ -7,11 +7,8 @@ get_right_wall_t(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto La539;
-	if (!step_relative_t(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto La539;
-	if (game_state_arg == 10) goto La52b;
-	if (game_state_arg != 12) goto La534;
-La52b:
+	if ((!p14) || (!step_relative_t(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto La539;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto La534;
 	return 0;
 La534:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto La578;
-	if (p12 <= 8) goto La57d;
-La578:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto La57d;
 	return 0;
 La57d:
 	goto La593;

@@ -49,8 +49,7 @@ Laef1:
 	l8 = extract_bits(l6, 4, 4);
 	l16 = extract_bits(l6, 12, 1);
 	l14 = extract_bits(l6, 15, 1);
-	if (!l16) goto Lb000;
-	if (g4edc <= 0) goto Lb000;
+	if ((!l16) || (g4edc <= 0)) goto Lb000;
 	l14 = 1;
 	get_message(2056, &l96);
 	clear_window(g522a, 0);
@@ -65,10 +64,7 @@ Lb000:
 	goto Lb0d4;
 Lb01a:
 	if (random(54) <= ((unsigned char)g4518[(432 * l2)] - l8)) goto Lb0d1;
-	if (l14) goto Lb089;
-	if (!l12) goto Lb07a;
-	if (random(100) <= ((unsigned char)g453a[((432 * l2) + l12)] - (l8 * 3))) goto Lb089;
-Lb07a:
+	if ((l14) || ((l12) && (random(100) <= ((unsigned char)g453a[((432 * l2) + l12)] - (l8 * 3))))) goto Lb089;
 	trap_damage_member(l2, l8, l10);
 Lb089:
 	if (l4 <= 0) goto Lb0d1;

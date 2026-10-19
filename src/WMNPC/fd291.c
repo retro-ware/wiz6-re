@@ -8,14 +8,10 @@ extern int g58a0;
 extern int g58a2;
 fd291()
 {
-	if (g589a == -1) goto Ld2a9;
-	if (g5898 == -1) goto Ld2a6;
-	if (g5894 != -1) goto Ld2a9;
-Ld2a6:
+	if ((g589a == -1) || ((g5898 != -1) && (g5894 != -1))) goto Ld2a9;
 	fcb7f();
 Ld2a9:
-	if (g5898 == -1) goto Ld2d2;
-	if (g5894 == -1) goto Ld2d2;
+	if ((g5898 == -1) || (g5894 == -1)) goto Ld2d2;
 	fcde1();
 	g589c = g5894;
 	g589e = g5896;

@@ -31,8 +31,7 @@ l5195:
 	db 08bh,046h,0f2h,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
 	db 046h,0feh
 #endasm
-	if (extract_bits(l2, (party_facing << 1), 2) != 2) goto L5201;
-	if (lock_level) goto L5201;
+	if ((extract_bits(l2, (party_facing << 1), 2) != 2) || (lock_level)) goto L5201;
 	jammed = 1;
 L5201:
 	result = 0;

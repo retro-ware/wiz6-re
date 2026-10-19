@@ -22,9 +22,7 @@ L51f8:
 	return (key - 1);
 L5220:
 	animate_combat_step();
-	if (view_anim_state != -2) goto L523c;
-	if (blink_state == -1) goto L523c;
-	if (anim_phase != l4) goto L523c;
+	if (((view_anim_state != -2) || (blink_state == -1)) || (anim_phase != l4)) goto L523c;
 	blink_cursor_text();
 L523c:
 	goto L51f8;

@@ -11,8 +11,7 @@ char p16;
 	register int rdi;
 	pos = 0;
 L65cc:
-	if (pos >= sprite_count[0]) goto L65ec;
-	if ((unsigned char)(*(char **)((char *)sprite_list + (pos << 1)))[20] > depth) goto L65ec;
+	if ((pos >= sprite_count[0]) || ((unsigned char)(*(char **)((char *)sprite_list + (pos << 1)))[20] > depth)) goto L65ec;
 	pos++;
 	goto L65cc;
 L65ec:

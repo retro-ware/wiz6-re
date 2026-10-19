@@ -91,8 +91,7 @@ L9325:
 #asm
 	db 0e9h,056h,002h
 #endasm
-	if ((member = choose_party_member(5225, 0)) == -1) goto L93dd;
-	if (!is_member_able(member)) goto L93dd;
+	if (((member = choose_party_member(5225, 0)) == -1) || (!is_member_able(member))) goto L93dd;
 	g501e = 1;
 	close_chest_windows(win, trap_win);
 	spring_trap(chest_trap, member);
@@ -153,8 +152,7 @@ L954e:
 l954e:
 	db 0e9h,0aah,000h
 #endasm
-	if ((member = choose_party_member(5224, 0)) == -1) goto L95d0;
-	if (!is_member_able(member)) goto L95d0;
+	if (((member = choose_party_member(5224, 0)) == -1) || (!is_member_able(member))) goto L95d0;
 	spell_disarm_result = 0;
 	cast_spell_on_chest(win, trap_win, member);
 	if (spell_disarm_result != 1) goto L95a4;

@@ -9,8 +9,7 @@ try_flag_event_at(event)
 	int l4;
 	int l6;
 	l2 = *(int *)((g4fa8 + (event << 1)) + 576);
-	if (extract_bits(l2, 14, 1) != 1) goto Lcc5e;
-	if (extract_bits(l2, 12, 2) == party_facing) goto Lcc5e;
+	if ((extract_bits(l2, 14, 1) != 1) || (extract_bits(l2, 12, 2) == party_facing)) goto Lcc5e;
 	return 0;
 Lcc5e:
 	l4 = extract_bits(l2, 0, 8);

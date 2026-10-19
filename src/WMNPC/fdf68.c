@@ -7,11 +7,8 @@ fdf68(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Ldfb7;
-	if (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ldfb7;
-	if (game_state_arg == 10) goto Ldfa9;
-	if (game_state_arg != 12) goto Ldfb2;
-Ldfa9:
+	if ((!p14) || (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ldfb7;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ldfb2;
 	return 0;
 Ldfb2:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto Ldff6;
-	if (p12 <= 8) goto Ldffb;
-Ldff6:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto Ldffb;
 	return 0;
 Ldffb:
 	goto Le011;

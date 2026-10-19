@@ -9,10 +9,7 @@ L9d93:
 	if ((unsigned char)(g4fa8 + rsi)[1296] == p8) goto L9daa;
 	return -1;
 L9daa:
-	if ((unsigned char)(g4fa8 + rsi)[1008] != p4) goto L9ded;
-	if ((unsigned char)(g4fa8 + rsi)[1152] != p6) goto L9ded;
-	if ((unsigned)(g4fa8 + rsi)[864] <= 0) goto L9ded;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440])) goto L9ded;
+	if (((((unsigned char)(g4fa8 + rsi)[1008] != p4) || ((unsigned char)(g4fa8 + rsi)[1152] != p6)) || ((unsigned)(g4fa8 + rsi)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440]))) goto L9ded;
 	return rsi;
 L9ded:
 	rsi++;

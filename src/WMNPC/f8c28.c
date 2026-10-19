@@ -12,8 +12,7 @@ L8c44:
 	if ((p10 + rsi) >= p14) goto L8ccb;
 	set_cursor(p4, 2, (rsi + 2));
 	print_message((*(int *)(p16 + ((p10 + rsi) << 1)) + 4000), p4, ((p12 == 1) && (!rsi) ? realm_colors[p8] : 18));
-	if (p12 != 1) goto L8ccb;
-	if (rsi) goto L8ccb;
+	if ((p12 != 1) || (rsi)) goto L8ccb;
 L8ca8:
 	if ((unsigned)p4[6] >= 17) goto L8ccb;
 	put_char(p4, 32, realm_colors[p8]);

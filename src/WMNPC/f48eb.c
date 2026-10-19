@@ -10,8 +10,7 @@ char p16;
 	register int rdi;
 	l2 = 0;
 L48f8:
-	if (l2 >= sprite_count[0]) goto L4918;
-	if ((unsigned char)(*(char **)((char *)sprite_list + (l2 << 1)))[20] > p4) goto L4918;
+	if ((l2 >= sprite_count[0]) || ((unsigned char)(*(char **)((char *)sprite_list + (l2 << 1)))[20] > p4)) goto L4918;
 	l2++;
 	goto L48f8;
 L4918:

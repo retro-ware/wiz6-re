@@ -7,11 +7,8 @@ fe125(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Le174;
-	if (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Le174;
-	if (game_state_arg == 10) goto Le166;
-	if (game_state_arg != 12) goto Le16f;
-Le166:
+	if ((!p14) || (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Le174;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Le16f;
 	return 0;
 Le16f:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto Le1b3;
-	if (p12 <= 8) goto Le1b8;
-Le1b3:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto Le1b8;
 	return 0;
 Le1b8:
 	goto Le1ce;

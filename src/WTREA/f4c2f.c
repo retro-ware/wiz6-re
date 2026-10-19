@@ -22,8 +22,7 @@ L4c73:
 	if (g502c) goto L4c9f;
 	anim_phase = ((anim_phase + 1) % 2);
 	animate_treasure_view();
-	if (g501c == -1) goto L4c9d;
-	if (anim_phase != l4) goto L4c9d;
+	if ((g501c == -1) || (anim_phase != l4)) goto L4c9d;
 	blink_selection();
 L4c9d:
 	goto L4ca2;

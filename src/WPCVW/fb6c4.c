@@ -189,8 +189,7 @@ Lbb6f:
 	if (l2 < 14) goto Lbb6f;
 	goto Lbc08;
 Lbbaa:
-	if (!l122[11]) goto Lbc08;
-	if (!l52) goto Lbc08;
+	if ((!l122[11]) || (!l52)) goto Lbc08;
 	l126 = (l52 % 256);
 	get_message((l126 + 4000), 21902);
 	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 5);
@@ -254,10 +253,7 @@ case 21:
 	goto Lbd0a;
 	}
 Lbd0a:
-	if (test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) != 1) goto Lbd64;
-	if (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) != 1) goto Lbd64;
-	if (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) == 1) goto Lbd79;
-Lbd64:
+	if (((test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) == 1) && (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) == 1)) && (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) == 1)) goto Lbd79;
 	get_message(1567, 21902);
 	l2 = 9;
 	goto Lbd8f;
@@ -288,9 +284,7 @@ Lbe6d:
 	if (l2 < 8) goto Lbe0e;
 Lbe78:
 	set_cursor(l6, 1, 10);
-	if (l122[19]) goto Lbe95;
-	if (!l122[18]) goto Lbef4;
-Lbe95:
+	if ((!l122[19]) && (!l122[18])) goto Lbef4;
 	get_message(451, 21902);
 	put_char(l6, (unsigned char)g558e[0], (l122[19] != 0 ? 6 : 14));
 	put_char(l6, 47, 14);
@@ -387,8 +381,7 @@ Lc388:
 Lc3b3:
 	l168++;
 Lc3b7:
-	if (l168 <= 3) goto Lc3c9;
-	if (l168 >= 8) goto Lc3c9;
+	if ((l168 <= 3) || (l168 >= 8)) goto Lc3c9;
 	l168++;
 Lc3c9:
 	if (!l12) goto Lc427;
@@ -452,8 +445,7 @@ Lc6e2:
 	if (!check_screen_click()) goto Lc6ef;
 	l170 = 0;
 Lc6ef:
-	if (key_available(1) != 1) goto Lc70e;
-	if ((char)get_key(1) != 13) goto Lc70e;
+	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto Lc70e;
 	l170 = 0;
 Lc70e:
 	if (l170) goto Lc6e2;

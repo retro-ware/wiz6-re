@@ -22,8 +22,7 @@ L5599:
 	g++;
 L55c1:
 	if (g <= monster_group_count) goto L5599;
-	if ((unsigned)g43b8[210] <= 0) goto L55e6;
-	if ((unsigned char)g43b8[210] == cur_sound) goto L55e6;
+	if (((unsigned)g43b8[210] <= 0) || ((unsigned char)g43b8[210] == cur_sound)) goto L55e6;
 	load_sound_mele((unsigned char)g43b8[210]);
 L55e6:
 	;

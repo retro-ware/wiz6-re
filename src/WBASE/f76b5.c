@@ -172,8 +172,7 @@ case 3:
 #endasm
 	sound_mode = (char)((((unsigned char)sound_mode + i) + 6) % 6);
 	goto L7cee;
-	if ((l4 = ((unsigned char)cfg_delay + i)) < 0) goto L7c2a;
-	if (l4 > 255) goto L7c2a;
+	if (((l4 = ((unsigned char)cfg_delay + i)) < 0) || (l4 > 255)) goto L7c2a;
 	cfg_delay = *(char *)&l4;
 #asm
 	db 0ebh,008h
@@ -240,8 +239,7 @@ L7e2e:
 	close(scenario_hdr_fd);
 L7e36:
 	g4fc8 = (unsigned char)cfg_delay;
-	if (!(video_flags & 4096)) goto L7e5f;
-	if (cfg_input != 1) goto L7e5f;
+	if ((!(video_flags & 4096)) || (cfg_input != 1)) goto L7e5f;
 	if (mouse_present) goto L7e57;
 	drv_op_96();
 L7e57:

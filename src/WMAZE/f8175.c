@@ -7,11 +7,8 @@ get_left_wall_m(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto L81c4;
-	if (!step_relative_m(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L81c4;
-	if (game_state_arg == 10) goto L81b6;
-	if (game_state_arg != 12) goto L81bf;
-L81b6:
+	if ((!p14) || (!step_relative_m(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L81c4;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L81bf;
 	return 0;
 L81bf:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L8203;
-	if (p12 <= 8) goto L8208;
-L8203:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto L8208;
 	return 0;
 L8208:
 	goto L821e;

@@ -342,8 +342,7 @@ L5f8e:
 	if (!check_screen_click()) goto L5fba;
 	waiting = 0;
 L5fba:
-	if (!key_available(1)) goto L5fd7;
-	if ((char)get_key(1) != 13) goto L5fd7;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L5fd7;
 	waiting = 0;
 L5fd7:
 	if (waiting) goto L5e5c;

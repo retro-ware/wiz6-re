@@ -117,9 +117,7 @@ l6173:
 	goto L62b0;
 L618c:
 	inflict_status(i, 5265, 11, 9, 10, 10, 50);
-	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) goto L622d;
-	if ((unsigned)pc_stats[(432 * i)] <= 3) goto L622d;
-	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L622d;
+	if (((random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) || ((unsigned)pc_stats[(432 * i)] <= 3)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L622d;
 	pc_stats[(432 * i)]--;
 	get_message(5266, &l80);
 	get_message(5267, 20722);
@@ -128,9 +126,7 @@ L618c:
 	wait_animating(message_delay);
 	goto L62ad;
 L622d:
-	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) goto L62ad;
-	if ((unsigned)g4517[(432 * i)] <= 3) goto L62ad;
-	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L62ad;
+	if (((random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) || ((unsigned)g4517[(432 * i)] <= 3)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L62ad;
 	g4517[(432 * i)]--;
 	get_message(5266, &l80);
 	get_message(5268, 20722);

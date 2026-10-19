@@ -86,8 +86,7 @@ L8377:
 	f5078(p10, g527a);
 	break;
 case 46:
-	if (pc_condition[(432 * p10)] != 2) goto L83f3;
-	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L83f3;
+	if ((pc_condition[(432 * p10)] != 2) || ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)]))) goto L83f3;
 	g4517[(432 * p10)]--;
 	if (random(21) <= (unsigned char)g4517[(432 * p10)]) goto L83ee;
 	pc_condition[(432 * p10)] = 3;
@@ -128,8 +127,7 @@ L8500:
 	f5078(p10, g527a);
 	break;
 case 77:
-	if (pc_condition[(432 * p10)] != 3) goto L855c;
-	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L855c;
+	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L855c;
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;
@@ -165,9 +163,7 @@ L866c:
 	break;
 case 50:
 	l2 = (((p8 * 10) + ((*(int *)((char *)pc_level + (432 * p4)) - (unsigned char)g51cf) * 5)) + 25);
-	if (((unsigned char)g51d3 & 4)) goto L86d6;
-	if (random(100) <= l2) goto L86e6;
-L86d6:
+	if ((!((unsigned char)g51d3 & 4)) && (random(100) <= l2)) goto L86e6;
 	f5d9b(1544, 0);
 	goto L8725;
 L86e6:
@@ -176,9 +172,7 @@ L86e6:
 L8725:
 	break;
 case 56:
-	if (((unsigned char)g51d3 & 8)) goto L8765;
-	if (random(((*(int *)((char *)pc_level + (432 * p4)) / 2) + (p8 * 3))) >= (unsigned char)g51cf) goto L8775;
-L8765:
+	if ((!((unsigned char)g51d3 & 8)) && (random(((*(int *)((char *)pc_level + (432 * p4)) / 2) + (p8 * 3))) >= (unsigned char)g51cf)) goto L8775;
 	get_message(1545, 21116);
 	goto L87a3;
 L8775:

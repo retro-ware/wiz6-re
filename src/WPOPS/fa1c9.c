@@ -94,9 +94,7 @@ La352:
 	if (view_depth >= g5258) goto La8e6;
 	g5256 = ((((party_x + party_y) + party_facing) + view_depth) % 2);
 	if (!step_relative(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto La3fb;
-	if (game_state_arg == 10) goto La3b0;
-	if (game_state_arg != 12) goto La3e7;
-La3b0:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto La3e7;
 	g507d[(view_depth * 3)] = 1;
 	g508a[(view_depth * 3)] = 1;
 	g525a = 0;
@@ -186,8 +184,7 @@ La9db:
 	goto Laa40;
 La9ea:
 	obj = ((rsi * 11) + 20746);
-	if ((unsigned char)obj[10] != view_depth) goto Laa3f;
-	if ((unsigned char)obj[8] == 255) goto Laa3f;
+	if (((unsigned char)obj[10] != view_depth) || ((unsigned char)obj[8] == 255)) goto Laa3f;
 	l16[0] = obj[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)obj[8], *(int *)obj, *(int *)(obj + 2), *(int *)(obj + 4), *(int *)(obj + 6), 0, 0, l16);

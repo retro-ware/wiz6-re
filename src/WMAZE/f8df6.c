@@ -11,10 +11,7 @@ extern char g509c[];
 extern int g521e;
 f8df6(p4, p6)
 {
-	if (p6 == 2) goto L8e17;
-	if (p6 >= 5) goto L8e17;
-	if (g5067[(p4 * 3)] != 1) goto L8e55;
-L8e17:
+	if (((p6 != 2) && (p6 < 5)) && (g5067[(p4 * 3)] != 1)) goto L8e55;
 	g508b[p4] = 0;
 	g508c[p4] = 0;
 	g508d[p4] = 0;

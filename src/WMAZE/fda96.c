@@ -7,8 +7,7 @@ check_locked_door_at(event)
 {
 	int l2;
 	l2 = *(int *)((g4fa8 + (event << 1)) + 576);
-	if (extract_bits(l2, 14, 1) != 1) goto Ldae4;
-	if (extract_bits(l2, 12, 2) == party_facing) goto Ldae4;
+	if ((extract_bits(l2, 14, 1) != 1) || (extract_bits(l2, 12, 2) == party_facing)) goto Ldae4;
 	return 0;
 Ldae4:
 	if (extract_bits(l2, 8, 1)) goto Ldafe;

@@ -1,8 +1,10 @@
+extern char *g43b8;
 extern char g505c;
 extern int g435c;
 extern int g435e;
 extern int g4fc8;
 extern int g5114;
+extern int group_monster_rec[];
 fb85f(p4, p6, p8, p10)
 {
 	char x0[2];
@@ -19,12 +21,7 @@ Lb89c:
 	combat_delay((g4fc8 / 2));
 	return 1;
 Lb8f7:
-	if (!g435e) goto Lb92f;
-#asm
-	db 08bh,01eh,0b8h,043h,08ah,087h,0d2h,000h,03ch,000h,076h,025h,03ch,006h,074h,021h
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,08fh,0d2h,000h,08bh
-	db 01eh,0b8h,043h,08ah,087h,0d2h,000h,03ah,0c8h,075h,006h
-#endasm
+	if (((!g435e) || (((unsigned)g43b8[210] <= 0) || (g43b8[210] == 6))) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] != g43b8[210])) goto Lb92f;
 	g5114 = 14;
 Lb92f:
 	return 0;

@@ -9,10 +9,7 @@ L8d69:
 	if ((unsigned char)(g4fa8 + rsi)[1296] == p8) goto L8d80;
 	return -1;
 L8d80:
-	if ((unsigned char)(g4fa8 + rsi)[1008] != p4) goto L8dc3;
-	if ((unsigned char)(g4fa8 + rsi)[1152] != p6) goto L8dc3;
-	if ((unsigned)(g4fa8 + rsi)[864] <= 0) goto L8dc3;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440])) goto L8dc3;
+	if (((((unsigned char)(g4fa8 + rsi)[1008] != p4) || ((unsigned char)(g4fa8 + rsi)[1152] != p6)) || ((unsigned)(g4fa8 + rsi)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440]))) goto L8dc3;
 	return rsi;
 L8dc3:
 	rsi++;

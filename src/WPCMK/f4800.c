@@ -32,8 +32,7 @@ L482c:
 	y = ((n % rows) + y0);
 	set_cursor(win, x, y);
 	get_message((first_msg + item), ((n * 25) + labels));
-	if (mouse_present) goto L48b5;
-	if (sel != n) goto L48b5;
+	if ((mouse_present) || (sel != n)) goto L48b5;
 	print_string(win, ((n * 25) + labels), (0 - color));
 	goto L48d8;
 L48b5:
@@ -81,8 +80,7 @@ case 3:
 L4ad4:
 	goto L4b53;
 case 4:
-	if ((sel % rows) >= (rows - 1)) goto L4b34;
-	if ((sel + 1) >= n) goto L4b34;
+	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L4b34;
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 25) + labels), 3);
 	sel++;

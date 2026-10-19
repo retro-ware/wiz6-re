@@ -73,7 +73,8 @@
 	global g5475_:byte,1
 	global g5476_:byte,6
 	global g547c_:byte,1
-	global g547d_:byte,13
+	global g547d_:byte,11
+	global char_hp_:byte,2
 	global char_hp_max_:byte,22
 	global g54a0_:byte,2
 	global g54a2_:byte,2

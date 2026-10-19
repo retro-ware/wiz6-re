@@ -26,11 +26,7 @@ Lce09:
 #asm
 	db 0a1h,098h,058h,0e9h,068h,004h
 #endasm
-	if (g58b4 != 1) goto Lce6b;
-	if (l2) goto Lce6b;
-	if (g58a4 == 1) goto Lce34;
-	if (g58a6 != 1) goto Lce6b;
-Lce34:
+	if (((g58b4 != 1) || (l2)) || ((g58a4 != 1) && (g58a6 != 1))) goto Lce6b;
 	if (g51b6 <= 0) goto Lce59;
 	fc16d(&l84, 0);
 	fc95b(1617, &l84);
@@ -40,26 +36,16 @@ Lce59:
 Lce67:
 	return;
 Lce6b:
-	if (g58b4) goto Lce85;
-	if (g58b6) goto Lce85;
+	if ((g58b4) || (g58b6)) goto Lce85;
 	g58b4 = 1;
 	g58a6 = 1;
 Lce85:
-	if (g58b4 != 1) goto Lcead;
-	if (g58b0 == 1) goto Lce9a;
-	if (g58a6 != 1) goto Lcead;
-Lce9a:
+	if ((g58b4 != 1) || ((g58b0 != 1) && (g58a6 != 1))) goto Lcead;
 	fcd43((l4 + 3), 1625);
 	return;
 Lcead:
 	if (g58b4 != 1) goto Lcff2;
-	if (g58a4) goto Lceee;
-	if (g58a6) goto Lceee;
-	if (g58a8) goto Lceee;
-	if (g58aa) goto Lceee;
-	if (g58ac) goto Lceee;
-	if (g58ae) goto Lceee;
-	if (g58b0) goto Lceee;
+	if (((((((g58a4) || (g58a6)) || (g58a8)) || (g58aa)) || (g58ac)) || (g58ae)) || (g58b0)) goto Lceee;
 	g58a6 = 1;
 Lceee:
 	if (g58a4 != 1) goto Lcf42;
@@ -184,9 +170,7 @@ Ld1c3:
 	fc95b(1633, 20552);
 	return;
 	if (g58b4 != 1) goto Ld25c;
-	if (g58a4 == 1) goto Ld1ec;
-	if (g58ac != 1) goto Ld1fd;
-Ld1ec:
+	if ((g58a4 != 1) && (g58ac != 1)) goto Ld1fd;
 	fc95b(1630, 20553);
 	return;
 Ld1fd:

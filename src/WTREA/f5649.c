@@ -75,8 +75,7 @@ L58ad:
 L58de:
 	switch (key) {
 case 1:
-	if (sel == -1) goto L5909;
-	if ((sel % 2) <= 0) goto L5909;
+	if ((sel == -1) || ((sel % 2) <= 0)) goto L5909;
 	draw_member_name_cell(win, sel);
 	sel--;
 L5909:
@@ -92,13 +91,7 @@ L592a:
 L592f:
 	goto L59cd;
 case 3:
-	;
-#asm
-l5932:
-	db 08bh,046h,0fah,03dh,0ffh,0ffh,074h,026h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
-	db 03dh,001h,000h,07dh,019h
-#endasm
-	if ((sel + 1) >= party_count) goto L5960;
+	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L5960;
 	draw_member_name_cell(win, sel);
 	sel++;
 L5960:

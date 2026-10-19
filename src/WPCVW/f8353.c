@@ -51,9 +51,7 @@ L83f9:
 	l4 = 0;
 	l2 = 0;
 L8403:
-	if (!(l10 & (unsigned char)g00e3[(l2 * 6)])) goto L8451;
-	if ((unsigned char)g00df[(l2 * 6)] > l8) goto L8451;
-	if (test_bit(&l28, l2)) goto L8451;
+	if (((!(l10 & (unsigned char)g00e3[(l2 * 6)])) || ((unsigned char)g00df[(l2 * 6)] > l8)) || (test_bit(&l28, l2))) goto L8451;
 	set_bit(((432 * p8) + 17776), l2, 1);
 	l4++;
 L8451:

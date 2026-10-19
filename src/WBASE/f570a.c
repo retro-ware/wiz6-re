@@ -113,9 +113,7 @@ L57a0:
 	copy_through_char(&l4176, 13692, 58);
 	strcpy(&path, &l4156);
 	if (strlen(&l4176) <= 0) goto L583e;
-	if (!strcmp(&l4156, &l4176)) goto L57ff;
-	if (g3592 != 5) goto L5805;
-L57ff:
+	if ((strcmp(&l4156, &l4176)) && (g3592 != 5)) goto L5805;
 	l4134 = 1;
 L5805:
 	prompt_insert_disk(&l4176, -1, l4134, 0);

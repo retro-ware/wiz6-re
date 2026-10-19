@@ -21,13 +21,10 @@ fd777(p4, p6, p8, p10, p12, p14)
 	register int rdi;
 	if (!p14) goto Ld809;
 	if (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ld809;
-	if (pclist_race) goto Ld7c0;
-	if (p14) goto Ld7c0;
+	if ((pclist_race) || (p14)) goto Ld7c0;
 	view_rows_open = 0;
 Ld7c0:
-	if (game_state_arg == 10) goto Ld7ce;
-	if (game_state_arg != 12) goto Ld804;
-Ld7ce:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ld804;
 	g511d[((pclist_race * 3) + p14)] = 1;
 	*(int *)((char *)g512a + ((pclist_race * 6) + (p14 << 1))) = 1;
 	return 0;
@@ -41,8 +38,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto Ld868;
-	if (p12 >= 9) goto Ld868;
+	if ((game_state_arg != 12) || (p12 >= 9)) goto Ld868;
 	*(int *)((char *)g512a + ((pclist_race * 6) + (p14 << 1))) = 1;
 	goto Ld8ca;
 Ld868:
@@ -121,8 +117,7 @@ case 3:
 Lda16:
 	l6 = get_bitfield((maze_data + 504), rsi, 4);
 	l8 = get_bitfield((maze_data + 888), rsi, 2);
-	if (l8 == party_facing) goto Lda55;
-	if (l6 == 6) goto Lda55;
+	if ((l8 == party_facing) || (l6 == 6)) goto Lda55;
 	if (l6 <= 12) goto Ldb41;
 Lda55:
 	switch (l6) {
@@ -173,9 +168,7 @@ case 15:
 	goto Ldb41;
 	}
 Ldb41:
-	if (!l4) goto Ldb5a;
-	if (pclist_race) goto Ldb5a;
-	if (p14) goto Ldb5a;
+	if (((!l4) || (pclist_race)) || (p14)) goto Ldb5a;
 	view_rows_open = 0;
 Ldb5a:
 	return l4;

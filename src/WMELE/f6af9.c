@@ -13,8 +13,7 @@ place_group_at(g, row, col)
 	if (g <= monster_group_count) goto L6b10;
 	return -1;
 L6b10:
-	if (row != 1) goto L6b3a;
-	if (g3810[((unsigned char)g019b[monster_groups[g]] * 314)]) goto L6b3a;
+	if ((row != 1) || (g3810[((unsigned char)g019b[monster_groups[g]] * 314)])) goto L6b3a;
 	return -1;
 L6b3a:
 	i = 0;

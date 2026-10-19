@@ -11,10 +11,7 @@ extern char g6b00[];
 extern int g6c82;
 febe9(p4, p6)
 {
-	if (p6 == 2) goto Lec0a;
-	if (p6 >= 5) goto Lec0a;
-	if (g6acb[(p4 * 3)] != 1) goto Lec48;
-Lec0a:
+	if (((p6 != 2) && (p6 < 5)) && (g6acb[(p4 * 3)] != 1)) goto Lec48;
 	g6aef[p4] = 0;
 	g6af0[p4] = 0;
 	g6af1[p4] = 0;

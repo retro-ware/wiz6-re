@@ -12,11 +12,7 @@ f8efc(p4, p6, p8, p10)
 	if (g50fc != 1) goto L8f11;
 	return;
 L8f11:
-	if (!p4) goto L8f1f;
-#asm
-	db 08bh,046h,004h,03dh,006h,000h,075h,03bh
-#endasm
-L8f1f:
+	if ((p4) && (p4 != 6)) goto L8f5a;
 	rdi = (44 * g435c);
 	if (((char *)monster_groups[g435e] + rdi)[42] != -1) goto L8f4b;
 	l2 = (g435e == 1 ? 0 : 1);

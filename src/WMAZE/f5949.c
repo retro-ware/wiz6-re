@@ -26,8 +26,7 @@ L59a4:
 L59a8:
 	goto L59fe;
 L59aa:
-	if (l2 != 3) goto L59fe;
-	if (l4 != party_facing) goto L59fe;
+	if ((l2 != 3) || (l4 != party_facing)) goto L59fe;
 	play_sound(4);
 	g363e = 1;
 	redraw_maze_view();
@@ -48,8 +47,7 @@ L5a22:
 l5a22:
 	db 0e9h,075h,000h
 #endasm
-	if (l2 != 3) goto L5a4b;
-	if (l4 != party_facing) goto L5a4b;
+	if ((l2 != 3) || (l4 != party_facing)) goto L5a4b;
 	f567c(2021, 2, (message_delay / 2));
 	goto L5a5a;
 L5a4b:

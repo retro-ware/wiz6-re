@@ -5,10 +5,7 @@
 extern int g5254;
 draw_side_walls(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
 {
-	if (p4 != 3) goto L9cb5;
-	if (p6) goto L9cc2;
-L9cb5:
-	;
+	if ((p4 == 3) && (p6)) goto L9cc2;
 #asm
 l9cb5:
 	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h

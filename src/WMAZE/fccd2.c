@@ -15,8 +15,7 @@ search_cell()
 	int l6;
 	register int rsi;
 	l2 = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
-	if (get_bitfield((maze_data + 504), l2, 4) != 5) goto Lcd46;
-	if (get_bitfield((maze_data + 888), l2, 2) != party_facing) goto Lcd46;
+	if ((get_bitfield((maze_data + 504), l2, 4) != 5) || (get_bitfield((maze_data + 888), l2, 2) != party_facing)) goto Lcd46;
 	show_maze_message(2044);
 	play_sound(4);
 	wait_animating_m(2);

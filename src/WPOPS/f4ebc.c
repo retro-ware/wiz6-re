@@ -26,8 +26,7 @@ L4f0b:
 	goto L5052;
 L4f28:
 	l8[0] = ((char *)sprite_list[idx] + rsi)[8];
-	if (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (idx << 1)))[21]] != 54) goto L4f5d;
-	if (l8[0] != 8) goto L4f5d;
+	if ((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (idx << 1)))[21]] != 54) || (l8[0] != 8)) goto L4f5d;
 	((char *)sprite_list[idx] + rsi)[8] = 9;
 	rsi--;
 L4f5d:

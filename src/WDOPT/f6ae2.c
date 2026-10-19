@@ -8,8 +8,7 @@ char *p8;
 	count = 0;
 	spell = 0;
 L6af2:
-	if ((unsigned char)spell_table[(spell * 6)] != realm) goto L6b2e;
-	if (test_bit(((432 * member) + 17776), spell) != 1) goto L6b2e;
+	if (((unsigned char)spell_table[(spell * 6)] != realm) || (test_bit(((432 * member) + 17776), spell) != 1)) goto L6b2e;
 	*(int *)(p8 + (count << 1)) = spell;
 	count++;
 L6b2e:

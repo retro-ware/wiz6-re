@@ -8,8 +8,7 @@ pick_chest_trap(chest)
 	l2 = (random(100) + 1);
 	l4 = 0;
 L66ce:
-	if (l2 <= 0) goto L670a;
-	if (l4 >= 100) goto L670a;
+	if ((l2 <= 0) || (l4 >= 100)) goto L670a;
 	chest_trap++;
 	if (chest_trap <= 15) goto L66ef;
 	chest_trap = 0;

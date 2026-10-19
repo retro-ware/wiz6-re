@@ -23,8 +23,7 @@ L88b2:
 L88da:
 	if (l6) goto L88ff;
 	anim_phase = ((anim_phase + 1) % 2);
-	if (g553c == -1) goto L88fd;
-	if (anim_phase != l4) goto L88fd;
+	if ((g553c == -1) || (anim_phase != l4)) goto L88fd;
 	blink_cursor();
 L88fd:
 	goto L8905;

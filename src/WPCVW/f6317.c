@@ -116,14 +116,10 @@ L673d:
 	l26[l2] = 1;
 	l2++;
 	if (l2 <= 3) goto L673d;
-	if ((unsigned)pc_swag_count[(432 * p8)] >= 12) goto L676c;
-	if (pc_item_count[(432 * p8)]) goto L6771;
-L676c:
+	if (((unsigned)pc_swag_count[(432 * p8)] < 12) && (pc_item_count[(432 * p8)])) goto L6771;
 	l26[0] = 0;
 L6771:
-	if (!pc_swag_count[(432 * p8)]) goto L677f;
-	if ((unsigned)pc_item_count[(432 * p8)] < 10) goto L6784;
-L677f:
+	if ((pc_swag_count[(432 * p8)]) && ((unsigned)pc_item_count[(432 * p8)] < 10)) goto L6784;
 	l26[1] = 0;
 L6784:
 	if (pc_swag_count[(432 * p8)]) goto L6790;

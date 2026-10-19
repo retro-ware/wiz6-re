@@ -15,18 +15,13 @@ play_spell_animation(p4, p6, p8, p10, p12, p14, p16)
 	int l24;
 	int l26;
 	char l38[12];
-	if (p4) goto L6989;
-	if (((char *)monster_groups[p4] + (44 * p6))[31]) goto L6989;
+	if ((p4) || (((char *)monster_groups[p4] + (44 * p6))[31])) goto L6989;
 	return;
 L6989:
 	reset_animation();
 	l18[8] = (p8 >= 5 ? (p8 < 13 ? 8 : 9) : 7);
 	l18[3] = (p8 >= 5 ? (p8 < 13 ? (p8 + -5) : (p8 + -13)) : p8);
-	if (!p4) goto L69cf;
-#asm
-	db 08bh,046h,004h,03dh,006h,000h,075h,041h
-#endasm
-L69cf:
+	if ((p4) && (p4 != 6)) goto L6a10;
 	l26 = 0;
 	l18[4] = 0;
 	l18[0] = 2;
@@ -47,9 +42,7 @@ L6a10:
 	l18[0] = 0;
 	l18[1] = 1;
 	l18[2] = 2;
-	if (p14 == -1) goto L6a3e;
-	if ((p14 % 2)) goto L6a6c;
-L6a3e:
+	if ((p14 != -1) && ((p14 % 2))) goto L6a6c;
 	l24 = 0;
 	l18[5] = ((p8 == 6) || (p8 == 8) || ((p8 >= 10) && (p8 <= 13)) || (p8 == 15) ? 0 : 1);
 	goto L6a98;

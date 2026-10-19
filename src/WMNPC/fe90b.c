@@ -5,10 +5,7 @@
 extern int g6c7e;
 fe90b(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
 {
-	if (p4 != 3) goto Le91a;
-	if (p6) goto Le927;
-Le91a:
-	;
+	if ((p4 == 3) && (p6)) goto Le927;
 #asm
 le91a:
 	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h

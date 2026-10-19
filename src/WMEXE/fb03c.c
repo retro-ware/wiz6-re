@@ -52,8 +52,7 @@ Lb182:
 	try_raise_skill(g435c, 13, 2);
 Lb1cb:
 	if (random(100) <= l14) goto Lb217;
-	if (cfg_level == 1) goto Lb211;
-	if (random(36) <= ((unsigned char)g451b[(432 * g435c)] + 18)) goto Lb211;
+	if ((cfg_level == 1) || (random(36) <= ((unsigned char)g451b[(432 * g435c)] + 18))) goto Lb211;
 	g5118 = 0;
 	g50fc = 1;
 	goto Lb217;
@@ -64,8 +63,7 @@ Lb217:
 Lb21a:
 	l14 = (((*(int *)((char *)monster_groups[g435e] + (44 * g435c)) * 3) + 88) - ((unsigned char)g00df[(l6 * 6)] * l4));
 	if (random(100) <= l14) goto Lb290;
-	if (cfg_level == 2) goto Lb28a;
-	if (random(7)) goto Lb28a;
+	if ((cfg_level == 2) || (random(7))) goto Lb28a;
 	g5118 = 0;
 	g50fc = 1;
 	goto Lb290;
@@ -82,17 +80,14 @@ Lb2bc:
 	if ((((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 5) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 4)) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 13)) goto Lb2dc;
 	l12 = 0;
 Lb2dc:
-	if (g50fc != 1) goto Lb307;
-	if (((unsigned char)g00e1[(l6 * 6)] & 2)) goto Lb307;
+	if ((g50fc != 1) || (((unsigned char)g00e1[(l6 * 6)] & 2))) goto Lb307;
 	g50fc = 0;
 	g5118 = 1;
 Lb307:
-	if (g5118 != 1) goto Lb32c;
-	if (((unsigned char)g00e1[(l6 * 6)] & 1)) goto Lb32c;
+	if ((g5118 != 1) || (((unsigned char)g00e1[(l6 * 6)] & 1))) goto Lb32c;
 	g5118 = 0;
 Lb32c:
-	if (l12 != 1) goto Lb366;
-	if ((unsigned)p4[14] <= 0) goto Lb366;
+	if ((l12 != 1) || ((unsigned)p4[14] <= 0)) goto Lb366;
 	combat_delay(2);
 	print_msg_centered(3200, 3, 2);
 	combat_delay((g4fc8 / 2));

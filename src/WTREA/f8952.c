@@ -152,9 +152,7 @@ L8e4b:
 	}
 L8e6a:
 	if (l8 != 5) goto L8c09;
-	if (sel == -1) goto L8edd;
-	if ((member = choose_party_member(5105, 0)) == -1) goto L8edd;
-	if (loot_item[sel] <= 0) goto L8edd;
+	if (((sel == -1) || ((member = choose_party_member(5105, 0)) == -1)) || (loot_item[sel] <= 0)) goto L8edd;
 	if (give_item_to_member(member, sel) == -1) goto L8eb7;
 	remove_loot_entry(sel);
 	goto L8edd;

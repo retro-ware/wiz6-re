@@ -10,11 +10,9 @@ fb805()
 	access_scenario_record(7, l44, (unsigned char)g51d1, 0);
 	l2 = 0;
 Lb837:
-	if (l44[((l2 * 6) + 4)] != 2) goto Lb8b9;
-	if (*(int *)(l44 + (l2 * 6)) <= 0) goto Lb8b9;
+	if ((l44[((l2 * 6) + 4)] != 2) || (*(int *)(l44 + (l2 * 6)) <= 0)) goto Lb8b9;
 Lb852:
-	if (l4 >= 29) goto Lb8b9;
-	if (*(int *)(l44 + ((l2 * 6) + 2)) <= 0) goto Lb8b9;
+	if ((l4 >= 29) || (*(int *)(l44 + ((l2 * 6) + 2)) <= 0)) goto Lb8b9;
 	if (random(100) >= (unsigned char)l44[((l2 * 6) + 5)]) goto Lb8a2;
 	g5856[l4] = *(int *)(l44 + (l2 * 6));
 	l4++;

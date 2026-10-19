@@ -18,10 +18,7 @@ L54e3:
 	goto L5558;
 L54ea:
 	roll = random(100);
-	if (g019c[monster_groups[g]] != 1) goto L5555;
-	if (((unsigned char)g4533[(432 * member)] - (game_state_arg * 3)) > roll) goto L5534;
-	if ((unsigned char)g4515[(432 * member)] <= roll) goto L5555;
-L5534:
+	if ((g019c[monster_groups[g]] != 1) || ((((unsigned char)g4533[(432 * member)] - (game_state_arg * 3)) <= roll) && ((unsigned char)g4515[(432 * member)] <= roll))) goto L5555;
 	g019c[monster_groups[g]] = 0;
 	maybe_raise_skill(member, 23, 0);
 L5555:

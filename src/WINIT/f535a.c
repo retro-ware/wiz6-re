@@ -56,8 +56,7 @@ L546c:
 	game_state = 2;
 	flush_keys();
 L548e:
-	if (key_available(1)) goto L54a3;
-	if (check_screen_click()) goto L54a3;
+	if ((key_available(1)) || (check_screen_click())) goto L54a3;
 	goto L548e;
 L54a3:
 	flush_keys();

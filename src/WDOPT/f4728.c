@@ -23,8 +23,7 @@ L476c:
 	if (g506a) goto L4798;
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
-	if (g502e == -1) goto L4796;
-	if (anim_phase != frame0) goto L4796;
+	if ((g502e == -1) || (anim_phase != frame0)) goto L4796;
 	blink_cursor_text();
 L4796:
 	goto L479b;

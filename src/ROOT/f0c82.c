@@ -8,8 +8,7 @@ char p8;
 	l2 = 0;
 	l4 = 0;
 L0c93:
-	if (!*(p6 + l2)) goto L0cc8;
-	if (l4) goto L0cc8;
+	if ((!*(p6 + l2)) || (l4)) goto L0cc8;
 	*(p4 + l2) = *(p6 + l2);
 	l4 = (*(p6 + l2) == p8 ? 1 : 0);
 	l2++;

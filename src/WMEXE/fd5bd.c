@@ -9,10 +9,7 @@ Ld5c6:
 	if ((unsigned char)(g4fa8 + rsi)[1296] == p8) goto Ld5dd;
 	return -1;
 Ld5dd:
-	if ((unsigned char)(g4fa8 + rsi)[1008] != p4) goto Ld620;
-	if ((unsigned char)(g4fa8 + rsi)[1152] != p6) goto Ld620;
-	if ((unsigned)(g4fa8 + rsi)[864] <= 0) goto Ld620;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440])) goto Ld620;
+	if (((((unsigned char)(g4fa8 + rsi)[1008] != p4) || ((unsigned char)(g4fa8 + rsi)[1152] != p6)) || ((unsigned)(g4fa8 + rsi)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440]))) goto Ld620;
 	return rsi;
 Ld620:
 	rsi++;

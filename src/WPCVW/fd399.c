@@ -201,9 +201,7 @@ Ld8b8:
 	l4++;
 	if (l4 < 8) goto Ld8b8;
 	l4 = ((unsigned char)g4539[(432 * p8)] / 5);
-	if (pc_class[(432 * p8)] == 12) goto Ld912;
-	if (pc_class[(432 * p8)] != 13) goto Ld934;
-Ld912:
+	if ((pc_class[(432 * p8)] != 12) && (pc_class[(432 * p8)] != 13)) goto Ld934;
 	g44e2[((432 * p8) + (l2 << 4))] = (char)(((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4) + 5);
 	goto Ld95b;
 Ld934:
@@ -236,8 +234,7 @@ Lda39:
 	if (l4 < 14) goto Lda39;
 	g458a[(432 * p8)] = (char)((unsigned)g458a[(432 * p8)] < l230 ? l230 : g458a[(432 * p8)]);
 	g458b[(432 * p8)] = (char)((unsigned)g458b[(432 * p8)] < l229 ? l229 : g458b[(432 * p8)]);
-	if (l2) goto Ldaaf;
-	if (!((unsigned char)pc_item_flags[((432 * p8) + (l8 << 3))] & 8)) goto Ldaaf;
+	if ((l2) || (!((unsigned char)pc_item_flags[((432 * p8) + (l8 << 3))] & 8))) goto Ldaaf;
 	l2++;
 Ldaaf:
 	fc726(p8);

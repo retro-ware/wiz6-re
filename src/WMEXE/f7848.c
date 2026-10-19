@@ -14,9 +14,7 @@ kill_combatant(p4, p6)
 	int l2;
 	int l4;
 	if (!p4) goto L7936;
-	if (g435e) goto L7880;
-	if (g435c < 0) goto L7880;
-	if (g435c >= party_count) goto L7880;
+	if (((g435e) || (g435c < 0)) || (g435c >= party_count)) goto L7880;
 #asm
 	db 0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,083h,087h,0f8h,043h,001h,083h,097h,0fah,043h
 	db 000h
@@ -46,8 +44,7 @@ L79c7:
 	((char *)monster_groups[p4] + ((44 * p6) + l2))[24] = 0;
 	l2++;
 	if (l2 < 4) goto L79c7;
-	if (p4 < 1) goto L7a11;
-	if (p4 > 5) goto L7a11;
+	if ((p4 < 1) || (p4 > 5)) goto L7a11;
 #asm
 	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,047h,040h,08bh,057h
 	db 042h,001h,006h,0c6h,043h,011h,016h,0c8h,043h

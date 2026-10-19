@@ -4,8 +4,7 @@ extern int monster_group_count;
 f861e(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
-	if (p4 <= 0) goto L8661;
-	if (p4 >= 6) goto L8661;
+	if ((p4 <= 0) || (p4 >= 6)) goto L8661;
 	l2 = 1;
 	goto L8656;
 L8637:

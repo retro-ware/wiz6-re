@@ -12,8 +12,7 @@ L675b:
 	if ((p8 + rsi) >= p12) goto L67e3;
 	set_cursor(p4, 1, (rsi + 3));
 	print_message((*(int *)(p14 + ((p8 + rsi) << 1)) + 4000), p4, ((p10 == 1) && (!rsi) ? realm_colors[p6] : 18));
-	if (p10 != 1) goto L67e3;
-	if (rsi) goto L67e3;
+	if ((p10 != 1) || (rsi)) goto L67e3;
 L67c0:
 	if ((unsigned)p4[6] >= 18) goto L67e3;
 	put_char(p4, 32, realm_colors[p6]);

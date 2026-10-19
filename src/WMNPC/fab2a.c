@@ -78,9 +78,7 @@ Lacfa:
 Lad83:
 	l8 = *(int *)((char *)pc_item_id + ((432 * member) + (l6 << 3)));
 	access_scenario_record(1, &l105, l8, 0);
-	if (!((unsigned char)l46 & 2)) goto Ladd5;
-	if (l8 == trap_guess_letters) goto Ladd5;
-	if (l8 == g51be) goto Ladd5;
+	if (((!((unsigned char)l46 & 2)) || (l8 == trap_guess_letters)) || (l8 == g51be)) goto Ladd5;
 	fa645(1529);
 	return;
 Ladd5:

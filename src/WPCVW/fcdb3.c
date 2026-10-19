@@ -147,9 +147,7 @@ Ld189:
 Ld1ec:
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
-	if (pc_class[(432 * p4)] == 13) goto Ld21d;
-	if (pc_class[(432 * p4)] != 12) goto Ld23d;
-Ld21d:
+	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto Ld23d;
 	g44db[(432 * p4)] = (char)((l2 / 3) + 2);
 	g44e7[(432 * p4)] |= 64;
 	g44e2[(432 * p4)] = (char)(l4 + 5);

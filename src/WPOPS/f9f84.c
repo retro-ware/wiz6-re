@@ -11,10 +11,7 @@ extern char g50d6[];
 extern int g5258;
 hide_behind_front(p4, p6)
 {
-	if (p6 == 2) goto L9fa5;
-	if (p6 >= 5) goto L9fa5;
-	if (g50a1[(p4 * 3)] != 1) goto L9fe3;
-L9fa5:
+	if (((p6 != 2) && (p6 < 5)) && (g50a1[(p4 * 3)] != 1)) goto L9fe3;
 	g50c5[p4] = 0;
 	g50c6[p4] = 0;
 	g50c7[p4] = 0;

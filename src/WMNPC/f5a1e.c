@@ -7,8 +7,7 @@ L5a34:
 	if (!check_screen_click()) goto L5a45;
 	return;
 L5a45:
-	if (!key_available(1)) goto L5a5f;
-	if ((char)get_key(1) != 13) goto L5a5f;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L5a5f;
 	return;
 L5a5f:
 	f55dc();

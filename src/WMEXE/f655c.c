@@ -26,8 +26,7 @@ L65ab:
 	goto L66f2;
 L65c8:
 	l8[0] = ((char *)sprite_list[p4] + rsi)[8];
-	if (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 54) goto L65fd;
-	if (l8[0] != 8) goto L65fd;
+	if ((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 54) || (l8[0] != 8)) goto L65fd;
 	((char *)sprite_list[p4] + rsi)[8] = 9;
 	rsi--;
 L65fd:

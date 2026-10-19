@@ -32,8 +32,7 @@ L45fc:
 	l413 = ((l4 % p16) + p12);
 	set_cursor(p4, l411, l413);
 	get_message((first_msg + item), ((l4 * 25) + l409));
-	if (mouse_present) goto L4685;
-	if (sel != l4) goto L4685;
+	if ((mouse_present) || (sel != l4)) goto L4685;
 	print_string(p4, ((l4 * 25) + l409), (0 - p18));
 	goto L46a8;
 L4685:
@@ -78,8 +77,7 @@ case 3:
 L4862:
 	goto L48ce;
 case 4:
-	if ((sel % p16) >= (p16 - 1)) goto L48af;
-	if ((sel + 1) >= l4) goto L48af;
+	if (((sel % p16) >= (p16 - 1)) || ((sel + 1) >= l4)) goto L48af;
 	unhighlight_menu_item(p4, sel, p14, p16, p10, p12, ((sel * 25) + l409));
 	sel++;
 L48af:

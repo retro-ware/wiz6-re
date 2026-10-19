@@ -17,10 +17,7 @@ case 3:
 	goto L5387;
 	}
 L5387:
-	if (x < 0) goto L53c0;
-	if (x >= 5) goto L53c0;
-	if (y < 0) goto L53c0;
-	if (y >= 5) goto L53c0;
+	if ((((x < 0) || (x >= 5)) || (y < 0)) || (y >= 5)) goto L53c0;
 	*(int *)((char *)g50c6 + ((x * 10) + (y << 1))) = value;
 L53c0:
 	;

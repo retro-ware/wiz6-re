@@ -80,18 +80,14 @@ L0f30:
 	if (!check_screen_click()) goto L0f3c;
 	waiting = 0;
 L0f3c:
-	if (key_available(1) != 1) goto L0f5a;
-	if ((char)get_key(1) != 13) goto L0f5a;
+	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L0f5a;
 	waiting = 0;
 L0f5a:
 	if (waiting) goto L0f30;
 	fill_window(win, 32, 3, 0);
 	refresh_window(win);
 	strcpy(path, &name);
-	if (g3592 != 5) goto L0ff5;
-	if (disk == 1) goto L0f9e;
-	if (disk != 2) goto L0ff5;
-L0f9e:
+	if ((g3592 != 5) || ((disk != 1) && (disk != 2))) goto L0ff5;
 	switch (disk) {
 case 1:
 	strcat(path, 1472);
@@ -121,8 +117,7 @@ L1031:
 	if (fd == -1) goto L1083;
 	nread = read(fd, 12356, 700);
 	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
-	if (nread <= 0) goto L107b;
-	if (want != disk_header) goto L107b;
+	if ((nread <= 0) || (want != disk_header)) goto L107b;
 	ok = 1;
 L107b:
 	close(fd);

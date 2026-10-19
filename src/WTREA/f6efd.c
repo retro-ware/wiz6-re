@@ -96,8 +96,7 @@ L715e:
 	draw_member_status(p10);
 	break;
 case 46:
-	if (pc_condition[(432 * p10)] != 2) goto L71db;
-	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L71db;
+	if ((pc_condition[(432 * p10)] != 2) || ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)]))) goto L71db;
 	g4517[(432 * p10)]--;
 	if (random(21) <= (unsigned char)g4517[(432 * p10)]) goto L71cf;
 	pc_condition[(432 * p10)] = 3;
@@ -139,8 +138,7 @@ L72cf:
 	draw_member_status(p10);
 	break;
 case 77:
-	if (pc_condition[(432 * p10)] != 3) goto L732c;
-	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L732c;
+	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L732c;
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;

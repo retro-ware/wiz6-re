@@ -186,9 +186,7 @@ L7338:
 	l40 = l38;
 	l38++;
 L735f:
-	if (l38 >= party_count) goto L736e;
-	if (l54[2] == -1) goto L7338;
-L736e:
+	if ((l38 < party_count) && (l54[2] == -1)) goto L7338;
 	if (l54[2] != -1) goto L737a;
 	return 0;
 L737a:
@@ -259,24 +257,20 @@ L7544:
 	db 0e9h,0feh,009h
 #endasm
 	goto L7f6d;
-	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L75ad;
-	if (l42 >= 79) goto L75ad;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L75ad;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L75ad:
 	goto L7f6d;
-	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L7616;
-	if (l42 >= 79) goto L7616;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L7616;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((game_state_arg * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7616:
 	goto L7f6d;
-	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L7647;
-	if (l42 >= 15) goto L7647;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L7647;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7647:
 	goto L7f6d;
-	if ((l42 = *(int *)(l36 + (l2 << 2))) <= 0) goto L769b;
-	if (l42 >= 15) goto L769b;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L769b;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L769b:
@@ -351,23 +345,19 @@ L7840:
 	return 1;
 L7891:
 	goto L7f6d;
-	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L78e3;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L78e3;
+	if ((test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L78e3;
 	return 1;
 L78e3:
 	goto L7f6d;
-	if (test_bit(21112, *(int *)(l36 + (l2 << 2)))) goto L7927;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7927;
+	if ((test_bit(21112, *(int *)(l36 + (l2 << 2)))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7927;
 	return 1;
 L7927:
 	goto L7f6d;
-	if (test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) goto L796c;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L796c;
+	if ((test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L796c;
 	return 1;
 L796c:
 	goto L7f6d;
-	if (random(100) >= *(int *)(l36 + (l2 << 2))) goto L79a3;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L79a3;
+	if ((random(100) >= *(int *)(l36 + (l2 << 2))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L79a3;
 	return 1;
 L79a3:
 	goto L7f6d;
@@ -529,8 +519,7 @@ l7d66:
 L7d9f:
 	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7d28;
 	goto L7f6d;
-	if (fb2fd(p4)) goto L7de8;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7de8;
+	if ((fb2fd(p4)) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7de8;
 	return 1;
 L7de8:
 	goto L7f6d;
@@ -561,9 +550,7 @@ L7e56:
 L7e9d:
 	l38++;
 L7ea0:
-	if (l38 >= party_count) goto L7eaf;
-	if (l54[2] == -1) goto L7e56;
-L7eaf:
+	if ((l38 < party_count) && (l54[2] == -1)) goto L7e56;
 	goto L7f6d;
 	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
 	l40 = (*(int *)(l36 + (l2 << 2)) % 256);

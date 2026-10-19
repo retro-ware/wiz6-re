@@ -28,8 +28,7 @@ queue_monster_sprite(row, col, dx)
 	int l28;
 	int l30;
 	chars[0] = 0;
-	if ((g = *(int *)((char *)view_pos_group + ((row * 10) + (col << 1)))) < 1) goto L66f9;
-	if (g > 3) goto L66f9;
+	if (((g = *(int *)((char *)view_pos_group + ((row * 10) + (col << 1)))) < 1) || (g > 3)) goto L66f9;
 	if (row <= view_rows_open) goto L66fd;
 L66f9:
 	return;

@@ -6,8 +6,7 @@ f87ae(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24)
 {
 	int l2;
 	g500a = 2;
-	if (p4 <= 0) goto L8802;
-	if (p4 >= 6) goto L8802;
+	if ((p4 <= 0) || (p4 >= 6)) goto L8802;
 	l2 = 1;
 	goto L87f7;
 L87cd:

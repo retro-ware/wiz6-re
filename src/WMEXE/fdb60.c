@@ -7,11 +7,8 @@ fdb60(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Ldbaf;
-	if (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ldbaf;
-	if (game_state_arg == 10) goto Ldba1;
-	if (game_state_arg != 12) goto Ldbaa;
-Ldba1:
+	if ((!p14) || (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ldbaf;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ldbaa;
 	return 0;
 Ldbaa:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto Ldbee;
-	if (p12 <= 8) goto Ldbf3;
-Ldbee:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto Ldbf3;
 	return 0;
 Ldbf3:
 	goto Ldc09;

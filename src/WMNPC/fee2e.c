@@ -93,9 +93,7 @@ Lefb7:
 	if (g6aa4 >= g6c82) goto Lf54b;
 	g6c80 = ((((party_x + party_y) + party_facing) + g6aa4) % 2);
 	if (!fdafe(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto Lf060;
-	if (game_state_arg == 10) goto Lf015;
-	if (game_state_arg != 12) goto Lf04c;
-Lf015:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Lf04c;
 	g6aa7[(g6aa4 * 3)] = 1;
 	g6ab4[(g6aa4 * 3)] = 1;
 	g6c84 = 0;
@@ -185,8 +183,7 @@ Lf640:
 	goto Lf6a5;
 Lf64f:
 	l14 = ((rsi * 11) + 27444);
-	if ((unsigned char)l14[10] != g6aa4) goto Lf6a4;
-	if ((unsigned char)l14[8] == 255) goto Lf6a4;
+	if (((unsigned char)l14[10] != g6aa4) || ((unsigned char)l14[8] == 255)) goto Lf6a4;
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);

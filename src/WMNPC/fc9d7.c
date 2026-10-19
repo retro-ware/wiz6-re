@@ -18,8 +18,7 @@ npc_answer_topic()
 	int l82;
 	char x82[78];
 	int l162;
-	if (g5898 != -1) goto Lc9f2;
-	if (g58b2 != 1) goto Lc9f2;
+	if ((g5898 != -1) || (g58b2 != 1)) goto Lc9f2;
 	g5898 = 1;
 Lc9f2:
 	if (g58d0 == -1) goto Lca73;
@@ -33,8 +32,7 @@ Lc9f2:
 	fc95b(1601, &l82);
 	return -1;
 Lca73:
-	if (g589a != -1) goto Lcad4;
-	if (g5894 != -1) goto Lcad4;
+	if ((g589a != -1) || (g5894 != -1)) goto Lcad4;
 	if (g5898 == -1) goto Lcaa5;
 	fc95b(1602, ((g5898 * 10) + 24746));
 	goto Lcacf;
@@ -62,8 +60,7 @@ Lcb24:
 Lcb32:
 	return -1;
 Lcb38:
-	if (g589a != -1) goto Lcb79;
-	if (g5898 != -1) goto Lcb79;
+	if ((g589a != -1) || (g5898 != -1)) goto Lcb79;
 	if (g5894 == -1) goto Lcb65;
 	g58b4 = 1;
 	g58a6 = 1;

@@ -7,12 +7,10 @@ char *p12;
 	defer_window_draw(p4);
 	rsi = -2;
 L6a5c:
-	if ((p6 + rsi) < 0) goto L6acc;
-	if ((p6 + rsi) >= p10) goto L6acc;
+	if (((p6 + rsi) < 0) || ((p6 + rsi) >= p10)) goto L6acc;
 	set_cursor(p4, 2, (rsi + 2));
 	print_message((*(int *)(p12 + ((p6 + rsi) << 1)) + 5300), p4, ((p8 == 1) && (!rsi) ? 6 : 18));
-	if (p8 != 1) goto L6acc;
-	if (rsi) goto L6acc;
+	if ((p8 != 1) || (rsi)) goto L6acc;
 L6ab2:
 	if ((unsigned)p4[6] >= 17) goto L6acc;
 	put_char(p4, 32, 6);

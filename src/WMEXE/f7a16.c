@@ -17,8 +17,7 @@ L7a93:
 	clear_msg_line(4);
 	print_combat_line(20492, 20652, 20572, (p4 == 0 ? 1 : 6), 6, 0);
 L7abf:
-	if (p10 != 1) goto L7ae5;
-	if (p4) goto L7ae5;
+	if ((p10 != 1) || (p4)) goto L7ae5;
 	if (p12 <= 0) goto L7ad8;
 	play_sound(p12);
 L7ad8:

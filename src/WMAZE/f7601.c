@@ -15,9 +15,7 @@ can_enter_cell(p4, p6)
 	register int rsi;
 	register int rdi;
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
-	if ((l6 = get_bitfield((maze_data + 504), rsi, 4)) == 1) goto L7644;
-	if (l6 != 2) goto L7664;
-L7644:
+	if (((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) goto L7664;
 	if (get_bitfield((maze_data + 888), rsi, 2) != p4) goto L7664;
 	return 1;
 L7664:
@@ -29,9 +27,7 @@ L7664:
 	return 1;
 L76ac:
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
-	if (test_bit(p6, rsi) == 1) goto L76e7;
-	if (test_bit(19976, rsi) != 1) goto L76f9;
-L76e7:
+	if ((test_bit(p6, rsi) != 1) && (test_bit(19976, rsi) != 1)) goto L76f9;
 	set_map_offset(l8, l10);
 	return 1;
 L76f9:
@@ -48,9 +44,7 @@ case 6:
 case 8:
 case 10:
 case 12:
-	if (game_state_arg != 12) goto L7734;
-	if (party_level >= 9) goto L7746;
-L7734:
+	if ((game_state_arg == 12) && (party_level >= 9)) goto L7746;
 	set_map_offset(l8, l10);
 	return 1;
 L7746:

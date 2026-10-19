@@ -73,9 +73,7 @@ L9799:
 	if ((unsigned)pc_item_count[(432 * p8)] <= 0) goto L9b3c;
 	g43ca = choose_item(p4, p6, 403, p8, 0);
 	if (g43ca == -1) goto L96cb;
-	if (((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1)) goto L9813;
-	if (!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 2)) goto L9828;
-L9813:
+	if ((!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1)) && (!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 2))) goto L9828;
 	l18 = 0;
 	l16 = 0;
 	play_sound(0);
@@ -104,9 +102,7 @@ L98e2:
 	l2 = (l6 - 1);
 	goto L9987;
 L9908:
-	if (*(int *)((char *)pc_item_id + ((432 * l4) + (l2 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) goto L9984;
-	if (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l2 << 3))]] != 1) goto L9984;
-	if (((unsigned char)pc_item_qty[((432 * l4) + (l2 << 3))] + l8) > 250) goto L9984;
+	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l2 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l2 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * l4) + (l2 << 3))] + l8) > 250)) goto L9984;
 	l6 = l2;
 	l20 = 0;
 L9984:
@@ -120,9 +116,7 @@ L9987:
 	goto L9a47;
 L99bf:
 	l10 = (l2 + 10);
-	if (*(int *)((char *)pc_item_id + ((432 * l4) + (l10 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) goto L9a44;
-	if (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l10 << 3))]] != 1) goto L9a44;
-	if (((unsigned char)pc_item_qty[((432 * l4) + (l10 << 3))] + l8) > 250) goto L9a44;
+	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l10 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l10 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * l4) + (l10 << 3))] + l8) > 250)) goto L9a44;
 	l6 = l10;
 	l20 = 0;
 L9a44:

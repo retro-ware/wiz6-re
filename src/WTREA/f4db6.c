@@ -56,8 +56,7 @@ L4e69:
 	l2 = -1;
 	rsi = 0;
 L4f1f:
-	if ((unsigned)g450a[((432 * member) + rsi)] <= 0) goto L4f42;
-	if (g0532[rsi] <= l2) goto L4f42;
+	if (((unsigned)g450a[((432 * member) + rsi)] <= 0) || (g0532[rsi] <= l2)) goto L4f42;
 	l2 = g0532[rsi];
 L4f42:
 	rsi++;
@@ -77,8 +76,7 @@ L4f90:
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
 L4fd3:
-	if ((unsigned char)pc_equipped[((432 * member) + rsi)] == 255) goto L5024;
-	if (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))) <= 0) goto L5024;
+	if (((unsigned char)pc_equipped[((432 * member) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))) <= 0)) goto L5024;
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))] + 1)), 4);
 	goto L5039;
 L5024:

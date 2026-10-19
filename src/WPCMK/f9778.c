@@ -9,8 +9,7 @@ L97ba:
 	if (!check_screen_click()) goto L97c2;
 	return;
 L97c2:
-	if (key_available(1) != 1) goto L97dd;
-	if ((char)get_key(1) != 13) goto L97dd;
+	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L97dd;
 	return;
 L97dd:
 	goto L97ba;

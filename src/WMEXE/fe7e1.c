@@ -11,10 +11,7 @@ extern char g5176[];
 extern int g52f8;
 fe7e1(p4, p6)
 {
-	if (p6 == 2) goto Le802;
-	if (p6 >= 5) goto Le802;
-	if (g5141[(p4 * 3)] != 1) goto Le840;
-Le802:
+	if (((p6 != 2) && (p6 < 5)) && (g5141[(p4 * 3)] != 1)) goto Le840;
 	g5165[p4] = 0;
 	g5166[p4] = 0;
 	g5167[p4] = 0;

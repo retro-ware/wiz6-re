@@ -10,8 +10,7 @@ L7767:
 	if (!check_screen_click()) goto L7778;
 	return;
 L7778:
-	if (!key_available(1)) goto L7792;
-	if ((char)get_key(1) != 13) goto L7792;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L7792;
 	return;
 L7792:
 	animate_step();

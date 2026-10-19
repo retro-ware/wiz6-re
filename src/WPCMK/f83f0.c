@@ -124,9 +124,7 @@ L8651:
 	if (l2 < 2) goto L8638;
 	l2 = ((unsigned char)g55ad / 5);
 	l4 = ((unsigned char)g55c1 / 5);
-	if (char_class == 13) goto L86c4;
-	if (char_class != 12) goto L86e2;
-L86c4:
+	if ((char_class != 13) && (char_class != 12)) goto L86e2;
 	g5563 = (char)((l2 / 3) + 2);
 	g556f |= 64;
 	g556a = (char)(l4 + 5);

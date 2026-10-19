@@ -8,8 +8,7 @@ L45bc:
 	if (!check_screen_click()) goto L45cd;
 	return;
 L45cd:
-	if (!key_available(1)) goto L45e7;
-	if ((char)get_key(1) != 13) goto L45e7;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L45e7;
 	return;
 L45e7:
 	animate_view_step();

@@ -49,9 +49,7 @@ Lb0eb:
 	f5d0c(20948, 0);
 	if (roll >= chance) goto Lb233;
 	fa206();
-	if (g54b2 <= 0) goto Lb170;
-	if (random(100) >= 20) goto Lb1d1;
-Lb170:
+	if ((g54b2 > 0) && (random(100) >= 20)) goto Lb1d1;
 	l6 = (random(100) * (unsigned char)g51cf);
 	if ((long)l6 <= g51c0) goto Lb19d;
 	l6 = *(int *)&g51c0;

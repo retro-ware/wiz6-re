@@ -63,8 +63,7 @@ L5154:
 	l2 = -1;
 	rsi = 0;
 L520a:
-	if ((unsigned)g450a[((432 * p4) + rsi)] <= 0) goto L522d;
-	if (g0532[rsi] <= l2) goto L522d;
+	if (((unsigned)g450a[((432 * p4) + rsi)] <= 0) || (g0532[rsi] <= l2)) goto L522d;
 	l2 = g0532[rsi];
 L522d:
 	rsi++;
@@ -84,8 +83,7 @@ L527b:
 	set_cursor(l88, (l4 + 3), (l6 + 1));
 	rsi = 0;
 L52be:
-	if ((unsigned char)pc_equipped[((432 * p4) + rsi)] == 255) goto L530f;
-	if (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) <= 0) goto L530f;
+	if (((unsigned char)pc_equipped[((432 * p4) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) <= 0)) goto L530f;
 	put_char_hi(l88, (unsigned char)(((unsigned char)pc_item_icon[((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))] + 1)), 4);
 	goto L5324;
 L530f:

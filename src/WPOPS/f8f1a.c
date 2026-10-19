@@ -22,13 +22,10 @@ get_front_wall(x, y, cx, cy, level, side)
 	register int rdi;
 	if (!side) goto L8fac;
 	if (!step_relative(&x, &y, &cx, &cy, &level, side, 0)) goto L8fac;
-	if (view_depth) goto L8f63;
-	if (side) goto L8f63;
+	if ((view_depth) || (side)) goto L8f63;
 	view_rows_open = 0;
 L8f63:
-	if (game_state_arg == 10) goto L8f71;
-	if (game_state_arg != 12) goto L8fa7;
-L8f71:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8fa7;
 	g507d[((view_depth * 3) + side)] = 1;
 	*(int *)((char *)g508a + ((view_depth * 6) + (side << 1))) = 1;
 	return 0;
@@ -42,8 +39,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L900b;
-	if (level >= 9) goto L900b;
+	if ((game_state_arg != 12) || (level >= 9)) goto L900b;
 	*(int *)((char *)g508a + ((view_depth * 6) + (side << 1))) = 1;
 	goto L906d;
 L900b:
@@ -122,8 +118,7 @@ case 3:
 L91b9:
 	feature = get_bitfield((maze_data + 504), cell, 4);
 	facing = get_bitfield((maze_data + 888), cell, 2);
-	if (facing == party_facing) goto L91f8;
-	if (feature == 6) goto L91f8;
+	if ((facing == party_facing) || (feature == 6)) goto L91f8;
 	if (feature <= 12) goto L92e4;
 L91f8:
 	switch (feature) {
@@ -174,9 +169,7 @@ case 15:
 	goto L92e4;
 	}
 L92e4:
-	if (!wall) goto L92fd;
-	if (view_depth) goto L92fd;
-	if (side) goto L92fd;
+	if (((!wall) || (view_depth)) || (side)) goto L92fd;
 	view_rows_open = 0;
 L92fd:
 	return wall;

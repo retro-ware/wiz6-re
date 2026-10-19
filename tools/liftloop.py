@@ -58,7 +58,8 @@ class Loop:
             st['status'], st['why'] = 'asm', 'handwritten'
             return None
         for _ in range(50):
-            L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False))
+            L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
+                       st.get('nobool', []))
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -115,6 +116,13 @@ class Loop:
             names = names[names.index(cur) + 1:]
         return out
 
+    @staticmethod
+    def unmerge(st, L, dem):
+        """Merged && / || conditions among dem are split again next round instead of demoted."""
+        nb = {x.s for x in L.sts if getattr(x, 'merged', False)} & dem
+        st.setdefault('nobool', []).extend(sorted(nb))
+        return bool(nb)
+
     def check(self, s, P, L, lines, errs):
         """Returns True if the function changed (needs another round)."""
         st = self.st(s)
@@ -133,6 +141,8 @@ class Loop:
                     x = lines.get(int(m.group(1)))
                     if x is not None and x.kind != 'raw':
                         dem.add(x.s)
+            if self.unmerge(st, L, dem):
+                return True
             dem -= set(st['demote'])
             if not dem:      # nothing new to demote: no progress possible
                 st['status'], st['why'] = 'asm', 'compile: ' + errs[0][:80]
@@ -174,6 +184,8 @@ class Loop:
         for x in L.sts:
             if x.kind != 'raw' and not getattr(x, 'epi', False) and any(x.s <= b < x.e for b in bad):
                 dem.add(x.s)
+        if self.unmerge(st, L, dem):
+            return True
         dem -= set(st['demote'])
         if not dem and L.f.scratch and not st.get('noscratch'):
             # prologue/epilogue differ: si/di were register variables, not cgen's index temps

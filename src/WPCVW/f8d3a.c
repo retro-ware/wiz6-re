@@ -10,8 +10,7 @@ L8d84:
 	if (!check_screen_click()) goto L8d90;
 	l2 = 0;
 L8d90:
-	if (key_available(1) != 1) goto L8dae;
-	if ((char)get_key(1) != 13) goto L8dae;
+	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L8dae;
 	l2 = 0;
 L8dae:
 	if (l2) goto L8d84;

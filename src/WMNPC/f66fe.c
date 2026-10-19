@@ -26,10 +26,7 @@ L6728:
 #endasm
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
-	if (pc_class[(432 * p4)] == 13) goto L67ae;
-	if (pc_class[(432 * p4)] != 12) goto L67da;
-L67ae:
-	;
+	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto L67da;
 #asm
 l67ae:
 	db 08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,040h,040h,08bh,076h,006h,0b9h,004h

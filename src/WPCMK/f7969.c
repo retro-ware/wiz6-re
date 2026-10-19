@@ -89,8 +89,7 @@ L7c69:
 	put_char(sheet_win, 98, 7);
 	goto L7d48;
 case 3:
-	if ((unsigned)char_stats[l4] >= 18) goto L7cc0;
-	if (bonus_points <= 0) goto L7cc0;
+	if (((unsigned)char_stats[l4] >= 18) || (bonus_points <= 0)) goto L7cc0;
 	char_stats[l4]++;
 	l20[l4]++;
 	bonus_points--;
@@ -115,8 +114,7 @@ L7d02:
 	goto L7d48;
 	}
 L7d48:
-	if (l2 != 5) goto L7d5d;
-	if (bonus_points <= 0) goto L7d5d;
+	if ((l2 != 5) || (bonus_points <= 0)) goto L7d5d;
 	play_sound(0);
 L7d5d:
 	if (l2 != 5) goto L7afd;

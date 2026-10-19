@@ -94,9 +94,7 @@ L8bd5:
 	if (g5118 >= g52f6) goto L9169;
 	g52f4 = ((((party_x + party_y) + party_facing) + g5118) % 2);
 	if (!step_in_facing(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L8c7e;
-	if (game_state_arg == 10) goto L8c33;
-	if (game_state_arg != 12) goto L8c6a;
-L8c33:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8c6a;
 	g511b[(g5118 * 3)] = 1;
 	g5128[(g5118 * 3)] = 1;
 	g52f8 = 0;
@@ -186,8 +184,7 @@ L925e:
 	goto L92c3;
 L926d:
 	entry = ((rsi * 11) + 20904);
-	if ((unsigned char)entry[10] != g5118) goto L92c2;
-	if ((unsigned char)entry[8] == 255) goto L92c2;
+	if (((unsigned char)entry[10] != g5118) || ((unsigned char)entry[8] == 255)) goto L92c2;
 	l16[0] = entry[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)entry[8], *(int *)entry, *(int *)(entry + 2), *(int *)(entry + 4), *(int *)(entry + 6), 0, 0, l16);

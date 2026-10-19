@@ -34,7 +34,8 @@
 	global g517b_:byte,1
 	global g517c_:byte,6
 	global g5182_:byte,1
-	global g5183_:byte,13
+	global g5183_:byte,11
+	global g518e_:byte,2
 	global g5190_:byte,22
 	global view_glyph_count_:byte,2
 	global g51a8_:byte,2

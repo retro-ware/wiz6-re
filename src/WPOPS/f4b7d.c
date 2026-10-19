@@ -10,8 +10,7 @@ char mirror;
 	register int rdi;
 	pos = 0;
 L4b8a:
-	if (pos >= sprite_count[0]) goto L4baa;
-	if ((unsigned char)(*(char **)((char *)sprite_list + (pos << 1)))[20] > depth) goto L4baa;
+	if ((pos >= sprite_count[0]) || ((unsigned char)(*(char **)((char *)sprite_list + (pos << 1)))[20] > depth)) goto L4baa;
 	pos++;
 	goto L4b8a;
 L4baa:

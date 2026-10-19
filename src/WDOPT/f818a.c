@@ -10,10 +10,7 @@ L8193:
 	if ((unsigned char)(g4fa8 + ev)[1296] == level) goto L81aa;
 	return -1;
 L81aa:
-	if ((unsigned char)(g4fa8 + ev)[1008] != x) goto L81ed;
-	if ((unsigned char)(g4fa8 + ev)[1152] != y) goto L81ed;
-	if ((unsigned)(g4fa8 + ev)[864] <= 0) goto L81ed;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + ev)[1440])) goto L81ed;
+	if (((((unsigned char)(g4fa8 + ev)[1008] != x) || ((unsigned char)(g4fa8 + ev)[1152] != y)) || ((unsigned)(g4fa8 + ev)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + ev)[1440]))) goto L81ed;
 	return ev;
 L81ed:
 	ev++;

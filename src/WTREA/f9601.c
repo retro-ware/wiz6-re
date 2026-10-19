@@ -136,8 +136,7 @@ L98f5:
 	replace_char_with_string(20590, &l150, 64);
 	l4 = strlen(20590);
 L9966:
-	if (l4 <= 0) goto L9980;
-	if (g506d[l4] != 32) goto L9980;
+	if ((l4 <= 0) || (g506d[l4] != 32)) goto L9980;
 	g506d[l4] = 0;
 	l4--;
 	goto L9966;

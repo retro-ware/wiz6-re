@@ -138,8 +138,7 @@ Lf43d:
 	if (*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))) <= 0) goto Lf49d;
 	l4 = 0;
 Lf45f:
-	if ((unsigned char)spell_table[(l4 * 6)] != l2) goto Lf492;
-	if (test_bit(((432 * p4) + 17776), l4) != 1) goto Lf492;
+	if (((unsigned char)spell_table[(l4 * 6)] != l2) || (test_bit(((432 * p4) + 17776), l4) != 1)) goto Lf492;
 	l16++;
 Lf492:
 	l4++;

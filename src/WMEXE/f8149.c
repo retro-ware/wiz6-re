@@ -20,9 +20,7 @@ L816f:
 L8189:
 	l12 = p10;
 L818f:
-	if (l10 != p8) goto L819f;
-	if (l12 == p10) goto L81a7;
-L819f:
+	if ((l10 == p8) && (l12 == p10)) goto L81a7;
 	show_combat_msg(3213);
 L81a7:
 	if (p6 < 0) goto L81de;

@@ -13,8 +13,7 @@ L462b:
 	if (!check_screen_click()) goto L463c;
 	return;
 L463c:
-	if (!key_available(1)) goto L4656;
-	if ((char)get_key(1) != 13) goto L4656;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L4656;
 	return;
 L4656:
 	if (camp_anim_tick) goto L4684;

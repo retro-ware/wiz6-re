@@ -27,10 +27,7 @@ L4cfc:
 #endasm
 	l2 = ((unsigned char)g4525[(432 * member)] / 5);
 	l4 = ((unsigned char)g4539[(432 * member)] / 5);
-	if (pc_class[(432 * member)] == 13) goto L4d82;
-	if (pc_class[(432 * member)] != 12) goto L4dae;
-L4d82:
-	;
+	if ((pc_class[(432 * member)] != 13) && (pc_class[(432 * member)] != 12)) goto L4dae;
 #asm
 l4d82:
 	db 08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,040h,040h,08bh,076h,006h,0b9h,004h

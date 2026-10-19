@@ -85,8 +85,7 @@ L59ef:
 	put_char(cursor_win, 100, 4);
 	goto L5b02;
 case 3:
-	if ((unsigned)char_skills[*(int *)(skills + (row << 1))] >= 100) goto L5a7b;
-	if (points <= 0) goto L5a7b;
+	if (((unsigned)char_skills[*(int *)(skills + (row << 1))] >= 100) || (points <= 0)) goto L5a7b;
 	char_skills[*(int *)(skills + (row << 1))]++;
 	added[row]++;
 	points--;

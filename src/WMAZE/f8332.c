@@ -7,11 +7,8 @@ get_right_wall_m(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto L8381;
-	if (!step_relative_m(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L8381;
-	if (game_state_arg == 10) goto L8373;
-	if (game_state_arg != 12) goto L837c;
-L8373:
+	if ((!p14) || (!step_relative_m(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L8381;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L837c;
 	return 0;
 L837c:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L83c0;
-	if (p12 <= 8) goto L83c5;
-L83c0:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto L83c5;
 	return 0;
 L83c5:
 	goto L83db;

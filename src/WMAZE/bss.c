@@ -39,7 +39,8 @@
 	global g50a3_:byte,1
 	global g50a4_:byte,6
 	global g50aa_:byte,1
-	global g50ab_:byte,13
+	global g50ab_:byte,11
+	global g50b6_:byte,2
 	global g50b8_:byte,22
 	global g50ce_:byte,2
 	global g50d0_:byte,2

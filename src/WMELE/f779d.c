@@ -22,13 +22,10 @@ get_center_wall(x, y, cx, cy, level, side)
 	register int rdi;
 	if (!side) goto L782f;
 	if (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0)) goto L782f;
-	if (g5118) goto L77e6;
-	if (side) goto L77e6;
+	if ((g5118) || (side)) goto L77e6;
 	view_rows_open = 0;
 L77e6:
-	if (game_state_arg == 10) goto L77f4;
-	if (game_state_arg != 12) goto L782a;
-L77f4:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L782a;
 	g511b[((g5118 * 3) + side)] = 1;
 	*(int *)((char *)g5128 + ((g5118 * 6) + (side << 1))) = 1;
 	return 0;
@@ -42,8 +39,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L788e;
-	if (level >= 9) goto L788e;
+	if ((game_state_arg != 12) || (level >= 9)) goto L788e;
 	*(int *)((char *)g5128 + ((g5118 * 6) + (side << 1))) = 1;
 	goto L78f0;
 L788e:
@@ -122,8 +118,7 @@ case 3:
 L7a3c:
 	l6 = get_bitfield((maze_data + 504), cell, 4);
 	l8 = get_bitfield((maze_data + 888), cell, 2);
-	if (l8 == party_facing) goto L7a7b;
-	if (l6 == 6) goto L7a7b;
+	if ((l8 == party_facing) || (l6 == 6)) goto L7a7b;
 	if (l6 <= 12) goto L7b67;
 L7a7b:
 	switch (l6) {
@@ -174,9 +169,7 @@ case 15:
 	goto L7b67;
 	}
 L7b67:
-	if (!wall) goto L7b80;
-	if (g5118) goto L7b80;
-	if (side) goto L7b80;
+	if (((!wall) || (g5118)) || (side)) goto L7b80;
 	view_rows_open = 0;
 L7b80:
 	return wall;

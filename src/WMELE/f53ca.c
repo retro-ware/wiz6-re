@@ -13,8 +13,7 @@ update_group(g)
 	goto L5462;
 L53df:
 	rsi = (44 * i);
-	if ((unsigned)((char *)monster_groups[g] + rsi)[34] >= 3) goto L541f;
-	if (update_combatant(g, i, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[215], 0) != 1) goto L541f;
+	if (((unsigned)((char *)monster_groups[g] + rsi)[34] >= 3) || (update_combatant(g, i, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[215], 0) != 1)) goto L541f;
 L541f:
 	rsi = (44 * i);
 	if ((unsigned)((char *)monster_groups[g] + rsi)[34] >= 3) goto L545f;

@@ -84,8 +84,7 @@ L6d35:
 	refresh_member_card(g5752, p10);
 	break;
 case 46:
-	if (pc_condition[(432 * p10)] != 2) goto L6dbe;
-	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L6dbe;
+	if ((pc_condition[(432 * p10)] != 2) || ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)]))) goto L6dbe;
 	g4517[(432 * p10)]--;
 	if (random(21) <= (unsigned char)g4517[(432 * p10)]) goto L6dac;
 	pc_condition[(432 * p10)] = 3;
@@ -127,8 +126,7 @@ L6ebe:
 	refresh_member_card(g5752, p10);
 	break;
 case 77:
-	if (pc_condition[(432 * p10)] != 3) goto L6f27;
-	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L6f27;
+	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L6f27;
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;

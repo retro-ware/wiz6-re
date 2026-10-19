@@ -19,9 +19,7 @@ L56df:
 	l4 = random(4);
 	l2 = 0;
 L56fa:
-	if (!random(8)) goto L570e;
-	if (l2 != l4) goto L571d;
-L570e:
+	if ((random(8)) && (l2 != l4)) goto L571d;
 	if (g5224 <= 0) goto L571d;
 	play_sound(g5224);
 L571d:

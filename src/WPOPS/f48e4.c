@@ -38,10 +38,7 @@ L4934:
 	rdi = 0;
 	goto L4b58;
 L4955:
-	if (((char *)monster_groups[p4] + (44 * l10))[34] == 2) goto L497e;
-	if ((unsigned)((char *)monster_groups[p4] + (44 * l10))[17] > 0) goto L497e;
-	if ((unsigned)((char *)monster_groups[p4] + (44 * l10))[16] <= 0) goto L49be;
-L497e:
+	if (((((char *)monster_groups[p4] + (44 * l10))[34] != 2) && ((unsigned)((char *)monster_groups[p4] + (44 * l10))[17] <= 0)) && ((unsigned)((char *)monster_groups[p4] + (44 * l10))[16] <= 0)) goto L49be;
 	l2 = (unsigned char)g3648[((p6 * 30) + (rdi * 3))];
 	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
 	goto L4b12;
@@ -75,8 +72,7 @@ L4aec:
 	g364a[((p6 * 30) + (rdi * 3))] = *(char *)&l6;
 L4b12:
 	*(p8 + l12) = g375a[((314 * rsi) + (l4 << 2))];
-	if (pic_slot_monster[rsi] != 40) goto L4b47;
-	if (rdi != 4) goto L4b47;
+	if ((pic_slot_monster[rsi] != 40) || (rdi != 4)) goto L4b47;
 	*(p8 + l12) = 0;
 L4b47:
 	if (!*(p8 + l12)) goto L4b57;

@@ -45,16 +45,10 @@ L854f:
 L8568:
 	monster[29] = (char)pick_random_row(group);
 	l22++;
-	if (monster[29] != monster[28]) goto L858b;
-	if (l22 < 3) goto L8568;
-L858b:
+	if ((monster[29] == monster[28]) && (l22 < 3)) goto L8568;
 	l14 = 0;
 L8590:
-	if ((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] <= l14) goto L85bb;
-	if ((unsigned)monster[34] >= 2) goto L85bb;
-	if ((unsigned)monster[17] > 0) goto L85bb;
-	if ((unsigned)monster[16] <= 0) goto L85c7;
-L85bb:
+	if (((((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] > l14) && ((unsigned)monster[34] < 2)) && ((unsigned)monster[17] <= 0)) && ((unsigned)monster[16] <= 0)) goto L85c7;
 	(monster + l14)[24] = 0;
 	goto L85d9;
 L85c7:
@@ -93,14 +87,12 @@ L86b8:
 	if (l26 == -1) goto L867a;
 	if (g00e2[(l26 * 6)] != 1) goto L872d;
 	if (group != 6) goto L8701;
-	if (find_most_wounded(monster, 0)) goto L86ff;
-	if (find_most_wounded(monster, 6)) goto L86ff;
+	if ((find_most_wounded(monster, 0)) || (find_most_wounded(monster, 6))) goto L86ff;
 	l24 = -1;
 L86ff:
 	goto L872d;
 L8701:
-	if (find_most_wounded(monster, group)) goto L872d;
-	if (find_most_wounded(monster, (random(monster_group_count) + 1))) goto L872d;
+	if ((find_most_wounded(monster, group)) || (find_most_wounded(monster, (random(monster_group_count) + 1)))) goto L872d;
 	l24 = -1;
 L872d:
 	l18 = ((*(int *)monster - (unsigned char)g00df[(l26 * 6)]) + 1);
@@ -121,8 +113,7 @@ L8767:
 L877b:
 	*(int *)(monster + 10) = ((l18 << 8) + l26);
 L878b:
-	if (l24 != -1) goto L87d5;
-	if (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[170]) goto L87d5;
+	if ((l24 != -1) || (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[170])) goto L87d5;
 	l24 = 8;
 	monster[30] = 8;
 	*(int *)(monster + 10) = (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[216];
@@ -137,9 +128,7 @@ L87d5:
 	l18 = 9;
 	goto L886f;
 L8816:
-	if (group < 3) goto L8837;
-	if ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1) goto L886f;
-L8837:
+	if ((group >= 3) && ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1)) goto L886f;
 	l18 = 3;
 	if ((group < 3 ? 0 : 2) >= (unsigned char)((char *)group_monster_rec[group] + (l20 << 4))[81]) goto L886f;
 	l18 = 6;
@@ -179,9 +168,7 @@ L8958:
 	*(int *)(monster + 12) = -1;
 	if (monster[30]) goto L8a0a;
 	l20 = (unsigned char)monster[29];
-	if (group < 3) goto L8995;
-	if ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1) goto L89fa;
-L8995:
+	if ((group >= 3) && ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1)) goto L89fa;
 	if (((char *)group_monster_rec[group] + l20)[128] != 2) goto L89b4;
 	*(int *)(monster + 12) = 4;
 	goto L89f8;

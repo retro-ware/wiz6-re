@@ -91,9 +91,7 @@ Ld157:
 	if (random(50)) goto Ld227;
 Ld1cb:
 	(*(int *)((char *)pc_stamina + (432 * member)))--;
-	if (l6 <= 0) goto Ld1e4;
-	if (*(int *)((char *)pc_stamina + (432 * member)) > 0) goto Ld220;
-Ld1e4:
+	if ((l6 > 0) && (*(int *)((char *)pc_stamina + (432 * member)) > 0)) goto Ld220;
 	g450c[(432 * member)] = (char)(random(6) + 6);
 	*(int *)((char *)pc_stamina + (432 * member)) = 0;
 	draw_member_status_m(member);
@@ -119,8 +117,7 @@ Ld2a5:
 	clear_window_area(win, (unsigned char)win[6], 1, 18, 1);
 	resume_window_draw(win);
 	refresh_window(win);
-	if (!key_available(1)) goto Ld2f4;
-	if ((char)get_key(1) != 13) goto Ld2f4;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld2f4;
 	l62 = 0;
 Ld2f4:
 	if (l62 != 1) goto Ld304;

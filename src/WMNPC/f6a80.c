@@ -32,9 +32,7 @@ L6ab0:
 	l2 = (l80 - 1);
 	goto L6b1d;
 L6acc:
-	if (*(int *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) != p6) goto L6b1a;
-	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l2 << 3))]] != 1) goto L6b1a;
-	if (((unsigned char)pc_item_qty[((432 * p4) + (l2 << 3))] + p8) > 250) goto L6b1a;
+	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) != p6) || (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l2 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * p4) + (l2 << 3))] + p8) > 250)) goto L6b1a;
 	l80 = l2;
 	l84 = 0;
 L6b1a:
@@ -48,9 +46,7 @@ L6b1d:
 	goto L6bab;
 L6b51:
 	l82 = (l2 + 10);
-	if (*(int *)((char *)pc_item_id + ((432 * p4) + (l82 << 3))) != p6) goto L6ba8;
-	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l82 << 3))]] != 1) goto L6ba8;
-	if (((unsigned char)pc_item_qty[((432 * p4) + (l82 << 3))] + p8) > 250) goto L6ba8;
+	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l82 << 3))) != p6) || (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l82 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * p4) + (l82 << 3))] + p8) > 250)) goto L6ba8;
 	l80 = l82;
 	l84 = 0;
 L6ba8:

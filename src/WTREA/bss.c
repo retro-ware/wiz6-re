@@ -77,7 +77,8 @@
 	global g52e5_:byte,1
 	global g52e6_:byte,6
 	global g52ec_:byte,1
-	global g52ed_:byte,13
+	global g52ed_:byte,11
+	global g52f8_:byte,2
 	global g52fa_:byte,22
 	global g5310_:byte,2
 	global g5312_:byte,2

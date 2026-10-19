@@ -42,9 +42,7 @@ L85d9:
 	l2 = (slot - 1);
 	goto L864e;
 L85f5:
-	if (*(int *)((char *)pc_item_id + ((432 * member) + (l2 << 3))) != item_id) goto L864b;
-	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (l2 << 3))]] != 1) goto L864b;
-	if (((unsigned char)pc_item_qty[((432 * member) + (l2 << 3))] + (unsigned char)l81) > 250) goto L864b;
+	if (((*(int *)((char *)pc_item_id + ((432 * member) + (l2 << 3))) != item_id) || (g00cc[(unsigned char)pc_item_type[((432 * member) + (l2 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * member) + (l2 << 3))] + (unsigned char)l81) > 250)) goto L864b;
 	slot = l2;
 	l87 = 0;
 L864b:
@@ -58,9 +56,7 @@ L864e:
 	goto L86e4;
 L8682:
 	l85 = (l2 + 10);
-	if (*(int *)((char *)pc_item_id + ((432 * member) + (l85 << 3))) != item_id) goto L86e1;
-	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (l85 << 3))]] != 1) goto L86e1;
-	if (((unsigned char)pc_item_qty[((432 * member) + (l85 << 3))] + (unsigned char)l81) > 250) goto L86e1;
+	if (((*(int *)((char *)pc_item_id + ((432 * member) + (l85 << 3))) != item_id) || (g00cc[(unsigned char)pc_item_type[((432 * member) + (l85 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * member) + (l85 << 3))] + (unsigned char)l81) > 250)) goto L86e1;
 	slot = l85;
 	l87 = 0;
 L86e1:

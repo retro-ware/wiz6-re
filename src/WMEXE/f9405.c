@@ -433,11 +433,7 @@ la012:
 La052:
 	if ((unsigned char)g019d[monster_groups[l6]] > l2) goto La012;
 	goto Lb021;
-	if (!g435e) goto La07a;
-#asm
-	db 0a1h,05eh,043h,03dh,006h,000h,075h,023h
-#endasm
-La07a:
+	if ((g435e) && (g435e != 6)) goto La09d;
 	f8fa8(212, 213, 214, 215, 216, 217, p8);
 	goto La10d;
 La09d:
@@ -534,11 +530,7 @@ La2ed:
 	call f83f3_
 	db 083h,0c4h,01eh,0e9h,082h,00ch
 #endasm
-	if (!g435e) goto La3ae;
-#asm
-	db 0a1h,05eh,043h,03dh,006h,000h,075h,024h
-#endasm
-La3ae:
+	if ((g435e) && (g435e != 6)) goto La3d2;
 	f8fa8(218, 219, 220, 221, 222, 223, p8);
 	goto La472;
 La3d2:
@@ -625,11 +617,7 @@ La64b:
 	db 040h,024h
 #endasm
 	goto Lb021;
-	if (!g435e) goto La688;
-#asm
-	db 0a1h,05eh,043h,03dh,006h,000h,075h,053h
-#endasm
-La688:
+	if ((g435e) && (g435e != 6)) goto La6db;
 	if (random(2)) goto La6b7;
 	f8fa8(200, 201, 202, 203, 204, 205, p8);
 	goto La6d8;

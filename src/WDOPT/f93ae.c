@@ -11,10 +11,7 @@ extern char sheet_win[];
 extern int g55f0;
 f93ae(p4, p6)
 {
-	if (p6 == 2) goto L93cf;
-	if (p6 >= 5) goto L93cf;
-	if (g5439[(p4 * 3)] != 1) goto L940d;
-L93cf:
+	if (((p6 != 2) && (p6 < 5)) && (g5439[(p4 * 3)] != 1)) goto L940d;
 	g545d[p4] = 0;
 	g545e[p4] = 0;
 	g545f[p4] = 0;

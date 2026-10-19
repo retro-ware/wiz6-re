@@ -42,8 +42,7 @@ maze_main_loop()
 	int l10;
 	int l12;
 	int l14;
-	if (cell_event_index < 0) goto L7045;
-	if ((unsigned char)(g4fa8 + party_level)[1728] <= cell_event_index) goto L7045;
+	if ((cell_event_index < 0) || ((unsigned char)(g4fa8 + party_level)[1728] <= cell_event_index)) goto L7045;
 	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 L7045:
 	if (return_cmd == 23) goto L7062;
@@ -65,8 +64,7 @@ L7084:
 	game_state = 10;
 	return;
 L70d9:
-	if (test_bit(20072, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1) goto L7114;
-	if (g5034 != 1) goto L7114;
+	if ((test_bit(20072, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1) || (g5034 != 1)) goto L7114;
 	run_cell_events();
 	if (game_state == 5) goto L7114;
 	return;
@@ -120,9 +118,7 @@ L71e8:
 	if (pc_condition[(432 * l4)]) goto L71fa;
 	l12++;
 L71fa:
-	if ((unsigned)g450c[(432 * l4)] > 0) goto L7208;
-	if ((unsigned)g450d[(432 * l4)] <= 0) goto L720b;
-L7208:
+	if (((unsigned)g450c[(432 * l4)] <= 0) && ((unsigned)g450d[(432 * l4)] <= 0)) goto L720b;
 	l14++;
 L720b:
 	l4++;
@@ -132,8 +128,7 @@ L720e:
 	game_state = 8;
 	return;
 L7226:
-	if (l14 != party_count) goto L725f;
-	if (rest_party() != 1) goto L725f;
+	if ((l14 != party_count) || (rest_party() != 1)) goto L725f;
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = 0;
 	g4354 = 0;
@@ -153,10 +148,7 @@ L72a0:
 	refresh_all_windows();
 	g503c = 0;
 L72b0:
-	if (game_state_arg == 5) goto L72c5;
-	if (game_state_arg != 12) goto L7311;
-	if (party_level <= 8) goto L7311;
-L72c5:
+	if ((game_state_arg != 5) && ((game_state_arg != 12) || (party_level <= 8))) goto L7311;
 	if (test_bit((maze_data + 1082), (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1) goto L7311;
 	erase_window(main_window, 1);
 	delay_long();
@@ -164,8 +156,7 @@ L72c5:
 	g503e = 1;
 	goto L735b;
 L7311:
-	if (game_state_arg != 8) goto L7340;
-	if (g4eca != 1) goto L7340;
+	if ((game_state_arg != 8) || (g4eca != 1)) goto L7340;
 	erase_window(main_window, 1);
 	delay_long();
 	show_maze_message(2054);

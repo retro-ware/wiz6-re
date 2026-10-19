@@ -41,8 +41,7 @@ case 16:
 	l6 = 0;
 	goto Lc94b;
 Lc922:
-	if (p6 != 1) goto Lc94b;
-	if (!((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4)) goto Lc94b;
+	if ((p6 != 1) || (!((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4))) goto Lc94b;
 	l6 = 1;
 Lc94b:
 	goto Lc9dd;
@@ -133,9 +132,7 @@ Lcb28:
 	if (l4 < 8) goto Lcb0d;
 	if (l6 != p6) goto Lcbd3;
 	access_scenario_record(1, &l82, *(int *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))), 0);
-	if (test_bit(&l28, (unsigned char)pc_class[(432 * p4)]) != 1) goto Lcbd3;
-	if (test_bit(&l26, (unsigned char)pc_race[(432 * p4)]) != 1) goto Lcbd3;
-	if (test_bit(&l24, (unsigned char)pc_sex[(432 * p4)]) != 1) goto Lcbd3;
+	if (((test_bit(&l28, (unsigned char)pc_class[(432 * p4)]) != 1) || (test_bit(&l26, (unsigned char)pc_race[(432 * p4)]) != 1)) || (test_bit(&l24, (unsigned char)pc_sex[(432 * p4)]) != 1)) goto Lcbd3;
 	*(int *)(p8 + (l8 << 1)) = l2;
 	l8++;
 Lcbd3:

@@ -62,8 +62,7 @@ L742c:
 	l2 = -1;
 	rsi = 0;
 L74e2:
-	if ((unsigned)g450a[((432 * p4) + rsi)] <= 0) goto L7505;
-	if (g0532[rsi] <= l2) goto L7505;
+	if (((unsigned)g450a[((432 * p4) + rsi)] <= 0) || (g0532[rsi] <= l2)) goto L7505;
 	l2 = g0532[rsi];
 L7505:
 	rsi++;
@@ -83,8 +82,7 @@ L7553:
 	set_cursor(l88, (l4 + 3), (l6 + 1));
 	rsi = 0;
 L7596:
-	if ((unsigned char)pc_equipped[((432 * p4) + rsi)] == 255) goto L75e7;
-	if (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) <= 0) goto L75e7;
+	if (((unsigned char)pc_equipped[((432 * p4) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) <= 0)) goto L75e7;
 	put_char_hi(l88, (unsigned char)(((unsigned char)pc_item_icon[((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))] + 1)), 4);
 	goto L75fc;
 L75e7:

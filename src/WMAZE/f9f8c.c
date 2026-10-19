@@ -50,8 +50,7 @@ L9fdd:
 	goto La1a8;
 La07e:
 	l22 = f9f54(l12);
-	if (l24 != 1) goto La0f7;
-	if (l22 == party_facing) goto La0f7;
+	if ((l24 != 1) || (l22 == party_facing)) goto La0f7;
 	if (l26 != 1) goto La0ad;
 	l20 = (((l22 - party_facing) + 4) % 4);
 	goto La0bf;

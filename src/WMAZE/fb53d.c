@@ -53,10 +53,7 @@ Lb599:
 	db 0b9h,006h,000h,0d3h,0e6h,08bh,0c6h,08bh,04eh,0f0h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
 	db 003h,0c1h,003h,046h,0f2h,089h,046h,0fch
 #endasm
-	if (!l20) goto Lb6a3;
-	if (l22 != 1) goto Lb6a3;
-	if (l28) goto Lb6a3;
-	if (l24 != 1) goto Lb6a3;
+	if ((((!l20) || (l22 != 1)) || (l28)) || (l24 != 1)) goto Lb6a3;
 	if (party_facing != l36) goto Lb696;
 	animate_door(0, l32, l30, l26);
 	goto Lb6a3;
@@ -102,8 +99,7 @@ Lb84e:
 Lb870:
 	if (!l20) goto Lb960;
 	if (l22 != 1) goto Lb94e;
-	if (l28) goto Lb8bb;
-	if (l24) goto Lb8bb;
+	if ((l28) || (l24)) goto Lb8bb;
 	if (party_facing != l36) goto Lb8ab;
 	animate_door(1, l32, l30, l26);
 	goto Lb8b8;
@@ -112,11 +108,8 @@ Lb8ab:
 Lb8b8:
 	goto Lb94c;
 Lb8bb:
-	if (l28 != 1) goto Lb8c7;
-	if (!l24) goto Lb8d3;
-Lb8c7:
-	if (l28 != -1) goto Lb8fa;
-	if (l24 != 1) goto Lb8fa;
+	if ((l28 == 1) && (!l24)) goto Lb8d3;
+	if ((l28 != -1) || (l24 != 1)) goto Lb8fa;
 Lb8d3:
 	draw_maze_view_m();
 	shake_view(1, l26);
@@ -124,11 +117,8 @@ Lb8d3:
 	shake_view(6, l26);
 	goto Lb94c;
 Lb8fa:
-	if (l28 != 1) goto Lb906;
-	if (l24 == 1) goto Lb912;
-Lb906:
-	if (l28 != -1) goto Lb939;
-	if (l24) goto Lb939;
+	if ((l28 == 1) && (l24 == 1)) goto Lb912;
+	if ((l28 != -1) || (l24)) goto Lb939;
 Lb912:
 	draw_maze_view_m();
 	shake_view(6, l26);

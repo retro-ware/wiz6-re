@@ -9,8 +9,7 @@ L48f3:
 	if (!check_screen_click()) goto L4904;
 	return;
 L4904:
-	if (!key_available(1)) goto L491e;
-	if ((char)get_key(1) != 13) goto L491e;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L491e;
 	return;
 L491e:
 	if (g502c) goto L4938;

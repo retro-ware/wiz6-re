@@ -88,9 +88,7 @@ Lb603:
 	use_item_charge_x(l8);
 	goto Lb636;
 Lb60c:
-	if (l30 == 2) goto Lb618;
-	if (l30 != 4) goto Lb628;
-Lb618:
+	if ((l30 != 2) && (l30 != 4)) goto Lb628;
 	get_message(3317, 20652);
 	goto Lb636;
 Lb628:
@@ -112,8 +110,7 @@ Lb675:
 	if (l16 == -1) goto Lb731;
 	try_raise_skill(g435c, l16, 3);
 	if ((unsigned char)pc_skills[((432 * g435c) + l16)] >= l14) goto Lb731;
-	if (cfg_level == 1) goto Lb72b;
-	if (random(36) <= ((unsigned char)g451b[(432 * g435c)] + 18)) goto Lb72b;
+	if ((cfg_level == 1) || (random(36) <= ((unsigned char)g451b[(432 * g435c)] + 18))) goto Lb72b;
 	g50fc = 1;
 	goto Lb731;
 Lb72b:
@@ -122,20 +119,17 @@ Lb731:
 	goto Lb779;
 Lb733:
 	if (((*(int *)((char *)monster_groups[g435e] + (44 * g435c)) * 5) - 2) >= l14) goto Lb779;
-	if (cfg_level == 2) goto Lb773;
-	if (random(7)) goto Lb773;
+	if ((cfg_level == 2) || (random(7))) goto Lb773;
 	g50fc = 1;
 	goto Lb779;
 Lb773:
 	g5118 = 1;
 Lb779:
-	if (g50fc != 1) goto Lb7a4;
-	if (((unsigned char)g00e1[(l6 * 6)] & 2)) goto Lb7a4;
+	if ((g50fc != 1) || (((unsigned char)g00e1[(l6 * 6)] & 2))) goto Lb7a4;
 	g50fc = 0;
 	g5118 = 1;
 Lb7a4:
-	if (g5118 != 1) goto Lb7c9;
-	if (((unsigned char)g00e1[(l6 * 6)] & 1)) goto Lb7c9;
+	if ((g5118 != 1) || (((unsigned char)g00e1[(l6 * 6)] & 1))) goto Lb7c9;
 	g5118 = 0;
 Lb7c9:
 	if (g5118 != 1) goto Lb7fa;

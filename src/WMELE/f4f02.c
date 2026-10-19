@@ -23,14 +23,10 @@ choose_monster_frames(g, pos)
 	i = 0;
 	goto L504c;
 L4f23:
-	if ((unsigned)g3813[(314 * pic)] <= 0) goto L4f6d;
-	if ((unsigned char)g3813[(314 * pic)] == 255) goto L4f6d;
-	if (pic_slot_monster[pic] == 46) goto L4f6d;
-	if (pic_slot_monster[pic] == 36) goto L4f6d;
+	if (((((unsigned)g3813[(314 * pic)] <= 0) || ((unsigned char)g3813[(314 * pic)] == 255)) || (pic_slot_monster[pic] == 46)) || (pic_slot_monster[pic] == 36)) goto L4f6d;
 	frame = ((unsigned char)g3813[(314 * pic)] / 25);
 	step = ((unsigned char)g3813[(314 * pic)] % 25);
-	if (pic_slot_monster[pic] != 54) goto L4f6b;
-	if (i) goto L4f6b;
+	if ((pic_slot_monster[pic] != 54) || (i)) goto L4f6b;
 	frame = 0;
 	step = 0;
 L4f6b:

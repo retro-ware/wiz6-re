@@ -96,12 +96,7 @@ L77f5:
 L7802:
 	l172 = 0;
 L7808:
-	if (l172 >= l178) goto L782f;
-	if ((unsigned)pc_condition[(432 * member)] >= 2) goto L782f;
-	if ((unsigned)g450d[(432 * member)] > 0) goto L782f;
-	if ((unsigned)g450c[(432 * member)] <= 0) goto L783d;
-L782f:
-	;
+	if ((((l172 < l178) && ((unsigned)pc_condition[(432 * member)] < 2)) && ((unsigned)g450d[(432 * member)] <= 0)) && ((unsigned)g450c[(432 * member)] <= 0)) goto L783d;
 #asm
 l782f:
 	db 08bh,09eh,04ch,0ffh,08bh,0b6h,054h,0ffh,0c6h,040h,018h,000h
@@ -140,10 +135,7 @@ L78e8:
 	l24 = 0;
 L7915:
 	rsi = (44 * member);
-	if ((monster_groups + rsi)[43]) goto L794e;
-	if (((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) goto L7953;
-	if (g452c[(432 * member)]) goto L7953;
-L794e:
+	if ((!(monster_groups + rsi)[43]) && ((((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) || (g452c[(432 * member)]))) goto L7953;
 	l28 = 0;
 L7953:
 	if (pc_item_count[(432 * member)]) goto L7967;
@@ -238,8 +230,7 @@ L7b42:
 	get_message(3501, &l152);
 	replace_char_with_string(&l152, &l160, 36);
 	print_combat_prompt(&l152, 0);
-	if ((l182 = (unsigned char)pc_equipped[(432 * member)]) == 255) goto L7c25;
-	if (pc_item_type[((432 * member) + (l182 << 3))] != 3) goto L7c25;
+	if (((l182 = (unsigned char)pc_equipped[(432 * member)]) == 255) || (pc_item_type[((432 * member) + (l182 << 3))] != 3)) goto L7c25;
 	l186 = 1;
 	choice = 8;
 L7c25:
@@ -248,10 +239,7 @@ L7c25:
 	l2 = 0;
 L7c3a:
 	l70[l2] = test_bit(((432 * member) + 17639), l2);
-	if (l2 == 4) goto L7c98;
-	if (member < 3) goto L7c98;
-	if (l182 == 255) goto L7c98;
-	if (pc_item_type[((432 * member) + (l182 << 3))] != 2) goto L7c98;
+	if ((((l2 == 4) || (member < 3)) || (l182 == 255)) || (pc_item_type[((432 * member) + (l182 << 3))] != 2)) goto L7c98;
 	l70[l2] = 0;
 L7c98:
 	if (l70[l2] != 1) goto L7cb2;
@@ -272,8 +260,7 @@ l7cfc:
 	db 083h,0beh,05eh,0ffh,0ffh,075h,003h,0e9h,06dh,000h
 #endasm
 L7d06:
-	if ((l188 = (unsigned char)g44e5[(432 * member)]) != 2) goto L7d2a;
-	if (choice == 4) goto L7d2a;
+	if (((l188 = (unsigned char)g44e5[(432 * member)]) != 2) || (choice == 4)) goto L7d2a;
 	l188 = 0;
 L7d2a:
 	if (l188) goto L7d5a;
@@ -287,9 +274,7 @@ L7d2a:
 L7d5a:
 	l164 = select_monster_group(win, 3602, l188, 0);
 L7d73:
-	if (choice == -1) goto L7d81;
-	if (l164 != -1) goto L7d89;
-L7d81:
+	if ((choice != -1) && (l164 != -1)) goto L7d89;
 	l168 = 1;
 	goto L7d9e;
 L7d89:
@@ -402,8 +387,7 @@ l7ffa:
 	db 058h,088h,040h,01eh
 #endasm
 	rsi = (44 * member);
-	if ((l164 = (unsigned char)(monster_groups + rsi)[31]) < 1) goto L8074;
-	if (l164 > 5) goto L8074;
+	if (((l164 = (unsigned char)(monster_groups + rsi)[31]) < 1) || (l164 > 5)) goto L8074;
 #asm
 	db 08ah,086h,05ch,0ffh,02ah,0e4h,050h,0ffh,076h,0fah
 	call pick_target_monster_
@@ -413,8 +397,7 @@ l7ffa:
 L8074:
 	l182 = (unsigned char)g44f9[(432 * member)];
 	if (action) goto L818d;
-	if (l182 != 255) goto L80c9;
-	if ((unsigned char)pc_equipped[(432 * member)] != 255) goto L80c9;
+	if ((l182 != 255) || ((unsigned char)pc_equipped[(432 * member)] != 255)) goto L80c9;
 	if ((l2 = pick_random_set_bit(((432 * member) + 17639))) == -1) goto L80c6;
 #asm
 	db 08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
@@ -429,11 +412,7 @@ L80c9:
 	*(int *)((monster_groups + rsi) + 12) = 4;
 	goto L818d;
 L810c:
-	if ((unsigned)pc_item_type[((432 * member) + (l182 << 3))] >= 2) goto L818d;
-	if (g44f5[(432 * member)] == 1) goto L8143;
-	if (member >= 3) goto L818d;
-	if (l164 >= 3) goto L818d;
-L8143:
+	if (((unsigned)pc_item_type[((432 * member) + (l182 << 3))] >= 2) || ((g44f5[(432 * member)] != 1) && ((member >= 3) || (l164 >= 3)))) goto L818d;
 	l10 = 0;
 L8148:
 	l2 = pick_random_set_bit(((432 * member) + 17655));
@@ -500,15 +479,12 @@ L82dd:
 	goto L839a;
 L82e5:
 	rsi = (44 * member);
-	if ((unsigned)(monster_groups + rsi)[15] <= 0) goto L832a;
-	if (random(100) <= ((unsigned char)g451a[(432 * member)] + 80)) goto L832a;
+	if (((unsigned)(monster_groups + rsi)[15] <= 0) || (random(100) <= ((unsigned char)g451a[(432 * member)] + 80))) goto L832a;
 	rsi = (44 * member);
 	(monster_groups + rsi)[30] = 7;
 L832a:
 	rsi = (44 * member);
-	if ((monster_groups + rsi)[30] == 1) goto L8342;
-	if ((monster_groups + rsi)[30] != 5) goto L8346;
-L8342:
+	if (((monster_groups + rsi)[30] != 1) && ((monster_groups + rsi)[30] != 5)) goto L8346;
 	(monster_groups + rsi)[24] = 1;
 L8346:
 	rsi = (44 * member);

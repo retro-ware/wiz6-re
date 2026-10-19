@@ -12,9 +12,7 @@ f7ddc(p4, p6, p8, p10, p12, p14, p16)
 	int l8;
 	char x8[24];
 	g500a = 4;
-	if ((unsigned)((char *)monster_groups[p4] + (44 * p6))[34] >= 3) goto L7e08;
-	if (!((char *)monster_groups[p4] + (44 * p6))[43]) goto L7e10;
-L7e08:
+	if (((unsigned)((char *)monster_groups[p4] + (44 * p6))[34] < 3) && (!((char *)monster_groups[p4] + (44 * p6))[43])) goto L7e10;
 	return 0;
 L7e10:
 	l2 = 0;

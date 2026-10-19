@@ -9,8 +9,7 @@ char *monster;
 	l2 = 0;
 	goto L841d;
 L83be:
-	if ((*(int *)(((char *)monster_groups[group] + (44 * l2)) + 4) - *(int *)(((char *)monster_groups[group] + (44 * l2)) + 2)) <= best_damage) goto L841a;
-	if (random(2)) goto L841a;
+	if (((*(int *)(((char *)monster_groups[group] + (44 * l2)) + 4) - *(int *)(((char *)monster_groups[group] + (44 * l2)) + 2)) <= best_damage) || (random(2))) goto L841a;
 	monster[31] = *(char *)&group;
 	monster[32] = *(char *)&l2;
 	best_damage = (*(int *)(((char *)monster_groups[group] + (44 * l2)) + 4) - *(int *)(((char *)monster_groups[group] + (44 * l2)) + 2));

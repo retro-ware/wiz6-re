@@ -9,10 +9,7 @@ L75ec:
 	if ((unsigned char)(g4fa8 + rsi)[1296] == p8) goto L7603;
 	return -1;
 L7603:
-	if ((unsigned char)(g4fa8 + rsi)[1008] != p4) goto L7646;
-	if ((unsigned char)(g4fa8 + rsi)[1152] != p6) goto L7646;
-	if ((unsigned)(g4fa8 + rsi)[864] <= 0) goto L7646;
-	if (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440])) goto L7646;
+	if (((((unsigned char)(g4fa8 + rsi)[1008] != p4) || ((unsigned char)(g4fa8 + rsi)[1152] != p6)) || ((unsigned)(g4fa8 + rsi)[864] <= 0)) || (test_bit(((game_state_arg * 10) + 20204), (unsigned char)(g4fa8 + rsi)[1440]))) goto L7646;
 	return rsi;
 L7646:
 	rsi++;

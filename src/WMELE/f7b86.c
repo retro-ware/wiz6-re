@@ -8,11 +8,8 @@ get_left_wall(x, y, cx, cy, level, side)
 	int l4;
 	register int cell;
 	register int wall;
-	if (!side) goto L7bd5;
-	if (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0)) goto L7bd5;
-	if (game_state_arg == 10) goto L7bc7;
-	if (game_state_arg != 12) goto L7bd0;
-L7bc7:
+	if ((!side) || (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0))) goto L7bd5;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L7bd0;
 	return 0;
 L7bd0:
 	return 2;
@@ -24,9 +21,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L7c14;
-	if (level <= 8) goto L7c19;
-L7c14:
+	if ((game_state_arg == 12) && (level <= 8)) goto L7c19;
 	return 0;
 L7c19:
 	goto L7c2f;

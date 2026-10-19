@@ -73,8 +73,7 @@ L6570:
 L65a1:
 	switch (l2) {
 case 1:
-	if (l6 == -1) goto L65cc;
-	if ((l6 % 2) <= 0) goto L65cc;
+	if ((l6 == -1) || ((l6 % 2) <= 0)) goto L65cc;
 	f62a9(l4, l6);
 	l6--;
 L65cc:
@@ -92,13 +91,7 @@ L65f0:
 L6607:
 	goto L66a5;
 case 3:
-	;
-#asm
-l660a:
-	db 08bh,046h,0fah,03dh,0ffh,0ffh,074h,026h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
-	db 03dh,001h,000h,07dh,019h
-#endasm
-	if ((l6 + 1) >= party_count) goto L6638;
+	if (((l6 == -1) || ((l6 % 2) >= 1)) || ((l6 + 1) >= party_count)) goto L6638;
 	f62a9(l4, l6);
 	l6++;
 L6638:

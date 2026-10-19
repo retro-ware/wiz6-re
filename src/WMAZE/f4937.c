@@ -34,8 +34,7 @@ L4963:
 L49cf:
 	rdi = (unsigned char)(g4fa8 + rsi)[1728];
 L49db:
-	if (rdi >= 144) goto L4a2f;
-	if ((unsigned char)(g4fa8 + rdi)[1296] != rsi) goto L4a2f;
+	if ((rdi >= 144) || ((unsigned char)(g4fa8 + rdi)[1296] != rsi)) goto L4a2f;
 	if ((unsigned)(g4fa8 + rdi)[864] <= 0) goto L4a2c;
 	set_bit(20072, (((rsi << 6) + ((unsigned char)(g4fa8 + rdi)[1152] << 3)) + (unsigned char)(g4fa8 + rdi)[1008]), 1);
 L4a2c:

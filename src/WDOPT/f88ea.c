@@ -7,11 +7,8 @@ f88ea(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto L8939;
-	if (!f82c3(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L8939;
-	if (game_state_arg == 10) goto L892b;
-	if (game_state_arg != 12) goto L8934;
-L892b:
+	if ((!p14) || (!f82c3(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L8939;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8934;
 	return 0;
 L8934:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L8978;
-	if (p12 <= 8) goto L897d;
-L8978:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto L897d;
 	return 0;
 L897d:
 	goto L8993;

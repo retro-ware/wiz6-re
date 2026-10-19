@@ -13,8 +13,7 @@ L6b59:
 	if ((sel + row) >= p14) goto L6be0;
 	set_cursor(win, 2, (row + 2));
 	print_message((*(int *)(p16 + ((sel + row) << 1)) + 4000), win, ((highlight == 1) && (!row) ? realm_colors[realm] : 18));
-	if (highlight != 1) goto L6be0;
-	if (row) goto L6be0;
+	if ((highlight != 1) || (row)) goto L6be0;
 L6bbd:
 	if ((unsigned)win[6] >= 17) goto L6be0;
 	put_char(win, 32, realm_colors[realm]);

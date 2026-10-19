@@ -118,8 +118,7 @@ L7c63:
 L7c80:
 	goto L7d25;
 case 2:
-	if (realm == -1) goto L7cad;
-	if ((realm % 3) <= 0) goto L7cad;
+	if ((realm == -1) || ((realm % 3) <= 0)) goto L7cad;
 	unhighlight_realm_slot(l2, realm);
 	realm--;
 	l72 = 1;
@@ -137,8 +136,7 @@ L7cd7:
 L7cdc:
 	goto L7d25;
 case 4:
-	if (realm == -1) goto L7d09;
-	if (((realm % 3) + 1) >= 3) goto L7d09;
+	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L7d09;
 	unhighlight_realm_slot(l2, realm);
 	realm++;
 	l72 = 1;
@@ -342,8 +340,7 @@ L83b6:
 	if (level) goto L8408;
 	return -1;
 L8408:
-	if (g00e2[(spell * 6)] != 1) goto L8438;
-	if ((g51d4 = choose_party_member(2030, 1)) != -1) goto L8438;
+	if ((g00e2[(spell * 6)] != 1) || ((g51d4 = choose_party_member(2030, 1)) != -1)) goto L8438;
 	return -1;
 L8438:
 	return ((level << 8) + spell);

@@ -49,9 +49,7 @@ L5b70:
 	l664 = ((l4 % p16) + p12);
 	set_cursor(p4, l662, l664);
 	get_message((p6 + l2), ((l4 * 40) + l636));
-	if (mouse_present) goto L5bfd;
-	if (p20) goto L5bfd;
-	if (l4) goto L5bfd;
+	if (((mouse_present) || (p20)) || (l4)) goto L5bfd;
 	print_string(p4, ((l4 * 40) + l636), (0 - p18));
 	goto L5c20;
 L5bfd:
@@ -88,8 +86,7 @@ L5d94:
 L5dc4:
 	switch (l2) {
 case 1:
-	if (l6 == -1) goto L5e0c;
-	if ((l6 - p16) < 0) goto L5e0c;
+	if ((l6 == -1) || ((l6 - p16) < 0)) goto L5e0c;
 	f5a9d(p4, l6, p14, p16, p10, p12, ((l6 * 40) + l636));
 	l6 -= p16;
 L5e0c:
@@ -107,8 +104,7 @@ L5e59:
 L5e92:
 	goto L5f7c;
 case 3:
-	if (l6 == -1) goto L5eda;
-	if ((l6 + p16) >= l4) goto L5eda;
+	if ((l6 == -1) || ((l6 + p16) >= l4)) goto L5eda;
 	f5a9d(p4, l6, p14, p16, p10, p12, ((l6 * 40) + l636));
 	l6 += p16;
 L5eda:
@@ -120,8 +116,7 @@ case 4:
 	l6 = 0;
 	goto L5f5a;
 L5f0f:
-	if ((l6 % p16) >= (p16 - 1)) goto L5f5a;
-	if ((l6 + 1) >= l4) goto L5f5a;
+	if (((l6 % p16) >= (p16 - 1)) || ((l6 + 1) >= l4)) goto L5f5a;
 	f5a9d(p4, l6, p14, p16, p10, p12, ((l6 * 40) + l636));
 	l6++;
 L5f5a:

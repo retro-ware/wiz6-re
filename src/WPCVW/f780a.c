@@ -123,8 +123,7 @@ L7b35:
 L7b55:
 	goto L7c03;
 case 2:
-	if (realm == -1) goto L7b85;
-	if ((realm % 3) <= 0) goto L7b85;
+	if ((realm == -1) || ((realm % 3) <= 0)) goto L7b85;
 	unhighlight_realm(p4, l2, realm);
 	realm--;
 	l72 = 1;
@@ -142,8 +141,7 @@ L7bb2:
 L7bb7:
 	goto L7c03;
 case 4:
-	if (realm == -1) goto L7be7;
-	if (((realm % 3) + 1) >= 3) goto L7be7;
+	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L7be7;
 	unhighlight_realm(p4, l2, realm);
 	realm++;
 	l72 = 1;
@@ -353,8 +351,7 @@ L82be:
 	if (power) goto L8310;
 	return -1;
 L8310:
-	if (g00e2[(spell * 6)] != 1) goto L8346;
-	if ((g578e = choose_member(p4, p6, 502, -1)) != -1) goto L8346;
+	if ((g00e2[(spell * 6)] != 1) || ((g578e = choose_member(p4, p6, 502, -1)) != -1)) goto L8346;
 	return -1;
 L8346:
 	return ((power << 8) + spell);

@@ -30,8 +30,7 @@ L528c:
 	y = ((n % rows) + y0);
 	set_cursor(win, x, y);
 	get_message((first_msg + item), ((n * 20) + labels));
-	if (mouse_present) goto L5315;
-	if (sel != n) goto L5315;
+	if ((mouse_present) || (sel != n)) goto L5315;
 	print_string(win, ((n * 20) + labels), (0 - color));
 	goto L5338;
 L5315:
@@ -79,8 +78,7 @@ case 3:
 L5534:
 	goto L55b3;
 case 4:
-	if ((sel % rows) >= (rows - 1)) goto L5594;
-	if ((sel + 1) >= n) goto L5594;
+	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L5594;
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 20) + labels), 3);
 	sel++;

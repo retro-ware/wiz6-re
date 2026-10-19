@@ -7,8 +7,7 @@ char *p6;
 	l2 = 0;
 	rsi = 0;
 L66fa:
-	if ((unsigned char)spell_table[(rsi * 6)] != p4) goto L6730;
-	if (test_bit(22008, rsi) != 1) goto L6730;
+	if (((unsigned char)spell_table[(rsi * 6)] != p4) || (test_bit(22008, rsi) != 1)) goto L6730;
 	*(int *)(p6 + (l2 << 1)) = rsi;
 	l2++;
 L6730:

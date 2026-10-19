@@ -18,12 +18,10 @@ f4572(p4, p6)
 	rsi = 0;
 	goto L469d;
 L4580:
-	if ((unsigned)g3813[(314 * p4)] <= 0) goto L45bd;
-	if ((unsigned char)g3813[(314 * p4)] == 255) goto L45bd;
+	if (((unsigned)g3813[(314 * p4)] <= 0) || ((unsigned char)g3813[(314 * p4)] == 255)) goto L45bd;
 	rdi = ((unsigned char)g3813[(314 * p4)] / 25);
 	l2 = ((unsigned char)g3813[(314 * p4)] % 25);
-	if (pic_slot_monster[p4] != 54) goto L45bb;
-	if (rsi) goto L45bb;
+	if ((pic_slot_monster[p4] != 54) || (rsi)) goto L45bb;
 	rdi = 0;
 	l2 = 0;
 L45bb:

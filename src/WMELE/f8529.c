@@ -6,10 +6,7 @@ extern int g52f2;
 /* Draw the front wall pieces of one depth row. */
 draw_front_walls(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
 {
-	if (p4 != 3) goto L8538;
-	if (p6) goto L8545;
-L8538:
-	;
+	if ((p4 == 3) && (p6)) goto L8545;
 #asm
 l8538:
 	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h

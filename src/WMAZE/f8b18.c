@@ -5,10 +5,7 @@
 extern int g521a;
 f8b18(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
 {
-	if (p4 != 3) goto L8b27;
-	if (p6) goto L8b34;
-L8b27:
-	;
+	if ((p4 == 3) && (p6)) goto L8b34;
 #asm
 l8b27:
 	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h

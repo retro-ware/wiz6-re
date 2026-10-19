@@ -50,9 +50,7 @@ L5201:
 	l289 = ((n % rows) + y0);
 	set_cursor(win, l287, l289);
 	get_message((first_msg + key), ((n * 15) + labels));
-	if (mouse_present) goto L5286;
-	if (with_cancel) goto L5286;
-	if (n) goto L5286;
+	if (((mouse_present) || (with_cancel)) || (n)) goto L5286;
 	print_string(win, ((n * 15) + labels), (0 - color));
 	goto L52a5;
 L5286:
@@ -89,8 +87,7 @@ L540e:
 L543e:
 	switch (key) {
 case 1:
-	if (sel == -1) goto L5482;
-	if ((sel - rows) < 0) goto L5482;
+	if ((sel == -1) || ((sel - rows) < 0)) goto L5482;
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel -= rows;
 L5482:
@@ -108,8 +105,7 @@ L54c8:
 L54fd:
 	goto L55df;
 case 3:
-	if (sel == -1) goto L5541;
-	if ((sel + rows) >= n) goto L5541;
+	if ((sel == -1) || ((sel + rows) >= n)) goto L5541;
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel += rows;
 L5541:
@@ -121,8 +117,7 @@ case 4:
 	sel = 0;
 	goto L55bd;
 L5576:
-	if ((sel % rows) >= (rows - 1)) goto L55bd;
-	if ((sel + 1) >= n) goto L55bd;
+	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L55bd;
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel++;
 L55bd:

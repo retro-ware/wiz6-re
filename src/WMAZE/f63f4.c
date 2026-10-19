@@ -77,8 +77,7 @@ L6521:
 	if (random(1000) < l14) goto L6569;
 	return 1;
 L6569:
-	if (!key_available(1)) goto L6587;
-	if ((char)get_key(1) != 13) goto L6587;
+	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L6587;
 	g5038 = 1;
 L6587:
 	goto L6464;

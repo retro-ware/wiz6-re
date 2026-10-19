@@ -82,8 +82,7 @@ Laefe:
 	if ((unsigned)pc_item_count[(432 * member)] >= 2) goto Laf0a;
 	enabled[5] = 0;
 Laf0a:
-	if (*(long *)((char *)pc_gold + (432 * member)) != 0L) goto Laf24;
-	if (pc_item_count[(432 * member)]) goto Laf24;
+	if ((*(long *)((char *)pc_gold + (432 * member)) != 0L) || (pc_item_count[(432 * member)])) goto Laf24;
 	enabled[2] = 0;
 Laf24:
 	if (is_member_able(member)) goto Laf39;
@@ -110,10 +109,7 @@ Lafe7:
 	goto Lb111;
 case 7:
 	if ((g43ca = choose_item(sheet, menu, 402, member, 0)) == -1) goto Lb049;
-	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 1)) goto Lb032;
-	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 2)) goto Lb032;
-	if (!((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 64)) goto Lb03c;
-Lb032:
+	if (((!((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 1)) && (!((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 2))) && (!((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 64))) goto Lb03c;
 	play_sound(0);
 	goto Lb049;
 Lb03c:

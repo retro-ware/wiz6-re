@@ -39,10 +39,7 @@ L6376:
 	i = 0;
 	goto L659a;
 L6397:
-	if (((char *)monster_groups[g] + (44 * member))[34] == 2) goto L63c0;
-	if ((unsigned)((char *)monster_groups[g] + (44 * member))[17] > 0) goto L63c0;
-	if ((unsigned)((char *)monster_groups[g] + (44 * member))[16] <= 0) goto L6400;
-L63c0:
+	if (((((char *)monster_groups[g] + (44 * member))[34] != 2) && ((unsigned)((char *)monster_groups[g] + (44 * member))[17] <= 0)) && ((unsigned)((char *)monster_groups[g] + (44 * member))[16] <= 0)) goto L6400;
 	l2 = (unsigned char)g3648[((pos * 30) + (i * 3))];
 	l4 = (unsigned char)g3746[((314 * pic) + l2)];
 	goto L6554;
@@ -76,8 +73,7 @@ L652e:
 	g364a[((pos * 30) + (i * 3))] = *(char *)&l6;
 L6554:
 	*(out + len) = g375a[((314 * pic) + (l4 << 2))];
-	if (pic_slot_monster[pic] != 40) goto L6589;
-	if (i != 4) goto L6589;
+	if ((pic_slot_monster[pic] != 40) || (i != 4)) goto L6589;
 	*(out + len) = 0;
 L6589:
 	if (!*(out + len)) goto L6599;

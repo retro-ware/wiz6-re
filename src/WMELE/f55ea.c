@@ -43,8 +43,7 @@ L5672:
 	goto L56f7;
 L567a:
 	rsi = (44 * i);
-	if (((char *)monster_groups[count] + rsi)[42] != 11) goto L56b7;
-	if (g4368) goto L56b7;
+	if ((((char *)monster_groups[count] + rsi)[42] != 11) || (g4368)) goto L56b7;
 	g436e = 0;
 	g4368 = count;
 #asm
@@ -53,8 +52,7 @@ L567a:
 	choose_monster_frames(count, 3);
 L56b7:
 	rsi = (44 * i);
-	if (((char *)monster_groups[count] + rsi)[42] != 12) goto L56f4;
-	if (g436a) goto L56f4;
+	if ((((char *)monster_groups[count] + rsi)[42] != 12) || (g436a)) goto L56f4;
 	g4370 = 0;
 	g436a = count;
 #asm

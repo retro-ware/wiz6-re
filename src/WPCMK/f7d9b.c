@@ -20,8 +20,7 @@ L7dfe:
 	if (!check_screen_click()) goto L7e34;
 	l2 = 0;
 L7e34:
-	if (key_available(1) != 1) goto L7e52;
-	if ((char)get_key(1) != 13) goto L7e52;
+	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L7e52;
 	l2 = 0;
 L7e52:
 	if (l2) goto L7de8;

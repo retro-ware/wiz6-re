@@ -26,9 +26,7 @@ L5e10:
 	l6 = 0;
 	goto L5e49;
 L5e17:
-	if (!g5043[((group * 9) + l6)]) goto L5e36;
-	if (l8 != attacker) goto L5e43;
-L5e36:
+	if ((g5043[((group * 9) + l6)]) && (l8 != attacker)) goto L5e43;
 	g5043[((group * 9) + l6)] = 1;
 	return l6;
 L5e43:
@@ -52,9 +50,7 @@ L5e81:
 	goto L5f3c;
 L5ec4:
 	if (((l2 * 10) + (unsigned char)g0092[((attacker * 5) + l4)]) != ((char *)monster_groups[group] + (44 * l6))[42]) goto L5f39;
-	if (!g5043[((group * 9) + l6)]) goto L5f2b;
-	if (l8 != attacker) goto L5f36;
-L5f2b:
+	if ((g5043[((group * 9) + l6)]) && (l8 != attacker)) goto L5f36;
 	g5043[((group * 9) + l6)] = 1;
 	return l6;
 L5f36:

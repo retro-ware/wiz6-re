@@ -7,11 +7,8 @@ fdd1d(p4, p6, p8, p10, p12, p14)
 	int l4;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Ldd6c;
-	if (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ldd6c;
-	if (game_state_arg == 10) goto Ldd5e;
-	if (game_state_arg != 12) goto Ldd67;
-Ldd5e:
+	if ((!p14) || (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ldd6c;
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ldd67;
 	return 0;
 Ldd67:
 	return 2;
@@ -23,9 +20,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto Lddab;
-	if (p12 <= 8) goto Lddb0;
-Lddab:
+	if ((game_state_arg == 12) && (p12 <= 8)) goto Lddb0;
 	return 0;
 Lddb0:
 	goto Lddc6;

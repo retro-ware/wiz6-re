@@ -39,9 +39,7 @@ map_cell(x, y, col, row)
 	l10 = party_cell_y;
 	l12 = party_level;
 	if (!next_sprite_slot_dopt(&l8, &l10, &l12, x, y)) goto L5509;
-	if (game_state_arg == 10) goto L54b2;
-	if (game_state_arg != 12) goto L54d8;
-L54b2:
+	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L54d8;
 	*(int *)((char *)g50c6 + ((col * 10) + (row << 1))) = g50f8;
 	return;
 L54d8:
@@ -77,8 +75,7 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if (game_state_arg != 12) goto L562f;
-	if (l12 >= 9) goto L562f;
+	if ((game_state_arg != 12) || (l12 >= 9)) goto L562f;
 	l14 = g50f8;
 	goto L5635;
 L562f:
@@ -131,8 +128,7 @@ case 3:
 	goto L571b;
 	}
 L571b:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 7) goto L574e;
-	if (get_bitfield((maze_data + 888), rsi, 2)) goto L574e;
+	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2))) goto L574e;
 	l16 = g5170;
 L574e:
 	if (l16 == -1) goto L5775;
@@ -152,8 +148,7 @@ case 3:
 	goto L57bf;
 	}
 L57bf:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 7) goto L57f3;
-	if (get_bitfield((maze_data + 888), rsi, 2) != 3) goto L57f3;
+	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2) != 3)) goto L57f3;
 	l16 = g5176;
 L57f3:
 	if (l16 == -1) goto L581a;

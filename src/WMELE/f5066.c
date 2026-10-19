@@ -28,15 +28,13 @@ L5075:
 	((char *)monster_groups[g] + rsi)[42] = 255;
 	new_row = (g00ba[((row * 5) + col)] / 10);
 	new_col = (g00ba[((row * 5) + col)] % 10);
-	if (row != 1) goto L514f;
-	if (col) goto L514f;
+	if ((row != 1) || (col)) goto L514f;
 	new_row = 1;
 	new_col = (random(2) + 1);
 	if (!*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1)))) goto L514f;
 	new_col = ((new_col % 2) + 1);
 L514f:
-	if (g00ba[((row * 5) + col)] == -1) goto L51c4;
-	if (*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1)))) goto L51c4;
+	if ((g00ba[((row * 5) + col)] == -1) || (*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1))))) goto L51c4;
 	*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1))) = g;
 #asm
 	db 08bh,046h,0f6h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,003h,046h,0f4h

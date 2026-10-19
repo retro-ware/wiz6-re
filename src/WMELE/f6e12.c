@@ -21,9 +21,7 @@ L6e57:
 	l8 = random(4);
 	flash = 0;
 L6e67:
-	if (!random(8)) goto L6e7b;
-	if (flash != l8) goto L6e8e;
-L6e7b:
+	if ((random(8)) && (flash != l8)) goto L6e8e;
 	if ((unsigned)g43b8[210] <= 0) goto L6e8e;
 	play_sound(14);
 L6e8e:
@@ -50,9 +48,7 @@ l6ee4:
 	db 089h,046h,0f6h
 #endasm
 	l10 = (*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) == 1 ? l10 : 0);
-	if (row) goto L6f27;
-	if (col) goto L6f27;
-	if (g5010 != 1) goto L6f27;
+	if (((row) || (col)) || (g5010 != 1)) goto L6f27;
 	l10 = 0;
 L6f27:
 	queue_monster_sprite(row, col, l10);

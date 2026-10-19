@@ -25,8 +25,7 @@ L60be:
 	l6 = draw_skill_page(l4, p4, l28, &l26);
 	distribute_skill_points(p4, l4, l28, &l26, l6);
 	l28 = ((l28 + 1) % 4);
-	if (l28 != 2) goto L6103;
-	if (l30) goto L6103;
+	if ((l28 != 2) || (l30)) goto L6103;
 	l28++;
 L6103:
 	if ((unsigned)skill_points_left > 0) goto L60be;

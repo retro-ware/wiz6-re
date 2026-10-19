@@ -36,11 +36,7 @@ L845f:
 L8479:
 	l16 = p26;
 L847f:
-	if (l10 != p16) goto L849f;
-	if (l12 != p18) goto L849f;
-	if (l14 != p24) goto L849f;
-	if (l16 == p26) goto L84a7;
-L849f:
+	if ((((l10 == p16) && (l12 == p18)) && (l14 == p24)) && (l16 == p26)) goto L84a7;
 	show_combat_msg(3213);
 L84a7:
 	if (p6 < 0) goto L853d;

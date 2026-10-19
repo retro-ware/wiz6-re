@@ -21,9 +21,7 @@ L59b3:
 	return (l2 - 1);
 L59de:
 	f55dc();
-	if (view_anim_state != -2) goto L59fa;
-	if (g522c == -1) goto L59fa;
-	if (anim_phase != l4) goto L59fa;
+	if (((view_anim_state != -2) || (g522c == -1)) || (anim_phase != l4)) goto L59fa;
 	f591a();
 L59fa:
 	goto L59b3;

@@ -62,35 +62,25 @@ Lc6c2:
 	l4 = 0;
 	l6 = 0;
 	l8 = 0;
-	if (l4) goto Lc709;
-	if ((unsigned)l2[15] <= 0) goto Lc709;
-	if (random(100) <= 80) goto Lc709;
-	if (l2[30] == 7) goto Lc709;
+	if ((((l4) || ((unsigned)l2[15] <= 0)) || (random(100) <= 80)) || (l2[30] == 7)) goto Lc709;
 	l4 = 3209;
 Lc709:
-	if (l4) goto Lc74a;
-	if ((unsigned)l2[21] <= 0) goto Lc74a;
-	if (random(100) <= 40) goto Lc74a;
+	if (((l4) || ((unsigned)l2[21] <= 0)) || (random(100) <= 40)) goto Lc74a;
 	l4 = (random(3) + 3205);
 	if (random(100) <= 80) goto Lc74a;
 	l4 = 3208;
 	l6 = 1;
 Lc74a:
-	if (l4) goto Lc770;
-	if ((unsigned)l2[20] <= 0) goto Lc770;
+	if ((l4) || ((unsigned)l2[20] <= 0)) goto Lc770;
 	l4 = 3210;
 	if (random(100) <= 25) goto Lc770;
 	l6 = 1;
 Lc770:
-	if (l4) goto Lc796;
-	if ((unsigned)l2[18] <= 0) goto Lc796;
-	if (random(100) <= 80) goto Lc796;
+	if (((l4) || ((unsigned)l2[18] <= 0)) || (random(100) <= 80)) goto Lc796;
 	l4 = 3204;
 	l6 = 0;
 Lc796:
-	if (l4) goto Lc7bc;
-	if ((unsigned)l2[22] <= 0) goto Lc7bc;
-	if (random(100) <= 75) goto Lc7bc;
+	if (((l4) || ((unsigned)l2[22] <= 0)) || (random(100) <= 75)) goto Lc7bc;
 	l4 = 3203;
 	l6 = 0;
 Lc7bc:
@@ -205,17 +195,14 @@ Lca4f:
 	clear_window(party_picture_win, 1);
 Lcb02:
 	rsi = ((unsigned char)l2[32] * 44);
-	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] >= 3) goto Lcb2a;
-	if (!((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43]) goto Lcb60;
-Lcb2a:
+	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] < 3) && (!((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43])) goto Lcb60;
 	if (l2[31]) goto Lcb45;
 	l2[32] = (char)fc4e7((unsigned char)l2[32]);
 	goto Lcb60;
 Lcb45:
 	l2[32] = (char)fc546((unsigned char)l2[31], (unsigned char)l2[32]);
 Lcb60:
-	if (l6 != 1) goto Lcb7a;
-	if ((unsigned char)l2[32] != g435c) goto Lcb7a;
+	if ((l6 != 1) || ((unsigned char)l2[32] != g435c)) goto Lcb7a;
 	l2[16]++;
 	return;
 Lcb7a:
@@ -243,8 +230,7 @@ Lcc9f:
 	movmem((((unsigned char)l2[32] * 432) + 17736), (group_monster_rec + 190), 8);
 	l4 = 0;
 Lcd51:
-	if (l4 == 1) goto Lcd83;
-	if (l4 == 2) goto Lcd83;
+	if ((l4 == 1) || (l4 == 2)) goto Lcd83;
 	rsi = l4;
 	(group_monster_rec + rsi)[190] = (char)(((group_monster_rec + rsi)[190] + group_monster_rec[191]) + group_monster_rec[192]);
 Lcd83:
@@ -266,8 +252,7 @@ lce09:
 	if (((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43]) goto Lcee7;
 	rsi = ((unsigned char)l2[33] % 2);
 	l10 = (unsigned char)(l2 + rsi)[28];
-	if (g435e) goto Lce81;
-	if ((unsigned char)pc_equipped[((432 * g435c) + l10)] != 255) goto Lce81;
+	if ((g435e) || ((unsigned char)pc_equipped[((432 * g435c) + l10)] != 255)) goto Lce81;
 	l10 = 0;
 Lce81:
 	;

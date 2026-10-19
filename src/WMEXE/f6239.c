@@ -11,8 +11,7 @@ char p16;
 	register int rdi;
 	l2 = 0;
 L6246:
-	if (l2 >= sprite_count[0]) goto L6266;
-	if ((unsigned char)(*(char **)((char *)sprite_list + (l2 << 1)))[20] > p4) goto L6266;
+	if ((l2 >= sprite_count[0]) || ((unsigned char)(*(char **)((char *)sprite_list + (l2 << 1)))[20] > p4)) goto L6266;
 	l2++;
 	goto L6246;
 L6266:

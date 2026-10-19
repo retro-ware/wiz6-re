@@ -23,24 +23,18 @@ L6c09:
 L6c3d:
 	col = random(5);
 	if (used[col] == 1) goto L6c3d;
-	if (used[0]) goto L6c65;
-	if (g5010 != 1) goto L6c65;
+	if ((used[0]) || (g5010 != 1)) goto L6c65;
 	col = 0;
 L6c65:
 	used[col] = 1;
 	if (*(int *)((char *)view_pos_group + ((row * 10) + (col << 1)))) goto L6d2f;
 	switch (row) {
 case 0:
-	if (col < 3) goto L6ca3;
-	if (monster_group_count != 1) goto L6cb1;
-L6ca3:
+	if ((col >= 3) && (monster_group_count != 1)) goto L6cb1;
 	place_first_group_from(1, row, col);
 	goto L6cde;
 L6cb1:
-	if (col == 3) goto L6cc4;
-	if (view_rows_open == 1) goto L6cc4;
-	if (monster_group_count != 2) goto L6cd2;
-L6cc4:
+	if (((col != 3) && (view_rows_open != 1)) && (monster_group_count != 2)) goto L6cd2;
 	place_first_group_from(2, row, col);
 	goto L6cde;
 L6cd2:
@@ -52,10 +46,7 @@ case 1:
 	place_first_group_from(1, row, col);
 	goto L6d20;
 L6cf5:
-	if (col == 1) goto L6d06;
-	if (col == 2) goto L6d06;
-	if (monster_group_count != 2) goto L6d14;
-L6d06:
+	if (((col != 1) && (col != 2)) && (monster_group_count != 2)) goto L6d14;
 	place_first_group_from(2, row, col);
 	goto L6d20;
 L6d14:

@@ -43,19 +43,12 @@ L801d:
 L804d:
 	goto L80be;
 L8050:
-	if (p6 != 1) goto L806f;
-	if (g5156[(l2 * 3)]) goto L806f;
+	if ((p6 != 1) || (g5156[(l2 * 3)])) goto L806f;
 	p8 = 0;
 L806f:
-	if (g5156[(l2 * 3)] == p8) goto L808b;
-	if (p8) goto L80be;
-L808b:
-	if (g5158[(l2 * 6)] == p10) goto L809a;
-	if (p10) goto L80be;
-L809a:
-	if (g5159[(l2 * 6)] == p12) goto L80a9;
-	if (p12) goto L80be;
-L80a9:
+	if ((g5156[(l2 * 3)] != p8) && (p8)) goto L80be;
+	if ((g5158[(l2 * 6)] != p10) && (p10)) goto L80be;
+	if ((g5159[(l2 * 6)] != p12) && (p12)) goto L80be;
 	p8 = f7038(p4, (unsigned char)g515b[(l2 * 6)]);
 	return;
 L80be:

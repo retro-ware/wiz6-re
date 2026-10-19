@@ -5,10 +5,7 @@ extern int g50fe[];
 fd0ad(p4, p6)
 {
 	print_msg_centered(p4, p6, 0);
-	if (!g435e) goto Ld0f7;
-#asm
-	db 0a1h,05eh,043h,03dh,006h,000h,074h,028h
-#endasm
+	if ((!g435e) || (g435e == 6)) goto Ld0f7;
 	anim_cycle = 0;
 	g50fe[((g435e < 3 ? 0 : 1) * 5)] = 1;
 	reset_animation();
