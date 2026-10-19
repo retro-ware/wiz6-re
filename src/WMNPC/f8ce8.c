@@ -41,13 +41,11 @@ npc_choose_spell(p4, p6)
 	npc_draw_spell_window(l2, p6);
 	f88c7(l4, 1);
 	l64 = 0;
-	l6 = 0;
-L8d5d:
+	for (l6 = 0; l6 < 6; l6++) {
 	l74 = (((l6 / 3) * 6) + 1);
 	l76 = (((l6 % 3) << 1) + 1);
 	set_click_region(l6, ((unsigned char)l2[2] + l74), ((unsigned char)l2[3] + l76), ((unsigned char)l2[2] + l74), ((unsigned char)l2[3] + l76));
-	l6++;
-	if (l6 < 6) goto L8d5d;
+	}
 	set_click_region(6, ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3), ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3));
 L8de2:
 	set_click_region(7, 255, 0, 0, 0);

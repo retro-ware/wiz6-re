@@ -52,8 +52,7 @@ L6a6c:
 L6a98:
 	play_sound(g5114);
 	l18[7] = (unsigned char)g3746[((314 * l18[8]) + l18[3])];
-	l18[6] = 0;
-L6ab9:
+	for (l18[6] = 0; l18[6] < 3; l18[6]++) {
 	l22 = 42;
 	l20 = ((unsigned char)g375a[((314 * l18[8]) + (l18[7] << 2))] + l18[l18[6]]);
 	l38[0] = *(char *)&l20;
@@ -64,8 +63,7 @@ L6ab9:
 L6b5c:
 	animate_step();
 	if (view_anim_state != -2) goto L6b5c;
-	l18[6]++;
-	if (l18[6] < 3) goto L6ab9;
+	}
 	if (p16 != 1) goto L6ba0;
 	g50fe[(p10 * 5)] = l18[4];
 	anim_cycle = 0;

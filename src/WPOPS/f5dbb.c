@@ -41,8 +41,7 @@ L5e61:
 L5e6b:
 	if (l10 >= 10) goto L5f74;
 	l10++;
-	l2 = 0;
-L5e7c:
+	for (l2 = 0; l2 < 2; l2++) {
 	l4 = 0;
 L5e81:
 	if (*(int *)((char *)view_pos_group + ((l2 * 10) + ((unsigned char)g0092[((attacker * 5) + l4)] << 1))) != group) goto L5f55;
@@ -62,8 +61,7 @@ L5f3c:
 L5f55:
 	l4++;
 	if (l4 < 5) goto L5e81;
-	l2++;
-	if (l2 < 2) goto L5e7c;
+	}
 	goto L5e6b;
 L5f74:
 	play_sound(0);

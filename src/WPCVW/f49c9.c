@@ -35,16 +35,12 @@ L4a31:
 L4a43:
 	if (i < 7) goto L4a31;
 	l88 = ((member_portrait[member] * 9) + 72);
-	i = 0;
-L4a64:
+	for (i = 0; i < 3; i++) {
 	set_cursor(win, l4, ((l6 + i) + 1));
-	rdi = 0;
-L4a7a:
+	for (rdi = 0; rdi < 3; rdi++) {
 	put_char_hi(win, (unsigned char)((((i * 3) + l88) + rdi)), 2);
-	rdi++;
-	if (rdi < 3) goto L4a7a;
-	i++;
-	if (i < 3) goto L4a64;
+	}
+	}
 	l2 = g0526[(unsigned char)pc_condition[(432 * member)]];
 	l2 = ((!l2) && ((unsigned)g450c[(432 * member)] > 0) ? 1 : l2);
 	l2 = ((l2 < 2) && ((unsigned)g450d[(432 * member)] > 0) ? 2 : l2);
@@ -65,11 +61,9 @@ L4b77:
 	put_char_hi(win, 32, 3);
 L4b88:
 	set_cursor(win, (l4 + 3), (l6 + 2));
-	i = 0;
-L4ba1:
+	for (i = 0; i < 2; i++) {
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * member)] << 1) + i) + 58)), 1);
-	i++;
-	if (i < 2) goto L4ba1;
+	}
 	set_cursor(win, (l4 + 3), (l6 + 1));
 	i = 0;
 L4be4:

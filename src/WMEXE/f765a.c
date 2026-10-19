@@ -22,22 +22,18 @@ L767d:
 	goto L7724;
 case -2:
 	fea26();
-	l2 = 0;
-L76aa:
+	for (l2 = 0; l2 < 12; l2++) {
 	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = 255;
-	l2++;
-	if (l2 < 12) goto L76aa;
+	}
 	sprite_count = 0;
 	goto L7724;
 case -1:
 	l2 = 0;
 L76d1:
-	l4 = 0;
-L76d6:
+	for (l4 = 0; l4 < 5; l4++) {
 	queue_combatant_sprite(l2, l4);
 	queue_effect_sprite(l2, l4);
-	l4++;
-	if (l4 < 5) goto L76d6;
+	}
 	l2++;
 	if (l2 < 2) goto L76d1;
 	goto L7724;

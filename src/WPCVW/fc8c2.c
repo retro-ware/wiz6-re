@@ -22,11 +22,9 @@ char *p8;
 	char x28[52];
 	int l82;
 	l8 = 0;
-	l2 = 0;
-Lc8d3:
+	for (l2 = 0; l2 < 10; l2++) {
 	*(int *)(p8 + (l2 << 1)) = -1;
-	l2++;
-	if (l2 < 10) goto Lc8d3;
+	}
 	l2 = 0;
 	goto Lcbd6;
 Lc8f4:

@@ -36,11 +36,9 @@ f9f8c()
 L9fbf:
 	l30 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
 	l14 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
-	l2 = 0;
-L9fdd:
+	for (l2 = 0; l2 < 4; l2++) {
 	l12[l2] = extract_bits(l14, (l2 + 8), 1);
-	l2++;
-	if (l2 < 4) goto L9fdd;
+	}
 	l16 = extract_bits(l14, 0, 8);
 	l18 = (unsigned char)(g4fa8 + cell_event_index)[1584];
 	l24 = extract_bits(l14, 12, 1);

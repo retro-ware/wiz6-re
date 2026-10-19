@@ -36,10 +36,8 @@ L502e:
 	rsi = (rsi + -4);
 	l3[0] = (char)((p14 + rsi) + 9);
 L5045:
-	rsi = 0;
-L5048:
+	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(p4, p6, (p8 + rsi));
 	put_char_hi(p4, (unsigned char)*(char *)((l3 + rsi)), 1);
-	rsi++;
-	if (rsi < 3) goto L5048;
+	}
 }

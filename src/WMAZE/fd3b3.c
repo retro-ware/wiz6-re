@@ -37,13 +37,11 @@ pick_lock(member, event)
 	fceb2(win, 18, 3, 5);
 	fceb2(win, 0, 4, 6);
 	fceb2(win, 18, 4, 8);
-	l2 = 1;
-Ld4cc:
+	for (l2 = 1; l2 < 18; l2++) {
 	fceb2(win, l2, 0, 18);
 	fceb2(win, l2, 2, 12);
 	fceb2(win, l2, 4, 7);
-	l2++;
-	if (l2 < 18) goto Ld4cc;
+	}
 	l2 = 3;
 Ld518:
 	fceb2(win, l2, 0, 34);
@@ -54,12 +52,10 @@ Ld518:
 	l2 += 3;
 	if (l2 < 18) goto Ld518;
 	defer_window_draw(win);
-	l2 = 0;
-Ld592:
+	for (l2 = 0; l2 < 5; l2++) {
 	set_cursor(win, 19, l2);
 	put_char_hi(win, 32, 3);
-	l2++;
-	if (l2 < 5) goto Ld592;
+	}
 	resume_window_draw(win);
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];

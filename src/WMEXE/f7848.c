@@ -39,11 +39,9 @@ L7936:
 	*(int *)(((char *)monster_groups[p4] + (44 * p6)) + 6) = 0;
 	((char *)monster_groups[p4] + (44 * p6))[36] = 0;
 	((char *)monster_groups[p4] + (44 * p6))[37] = 0;
-	l2 = 0;
-L79c7:
+	for (l2 = 0; l2 < 4; l2++) {
 	((char *)monster_groups[p4] + ((44 * p6) + l2))[24] = 0;
-	l2++;
-	if (l2 < 4) goto L79c7;
+	}
 	if ((p4 < 1) || (p4 > 5)) goto L7a11;
 #asm
 	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,047h,040h,08bh,057h

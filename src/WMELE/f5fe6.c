@@ -40,16 +40,12 @@ L6057:
 L6069:
 	if (rsi < 7) goto L6057;
 	portrait_glyph = ((member_portrait[i] * 9) + 72);
-	rsi = 0;
-L608a:
+	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(win, x, ((y + rsi) + 1));
-	rdi = 0;
-L60a0:
+	for (rdi = 0; rdi < 3; rdi++) {
 	put_char_hi(win, (unsigned char)((((rsi * 3) + portrait_glyph) + rdi)), 2);
-	rdi++;
-	if (rdi < 3) goto L60a0;
-	rsi++;
-	if (rsi < 3) goto L608a;
+	}
+	}
 	state = g0526[(unsigned char)pc_condition[(432 * i)]];
 	state = ((!state) && ((unsigned)g450c[(432 * i)] > 0) ? 1 : state);
 	state = ((state < 2) && ((unsigned)g450d[(432 * i)] > 0) ? 2 : state);
@@ -70,11 +66,9 @@ L619d:
 	put_char_hi(win, 32, 3);
 L61ae:
 	set_cursor(win, (x + 3), (y + 2));
-	rsi = 0;
-L61c7:
+	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * i)] << 1) + rsi) + 58)), 1);
-	rsi++;
-	if (rsi < 2) goto L61c7;
+	}
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
 L620a:

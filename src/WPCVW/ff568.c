@@ -5,11 +5,9 @@ char *p4;
 	int l2;
 	int l4;
 	int l20[8];
-	l2 = 0;
-Lf573:
+	for (l2 = 0; l2 < 8; l2++) {
 	l20[l2] = 0;
-	l2++;
-	if (l2 < 8) goto Lf573;
+	}
 Lf58c:
 	l4 = 0;
 Lf591:

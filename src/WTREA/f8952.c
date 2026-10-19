@@ -42,12 +42,10 @@ distribute_loot()
 	put_glyph_c1(win, 18, 2, 19);
 	put_glyph_c1(win, 1, 4, 6);
 	put_glyph_c1(win, 18, 4, 8);
-	l2 = 2;
-L8aa3:
+	for (l2 = 2; l2 < 18; l2++) {
 	put_glyph_c1(win, l2, 2, 18);
 	put_glyph_c1(win, l2, 4, 7);
-	l2++;
-	if (l2 < 18) goto L8aa3;
+	}
 	put_glyph_c1(win, 1, 3, 4);
 	put_glyph_c1(win, 18, 3, 5);
 	clear_window_area(win, 2, 3, 17, 3);

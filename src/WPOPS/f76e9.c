@@ -125,11 +125,9 @@ L788d:
 	done_members[done_count] = member;
 	done_count++;
 	l180 = (monster_groups + (member * 44));
-	l2 = 0;
-L78e8:
+	for (l2 = 0; l2 < 11; l2++) {
 	enabled[l2] = 1;
-	l2++;
-	if (l2 < 11) goto L78e8;
+	}
 	if (pc_race[(432 * member)] == 7) goto L7915;
 	l24 = 0;
 L7915:
@@ -263,11 +261,9 @@ L7d9e:
 	replace_char_with_string(&l152, &l160, 36);
 	print_combat_prompt(&l152, 0);
 	refresh_all_windows();
-	l2 = 0;
-L7df0:
+	for (l2 = 0; l2 < 4; l2++) {
 	enabled[l2] = 1;
-	l2++;
-	if (l2 < 4) goto L7df0;
+	}
 	if (pc_item_type[((432 * member) + ((unsigned char)g44f9[(432 * member)] << 3))] == 11) goto L7e39;
 	enabled[0] = 0;
 L7e39:
@@ -414,11 +410,9 @@ L818d:
 	get_message(3506, &l152);
 	print_combat_prompt(&l152, 0);
 	refresh_all_windows();
-	l2 = 0;
-L81e5:
+	for (l2 = 0; l2 < 3; l2++) {
 	enabled[l2] = 1;
-	l2++;
-	if (l2 < 3) goto L81e5;
+	}
 	if (done_count) goto L820f;
 	enabled[2] = 0;
 	enabled[1] = 0;

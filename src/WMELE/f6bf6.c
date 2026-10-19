@@ -13,12 +13,10 @@ arrange_monster_positions()
 	row = 0;
 	goto L6d3e;
 L6c04:
-	n = 0;
-L6c09:
+	for (n = 0; n < 5; n++) {
 	*(int *)((char *)g50b4 + ((row * 10) + (n << 1))) = 0;
 	used[n] = 0;
-	n++;
-	if (n < 5) goto L6c09;
+	}
 	n = 0;
 L6c3d:
 	col = random(5);

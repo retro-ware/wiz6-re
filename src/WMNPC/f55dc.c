@@ -14,21 +14,17 @@ case -3:
 	goto L567a;
 case -2:
 	fee2e();
-	l2 = 0;
-L5608:
+	for (l2 = 0; l2 < 12; l2++) {
 	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = 255;
-	l2++;
-	if (l2 < 12) goto L5608;
+	}
 	sprite_count = 0;
 	goto L567a;
 case -1:
 	l2 = 0;
 L562f:
-	l4 = 0;
-L5634:
+	for (l4 = 0; l4 < 5; l4++) {
 	f49db(l2, l4, 0);
-	l4++;
-	if (l4 < 5) goto L5634;
+	}
 	l2++;
 	if (l2 < 2) goto L562f;
 	goto L567a;

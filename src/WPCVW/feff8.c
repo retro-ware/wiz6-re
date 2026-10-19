@@ -97,11 +97,9 @@ Lf1bb:
 	l10 = (l8 - g4548[(432 * p4)]);
 	if (!l10) goto Lf1fe;
 	g4548[(432 * p4)] = *(char *)&l8;
-	l2 = 3;
-Lf1dc:
+	for (l2 = 3; l2 < 8; l2++) {
 	g4548[((432 * p4) + l2)] = (char)(g4548[((432 * p4) + l2)] + l10);
-	l2++;
-	if (l2 < 8) goto Lf1dc;
+	}
 Lf1fe:
 	return;
 }

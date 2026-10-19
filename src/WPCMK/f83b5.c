@@ -4,11 +4,9 @@ char *p4;
 {
 	int l2;
 	register int rsi;
-	l2 = 0;
-L83c1:
+	for (l2 = 0; l2 < 14; l2++) {
 	g55c2[l2] = 0;
 	rsi = l2;
 	add_class_rating(rsi, ((*(p4 + rsi) << 2) + -260));
-	l2++;
-	if (l2 < 14) goto L83c1;
+	}
 }

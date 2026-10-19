@@ -46,16 +46,12 @@ char *win;
 	register int rsi;
 	register int rdi;
 	l86 = ((member_portrait[member] * 9) + 72);
-	rsi = 0;
-L54cf:
+	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(win, 1, (rsi + 1));
-	rdi = 0;
-L54e3:
+	for (rdi = 0; rdi < 3; rdi++) {
 	put_char_hi(win, (unsigned char)((((rsi * 3) + l86) + rdi)), 2);
-	rdi++;
-	if (rdi < 3) goto L54e3;
-	rsi++;
-	if (rsi < 3) goto L54cf;
+	}
+	}
 	print_at(win, 4, 1, ((432 * member) + 17384), 5);
 	set_cursor(win, 13, 1);
 	get_message(((unsigned char)pc_sex[(432 * member)] + 140), &l84);
@@ -86,13 +82,11 @@ L564a:
 	print_msg_at(203, win, 25, 3, 14);
 	win[6]++;
 	print_long(win, *(int *)((char *)g43f8 + (432 * member)), *(int *)((char *)g43fa + (432 * member)), 10, 6);
-	rsi = 0;
-L57e8:
+	for (rsi = 0; rsi < 8; rsi++) {
 	print_msg_at((rsi + 204), win, 1, (rsi + 5), 5);
 	win[6]++;
 	print_int(win, (unsigned char)pc_stats[((432 * member) + rsi)], 2, 1);
-	rsi++;
-	if (rsi < 8) goto L57e8;
+	}
 	print_msg_at(212, win, 10, 5, 4);
 	win[6]++;
 	print_int(win, *(int *)((char *)pc_hp + (432 * member)), 4, 6);

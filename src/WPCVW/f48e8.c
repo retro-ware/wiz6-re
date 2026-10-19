@@ -36,10 +36,8 @@ L4971:
 	l2 += -4;
 	l5[0] = (char)((p14 + l2) + 9);
 L498a:
-	l2 = 0;
-L498f:
+	for (l2 = 0; l2 < 3; l2++) {
 	set_cursor(p4, p6, (p8 + l2));
 	put_char_hi(p4, (unsigned char)l5[l2], 1);
-	l2++;
-	if (l2 < 3) goto L498f;
+	}
 }

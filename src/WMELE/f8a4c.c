@@ -61,8 +61,7 @@ case 5:
 	return;
 	}
 L8ad0:
-	rsi = 0;
-L8ad3:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g5162[rsi] = 1;
 	g514a[rsi] = 1;
 	g5152[rsi] = 1;
@@ -70,8 +69,7 @@ L8ad3:
 	g5172[rsi] = 1;
 	pclist_pcindex[rsi] = 1;
 	g517a[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto L8ad3;
+	}
 	setmem(20798, 12, 0);
 	setmem(20762, 12, 0);
 	setmem(20866, 12, 0);

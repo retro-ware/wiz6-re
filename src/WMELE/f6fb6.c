@@ -21,28 +21,20 @@ end_encounter()
 	erase_window(main_window, 0);
 	defer_window_draw(party_picture_win);
 	fill_window(party_picture_win, 26, 3, 0);
-	l2 = 0;
-L7021:
+	for (l2 = 0; l2 < 5; l2++) {
 	set_cursor(party_picture_win, 19, l2);
 	put_char_hi(party_picture_win, 27, 3);
-	l2++;
-	if (l2 < 5) goto L7021;
+	}
 	resume_window_draw(party_picture_win);
 	f0a42(bottom_line_win, 0);
-	l2 = 0;
-L706a:
+	for (l2 = 0; l2 < 7; l2++) {
 	free(group_monster_rec[l2]);
 	free(monster_groups[l2]);
-	l2++;
-	if (l2 < 7) goto L706a;
-	l2 = 0;
-L7098:
+	}
+	for (l2 = 0; l2 < 12; l2++) {
 	free(sprite_list[l2]);
-	l2++;
-	if (l2 < 12) goto L7098;
-	l4 = 0;
-L70b7:
+	}
+	for (l4 = 0; l4 < 3; l4++) {
 	g4326[l4] = 0;
-	l4++;
-	if (l4 < 3) goto L70b7;
+	}
 }

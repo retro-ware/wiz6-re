@@ -61,8 +61,7 @@ case 5:
 	return;
 	}
 L9677:
-	rsi = 0;
-L967a:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g545c[rsi] = 1;
 	g5444[rsi] = 1;
 	g544c[rsi] = 1;
@@ -70,8 +69,7 @@ L967a:
 	g546c[rsi] = 1;
 	g5454[rsi] = 1;
 	g5474[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto L967a;
+	}
 	setmem(21560, 12, 0);
 	setmem(21524, 12, 0);
 	setmem(21628, 12, 0);

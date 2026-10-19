@@ -9,16 +9,14 @@ animate_and_show_two_lines(line1, line2)
 {
 	int step;
 	int win;
-	step = 1;
-L4f84:
+	for (step = 1; step < 9; step++) {
 	anim_phase = ((anim_phase + 1) % 2);
 	camp_anim_dx = (((0 - g0022) * step) / 2);
 	camp_anim_dy = ((step * g0022) / 2);
 	draw_camp_scene(anim_phase, camp_anim_dx, camp_anim_dy);
 	drv_op_c2(picture_win);
 	play_sound(3);
-	step++;
-	if (step < 9) goto L4f84;
+	}
 	wait_animated(5);
 	erase_window(main_window, 0);
 	win = create_window(0, 19, 40, 5, 30, -1, 0, 0);

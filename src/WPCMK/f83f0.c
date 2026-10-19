@@ -1,12 +1,14 @@
 extern char char_class;
 extern char char_race;
 extern char char_stats;
-extern char g5563;
+extern char g5562[];
+extern char g5563[];
 extern char g5564[];
 extern char g556a;
 extern char g556c[];
 extern char g556d[];
-extern char g556f;
+extern char g556e[];
+extern char g556f[];
 extern char g559d;
 extern char g559f;
 extern char g55a0;
@@ -15,7 +17,7 @@ extern char g55ad;
 extern char g55c1;
 extern char g55d0[];
 extern char g55d2;
-extern int g5560;
+extern int g5560[];
 init_class_race_modifiers()
 {
 	int l2;
@@ -106,42 +108,38 @@ L8610:
 	add_class_rating(7, 5);
 	add_class_rating(4, 5);
 L8633:
-	l2 = 0;
-L8638:
+	for (l2 = 0; l2 < 2; l2++) {
 	g556d[(l2 << 4)] = 0;
 	g556c[(l2 << 4)] = 0;
-	l4 = 0;
-L8651:
+	for (l4 = 0; l4 < 8; l4++) {
 	g5564[((l2 << 4) + l4)] = 0;
-	l4++;
-	if (l4 < 8) goto L8651;
-#asm
-	db 08bh,046h,0feh,0b9h,004h,000h,0d3h,0e0h,08bh,0d8h,0c6h,087h,06eh,055h,000h,0c6h
-	db 087h,062h,055h,002h,0c6h,087h,063h,055h,002h,0c7h,087h,060h,055h,000h,000h,0c6h
-	db 087h,06fh,055h,020h
-#endasm
-	l2++;
-	if (l2 < 2) goto L8638;
+	}
+	g556e[(l2 << 4)] = 0;
+	g5562[(l2 << 4)] = 2;
+	g5563[(l2 << 4)] = 2;
+	*(int *)((char *)g5560 + (l2 << 4)) = 0;
+	g556f[(l2 << 4)] = 32;
+	}
 	l2 = ((unsigned char)g55ad / 5);
 	l4 = ((unsigned char)g55c1 / 5);
 	if ((char_class != 13) && (char_class != 12)) goto L86e2;
-	g5563 = (char)((l2 / 3) + 2);
-	g556f |= 64;
+	g5563[0] = (char)((l2 / 3) + 2);
+	g556f[0] |= 64;
 	g556a = (char)(l4 + 5);
 	goto L8706;
 L86e2:
 	if (l2 <= 0) goto L86fa;
-	g5563 = (char)((l2 / 4) + 1);
-	g556f |= 64;
+	g5563[0] = (char)((l2 / 4) + 1);
+	g556f[0] |= 64;
 L86fa:
 	if (l4 <= 0) goto L8706;
 	g556a = *(char *)&l4;
 L8706:
 	if ((unsigned)char_stats <= 15) goto L8711;
-	g5560++;
+	g5560[0]++;
 L8711:
 	if ((unsigned)char_stats <= 17) goto L871c;
-	g5560++;
+	g5560[0]++;
 L871c:
 	if ((unsigned)g55a0 <= 15) goto L8728;
 #asm
@@ -164,9 +162,7 @@ L8754:
 	g55d0[0] -= 2;
 L8763:
 	g55d2 = 0;
-	l2 = 3;
-L876d:
+	for (l2 = 3; l2 < 8; l2++) {
 	g55d0[l2] = g55d0[0];
-	l2++;
-	if (l2 < 8) goto L876d;
+	}
 }

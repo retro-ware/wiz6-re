@@ -60,8 +60,7 @@ case 5:
 	return;
 	}
 Leeb2:
-	rsi = 0;
-Leeb5:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g6aee[rsi] = 1;
 	g6ad6[rsi] = 1;
 	g6ade[rsi] = 1;
@@ -69,8 +68,7 @@ Leeb5:
 	g6afe[rsi] = 1;
 	g6ae6[rsi] = 1;
 	g6b06[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto Leeb5;
+	}
 	setmem(27338, 12, 0);
 	setmem(27302, 12, 0);
 	setmem(27406, 12, 0);

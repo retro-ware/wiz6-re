@@ -60,8 +60,7 @@ case 5:
 	return;
 	}
 Lb277:
-	rsi = 0;
-Lb27a:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g52cc[rsi] = 1;
 	g52b4[rsi] = 1;
 	g52bc[rsi] = 1;
@@ -69,8 +68,7 @@ Lb27a:
 	g52dc[rsi] = 1;
 	g52c4[rsi] = 1;
 	g52e4[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto Lb27a;
+	}
 	setmem(21160, 12, 0);
 	setmem(21124, 12, 0);
 	setmem(21228, 12, 0);

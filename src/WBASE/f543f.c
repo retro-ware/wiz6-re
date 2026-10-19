@@ -31,12 +31,10 @@ L5453:
 	draw_glyph_at(win, 33, 2, 19);
 	draw_glyph_at(win, 7, 4, 6);
 	draw_glyph_at(win, 33, 4, 8);
-	x = 8;
-L551f:
+	for (x = 8; x < 33; x++) {
 	draw_glyph_at(win, x, 2, 18);
 	draw_glyph_at(win, x, 4, 7);
-	x++;
-	if (x < 33) goto L551f;
+	}
 	draw_glyph_at(win, 7, 3, 4);
 	draw_glyph_at(win, 33, 3, 5);
 	l88 = 0;

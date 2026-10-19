@@ -61,8 +61,7 @@ case 5:
 	return;
 	}
 La24d:
-	rsi = 0;
-La250:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g50c4[rsi] = 1;
 	g50ac[rsi] = 1;
 	g50b4[rsi] = 1;
@@ -70,8 +69,7 @@ La250:
 	g50d4[rsi] = 1;
 	g50bc[rsi] = 1;
 	g50dc[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto La250;
+	}
 	setmem(20640, 12, 0);
 	setmem(20604, 12, 0);
 	setmem(20708, 12, 0);

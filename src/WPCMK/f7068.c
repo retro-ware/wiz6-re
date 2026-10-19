@@ -8,13 +8,11 @@ extern int char_stamina_max;
 draw_stats()
 {
 	register int rsi;
-	rsi = 0;
-L706c:
+	for (rsi = 0; rsi < 8; rsi++) {
 	print_msg_at((rsi + 204), sheet_win, 1, (rsi + 5), 5);
 	sheet_win[6]++;
 	print_int(sheet_win, (unsigned char)char_stats[rsi], 2, 1);
-	rsi++;
-	if (rsi < 8) goto L706c;
+	}
 	if (bonus_points < 0) goto L70f8;
 	set_cursor(sheet_win, 10, 11);
 	print_message(1107, sheet_win, -7);

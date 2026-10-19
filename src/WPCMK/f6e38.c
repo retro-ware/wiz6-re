@@ -56,22 +56,18 @@ L6f29:
 	set_cursor(win, 1, 1);
 	print_message(703, win, 18);
 	resume_window_draw(win);
-	l2 = 0;
-L6f70:
+	for (l2 = 0; l2 < 6; l2++) {
 	saved_sp[l2] = *(int *)((char *)char_spell_points + (l2 << 2));
 	*(int *)((char *)char_spell_points + (l2 << 2)) = 999;
-	l2++;
-	if (l2 < 6) goto L6f70;
+	}
 L6fa3:
 	if ((spell = select_spell(sheet_win, win, 0)) != -1) goto L6fbd;
 	goto L6fa3;
 L6fbd:
 	movmem(&saved_known, 22008, 12);
-	l2 = 0;
-L6fd4:
+	for (l2 = 0; l2 < 6; l2++) {
 	*(int *)((char *)char_spell_points + (l2 << 2)) = saved_sp[l2];
-	l2++;
-	if (l2 < 6) goto L6fd4;
+	}
 	set_bit(22008, spell, 1);
 	l2 = (((unsigned char)g00df[(spell * 6)] << 1) + 1);
 	l4 = (unsigned char)spell_table[(spell * 6)];

@@ -54,23 +54,19 @@ L9142:
 	put_glyph_c1(trap_win, 19, 1, 19);
 	put_glyph_c1(trap_win, 0, 3, 6);
 	put_glyph_c1(trap_win, 19, 3, 8);
-	l2 = 1;
-L925c:
+	for (l2 = 1; l2 < 19; l2++) {
 	put_glyph_c1(trap_win, l2, 1, 18);
 	put_glyph_c1(trap_win, l2, 3, 7);
-	l2++;
-	if (l2 < 19) goto L925c;
+	}
 	put_glyph_c1(trap_win, 0, 2, 4);
 	put_glyph_c1(trap_win, 19, 2, 5);
 	clear_window_area(trap_win, 1, 2, 18, 2);
 	resume_window_draw(trap_win);
 	trap_guess_len = 0;
-	l2 = 0;
-L92e4:
+	for (l2 = 0; l2 < 20; l2++) {
 	trap_guess_letters[l2] = 0;
 	g5194[l2] = 0;
-	l2++;
-	if (l2 < 20) goto L92e4;
+	}
 	l2 = 0;
 	goto L9317;
 L9306:

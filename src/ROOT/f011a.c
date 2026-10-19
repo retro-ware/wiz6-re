@@ -60,11 +60,9 @@ L0266:
 	win[10] = 35;
 	goto L02ac;
 L0298:
-	i = 0;
-L029b:
+	for (i = 0; i < 8; i++) {
 	(win + i)[8] = (char)(border + i);
-	i++;
-	if (i < 8) goto L029b;
+	}
 L02ac:
 	link_window(win);
 	if ((flags & 2)) goto L02c1;

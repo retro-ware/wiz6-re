@@ -60,8 +60,7 @@ case 5:
 	return;
 	}
 Leaaa:
-	rsi = 0;
-Leaad:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g5164[rsi] = 1;
 	g514c[rsi] = 1;
 	g5154[rsi] = 1;
@@ -69,8 +68,7 @@ Leaad:
 	g5174[rsi] = 1;
 	g515c[rsi] = 1;
 	g517c[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto Leaad;
+	}
 	setmem(20800, 12, 0);
 	setmem(20764, 12, 0);
 	setmem(20868, 12, 0);

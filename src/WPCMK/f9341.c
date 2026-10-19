@@ -27,11 +27,9 @@ init_new_character()
 	g5494 = 1;
 	g5496 = 1;
 	char_item_count = 0;
-	l2 = 0;
-L938e:
+	for (l2 = 0; l2 < 8; l2++) {
 	g5580[l2] = 255;
-	l2++;
-	if (l2 < 8) goto L938e;
+	}
 	init_class_race_modifiers();
 	draw_stats();
 }

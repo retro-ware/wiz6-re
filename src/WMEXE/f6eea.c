@@ -5,13 +5,11 @@ char *weights;
 	int roll;
 	register int i;
 	roll = random(100);
-	i = 0;
-L6eff:
+	for (i = 0; i < 8; i++) {
 	if ((unsigned char)*(weights + i) <= roll) goto L6f12;
 	return i;
 L6f12:
 	roll -= (unsigned char)*(weights + i);
-	i++;
-	if (i < 8) goto L6eff;
+	}
 	return 4;
 }

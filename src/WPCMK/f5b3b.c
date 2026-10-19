@@ -63,20 +63,16 @@ L5ccd:
 	set_frame_glyph(win, 19, 0, 10);
 	set_frame_glyph(win, 0, 15, 11);
 	set_frame_glyph(win, 19, 15, 8);
-	i = 1;
-L5d38:
+	for (i = 1; i < 19; i++) {
 	set_frame_glyph(win, i, 0, 12);
 	set_frame_glyph(win, i, 2, 12);
 	set_frame_glyph(win, i, 13, 12);
 	set_frame_glyph(win, i, 15, 7);
-	i++;
-	if (i < 19) goto L5d38;
-	i = 1;
-L5d98:
+	}
+	for (i = 1; i < 15; i++) {
 	set_frame_glyph(win, 0, i, 13);
 	set_frame_glyph(win, 19, i, 5);
-	i++;
-	if (i < 15) goto L5d98;
+	}
 	set_frame_glyph(win, 0, 2, 33);
 	set_frame_glyph(win, 0, 9, 15);
 	set_frame_glyph(win, 0, 11, 15);

@@ -446,6 +446,33 @@ class Printer:
             fwd = {k for k, st in enumerate(sts[:epi_k]) if st.kind == 'ret' and st.rv is None and k not in brk}
             if fwd:
                 labels.add(sts[epi_k].s)
+        # v = C; L: body; v++; if (v < K) goto L  with C < K: a for loop (cgen tests it at the
+        # bottom with no initial jmp, and forgets its CSE registers after it)
+        refs = {}
+        for st in sts:
+            if st.kind in ('if', 'goto'):
+                refs[st.target] = refs.get(st.target, 0) + 1
+        fors, forend = {}, {}
+        for j, st in enumerate(sts):
+            c = getattr(st, 'cond', None)
+            if st.kind != 'if' or j < 3 or c[0] != '<' or c[1][0] != 'v' or c[2][0] != 'c':
+                continue
+            k = next((x for x in range(j) if sts[x].s == st.target), None)
+            if k is None or k < 1 or refs.get(st.target) != 1 or st.target in cases or st.target in default:
+                continue
+            a, inc = sts[k - 1], sts[j - 1]
+            if a.kind != 'asg' or a.lv != c[1] or a.rv[0] != 'c' or a.s in self.L.nobool or \
+                    inc.kind != 'inc' or inc.op != '+' or inc.lv != c[1] or k > j - 1 or \
+                    self.sdisp(a.rv[1]) >= self.sdisp(c[2][1]) or \
+                    inc.s in labels or inc.s in cases or inc.s in default or st.s in labels or \
+                    st.s in cases or st.s in default or a.s in cases or a.s in default or \
+                    any(x.kind in ('raw', 'switch', 'endsw') for x in sts[k - 1:j + 1]):
+                continue
+            fors[k - 1] = st
+            forend[j - 1], forend[j] = False, True
+            labels.discard(st.target)
+            for x in (a, inc, st):
+                x.forhead = a.s
         for k, st in enumerate(sts):
             lab = []
             if st.s in labels:
@@ -467,6 +494,12 @@ class Printer:
                     if tg[0] in self.L.targets and tg[0] > st.s:
                         out.append('L%04x:' % tg[0])
                     out.append('\treturn;' if self.tail_goto[1] == self.f.epi else '\tgoto L%04x;' % self.tail_goto[1])
+            elif k in fors:
+                c = fors[k].cond
+                out.append('\tfor (%s = %s; %s; %s++) {' % (self.ex(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1])))
+            elif k in forend:
+                if forend[k]:
+                    out.append('\t}')
             elif kd == 'asg':
                 out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(st.rv)))
             elif kd == 'cas':

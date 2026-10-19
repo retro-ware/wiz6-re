@@ -37,10 +37,8 @@ L6039:
 	level += -4;
 	glyphs[0] = (char)((glyph + level) + 9);
 L6052:
-	level = 0;
-L6057:
+	for (level = 0; level < 3; level++) {
 	set_cursor(win, x, (y + level));
 	put_char_hi(win, (unsigned char)glyphs[level], 1);
-	level++;
-	if (level < 3) goto L6057;
+	}
 }

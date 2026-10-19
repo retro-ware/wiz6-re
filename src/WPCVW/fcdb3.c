@@ -1,8 +1,10 @@
+extern char g44da[];
 extern char g44db[];
 extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
 extern char g44e5[];
+extern char g44e6[];
 extern char g44e7[];
 extern char g4515[];
 extern char g4517[];
@@ -12,6 +14,7 @@ extern char g4539[];
 extern char g4548[];
 extern char pc_class[];
 extern char pc_race[];
+extern int g44d8[];
 fcdb3(p4)
 {
 	int l2;
@@ -125,26 +128,18 @@ case 6:
 	goto Ld161;
 	}
 Ld161:
-	l2 = 0;
-Ld166:
+	for (l2 = 0; l2 < 2; l2++) {
 	g44e5[((432 * p4) + (l2 << 4))] = 0;
 	g44e4[((432 * p4) + (l2 << 4))] = 0;
-	l4 = 0;
-Ld189:
+	for (l4 = 0; l4 < 8; l4++) {
 	g44dc[(((432 * p4) + (l2 << 4)) + l4)] = 0;
-	l4++;
-	if (l4 < 8) goto Ld189;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,056h,0feh,0b9h,004h,000h,0d3h,0e2h,08bh,0cah
-	db 003h,0c1h,08bh,0d8h,0c6h,087h,0e6h,044h,000h,0c6h,087h,0dah,044h,002h,0c6h,087h
-	db 0dbh,044h,002h,0c7h,087h,0d8h,044h,000h,000h,0c6h,087h,0e7h,044h,020h
-#endasm
-	l2++;
-#asm
-	db 08bh,046h,0feh,03dh,002h,000h,07dh,003h
-#endasm
-	goto Ld166;
-Ld1ec:
+	}
+	g44e6[((432 * p4) + (l2 << 4))] = 0;
+	g44da[((432 * p4) + (l2 << 4))] = 2;
+	g44db[((432 * p4) + (l2 << 4))] = 2;
+	*(int *)((char *)g44d8 + ((432 * p4) + (l2 << 4))) = 0;
+	g44e7[((432 * p4) + (l2 << 4))] = 32;
+	}
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
 	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto Ld23d;
@@ -228,9 +223,7 @@ Ld300:
 ld300:
 	db 0c6h,087h,049h,045h,000h,0c6h,087h,04ah,045h,000h
 #endasm
-	l2 = 3;
-Ld30f:
+	for (l2 = 3; l2 < 8; l2++) {
 	g4548[((432 * p4) + l2)] = g4548[(432 * p4)];
-	l2++;
-	if (l2 < 8) goto Ld30f;
+	}
 }

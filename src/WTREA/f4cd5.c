@@ -36,10 +36,8 @@ L4d5e:
 	l2 += -4;
 	glyphs[0] = (char)((glyph_base + l2) + 9);
 L4d77:
-	l2 = 0;
-L4d7c:
+	for (l2 = 0; l2 < 3; l2++) {
 	set_cursor(win, x, (y + l2));
 	put_char_hi(win, (unsigned char)glyphs[l2], 1);
-	l2++;
-	if (l2 < 3) goto L4d7c;
+	}
 }

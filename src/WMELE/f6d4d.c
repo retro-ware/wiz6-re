@@ -15,21 +15,17 @@ case -3:
 	goto L6deb;
 case -2:
 	draw_maze_view();
-	l2 = 0;
-L6d79:
+	for (l2 = 0; l2 < 12; l2++) {
 	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = 255;
-	l2++;
-	if (l2 < 12) goto L6d79;
+	}
 	sprite_count = 0;
 	goto L6deb;
 case -1:
 	l2 = 0;
 L6da0:
-	l4 = 0;
-L6da5:
+	for (l4 = 0; l4 < 5; l4++) {
 	queue_monster_sprite(l2, l4, 0);
-	l4++;
-	if (l4 < 5) goto L6da5;
+	}
 	l2++;
 	if (l2 < 2) goto L6da0;
 	goto L6deb;

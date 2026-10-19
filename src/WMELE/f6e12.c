@@ -61,14 +61,10 @@ L6f58:
 	if (view_anim_state != -2) goto L6f58;
 	flash++;
 	if (flash < 4) goto L6e67;
-	row = 0;
-L6f75:
-	col = 0;
-L6f7a:
+	for (row = 0; row < 2; row++) {
+	for (col = 0; col < 5; col++) {
 	*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) = 0;
-	col++;
-	if (col < 5) goto L6f7a;
-	row++;
-	if (row < 2) goto L6f75;
+	}
+	}
 	g5010 = 0;
 }

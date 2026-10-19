@@ -189,12 +189,10 @@ L6a17:
 	l48 = g4f8e;
 	l46 = g4f8c;
 	l58 = g4f98;
-	l2 = 0;
-L6a7c:
+	for (l2 = 0; l2 < 6; l2++) {
 	*(int *)(l32 + (l2 << 2)) = *(int *)((char *)g4ec8 + (l2 << 2));
 	*(int *)(l32 + ((l2 << 2) + 2)) = *(int *)((char *)g4eca + (l2 << 2));
-	l2++;
-	if (l2 < 6) goto L6a7c;
+	}
 	l44 = g4f80;
 	l40 = g4f7c;
 	l36 = g4f78;

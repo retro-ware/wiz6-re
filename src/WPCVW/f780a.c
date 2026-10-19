@@ -45,13 +45,11 @@ char *p4;
 	draw_spell_list_frame(l4, 1);
 	refresh_window(p6);
 	realm = 0;
-	l6 = 0;
-L789b:
+	for (l6 = 0; l6 < 6; l6++) {
 	l74 = (((l6 / 3) * 10) + 1);
 	l76 = (((l6 % 3) << 1) + 14);
 	set_click_region(l6, ((unsigned char)p4[2] + l74), ((unsigned char)p4[3] + l76), ((unsigned char)p4[2] + l74), ((unsigned char)p4[3] + l76));
-	l6++;
-	if (l6 < 6) goto L789b;
+	}
 	set_click_region(6, ((unsigned char)l2[2] + 1), ((unsigned char)l2[3] + 12), ((unsigned char)l2[2] + 1), ((unsigned char)l2[3] + 12));
 L7923:
 	set_click_region(7, 255, 0, 0, 0);

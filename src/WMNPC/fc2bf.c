@@ -5,8 +5,7 @@ fc2bf(p4)
 	int l4;
 	int l6;
 	char l166[160];
-	l2 = 0;
-Lc2cb:
+	for (l2 = 0; l2 < 38; l2++) {
 	l4 = 0;
 	l6 = char_index((((l2 * 50) + l4) + 25366), 47);
 	strncpy(((char *)l166 + 80), (((l2 * 50) + l4) + 25366), l6);
@@ -24,7 +23,6 @@ Lc32c:
 	return;
 Lc3bb:
 	if (g6316[((l2 * 50) + l4)]) goto Lc32c;
-	l2++;
-	if (l2 < 38) goto Lc2cb;
+	}
 	return;
 }

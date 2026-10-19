@@ -8,8 +8,7 @@ fc546(p4, p6)
 	int l2;
 	int l4;
 	int l6;
-	l2 = 0;
-Lc552:
+	for (l2 = 0; l2 < 2; l2++) {
 	l4 = 0;
 Lc557:
 	if (*(int *)((char *)view_pos_group + ((l2 * 10) + ((unsigned char)g0092[(((g435c % 6) * 5) + l4)] << 1))) != p4) goto Lc60f;
@@ -25,8 +24,7 @@ Lc5f9:
 Lc60f:
 	l4++;
 	if (l4 < 5) goto Lc557;
-	l2++;
-	if (l2 < 2) goto Lc552;
+	}
 	l6 = 0;
 	goto Lc653;
 Lc632:

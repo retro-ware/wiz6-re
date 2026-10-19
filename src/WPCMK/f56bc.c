@@ -19,11 +19,9 @@ char *skills;
 	print_message(606, win, 18);
 	win[6] += 3;
 	print_message(607, win, 18);
-	row = 0;
-L5745:
+	for (row = 0; row < 10; row++) {
 	added[row] = 0;
-	row++;
-	if (row < 10) goto L5745;
+	}
 	row = 0;
 	set_click_region(0, ((unsigned char)win[2] + 2), ((unsigned char)win[3] + 2), ((unsigned char)win[2] + 2), ((unsigned char)win[3] + 2));
 	set_click_region(1, ((unsigned char)win[2] + 3), ((unsigned char)win[3] + 2), ((unsigned char)win[2] + 3), ((unsigned char)win[3] + 2));

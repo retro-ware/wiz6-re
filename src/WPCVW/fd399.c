@@ -69,12 +69,10 @@ char *p6;
 	int l304;
 	register int rsi;
 	register int rdi;
-	l2 = 0;
-Ld3a7:
+	for (l2 = 0; l2 < 8; l2++) {
 	pc_equipped[((432 * p8) + l2)] = 255;
 	l48[l2] = 0;
-	l2++;
-	if (l2 < 8) goto Ld3a7;
+	}
 	l2 = 0;
 	goto Ld3fa;
 Ld3d7:
@@ -86,11 +84,9 @@ Ld3fa:
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,08ah,045h,000h,0c6h,087h,08bh
 	db 045h,000h
 #endasm
-	l2 = 0;
-Ld424:
+	for (l2 = 0; l2 < 14; l2++) {
 	g453a[((432 * p8) + l2)] = 0;
-	l2++;
-	if (l2 < 14) goto Ld424;
+	}
 	l298 = (!(p8 % 2) ? g4fba : g4fb8);
 	set_cursor(l298, 3, (((p8 / 2) << 2) + 1));
 	put_char_hi(l298, 37, 4);
@@ -193,11 +189,9 @@ Ld80a:
 	db 08ah,086h,018h,0ffh,08bh,076h,0feh,0b9h,004h,000h,0d3h,0e6h,08bh,0ceh,003h,0d9h
 	db 088h,087h,0e5h,044h
 #endasm
-	l4 = 0;
-Ld8b8:
+	for (l4 = 0; l4 < 8; l4++) {
 	g44dc[(((432 * p8) + (l2 << 4)) + l4)] = l264[(l4 + 14)];
-	l4++;
-	if (l4 < 8) goto Ld8b8;
+	}
 	l4 = ((unsigned char)g4539[(432 * p8)] / 5);
 	if ((pc_class[(432 * p8)] != 12) && (pc_class[(432 * p8)] != 13)) goto Ld934;
 	g44e2[((432 * p8) + (l2 << 4))] = (char)(((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4) + 5);
@@ -225,11 +219,9 @@ ld9b8:
 Lda1d:
 	g4548[((432 * p8) + l2)] -= l226;
 Lda34:
-	l4 = 1;
-Lda39:
+	for (l4 = 1; l4 < 14; l4++) {
 	add_skill_bonus(p8, l4, (unsigned char)l264[l4]);
-	l4++;
-	if (l4 < 14) goto Lda39;
+	}
 	g458a[(432 * p8)] = (char)((unsigned)g458a[(432 * p8)] < l230 ? l230 : g458a[(432 * p8)]);
 	g458b[(432 * p8)] = (char)((unsigned)g458b[(432 * p8)] < l229 ? l229 : g458b[(432 * p8)]);
 	if ((l2) || (!((unsigned char)pc_item_flags[((432 * p8) + (l8 << 3))] & 8))) goto Ldaaf;
@@ -284,11 +276,9 @@ Ldc80:
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,089h,045h,000h
 #endasm
-	l4 = 0;
-Ldc95:
+	for (l4 = 0; l4 < 10; l4++) {
 	g450a[((432 * p8) + l4)] = 0;
-	l4++;
-	if (l4 < 10) goto Ldc95;
+	}
 	*(int *)((char *)pc_hp + (432 * p8)) = *(int *)((char *)pc_hp_max + (432 * p8));
 	*(int *)((char *)pc_stamina + (432 * p8)) = *(int *)((char *)pc_stamina_max + (432 * p8));
 	goto Ldd55;

@@ -44,8 +44,7 @@ L4a2f:
 	rsi++;
 	if (rsi < 12) goto L49cf;
 	setmem(19976, 96, 0);
-	rdi = 0;
-L4a4a:
+	for (rdi = 0; rdi < 5; rdi++) {
 	rsi = 0;
 L4a4d:
 	l2 = get_bitfield((maze_data + 1274), ((rsi * 5) + rdi), 3);
@@ -55,8 +54,7 @@ L4a4d:
 L4aa5:
 	rsi++;
 	if (rsi < 12) goto L4a4d;
-	rdi++;
-	if (rdi < 5) goto L4a4a;
+	}
 	if (game_state_arg == 8) goto L4abe;
 	g4eca = 0;
 L4abe:

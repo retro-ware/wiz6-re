@@ -44,16 +44,12 @@ L73e3:
 L73f5:
 	if (rsi < 7) goto L73e3;
 	l90 = ((member_portrait[p4] * 9) + 72);
-	rsi = 0;
-L7416:
+	for (rsi = 0; rsi < 3; rsi++) {
 	set_cursor(l88, l4, ((l6 + rsi) + 1));
-	rdi = 0;
-L742c:
+	for (rdi = 0; rdi < 3; rdi++) {
 	put_char_hi(l88, (unsigned char)((((rsi * 3) + l90) + rdi)), 2);
-	rdi++;
-	if (rdi < 3) goto L742c;
-	rsi++;
-	if (rsi < 3) goto L7416;
+	}
+	}
 	l2 = g0526[(unsigned char)pc_condition[(432 * p4)]];
 	l2 = ((!l2) && ((unsigned)g450c[(432 * p4)] > 0) ? 1 : l2);
 	l2 = ((l2 < 2) && ((unsigned)g450d[(432 * p4)] > 0) ? 2 : l2);
@@ -74,11 +70,9 @@ L7529:
 	put_char_hi(l88, 32, 3);
 L753a:
 	set_cursor(l88, (l4 + 3), (l6 + 2));
-	rsi = 0;
-L7553:
+	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(l88, (unsigned char)(((((unsigned char)pc_class[(432 * p4)] << 1) + rsi) + 58)), 1);
-	rsi++;
-	if (rsi < 2) goto L7553;
+	}
 	set_cursor(l88, (l4 + 3), (l6 + 1));
 	rsi = 0;
 L7596:

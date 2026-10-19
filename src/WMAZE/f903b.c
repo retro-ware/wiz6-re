@@ -60,8 +60,7 @@ case 5:
 	return;
 	}
 L90bf:
-	rsi = 0;
-L90c2:
+	for (rsi = 0; rsi < 4; rsi++) {
 	g508a[rsi] = 1;
 	g5072[rsi] = 1;
 	view_depth[rsi] = 1;
@@ -69,8 +68,7 @@ L90c2:
 	g509a[rsi] = 1;
 	g5082[rsi] = 1;
 	g50a2[rsi] = 1;
-	rsi++;
-	if (rsi < 4) goto L90c2;
+	}
 	setmem(20582, 12, 0);
 	setmem(20546, 12, 0);
 	setmem(20650, 12, 0);

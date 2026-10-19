@@ -1,6 +1,3 @@
-#asm
-	extrn set_bit_:near
-#endasm
 extern char g00df[];
 extern char g00e0[];
 extern char g00e3[];
@@ -73,29 +70,20 @@ L848e:
 	set_cursor(p6, 1, 1);
 	print_message(703, p6, 18);
 	resume_window_draw(p6);
-	l2 = 0;
-L853e:
+	for (l2 = 0; l2 < 6; l2++) {
 	l40[l2] = *(int *)((char *)pc_spell_pts + ((432 * p8) + (l2 << 2)));
 	*(int *)((char *)pc_spell_pts + ((432 * p8) + (l2 << 2))) = 999;
-	l2++;
-	if (l2 < 6) goto L853e;
+	}
 L8581:
 	if ((l6 = choose_spell(p4, p6, p8, 0)) != -1) goto L859e;
 	goto L8581;
 L859e:
 	g553c = -1;
 	movmem(&l28, ((432 * p8) + 17776), 12);
-	l2 = 0;
-L85c1:
+	for (l2 = 0; l2 < 6; l2++) {
 	*(int *)((char *)pc_spell_pts + ((432 * p8) + (l2 << 2))) = l40[l2];
-	l2++;
-	if (l2 < 6) goto L85c1;
-#asm
-	db 0b8h,001h,000h,050h,0ffh,076h,0fah,0b8h,0b0h,001h,0f7h,06eh,008h,005h,070h,045h
-	db 050h
-	call set_bit_
-	db 083h,0c4h,006h
-#endasm
+	}
+	set_bit(((432 * p8) + 17776), l6, 1);
 	l2 = ((random(((unsigned char)pc_skills[((432 * p8) + l12)] / 20)) + ((unsigned char)g00df[(l6 * 6)] << 1)) + 1);
 	l4 = (unsigned char)spell_table[(l6 * 6)];
 	if ((*(int *)((char *)pc_spell_pts_max + ((432 * p8) + (l4 << 2))) + l2) >= (unsigned char)g00e0[(l6 * 6)]) goto L8699;

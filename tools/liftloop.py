@@ -118,8 +118,9 @@ class Loop:
 
     @staticmethod
     def unmerge(st, L, dem):
-        """Merged && / || conditions among dem are split again next round instead of demoted."""
-        nb = {x.s for x in L.sts if getattr(x, 'merged', False)} & dem
+        """Merged && / || conditions and for loops among dem are split again next round instead of demoted."""
+        nb = {getattr(x, 'forhead', x.s) for x in L.sts if x.s in dem and
+              (getattr(x, 'merged', False) or getattr(x, 'forhead', None) is not None)}
         st.setdefault('nobool', []).extend(sorted(nb))
         return bool(nb)
 

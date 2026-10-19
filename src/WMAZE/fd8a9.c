@@ -18,11 +18,9 @@ locked_door_menu(event)
 	l34 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l30 = (unsigned char)(g4fa8 + event)[1584];
 	l32 = extract_bits(l30, 0, 5);
-	l2 = 0;
-Ld8e7:
+	for (l2 = 0; l2 < 6; l2++) {
 	lock_tumblers[l2] = random((l32 * 5));
-	l2++;
-	if (l2 < 6) goto Ld8e7;
+	}
 	l2 = 0;
 Ld912:
 	enabled[l2] = 1;

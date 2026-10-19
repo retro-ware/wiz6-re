@@ -34,19 +34,15 @@ do_swag_menu(p4, p6, p8)
 	put_frame_char(l4, 19, 0, 10);
 	put_frame_char(l4, 0, 15, 11);
 	put_frame_char(l4, 19, 15, 8);
-	l2 = 1;
-L63b5:
+	for (l2 = 1; l2 < 19; l2++) {
 	put_frame_char(l4, l2, 0, 12);
 	put_frame_char(l4, l2, 2, 12);
 	put_frame_char(l4, l2, 15, 7);
-	l2++;
-	if (l2 < 19) goto L63b5;
-	l2 = 1;
-L6401:
+	}
+	for (l2 = 1; l2 < 15; l2++) {
 	put_frame_char(l4, 0, l2, 13);
 	put_frame_char(l4, 19, l2, 5);
-	l2++;
-	if (l2 < 15) goto L6401;
+	}
 	put_frame_char(l4, 0, 2, 33);
 	put_frame_char(l4, 0, 9, 15);
 	put_frame_char(l4, 0, 11, 15);
@@ -54,11 +50,9 @@ L6401:
 	put_frame_char(l4, 19, 2, 10);
 	put_frame_char(l4, 17, 2, 14);
 	put_frame_char(l4, 17, 15, 11);
-	l2 = 3;
-L64cc:
+	for (l2 = 3; l2 < 15; l2++) {
 	put_frame_char(l4, 17, l2, 13);
-	l2++;
-	if (l2 < 15) goto L64cc;
+	}
 	defer_window_draw(l4);
 	set_cursor(l4, 1, 1);
 	print_message(750, l4, 18);

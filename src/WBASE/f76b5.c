@@ -50,16 +50,14 @@ do_game_configuration()
 	done_x = (unsigned char)main_window[6];
 	done_y = (unsigned char)main_window[7];
 	defer_window_draw(win);
-	i = 0;
-L7769:
+	for (i = 0; i < 5; i++) {
 	set_cursor(win, 1, i);
 	print_message((i + 2300), win, 18);
 	draw_setting_value(win, i, i, (i < 2 ? 5 : 6));
 	x = (i != 1 ? (i < 5 ? 7 : 19) : 9);
 	width = (i != 1 ? (i < 5 ? 10 : 20) : 1);
 	set_click_region(i, ((unsigned char)win[2] + x), ((unsigned char)win[3] + i), ((((unsigned char)win[2] + x) + width) - 1), ((unsigned char)win[3] + i));
-	i++;
-	if (i < 5) goto L7769;
+	}
 	set_cursor(win, 22, 0);
 	print_message(2305, win, 18);
 	clear_window_area(win, 19, 1, 38, 1);

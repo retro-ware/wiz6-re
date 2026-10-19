@@ -70,14 +70,12 @@ Lb38a:
 	l2++;
 	if (l2 < 6) goto Lb2ec;
 	l90 = 11;
-	l2 = 0;
-Lb3a2:
+	for (l2 = 0; l2 < 6; l2++) {
 	l8 = (l2 != 0 ? (g454a[(432 * p6)] + l180) : 0);
 	set_cursor(p4, ((l2 * 3) + 21), 7);
 	print_int(p4, (g454a[((432 * p6) + l2)] + l8), 3, ((l90 + 8) % 16));
 	l90 = 15;
-	l2++;
-	if (l2 < 6) goto Lb3a2;
+	}
 	l2 = 0;
 	goto Lb5c8;
 Lb421:

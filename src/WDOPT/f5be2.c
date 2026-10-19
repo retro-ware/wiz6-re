@@ -263,18 +263,14 @@ l5d97:
 	g51b0 = 19;
 	g516a = g5168;
 	g51b4 = 20;
-	col = 0;
-L5dc8:
-	row = 0;
-L5dcd:
+	for (col = 0; col < 5; col++) {
+	for (row = 0; row < 5; row++) {
 	*(int *)((char *)g50c6 + ((col * 10) + (row << 1))) = g51b2;
 	*(int *)((char *)g50fe + ((col * 10) + (row << 1))) = -1;
 	*(int *)((char *)g5132 + ((col * 10) + (row << 1))) = -1;
 	*(int *)((char *)g517a + ((col * 10) + (row << 1))) = -1;
-	row++;
-	if (row < 5) goto L5dcd;
-	col++;
-	if (col < 5) goto L5dc8;
+	}
+	}
 	load_monster_pic_dopt(0, 4);
 	win = create_window(g51ac, g51ae, (cols << 1), (rows << 1), 20, -1, 2, 0);
 	clear_click_flag();

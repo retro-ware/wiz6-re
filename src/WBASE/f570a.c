@@ -164,11 +164,9 @@ L592f:
 L59a2:
 	return -1;
 L59a8:
-	l4 = 0;
-L59ad:
+	for (l4 = 0; l4 < 4; l4++) {
 	strcpy(((l4 * 20) + 13632), ((l4 * 20) + l3804));
-	l4++;
-	if (l4 < 4) goto L59ad;
+	}
 	sound_mode = l3724;
 	cfg_delay = l3723;
 	g3592 = l3722;
@@ -231,12 +229,10 @@ L5b76:
 	g4f8e = l48;
 	g4f8c = l46;
 	g4f98 = l58;
-	l2 = 0;
-L5bcf:
+	for (l2 = 0; l2 < 6; l2++) {
 	*(int *)((char *)g4ec8 + (l2 << 2)) = *(int *)(l32 + (l2 << 2));
 	*(int *)((char *)g4eca + (l2 << 2)) = *(int *)(l32 + ((l2 << 2) + 2));
-	l2++;
-	if (l2 < 6) goto L5bcf;
+	}
 	g4f80 = l44;
 	g4f7c = l40;
 	g4f78 = l36;

@@ -1,12 +1,15 @@
+extern char g44da[];
 extern char g44db[];
 extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
 extern char g44e5[];
+extern char g44e6[];
 extern char g44e7[];
 extern char g4525[];
 extern char g4539[];
 extern char pc_class[];
+extern int g44d8[];
 /* Clear the weapon data of hand slot of member and recompute bare-hand stats. */
 clear_weapon_slot(member, hand)
 {
@@ -14,16 +17,14 @@ clear_weapon_slot(member, hand)
 	int l4;
 	g44e5[((432 * member) + (hand << 4))] = 0;
 	g44e4[((432 * member) + (hand << 4))] = 0;
-	l4 = 0;
-L4cfc:
+	for (l4 = 0; l4 < 8; l4++) {
 	g44dc[(((432 * member) + (hand << 4)) + l4)] = 0;
-	l4++;
-	if (l4 < 8) goto L4cfc;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,056h,006h,0b9h,004h,000h,0d3h,0e2h,08bh,0cah
-	db 003h,0c1h,08bh,0d8h,0c6h,087h,0e6h,044h,000h,0c6h,087h,0dah,044h,002h,0c6h,087h
-	db 0dbh,044h,002h,0c7h,087h,0d8h,044h,000h,000h,0c6h,087h,0e7h,044h,020h
-#endasm
+	}
+	g44e6[((432 * member) + (hand << 4))] = 0;
+	g44da[((432 * member) + (hand << 4))] = 2;
+	g44db[((432 * member) + (hand << 4))] = 2;
+	*(int *)((char *)g44d8 + ((432 * member) + (hand << 4))) = 0;
+	g44e7[((432 * member) + (hand << 4))] = 32;
 	l2 = ((unsigned char)g4525[(432 * member)] / 5);
 	l4 = ((unsigned char)g4539[(432 * member)] / 5);
 	if ((pc_class[(432 * member)] != 13) && (pc_class[(432 * member)] != 12)) goto L4dae;

@@ -37,13 +37,11 @@ force_lock(member, event)
 	fceb2(win, 19, 3, 5);
 	fceb2(win, 0, 4, 6);
 	fceb2(win, 19, 4, 8);
-	l2 = 1;
-Lcff1:
+	for (l2 = 1; l2 < 19; l2++) {
 	fceb2(win, l2, 0, 18);
 	fceb2(win, l2, 2, 12);
 	fceb2(win, l2, 4, 7);
-	l2++;
-	if (l2 < 19) goto Lcff1;
+	}
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);

@@ -58,19 +58,15 @@ show_item_info(p4, p6, p8, p10)
 	fb139(l6, 19, 0, 8);
 	fb139(l6, 0, 11, 11);
 	fb139(l6, 19, 11, 8);
-	l2 = 1;
-Lb782:
+	for (l2 = 1; l2 < 19; l2++) {
 	fb139(l6, l2, 0, 7);
 	fb139(l6, l2, 2, 18);
 	fb139(l6, l2, 11, 7);
-	l2++;
-	if (l2 < 19) goto Lb782;
-	l2 = 2;
-Lb7ce:
+	}
+	for (l2 = 2; l2 < 11; l2++) {
 	fb139(l6, 0, l2, 13);
 	fb139(l6, 19, l2, 5);
-	l2++;
-	if (l2 < 11) goto Lb7ce;
+	}
 	fb139(l6, 0, 2, 36);
 	fb139(l6, 19, 2, 19);
 	fb139(l6, 0, 5, 15);
@@ -79,11 +75,9 @@ Lb7ce:
 	fb139(l6, 0, 1, 5);
 	defer_window_draw(l6);
 	set_cursor(l6, 1, 1);
-	l2 = 1;
-Lb899:
+	for (l2 = 1; l2 < 20; l2++) {
 	put_char_hi(l6, 32, 3);
-	l2++;
-	if (l2 < 20) goto Lb899;
+	}
 	put_icon_at2(l6, 1, 1, ((unsigned char)l22[3] + 1));
 	put_icon_at2(l6, 18, 1, ((unsigned char)l22[3] + 1));
 	set_cursor(l6, (10 - ((strlen(&l80) + 1) / 2)), 1);
@@ -168,25 +162,19 @@ Lba42:
 	if (!l122[10]) goto Lbbaa;
 	set_cursor(l6, 3, 4);
 	get_message(454, 21902);
-	l2 = 0;
-Lbac0:
+	for (l2 = 0; l2 < 11; l2++) {
 	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l24, l2) == 1 ? 6 : 11));
-	l2++;
-	if (l2 < 11) goto Lbac0;
+	}
 	l6[6]++;
 	get_message(455, 21902);
-	l2 = 0;
-Lbb12:
+	for (l2 = 0; l2 < 2; l2++) {
 	put_char(l6, (unsigned char)g558e[l2], (test_bit(l22, l2) == 1 ? 6 : 11));
-	l2++;
-	if (l2 < 2) goto Lbb12;
+	}
 	set_cursor(l6, 3, 5);
 	get_message(456, 21902);
-	l2 = 0;
-Lbb6f:
+	for (l2 = 0; l2 < 14; l2++) {
 	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l26, l2) == 1 ? 6 : 11));
-	l2++;
-	if (l2 < 14) goto Lbb6f;
+	}
 	goto Lbc08;
 Lbbaa:
 	if ((!l122[11]) || (!l52)) goto Lbc08;
@@ -412,8 +400,7 @@ Lc49e:
 	l122[3] = (((unsigned char)l41 + (unsigned char)l40) / 2);
 	l122[4] = (((unsigned char)l39 + (unsigned char)l38) / 2);
 	l122[5] = (((unsigned char)l37 + (unsigned char)l36) / 2);
-	l2 = 0;
-Lc542:
+	for (l2 = 0; l2 < 6; l2++) {
 	l122[l2] = (l122[l2] > 99 ? 99 : l122[l2]);
 	set_cursor(l6, (((l2 / 3) * 9) + 1), ((l2 % 3) + l168));
 	get_message((l2 + 3950), 21902);
@@ -421,8 +408,7 @@ Lc542:
 	set_cursor(l6, (((l2 / 3) * 9) + 7), ((l2 % 3) + l168));
 	print_int(l6, l122[l2], 2, 1);
 	put_char(l6, 37, realm_colors[l2]);
-	l2++;
-	if (l2 < 6) goto Lc542;
+	}
 Lc61c:
 	goto Lc661;
 Lc61e:

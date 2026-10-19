@@ -17,11 +17,9 @@ char *p12;
 	print_message(606, p4, 18);
 	p4[6] += 3;
 	print_message(607, p4, 18);
-	l4 = 0;
-Ldf3d:
+	for (l4 = 0; l4 < 10; l4++) {
 	l24[l4] = 0;
-	l4++;
-	if (l4 < 10) goto Ldf3d;
+	}
 	l4 = 0;
 	set_click_region(0, ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1));
 	set_click_region(1, ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1));

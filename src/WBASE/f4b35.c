@@ -4,15 +4,11 @@ char first;
 {
 	int i;
 	set_cursor(win, x, y);
-	i = 0;
-L4b4f:
+	for (i = 0; i < 4; i++) {
 	put_char_hi(win, (unsigned char)(((unsigned char)first + i)), 2);
-	i++;
-	if (i < 4) goto L4b4f;
+	}
 	set_cursor(win, x, (y + 1));
-	i = 0;
-L4b88:
+	for (i = 0; i < 4; i++) {
 	put_char_hi(win, (unsigned char)((((unsigned char)first + i) + 4)), 2);
-	i++;
-	if (i < 4) goto L4b88;
+	}
 }

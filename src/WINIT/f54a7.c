@@ -23,12 +23,10 @@ init_main_screen()
 	int i;
 	int j;
 	stop_sound();
-	j = 0;
-L54b5:
+	for (j = 0; j < 10; j++) {
 	pic_slot_monster[j] = 255;
 	pic_slot_loaded[j] = 0;
-	j++;
-	if (j < 10) goto L54b5;
+	}
 	load_monster_pic(3, 0);
 	load_monster_pic(1, 1);
 	load_monster_pic(2, 2);
@@ -68,17 +66,13 @@ L5591:
 	g4fac = create_window(2, 0, 36, 3, 5, -1, 2, 0);
 	msg_block_num = -1;
 	party_count = 0;
-	i = 0;
-L5710:
+	for (i = 0; i < 6; i++) {
 	member_pcfile_index[i] = -1;
-	i++;
-	if (i < 6) goto L5710;
-	j = 0;
-L572d:
+	}
+	for (j = 0; j < 3; j++) {
 	g4330[j] = 255;
 	g4326[j] = 0;
-	j++;
-	if (j < 3) goto L572d;
+	}
 	g433a = 0;
 	game_state = 4;
 	drv_op_c2(fullscreen_win);

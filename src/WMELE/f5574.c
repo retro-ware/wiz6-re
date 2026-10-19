@@ -10,11 +10,9 @@ load_group_pics()
 {
 	int g;
 	int i;
-	i = 0;
-L557f:
+	for (i = 0; i < 3; i++) {
 	g4326[i] = 0;
-	i++;
-	if (i < 3) goto L557f;
+	}
 	g = 1;
 	goto L55c1;
 L5599:

@@ -175,11 +175,9 @@ L89fa:
 L8a08:
 	goto L8a24;
 L8a0a:
-	l4 = 1;
-L8a0f:
+	for (l4 = 1; l4 < 4; l4++) {
 	(monster + l4)[24] = 0;
-	l4++;
-	if (l4 < 4) goto L8a0f;
+	}
 L8a24:
 	i++;
 L8a27:

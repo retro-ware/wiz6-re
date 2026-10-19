@@ -42,13 +42,11 @@ choose_spell(info_win, member)
 	draw_spell_points(win, member);
 	draw_list_frame_dopt(list_win, 1);
 	realm = 0;
-	choice = 0;
-L6c72:
+	for (choice = 0; choice < 6; choice++) {
 	x = (((choice / 3) * 6) + 1);
 	y = (((choice % 3) << 1) + 1);
 	set_click_region(choice, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), ((unsigned char)win[2] + x), ((unsigned char)win[3] + y));
-	choice++;
-	if (choice < 6) goto L6c72;
+	}
 	set_click_region(6, ((unsigned char)win[2] + 13), ((unsigned char)win[3] + 3), ((unsigned char)win[2] + 13), ((unsigned char)win[3] + 3));
 L6cf7:
 	set_click_region(7, 255, 0, 0, 0);

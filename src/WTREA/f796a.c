@@ -41,13 +41,11 @@ choose_chest_spell(win, member)
 	draw_chest_spell_window(l2, member);
 	draw_chest_list_box(l4, 1);
 	realm = 0;
-	l6 = 0;
-L79df:
+	for (l6 = 0; l6 < 6; l6++) {
 	l74 = (((l6 / 3) * 6) + 1);
 	l76 = (((l6 % 3) << 1) + 1);
 	set_click_region(l6, ((unsigned char)l2[2] + l74), ((unsigned char)l2[3] + l76), ((unsigned char)l2[2] + l74), ((unsigned char)l2[3] + l76));
-	l6++;
-	if (l6 < 6) goto L79df;
+	}
 	set_click_region(6, ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3), ((unsigned char)l2[2] + 13), ((unsigned char)l2[3] + 3));
 L7a64:
 	set_click_region(7, 255, 0, 0, 0);

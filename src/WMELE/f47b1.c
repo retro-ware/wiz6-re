@@ -10,16 +10,12 @@ clear_combat_groups()
 	register int rsi;
 	get_message(3900, 17270);
 	setmem(17250, 20, 0);
-	rsi = 0;
-L47dc:
+	for (rsi = 0; rsi < 7; rsi++) {
 	setmem(monster_groups[rsi], 416, 0);
-	rsi++;
-	if (rsi < 7) goto L47dc;
-	rsi = 0;
-L47fd:
+	}
+	for (rsi = 0; rsi < 7; rsi++) {
 	g019d[monster_groups[rsi]] = 0;
-	rsi++;
-	if (rsi < 7) goto L47fd;
+	}
 	monster_group_count = 0;
 	combat_over = 0;
 	view_anim_state = -2;

@@ -42,11 +42,9 @@ Lae3a:
 	rsi++;
 	if (rsi <= 11) goto Lae3a;
 	if (return_cmd != 4) goto Lae8f;
-	rsi = 0;
-Lae57:
+	for (rsi = 0; rsi < 11; rsi++) {
 	enabled[rsi] = 0;
-	rsi++;
-	if (rsi < 11) goto Lae57;
+	}
 	enabled[0] = 1;
 	enabled[3] = 1;
 	enabled[8] = 1;
@@ -57,11 +55,9 @@ Lae57:
 	goto Laecf;
 Lae8f:
 	if (return_cmd != 13) goto Laecf;
-	rsi = 0;
-Lae99:
+	for (rsi = 0; rsi < 11; rsi++) {
 	enabled[rsi] = 0;
-	rsi++;
-	if (rsi < 11) goto Lae99;
+	}
 	enabled[0] = 1;
 	enabled[7] = 1;
 	enabled[3] = 1;

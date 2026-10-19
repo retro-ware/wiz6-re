@@ -28,29 +28,19 @@ Lb8fd:
 	if (l2 < 12) goto Lb8fd;
 	sprite_count = 0;
 	view_anim_state = -2;
-	l4 = 0;
-Lb932:
-	l6 = 0;
-Lb937:
+	for (l4 = 0; l4 < 2; l4++) {
+	for (l6 = 0; l6 < 5; l6++) {
 	*(int *)((char *)view_pos_group + ((l4 * 10) + (l6 << 1))) = 0;
-	l6++;
-	if (l6 < 5) goto Lb937;
-	l4++;
-	if (l4 < 2) goto Lb932;
-	l2 = 0;
-Lb96e:
+	}
+	}
+	for (l2 = 0; l2 < 3; l2++) {
 	g4330[l2] = 255;
-	l2++;
-	if (l2 < 3) goto Lb96e;
-	l4 = 0;
-Lb986:
-	l6 = 0;
-Lb98b:
+	}
+	for (l4 = 0; l4 < 10; l4++) {
+	for (l6 = 0; l6 < 5; l6++) {
 	*(int *)((char *)g50de + ((l4 * 10) + (l6 << 1))) = 0;
-	l6++;
-	if (l6 < 5) goto Lb98b;
-	l4++;
-	if (l4 < 10) goto Lb986;
+	}
+	}
 	g5142 = 0;
 	access_scenario_record(5, 20806, g5274, 0);
 	movmem(((g5274 << 1) + 13472), 21112, 2);

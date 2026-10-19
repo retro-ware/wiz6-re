@@ -18,14 +18,12 @@ char *p4;
 	l4 = (unsigned char)p4[32];
 	l12 = 25;
 	l6 = 1;
-	l10 = 0;
-Lb962:
+	for (l10 = 0; l10 < 6; l10++) {
 	if (*(int *)(p4 + 2) <= l12) goto Lb970;
 	l6++;
 Lb970:
 	l12 = (l12 << 1);
-	l10++;
-	if (l10 < 6) goto Lb962;
+	}
 #asm
 	db 08bh,046h,0fah,08bh,05eh,004h,08bh,04fh,006h,08bh,0d9h,0f7h,0ebh,050h,052h,08bh
 	db 05eh,004h,08bh,047h,008h,099h,08bh,0c8h,08bh,0dah,05ah,058h

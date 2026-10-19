@@ -18,7 +18,8 @@
 	global char_spell_points_max_:byte,24
 	global g54b2_:byte,4
 	global g54b6_:byte,170
-	global g5560_:byte,3
+	global g5560_:byte,2
+	global g5562_:byte,1
 	global g5563_:byte,1
 	global g5564_:byte,6
 	global g556a_:byte,2
