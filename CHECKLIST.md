@@ -25,14 +25,14 @@
 - [~] WINIT 15/16
 - [x] WBASE 46/46 (570a needs cc -L500: "Local table full"; now used for every compile)
 - [~] WMELE 57/60
-- [~] WDOPT 66/69
-- [~] WPCMK 70/75
-- [~] WPOPS 60/61 (51c8 split off f511c: a frameless routine after its epilogue)
-- [~] WTREA 78/84
-- [~] WMAZE 120/128
+- [~] WDOPT 67/69
+- [~] WPCMK 74/75
+- [x] WPOPS 61/61 (51c8 split off f511c: a frameless routine after its epilogue)
+- [~] WTREA 79/84
+- [~] WMAZE 123/128
 - [x] WMEXE 92/92
-- [~] WMNPC 132/139
-- [~] WPCVW 95/101
+- [~] WMNPC 133/139
+- [~] WPCVW 99/101
 - [x] Promoted run 1: 733 functions in C, sbuild all 12 OK
 - [x] Promoted run 2 (global-array typing): 773 functions in C, sbuild all 12 OK
 - [x] Promoted run 4 (overlapping locals, void-call flush): 797 functions in C (327 asm-free), sbuild all 12 OK
@@ -54,6 +54,7 @@
 - [x] Promoted run 23 (nested ternaries; `rsi = a + b + c` stored twice): 869 functions in C (425 asm-free), sbuild all 12 OK
 - [x] Promoted run 25 (nested ternaries/boolean chains inside ternary arms; liftloop stops when a demote makes no progress): 870 functions in C (437 asm-free), sbuild all 12 OK
 - [x] Readable names: names/*.json for every image (676 functions, 149 globals, docs, params/locals), applied by tools/render.py; build stays byte-identical
+- [x] Promoted run 27 (scratch si/di index registers, with a register-variable retry when the prologue differs; `break` for returns in a switch right before the epilogue): 884 functions in C (472 asm-free), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
