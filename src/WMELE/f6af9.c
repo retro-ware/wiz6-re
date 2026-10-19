@@ -9,7 +9,6 @@ extern int view_pos_group[];
 place_group_at(g, row, col)
 {
 	register int i;
-	register int rdi;
 	if (g <= monster_group_count) goto L6b10;
 	return -1;
 L6b10:
@@ -19,11 +18,10 @@ L6b3a:
 	i = 0;
 	goto L6bb1;
 L6b3f:
-	rdi = (44 * i);
-	if (((char *)monster_groups[g] + rdi)[42] != -1) goto L6bb0;
+	if (((char *)monster_groups[g] + (44 * i))[42] != -1) goto L6bb0;
 	*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) = 1;
 	*(int *)((char *)view_pos_group + ((row * 10) + (col << 1))) = g;
-	((char *)monster_groups[g] + rdi)[42] = (char)((row * 10) + col);
+	((char *)monster_groups[g] + (44 * i))[42] = (char)((row * 10) + col);
 	if (row) goto L6baa;
 	choose_monster_frames(g, col);
 L6baa:

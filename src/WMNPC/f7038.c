@@ -4,10 +4,10 @@
 	extrn f5c61_:near
 	extrn f69db_:near
 	extrn f6de9_:near
-	extrn fd90e_:near
 	extrn random_:near
 	extrn test_bit_:near
 #endasm
+extern char *g4fa8;
 extern char g00cc[];
 extern char g450c[];
 extern char g4511[];
@@ -15,6 +15,7 @@ extern char g51cc;
 extern char pc_condition[];
 extern char pc_item_type[];
 extern char pc_stats[];
+extern int cell_event_index;
 extern int g4338;
 extern int g433a;
 extern int g4354;
@@ -53,7 +54,6 @@ f7038(p4, p6)
 	int l42;
 	long l46;
 	int l54[4];
-	register int rsi;
 	l4 = g5186[p6];
 	access_scenario_record(6, l36, l4, 0);
 	l2 = 0;
@@ -165,13 +165,8 @@ l72ad:
 #endasm
 L72c1:
 	party_facing = ((party_facing + 2) % 4);
-#asm
-	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
-	db 0b8h,0a0h,04fh,050h
-	call fd90e_
-	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
-	db 0e4h,0a3h,0e8h,04eh
-#endasm
+	fd90e(20384, 20382, 20380, party_x, party_y);
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	game_state = 5;
 	return_cmd = 18;
 	return 1;
@@ -504,15 +499,8 @@ case 3:
 	goto L7d66;
 	}
 L7d66:
-	;
-#asm
-l7d66:
-	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
-	db 0b8h,0a0h,04fh,050h
-	call fd90e_
-	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
-	db 0e4h,0a3h,0e8h,04eh
-#endasm
+	fd90e(20384, 20382, 20380, party_x, party_y);
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	f5690();
 	f5a1e(4);
 	l38++;

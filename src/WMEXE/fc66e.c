@@ -1,6 +1,5 @@
 #asm
 	extrn $ldv:near
-	extrn combat_delay_:near
 	extrn do_cast_action_:near
 	extrn fb934_:near
 	extrn random_:near
@@ -8,6 +7,7 @@
 	extrn test_bit_:near
 #endasm
 extern char *group_monster_rec;
+extern char g019a[];
 extern char g019d[];
 extern char g433e[];
 extern char g4348[];
@@ -46,7 +46,6 @@ fc66e()
 	int l12;
 	int l14;
 	int l16;
-	register int rsi;
 	group_monster_rec[220] = 0;
 	g5114 = 6;
 	g50fc = 0;
@@ -90,13 +89,9 @@ lc7bc:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0dch,000h,02ah
 	db 0e4h,0a9h,004h,000h,074h,057h
 #endasm
-	rsi = ((unsigned char)l2[32] * 44);
-	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[20] <= 0) goto Lc829;
+	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[20] <= 0) goto Lc829;
 	l4 = 3218;
-#asm
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09ah,001h,02ah
-	db 0e4h,03dh,097h,000h,075h,015h
-#endasm
+	if ((unsigned char)g019a[monster_groups[g435e]] != 151) goto Lc824;
 	l2[43] = 3;
 	l2[36] = 1;
 	l8 = 2;
@@ -111,10 +106,9 @@ Lc829:
 	g505c = 0;
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
 	if (l8 <= 0) goto Lc9a0;
-	rsi = (44 * g435c);
-	if (((char *)monster_groups[g435e] + rsi)[42] == -1) goto Lc91b;
-	l14 = (((char *)monster_groups[g435e] + rsi)[42] / 10);
-	l16 = (((char *)monster_groups[g435e] + rsi)[42] % 10);
+	if (((char *)monster_groups[g435e] + (44 * g435c))[42] == -1) goto Lc91b;
+	l14 = (((char *)monster_groups[g435e] + (44 * g435c))[42] / 10);
+	l16 = (((char *)monster_groups[g435e] + (44 * g435c))[42] % 10);
 	anim_cycle = 0;
 	*(int *)((char *)g50fe + ((l14 * 10) + (l16 << 1))) = 1;
 	reset_animation();
@@ -122,24 +116,14 @@ Lc829:
 	g4348[((l14 * 5) + l16)] = 0;
 	g433e[((l14 * 5) + l16)] = 0;
 Lc91b:
-	rsi = (44 * g435c);
-	((char *)monster_groups[g435e] + rsi)[42] = 255;
+	((char *)monster_groups[g435e] + (44 * g435c))[42] = 255;
 	if (l8 != 1) goto Lc96a;
-	rsi = (44 * g435c);
-	((char *)monster_groups[g435e] + rsi)[34] = 3;
-	rsi = (44 * g435c);
-	*(int *)(((char *)monster_groups[g435e] + rsi) + 2) = 0;
+	((char *)monster_groups[g435e] + (44 * g435c))[34] = 3;
+	*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 2) = 0;
 Lc96a:
-	l14 = 0;
-Lc96f:
-	;
-#asm
-lc96f:
-	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,003h,046h,0f2h,08bh,0f0h,0a1h,05eh,043h,0d1h
-	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,040h,018h,000h
-#endasm
-	l14++;
-	if (l14 < 4) goto Lc96f;
+	for (l14 = 0; l14 < 4; l14++) {
+	((char *)monster_groups[g435e] + ((44 * g435c) + l14))[24] = 0;
+	}
 	combat_delay(g4fc8);
 	return;
 Lc9a0:
@@ -194,8 +178,7 @@ Lca4f:
 	combat_delay((g4fc8 / 2));
 	clear_window(party_picture_win, 1);
 Lcb02:
-	rsi = ((unsigned char)l2[32] * 44);
-	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] < 3) && (!((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43])) goto Lcb60;
+	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[34] < 3) && (!((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[43])) goto Lcb60;
 	if (l2[31]) goto Lcb45;
 	l2[32] = (char)fc4e7((unsigned char)l2[32]);
 	goto Lcb60;
@@ -231,8 +214,7 @@ Lcc9f:
 	l4 = 0;
 Lcd51:
 	if ((l4 == 1) || (l4 == 2)) goto Lcd83;
-	rsi = l4;
-	(group_monster_rec + rsi)[190] = (char)(((group_monster_rec + rsi)[190] + group_monster_rec[191]) + group_monster_rec[192]);
+	(group_monster_rec + l4)[190] = (char)(((group_monster_rec + l4)[190] + group_monster_rec[191]) + group_monster_rec[192]);
 Lcd83:
 	l4++;
 	if (l4 < 8) goto Lcd51;
@@ -247,21 +229,13 @@ Lce09:
 lce09:
 	db 08bh,05eh,0feh,08ah,047h,01eh,02ah,0e4h,0e9h,043h,002h
 #endasm
-	rsi = ((unsigned char)l2[32] * 44);
-	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] >= 3) || (((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43])) goto Lcee7;
-	rsi = ((unsigned char)l2[33] % 2);
-	l10 = (unsigned char)(l2 + rsi)[28];
+	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[34] >= 3) || (((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[43])) goto Lcee7;
+	l10 = (unsigned char)(l2 + ((unsigned char)l2[33] % 2))[28];
 	if ((g435e) || ((unsigned char)pc_equipped[((432 * g435c) + l10)] != 255)) goto Lce81;
 	l10 = 0;
 Lce81:
-	;
-#asm
-lce81:
-	db 08bh,05eh,0feh,08ah,047h,021h,02ah,0e4h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
-	db 0d1h,0e0h,08bh,0f0h,08bh,040h,00ah,089h,046h,0f4h,051h
-	call combat_delay_
-	db 059h
-#endasm
+	l12 = *(int *)((l2 + (((unsigned char)l2[33] % 2) << 1)) + 10);
+	combat_delay(2);
 	f723e(l2, l10, l12);
 	if ((l12 != 3) && (l12 != 6)) goto Lced3;
 	reduce_field6(l2, (random(4) + 3));

@@ -4,14 +4,16 @@ char *enabled;
 {
 	int i;
 	int count;
+	register int rsi;
 	i = 0;
 	count = 0;
 L706c:
 	if (i == n) goto L7095;
-	if (*(int *)(enabled + (i << 1)) != -1) goto L7088;
+	rsi = (i << 1);
+	if (*(int *)(enabled + rsi) != -1) goto L7088;
 	return 0;
 L7088:
-	if (*(int *)(enabled + (i << 1)) != 1) goto L7090;
+	if (*(int *)(enabled + rsi) != 1) goto L7090;
 	count++;
 L7090:
 	i++;

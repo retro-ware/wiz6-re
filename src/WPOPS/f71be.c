@@ -24,7 +24,6 @@ choose_combat_item(win, member)
 	int l278;
 	int l280;
 	int l282;
-	register int rsi;
 	l2 = create_window(0, 19, 19, 5, 12, -4, 0, 0);
 	fill_window(l2, 32, 3, 0);
 	l4 = create_window(20, 19, 20, 5, 20, -5, 0, 0);
@@ -130,29 +129,18 @@ L7596:
 	if (g00e2[(l276 * 6)] != 1) goto L7642;
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
-	rsi = (44 * member);
-	(monster_groups + rsi)[31] = 0;
+	(monster_groups + (44 * member))[31] = 0;
 	if ((l282 = select_party_member(3610)) != -1) goto L762b;
 	return -1;
 L762b:
-	;
-#asm
-l762b:
-	db 08ah,086h,0e6h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,006h,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,058h,088h,040h,020h
-#endasm
+	(monster_groups + (44 * member))[32] = *(char *)&l282;
 	goto L7690;
 L7642:
 	if (g00e2[(l276 * 6)] != 2) goto L7690;
 	if ((l280 = select_monster_group(win, 3604, 3, 0)) != -1) goto L767b;
 	return -1;
 L767b:
-	;
-#asm
-l767b:
-	db 08ah,086h,0e8h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,006h,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,058h,088h,040h,01fh
-#endasm
+	(monster_groups + (44 * member))[31] = *(char *)&l280;
 L7690:
 	return pos;
 }

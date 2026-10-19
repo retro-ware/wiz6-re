@@ -38,7 +38,6 @@ choose_combat_spell(win, member)
 	int l72;
 	int l74;
 	int l76;
-	register int rsi;
 	l2 = create_window(0, 18, 23, 7, 25, -1, 0, 0);
 	l4 = create_window(22, 19, 18, 6, 26, -5, 0, 0);
 	draw_combat_spell_window(l2, member);
@@ -179,31 +178,31 @@ L69c7:
 L69e2:
 	l6 = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L6a65;
-#asm
-	db 0ebh,05ch
-#endasm
+	switch (l6) {
+case 0:
+case 1:
+case 2:
+case 3:
+case 4:
+case 5:
 	realm = l6;
 	l6 = 1;
 	goto L6a65;
+case 6:
 	blink_state = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);
 	return -1;
+case 7:
 	l6 = 2;
-#asm
-	db 0ebh,02fh
-#endasm
+	goto L6a65;
+case 8:
 	l6 = 4;
-#asm
-	db 0ebh,028h
-#endasm
+	goto L6a65;
+case 9:
 	l6 = 5;
-#asm
-	db 0ebh,021h,0fch,069h,0fch,069h,0fch,069h,0fch,069h,0fch,069h,0fch,069h,009h,06ah
-	db 02fh,06ah,036h,06ah,03dh,06ah
-l6a58:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,044h,06ah
-#endasm
+	goto L6a65;
+	}
 L6a65:
 	switch (l6) {
 case 1:
@@ -327,29 +326,18 @@ L6eea:
 	if (g00e2[(spell * 6)] != 1) goto L6f52;
 	fill_window(win, 32, 3, 0);
 	refresh_all_windows();
-	rsi = (44 * member);
-	(monster_groups + rsi)[31] = 0;
+	(monster_groups + (44 * member))[31] = 0;
 	if ((l70 = select_party_member(3609)) != -1) goto L6f3c;
 	return -1;
 L6f3c:
-	;
-#asm
-l6f3c:
-	db 08ah,046h,0bah,050h,0b8h,02ch,000h,0f7h,06eh,006h,08bh,0f0h,08bh,01eh,0a8h,043h
-	db 058h,088h,040h,020h
-#endasm
+	(monster_groups + (44 * member))[32] = *(char *)&l70;
 	goto L6f9d;
 L6f52:
 	if (g00e2[(spell * 6)] != 2) goto L6f9d;
 	if ((l68 = select_monster_group(win, 3603, 3, 0)) != -1) goto L6f89;
 	return -1;
 L6f89:
-	;
-#asm
-l6f89:
-	db 08ah,046h,0bch,050h,0b8h,02ch,000h,0f7h,06eh,006h,08bh,0f0h,08bh,01eh,0a8h,043h
-	db 058h,088h,040h,01fh
-#endasm
+	(monster_groups + (44 * member))[31] = *(char *)&l68;
 L6f9d:
 	return ((level << 8) + spell);
 }

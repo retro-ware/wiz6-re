@@ -179,7 +179,9 @@ class Func:
         """si/di saved by the prologue but used only as cgen's own index temp: every write is
         `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call."""
         X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
-        lo, hi = self.body, self.epi if self.epi is not None else self.e
+        # the whole body but the epilogue (an early return can put it mid-function)
+        lo, hi = self.body, self.e
+        ep = (self.epi, self.epi_end) if self.epi is not None else (hi, hi)
         labels, srcs = set(), {}
         for i in self.seen.values():
             if (i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH) and i.operands and \
@@ -195,7 +197,7 @@ class Func:
         live, writes = False, 0
         disp = False            # inside a value-scan switch dispatch (push di .. jmp cx)
         for a in self.addrs:
-            if not lo <= a < hi:
+            if not lo <= a < hi or ep[0] <= a < ep[1]:
                 continue
             i = self.seen[a]
             if i.mnemonic == 'mov' and i.op_str == 'cx, cs':

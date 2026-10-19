@@ -6,6 +6,7 @@ extern char pc_item_type[];
 extern char pc_swag_count[];
 extern int g43ca;
 extern int pc_item_id[];
+struct s8 { int w[4]; };
 /* Give items from member p8 to another member, splitting stacks by quantity. */
 do_trade_items(p4, p6, p8)
 {
@@ -18,8 +19,6 @@ do_trade_items(p4, p6, p8)
 	int l16;
 	int l18;
 	int l20;
-	register int rsi;
-	register int rdi;
 	if ((l4 = choose_member(p4, p6, 501, -1)) == -1) goto L96cb;
 	if (l4 != p8) goto L96d1;
 L96cb:
@@ -124,25 +123,14 @@ L9a47:
 	if (l2 >= 0) goto L99bf;
 L9a50:
 	if (l20 <= 0) goto L9ad4;
-	rsi = (((432 * p8) + (g43ca << 3)) + 17448);
-	rdi = (((432 * l4) + (l6 << 3)) + 17448);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,004h,000h,0f3h,0a5h,08ah,046h,0f8h,050h,0b8h,0b0h,001h
-	db 0f7h,06eh,0fch,08bh,0c8h,08bh,056h,0fah,0d1h,0e2h,0d1h,0e2h,0d1h,0e2h,003h,0c2h
-	db 08bh,0d8h,058h,088h,087h,02eh,044h,08ah,087h,02fh,044h,02ah,0e4h,025h,0feh,0ffh
-	db 088h,087h,02fh,044h
-#endasm
+	*(struct s8 *)((char *)pc_item_id + ((432 * l4) + (l6 << 3))) = *(struct s8 *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)));
+	pc_item_qty[((432 * l4) + (l6 << 3))] = *(char *)&l8;
+	pc_item_flags[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_flags[((432 * l4) + (l6 << 3))] & -2);
 	if (l20 != 1) goto L9acc;
-#asm
-	db 08bh,0d9h,0feh,087h,094h,045h
-#endasm
+	pc_item_count[(432 * l4)]++;
 	goto L9ad2;
 L9acc:
-	;
-#asm
-l9acc:
-	db 08bh,0d9h,0feh,087h,095h,045h
-#endasm
+	pc_swag_count[(432 * l4)]++;
 L9ad2:
 	goto L9af4;
 L9ad4:

@@ -1,3 +1,5 @@
+extern char *g4fa8;
+extern int cell_event_index;
 extern int game_state_arg;
 extern int maze_data;
 extern int party_cell_x;
@@ -13,7 +15,6 @@ can_enter_cell(p4, p6)
 	int l8;
 	int l10;
 	register int rsi;
-	register int rdi;
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
 	if ((((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) || (get_bitfield((maze_data + 888), rsi, 2) != p4)) goto L7664;
 	return 1;
@@ -57,11 +58,6 @@ case 2:
 	return 1;
 	}
 L7791:
-	;
-#asm
-l7791:
-	db 08bh,01eh,0a8h,04fh,08bh,03eh,09ch,04fh,08ah,081h,0c0h,006h,02ah,0e4h,0a3h,0e8h
-	db 04eh
-#endasm
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	return 0;
 }
