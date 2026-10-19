@@ -1,6 +1,3 @@
-#asm
-	extrn $ldv:near
-#endasm
 /* Draw a 3-glyph vertical gauge for cur/max at x, y. */
 draw_gauge_mele(win, x, y, p10, p12, glyph)
 {
@@ -9,14 +6,7 @@ draw_gauge_mele(win, x, y, p10, p12, glyph)
 	char l4;
 	char l5;
 	char x5[1];
-#asm
-	db 08bh,046h,00ah,0bbh,064h,000h,0f7h,0ebh,050h,052h,08bh,046h,00ch,099h,08bh,0c8h
-	db 08bh,0dah,05ah,058h
-	call $ldv
-	db 0b9h,00ah,000h,0bbh,000h,000h
-	call $ldv
-	db 040h,089h,046h,0feh,03dh,00ah,000h,07eh,005h
-#endasm
+	if ((level = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) <= 10) goto L5f09;
 	level = 10;
 L5f09:
 	if (p10) goto L5f14;

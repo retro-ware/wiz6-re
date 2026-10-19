@@ -1,5 +1,4 @@
 #asm
-	extrn $ldv:near
 	extrn do_cast_action_:near
 	extrn fb934_:near
 	extrn random_:near
@@ -261,13 +260,10 @@ Lcee7:
 	db 083h,0c4h,004h,0e9h,042h,001h
 #endasm
 	if (*(int *)(l2 + 10) != 3) goto Lcf5e;
+	l4 = (int)(((long)*(int *)(l2 + 8) * 5) / 100L);
+	*(int *)(l2 + 6) = ((random(l4) + *(int *)(l2 + 6)) + 1);
 #asm
-	db 08bh,047h,008h,0bbh,005h,000h,0f7h,0ebh,0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 089h,046h,0fch,050h
-	call random_
-	db 059h,08bh,05eh,0feh,08bh,04fh,006h,003h,0c1h,040h,089h,047h,006h,08bh,047h,006h
-	db 03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
+	db 08bh,047h,006h,03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
 #endasm
 Lcf5e:
 	goto Ld064;

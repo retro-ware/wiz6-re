@@ -202,11 +202,7 @@ L7411:
 	f6835(p4, l42);
 L741d:
 	goto L7f6d;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,050h,08ah
-	db 047h,0deh,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh,089h,056h,0d4h,089h,046h
-	db 0d2h
-#endasm
+	l46 = ((long)*(int *)(l36 + (l2 << 2)) * (unsigned char)l36[((l2 << 2) + 2)]);
 	*(long *)((char *)pc_gold + (432 * p4)) += l46;
 	g51c0 -= l46;
 	if (g51c0 >= 0L) goto L7487;
@@ -214,10 +210,7 @@ L741d:
 	*(int *)&g51c0 = 0;
 L7487:
 	goto L7f6d;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,0bbh,00ah
-	db 000h,0f7h,0ebh,089h,056h,0d4h,089h,046h,0d2h
-#endasm
+	l46 = ((long)*(int *)(l36 + (l2 << 2)) * 10);
 	if (l46 != 0L) goto L74d6;
 	l38 = 0;
 #asm

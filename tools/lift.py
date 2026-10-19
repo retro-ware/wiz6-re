@@ -56,6 +56,8 @@ def pair(lo, hi):
     """The long whose low word is lo and high word is hi, or None."""
     if lo[0] == 'L0' and hi == ('L1', lo[1]):
         return lo[1]
+    if hi[0] == 'L1' and lo[0] == 'b' and lo[1] == '*' and hi[1] == ('b', '*', ('L', lo[2]), lo[3]):
+        return hi[1]        # imul: the int product in ax, the long one's high word in dx
     if hi == ('sx', lo):
         return ('L', lo)
     if lo[0] == 'c' and hi[0] == 'c':
@@ -689,8 +691,9 @@ class Lifter:
                 v, n = v[2], ('c', v[3][1] + n[1])
             self.setreg(d, ('b', op, v, n))
         elif m == 'imul' and len(ops) == 1 and ops[0].size == 2:
-            self.R['ax'] = ('b', '*', self.reg('ax'), self.val(ops[0]))
-            self.R.pop('dx', None)
+            a0, b0 = self.reg('ax'), self.val(ops[0])
+            self.R['ax'] = ('b', '*', a0, b0)
+            self.R['dx'] = ('L1', ('b', '*', ('L', a0), b0))
         elif m in ('cbw', 'cwde'):     # capstone names 98 'cwde' in 16-bit mode
             v = self.reg('ax')
             if size_of(v) != 1:

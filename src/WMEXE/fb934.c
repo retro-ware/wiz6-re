@@ -1,6 +1,3 @@
-#asm
-	extrn $ldv:near
-#endasm
 extern int g4fc8;
 extern int g5116;
 fb934(p4)
@@ -24,12 +21,7 @@ char *p4;
 Lb970:
 	l12 = (l12 << 1);
 	}
-#asm
-	db 08bh,046h,0fah,08bh,05eh,004h,08bh,04fh,006h,08bh,0d9h,0f7h,0ebh,050h,052h,08bh
-	db 05eh,004h,08bh,047h,008h,099h,08bh,0c8h,08bh,0dah,05ah,058h
-	call $ldv
-	db 040h,089h,046h,0fah,03dh,001h,000h,07dh,005h
-#endasm
+	if ((l6 = ((int)(((long)l6 * *(int *)(p4 + 6)) / (long)*(int *)(p4 + 8)) + 1)) >= 1) goto Lb9b0;
 	l6 = 1;
 Lb9b0:
 	if (l6 <= 6) goto Lb9bb;

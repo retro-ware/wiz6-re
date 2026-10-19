@@ -1,8 +1,7 @@
-#asm
-	extrn $ldv:near
-#endasm
 extern char g4591[];
 extern char g4592[];
+extern int pc_carried[];
+extern int pc_max_load[];
 extern int pc_stamina_max[];
 get_load_category_x(p4)
 {
@@ -23,26 +22,11 @@ get_load_category_x(p4)
 	l6 = (unsigned char)g4592[(432 * p4)];
 	l4 = 0;
 	l2 = 9;
-#asm
-	db 08bh,087h,008h,044h,0bbh,064h,000h,0f7h,0ebh,050h,052h,0b8h,0b0h,001h,0f7h,06eh
-	db 004h,08bh,0d8h,08bh,087h,00ah,044h,099h,08bh,0c8h,08bh,0dah,05ah,058h
-	call $ldv
-	db 089h,056h,0f0h,089h,046h,0eeh,083h,0fah,000h,07fh,007h,075h,007h,03dh,032h,000h
-	db 076h,002h
-#endasm
-L468e:
-	goto L4693;
-L4690:
+	l18 = (((long)*(int *)((char *)pc_carried + (432 * p4)) * 100) / (long)*(int *)((char *)pc_max_load + (432 * p4)));
+	if (l18 > 50L) goto L4693;
 	goto L478b;
 L4693:
-	;
-#asm
-l4693:
-	db 083h,0fah,000h,07fh,007h,075h,007h,03dh,042h,000h,076h,002h
-#endasm
-L469f:
-	goto L46c4;
-L46a1:
+	if (l18 > 66L) goto L46c4;
 	l12 = 5;
 	l10 = 10;
 	if (l8 <= 3) goto L46b6;
@@ -53,14 +37,7 @@ L46b6:
 L46c1:
 	goto L478b;
 L46c4:
-	;
-#asm
-l46c4:
-	db 083h,0fah,000h,07fh,007h,075h,007h,03dh,04bh,000h,076h,002h
-#endasm
-L46d0:
-	goto L4713;
-L46d2:
+	if (l18 > 75L) goto L4713;
 	l14 = 1;
 	l12 = 10;
 	l10 = 20;

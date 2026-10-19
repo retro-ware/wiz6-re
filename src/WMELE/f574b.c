@@ -1,5 +1,4 @@
 #asm
-	extrn $ldv:near
 	extrn strcpy_:near
 	extrn wait_animating_view_:near
 #endasm
@@ -83,26 +82,10 @@ L5821:
 #endasm
 L5877:
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170] <= 0) goto L58d7;
-#asm
-	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0b6h,043h,08ah,087h,0aah,000h,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh
-	db 0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 050h,052h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0e6h,099h,08bh
-	db 0c8h,08bh,0dah,05ah,058h,003h,0c1h,013h,0d3h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h
-	db 003h,0ddh,089h,047h,0e6h
-#endasm
+	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170]) / 100L) + (long)l28[(l2 + 1)]);
 L58d7:
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171] <= 0) goto L5937;
-#asm
-	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0b6h,043h,08ah,087h,0abh,000h,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh
-	db 0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 050h,052h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0e6h,099h,08bh
-	db 0c8h,08bh,0dah,05ah,058h,003h,0c1h,013h,0d3h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h
-	db 003h,0ddh,089h,047h,0e6h
-#endasm
+	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171]) / 100L) + (long)l28[(l2 + 1)]);
 L5937:
 	if (!g3813[((unsigned char)g019b[monster_groups[l2]] * 314)]) goto L5964;
 	l28[(l2 + 1)] = 0;

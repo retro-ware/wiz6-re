@@ -9,6 +9,8 @@ extern char g458f[];
 extern int g5038;
 extern int game_state;
 extern int party_count;
+extern int pc_stamina[];
+extern int pc_stamina_max[];
 extern long g4f78;
 extern long g4f7c;
 extern long g4f80;
@@ -76,25 +78,11 @@ L6569:
 L6587:
 	goto L6464;
 L658a:
-	l2 = 0;
-	goto L65db;
-L6591:
-	;
-#asm
-l6591:
-	db 0b8h,0b0h,001h,0f7h,06eh,0feh,08bh,0d8h,08bh,087h,004h,044h,099h,052h,050h,08bh
-	db 087h,006h,044h,0bbh,003h,000h,0f7h,0ebh,0b9h,004h,000h,0bbh,000h,000h
-	call $ldv
-	db 08bh,0c8h,08bh,0dah,058h,05ah,03bh,0d3h,07ch,006h,075h,006h,03bh,0c1h,077h,002h
-#endasm
-L65c2:
-	goto L65d1;
-L65c4:
+	for (l2 = 0; l2 < party_count; l2++) {
+	if ((long)*(int *)((char *)pc_stamina + (432 * l2)) <= (((long)*(int *)((char *)pc_stamina_max + (432 * l2)) * 3) / 4L)) goto L65d1;
 	g450c[(432 * l2)] = 0;
 L65d1:
 	draw_member_status_m(l2);
-	l2++;
-L65db:
-	if (l2 < party_count) goto L6591;
+	}
 	return 0;
 }

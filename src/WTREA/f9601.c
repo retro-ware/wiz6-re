@@ -67,13 +67,8 @@ case 1:
 	*(long *)(gold + (0 + 4)) += (long)l130;
 	goto L9763;
 case 4:
-	;
-#asm
-l96ed:
-	db 08bh,046h,0feh,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh
-	db 047h,0d4h,08bh,04fh,0d6h,08bh,0d9h,0f7h,0ebh,001h,046h,080h,011h,056h,082h,0ebh
-	db 055h
-#endasm
+	*(long *)(gold + 0) += ((long)*(int *)(chest + (l2 * 6)) * *(int *)(chest + ((l2 * 6) + 2)));
+	goto L9763;
 case 2:
 	if ((loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)))) <= 0) goto L974f;
 	loot_count++;

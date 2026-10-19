@@ -12,7 +12,8 @@
 	global msg_block_num_:byte,2
 	global msg_cache_next_:byte,2
 	global msg_not_found_:byte,2
-	global disk_header_:byte,44
+	global disk_header_:byte,4
+	global g3048_:byte,40
 	global g3070_:byte,16
 	global g3080_:byte,64
 	global g30c0_:byte,256

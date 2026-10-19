@@ -1,7 +1,3 @@
-#asm
-	extrn $ldv:near
-	extrn random_:near
-#endasm
 extern char g4504[];
 extern char g450a[];
 extern char g450c[];
@@ -16,6 +12,7 @@ extern int pc_hp_max[];
 extern int pc_spell_pts[];
 extern int pc_spell_pts_max[];
 extern int pc_stamina[];
+extern int pc_stamina_max[];
 heal_member(p4, p6, p8, p10, p12)
 {
 	char x0[2];
@@ -38,16 +35,11 @@ L628b:
 	g450c[(432 * p4)] = (char)(random(6) + 6);
 L62b9:
 	if (p8 <= 0) goto L631f;
+	l6 = (int)(((long)*(int *)((char *)pc_stamina_max + (432 * p4)) * p8) / 100L);
+	*(int *)((char *)pc_stamina + (432 * p4)) = (((random((l6 / 2)) + *(int *)((char *)pc_stamina + (432 * p4))) + (l6 / 2)) + 1);
 #asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,006h,044h,08bh,04eh,008h,08bh
-	db 0d9h,0f7h,0ebh,0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 089h,046h,0fah,0b9h,002h,000h,099h,0f7h,0f9h,050h
-	call random_
-	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,08fh,004h,044h,058h,003h
-	db 0c1h,050h,08bh,046h,0fah,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,058h,003h,0c1h
-	db 040h,089h,087h,004h,044h,08bh,087h,004h,044h,03bh,087h,006h,044h,07eh,008h,08bh
-	db 087h,006h,044h,089h,087h,004h,044h
+	db 08bh,087h,004h,044h,03bh,087h,006h,044h,07eh,008h,08bh,087h,006h,044h,089h,087h
+	db 004h,044h
 #endasm
 L631f:
 	l4 = 0;
