@@ -86,6 +86,8 @@ case 2:
 	close_chest_windows(win, trap_win);
 	spring_trap(chest_trap, member);
 	return 0;
+L93d9:
+	;
 L93dd:
 	goto L95fb;
 case 0:
@@ -153,7 +155,5 @@ case 4:
 	}
 L95fb:
 	goto L9343;
-#asm
-	db 0e9h,0d8h,0fdh
-#endasm
+	return;
 }

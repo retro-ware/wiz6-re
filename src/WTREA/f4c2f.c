@@ -18,6 +18,8 @@ L4c4b:
 	if (click_flag != 1) goto L4c73;
 	menu_clicked = 1;
 	return (key - 1);
+L4c6f:
+	;
 L4c73:
 	if (g502c) goto L4c9f;
 	anim_phase = ((anim_phase + 1) % 2);
@@ -36,7 +38,5 @@ L4cb2:
 	return;
 L4cd0:
 	goto L4c4b;
-#asm
-	db 0ebh,09ah
-#endasm
+	return;
 }

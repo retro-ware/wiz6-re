@@ -11,6 +11,8 @@ L4608:
 	if (click_flag != 1) goto L4630;
 	menu_clicked = 1;
 	return (key - 1);
+L462c:
+	;
 L4630:
 	goto L4608;
 L4632:
@@ -18,7 +20,5 @@ L4632:
 	return;
 L4650:
 	goto L4608;
-#asm
-	db 0ebh,0d8h
-#endasm
+	return;
 }

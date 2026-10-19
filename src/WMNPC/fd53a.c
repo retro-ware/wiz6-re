@@ -31,6 +31,8 @@ Ld612:
 	if (!*l52) goto Ld649;
 	if (strncmp(l52, (l154 + ((char *)l152 + 1)), l158)) goto Ld644;
 	return (unsigned char)l152[l154];
+Ld640:
+	;
 Ld644:
 	l52++;
 	goto Ld612;
@@ -43,7 +45,5 @@ Ld649:
 	return 1;
 Ld66f:
 	goto Ld588;
-#asm
-	db 0ebh,0cch
-#endasm
+	return;
 }

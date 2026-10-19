@@ -37,10 +37,9 @@ Lf9be:
 Lf9ed:
 	destroy_window(l74, 0);
 	destroy_window(*(int *)(l72 + 0), 0);
+Lfa07:
 	return;
 Lfa0b:
 	goto Lf94f;
-#asm
-	db 0ebh,0f7h
-#endasm
+	return;
 }

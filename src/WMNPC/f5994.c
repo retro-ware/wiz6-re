@@ -19,6 +19,8 @@ L59b3:
 	if (click_flag != 1) goto L59de;
 	menu_clicked = 1;
 	return (l2 - 1);
+L59da:
+	;
 L59de:
 	f55dc();
 	if (((view_anim_state != -2) || (g522c == -1)) || (anim_phase != l4)) goto L59fa;
@@ -30,7 +32,5 @@ L59fc:
 	return;
 L5a1a:
 	goto L59b3;
-#asm
-	db 0ebh,0bch
-#endasm
+	return;
 }

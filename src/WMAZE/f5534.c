@@ -12,6 +12,8 @@ L5540:
 	if (click_flag != 1) goto L5568;
 	menu_clicked = 1;
 	return (l2 - 1);
+L5564:
+	;
 L5568:
 	if (g5036) goto L5582;
 	anim_phase = ((anim_phase + 1) % 2);
@@ -27,7 +29,5 @@ L5595:
 	return;
 L55b3:
 	goto L5540;
-#asm
-	db 0ebh,0adh
-#endasm
+	return;
 }

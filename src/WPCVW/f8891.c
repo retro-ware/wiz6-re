@@ -20,6 +20,8 @@ L88b2:
 	if (click_flag != 1) goto L88da;
 	menu_clicked = 1;
 	return (l2 - 1);
+L88d6:
+	;
 L88da:
 	if (l6) goto L88ff;
 	anim_phase = ((anim_phase + 1) % 2);
@@ -38,7 +40,5 @@ L8914:
 	return;
 L8932:
 	goto L88b2;
-#asm
-	db 0ebh,09fh
-#endasm
+	return;
 }

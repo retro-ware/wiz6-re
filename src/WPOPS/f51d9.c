@@ -20,6 +20,8 @@ L51f8:
 	if (click_flag != 1) goto L5220;
 	menu_clicked = 1;
 	return (key - 1);
+L521c:
+	;
 L5220:
 	animate_combat_step();
 	if (((view_anim_state != -2) || (blink_state == -1)) || (anim_phase != l4)) goto L523c;
@@ -31,7 +33,5 @@ L523e:
 	return;
 L525c:
 	goto L51f8;
-#asm
-	db 0ebh,0bch
-#endasm
+	return;
 }

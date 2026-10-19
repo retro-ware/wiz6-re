@@ -531,7 +531,10 @@ class Printer:
             elif kd == 'if':
                 out.append('\tif (%s) goto L%04x;' % (self.cond(st.cond), st.target))
             elif kd == 'goto':
-                out.append('\tgoto L%04x;' % st.target)
+                # a dead jump to the epilogue right after a goto: cgen drops a dead goto but keeps
+                # the jmp of a dead 'return'
+                dead = epi_k is not None and st.target == sts[epi_k].s and k and sts[k - 1].kind == 'goto'
+                out.append('\treturn;' if dead else '\tgoto L%04x;' % st.target)
             elif kd == 'switch':
                 out.append('\tswitch (%s) {' % self.ex(st.x))
             elif kd == 'endsw':

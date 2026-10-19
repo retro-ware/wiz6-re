@@ -11,6 +11,8 @@ L73cc:
 	if (click_flag != 1) goto L73f4;
 	menu_clicked = 1;
 	return (choice - 1);
+L73f0:
+	;
 L73f4:
 	goto L73cc;
 L73f6:
@@ -18,7 +20,5 @@ L73f6:
 	return;
 L7414:
 	goto L73cc;
-#asm
-	db 0ebh,0d8h
-#endasm
+	return;
 }

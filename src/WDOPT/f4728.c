@@ -19,6 +19,8 @@ L4744:
 	if (click_flag != 1) goto L476c;
 	menu_clicked = 1;
 	return (choice - 1);
+L4768:
+	;
 L476c:
 	if (g506a) goto L4798;
 	anim_phase = ((anim_phase + 1) % 2);
@@ -37,7 +39,5 @@ L47ab:
 	return;
 L47c9:
 	goto L4744;
-#asm
-	db 0ebh,09ah
-#endasm
+	return;
 }

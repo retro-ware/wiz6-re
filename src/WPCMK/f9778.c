@@ -7,13 +7,12 @@ wait_for_key()
 	print_message(1110, prompt_win, 18);
 L97ba:
 	if (!check_screen_click()) goto L97c2;
+L97c1:
 	return;
 L97c2:
 	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L97dd;
 	return;
 L97dd:
 	goto L97ba;
-#asm
-	db 0ebh,0e0h
-#endasm
+	return;
 }

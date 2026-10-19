@@ -16,6 +16,8 @@ L46ab:
 	if (click_flag != 1) goto L46d3;
 	menu_clicked = 1;
 	return (choice - 1);
+L46cf:
+	;
 L46d3:
 	if (camp_anim_tick) goto L4701;
 	anim_phase = ((anim_phase + 1) % 2);
@@ -33,7 +35,5 @@ L4717:
 	return;
 L4735:
 	goto L46ab;
-#asm
-	db 0ebh,095h
-#endasm
+	return;
 }
