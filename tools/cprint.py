@@ -308,6 +308,8 @@ class Printer:
             if e[1][0] == 'u':
                 return '((%s)%s %s %s)' % (self.unsigned(e), self.ex(e[2]), e[1][1:], self.ex(e[3]))
             return '(%s %s %s)' % (self.ex(e[2]), e[1], self.ex(e[3]))
+        if k == 'pre':          # if (--x > 0): the inc/dec's own flags
+            return '%s%s' % ('++' if e[1] == '+' else '--', self.ex(e[2]))
         if k == 'u':
             return '%s%s' % (e[1], self.ex(e[2]))
         if k == 'call':

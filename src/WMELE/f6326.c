@@ -6,6 +6,7 @@ extern char g364a[];
 extern char g3732[];
 extern char g373c[];
 extern char g3746[];
+extern char g3750[];
 extern char g375a[];
 extern char g375b[];
 extern char g375c[];
@@ -46,23 +47,10 @@ L6397:
 L6400:
 	l4 = (unsigned char)g3649[((pos * 30) + (i * 3))];
 	l6 = (unsigned char)g364a[((pos * 30) + (i * 3))];
-	l6--;
-#asm
-	db 07eh,003h
-#endasm
-	goto L652e;
-L6437:
-	;
-#asm
-l6437:
-	db 08ah,087h,048h,036h,02ah,0e4h,089h,046h,0feh
-#endasm
+	if (--l6 > 0) goto L652e;
+	l2 = (unsigned char)g3648[((pos * 30) + (i * 3))];
 	l4++;
-#asm
-	db 0b8h,03ah,001h,0f7h,0eeh,08bh,0c8h,08bh,046h,0feh,003h,0c8h,08bh,0d9h,08ah,087h
-	db 046h,037h,02ah,0e4h,050h,08ah,087h,050h,037h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
-	db 048h,03bh,046h,0fch,07dh,065h
-#endasm
+	if ((((unsigned char)g3746[((314 * pic) + l2)] + (unsigned char)g3750[((314 * pic) + l2)]) - 1) >= l4) goto L64ce;
 	l2 = (random((unsigned char)g373c[((314 * pic) + i)]) + (unsigned char)g3732[((314 * pic) + i)]);
 	g3648[((pos * 30) + (i * 3))] = *(char *)&l2;
 	l4 = (unsigned char)g3746[((314 * pic) + l2)];

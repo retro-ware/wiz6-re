@@ -120,6 +120,7 @@ L5109:
 L5201:
 	drv_op_b6(-1);
 	i = 8;
+L520e:
 	if (start[i] > frame) goto L5280;
 	y = (glyph_y[i] - (frame - start[i]));
 	if (((i >= 3) && (i != 8)) || (min_y[i] <= y)) goto L5253;
@@ -128,10 +129,7 @@ L5253:
 	if (min_y[i] > y) goto L5280;
 	draw_big_char(glyph[i], glyph_x[i], y);
 L5280:
-	i--;
-#asm
-	db 07dh,089h
-#endasm
+	if (--i >= 0) goto L520e;
 	drv_op_c2(fullscreen_win);
 	if (!check_screen_click()) goto L5299;
 	animating = 0;

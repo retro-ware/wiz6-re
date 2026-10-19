@@ -534,29 +534,25 @@ case 2:
 	*(int *)(((char *)monster_groups[l78] + rsi) + 10) = 255;
 	if (l78) goto L58cd;
 	l148 = 7;
+L5890:
 	if (test_bit(((432 * l80) + 17639), l148) != 1) goto L58c5;
 #asm
 	db 08bh,086h,06ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh,046h,0b2h
 	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,00ah
 #endasm
 L58c5:
-	l148--;
-#asm
-	db 07dh,0c5h
-#endasm
+	if (--l148 >= 0) goto L5890;
 	goto L5913;
 L58cd:
 	l148 = 7;
+L58d3:
 	if (test_bit((group_monster_rec[l78] + 83), l148) != 1) goto L590d;
 #asm
 	db 08bh,086h,06ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh,046h,0b2h
 	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,00ah
 #endasm
 L590d:
-	l148--;
-#asm
-	db 07dh,0c0h
-#endasm
+	if (--l148 >= 0) goto L58d3;
 L5913:
 	rsi = (44 * l80);
 	if (*(int *)(((char *)monster_groups[l78] + rsi) + 10) != 255) goto L5932;

@@ -115,12 +115,7 @@ Ld492:
 Ld4a0:
 	g435e++;
 	if (g435e < 7) goto Ld122;
-	g435a--;
-#asm
-	db 07eh,003h
-#endasm
-	goto Ld11c;
-Ld4b8:
+	if (--g435a > 0) goto Ld11c;
 	combat_delay(8);
 	game_state = 14;
 	return;

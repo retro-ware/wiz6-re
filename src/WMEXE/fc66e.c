@@ -136,16 +136,16 @@ Lc9bd:
 	*(int *)(l2 + 10) = 255;
 	if (g435e) goto Lca10;
 	l4 = 7;
+Lc9e7:
 	if (test_bit(((432 * g435c) + 17639), l4) != 1) goto Lca09;
 	*(int *)(l2 + 10) = l4;
 Lca09:
-	l4--;
-#asm
-	db 07dh,0d9h
-#endasm
+	if (--l4 >= 0) goto Lc9e7;
 	goto Lca40;
 Lca10:
 	l4 = 7;
+Lca15:
+	;
 #asm
 lca15:
 	db 0ffh,076h,0fch,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h,043h,005h,053h
@@ -155,10 +155,7 @@ lca15:
 #endasm
 	*(int *)(l2 + 10) = l4;
 Lca3b:
-	l4--;
-#asm
-	db 07dh,0d5h
-#endasm
+	if (--l4 >= 0) goto Lca15;
 Lca40:
 	if (*(int *)(l2 + 10) != 255) goto Lca4f;
 	*(int *)(l2 + 10) = 8;

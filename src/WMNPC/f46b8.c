@@ -26,17 +26,9 @@ char *p8;
 L46cb:
 	l2 = (unsigned char)g3649[((p6 * 30) + (rsi * 3))];
 	l4 = (unsigned char)g364a[((p6 * 30) + (rsi * 3))];
-	l4--;
-#asm
-	db 07eh,003h
-#endasm
-	goto L4818;
-L4702:
-	;
-#asm
-l4702:
-	db 08ah,087h,048h,036h,02ah,0e4h,08bh,0f8h,0ffh,046h,0feh
-#endasm
+	if (--l4 > 0) goto L4818;
+	rdi = (unsigned char)g3648[((p6 * 30) + (rsi * 3))];
+	l2++;
 	if ((((unsigned char)g3746[((314 * p4) + rdi)] + (unsigned char)g3750[((314 * p4) + rdi)]) - 1) >= l2) goto L47b6;
 	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) <= 0) goto L4755;
 	rdi = *(int *)((char *)g50de + ((p4 * 10) + (p6 << 1)));

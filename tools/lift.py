@@ -523,7 +523,7 @@ class Lifter:
 
     def finish(self, a):
         """A label or gap at a: the open statement must be complete."""
-        if self.raw or self.stack or self.pend or self.flags is not None and self.flags[0] != 'soft':
+        if self.raw or self.stack or self.pend or self.flags is not None and self.flags[0] not in ('soft', 'pre'):
             if not self.raw:
                 self.why = 'pending pushes' if self.stack else 'pending cmp'
             self.raw_upto(a)
@@ -645,6 +645,7 @@ class Lifter:
                 self.carry = (R16.get(d.reg), ALU[m], x, y, a + i.size)
             else:
                 self.emit('cas', lv=self.memop(d), op=ALU[m], rv=self.val(s))
+                self.flags = None
                 self.carry = (None, ALU[m], None, None, a + i.size)
         elif m in ('adc', 'sbb'):
             self.long_carry(i)
@@ -661,6 +662,7 @@ class Lifter:
                     self.flags = ('soft', v)
             else:
                 self.emit('inc', lv=self.memop(d), op=op)
+                self.flags = ('pre', op, self.memop(d))
         elif m == 'cmp':
             if self.long_cmp(i):
                 return
@@ -958,6 +960,8 @@ class Lifter:
         fl = self.flags
         if fl is None:
             raise Unlift('no flags')
+        if fl[0] == 'pre':
+            raise Unlift('flags of a memory inc/dec')
         if fl[0] == 'cmp':
             return (op, fl[1], fl[2])
         if op[0] == 'u':           # result vs 0 by sign only; carry tests have no C form here
@@ -1228,11 +1232,20 @@ class Lifter:
 
     def branch(self, i):
         t = i.operands[0].imm & 0xffff
-        c = self.condition(i.mnemonic)
-        if self.boolchain(i, c, t):
-            return
-        if self.ternary(i, c, t):
-            return
+        p = self.sts[-1] if self.sts else None
+        if self.flags is not None and self.flags[0] == 'pre':
+            if p is None or p.kind != 'inc' or p.e != i.address or getattr(p, 'lv', None) != self.flags[2] or \
+                    i.mnemonic not in ('je', 'jne', 'jl', 'jge', 'jle', 'jg'):
+                raise Unlift('flags of a memory inc/dec')
+            self.sts.pop()
+            self.st_start = p.s
+            c = (JCC[i.mnemonic], self.flags, ('c', 0))
+        else:
+            c = self.condition(i.mnemonic)
+            if self.boolchain(i, c, t):
+                return
+            if self.ternary(i, c, t):
+                return
         if self.stack:
             raise Unlift('branch with pushes')
         self.flags = None
