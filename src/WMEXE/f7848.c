@@ -3,6 +3,7 @@ extern char g4348[];
 extern int anim_cycle;
 extern int g435c;
 extern int g435e;
+extern int g43f8[];
 extern int g50fe[];
 extern int group_monster_rec[];
 extern int monster_groups[];
@@ -15,10 +16,7 @@ kill_combatant(p4, p6)
 	int l4;
 	if (!p4) goto L7936;
 	if (((g435e) || (g435c < 0)) || (g435c >= party_count)) goto L7880;
-#asm
-	db 0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,083h,087h,0f8h,043h,001h,083h,097h,0fah,043h
-	db 000h
-#endasm
+	*(long *)((char *)g43f8 + (g435c * 432)) += 1L;
 L7880:
 	if (!((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[220] & 1)) goto L78ab;
 	set_bit(13464, (unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[218], 1);

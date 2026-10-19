@@ -766,7 +766,12 @@ class Lifter:
         p = self.sts[-1] if self.sts else None
         if c[0] is not None or p is None or p.kind != 'cas' or p.e != self.st_start:
             raise Unlift('long ' + i.mnemonic)
-        L, E2 = pair(p.lv, self.memop(d)), pair(p.rv, self.val(s))
+        if d.type == X.X86_OP_MEM and p.lv[0] == 'm' and (d.mem.disp - p.lv[2] - 2) & 0xffff == 0:
+            # right after the low word: same base registers, which the store statement forgot
+            hi = ('m', p.lv[1], (p.lv[2] + 2) & 0xffff, 2)
+        else:
+            hi = self.memop(d)
+        L, E2 = pair(p.lv, hi), pair(p.rv, self.val(s))
         if L is None or E2 is None:
             raise Unlift('long ' + i.mnemonic)
         self.sts.pop()
