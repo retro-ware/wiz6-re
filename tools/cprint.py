@@ -348,7 +348,9 @@ class Printer:
                 k = '%s %s 0' % (self.ex(c[1]), c[0])
             else:
                 k = self.cond(c)
-            return '(%s ? %s : %s)' % (k, self.ex(e[2]), self.ex(e[3]))
+            # an arm loaded with 'mov al, K': a char constant
+            arm = lambda x: '(char)%s' % self.ex(x[1]) if x[0] == 'lo' and x[1][0] == 'c' else self.ex(x)
+            return '(%s ? %s : %s)' % (k, arm(e[2]), arm(e[3]))
         if k == 'lo':
             return '(char)%s' % self.ex(e[1]) if e[1][0] in ('call', 'b', '?') else self.ex(e[1])
         if k == 'x':
