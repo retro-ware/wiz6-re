@@ -1,100 +1,253 @@
 #asm
-	public cast_spell_
-cast_spell_:
-	db 055h,08bh,0ech,083h,0c4h,0fch,057h,056h,08bh,046h,006h,0e9h,0b8h,005h,08bh,046h
-	db 008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0b1h,003h,0d3h,0e0h,003h,0c2h,0d1h,0e0h,001h
-	db 006h,0d0h,04eh,0b8h,000h,000h,050h,0ffh,036h,0d2h,04eh,08bh,046h,008h,08bh,0d0h
-	db 0d1h,0e0h,0d1h,0e0h,003h,0c2h,005h,046h,000h,050h,0e8h,073h,0ffh,083h,0c4h,006h
-	db 0a3h,0d2h,04eh,0e9h,097h,005h,08bh,046h,008h,08bh,0d0h,0b1h,004h,0d3h,0e0h,003h
-	db 0c2h,0d1h,0e0h,003h,0c2h,001h,006h,0d4h,04eh,0b8h,000h,000h,050h,0ffh,036h,0d6h
-	db 04eh,08bh,046h,008h,048h,0b9h,002h,000h,099h,0f7h,0f9h,040h,050h,0e8h,040h,0ffh
-	db 083h,0c4h,006h,0a3h,0d6h,04eh,0e9h,064h,005h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h
-	db 003h,0c2h,0b1h,003h,0d3h,0e0h,003h,0c2h,0d1h,0e0h,001h,006h,0cch,04eh,0b8h,000h
-	db 000h,050h,0ffh,036h,0ceh,04eh,08bh,046h,008h,048h,0b9h,002h,000h,099h,0f7h,0f9h
-	db 040h,050h,0e8h,00bh,0ffh,083h,0c4h,006h,0a3h,0ceh,04eh,0e9h,02fh,005h,08bh,046h
-	db 008h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,001h,006h,0dch,04eh,0e9h,01dh,005h
-	db 0b8h,064h,000h,0f7h,06eh,008h,001h,006h,0c8h,04eh,0e9h,010h,005h,08bh,046h,008h
-	db 08bh,0d0h,0d1h,0e0h,003h,0c2h,0b1h,003h,0d3h,0e0h,003h,0c2h,0d1h,0e0h,001h,006h
-	db 0d8h,04eh,0b8h,000h,000h,050h,0ffh,036h,0dah,04eh,08bh,046h,008h,08bh,0d0h,0d1h
-	db 0e0h,0d1h,0e0h,003h,0c2h,050h,0e8h,0b7h,0feh,083h,0c4h,006h,0a3h,0dah,04eh,0e9h
-	db 0dbh,004h,0ffh,076h,008h,0b8h,008h,000h,050h,08bh,046h,008h,0d1h,0e0h,050h,0e8h
-	db 046h,0feh,083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h
-	db 08bh,0f1h,08bh,0f8h,0a5h,0a5h,0e8h,000h,0feh,083h,0c4h,004h,089h,046h,0feh,050h
-	db 0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,058h,001h,087h,004h,044h,08bh,087h,004h
-	db 044h,03bh,087h,006h,044h,07eh,008h,08bh,087h,006h,044h,089h,087h,004h,044h,0ffh
-	db 076h,00ah,0ffh,036h,052h,057h,0e8h,02eh,0feh,083h,0c4h,004h,0e9h,07eh,004h,0b8h
-	db 0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,08ah,087h,00dh,045h,02ah,0e4h,050h,08bh,046h
-	db 008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0b1h,003h,0d3h,0e0h,003h,0c2h,08bh,0c8h,058h
-	db 02bh,0c1h,089h,046h,0feh,03dh,000h,000h,07dh,005h,0c7h,046h,0feh,000h,000h,08ah
-	db 046h,0feh,088h,087h,00dh,045h,0ffh,076h,00ah,0ffh,036h,052h,057h,0e8h,0e7h,0fdh
-	db 083h,0c4h,004h,0e9h,037h,004h,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,08ah,087h
-	db 08ch,045h,02ah,0e4h,02bh,046h,008h,089h,046h,0feh,03dh,000h,000h,07fh,00ah,0c7h
-	db 046h,0feh,000h,000h,0c6h,087h,00fh,045h,000h,08ah,046h,0feh,088h,087h,08ch,045h
-	db 08ah,087h,00fh,045h,02ah,0e4h,050h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
-	db 003h,0c2h,08bh,0c8h,058h,02bh,0c1h,089h,046h,0feh,03dh,000h,000h,07fh,00ah,0c7h
-	db 046h,0feh,000h,000h,0c6h,087h,08ch,045h,000h,08ah,046h,0feh,088h,087h,00fh,045h
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h,0e8h,07dh,0fdh,083h,0c4h,004h,0e9h,0cdh,003h
-	db 0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,080h,0bfh,089h,045h,002h,075h,063h,08bh
-	db 046h,008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,050h,08ah,087h,017h,045h,02ah,0e4h,08bh
-	db 0d0h,0b9h,015h,000h,02bh,0c8h,058h,03bh,0c1h,07eh,047h,0feh,08fh,017h,045h,0b8h
-	db 015h,000h,050h,0e8h,060h,09ch,059h,050h,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h
-	db 08ah,087h,017h,045h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h,07eh,013h,0c6h,087h,089h
-	db 045h,003h,0c7h,087h,000h,044h,000h,000h,0c7h,087h,004h,044h,000h,000h,0ebh,005h
-	db 0c6h,087h,089h,045h,000h,0ffh,076h,00ah,0ffh,036h,052h,057h,0e8h,008h,0fdh,083h
-	db 0c4h,004h,0e9h,058h,003h,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,08ah,087h,011h
-	db 045h,02ah,0e4h,050h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0b1h,003h,0d3h
-	db 0e0h,003h,0c2h,08bh,0c8h,058h,02bh,0c1h,089h,046h,0feh,03dh,000h,000h,07dh,005h
-	db 0c7h,046h,0feh,000h,000h,08ah,046h,0feh,088h,087h,011h,045h,0ffh,076h,00ah,0ffh
-	db 036h,052h,057h,0e8h,0c1h,0fch,083h,0c4h,004h,0e9h,011h,003h,0c7h,046h,0fch,001h
-	db 000h,08bh,046h,0fch,03dh,001h,000h,074h,014h,03dh,002h,000h,074h,00fh,03dh,004h
-	db 000h,074h,00ah,03dh,008h,000h,074h,005h,03dh,009h,000h,075h,030h,0b8h,0b0h,001h
-	db 0f7h,06eh,00ah,08bh,0c8h,08bh,046h,0fch,003h,0c8h,08bh,0d9h,08ah,087h,00ah,045h
-	db 02ah,0e4h,08bh,04eh,008h,0d1h,0e1h,02bh,0c1h,089h,046h,0feh,03dh,000h,000h,07dh
-	db 005h,0c7h,046h,0feh,000h,000h,08ah,046h,0feh,088h,087h,00ah,045h,0ffh,046h,0fch
-	db 08bh,046h,0fch,03dh,009h,000h,07eh,0a9h,0ffh,076h,00ah,0ffh,036h,052h,057h,0e8h
-	db 055h,0fch,083h,0c4h,004h,0e9h,0a5h,002h,0ffh,076h,008h,0b8h,007h,000h,050h,0ffh
-	db 076h,008h,0e8h,013h,0fch,083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch
-	db 0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h,0e8h,0cdh,0fbh,083h,0c4h,004h,089h
-	db 046h,0feh,050h,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,058h,001h,087h,000h,044h
-	db 08bh,087h,000h,044h,03bh,087h,002h,044h,07eh,008h,08bh,087h,002h,044h,089h,087h
-	db 000h,044h,0ffh,076h,00ah,0ffh,036h,052h,057h,0e8h,0fbh,0fbh,083h,0c4h,004h,0e9h
-	db 04bh,002h,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,080h,0bfh,089h,045h,003h,075h
-	db 04ah,08bh,046h,008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,050h,08ah,087h,017h,045h,02ah
-	db 0e4h,08bh,0d0h,0b9h,012h,000h,02bh,0c8h,058h,03bh,0c1h,07eh,02eh,0feh,08fh,017h
-	db 045h,0c6h,087h,089h,045h,000h,0c7h,087h,000h,044h,001h,000h,08bh,087h,006h,044h
-	db 0b9h,00ah,000h,099h,0f7h,0f9h,089h,087h,004h,044h,0ffh,087h,00eh,044h,0ffh,076h
-	db 00ah,0ffh,036h,052h,057h,0e8h,09fh,0fbh,083h,0c4h,004h,0e9h,0efh,001h,0ffh,076h
-	db 008h,0b8h,008h,000h,050h,0ffh,076h,008h,0e8h,05dh,0fbh,083h,0c4h,006h,08bh,0c8h
-	db 083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h,0e8h
-	db 017h,0fbh,083h,0c4h,004h,089h,046h,0feh,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh
-	db 0d8h,058h,001h,087h,004h,044h,08bh,087h,004h,044h,03bh,087h,006h,044h,07eh,008h
-	db 08bh,087h,006h,044h,089h,087h,004h,044h,0b8h,000h,000h,050h,0b8h,002h,000h,050h
-	db 0ffh,076h,008h,0e8h,012h,0fbh,083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h
-	db 08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h,0e8h,0cch,0fah,083h,0c4h,004h
-	db 089h,046h,0feh,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,058h,001h,087h,000h
-	db 044h,08bh,087h,000h,044h,03bh,087h,002h,044h,07eh,008h,08bh,087h,002h,044h,089h
-	db 087h,000h,044h,0e9h,057h,001h,0c7h,046h,0feh,000h,000h,0b8h,000h,000h,050h,0b8h
-	db 00ah,000h,050h,0ffh,076h,008h,0e8h,0bfh,0fah,083h,0c4h,006h,08bh,0c8h,083h,0ech
-	db 004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h,0e8h,079h,0fah
-	db 083h,0c4h,004h,089h,046h,0fch,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0c8h,08bh
-	db 056h,0feh,0d1h,0e2h,0d1h,0e2h,003h,0c2h,08bh,0d8h,058h,001h,087h,010h,044h,08bh
-	db 087h,010h,044h,03bh,087h,012h,044h,07eh,008h,08bh,087h,012h,044h,089h,087h,010h
-	db 044h,0ffh,046h,0feh,08bh,046h,0feh,03dh,006h,000h,07ch,09fh,0e9h,0eeh,000h,0b8h
-	db 0b0h,001h,0f7h,06eh,004h,08bh,0d8h,080h,0bfh,094h,045h,000h,076h,032h,0e8h,026h
-	db 0bah,0b8h,000h,000h,050h,0ffh,076h,004h,0b8h,0e1h,001h,050h,0ffh,076h,00eh,0ffh
-	db 076h,00ch,0e8h,05bh,0efh,083h,0c4h,00ah,0a3h,0cah,043h,03dh,0ffh,0ffh,074h,010h
-	db 0ffh,076h,008h,050h,0ffh,076h,004h,0ffh,076h,00eh,0e8h,05bh,046h,083h,0c4h,008h
-	db 0e9h,0aah,000h,0c7h,046h,0feh,000h,000h,0ebh,02dh,0b8h,0b0h,001h,0f7h,06eh,00ah
-	db 08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h,02fh
-	db 044h,02ah,0e4h,0a9h,002h,000h,074h,00ch,0ffh,076h,0feh,0ffh,076h,00ah,0e8h,0beh
-	db 0ech,083h,0c4h,004h,0ffh,046h,0feh,0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0d8h,08ah
-	db 087h,094h,045h,02ah,0e4h,03bh,046h,0feh,07fh,0c0h,0ebh,061h,00ah,000h,00fh,000h
-	db 01ah,000h,01eh,000h,026h,000h,029h,000h,02eh,000h,033h,000h,035h,000h,036h,000h
-	db 039h,000h,040h,000h,044h,000h,046h,000h,049h,000h,04dh,000h,050h,000h,051h,000h
-	db 03eh,06ch,09bh,06ch,0e2h,06ch,0eah,06bh,0fch,06bh,0b5h,06bh,04ch,06dh,008h,06eh
-	db 04ah,06bh,02bh,070h,0c1h,06dh,074h,06eh,082h,06bh,009h,06ch,06fh,070h,0ceh,06eh
-	db 02ah,06fh,0c2h,06fh,019h,071h
+	extrn refresh_member_card_:near
+#endasm
+extern char g450d[];
+extern char g450f[];
+extern char g4511[];
+extern char g4517[];
+extern char g458c[];
+extern char pc_condition[];
+extern char pc_item_count[];
+extern char pc_item_flags[];
+extern int g43ca;
+extern int g440e[];
+extern int g4ec8;
+extern int g4ecc;
+extern int g4ece;
+extern int g4ed0;
+extern int g4ed2;
+extern int g4ed4;
+extern int g4ed6;
+extern int g4ed8;
+extern int g4eda;
+extern int g4edc;
+extern int g5752;
+extern int pc_hp[];
+extern int pc_hp_max[];
+extern int pc_spell_pts[];
+extern int pc_spell_pts_max[];
+extern int pc_stamina[];
+extern int pc_stamina_max[];
+struct s4 { int w[2]; };
+struct s4 f6a94();
+cast_spell(p4, p6, p8, p10, p12, p14)
+{
+	int l2;
+	int l4;
+#asm
+	db 08bh,046h,006h,0e9h,0b8h,005h
+#endasm
+	g4ed0 += (p8 * 50);
+	g4ed2 = clamp_toward(((p8 * 5) + 70), g4ed2, 0);
+#asm
+	db 0e9h,097h,005h
+#endasm
+	g4ed4 += (p8 * 35);
+	g4ed6 = clamp_toward((((p8 - 1) / 2) + 1), g4ed6, 0);
+#asm
+	db 0e9h,064h,005h
+#endasm
+	g4ecc += (p8 * 50);
+	g4ece = clamp_toward((((p8 - 1) / 2) + 1), g4ece, 0);
+#asm
+	db 0e9h,02fh,005h
+#endasm
+	g4edc += (p8 * 5);
+#asm
+	db 0e9h,01dh,005h
+#endasm
+	g4ec8 += (100 * p8);
+#asm
+	db 0e9h,010h,005h
+#endasm
+	g4ed8 += (p8 * 50);
+	g4eda = clamp_toward((p8 * 5), g4eda, 0);
+#asm
+	db 0e9h,0dbh,004h
+#endasm
+	l2 = roll_dice(f6a94((p8 << 1), 8, p8));
+	*(int *)((char *)pc_stamina + (432 * p10)) += l2;
+	if (*(int *)((char *)pc_stamina + (432 * p10)) <= *(int *)((char *)pc_stamina_max + (432 * p10))) goto L6c8b;
+	*(int *)((char *)pc_stamina + (432 * p10)) = *(int *)((char *)pc_stamina_max + (432 * p10));
+L6c8b:
+	;
+#asm
+l6c8b:
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,07eh,004h
+#endasm
+	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
+	if (l2 >= 0) goto L6ccb;
+	l2 = 0;
+L6ccb:
+	g450d[(432 * p10)] = *(char *)&l2;
+#asm
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,037h,004h
+#endasm
+	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
+	if (l2 > 0) goto L6d05;
+	l2 = 0;
+	g450f[(432 * p10)] = 0;
+L6d05:
+	g458c[(432 * p10)] = *(char *)&l2;
+	l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5));
+	if (l2 > 0) goto L6d35;
+	l2 = 0;
+	g458c[(432 * p10)] = 0;
+L6d35:
+	g450f[(432 * p10)] = *(char *)&l2;
+#asm
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,0cdh,003h
+#endasm
+	if (pc_condition[(432 * p10)] != 2) goto L6dbe;
+	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L6dbe;
+	g4517[(432 * p10)]--;
+	if (random(21) <= (unsigned char)g4517[(432 * p10)]) goto L6dac;
+	pc_condition[(432 * p10)] = 3;
+	*(int *)((char *)pc_hp + (432 * p10)) = 0;
+	*(int *)((char *)pc_stamina + (432 * p10)) = 0;
+	goto L6db1;
+L6dac:
+	pc_condition[(432 * p10)] = 0;
+L6db1:
+	refresh_member_card(g5752, p10);
+L6dbe:
+	;
+#asm
+l6dbe:
+	db 0e9h,058h,003h
+#endasm
+	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
+	if (l2 >= 0) goto L6df1;
+	l2 = 0;
+L6df1:
+	g4511[(432 * p10)] = *(char *)&l2;
+#asm
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,011h,003h
+#endasm
+	l4 = 1;
+L6e0d:
+	;
+#asm
+l6e0d:
+	db 08bh,046h,0fch,03dh,001h,000h,074h,014h,03dh,002h,000h,074h,00fh,03dh,004h,000h
+	db 074h,00ah,03dh,008h,000h,074h,005h,03dh,009h,000h,075h,030h
+#endasm
+L6e29:
+	;
+#asm
+l6e29:
+	db 0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0c8h,08bh,046h,0fch,003h,0c8h,08bh,0d9h,08ah
+	db 087h,00ah,045h,02ah,0e4h,08bh,04eh,008h,0d1h,0e1h,02bh,0c1h,089h,046h,0feh,03dh
+	db 000h,000h,07dh,005h
+#endasm
+	l2 = 0;
+L6e52:
+	;
+#asm
+l6e52:
+	db 08ah,046h,0feh,088h,087h,00ah,045h
+#endasm
+L6e59:
+	l4++;
+	if (l4 <= 9) goto L6e0d;
+#asm
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,0a5h,002h
+#endasm
+	l2 = roll_dice(f6a94(p8, 7, p8));
+	*(int *)((char *)pc_hp + (432 * p10)) += l2;
+	if (*(int *)((char *)pc_hp + (432 * p10)) <= *(int *)((char *)pc_hp_max + (432 * p10))) goto L6ebe;
+	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)((char *)pc_hp_max + (432 * p10));
+L6ebe:
+	;
+#asm
+l6ebe:
+	db 0ffh,076h,00ah,0ffh,036h,052h,057h
+	call refresh_member_card_
+	db 083h,0c4h,004h,0e9h,04bh,002h
+#endasm
+	if (pc_condition[(432 * p10)] != 3) goto L6f27;
+	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L6f27;
+	g4517[(432 * p10)]--;
+	pc_condition[(432 * p10)] = 0;
+	*(int *)((char *)pc_hp + (432 * p10)) = 1;
+	*(int *)((char *)pc_stamina + (432 * p10)) = (*(int *)((char *)pc_stamina_max + (432 * p10)) / 10);
+	(*(int *)((char *)g440e + (432 * p10)))++;
+	refresh_member_card(g5752, p10);
+L6f27:
+	;
+#asm
+l6f27:
+	db 0e9h,0efh,001h
+#endasm
+	l2 = roll_dice(f6a94(p8, 8, p8));
+	*(int *)((char *)pc_stamina + (432 * p4)) += l2;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L6f74;
+	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
+L6f74:
+	l2 = roll_dice(f6a94(p8, 2, 0));
+	*(int *)((char *)pc_hp + (432 * p4)) += l2;
+	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L6fbf;
+	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
+L6fbf:
+	;
+#asm
+l6fbf:
+	db 0e9h,057h,001h
+#endasm
+	l2 = 0;
+L6fc7:
+	l4 = roll_dice(f6a94(p8, 10, 0));
+	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) += l4;
+	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) <= *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) goto L701d;
+	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) = *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)));
+L701d:
+	l2++;
+	if (l2 < 6) goto L6fc7;
+#asm
+	db 0e9h,0eeh,000h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,080h,0bfh,094h,045h,000h
+	db 076h,032h
+#endasm
+	refresh_all_windows();
+	g43ca = choose_item(p12, p14, 481, p4, 0);
+	if (g43ca == -1) goto L706c;
+	show_item_info(p14, p4, g43ca, p8);
+L706c:
+	;
+#asm
+l706c:
+	db 0e9h,0aah,000h
+#endasm
+	l2 = 0;
+#asm
+	db 0ebh,02dh
+#endasm
+L7076:
+	if (!((unsigned char)pc_item_flags[((432 * p10) + (l2 << 3))] & 2)) goto L70a0;
+	remove_item(p10, l2);
+L70a0:
+	l2++;
+L70a3:
+	if ((unsigned char)pc_item_count[(432 * p10)] > l2) goto L7076;
+#asm
+	db 0ebh,061h,00ah,000h,00fh,000h,01ah,000h,01eh,000h,026h,000h,029h,000h,02eh,000h
+	db 033h,000h,035h,000h,036h,000h,039h,000h,040h,000h,044h,000h,046h,000h,049h,000h
+	db 04dh,000h,050h,000h,051h,000h,03eh,06ch,09bh,06ch,0e2h,06ch,0eah,06bh,0fch,06bh
+	db 0b5h,06bh,04ch,06dh,008h,06eh,04ah,06bh,02bh,070h,0c1h,06dh,074h,06eh,082h,06bh
+	db 009h,06ch,06fh,070h,0ceh,06eh,02ah,06fh,0c2h,06fh,019h,071h
 l7102:
 	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,0b8h,070h,0b9h,013h,000h,0fch,0f2h,0afh,026h
-	db 08bh,04dh,022h,05fh,007h,0ffh,0e1h,05eh,05fh,08bh,0e5h,05dh,0c3h
+	db 08bh,04dh,022h,05fh,007h,0ffh,0e1h
 #endasm
+L7119:
+	;
+}

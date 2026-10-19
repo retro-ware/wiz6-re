@@ -43,17 +43,11 @@ L49ef:
 	switch ((unsigned char)cfg_level) {
 case 1:
 	if (*(int *)((*(char **)((char *)group_monster_rec + (n << 1))) + 116) <= 0) goto L4a0a;
-#asm
-	db 0ffh,04fh,074h
-#endasm
+	(*(int *)((*(char **)((char *)group_monster_rec + (n << 1))) + 116))--;
 L4a0a:
 	goto L4a26;
 case 2:
-	;
-#asm
-l4a0c:
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,0ffh,047h,074h
-#endasm
+	(*(int *)((*(char **)((char *)group_monster_rec + (n << 1))) + 116))++;
 	goto L4a26;
 	}
 L4a26:

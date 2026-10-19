@@ -13,6 +13,7 @@ extern char g505c;
 extern char g50ac;
 extern char pc_class[];
 extern char pc_equipped[];
+extern char pc_item_icon[];
 extern char pc_item_type[];
 extern int g4352;
 extern int g435c;
@@ -57,7 +58,7 @@ char *p4;
 	char x102[2];
 	int l106;
 	int l108;
-	int l110;
+	char l110[2];
 	int l112;
 	int l114;
 	int l116;
@@ -110,26 +111,38 @@ L4d5b:
 	l150 = l46;
 	get_message(3384, 20652);
 L4d7c:
-	;
-#asm
-l4d7c:
-	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,04eh,0b4h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,02ah,0e4h,0ebh,073h,0c7h,046h,08ah,005h
-	db 000h,0e9h,082h,000h,0c7h,046h,08ah,00bh,000h,0e9h,07ah,000h,0c7h,046h,08ah,00ah
-	db 000h,0ebh,073h,0c7h,046h,08ah,00dh,000h,0ebh,06ch,0c7h,046h,08ah,00ch,000h,0ebh
-	db 065h,0c7h,046h,08ah,007h,000h,0ebh,05eh,0c7h,046h,08ah,009h,000h,0ebh,057h,0c7h
-	db 046h,08ah,00eh,000h,0ebh,050h,0c7h,046h,08ah,003h,000h,0ebh,049h,000h,000h,006h
-	db 000h,012h,000h,014h,000h,015h,000h,016h,000h,017h,000h,020h,000h,022h,000h,053h
-	db 000h,064h,000h,065h,000h,098h,04dh,0a8h,04dh,0afh,04dh,0a0h,04dh,0b6h,04dh,0bdh
-	db 04dh,0c4h,04dh,0cbh,04dh,0d2h,04dh,0bdh,04dh,0cbh,04dh,0cbh,04dh,022h,04eh
-#endasm
-L4e0b:
-	;
-#asm
-l4e0b:
-	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,0d9h,04dh,0b9h,00dh,000h,0fch,0f2h,0afh,026h
-	db 08bh,04dh,016h,05fh,007h,0ffh,0e1h
-#endasm
+	switch ((unsigned char)pc_item_icon[((432 * g435c) + (l76 << 3))]) {
+case 0:
+	l118 = 5;
+	goto L4e22;
+case 20:
+	l118 = 11;
+	goto L4e22;
+case 6:
+	l118 = 10;
+	goto L4e22;
+case 18:
+	l118 = 13;
+	goto L4e22;
+case 21:
+	l118 = 12;
+	goto L4e22;
+case 22:
+case 83:
+	l118 = 7;
+	goto L4e22;
+case 23:
+	l118 = 9;
+	goto L4e22;
+case 32:
+case 100:
+case 101:
+	l118 = 14;
+	goto L4e22;
+case 34:
+	l118 = 3;
+	goto L4e22;
+	}
 L4e22:
 	goto L4f9b;
 L4e25:
@@ -160,23 +173,41 @@ l4e89:
 #endasm
 	rsi = p6;
 #asm
-	db 08ah,080h,083h,000h,02ah,0e4h,0ebh,06dh,0c7h,046h,08ah,006h,000h,0e9h,07ch,000h
-	db 0c7h,046h,08ah,009h,000h,0ebh,075h,0c7h,046h,08ah,00ah,000h,0ebh,06eh,0c7h,046h
-	db 08ah,008h,000h,0ebh,067h,0c7h,046h,08ah,00ch,000h,0ebh,060h,0c7h,046h,08ah,00eh
-	db 000h,08ah,046h,092h,02ah,0e4h,086h,0e0h,02ah,0c0h,050h,08ah,046h,093h,02ah,0e4h
-	db 08bh,0c8h,058h,003h,0c1h,089h,086h,06ah,0ffh,0ebh,041h,002h,000h,007h,000h,009h
-	db 000h,00ah,000h,00dh,000h,012h,000h,013h,000h,018h,000h,01ch,000h,020h,000h,0b5h
-	db 04eh,0bdh,04eh,0c4h,04eh,0c4h,04eh,0cbh,04eh,0cbh,04eh,0cbh,04eh,0cbh,04eh,0d2h
-	db 04eh,0d9h,04eh,039h,04fh
+	db 08ah,080h,083h,000h,02ah,0e4h,0ebh,06dh
 #endasm
-L4f22:
-	;
+	l118 = 6;
 #asm
+	db 0e9h,07ch,000h
+#endasm
+	l118 = 9;
+#asm
+	db 0ebh,075h
+#endasm
+	l118 = 10;
+#asm
+	db 0ebh,06eh
+#endasm
+	l118 = 8;
+#asm
+	db 0ebh,067h
+#endasm
+	l118 = 12;
+#asm
+	db 0ebh,060h
+#endasm
+	l118 = 14;
+	l150 = (((unsigned char)l110[0] << 8) + (unsigned char)l110[(0 + 1)]);
+#asm
+	db 0ebh,041h,002h,000h,007h,000h,009h,000h,00ah,000h,00dh,000h,012h,000h,013h,000h
+	db 018h,000h,01ch,000h,020h,000h,0b5h,04eh,0bdh,04eh,0c4h,04eh,0c4h,04eh,0cbh,04eh
+	db 0cbh,04eh,0cbh,04eh,0cbh,04eh,0d2h,04eh,0d9h,04eh,039h,04fh
 l4f22:
 	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,0f8h,04eh,0b9h,00bh,000h,0fch,0f2h,0afh,026h
-	db 08bh,04dh,012h,05fh,007h,0ffh,0e1h,083h,0beh,06ah,0ffh,0ffh,074h,00eh,0b8h,0ach
-	db 050h,050h,0b8h,038h,00dh,050h,0e8h,010h,0b8h,083h,0c4h,004h
+	db 08bh,04dh,012h,05fh,007h,0ffh,0e1h
 #endasm
+L4f39:
+	if (l150 == -1) goto L4f4e;
+	get_message(3384, 20652);
 L4f4e:
 	;
 #asm
@@ -220,28 +251,56 @@ L509d:
 l50b7:
 	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,050h,08ah,087h,0f8h,044h,02ah,0e4h,08bh,0c8h
 	db 0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,08ah,087h,02dh
-	db 044h,02ah,0e4h,0e9h,0d6h,000h,0c7h,046h,084h,000h,000h,0e9h,0e5h,000h,0c7h,046h
-	db 084h,001h,000h,0e9h,0ddh,000h,0c7h,046h,084h,002h,000h,0e9h,0d5h,000h,0c7h,046h
-	db 084h,003h,000h,0e9h,0cdh,000h,0c7h,046h,084h,004h,000h,0e9h,0c5h,000h,0c7h,046h
-	db 084h,007h,000h,0e9h,0bdh,000h,0c7h,046h,084h,006h,000h,0e9h,0b5h,000h,0c7h,046h
-	db 084h,008h,000h,0e9h,0adh,000h,0c7h,046h,084h,000h,000h,0e9h,0a5h,000h,000h,000h
-	db 001h,000h,002h,000h,003h,000h,004h,000h,005h,000h,006h,000h,007h,000h,008h,000h
-	db 009h,000h,00ah,000h,00bh,000h,00ch,000h,00dh,000h,00eh,000h,00fh,000h,010h,000h
-	db 011h,000h,012h,000h,013h,000h,014h,000h,018h,000h,026h,000h,033h,000h,034h,000h
-	db 035h,000h,036h,000h,037h,000h,038h,000h,039h,000h,03ah,000h,03bh,000h,059h,000h
-	db 05ah,000h,062h,000h,0ddh,050h,0e5h,050h,0edh,050h,0edh,050h,0f5h,050h,0f5h,050h
-	db 0f5h,050h,0fdh,050h,0fdh,050h,0fdh,050h,0fdh,050h,005h,051h,005h,051h,00dh,051h
-	db 0e5h,050h,0e5h,050h,0e5h,050h,0fdh,050h,0ddh,050h,0fdh,050h,0edh,050h,015h,051h
-	db 015h,051h,0e5h,050h,0f5h,050h,0e5h,050h,0f5h,050h,0e5h,050h,0f5h,050h,0fdh,050h
-	db 0e5h,050h,0e5h,050h,0ddh,050h,0fdh,050h,0f5h,050h,01dh,051h
+	db 044h,02ah,0e4h,0e9h,0d6h,000h
 #endasm
-L51b3:
-	;
+	l124 = 0;
+	goto L51ca;
+	l124 = 1;
 #asm
+	db 0e9h,0ddh,000h
+#endasm
+	l124 = 2;
+#asm
+	db 0e9h,0d5h,000h
+#endasm
+	l124 = 3;
+#asm
+	db 0e9h,0cdh,000h
+#endasm
+	l124 = 4;
+#asm
+	db 0e9h,0c5h,000h
+#endasm
+	l124 = 7;
+#asm
+	db 0e9h,0bdh,000h
+#endasm
+	l124 = 6;
+#asm
+	db 0e9h,0b5h,000h
+#endasm
+	l124 = 8;
+#asm
+	db 0e9h,0adh,000h
+#endasm
+	l124 = 0;
+#asm
+	db 0e9h,0a5h,000h,000h,000h,001h,000h,002h,000h,003h,000h,004h,000h,005h,000h,006h
+	db 000h,007h,000h,008h,000h,009h,000h,00ah,000h,00bh,000h,00ch,000h,00dh,000h,00eh
+	db 000h,00fh,000h,010h,000h,011h,000h,012h,000h,013h,000h,014h,000h,018h,000h,026h
+	db 000h,033h,000h,034h,000h,035h,000h,036h,000h,037h,000h,038h,000h,039h,000h,03ah
+	db 000h,03bh,000h,059h,000h,05ah,000h,062h,000h,0ddh,050h,0e5h,050h,0edh,050h,0edh
+	db 050h,0f5h,050h,0f5h,050h,0f5h,050h,0fdh,050h,0fdh,050h,0fdh,050h,0fdh,050h,005h
+	db 051h,005h,051h,00dh,051h,0e5h,050h,0e5h,050h,0e5h,050h,0fdh,050h,0ddh,050h,0fdh
+	db 050h,0edh,050h,015h,051h,015h,051h,0e5h,050h,0f5h,050h,0e5h,050h,0f5h,050h,0e5h
+	db 050h,0f5h,050h,0fdh,050h,0e5h,050h,0e5h,050h,0ddh,050h,0fdh,050h,0f5h,050h,01dh
+	db 051h
 l51b3:
 	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,025h,051h,0b9h,024h,000h,0fch,0f2h,0afh,026h
-	db 08bh,04dh,044h,05fh,007h,0ffh,0e1h,0ebh,005h
+	db 08bh,04dh,044h,05fh,007h,0ffh,0e1h
 #endasm
+L51ca:
+	goto L51d1;
 L51cc:
 	l124 = 9;
 L51d1:
@@ -274,7 +333,7 @@ l522b:
 	db 0e4h,0b9h,003h,000h,099h,0f7h,0f9h,08bh,0c8h,058h,02bh,0c1h,089h,046h,0aah
 #endasm
 	l112 = *(int *)((char *)g44d8 + ((432 * g435c) + (p6 << 4)));
-	l110 = *(int *)((char *)g44da + ((432 * g435c) + (p6 << 4)));
+	*(int *)(l110 + 0) = *(int *)((char *)g44da + ((432 * g435c) + (p6 << 4)));
 	l82 = (((432 * g435c) + (p6 << 4)) + 17624);
 	l114 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
 	if (p8 != 8) goto L5356;
@@ -282,7 +341,7 @@ l522b:
 	if (l116 == 255) goto L5354;
 	if (pc_item_type[((432 * g435c) + (l116 << 3))] != 4) goto L5354;
 	l112 = *(int *)((char *)g44e8 + (432 * g435c));
-	l110 = *(int *)((char *)g44ea + (432 * g435c));
+	*(int *)(l110 + 0) = *(int *)((char *)g44ea + (432 * g435c));
 	l82 = ((432 * g435c) + 17640);
 	l86 += g44f6[(432 * g435c)];
 	l126 = 0;
@@ -669,7 +728,7 @@ L5c47:
 	if (p4[43] != 1) goto L5c57;
 	p4[43] = 255;
 L5c57:
-	l106 = ((roll_dice_x(l112, l110) + l126) * l156);
+	l106 = ((roll_dice_x(l112, *(int *)(l110 + 0)) + l126) * l156);
 	if (l106 <= 0) goto L5e09;
 	if (l96 >= 95) goto L5c95;
 	if ((l86 - (l94 * 5)) >= l96) goto L5e09;

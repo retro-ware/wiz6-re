@@ -154,9 +154,7 @@ Lf4b4:
 	l14++;
 Lf4bd:
 	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf4e6;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,003h,0d8h,0ffh,087h,012h,044h
-#endasm
+	(*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))))++;
 	goto Lf557;
 Lf4e6:
 	*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))) = ((((random(((unsigned char)pc_skills[((432 * p4) + l20)] / 20)) + *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) + (unsigned char)g4504[((432 * p4) + l2)]) + (l16 << 1)) + l14);

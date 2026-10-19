@@ -1,6 +1,9 @@
 extern char g558e[];
 extern char g558f;
+extern char pc_class[];
 extern char pc_item_qty[];
+extern char pc_race[];
+extern char pc_sex[];
 extern int pc_item_id[];
 extern int realm_colors[];
 /* Show an item's description window: type, damage, classes, spells. */
@@ -42,7 +45,7 @@ show_item_info(p4, p6, p8, p10)
 	char x56[22];
 	int l80;
 	int l122[21];
-	char x122[2];
+	int l124;
 	int l126;
 	char x126[38];
 	int l166;
@@ -194,42 +197,76 @@ Lbbaa:
 	print_string(l6, 21902, 4);
 Lbc08:
 	if (!l122[14]) goto Lbdc3;
-#asm
-lbc11:
-	db 08ah,046h,0edh,02ah,0e4h,0e9h,0dah,000h,0c7h,046h,084h,000h,000h,0e9h,0e9h,000h
-	db 0c7h,046h,084h,001h,000h,0e9h,0e1h,000h,0c7h,046h,084h,002h,000h,0e9h,0d9h,000h
-	db 0c7h,046h,084h,003h,000h,0e9h,0d1h,000h,0c7h,046h,084h,004h,000h,0e9h,0c9h,000h
-	db 0c7h,046h,084h,007h,000h,0e9h,0c1h,000h,0c7h,046h,084h,006h,000h,0e9h,0b9h,000h
-	db 0c7h,046h,084h,008h,000h,0e9h,0b1h,000h,0c7h,046h,084h,005h,000h,0e9h,0a9h,000h
-	db 000h,000h,001h,000h,002h,000h,003h,000h,004h,000h,005h,000h,006h,000h,007h,000h
-	db 008h,000h,009h,000h,00ah,000h,00bh,000h,00ch,000h,00dh,000h,00eh,000h,00fh,000h
-	db 010h,000h,011h,000h,012h,000h,013h,000h,014h,000h,015h,000h,018h,000h,026h,000h
-	db 033h,000h,034h,000h,035h,000h,036h,000h,037h,000h,038h,000h,039h,000h,03ah,000h
-	db 03bh,000h,059h,000h,05ah,000h,062h,000h,019h,0bch,021h,0bch,029h,0bch,029h,0bch
-	db 031h,0bch,031h,0bch,031h,0bch,039h,0bch,039h,0bch,039h,0bch,039h,0bch,041h,0bch
-	db 041h,0bch,049h,0bch,021h,0bch,021h,0bch,021h,0bch,039h,0bch,019h,0bch,039h,0bch
-	db 059h,0bch,059h,0bch,051h,0bch,051h,0bch,021h,0bch,031h,0bch,021h,0bch,031h,0bch
-	db 021h,0bch,031h,0bch,039h,0bch,021h,0bch,021h,0bch,019h,0bch,039h,0bch,031h,0bch
-	db 00ah,0bdh
-#endasm
-Lbcf3:
-	;
-#asm
-lbcf3:
-	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,061h,0bch,0b9h,025h,000h,0fch,0f2h,0afh,026h
-	db 08bh,04dh,046h,05fh,007h,0ffh,0e1h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah
-	db 087h,085h,045h,02ah,0e4h,050h,08dh,046h,0e8h,050h,0e8h,08fh,06bh,083h,0c4h,004h
-	db 03dh,001h,000h,075h,03ch,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah,087h,087h
-	db 045h,02ah,0e4h,050h,08dh,046h,0e6h,050h,0e8h,071h,06bh,083h,0c4h,004h,03dh,001h
-	db 000h,075h,01eh,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah,087h,086h,045h,02ah
-	db 0e4h,050h,08dh,046h,0eah,050h,0e8h,053h,06bh,083h,0c4h,004h,03dh,001h,000h,074h
-	db 015h,0b8h,08eh,055h,050h,0b8h,01fh,006h,050h,0e8h,0ech,049h,083h,0c4h,004h,0c7h
-	db 046h,0feh,009h,000h,0ebh,016h,0b8h,08eh,055h,050h,08bh,046h,084h,005h,07ch,015h
-	db 050h,0e8h,0d4h,049h,083h,0c4h,004h,0c7h,046h,0feh,002h,000h,0b8h,006h,000h,050h
-	db 0b8h,08eh,055h,050h,0e8h,075h,082h,059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh
-	db 0c8h,0b8h,00ah,000h,02bh,0c1h,050h,0ffh,076h,0fah,0e8h,05bh,045h,083h,0c4h,006h
-	db 0ffh,076h,0feh,0b8h,08eh,055h,050h,0ffh,076h,0fah,0e8h,029h,067h,083h,0c4h,006h
-#endasm
+	switch ((unsigned char)l22[3]) {
+case 0:
+case 18:
+case 89:
+	l124 = 0;
+	goto Lbd0a;
+case 1:
+case 14:
+case 15:
+case 16:
+case 51:
+case 53:
+case 55:
+case 58:
+case 59:
+	l124 = 1;
+	goto Lbd0a;
+case 2:
+case 3:
+	l124 = 2;
+	goto Lbd0a;
+case 4:
+case 5:
+case 6:
+case 52:
+case 54:
+case 56:
+case 98:
+	l124 = 3;
+	goto Lbd0a;
+case 7:
+case 8:
+case 9:
+case 10:
+case 17:
+case 19:
+case 57:
+case 90:
+	l124 = 4;
+	goto Lbd0a;
+case 11:
+case 12:
+	l124 = 7;
+	goto Lbd0a;
+case 13:
+	l124 = 6;
+	goto Lbd0a;
+case 24:
+case 38:
+	l124 = 8;
+	goto Lbd0a;
+case 20:
+case 21:
+	l124 = 5;
+	goto Lbd0a;
+	}
+Lbd0a:
+	if (test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) != 1) goto Lbd64;
+	if (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) != 1) goto Lbd64;
+	if (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) == 1) goto Lbd79;
+Lbd64:
+	get_message(1567, 21902);
+	l2 = 9;
+	goto Lbd8f;
+Lbd79:
+	get_message((l124 + 5500), 21902);
+	l2 = 2;
+Lbd8f:
+	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 6);
+	print_string(l6, 21902, l2);
 Lbdc3:
 	if (!l122[13]) goto Lbe78;
 	if (l22[2] != 3) goto Lbe04;

@@ -446,7 +446,8 @@ class Printer:
             elif kd == 'cas':
                 out.append('\t%s %s= %s;' % (self.ex(st.lv), st.op, self.ex(st.rv)))
             elif kd == 'inc':
-                out.append('\t%s%s;' % (self.ex(st.lv), '++' if st.op == '+' else '--'))
+                lv = self.ex(st.lv)
+                out.append('\t%s%s;' % ('(%s)' % lv if lv.startswith('*') else lv, '++' if st.op == '+' else '--'))
             elif kd == 'expr':
                 out.append('\t%s;' % self.ex(st.x))
             elif kd == 'if':

@@ -1,15 +1,16 @@
 extern char g4500[];
+extern char g4597[];
 extern char pc_class[];
 extern char pc_skill_points[];
+extern int pc_level[];
 /* Do one level up: show gains, hit points, spell points and new spells. */
 do_level_up(p4, p6, p8)
 {
 	int l2;
 	char x2[2];
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0ffh,087h,00ch,044h,08ah,087h,097h,045h
-	db 02ah,0e4h,03bh,087h,00ch,044h,07fh,005h,0c6h,087h,097h,045h,000h
-#endasm
+	(*(int *)((char *)pc_level + (432 * p8)))++;
+	if ((unsigned char)g4597[(432 * p8)] > *(int *)((char *)pc_level + (432 * p8))) goto Lf7a7;
+	g4597[(432 * p8)] = 0;
 Lf7a7:
 	ff6e6(p8);
 	draw_sheet(p4, p6, p8);

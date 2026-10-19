@@ -143,5 +143,16 @@ def flow(img, start, end):
                 if n and start <= tbl and tbl + 2 * n <= end:
                     tables[tbl] = n
                     todo += [struct.unpack_from('<H', img.code, tbl - img.cbase + 2 * k)[0] for k in range(n)]
+            elif i.mnemonic == 'repne scasw':
+                # value scan switch: mov di,T; mov cx,N; cld; repne scasw (T: N-1 values, N targets)
+                p = [seen[x] for x in sorted(seen) if x < a][-3:]
+                if len(p) == 3 and p[0].mnemonic == 'mov' and p[1].mnemonic == 'mov' and \
+                        p[0].op_str.startswith('di, 0x') and p[1].op_str.startswith('cx, 0x'):
+                    tbl, n = p[0].operands[1].imm & 0xffff, p[1].operands[1].imm & 0xffff
+                    if tbl in tables or not (start <= tbl and tbl + 4 * n - 2 <= end):
+                        continue
+                    tables[tbl] = n
+                    todo += [struct.unpack_from('<H', img.code, tbl - img.cbase + 2 * (n - 1 + k))[0]
+                             for k in range(n)]
         if not todo:
             return seen, tables

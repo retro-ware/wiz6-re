@@ -100,15 +100,9 @@ Ld157:
 #endasm
 	if (random(50)) goto Ld227;
 Ld1cb:
-	;
-#asm
-ld1cb:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,0ffh,08fh,004h,044h
-#endasm
+	(*(int *)((char *)pc_stamina + (432 * member)))--;
 	if (l6 <= 0) goto Ld1e4;
-#asm
-	db 083h,0bfh,004h,044h,000h,07fh,03ch
-#endasm
+	if (*(int *)((char *)pc_stamina + (432 * member)) > 0) goto Ld220;
 Ld1e4:
 	g450c[(432 * member)] = (char)(random(6) + 6);
 	*(int *)((char *)pc_stamina + (432 * member)) = 0;

@@ -186,10 +186,16 @@ class Func:
                     i.operands[0].type == X.X86_OP_IMM:
                 labels.add(i.operands[0].imm & 0xffff)
         live, writes = False, 0
+        disp = False            # inside a value-scan switch dispatch (push di .. jmp cx)
         for a in self.addrs:
             if not lo <= a < hi:
                 continue
             i = self.seen[a]
+            if i.mnemonic == 'mov' and i.op_str == 'cx, cs':
+                disp = True
+            if disp:
+                disp = not (i.mnemonic == 'jmp' and i.op_str == 'cx')
+                continue
             if a in labels or i.mnemonic in ('call', 'ret') or i.group(X.X86_GRP_JUMP):
                 live = False
             ops = list(i.operands)
@@ -1214,6 +1220,35 @@ class Lifter:
             if start != tbl:
                 return None
             return dict(cases=cases, default=default, start=start, end=end, kind='table', n=n, k0=k0)
+        # value scan: [push es;] mov cx,cs; mov es,cx; push di; mov di,T; mov cx,N; cld; repne scasw;
+        # mov cx,es:[di+O]; pop di; pop es; jmp cx. T: N-1 values, then N targets (the last: default)
+        sc = []
+        q = p
+        for _ in range(12):
+            x = get(q)
+            if x is None:
+                break
+            sc.append(x)
+            q += x.size
+        txt = ['%s %s' % (x.mnemonic, x.op_str) for x in sc]
+        if txt and txt[0] == 'push es':
+            sc, txt = sc[1:], txt[1:]
+        if len(txt) >= 11 and txt[:3] == ['mov cx, cs', 'mov es, cx', 'push di'] and \
+                txt[3].startswith('mov di, 0x') and txt[4].startswith('mov cx, 0x') and \
+                txt[5:7] == ['cld ', 'repne scasw ax, word ptr es:[di]'] and \
+                txt[7].startswith('mov cx, word ptr es:[di') and txt[8:11] == ['pop di', 'pop es', 'jmp cx']:
+            img = self.img
+            tbl, n = sc[3].operands[1].imm & 0xffff, sc[4].operands[1].imm & 0xffff
+            off = sc[7].operands[1].mem.disp
+            if tbl + 2 * (n - 1) + 2 * (n - 1) + 2 != tbl + 2 * n + off + 2 or n < 2 or tbl + 4 * n - 2 != p:
+                return None
+            w = lambda a: img.code[a - img.cbase] | img.code[a - img.cbase + 1] << 8
+            vals = [w(tbl + 2 * k) for k in range(n - 1)]
+            tg = [w(tbl + 2 * (n - 1) + 2 * k) for k in range(n)]
+            end = sc[10].address + sc[10].size
+            default = tg[-1] if tg[-1] != end else None
+            cases = [(v, t) for v, t in zip(vals, tg) if t != end]
+            return dict(cases=cases, default=default, start=tbl, end=end, kind='scan')
         # compare chain: (cmp ax,K; je L | cmp ax,K; jne +3; jmp L)* [jmp DEFAULT]
         while True:
             c = get(p)

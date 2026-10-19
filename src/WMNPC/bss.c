@@ -45,7 +45,8 @@
 	global g5276_:byte,4
 	global g527a_:byte,82
 	global g52cc_:byte,2
-	global g52ce_:byte,84
+	global g52ce_:byte,2
+	global g52d0_:byte,82
 	global g5322_:byte,2
 	global g5324_:byte,2
 	global g5326_:byte,396

@@ -55,6 +55,7 @@
 - [x] Promoted run 25 (nested ternaries/boolean chains inside ternary arms; liftloop stops when a demote makes no progress): 870 functions in C (437 asm-free), sbuild all 12 OK
 - [x] Readable names: names/*.json for every image (676 functions, 149 globals, docs, params/locals), applied by tools/render.py; build stays byte-identical
 - [x] Promoted run 27 (scratch si/di index registers, with a register-variable retry when the prologue differs; `break` for returns in a switch right before the epilogue): 884 functions in C (472 asm-free), sbuild all 12 OK
+- [x] Promoted runs 28/29 (struct-by-value call arguments; `char == -1` byte compares): 884 functions in C (475 asm-free), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical

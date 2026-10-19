@@ -19,12 +19,8 @@ Lb852:
 	g5856[l4] = *(int *)(l44 + (l2 * 6));
 	l4++;
 Lb8a2:
-	;
-#asm
-lb8a2:
-	db 08bh,046h,0feh,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh
-	db 047h,0d4h,0ffh,04fh,0d6h
-#endasm
+	(*(int *)(l44 + (l2 * 6)))++;
+	(*(int *)(l44 + ((l2 * 6) + 2)))--;
 	goto Lb852;
 Lb8b9:
 	l2++;

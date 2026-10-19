@@ -110,10 +110,7 @@ l68f7:
 	db 083h,0c4h,010h
 #endasm
 	if (anim_cycle) goto L695b;
-#asm
-	db 08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,04eh,006h
-	db 0d1h,0e1h,003h,0c1h,08bh,0d8h,0ffh,087h,0feh,050h
-#endasm
+	(*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))))++;
 L695b:
 	return;
 }
