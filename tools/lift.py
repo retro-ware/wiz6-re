@@ -1156,7 +1156,7 @@ class Lifter:
                 y = get(p + x.size)
                 if movax(x) and y is not None and y.mnemonic == 'jmp' and y.operands[0].type == X.X86_OP_IMM:
                     z = get(y.address + y.size)
-                    if movax(z) and (y.operands[0].imm & 0xffff) == z.address + z.size:
+                    if (y.operands[0].imm & 0xffff) > y.address + y.size:
                         T = p
                         break
                 if x.mnemonic in JCC:
@@ -1186,7 +1186,17 @@ class Lifter:
             if tg not in starts and tg not in (T, F):
                 return False
             hits[tg] = hits.get(tg, 0) + 1
-        if any(self.tcount.get(a, 0) != n for a, n in hits.items()) or self.tcount.get(J) != 1 or \
+        if movax(get(F)) and get(F).address + get(F).size == J:
+            B, gF = self.val(get(F).operands[1]), {'n': {}, 'nl': set()}
+        else:       # F: a nested ternary (or other register-only value) up to J
+            self.armvals = getattr(self, 'armvals', [])
+            outer_join, self.join = getattr(self, 'join', {}), {J: 1}     # T's jmp J, absorbed by us
+            B, gF = self.arm(F, J), self.got
+            self.join = outer_join
+            if B is None:
+                return False
+        if any(self.tcount.get(a, 0) != n for a, n in hits.items()) or \
+                self.tcount.get(J) != 1 + gF['n'].get(J, 0) + getattr(self, 'join', {}).get(J, 0) or \
                 F not in hits or any(s in self.targets and s not in hits for s in starts):
             return False
         TRUE, FALSE = ('true',), ('false',)
@@ -1225,14 +1235,16 @@ class Lifter:
         e = E(0)
         if e is None or e in (TRUE, FALSE):
             return False
-        A, B = self.val(get(T).operands[1]), self.val(get(y.address + y.size).operands[1])
+        A = self.val(get(T).operands[1])
         self.R = dict(save[0])
         # the tests' register loads (mov ax,x; cmp ax,..) are part of the expression
         self.R['ax'] = ('?', e, A, B)
         self.flags, self.skip_to = None, J
-        self.nolabel |= set(starts) | {T, F, J}
-        hits[J] = 1
-        self.note(hits, set(starts) | {T, F, J})
+        self.nolabel |= set(starts) | {T, F, J} | gF['nl']
+        for k, x in gF['n'].items():
+            hits[k] = hits.get(k, 0) + x
+        hits[J] = hits.get(J, 0) + 1
+        self.note(hits, set(starts) | {T, F, J} | gF['nl'])
         return True
 
     def branch(self, i):

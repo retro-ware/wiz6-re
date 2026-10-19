@@ -6,10 +6,18 @@ extern int g50c6[];
 extern int g50f8;
 extern int g50fc;
 extern int g50fe[];
+extern int g5130;
 extern int g5132[];
+extern int g5164;
 extern int g5166;
 extern int g5168;
 extern int g516a;
+extern int g516c;
+extern int g516e;
+extern int g5170;
+extern int g5172;
+extern int g5174;
+extern int g5176;
 extern int g5178;
 extern int g517a[];
 extern int g51ac;
@@ -38,227 +46,18 @@ show_overhead_map(power)
 	g51ae = 5;
 	g5178 = ((power != 1) && (power != 4) ? 1 : -1);
 	g50fc = ((power != 1) && (power != 4) ? 5 : -1);
-#asm
-	db 08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5c63:
-	;
-#asm
-l5c63:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5c68:
-	;
-#asm
-l5c68:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5c75:
-	;
-#asm
-l5c75:
-	db 0b8h,005h,000h,0ebh,003h
-#endasm
-L5c7a:
-	;
-#asm
-l5c7a:
-	db 0b8h,006h,000h
-#endasm
-L5c7d:
-	;
-#asm
-l5c7d:
-	db 0a3h,06ch,051h,08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5c8d:
-	;
-#asm
-l5c8d:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5c92:
-	;
-#asm
-l5c92:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5c9f:
-	;
-#asm
-l5c9f:
-	db 0b8h,005h,000h,0ebh,003h
-#endasm
-L5ca4:
-	;
-#asm
-l5ca4:
-	db 0b8h,007h,000h
-#endasm
-L5ca7:
-	;
-#asm
-l5ca7:
-	db 0a3h,06eh,051h,08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5cb7:
-	;
-#asm
-l5cb7:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5cbc:
-	;
-#asm
-l5cbc:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5cc9:
-	;
-#asm
-l5cc9:
-	db 0b8h,005h,000h,0ebh,003h
-#endasm
-L5cce:
-	;
-#asm
-l5cce:
-	db 0b8h,008h,000h
-#endasm
-L5cd1:
-	;
-#asm
-l5cd1:
-	db 0a3h,070h,051h,08bh,046h,004h,03dh,001h,000h,074h,00ah,03dh,004h,000h,074h,005h
-	db 0b8h,009h,000h,0ebh,003h
-#endasm
-L5ce6:
-	;
-#asm
-l5ce6:
-	db 0b8h,0ffh,0ffh
-#endasm
-L5ce9:
-	;
-#asm
-l5ce9:
-	db 0a3h,030h,051h,08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5cf9:
-	;
-#asm
-l5cf9:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5cfe:
-	;
-#asm
-l5cfe:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5d0b:
-	;
-#asm
-l5d0b:
-	db 0b8h,009h,000h,0ebh,003h
-#endasm
-L5d10:
-	;
-#asm
-l5d10:
-	db 0b8h,00ah,000h
-#endasm
-L5d13:
-	;
-#asm
-l5d13:
-	db 0a3h,072h,051h,08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5d23:
-	;
-#asm
-l5d23:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5d28:
-	;
-#asm
-l5d28:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5d35:
-	;
-#asm
-l5d35:
-	db 0b8h,009h,000h,0ebh,003h
-#endasm
-L5d3a:
-	;
-#asm
-l5d3a:
-	db 0b8h,00bh,000h
-#endasm
-L5d3d:
-	;
-#asm
-l5d3d:
-	db 0a3h,074h,051h,08bh,046h,004h,03dh,001h,000h,074h,005h,03dh,004h,000h,075h,005h
-#endasm
-L5d4d:
-	;
-#asm
-l5d4d:
-	db 0b8h,0ffh,0ffh,0ebh,015h
-#endasm
-L5d52:
-	;
-#asm
-l5d52:
-	db 08bh,046h,004h,03dh,002h,000h,074h,005h,03dh,005h,000h,075h,005h
-#endasm
-L5d5f:
-	;
-#asm
-l5d5f:
-	db 0b8h,009h,000h,0ebh,003h
-#endasm
-L5d64:
-	;
-#asm
-l5d64:
-	db 0b8h,00ch,000h
-#endasm
-L5d67:
-	;
-#asm
-l5d67:
-	db 0a3h,076h,051h
-#endasm
+	g516c = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 5 : 6));
+	g516e = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 5 : 7));
+	g5170 = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 5 : 8));
+	g5130 = ((power != 1) && (power != 4) ? 9 : -1);
+	g5172 = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 9 : 10));
+	g5174 = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 9 : 11));
+	g5176 = ((power == 1) || (power == 4) ? -1 : ((power == 2) || (power == 5) ? 9 : 12));
 	g51b2 = 13;
 	pclist_sex = 14;
 	g50f8 = 15;
 	g5168 = 16;
-#asm
-	db 08bh,046h,004h,03dh,003h,000h,074h,005h,03dh,006h,000h,075h,005h
-#endasm
-L5d8f:
-	;
-#asm
-l5d8f:
-	db 0b8h,011h,000h,0ebh,003h
-#endasm
-L5d94:
-	;
-#asm
-l5d94:
-	db 0b8h,00dh,000h
-#endasm
-L5d97:
-	;
-#asm
-l5d97:
-	db 0a3h,064h,051h
-#endasm
+	g5164 = ((power == 3) || (power == 6) ? 17 : 13);
 	g5166 = ((power == 3) || (power == 6) ? 18 : 13);
 	g51b0 = 19;
 	g516a = g5168;
