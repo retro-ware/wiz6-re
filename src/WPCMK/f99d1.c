@@ -13,11 +13,9 @@ char *win;
 	defer_window_draw(win);
 	rsi = -3;
 L99ef:
-	if ((top + rsi) < 0) goto L9be8;
-	if ((top + rsi) >= count) goto L9be8;
+	if (((top + rsi) < 0) || ((top + rsi) >= count)) goto L9be8;
 	set_cursor(win, 1, (rsi + 3));
-	if (highlight != 1) goto L9b0d;
-	if (rsi) goto L9b0d;
+	if ((highlight != 1) || (rsi)) goto L9b0d;
 	print_string(win, (((top + rsi) << 3) + 22224), 5);
 L9a40:
 	if ((unsigned)win[6] >= 9) goto L9a5a;

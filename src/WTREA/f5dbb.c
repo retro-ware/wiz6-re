@@ -33,9 +33,7 @@ l5dd9:
 	call roll_dice_
 	db 083h,0c4h,004h,089h,046h,0fah
 #endasm
-	if (!p8) goto L5e2c;
-	if (random(100) <= (unsigned char)g453a[((432 * p4) + p8)]) goto L5edc;
-L5e2c:
+	if ((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) goto L5edc;
 	if (p16 != 255) goto L5e45;
 	g450a[((432 * p4) + p10)] = 255;
 	goto L5e7b;

@@ -31,26 +31,13 @@ L52d4:
 L5362:
 	play_sound(0);
 L536a:
-	;
-#asm
-l536a:
-	db 0e9h,070h,000h
-#endasm
+	goto L53dd;
 L536d:
 	if (len < maxlen) goto L537f;
 	play_sound(0);
 	goto L53dd;
 L537f:
-	if (mode) goto L5392;
-#asm
-	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
-#endasm
-L5392:
-	if (mode != 1) goto L53dd;
-#asm
-	db 08bh,046h,0feh,03dh,030h,000h,07ch,03dh,03dh,039h,000h,07fh,038h
-#endasm
-L53a5:
+	if (((mode) || ((key < 32) || (key > 127))) && ((mode != 1) || ((key < 48) || (key > 57)))) goto L53dd;
 	*(buf + len) = *(char *)&key;
 	len++;
 	*(buf + len) = 0;

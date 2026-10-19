@@ -8,8 +8,7 @@ char *p14;
 	defer_window_draw(p4);
 	rsi = -3;
 L675b:
-	if ((p8 + rsi) < 0) goto L67e3;
-	if ((p8 + rsi) >= p12) goto L67e3;
+	if (((p8 + rsi) < 0) || ((p8 + rsi) >= p12)) goto L67e3;
 	set_cursor(p4, 1, (rsi + 3));
 	print_message((*(int *)(p14 + ((p8 + rsi) << 1)) + 4000), p4, ((p10 == 1) && (!rsi) ? realm_colors[p6] : 18));
 	if ((p10 != 1) || (rsi)) goto L67e3;

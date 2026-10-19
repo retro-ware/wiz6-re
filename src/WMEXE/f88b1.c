@@ -27,16 +27,14 @@ L88e6:
 	goto L8bc8;
 L88fa:
 	rsi = (44 * l2);
-	if ((unsigned)((char *)monster_groups[p4] + rsi)[34] >= 3) goto L8bc5;
-	if (((char *)monster_groups[p4] + rsi)[43]) goto L8bc5;
+	if (((unsigned)((char *)monster_groups[p4] + rsi)[34] >= 3) || (((char *)monster_groups[p4] + rsi)[43])) goto L8bc5;
 	clear_window_area(party_picture_win, 0, 2, 39, 4);
 	set_cursor(party_picture_win, 1, 2);
 	combat_delay(1);
 	get_combatant_name(20492, p4, l2);
 	print_combat_centered(20492, (p4 == 0 ? 1 : 6), 2);
 	l6 = f7af7(p4, p10, 3, p8);
-	if (l6 <= 0) goto L8ba5;
-	if (random(100) <= ((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[151] - p8)) goto L8ba5;
+	if ((l6 <= 0) || (random(100) <= ((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[151] - p8))) goto L8ba5;
 	if (p12 != 1) goto L8a8c;
 #asm
 l89ce:

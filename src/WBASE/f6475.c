@@ -14,11 +14,9 @@ char *win;
 	defer_window_draw(win);
 	row = -2;
 L6493:
-	if ((top + row) < 0) goto L668b;
-	if ((top + row) >= count) goto L668b;
+	if (((top + row) < 0) || ((top + row) >= count)) goto L668b;
 	set_cursor(win, 2, (row + 2));
-	if (highlight != 1) goto L65b0;
-	if (row) goto L65b0;
+	if ((highlight != 1) || (row)) goto L65b0;
 	print_string(win, (((top + row) << 3) + 20602), 5);
 L64e3:
 	if ((unsigned)win[6] >= 10) goto L64fd;

@@ -160,8 +160,7 @@ L9172:
 L917a:
 	entry = ((rsi * 11) + 20904);
 	g52f4 = (((((unsigned char)entry[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)entry[10] != g5118) goto L925d;
-	if ((unsigned char)entry[8] != 255) goto L925d;
+	if (((unsigned char)entry[10] != g5118) || ((unsigned char)entry[8] != 255)) goto L925d;
 	if (*(int *)entry == -1) goto L920e;
 	if (*(int *)(entry + 4) == -1) goto L91f9;
 	drv_op_c6((g52f4 != 0 ? *(int *)(entry + 4) : *(int *)entry), (unsigned char)entry[9], (g52f4 != 0 ? *(int *)entry : -1));

@@ -70,8 +70,7 @@ la900:
 	fa645(1529);
 	return l2;
 La94e:
-	if (*(long *)(l62 + 0) > 0L) goto La974;
-	if (l84 == trap_guess_letters) goto La974;
+	if ((*(long *)(l62 + 0) > 0L) || (l84 == trap_guess_letters)) goto La974;
 	fa645(1518);
 	return l2;
 La974:

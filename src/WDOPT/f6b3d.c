@@ -9,8 +9,7 @@ char *p16;
 	defer_window_draw(win);
 	row = -2;
 L6b59:
-	if ((sel + row) < 0) goto L6be0;
-	if ((sel + row) >= p14) goto L6be0;
+	if (((sel + row) < 0) || ((sel + row) >= p14)) goto L6be0;
 	set_cursor(win, 2, (row + 2));
 	print_message((*(int *)(p16 + ((sel + row) << 1)) + 4000), win, ((highlight == 1) && (!row) ? realm_colors[realm] : 18));
 	if ((highlight != 1) || (row)) goto L6be0;

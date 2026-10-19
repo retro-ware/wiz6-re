@@ -160,8 +160,7 @@ La8ef:
 La8f7:
 	obj = ((rsi * 11) + 20746);
 	g5256 = (((((unsigned char)obj[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)obj[10] != view_depth) goto La9da;
-	if ((unsigned char)obj[8] != 255) goto La9da;
+	if (((unsigned char)obj[10] != view_depth) || ((unsigned char)obj[8] != 255)) goto La9da;
 	if (*(int *)obj == -1) goto La98b;
 	if (*(int *)(obj + 4) == -1) goto La976;
 	drv_op_c6((g5256 != 0 ? *(int *)(obj + 4) : *(int *)obj), (unsigned char)obj[9], (g5256 != 0 ? *(int *)obj : -1));

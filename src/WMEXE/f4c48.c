@@ -103,9 +103,7 @@ L4d0a:
 	if (l76 == 255) goto L4e22;
 	access_scenario_record(1, &l74, *(int *)((char *)pc_item_id + ((432 * g435c) + (l76 << 3))), 0);
 	strcpy(20572, &l74);
-	if (p8 == 4) goto L4d5b;
-	if (p8 != 8) goto L4e22;
-L4d5b:
+	if ((p8 != 4) && (p8 != 8)) goto L4e22;
 	if ((p8 != 4) || (!l46)) goto L4d7c;
 	l150 = l46;
 	get_message(3384, 20652);
@@ -157,10 +155,7 @@ L4e3d:
 	if ((!p4[43]) || ((p8 == 4) || (p8 == 8))) goto L4e7a;
 	get_message((random(2) + 3385), 20652);
 L4e7a:
-	if (p8 == 4) goto L4e89;
-	if (p8 != 8) goto L4f4e;
-L4e89:
-	;
+	if ((p8 != 4) && (p8 != 8)) goto L4f4e;
 #asm
 l4e89:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,046h,006h,0b9h,004h
@@ -501,10 +496,7 @@ L56f9:
 	l90 = (l90 > 10 ? l90 : 10);
 	l156 = 2;
 L5727:
-	if (((char *)monster_groups[l78] + rsi)[18]) goto L59aa;
-	if (((char *)monster_groups[l78] + rsi)[16]) goto L59aa;
-	if (((char *)monster_groups[l78] + rsi)[17]) goto L59aa;
-	if (((char *)monster_groups[l78] + rsi)[34]) goto L59aa;
+	if ((((((char *)monster_groups[l78] + rsi)[18]) || (((char *)monster_groups[l78] + rsi)[16])) || (((char *)monster_groups[l78] + rsi)[17])) || (((char *)monster_groups[l78] + rsi)[34])) goto L59aa;
 	if (((char *)monster_groups[l78] + rsi)[30] != 1) goto L5971;
 	switch (*(int *)(((char *)monster_groups[l78] + rsi) + 10)) {
 case 0:
@@ -523,8 +515,7 @@ case 1:
 	l156 = 1;
 	goto L596f;
 case 2:
-	if (p8 == 4) goto L5949;
-	if (p8 == 8) goto L5949;
+	if ((p8 == 4) || (p8 == 8)) goto L5949;
 	rsi = (44 * l80);
 	((char *)monster_groups[l78] + rsi)[30] = 0;
 	rsi = (44 * l80);
@@ -626,8 +617,7 @@ L5aa5:
 	if (l158) goto L5ace;
 	play_sound(6);
 L5ace:
-	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 22) goto L5b4f;
-	if (l150 != -1) goto L5b4f;
+	if (((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 22) || (l150 != -1)) goto L5b4f;
 	if (g435e) goto L5b4a;
 	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] == 255) goto L5b43;
 	if ((*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) == 458) && (g4352)) goto L5b3b;
@@ -644,27 +634,12 @@ L5b48:
 L5b4a:
 	l96 = 0;
 L5b4f:
-	if ((p8 != 4) && (p8 != 8)) goto L5b99;
-	if (random(100) >= (unsigned char)g018e[monster_groups[l78]]) goto L5b99;
+	if (((p8 != 4) && (p8 != 8)) || (random(100) >= (unsigned char)g018e[monster_groups[l78]])) goto L5b99;
 	print_msg_centered(3214, 14, 3);
 	play_sound(7);
 	goto L5e60;
 L5b99:
-	;
-#asm
-l5b99:
-	db 08bh,046h,0a0h,03dh,005h,000h,07dh,003h
-#endasm
-	goto L5e4e;
-L5ba4:
-	;
-#asm
-l5ba4:
-	db 03dh,05fh,000h,07dh,021h,08bh,046h,0a6h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h
-	db 08bh,04eh,0aah,02bh,0c8h,08bh,046h,0a0h,03bh,0c8h,07ch,00ah
-#endasm
-	if (l150 == -1) goto L5e4e;
-L5bca:
+	if ((l96 < 5) || (((l96 < 95) && ((l86 - (l90 * 5)) >= l96)) && (l150 == -1))) goto L5e4e;
 	if (l150 == -1) goto L5bf7;
 	l154 = (l150 / 256);
 	l152 = (l150 % 256);
@@ -685,10 +660,7 @@ L5c47:
 	p4[43] = 255;
 L5c57:
 	l106 = ((roll_dice_x(l112, *(int *)(l110 + 0)) + l126) * l156);
-	if (l106 <= 0) goto L5e09;
-	if (l96 >= 95) goto L5c95;
-	if ((l86 - (l94 * 5)) >= l96) goto L5e09;
-L5c95:
+	if ((l106 <= 0) || ((l96 < 95) && ((l86 - (l94 * 5)) >= l96))) goto L5e09;
 	int_to_string(l106, 20652);
 	get_message(3306, 20572);
 	set_cursor(party_picture_win, 0, 4);

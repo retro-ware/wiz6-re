@@ -117,8 +117,7 @@ L7d48:
 	if ((l2 != 5) || (bonus_points <= 0)) goto L7d5d;
 	play_sound(0);
 L7d5d:
-	if (l2 != 5) goto L7afd;
-	if (bonus_points > 0) goto L7afd;
+	if ((l2 != 5) || (bonus_points > 0)) goto L7afd;
 	set_cursor(sheet_win, 7, (l4 + 5));
 	put_char(sheet_win, 32, 7);
 }

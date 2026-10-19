@@ -36,16 +36,7 @@ L4724:
 	play_sound(0);
 	goto L4788;
 L4736:
-	if (mode) goto L4749;
-#asm
-	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
-#endasm
-L4749:
-	if (mode != 1) goto L4788;
-#asm
-	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
-#endasm
-L475c:
+	if (((mode) || ((ch < 32) || (ch > 127))) && ((mode != 1) || ((ch < 48) || (ch > 57)))) goto L4788;
 	*(buf + len) = *(char *)&ch;
 	len++;
 	*(buf + len) = 0;

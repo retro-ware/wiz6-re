@@ -122,8 +122,7 @@ L6bae:
 	goto L6bca;
 	}
 L6bca:
-	if (l6 != 5) goto L692d;
-	if (!l10) goto L692d;
+	if ((l6 != 5) || (!l10)) goto L692d;
 	if (l64 != -1) goto L6c03;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);
@@ -189,9 +188,7 @@ L6de0:
 	goto L6df1;
 	}
 L6df1:
-	if (l6 == 5) goto L6e00;
-	if (l60 != 1) goto L6caf;
-L6e00:
+	if ((l6 != 5) && (l60 != 1)) goto L6caf;
 	if (l60 == 1) goto L6914;
 	l52 = l50[l58];
 	destroy_window(l2, 0);

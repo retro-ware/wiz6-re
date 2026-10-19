@@ -12,12 +12,10 @@ f9827(p4, p6, p8, p10)
 	defer_window_draw(p4);
 	rsi = -2;
 L9845:
-	if ((p8 + rsi) < 0) goto L99ca;
-	if ((p8 + rsi) >= g5324) goto L99ca;
+	if (((p8 + rsi) < 0) || ((p8 + rsi) >= g5324)) goto L99ca;
 	set_cursor(p4, 2, (rsi + 2));
 	l2 = g5326[(p8 + rsi)];
-	if (p10 != 1) goto L9916;
-	if (rsi) goto L9916;
+	if ((p10 != 1) || (rsi)) goto L9916;
 	print_string(p4, ((l2 << 4) + 21330), 3);
 	if (g00cc[(unsigned char)pc_item_type[((432 * p6) + (l2 << 3))]] != 1) goto L9903;
 	pad_to_column(p4, 15, 3);

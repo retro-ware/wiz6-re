@@ -160,8 +160,7 @@ L9d19:
 L9d21:
 	l14 = ((rsi * 11) + 21666);
 	g55ee = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)l14[10] != g5412) goto L9e04;
-	if ((unsigned char)l14[8] != 255) goto L9e04;
+	if (((unsigned char)l14[10] != g5412) || ((unsigned char)l14[8] != 255)) goto L9e04;
 	if (*(int *)l14 == -1) goto L9db5;
 	if (*(int *)(l14 + 4) == -1) goto L9da0;
 	drv_op_c6((g55ee != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g55ee != 0 ? *(int *)l14 : -1));

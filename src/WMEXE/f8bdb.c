@@ -78,8 +78,7 @@ l8e32:
 L8e3f:
 	goto L8ee6;
 L8e42:
-	if ((unsigned)((char *)monster_groups[p4] + (44 * l2))[34] >= 3) goto L8ee6;
-	if (((char *)monster_groups[p4] + (44 * l2))[43]) goto L8ee6;
+	if (((unsigned)((char *)monster_groups[p4] + (44 * l2))[34] >= 3) || (((char *)monster_groups[p4] + (44 * l2))[43])) goto L8ee6;
 	clear_window_area(party_picture_win, 0, 2, 39, 4);
 	set_cursor(party_picture_win, 1, 2);
 	combat_delay(1);

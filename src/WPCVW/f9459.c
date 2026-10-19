@@ -35,16 +35,7 @@ L9529:
 	play_sound(0);
 	goto L958d;
 L953b:
-	if (p12) goto L954e;
-#asm
-	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
-#endasm
-L954e:
-	if (p12 != 1) goto L958d;
-#asm
-	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
-#endasm
-L9561:
+	if (((p12) || ((l2 < 32) || (l2 > 127))) && ((p12 != 1) || ((l2 < 48) || (l2 > 57)))) goto L958d;
 	*(p6 + l4) = *(char *)&l2;
 	l4++;
 	*(p6 + l4) = 0;

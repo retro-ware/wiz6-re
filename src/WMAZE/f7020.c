@@ -148,8 +148,7 @@ L72a0:
 	refresh_all_windows();
 	g503c = 0;
 L72b0:
-	if ((game_state_arg != 5) && ((game_state_arg != 12) || (party_level <= 8))) goto L7311;
-	if (test_bit((maze_data + 1082), (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1) goto L7311;
+	if (((game_state_arg != 5) && ((game_state_arg != 12) || (party_level <= 8))) || (test_bit((maze_data + 1082), (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1)) goto L7311;
 	erase_window(main_window, 1);
 	delay_long();
 	show_maze_message(2023);

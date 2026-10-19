@@ -32,8 +32,7 @@ L9df5:
 	play_sound(0);
 	return;
 L9e4e:
-	if (*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) goto L9f4e;
-	if (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1) goto L9f4e;
+	if ((*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1)) goto L9f4e;
 	if ((l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))])) > 250) goto L9f12;
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = *(char *)&l6;
 	remove_item(p8, l4);

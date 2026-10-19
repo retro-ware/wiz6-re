@@ -8,9 +8,7 @@ try_combine_recipe(p4, p6, p8, p10)
 	int l2;
 	l2 = 0;
 L9c99:
-	if ((*(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))) == g0546[(l2 * 3)]) && (*(int *)((char *)pc_item_id + ((432 * p6) + (p10 << 3))) == g0548[(l2 * 3)])) goto L9d4d;
-	if ((*(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))) != g0548[(l2 * 3)]) || (*(int *)((char *)pc_item_id + ((432 * p6) + (p10 << 3))) != g0546[(l2 * 3)])) goto L9d77;
-L9d4d:
+	if (((*(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))) != g0546[(l2 * 3)]) || (*(int *)((char *)pc_item_id + ((432 * p6) + (p10 << 3))) != g0548[(l2 * 3)])) && ((*(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))) != g0548[(l2 * 3)]) || (*(int *)((char *)pc_item_id + ((432 * p6) + (p10 << 3))) != g0546[(l2 * 3)]))) goto L9d77;
 	replace_item(p4, p6, g054a[(l2 * 3)], p8, p10);
 	return 1;
 L9d77:

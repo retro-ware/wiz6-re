@@ -19,8 +19,7 @@ fdb7f(p4, p6, p8, p10, p12, p14)
 	int l8;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Ldc11;
-	if (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ldc11;
+	if ((!p14) || (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ldc11;
 	if ((g6aa4) || (p14)) goto Ldbc8;
 	view_rows_open = 0;
 Ldbc8:
@@ -117,9 +116,7 @@ case 3:
 Lde1e:
 	l6 = get_bitfield((maze_data + 504), rsi, 4);
 	l8 = get_bitfield((maze_data + 888), rsi, 2);
-	if ((l8 == party_facing) || (l6 == 6)) goto Lde5d;
-	if (l6 <= 12) goto Ldf49;
-Lde5d:
+	if (((l8 != party_facing) && (l6 != 6)) && (l6 <= 12)) goto Ldf49;
 	switch (l6) {
 case 1:
 	l4 = 5;

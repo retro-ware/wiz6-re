@@ -147,8 +147,7 @@ l62bc:
 	i = 0;
 	goto L639a;
 L62e6:
-	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) goto L6397;
-	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L6397;
+	if ((random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L6397;
 	*(int *)((char *)pc_hp_max + (432 * i)) -= (random(4) + 1);
 	if (*(int *)((char *)pc_hp_max + (432 * i)) >= 1) goto L633a;
 	*(int *)((char *)pc_hp_max + (432 * i)) = 1;
@@ -200,8 +199,7 @@ L63e7:
 	print_member_message(i, &l80, 20722, 20802, 1, 6, 0, 0);
 	wait_animating(message_delay);
 	trap_damage_member(i, (game_state_arg + 1), 8);
-	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L657e;
-	if (random(21) <= (unsigned char)g451b[(432 * i)]) goto L657e;
+	if (((unsigned)pc_condition[(432 * i)] >= 3) || (random(21) <= (unsigned char)g451b[(432 * i)])) goto L657e;
 	get_message(5272, &l80);
 	g50f2 = 0;
 	g5142 = 0;

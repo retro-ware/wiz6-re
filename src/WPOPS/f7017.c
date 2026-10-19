@@ -13,11 +13,9 @@ char *p14;
 	defer_window_draw(win);
 	rsi = -2;
 L7033:
-	if ((pos + rsi) < 0) goto L71a1;
-	if ((unsigned char)pc_item_count[(432 * member)] <= (pos + rsi)) goto L71a1;
+	if (((pos + rsi) < 0) || ((unsigned char)pc_item_count[(432 * member)] <= (pos + rsi))) goto L71a1;
 	set_cursor(win, 2, (rsi + 2));
-	if (highlight != 1) goto L7102;
-	if (rsi) goto L7102;
+	if ((highlight != 1) || (rsi)) goto L7102;
 #asm
 l707b:
 	db 0b8h,003h,000h,050h,08bh,046h,008h,003h,0c6h,0b9h,004h,000h,0d3h,0e0h,08bh,0c8h

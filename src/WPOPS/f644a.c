@@ -147,8 +147,7 @@ L67ea:
 	goto L6806;
 	}
 L6806:
-	if (l6 != 5) goto L6564;
-	if (!count) goto L6564;
+	if ((l6 != 5) || (!count)) goto L6564;
 	if (realm != -1) goto L6846;
 	blink_state = -1;
 	destroy_window(l2, 0);
@@ -224,9 +223,7 @@ L6a88:
 	goto L6a99;
 	}
 L6a99:
-	if (l6 == 5) goto L6aa8;
-	if (l60 != 1) goto L6918;
-L6aa8:
+	if ((l6 != 5) && (l60 != 1)) goto L6918;
 	if (l60 == 1) goto L6545;
 	spell = spells[pos];
 	draw_combat_list_box(l4, 0);
@@ -326,8 +323,7 @@ L6e86:
 	goto L6e98;
 	}
 L6e98:
-	if (l6 != 5) goto L6be4;
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost) goto L6be4;
+	if ((l6 != 5) || (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost)) goto L6be4;
 	blink_state = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);

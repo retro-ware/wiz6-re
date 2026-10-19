@@ -159,8 +159,7 @@ Lf14c:
 Lf154:
 	l14 = ((rsi * 11) + 20906);
 	g52f6 = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)l14[10] != pclist_race) goto Lf237;
-	if ((unsigned char)l14[8] != 255) goto Lf237;
+	if (((unsigned char)l14[10] != pclist_race) || ((unsigned char)l14[8] != 255)) goto Lf237;
 	if (*(int *)l14 == -1) goto Lf1e8;
 	if (*(int *)(l14 + 4) == -1) goto Lf1d3;
 	drv_op_c6((g52f6 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g52f6 != 0 ? *(int *)l14 : -1));

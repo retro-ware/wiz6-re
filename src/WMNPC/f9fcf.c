@@ -18,8 +18,7 @@ char *p4;
 	defer_window_draw(p4);
 	l2 = -2;
 L9fee:
-	if ((p8 + l2) < 0) goto La1e6;
-	if ((p8 + l2) >= g54b2) goto La1e6;
+	if (((p8 + l2) < 0) || ((p8 + l2) >= g54b2)) goto La1e6;
 	set_cursor(p4, 2, (l2 + 2));
 	l4 = g54b4[(p8 + l2)];
 	if ((p10 != 1) || (l2)) goto La09f;

@@ -145,8 +145,7 @@ L6f9c:
 	goto L6fb8;
 	}
 L6fb8:
-	if (choice != 5) goto L6d16;
-	if (!count) goto L6d16;
+	if ((choice != 5) || (!count)) goto L6d16;
 	if (realm != -1) goto L6ff7;
 	g502e = -1;
 	destroy_window(win, 0);
@@ -222,9 +221,7 @@ L7239:
 	goto L724a;
 	}
 L724a:
-	if (choice == 5) goto L7259;
-	if (back != 1) goto L70c9;
-L7259:
+	if ((choice != 5) && (back != 1)) goto L70c9;
 	if (back == 1) goto L6cf7;
 	spell = spells[sel];
 	draw_list_frame_dopt(list_win, 0);
@@ -324,8 +321,7 @@ L7637:
 	goto L7649;
 	}
 L7649:
-	if (choice != 5) goto L7395;
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost) goto L7395;
+	if ((choice != 5) || (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost)) goto L7395;
 	g502e = -1;
 	destroy_window(win, 0);
 	destroy_window(list_win, 0);

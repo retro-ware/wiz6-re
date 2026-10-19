@@ -179,10 +179,7 @@ L8f05:
 	play_sound(0);
 	wait_animating(message_delay);
 L8f3a:
-	if (loot_count <= 0) goto L8f53;
-	if (sel != -1) goto L8b25;
-	if (l32 == 1) goto L8b25;
-L8f53:
+	if ((loot_count > 0) && ((sel != -1) || (l32 == 1))) goto L8b25;
 	destroy_window(list_win, 0);
 	destroy_window(win, 0);
 	defer_window_draw(main_window);

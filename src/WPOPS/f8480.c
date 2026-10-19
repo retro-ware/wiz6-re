@@ -111,9 +111,7 @@ L878b:
 L87d5:
 	if (l24 != -1) goto L8958;
 	l18 = 0;
-	if ((unsigned)monster[34] >= 2) goto L886f;
-	if (monster[17]) goto L886f;
-	if (monster[16]) goto L886f;
+	if ((((unsigned)monster[34] >= 2) || (monster[17])) || (monster[16])) goto L886f;
 	l20 = (unsigned char)monster[28];
 	if (group != 6) goto L8816;
 	l18 = 9;

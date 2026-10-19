@@ -20,8 +20,7 @@ get_front_wall(x, y, cx, cy, level, side)
 	int facing;
 	register int cell;
 	register int rdi;
-	if (!side) goto L8fac;
-	if (!step_relative(&x, &y, &cx, &cy, &level, side, 0)) goto L8fac;
+	if ((!side) || (!step_relative(&x, &y, &cx, &cy, &level, side, 0))) goto L8fac;
 	if ((view_depth) || (side)) goto L8f63;
 	view_rows_open = 0;
 L8f63:
@@ -118,9 +117,7 @@ case 3:
 L91b9:
 	feature = get_bitfield((maze_data + 504), cell, 4);
 	facing = get_bitfield((maze_data + 888), cell, 2);
-	if ((facing == party_facing) || (feature == 6)) goto L91f8;
-	if (feature <= 12) goto L92e4;
-L91f8:
+	if (((facing != party_facing) && (feature != 6)) && (feature <= 12)) goto L92e4;
 	switch (feature) {
 case 1:
 	wall = 5;

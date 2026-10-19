@@ -211,8 +211,7 @@ L7cee:
 	goto L7d10;
 	}
 L7d10:
-	if (mouse_present) goto L7d9b;
-	if (prev_sel == sel) goto L7d9b;
+	if ((mouse_present) || (prev_sel == sel)) goto L7d9b;
 	if (prev_sel != -1) goto L7d4e;
 	set_cursor(main_window, done_x, done_y);
 	print_string_hi(main_window, &done_text, 3);
@@ -224,8 +223,7 @@ L7d4e:
 L7d70:
 	draw_setting_value(win, prev_sel, (prev_sel - (prev_sel == 5 ? 4 : 3)), (prev_sel == 5 ? 7 : 4));
 L7d9b:
-	if (choice != 5) goto L7a52;
-	if (sel != -1) goto L7a52;
+	if ((choice != 5) || (sel != -1)) goto L7a52;
 	stop_sound();
 	if (changed != 1) goto L7e36;
 	get_message(2258, &l110);

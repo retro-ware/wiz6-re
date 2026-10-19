@@ -16,6 +16,7 @@ extern char pc_class[];
 extern char pc_condition[];
 extern char pc_equipped[];
 extern char pc_item_count[];
+extern char pc_item_icon[];
 extern char pc_item_type[];
 extern char pc_race[];
 extern int blink_state;
@@ -120,9 +121,7 @@ L7864:
 	member = 0;
 L788d:
 	if (member >= party_count) goto L82dd;
-	if ((unsigned)pc_condition[(member * 432)] >= 2) goto L818d;
-	if (g450d[(member * 432)]) goto L818d;
-	if (g450c[(member * 432)]) goto L818d;
+	if ((((unsigned)pc_condition[(member * 432)] >= 2) || (g450d[(member * 432)])) || (g450c[(member * 432)])) goto L818d;
 	done_members[done_count] = member;
 	done_count++;
 	l180 = (monster_groups + (member * 44));
@@ -146,41 +145,14 @@ L7967:
 	l20 = 0;
 L7978:
 	l182 = (unsigned char)pc_equipped[(432 * member)];
-	if (l182 == 255) goto L7a84;
-	if (pc_item_type[((432 * member) + (l182 << 3))] != 3) goto L7a84;
+	if ((l182 == 255) || (pc_item_type[((432 * member) + (l182 << 3))] != 3)) goto L7a84;
 	l184 = (unsigned char)g44f9[(432 * member)];
 	if (l184 == 255) goto L7a7f;
 	if (pc_item_type[((432 * member) + (l184 << 3))] == 4) goto L79cd;
 	enabled[0] = 0;
 	goto L7a7d;
 L79cd:
-	;
-#asm
-l79cd:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00bh,075h,01fh,0b8h,0b0h,001h,0f7h
-	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
-	db 08ah,087h,02dh,044h,03ch,016h,074h,003h,0e9h,070h,000h
-#endasm
-L7a08:
-	;
-#asm
-l7a08:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00dh,075h,01ch,0b8h,0b0h,001h,0f7h
-	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
-	db 08ah,087h,02dh,044h,03ch,017h,075h,038h
-#endasm
-L7a40:
-	;
-#asm
-l7a40:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00ch,075h,021h,0b8h,0b0h,001h,0f7h
-	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
-	db 08ah,087h,02dh,044h,03ch,053h,074h,005h
-#endasm
-L7a78:
+	if ((((pc_item_icon[((432 * member) + (l182 << 3))] != 11) || (pc_item_icon[((432 * member) + (l184 << 3))] == 22)) && ((pc_item_icon[((432 * member) + (l182 << 3))] != 13) || (pc_item_icon[((432 * member) + (l184 << 3))] == 23))) && ((pc_item_icon[((432 * member) + (l182 << 3))] != 12) || (pc_item_icon[((432 * member) + (l184 << 3))] == 83))) goto L7a7d;
 	enabled[0] = 0;
 L7a7d:
 	goto L7a84;

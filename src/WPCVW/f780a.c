@@ -149,8 +149,7 @@ L7be7:
 	goto L7c03;
 	}
 L7c03:
-	if (l6 != 5) goto L793c;
-	if (!l10) goto L793c;
+	if ((l6 != 5) || (!l10)) goto L793c;
 	if (realm != -1) goto L7c42;
 	g553c = -1;
 	destroy_window(l2, 0);
@@ -226,9 +225,7 @@ L7e84:
 	goto L7e95;
 	}
 L7e95:
-	if (l6 == 5) goto L7ea4;
-	if (l60 != 1) goto L7d14;
-L7ea4:
+	if ((l6 != 5) && (l60 != 1)) goto L7d14;
 	if (l60 == 1) goto L7923;
 	spell = l50[l58];
 	if (ask_power) goto L7ee8;
@@ -334,8 +331,7 @@ L82ac:
 	goto L82be;
 	}
 L82be:
-	if (l6 != 5) goto L800b;
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < l66) goto L800b;
+	if ((l6 != 5) || (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < l66)) goto L800b;
 	g553c = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);

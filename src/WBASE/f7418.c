@@ -36,16 +36,7 @@ L74e8:
 	play_sound(0);
 	goto L754c;
 L74fa:
-	if (mode) goto L750d;
-#asm
-	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
-#endasm
-L750d:
-	if (mode != 1) goto L754c;
-#asm
-	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
-#endasm
-L7520:
+	if (((mode) || ((key < 32) || (key > 127))) && ((mode != 1) || ((key < 48) || (key > 57)))) goto L754c;
 	*(buf + len) = *(char *)&key;
 	len++;
 	*(buf + len) = 0;

@@ -69,8 +69,7 @@ L977b:
 L978a:
 	draw_sheet(p4, p6, p8);
 L9799:
-	if (((unsigned char)pc_item_count[(432 * l4)] + (unsigned char)pc_swag_count[(432 * l4)]) >= 22) goto L9b3c;
-	if ((unsigned)pc_item_count[(432 * p8)] <= 0) goto L9b3c;
+	if ((((unsigned char)pc_item_count[(432 * l4)] + (unsigned char)pc_swag_count[(432 * l4)]) >= 22) || ((unsigned)pc_item_count[(432 * p8)] <= 0)) goto L9b3c;
 	g43ca = choose_item(p4, p6, 403, p8, 0);
 	if (g43ca == -1) goto L96cb;
 	if ((!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1)) && (!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 2))) goto L9828;

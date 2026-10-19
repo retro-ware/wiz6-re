@@ -45,9 +45,7 @@ l6456:
 	db 0a1h,080h,04fh,08bh,016h,082h,04fh,089h,016h,07eh,04fh,0a3h,07ch,04fh
 #endasm
 L6464:
-	if (l8 <= 0) goto L658a;
-	if (g5038) goto L658a;
-	if (game_state != 5) goto L658a;
+	if (((l8 <= 0) || (g5038)) || (game_state != 5)) goto L658a;
 	l2 = 0;
 	goto L649f;
 L6488:

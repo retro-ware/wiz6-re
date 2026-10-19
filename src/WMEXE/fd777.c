@@ -19,8 +19,7 @@ fd777(p4, p6, p8, p10, p12, p14)
 	int l8;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto Ld809;
-	if (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ld809;
+	if ((!p14) || (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ld809;
 	if ((pclist_race) || (p14)) goto Ld7c0;
 	view_rows_open = 0;
 Ld7c0:
@@ -117,9 +116,7 @@ case 3:
 Lda16:
 	l6 = get_bitfield((maze_data + 504), rsi, 4);
 	l8 = get_bitfield((maze_data + 888), rsi, 2);
-	if ((l8 == party_facing) || (l6 == 6)) goto Lda55;
-	if (l6 <= 12) goto Ldb41;
-Lda55:
+	if (((l8 != party_facing) && (l6 != 6)) && (l6 <= 12)) goto Ldb41;
 	switch (l6) {
 case 1:
 	l4 = 5;

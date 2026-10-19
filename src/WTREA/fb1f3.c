@@ -159,8 +159,7 @@ Lb919:
 Lb921:
 	l14 = ((rsi * 11) + 21266);
 	g545e = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)l14[10] != g5282) goto Lba04;
-	if ((unsigned char)l14[8] != 255) goto Lba04;
+	if (((unsigned char)l14[10] != g5282) || ((unsigned char)l14[8] != 255)) goto Lba04;
 	if (*(int *)l14 == -1) goto Lb9b5;
 	if (*(int *)(l14 + 4) == -1) goto Lb9a0;
 	drv_op_c6((g545e != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g545e != 0 ? *(int *)l14 : -1));

@@ -9,7 +9,6 @@
 	extrn f87ae_:near
 	extrn f88b1_:near
 	extrn f8bdb_:near
-	extrn f8efc_:near
 	extrn random_:near
 	extrn roll_dice_x_:near
 #endasm
@@ -691,19 +690,10 @@ la8fe:
 la901:
 	db 050h
 	call f87ae_
-	db 083h,0c4h,016h,0e9h,016h,007h,0b8h,000h,000h,050h,0b8h,004h,000h,050h,0ffh,076h
-	db 0f8h,0ffh,076h,0fah
-	call f8efc_
-	db 083h,0c4h,008h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h
-	db 0d0h,000h,03ch,016h,075h,007h
+	db 083h,0c4h,016h,0e9h,016h,007h
 #endasm
-	if (g4352) goto La946;
-La939:
-	;
-#asm
-la939:
-	db 03ch,014h,074h,009h,03ch,015h,074h,005h
-#endasm
+	f8efc(l6, l8, 4, 0);
+	if ((((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 22) && (g4352)) || (((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 20) || ((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 21))) goto La946;
 	l10 = -100;
 La946:
 	rsi = (44 * l8);

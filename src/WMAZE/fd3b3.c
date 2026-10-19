@@ -109,9 +109,7 @@ Ld776:
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld7ac;
 	l74 = 0;
 Ld7ac:
-	if (l74 != 1) goto Ld7bc;
-	if (!check_screen_click()) goto Ld6c1;
-Ld7bc:
+	if ((l74 == 1) && (!check_screen_click())) goto Ld6c1;
 	if (!result) goto Ld806;
 	if ((result != 1) || (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13))) goto Ld7f1;
 	try_skill_gain(member, 15, 1);

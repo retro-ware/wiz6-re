@@ -2,6 +2,7 @@ extern char pc_class[];
 extern char pc_equipped[];
 extern char pc_item_count[];
 extern char pc_item_flags[];
+extern char pc_item_icon[];
 extern char pc_item_type[];
 extern char pc_race[];
 extern char pc_sex[];
@@ -82,31 +83,7 @@ Lc9dd:
 	l4 = (unsigned char)pc_equipped[(432 * p4)];
 	if (l4 == 255) goto Lcae9;
 	if (pc_item_type[((432 * p4) + (l4 << 3))] != 3) goto Lcac8;
-#asm
-lca11:
-	db 08ah,087h,02dh,044h,03ch,00bh,075h,01bh,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,04eh
-	db 0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch
-	db 016h,075h,06ch
-#endasm
-Lca34:
-	;
-#asm
-lca34:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h
-	db 0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00dh,075h,01bh,0b8h,0b0h,001h,0f7h,06eh
-	db 004h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h
-	db 02dh,044h,03ch,017h,075h,036h
-#endasm
-Lca6a:
-	;
-#asm
-lca6a:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h
-	db 0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00ch,075h,022h,0b8h,0b0h,001h,0f7h,06eh
-	db 004h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h
-	db 02dh,044h,03ch,053h,074h,007h
-#endasm
-Lcaa0:
+	if ((((pc_item_icon[((432 * p4) + (l4 << 3))] != 11) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 22)) && ((pc_item_icon[((432 * p4) + (l4 << 3))] != 13) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 23))) && ((pc_item_icon[((432 * p4) + (l4 << 3))] != 12) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 83))) goto Lcaa7;
 	l6 = -1;
 	goto Lcac6;
 Lcaa7:

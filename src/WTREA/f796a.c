@@ -144,8 +144,7 @@ L7d09:
 	goto L7d25;
 	}
 L7d25:
-	if (l6 != 5) goto L7a83;
-	if (!count) goto L7a83;
+	if ((l6 != 5) || (!count)) goto L7a83;
 	if (realm != -1) goto L7d64;
 	g501c = -1;
 	destroy_window(l2, 0);
@@ -221,9 +220,7 @@ L7fa6:
 	goto L7fb7;
 	}
 L7fb7:
-	if (l6 == 5) goto L7fc6;
-	if (l60 != 1) goto L7e36;
-L7fc6:
+	if ((l6 != 5) && (l60 != 1)) goto L7e36;
 	if (l60 == 1) goto L7a64;
 	spell = spells[pos];
 	draw_chest_list_box(l4, 0);
@@ -323,8 +320,7 @@ L83a4:
 	goto L83b6;
 	}
 L83b6:
-	if (l6 != 5) goto L8102;
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost) goto L8102;
+	if ((l6 != 5) || (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost)) goto L8102;
 	g501c = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);

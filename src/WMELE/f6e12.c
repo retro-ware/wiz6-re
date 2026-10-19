@@ -21,8 +21,7 @@ L6e57:
 	l8 = random(4);
 	flash = 0;
 L6e67:
-	if ((random(8)) && (flash != l8)) goto L6e8e;
-	if ((unsigned)g43b8[210] <= 0) goto L6e8e;
+	if (((random(8)) && (flash != l8)) || ((unsigned)g43b8[210] <= 0)) goto L6e8e;
 	play_sound(14);
 L6e8e:
 	view_anim_state = -2;

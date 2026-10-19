@@ -1,23 +1,15 @@
-#asm
-	extrn drv_op_c6_:near
-	extrn fdedc_:near
-#endasm
+extern int anim_phase;
 extern int g52f4;
-fe503(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
+fe503(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p34)
 {
-	if ((p4 == 3) && (p6)) goto Le51f;
-#asm
-le512:
-	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h
-#endasm
-Le51f:
+	if (((p4 != 3) || (!p6)) && ((p6 != 2) && (p6 < 7))) goto Le550;
 	drv_op_c6((g52f4 ? (p14 + p4) : (p12 + p4)), 1, (g52f4 != 0 ? (p12 + p4) : -1));
 Le550:
 	if (p4 >= 3) goto Le6ee;
-#asm
-le559:
-	db 08bh,046h,006h,0e9h,082h,001h
-#endasm
+	switch (p6) {
+case 1:
+case 3:
+case 4:
 	drv_op_c6((g52f4 ? (p18 + p4) : (p16 + p4)), 1, (g52f4 != 0 ? (p16 + p4) : -1));
 	if (p6 != 3) goto Le5b6;
 	drv_op_c6((p20 + p4), (p4 < 3 ? 0 : 1), -1);
@@ -26,51 +18,27 @@ Le5b6:
 	if (p6 != 4) goto Le5da;
 	drv_op_c6((p22 + p4), (p4 < 3 ? 0 : 1), -1);
 Le5da:
-	goto Le6ee;
-#asm
-	db 0b8h,0ffh,0ffh,083h,03eh,0f4h,052h,000h,074h,006h,08bh,046h,018h,003h,046h,004h
-le5ed:
-	db 050h,0b8h,001h,000h,050h,083h,03eh,0f4h,052h,000h,074h,008h,08bh,046h,01ah,003h
-	db 046h,004h,0ebh,006h
-le601:
-	db 08bh,046h,018h,003h,046h,004h
-le607:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0e9h,0ddh,000h,0b8h,0ffh,0ffh,083h,03eh,0f4h,052h,000h,074h,006h
-	db 08bh,046h,01ch,003h,046h,004h
-le621:
-	db 050h,0b8h,000h,000h,050h,083h,03eh,0f4h,052h,000h,074h,008h,08bh,046h,01eh,003h
-	db 046h,004h,0ebh,006h
-le635:
-	db 08bh,046h,01ch,003h,046h,004h
-le63b:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0e9h,0a9h,000h,0ffh,076h,004h,0b8h,0f8h,000h,050h,0b8h,048h,000h
-	db 050h,08bh,046h,004h,0d1h,0e0h,003h,046h,008h,003h,006h,046h,036h,050h,0b8h,000h
-	db 000h,050h,050h,0b8h,001h,000h,050h
-	call fdedc_
-	db 083h,0c4h,00eh,0e9h,07fh,000h,0ffh,076h,004h,0b8h,0f8h,000h,050h,0b8h,048h,000h
-	db 050h,08bh,046h,004h,003h,046h,00ah,050h,0b8h,000h,000h,050h,050h,0b8h,002h,000h
-	db 050h
-	call fdedc_
-	db 083h,0c4h,00eh,0ebh,05ch,0b8h,0ffh,0ffh,083h,03eh,0f4h,052h,000h,074h,006h,08bh
-	db 046h,020h,003h,046h,004h
-le6a2:
-	db 050h,0b8h,000h,000h,050h,083h,03eh,0f4h,052h,000h,074h,008h,08bh,046h,022h,003h
-	db 046h,004h,0ebh,006h
-le6b6:
-	db 08bh,046h,020h,003h,046h,004h
-le6bc:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0ebh,029h,0eeh,0e6h,05fh,0e5h,0eeh,0e6h,05fh,0e5h,05fh,0e5h,0ddh
-	db 0e5h,0ddh,0e5h,011h,0e6h,045h,0e6h,06fh,0e6h,092h,0e6h,092h,0e6h,092h,0e6h,092h
-	db 0e6h
-le6e1:
-	db 03dh,00eh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0c5h,0e6h
-#endasm
+	break;
+case 5:
+case 6:
+	drv_op_c6((g52f4 ? (p26 + p4) : (p24 + p4)), 1, (g52f4 != 0 ? (p24 + p4) : -1));
+	break;
+case 7:
+	drv_op_c6((g52f4 ? (p30 + p4) : (p28 + p4)), 0, (g52f4 != 0 ? (p28 + p4) : -1));
+	break;
+case 8:
+	fdedc(1, 0, 0, (((p4 << 1) + p8) + anim_phase), 72, 248, p4);
+	break;
+case 9:
+	fdedc(2, 0, 0, (p4 + p10), 72, 248, p4);
+	break;
+case 10:
+case 11:
+case 12:
+case 13:
+	drv_op_c6((g52f4 ? (p34 + p4) : (p32 + p4)), 0, (g52f4 != 0 ? (p32 + p4) : -1));
+	break;
+	}
 Le6ee:
 	;
 }

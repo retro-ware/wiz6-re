@@ -159,8 +159,7 @@ L9761:
 L9769:
 	l14 = ((rsi * 11) + 20688);
 	g521c = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)l14[10] != g5040) goto L984c;
-	if ((unsigned char)l14[8] != 255) goto L984c;
+	if (((unsigned char)l14[10] != g5040) || ((unsigned char)l14[8] != 255)) goto L984c;
 	if (*(int *)l14 == -1) goto L97fd;
 	if (*(int *)(l14 + 4) == -1) goto L97e8;
 	drv_op_c6((g521c != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g521c != 0 ? *(int *)l14 : -1));

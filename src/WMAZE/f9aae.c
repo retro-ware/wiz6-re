@@ -35,16 +35,7 @@ L9b7c:
 	play_sound(0);
 	goto L9be0;
 L9b8e:
-	if (p12) goto L9ba1;
-#asm
-	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
-#endasm
-L9ba1:
-	if (p12 != 1) goto L9be0;
-#asm
-	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
-#endasm
-L9bb4:
+	if (((p12) || ((l2 < 32) || (l2 > 127))) && ((p12 != 1) || ((l2 < 48) || (l2 > 57)))) goto L9be0;
 	*(p6 + l4) = *(char *)&l2;
 	l4++;
 	*(p6 + l4) = 0;

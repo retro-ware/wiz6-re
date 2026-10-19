@@ -51,8 +51,7 @@ Lab35:
 	*(int *)(l31 + 0) = 0;
 	if (!*(char *)&l23) goto Laceb;
 	*(long *)(l31 + 0) = (long)atol(&l23);
-	if (*(long *)(l31 + 0) < 0L) goto Lacd9;
-	if (*(long *)((char *)pc_gold + (432 * member)) < *(long *)(l31 + 0)) goto Lacd9;
+	if ((*(long *)(l31 + 0) < 0L) || (*(long *)((char *)pc_gold + (432 * member)) < *(long *)(l31 + 0))) goto Lacd9;
 	*(long *)((char *)pc_gold + (432 * member)) -= *(long *)(l31 + 0);
 	g51c0 += *(long *)(l31 + 0);
 	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((*(long *)(l31 + 0) / 10L) / (long)(unsigned char)g51cf))) <= 100) goto Lacc0;

@@ -1,23 +1,15 @@
-#asm
-	extrn add_view_object_t_:near
-	extrn drv_op_c6_:near
-#endasm
+extern int anim_phase;
 extern int g545c;
-draw_side_walls_t(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22)
+draw_side_walls_t(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p34)
 {
-	if ((p4 == 3) && (p6)) goto Lacec;
-#asm
-lacdf:
-	db 08bh,046h,006h,03dh,002h,000h,074h,005h,03dh,007h,000h,07ch,031h
-#endasm
-Lacec:
+	if (((p4 != 3) || (!p6)) && ((p6 != 2) && (p6 < 7))) goto Lad1d;
 	drv_op_c6((g545c ? (p14 + p4) : (p12 + p4)), 1, (g545c != 0 ? (p12 + p4) : -1));
 Lad1d:
 	if (p4 >= 3) goto Laebb;
-#asm
-lad26:
-	db 08bh,046h,006h,0e9h,082h,001h
-#endasm
+	switch (p6) {
+case 1:
+case 3:
+case 4:
 	drv_op_c6((g545c ? (p18 + p4) : (p16 + p4)), 1, (g545c != 0 ? (p16 + p4) : -1));
 	if (p6 != 3) goto Lad83;
 	drv_op_c6((p20 + p4), (p4 < 3 ? 0 : 1), -1);
@@ -26,51 +18,27 @@ Lad83:
 	if (p6 != 4) goto Lada7;
 	drv_op_c6((p22 + p4), (p4 < 3 ? 0 : 1), -1);
 Lada7:
-	goto Laebb;
-#asm
-	db 0b8h,0ffh,0ffh,083h,03eh,05ch,054h,000h,074h,006h,08bh,046h,018h,003h,046h,004h
-ladba:
-	db 050h,0b8h,001h,000h,050h,083h,03eh,05ch,054h,000h,074h,008h,08bh,046h,01ah,003h
-	db 046h,004h,0ebh,006h
-ladce:
-	db 08bh,046h,018h,003h,046h,004h
-ladd4:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0e9h,0ddh,000h,0b8h,0ffh,0ffh,083h,03eh,05ch,054h,000h,074h,006h
-	db 08bh,046h,01ch,003h,046h,004h
-ladee:
-	db 050h,0b8h,000h,000h,050h,083h,03eh,05ch,054h,000h,074h,008h,08bh,046h,01eh,003h
-	db 046h,004h,0ebh,006h
-lae02:
-	db 08bh,046h,01ch,003h,046h,004h
-lae08:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0e9h,0a9h,000h,0ffh,076h,004h,0b8h,0f8h,000h,050h,0b8h,048h,000h
-	db 050h,08bh,046h,004h,0d1h,0e0h,003h,046h,008h,003h,006h,046h,036h,050h,0b8h,000h
-	db 000h,050h,050h,0b8h,001h,000h,050h
-	call add_view_object_t_
-	db 083h,0c4h,00eh,0e9h,07fh,000h,0ffh,076h,004h,0b8h,0f8h,000h,050h,0b8h,048h,000h
-	db 050h,08bh,046h,004h,003h,046h,00ah,050h,0b8h,000h,000h,050h,050h,0b8h,002h,000h
-	db 050h
-	call add_view_object_t_
-	db 083h,0c4h,00eh,0ebh,05ch,0b8h,0ffh,0ffh,083h,03eh,05ch,054h,000h,074h,006h,08bh
-	db 046h,020h,003h,046h,004h
-lae6f:
-	db 050h,0b8h,000h,000h,050h,083h,03eh,05ch,054h,000h,074h,008h,08bh,046h,022h,003h
-	db 046h,004h,0ebh,006h
-lae83:
-	db 08bh,046h,020h,003h,046h,004h
-lae89:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h,0ebh,029h,0bbh,0aeh,02ch,0adh,0bbh,0aeh,02ch,0adh,02ch,0adh,0aah
-	db 0adh,0aah,0adh,0deh,0adh,012h,0aeh,03ch,0aeh,05fh,0aeh,05fh,0aeh,05fh,0aeh,05fh
-	db 0aeh
-laeae:
-	db 03dh,00eh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,092h,0aeh
-#endasm
+	break;
+case 5:
+case 6:
+	drv_op_c6((g545c ? (p26 + p4) : (p24 + p4)), 1, (g545c != 0 ? (p24 + p4) : -1));
+	break;
+case 7:
+	drv_op_c6((g545c ? (p30 + p4) : (p28 + p4)), 0, (g545c != 0 ? (p28 + p4) : -1));
+	break;
+case 8:
+	add_view_object_t(1, 0, 0, (((p4 << 1) + p8) + anim_phase), 72, 248, p4);
+	break;
+case 9:
+	add_view_object_t(2, 0, 0, (p4 + p10), 72, 248, p4);
+	break;
+case 10:
+case 11:
+case 12:
+case 13:
+	drv_op_c6((g545c ? (p34 + p4) : (p32 + p4)), 0, (g545c != 0 ? (p32 + p4) : -1));
+	break;
+	}
 Laebb:
 	;
 }

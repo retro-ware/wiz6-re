@@ -159,8 +159,7 @@ Lf554:
 Lf55c:
 	l14 = ((rsi * 11) + 27444);
 	g6c80 = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if ((unsigned char)l14[10] != g6aa4) goto Lf63f;
-	if ((unsigned char)l14[8] != 255) goto Lf63f;
+	if (((unsigned char)l14[10] != g6aa4) || ((unsigned char)l14[8] != 255)) goto Lf63f;
 	if (*(int *)l14 == -1) goto Lf5f0;
 	if (*(int *)(l14 + 4) == -1) goto Lf5db;
 	drv_op_c6((g6c80 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)l14 : -1));

@@ -12,12 +12,10 @@ char *win;
 	defer_window_draw(win);
 	row = -2;
 L76f3:
-	if ((sel + row) < 0) goto L7844;
-	if ((sel + row) >= g51b8) goto L7844;
+	if (((sel + row) < 0) || ((sel + row) >= g51b8)) goto L7844;
 	set_cursor(win, 2, (row + 2));
 	slot = g51ba[(sel + row)];
-	if (highlight != 1) goto L77b3;
-	if (row) goto L77b3;
+	if ((highlight != 1) || (row)) goto L77b3;
 	print_string(win, ((slot << 4) + 20966), 3);
 	if (g5346[slot] <= 0) goto L7797;
 L775f:

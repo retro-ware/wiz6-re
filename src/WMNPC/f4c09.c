@@ -16,9 +16,7 @@ f4c09(p4)
 	delay_tick();
 	goto L4de9;
 L4c2f:
-	if (((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] == 20) || (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] == 35)) || (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] == 54)) goto L4c58;
-	if (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 57) goto L4db5;
-L4c58:
+	if ((((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 20) && (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 35)) && (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 54)) && (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 57)) goto L4db5;
 	rdi = (unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21];
 	l8[(0 + 1)] = 0;
 	l9 = (*(char **)((char *)sprite_list + (p4 << 1)))[8];

@@ -15,8 +15,7 @@ can_enter_cell(p4, p6)
 	register int rsi;
 	register int rdi;
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
-	if (((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) goto L7664;
-	if (get_bitfield((maze_data + 888), rsi, 2) != p4) goto L7664;
+	if ((((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) || (get_bitfield((maze_data + 888), rsi, 2) != p4)) goto L7664;
 	return 1;
 L7664:
 	l8 = party_x;

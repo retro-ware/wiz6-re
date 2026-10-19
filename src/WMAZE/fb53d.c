@@ -108,18 +108,14 @@ Lb8ab:
 Lb8b8:
 	goto Lb94c;
 Lb8bb:
-	if ((l28 == 1) && (!l24)) goto Lb8d3;
-	if ((l28 != -1) || (l24 != 1)) goto Lb8fa;
-Lb8d3:
+	if (((l28 != 1) || (l24)) && ((l28 != -1) || (l24 != 1))) goto Lb8fa;
 	draw_maze_view_m();
 	shake_view(1, l26);
 	drv_op_c2(picture_win);
 	shake_view(6, l26);
 	goto Lb94c;
 Lb8fa:
-	if ((l28 == 1) && (l24 == 1)) goto Lb912;
-	if ((l28 != -1) || (l24)) goto Lb939;
-Lb912:
+	if (((l28 != 1) || (l24 != 1)) && ((l28 != -1) || (l24))) goto Lb939;
 	draw_maze_view_m();
 	shake_view(6, l26);
 	drv_op_c2(picture_win);

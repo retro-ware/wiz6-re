@@ -12,10 +12,7 @@ inflict_condition(member, msg, resist, condition)
 	int l85;
 	char x85[3];
 	int l90;
-	if (!resist) goto L5c3f;
-	if (random(100) <= (unsigned char)g453a[((432 * member) + resist)]) goto L5cbf;
-L5c3f:
-	if ((unsigned char)pc_condition[(432 * member)] >= condition) goto L5cbf;
+	if (((resist) && (random(100) <= (unsigned char)g453a[((432 * member) + resist)])) || ((unsigned char)pc_condition[(432 * member)] >= condition)) goto L5cbf;
 	pc_condition[(432 * member)] = *(char *)&condition;
 	if (condition < 3) goto L5c79;
 	*(int *)((char *)pc_hp + (432 * member)) = 0;

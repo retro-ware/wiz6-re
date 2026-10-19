@@ -122,8 +122,7 @@ L5201:
 	i = 8;
 	if (start[i] > frame) goto L5280;
 	y = (glyph_y[i] - (frame - start[i]));
-	if ((i >= 3) && (i != 8)) goto L5253;
-	if (min_y[i] <= y) goto L5253;
+	if (((i >= 3) && (i != 8)) || (min_y[i] <= y)) goto L5253;
 	y = min_y[i];
 L5253:
 	if (min_y[i] > y) goto L5280;
@@ -143,9 +142,7 @@ L5299:
 L52b7:
 	frame += 2;
 L52bd:
-	if (!animating) goto L52d4;
-	if (((start[7] + glyph_y[7]) - min_y[7]) > frame) goto L5201;
-L52d4:
+	if ((animating) && (((start[7] + glyph_y[7]) - min_y[7]) > frame)) goto L5201;
 	drv_op_b6(-1);
 	draw_big_char(7, 76, 3);
 	draw_big_char(8, 76, 35);

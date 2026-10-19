@@ -248,8 +248,7 @@ lce09:
 	db 08bh,05eh,0feh,08ah,047h,01eh,02ah,0e4h,0e9h,043h,002h
 #endasm
 	rsi = ((unsigned char)l2[32] * 44);
-	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] >= 3) goto Lcee7;
-	if (((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43]) goto Lcee7;
+	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + rsi)[34] >= 3) || (((char *)monster_groups[(unsigned char)l2[31]] + rsi)[43])) goto Lcee7;
 	rsi = ((unsigned char)l2[33] % 2);
 	l10 = (unsigned char)(l2 + rsi)[28];
 	if ((g435e) || ((unsigned char)pc_equipped[((432 * g435c) + l10)] != 255)) goto Lce81;

@@ -181,8 +181,7 @@ L7dd4:
 L7df9:
 	goto L7ed1;
 L7dfc:
-	if (l23 != 4) goto L7ea2;
-	if (game_state_arg != l68) goto L7ea2;
+	if ((l23 != 4) || (game_state_arg != l68)) goto L7ea2;
 	set_bit(((l68 * 10) + 20204), (unsigned char)l66, 0);
 	set_bit(((l68 * 10) + 13304), (unsigned char)l66, 0);
 	set_bit(((l68 * 10) + 20204), (unsigned char)l65, 1);

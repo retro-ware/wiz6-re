@@ -187,9 +187,7 @@ Ld80a:
 	pc_item_flags[((432 * p8) + (l8 << 3))] |= 1;
 	access_scenario_record(1, &l296, *(int *)((char *)pc_item_id + ((432 * p8) + (l8 << 3))), 0);
 	l48[l2] = (unsigned char)l228;
-	if (!l2) goto Ld88d;
-	if (l2 != 1) goto Lda1d;
-Ld88d:
+	if ((l2) && (l2 != 1)) goto Lda1d;
 	g4549[(432 * p8)] -= l226;
 #asm
 	db 08ah,086h,018h,0ffh,08bh,076h,0feh,0b9h,004h,000h,0d3h,0e6h,08bh,0ceh,003h,0d9h

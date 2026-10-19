@@ -144,8 +144,7 @@ L9087:
 	goto L90a3;
 	}
 L90a3:
-	if (l6 != 5) goto L8e01;
-	if (!l10) goto L8e01;
+	if ((l6 != 5) || (!l10)) goto L8e01;
 	if (l64 != -1) goto L90e2;
 	g522c = -1;
 	destroy_window(l2, 0);
@@ -221,9 +220,7 @@ L9324:
 	goto L9335;
 	}
 L9335:
-	if (l6 == 5) goto L9344;
-	if (l60 != 1) goto L91b4;
-L9344:
+	if ((l6 != 5) && (l60 != 1)) goto L91b4;
 	if (l60 == 1) goto L8de2;
 	l52 = l50[l58];
 	f88c7(l4, 0);
@@ -323,8 +320,7 @@ L9722:
 	goto L9734;
 	}
 L9734:
-	if (l6 != 5) goto L9480;
-	if (*(int *)((char *)pc_spell_pts + ((432 * p6) + (l64 << 2))) < l66) goto L9480;
+	if ((l6 != 5) || (*(int *)((char *)pc_spell_pts + ((432 * p6) + (l64 << 2))) < l66)) goto L9480;
 	g522c = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);

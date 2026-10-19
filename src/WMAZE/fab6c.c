@@ -12,10 +12,7 @@ inflict_condition(p4, p6, p8, p10)
 	int l85;
 	char x85[3];
 	int l90;
-	if (!p8) goto Lab9c;
-	if (random(100) <= (unsigned char)g453a[((432 * p4) + p8)]) goto Lac1c;
-Lab9c:
-	if ((unsigned char)pc_condition[(432 * p4)] >= p10) goto Lac1c;
+	if (((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) || ((unsigned char)pc_condition[(432 * p4)] >= p10)) goto Lac1c;
 	pc_condition[(432 * p4)] = *(char *)&p10;
 	if (p10 < 3) goto Labd6;
 	*(int *)((char *)pc_hp + (432 * p4)) = 0;

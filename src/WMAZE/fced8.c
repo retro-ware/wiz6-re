@@ -120,9 +120,7 @@ Ld2a5:
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld2f4;
 	l62 = 0;
 Ld2f4:
-	if (l62 != 1) goto Ld304;
-	if (!check_screen_click()) goto Ld157;
-Ld304:
+	if ((l62 == 1) && (!check_screen_click())) goto Ld157;
 	result = (strength >= target ? 0 : 1);
 	if (!l60) goto Ld320;
 	result = 2;

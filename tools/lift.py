@@ -1382,11 +1382,11 @@ class Lifter:
             for b in self.sts:
                 a = sts[-1] if sts else None
                 if a is not None and a.kind == b.kind == 'if' and a.e == b.s and \
-                        b.s not in self.targets and a.s not in self.nobool:
+                        self.tcount.get(b.s, 0) == self.jumps_to(a.s, a.e, b.s) and a.s not in self.nobool:
                     c = None
                     if a.target == b.target:
                         c = ('||', a.cond, b.cond)
-                    elif a.target == b.e and self.tcount.get(b.e, 0) == self.jumps_to(a.s, a.e, b.e):
+                    elif a.target == b.e and self.tcount.get(b.e, 0) == self.jumps_to(a.s, b.e, b.e):
                         c = ('&&', negate(a.cond), b.cond)
                     if c is not None:
                         sts[-1] = St('if', a.s, b.e, cond=c, target=b.target, merged=True)

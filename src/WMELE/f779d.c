@@ -20,8 +20,7 @@ get_center_wall(x, y, cx, cy, level, side)
 	int l8;
 	register int cell;
 	register int rdi;
-	if (!side) goto L782f;
-	if (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0)) goto L782f;
+	if ((!side) || (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0))) goto L782f;
 	if ((g5118) || (side)) goto L77e6;
 	view_rows_open = 0;
 L77e6:
@@ -118,9 +117,7 @@ case 3:
 L7a3c:
 	l6 = get_bitfield((maze_data + 504), cell, 4);
 	l8 = get_bitfield((maze_data + 888), cell, 2);
-	if ((l8 == party_facing) || (l6 == 6)) goto L7a7b;
-	if (l6 <= 12) goto L7b67;
-L7a7b:
+	if (((l8 != party_facing) && (l6 != 6)) && (l6 <= 12)) goto L7b67;
 	switch (l6) {
 case 1:
 	wall = 5;

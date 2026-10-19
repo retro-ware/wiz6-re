@@ -19,8 +19,7 @@ get_front_wall_t(p4, p6, p8, p10, p12, p14)
 	int l8;
 	register int rsi;
 	register int rdi;
-	if (!p14) goto L9fd6;
-	if (!step_relative_t(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L9fd6;
+	if ((!p14) || (!step_relative_t(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L9fd6;
 	if ((g5282) || (p14)) goto L9f8d;
 	view_rows_open = 0;
 L9f8d:
@@ -117,9 +116,7 @@ case 3:
 La1e3:
 	l6 = get_bitfield((maze_data + 504), rsi, 4);
 	l8 = get_bitfield((maze_data + 888), rsi, 2);
-	if ((l8 == party_facing) || (l6 == 6)) goto La222;
-	if (l6 <= 12) goto La30e;
-La222:
+	if (((l8 != party_facing) && (l6 != 6)) && (l6 <= 12)) goto La30e;
 	switch (l6) {
 case 1:
 	l4 = 5;

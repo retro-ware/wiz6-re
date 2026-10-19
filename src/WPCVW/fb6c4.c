@@ -344,8 +344,7 @@ Lc1be:
 Lc1cf:
 	l168 = 5;
 Lc1d5:
-	if (!l122[7]) goto Lc296;
-	if (!((unsigned char)l14 - (unsigned char)l13)) goto Lc296;
+	if ((!l122[7]) || (!((unsigned char)l14 - (unsigned char)l13))) goto Lc296;
 	l168 = (l122[8] != 0 ? 4 : 3);
 	set_cursor(l6, 11, l168);
 	get_message(468, 21902);

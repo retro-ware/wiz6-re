@@ -32,9 +32,7 @@ lad36:
 	call roll_dice_
 	db 083h,0c4h,004h,089h,046h,0fah
 #endasm
-	if (!p8) goto Lad96;
-	if (random(100) <= ((unsigned char)g453a[((432 * p4) + p8)] - (p12 * 3))) goto Lae46;
-Lad96:
+	if ((p8) && (random(100) <= ((unsigned char)g453a[((432 * p4) + p8)] - (p12 * 3)))) goto Lae46;
 	if (p16 != 255) goto Ladaf;
 	g450a[((432 * p4) + p10)] = 255;
 	goto Lade5;

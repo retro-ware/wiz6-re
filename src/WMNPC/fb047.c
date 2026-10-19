@@ -71,9 +71,7 @@ Lb215:
 Lb230:
 	goto Lb2d5;
 Lb233:
-	if ((chance << 1) < roll) goto Lb246;
-	if (roll < 95) goto Lb2c7;
-Lb246:
+	if (((chance << 1) >= roll) && (roll < 95)) goto Lb2c7;
 	get_message(1576, 20948);
 	replace_char_with_string(20948, ((432 * member) + 17384), 94);
 	f5d0c(20948, 1);

@@ -118,8 +118,7 @@ l9431:
 	db 0e9h,0c7h,001h
 #endasm
 	member = choose_party_member(5220, 0);
-	if (member == -1) goto L954e;
-	if (!is_member_able(member)) goto L954e;
+	if ((member == -1) || (!is_member_able(member))) goto L954e;
 	l2 = disarm_chest(member, chest);
 	defer_window_draw(win);
 	defer_window_draw(trap_win);

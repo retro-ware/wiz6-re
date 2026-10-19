@@ -45,8 +45,7 @@ L792f:
 L7934:
 	l10 = 0;
 	save_position();
-	if (l8 == -1) goto L79ba;
-	if (random(4)) goto L79ba;
+	if ((l8 == -1) || (random(4))) goto L79ba;
 	party_facing = ((party_facing + l8) % 4);
 	if (try_step(&l106)) goto L7983;
 	if (l6) goto L7979;
@@ -67,8 +66,7 @@ L79aa:
 L79b4:
 	party_facing = g4f8c;
 L79ba:
-	if (l10) goto L7a3b;
-	if (try_step(&l106) != 1) goto L7a3b;
+	if ((l10) || (try_step(&l106) != 1)) goto L7a3b;
 	party_facing = (((!random(2) ? 1 : 3) + party_facing) % 4);
 	if (try_step(&l106)) goto L7a03;
 	show_prev_position();
