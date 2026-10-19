@@ -57,6 +57,9 @@
 - [x] Promoted run 27 (scratch si/di index registers, with a register-variable retry when the prologue differs; `break` for returns in a switch right before the epilogue): 884 functions in C (472 asm-free), sbuild all 12 OK
 - [x] Promoted runs 28/29 (struct-by-value call arguments; `char == -1` byte compares): 884 functions in C (475 asm-free), sbuild all 12 OK
 - [x] Promoted run 30 (value-scan `repne scasw` switches): 889 functions in C (479 asm-free), sbuild all 12 OK
+- [x] Promoted run 31 (zero-extended long call arguments): 890 functions in C (480 asm-free), sbuild all 12 OK
+- [x] Promoted run 32 (bare returns before the epilogue print as goto to it): 890 functions in C (520 asm-free), sbuild all 12 OK
+- [x] Promoted run 33 (globals indexed as [bx+si+d] are char pointers; index temps loaded from memory): 890 functions in C (548 asm-free), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
