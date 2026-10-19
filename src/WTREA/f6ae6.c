@@ -37,25 +37,17 @@ L6bf7:
 	draw_trap_list(win, sel, 1, count, traps);
 	l2 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L6c4c;
-	goto L6c3d;
+	switch (l2) {
+case 0:
 	l2 = 5;
-#asm
-	db 0ebh,01dh
-#endasm
+	goto L6c4c;
+case 1:
 	l2 = 2;
-#asm
-	db 0ebh,016h
-#endasm
+	goto L6c4c;
+case 2:
 	l2 = 4;
-#asm
-	db 0ebh,00fh
-#endasm
-L6c3d:
-	;
-#asm
-l6c3d:
-	db 03dh,000h,000h,074h,0e6h,03dh,001h,000h,074h,0e8h,03dh,002h,000h,074h,0eah
-#endasm
+	goto L6c4c;
+	}
 L6c4c:
 	switch (l2) {
 case 2:
@@ -70,13 +62,7 @@ L6c68:
 	goto L6c74;
 	}
 L6c74:
-	;
-#asm
-l6c74:
-	db 083h,07eh,0feh,005h,074h,003h
-#endasm
-	goto L6bf7;
-L6c7d:
+	if (l2 != 5) goto L6bf7;
 	destroy_window(win, 0);
 	if (traps[sel] == chest_trap) goto L6ca2;
 	return -1;

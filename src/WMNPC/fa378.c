@@ -52,31 +52,21 @@ La53f:
 La574:
 	l2 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto La5c3;
-	goto La5af;
+	switch (l2) {
+case 0:
 	l2 = 5;
-#asm
-	db 0ebh,02eh
-#endasm
+	goto La5c3;
+case 1:
 	l2 = 2;
-#asm
-	db 0ebh,027h
-#endasm
+	goto La5c3;
+case 2:
 	l2 = 4;
-#asm
-	db 0ebh,020h
-#endasm
+	goto La5c3;
+case 3:
 	l4 = 1;
 	l2 = 5;
-#asm
-	db 0ebh,014h
-#endasm
-La5af:
-	;
-#asm
-la5af:
-	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
-	db 003h,000h,074h,0e0h
-#endasm
+	goto La5c3;
+	}
 La5c3:
 	switch (l2) {
 case 1:

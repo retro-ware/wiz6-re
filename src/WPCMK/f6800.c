@@ -150,30 +150,30 @@ L6d25:
 L6d40:
 	l6 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L6dbd;
-#asm
-	db 0ebh,056h
-#endasm
+	switch (l6) {
+case 0:
+case 1:
+case 2:
+case 3:
+case 4:
+case 5:
 	l64 = l6;
 	l6 = 1;
 	goto L6dbd;
+case 6:
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);
 	return -1;
+case 7:
 	l6 = 2;
-#asm
-	db 0ebh,02fh
-#endasm
+	goto L6dbd;
+case 8:
 	l6 = 4;
-#asm
-	db 0ebh,028h
-#endasm
+	goto L6dbd;
+case 9:
 	l6 = 5;
-#asm
-	db 0ebh,021h,05ah,06dh,05ah,06dh,05ah,06dh,05ah,06dh,05ah,06dh,05ah,06dh,067h,06dh
-	db 087h,06dh,08eh,06dh,095h,06dh
-l6db0:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,09ch,06dh
-#endasm
+	goto L6dbd;
+	}
 L6dbd:
 	switch (l6) {
 case 1:

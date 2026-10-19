@@ -181,31 +181,31 @@ L7ee5:
 L7f00:
 	l6 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L7f83;
-#asm
-	db 0ebh,05ch
-#endasm
+	switch (l6) {
+case 0:
+case 1:
+case 2:
+case 3:
+case 4:
+case 5:
 	realm = l6;
 	l6 = 1;
 	goto L7f83;
+case 6:
 	g501c = -1;
 	destroy_window(l2, 0);
 	destroy_window(l4, 0);
 	return -1;
+case 7:
 	l6 = 2;
-#asm
-	db 0ebh,02fh
-#endasm
+	goto L7f83;
+case 8:
 	l6 = 4;
-#asm
-	db 0ebh,028h
-#endasm
+	goto L7f83;
+case 9:
 	l6 = 5;
-#asm
-	db 0ebh,021h,01ah,07fh,01ah,07fh,01ah,07fh,01ah,07fh,01ah,07fh,01ah,07fh,027h,07fh
-	db 04dh,07fh,054h,07fh,05bh,07fh
-l7f76:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,062h,07fh
-#endasm
+	goto L7f83;
+	}
 L7f83:
 	switch (l6) {
 case 1:

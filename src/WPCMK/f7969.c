@@ -45,29 +45,23 @@ L7b8b:
 L7b9f:
 	l2 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L7bf3;
-#asm
-	db 0ebh,02dh
-#endasm
+	switch (l2) {
+case 0:
 	l2 = 1;
 	goto L7bf3;
+case 1:
 	l2 = 3;
-#asm
-	db 0ebh,02ch
-#endasm
+	goto L7bf3;
+case 2:
 	l2 = 2;
-#asm
-	db 0ebh,025h
-#endasm
+	goto L7bf3;
+case 3:
 	l2 = 4;
-#asm
-	db 0ebh,01eh
-#endasm
+	goto L7bf3;
+case 4:
 	l2 = 5;
-#asm
-	db 0ebh,017h,0b9h,07bh,0c0h,07bh,0c7h,07bh,0ceh,07bh,0d5h,07bh
-l7be6:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0dch,07bh
-#endasm
+	goto L7bf3;
+	}
 L7bf3:
 	switch (l2) {
 case 1:

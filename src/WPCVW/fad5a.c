@@ -1,11 +1,3 @@
-#asm
-	extrn do_cast_menu_:near
-	extrn do_merge_items_:near
-	extrn do_modify_menu_:near
-	extrn do_skills_menu_:near
-	extrn do_swag_menu_:near
-	extrn do_trade_items_:near
-#endasm
 extern char pc_item_count[];
 extern char pc_item_flags[];
 extern int bottom_line_win;
@@ -101,22 +93,22 @@ Laf39:
 	l12 = -1;
 	flush_keys();
 	choice = run_menu(menu, 301, enabled, 2, 1, 6, 2, 5, count_enabled_before(enabled, 11));
-#asm
-	db 0e9h,089h,001h
-#endasm
+	switch (choice) {
+case 0:
 	do_equip_items(sheet, menu, member);
 	goto Lb111;
-#asm
-	db 0ffh,076h,0dah,0ffh,076h,004h,0ffh,076h,0fch,0ffh,076h,0feh
-	call do_cast_menu_
-	db 083h,0c4h,008h,0e9h,06fh,001h,0ffh,076h,004h,0ffh,076h,0fch,0ffh,076h,0feh
-	call do_trade_items_
-	db 083h,0c4h,006h,0e9h,05dh,001h
-#endasm
+case 1:
+	do_cast_menu(sheet, menu, member, l38);
+	goto Lb111;
+case 2:
+	do_trade_items(sheet, menu, member);
+	goto Lb111;
+case 3:
 	if ((g43ca = choose_item(sheet, menu, 450, member, 0)) == -1) goto Lafe7;
 	show_item_info(menu, member, g43ca, 0);
 Lafe7:
 	goto Lb111;
+case 7:
 	if ((g43ca = choose_item(sheet, menu, 402, member, 0)) == -1) goto Lb049;
 	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 1)) goto Lb032;
 	if (((unsigned char)pc_item_flags[((432 * member) + (g43ca << 3))] & 2)) goto Lb032;
@@ -128,37 +120,33 @@ Lb03c:
 	remove_item(member, g43ca);
 Lb049:
 	goto Lb111;
+case 6:
 	if ((g43ca = choose_item(sheet, menu, 400, member, 0)) == -1) goto Lb07b;
 	do_use_item(sheet, menu, member, g43ca);
 Lb07b:
 	goto Lb111;
-#asm
-	db 0ffh,076h,004h,0ffh,076h,0fch,0ffh,076h,0feh
-	call do_merge_items_
-	db 083h,0c4h,006h,0e9h,081h,000h,0ffh,076h,004h,0ffh,076h,0fch,0ffh,076h,0feh
-	call do_modify_menu_
-	db 083h,0c4h,006h,0ebh,070h,0ffh,076h,004h,0ffh,076h,0fch,0ffh,076h,0feh
-	call do_swag_menu_
-	db 083h,0c4h,006h,0ebh,05fh,0ffh,076h,004h,0ffh,076h,0fch
-	call do_skills_menu_
-	db 083h,0c4h,004h,0ebh,051h
-#endasm
+case 5:
+	do_merge_items(sheet, menu, member);
+	goto Lb111;
+case 9:
+	do_modify_menu(sheet, menu, member);
+	goto Lb111;
+case 4:
+	do_swag_menu(sheet, menu, member);
+	goto Lb111;
+case 8:
+	do_skills_menu(menu, member);
+	goto Lb111;
+case 10:
 	if ((cur_member = choose_member(sheet, menu, 500, member)) == -1) goto Lb0e6;
 	member = cur_member;
 	g57fc = 0;
-#asm
-	db 0ebh,006h
-#endasm
+	goto Lb0ec;
 Lb0e6:
 	cur_member = member;
 Lb0ec:
 	goto Lb111;
-#asm
-	db 07bh,0afh,08dh,0afh,0a2h,0afh,0b4h,0afh,0a1h,0b0h,07eh,0b0h,04ch,0b0h,0eah,0afh
-	db 0b2h,0b0h,090h,0b0h,0c0h,0b0h
-lb104:
-	db 03dh,00bh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0eeh,0b0h
-#endasm
+	}
 Lb111:
 	if (choice != 11) goto Lae23;
 	destroy_window(g5752, 0);

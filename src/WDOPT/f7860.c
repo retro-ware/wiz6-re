@@ -115,31 +115,21 @@ L7c4f:
 L7c84:
 	choice = get_menu_choice_blink(20668, 13720);
 	if (menu_clicked != 1) goto L7cd3;
-	goto L7cbf;
+	switch (choice) {
+case 0:
 	choice = 5;
-#asm
-	db 0ebh,02eh
-#endasm
+	goto L7cd3;
+case 1:
 	choice = 2;
-#asm
-	db 0ebh,027h
-#endasm
+	goto L7cd3;
+case 2:
 	choice = 4;
-#asm
-	db 0ebh,020h
-#endasm
+	goto L7cd3;
+case 3:
 	on_cancel = 1;
 	choice = 5;
-#asm
-	db 0ebh,014h
-#endasm
-L7cbf:
-	;
-#asm
-l7cbf:
-	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
-	db 003h,000h,074h,0e0h
-#endasm
+	goto L7cd3;
+	}
 L7cd3:
 	switch (choice) {
 case 1:

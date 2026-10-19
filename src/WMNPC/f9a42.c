@@ -79,31 +79,21 @@ L9d03:
 L9d38:
 	l2 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto L9d87;
-	goto L9d73;
+	switch (l2) {
+case 0:
 	l2 = 5;
-#asm
-	db 0ebh,02eh
-#endasm
+	goto L9d87;
+case 1:
 	l2 = 2;
-#asm
-	db 0ebh,027h
-#endasm
+	goto L9d87;
+case 2:
 	l2 = 4;
-#asm
-	db 0ebh,020h
-#endasm
+	goto L9d87;
+case 3:
 	l24 = 1;
 	l2 = 5;
-#asm
-	db 0ebh,014h
-#endasm
-L9d73:
-	;
-#asm
-l9d73:
-	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
-	db 003h,000h,074h,0e0h
-#endasm
+	goto L9d87;
+	}
 L9d87:
 	switch (l2) {
 case 1:

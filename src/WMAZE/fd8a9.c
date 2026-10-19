@@ -41,25 +41,22 @@ Ld95b:
 	resume_window_draw(main_window);
 	refresh_all_windows();
 	choice = maze_menu_select(win, 2100, enabled, 1, 1, 7, 1, 5, 0);
-	goto Lda5b;
+	switch (choice) {
+case 0:
 	if ((member = choose_party_member_m(2110, 1)) == -1) goto Lda23;
 	if (!is_member_able(member)) goto Lda23;
 	if (force_lock(member, event)) goto Lda23;
 	choice = 2;
 Lda23:
 	goto Lda65;
+case 1:
 	if ((member = choose_party_member_m(2110, 1)) == -1) goto Lda59;
 	if (!is_member_able(member)) goto Lda59;
 	if (pick_lock(member, event)) goto Lda59;
 	choice = 2;
 Lda59:
 	goto Lda65;
-Lda5b:
-	;
-#asm
-lda5b:
-	db 03dh,000h,000h,074h,08fh,03dh,001h,000h,074h,0c0h
-#endasm
+	}
 Lda65:
 	if (choice != 2) goto Ld95b;
 	destroy_window(win, 0);

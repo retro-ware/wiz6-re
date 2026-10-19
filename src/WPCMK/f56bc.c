@@ -40,29 +40,23 @@ L5887:
 	set_click_region(4, ((unsigned char)win[2] + l28), ((unsigned char)win[3] + 3), ((unsigned char)win[2] + l28), ((unsigned char)win[3] + 3));
 	key = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L5946;
-#asm
-	db 0ebh,02dh
-#endasm
+	switch (key) {
+case 0:
 	key = 1;
 	goto L5946;
+case 1:
 	key = 3;
-#asm
-	db 0ebh,02ch
-#endasm
+	goto L5946;
+case 2:
 	key = 2;
-#asm
-	db 0ebh,025h
-#endasm
+	goto L5946;
+case 3:
 	key = 4;
-#asm
-	db 0ebh,01eh
-#endasm
+	goto L5946;
+case 4:
 	key = 5;
-#asm
-	db 0ebh,017h,00ch,059h,013h,059h,01ah,059h,021h,059h,028h,059h
-l5939:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,02fh,059h
-#endasm
+	goto L5946;
+	}
 L5946:
 	switch (key) {
 case 1:

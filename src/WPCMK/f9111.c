@@ -29,25 +29,17 @@ L925f:
 	draw_portrait(menu_win, 8, 3);
 	l2 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L92af;
-	goto L92a0;
+	switch (l2) {
+case 0:
 	l2 = 1;
-#asm
-	db 0ebh,01dh
-#endasm
+	goto L92af;
+case 1:
 	l2 = 3;
-#asm
-	db 0ebh,016h
-#endasm
+	goto L92af;
+case 2:
 	l2 = 5;
-#asm
-	db 0ebh,00fh
-#endasm
-L92a0:
-	;
-#asm
-l92a0:
-	db 03dh,000h,000h,074h,0e6h,03dh,001h,000h,074h,0e8h,03dh,002h,000h,074h,0eah
-#endasm
+	goto L92af;
+	}
 L92af:
 	switch (l2) {
 case 1:

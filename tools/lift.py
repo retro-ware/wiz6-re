@@ -1197,7 +1197,9 @@ class Lifter:
     def jump(self, t):
         if self.stack:
             raise Unlift('jmp with pushes')
-        if t in self.switches and 'ax' in self.R and self.st_start < self.cur.address:
+        # (a lone jmp to the dispatch: ax still holds a variable stored before, which cgen reuses)
+        if t in self.switches and 'ax' in self.R and (self.st_start < self.cur.address or
+                                                      self.R['ax'][0] == 'v' and self.R['ax'][1] != 'r'):
             self.emit('switch', x=self.R['ax'], sw=self.switches[t])
         elif self.f.epi is not None and t == self.f.epi:
             rv = self.R.get('ax') if self.st_start < self.cur.address and 'ax' in self.R else None

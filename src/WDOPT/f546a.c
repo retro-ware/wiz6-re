@@ -119,25 +119,17 @@ L56aa:
 L56d1:
 	l16 = -1;
 	l18 = get_wall_in_direction(0, l12, l8, l10, x, y);
-	goto L570c;
+	switch (l18) {
+case 1:
 	l16 = g516c;
-#asm
-	db 0ebh,01fh
-#endasm
+	goto L571b;
+case 2:
 	l16 = g50fc;
-#asm
-	db 0ebh,017h
-#endasm
+	goto L571b;
+case 3:
 	l16 = g516e;
-#asm
-	db 0ebh,00fh
-#endasm
-L570c:
-	;
-#asm
-l570c:
-	db 03dh,001h,000h,074h,0e3h,03dh,002h,000h,074h,0e6h,03dh,003h,000h,074h,0e9h
-#endasm
+	goto L571b;
+	}
 L571b:
 	if (get_bitfield((maze_data + 504), rsi, 4) != 7) goto L574e;
 	if (get_bitfield((maze_data + 888), rsi, 2)) goto L574e;
@@ -148,25 +140,17 @@ L574e:
 L5775:
 	l16 = -1;
 	l18 = get_wall_in_direction(3, l12, l8, l10, x, y);
-	goto L57b0;
+	switch (l18) {
+case 1:
 	l16 = g5172;
-#asm
-	db 0ebh,01fh
-#endasm
+	goto L57bf;
+case 2:
 	l16 = g5130;
-#asm
-	db 0ebh,017h
-#endasm
+	goto L57bf;
+case 3:
 	l16 = g5174;
-#asm
-	db 0ebh,00fh
-#endasm
-L57b0:
-	;
-#asm
-l57b0:
-	db 03dh,001h,000h,074h,0e3h,03dh,002h,000h,074h,0e6h,03dh,003h,000h,074h,0e9h
-#endasm
+	goto L57bf;
+	}
 L57bf:
 	if (get_bitfield((maze_data + 504), rsi, 4) != 7) goto L57f3;
 	if (get_bitfield((maze_data + 888), rsi, 2) != 3) goto L57f3;

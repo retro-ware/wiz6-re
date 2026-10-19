@@ -33,37 +33,29 @@ fc4c9(p4)
 Lc4ef:
 	if ((l2 = fbf7f(p4, 3, 10)) == -1) goto Lc565;
 	g589a = l2;
-#asm
-	db 0ebh,046h
-#endasm
+	switch (g589a) {
+case 0:
 	g58c0 = 1;
 	goto Lc560;
+case 1:
 	g58c2 = 1;
-#asm
-	db 0ebh,043h
-#endasm
+	goto Lc560;
+case 2:
 	g58ba = 1;
-#asm
-	db 0ebh,03bh
-#endasm
+	goto Lc560;
+case 3:
 	g58bc = 1;
-#asm
-	db 0ebh,033h
-#endasm
+	goto Lc560;
+case 4:
 	g58be = 1;
-#asm
-	db 0ebh,02bh
-#endasm
+	goto Lc560;
+case 5:
 	g58c6 = 1;
-#asm
-	db 0ebh,023h
-#endasm
+	goto Lc560;
+case 6:
 	g58c8 = 1;
-#asm
-	db 0ebh,01bh,00dh,0c5h,015h,0c5h,01dh,0c5h,025h,0c5h,02dh,0c5h,035h,0c5h,03dh,0c5h
-lc553:
-	db 03dh,007h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,045h,0c5h
-#endasm
+	goto Lc560;
+	}
 Lc560:
 	return 3;
 Lc565:

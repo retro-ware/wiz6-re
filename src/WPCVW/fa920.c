@@ -46,25 +46,17 @@ Lab09:
 	draw_portrait(l6, member, 8, 6);
 	l2 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto Lab5b;
-	goto Lab4c;
+	switch (l2) {
+case 0:
 	l2 = 1;
-#asm
-	db 0ebh,01dh
-#endasm
+	goto Lab5b;
+case 1:
 	l2 = 3;
-#asm
-	db 0ebh,016h
-#endasm
+	goto Lab5b;
+case 2:
 	l2 = 5;
-#asm
-	db 0ebh,00fh
-#endasm
-Lab4c:
-	;
-#asm
-lab4c:
-	db 03dh,000h,000h,074h,0e6h,03dh,001h,000h,074h,0e8h,03dh,002h,000h,074h,0eah
-#endasm
+	goto Lab5b;
+	}
 Lab5b:
 	switch (l2) {
 case 1:

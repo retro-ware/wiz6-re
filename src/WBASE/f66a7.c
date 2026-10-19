@@ -83,31 +83,21 @@ L6960:
 L6997:
 	i = get_menu_choice_animated(20582, 13720);
 	if (menu_clicked != 1) goto L69e6;
-	goto L69d2;
+	switch (i) {
+case 0:
 	i = 5;
-#asm
-	db 0ebh,02eh
-#endasm
+	goto L69e6;
+case 1:
 	i = 2;
-#asm
-	db 0ebh,027h
-#endasm
+	goto L69e6;
+case 2:
 	i = 4;
-#asm
-	db 0ebh,020h
-#endasm
+	goto L69e6;
+case 3:
 	on_cancel = 1;
 	i = 5;
-#asm
-	db 0ebh,014h
-#endasm
-L69d2:
-	;
-#asm
-l69d2:
-	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
-	db 003h,000h,074h,0e0h
-#endasm
+	goto L69e6;
+	}
 L69e6:
 	switch (i) {
 case 1:

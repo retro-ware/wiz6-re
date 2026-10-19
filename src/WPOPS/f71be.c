@@ -70,31 +70,21 @@ L7463:
 L74a3:
 	l6 = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L74f2;
-	goto L74de;
+	switch (l6) {
+case 0:
 	l6 = 5;
-#asm
-	db 0ebh,02eh
-#endasm
+	goto L74f2;
+case 1:
 	l6 = 2;
-#asm
-	db 0ebh,027h
-#endasm
+	goto L74f2;
+case 2:
 	l6 = 4;
-#asm
-	db 0ebh,020h
-#endasm
+	goto L74f2;
+case 3:
 	on_cancel = 1;
 	l6 = 5;
-#asm
-	db 0ebh,014h
-#endasm
-L74de:
-	;
-#asm
-l74de:
-	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
-	db 003h,000h,074h,0e0h
-#endasm
+	goto L74f2;
+	}
 L74f2:
 	switch (l6) {
 case 1:

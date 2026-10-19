@@ -1,6 +1,3 @@
-#asm
-	extrn fa76f_:near
-#endasm
 extern char g51d3;
 extern int g527a;
 extern int g54b2;
@@ -42,27 +39,21 @@ Laf63:
 	f541a(&l54, 0);
 	refresh_all_windows();
 	l4 = f5e0c(l26, 1520, l24, 4, 1, 7, 2, 5, 0, fae76(l24, l4));
-	goto Lb00b;
-#asm
-lafd2:
-	db 0ffh,076h,004h
-	call fa76f_
-	db 059h,0ebh,03fh
-#endasm
+	switch (l4) {
+case 0:
+	fa76f(p4);
+	goto Lb01a;
+case 1:
 	if (faae4(l26, p4) != 1) goto Laff1;
 	l4 = 3;
 Laff1:
 	goto Lb01a;
+case 2:
 	if (do_npc_give_gold(l26, p4) != 1) goto Lb009;
 	l4 = 3;
 Lb009:
 	goto Lb01a;
-Lb00b:
-	;
-#asm
-lb00b:
-	db 03dh,000h,000h,074h,0c2h,03dh,001h,000h,074h,0c6h,03dh,002h,000h,074h,0d9h
-#endasm
+	}
 Lb01a:
 	if (l4 != 3) goto Laf54;
 	destroy_window(l26, 0);

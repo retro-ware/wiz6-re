@@ -182,31 +182,31 @@ L7178:
 L7193:
 	choice = get_menu_choice_blink(20668, 13720);
 	if (menu_clicked != 1) goto L7216;
-#asm
-	db 0ebh,05ch
-#endasm
+	switch (choice) {
+case 0:
+case 1:
+case 2:
+case 3:
+case 4:
+case 5:
 	realm = choice;
 	choice = 1;
 	goto L7216;
+case 6:
 	g502e = -1;
 	destroy_window(win, 0);
 	destroy_window(list_win, 0);
 	return -1;
+case 7:
 	choice = 2;
-#asm
-	db 0ebh,02fh
-#endasm
+	goto L7216;
+case 8:
 	choice = 4;
-#asm
-	db 0ebh,028h
-#endasm
+	goto L7216;
+case 9:
 	choice = 5;
-#asm
-	db 0ebh,021h,0adh,071h,0adh,071h,0adh,071h,0adh,071h,0adh,071h,0adh,071h,0bah,071h
-	db 0e0h,071h,0e7h,071h,0eeh,071h
-l7209:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0f5h,071h
-#endasm
+	goto L7216;
+	}
 L7216:
 	switch (choice) {
 case 1:

@@ -41,29 +41,23 @@ Le075:
 	set_click_region(4, ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2));
 	l2 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto Le132;
-#asm
-	db 0ebh,02dh
-#endasm
+	switch (l2) {
+case 0:
 	l2 = 1;
 	goto Le132;
+case 1:
 	l2 = 3;
-#asm
-	db 0ebh,02ch
-#endasm
+	goto Le132;
+case 2:
 	l2 = 2;
-#asm
-	db 0ebh,025h
-#endasm
+	goto Le132;
+case 3:
 	l2 = 4;
-#asm
-	db 0ebh,01eh
-#endasm
+	goto Le132;
+case 4:
 	l2 = 5;
-#asm
-	db 0ebh,017h,0f8h,0e0h,0ffh,0e0h,006h,0e1h,00dh,0e1h,014h,0e1h
-le125:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,01bh,0e1h
-#endasm
+	goto Le132;
+	}
 Le132:
 	switch (l2) {
 case 1:
