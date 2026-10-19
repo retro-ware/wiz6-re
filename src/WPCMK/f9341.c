@@ -28,7 +28,7 @@ init_new_character()
 	g5496 = 1;
 	char_item_count = 0;
 	for (l2 = 0; l2 < 8; l2++) {
-	g5580[l2] = 255;
+	g5580[l2] = -1;
 	}
 	init_class_race_modifiers();
 	draw_stats();

@@ -313,6 +313,6 @@ L5fd7:
 	destroy_window(win, 0);
 	redraw_maze_view();
 	g506a = 0;
-	g4330 = 255;
+	g4330 = -1;
 	g4326 = 0;
 }

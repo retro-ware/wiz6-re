@@ -21,7 +21,7 @@ L5dd9:
 	l6 = roll_dice(format_dice(p12, p14, p16));
 	if ((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) goto L5edc;
 	if (p16 != 255) goto L5e45;
-	g450a[((432 * p4) + p10)] = 255;
+	g450a[((432 * p4) + p10)] = -1;
 	goto L5e7b;
 L5e45:
 	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) <= 250) goto L5e6e;

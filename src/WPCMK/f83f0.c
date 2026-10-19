@@ -9,6 +9,7 @@ extern char g556c[];
 extern char g556d[];
 extern char g556e[];
 extern char g556f[];
+extern char g557e;
 extern char g559d;
 extern char g559f;
 extern char g55a0;
@@ -142,14 +143,11 @@ L8711:
 	g5560[0]++;
 L871c:
 	if ((unsigned)g55a0 <= 15) goto L8728;
-#asm
-	db 080h,006h,06eh,055h,0fbh
-#endasm
+	g556e[0] += -5;
 L8728:
 	if ((unsigned)g55a0 <= 17) goto L8739;
-#asm
-	db 080h,006h,06eh,055h,0fbh,080h,006h,07eh,055h,0fbh
-#endasm
+	g556e[0] += -5;
+	g557e += -5;
 L8739:
 	g55d0[0] = 10;
 	if ((unsigned)g55a1 <= 15) goto L8749;

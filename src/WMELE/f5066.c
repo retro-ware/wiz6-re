@@ -23,7 +23,7 @@ L5075:
 	*(int *)((char *)view_pos_group + ((row * 10) + (col << 1))) = 0;
 	g4348[((row * 5) + col)] = 0;
 	g433e[((row * 5) + col)] = 0;
-	((char *)monster_groups[g] + (44 * i))[42] = 255;
+	((char *)monster_groups[g] + (44 * i))[42] = -1;
 	new_row = (g00ba[((row * 5) + col)] / 10);
 	new_col = (g00ba[((row * 5) + col)] % 10);
 	if ((row != 1) || (col)) goto L514f;

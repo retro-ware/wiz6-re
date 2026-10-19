@@ -370,6 +370,16 @@ class Printer:
     def unsigned(self, *es):
         return 'unsigned long' if any(size_of(x) == 4 for x in es) else 'unsigned'
 
+    def byte_k(self, e):
+        """A char target: cgen adds in al only with a char-range constant (0xbf is -65)."""
+        if e[0] == 'lo':
+            return ('lo', self.byte_k(e[1]))
+        if e[0] == 'c' and 0x80 <= e[1] <= 0xff:
+            return ('c', e[1] | 0xff00)
+        if e[0] == 'b' and e[1] in ('+', '-') and e[3][0] == 'c' and 0x80 <= e[3][1] <= 0xff:
+            return ('b', e[1], e[2], ('c', e[3][1] | 0xff00))
+        return e
+
     def cond(self, c):
         if c[0] in ('&&', '||'):
             return (' %s ' % c[0]).join('(%s)' % self.cond(x) for x in c[1:])
@@ -525,12 +535,13 @@ class Printer:
                     # pointer + computed int: cgen computes the (scaled) int first
                     out.append('\t%s = %s;' % (self.ex(st.lv), self.ptr(rv)))
                 else:
-                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(rv)))
+                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(self.byte_k(rv) if size_of(st.lv) == 1 else rv)))
             elif kd == 'cas':
                 lv = self.ex(st.lv)
                 if getattr(st, 'incs', False) and st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr:
                     lv = '*(int *)&' + lv       # inc; inc: cgen adds to a pointer with add, an int with incs
-                out.append('\t%s %s= %s;' % (lv, st.op, self.ex(st.rv)))
+                rv = self.byte_k(st.rv) if size_of(st.lv) == 1 else st.rv
+                out.append('\t%s %s= %s;' % (lv, st.op, self.ex(rv)))
             elif kd == 'scopy':
                 out.append('\t*(struct s%d *)%s = *(struct s%d *)%s;' % (st.size, self.saddr(st.dst), st.size,
                                                                        self.saddr(st.src)))

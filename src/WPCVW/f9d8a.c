@@ -38,7 +38,7 @@ L9e4e:
 	remove_item(p8, l4);
 	goto L9f4c;
 L9f12:
-	pc_item_qty[((432 * p8) + (g43ca << 3))] = 250;
+	pc_item_qty[((432 * p8) + (g43ca << 3))] = -6;
 	pc_item_qty[((432 * p8) + (l4 << 3))] = (char)(l6 + -250);
 L9f4c:
 	goto L9f6d;

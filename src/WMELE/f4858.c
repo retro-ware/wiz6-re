@@ -58,7 +58,7 @@ L4937:
 L493a:
 	if ((7 - l8) > l2) goto L48bd;
 	if (l6 == -1) goto L4960;
-	pic_slot_monster[l6] = 255;
+	pic_slot_monster[l6] = -1;
 	load_monster_pic_mele(p4, l6);
 L4960:
 	return l6;

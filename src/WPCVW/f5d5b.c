@@ -32,7 +32,7 @@ case 7:
 	goto L5dd2;
 	}
 L5dd2:
-	pc_equipped[((432 * member) + slot)] = 255;
+	pc_equipped[((432 * member) + slot)] = -1;
 L5de2:
 	slot++;
 	if (slot < 8) goto L5d68;

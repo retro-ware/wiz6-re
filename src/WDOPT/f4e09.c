@@ -32,7 +32,7 @@ case 7:
 	goto L4e89;
 	}
 L4e89:
-	pc_equipped[((432 * member) + eq)] = 255;
+	pc_equipped[((432 * member) + eq)] = -1;
 L4e99:
 	eq++;
 	if (eq < 8) goto L4e1f;

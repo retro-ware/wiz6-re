@@ -18,11 +18,11 @@ L7ca8:
 	l6 = f7af7(p4, l6, p10, p14);
 	if ((l6 <= 0) || (random(100) <= ((unsigned char)((char *)group_monster_rec[p4] + p10)[148] - p14))) goto L7dbe;
 	if (p20 != 255) goto L7d3b;
-	((char *)monster_groups[p4] + ((44 * p6) + p12))[14] = 255;
+	((char *)monster_groups[p4] + ((44 * p6) + p12))[14] = -1;
 	goto L7d84;
 L7d3b:
 	if (((unsigned char)((char *)monster_groups[p4] + ((44 * p6) + p12))[14] + l6) <= 250) goto L7d64;
-	((char *)monster_groups[p4] + ((44 * p6) + p12))[14] = 250;
+	((char *)monster_groups[p4] + ((44 * p6) + p12))[14] = -6;
 	goto L7d84;
 L7d64:
 	((char *)monster_groups[p4] + ((44 * p6) + p12))[14] += *(char *)&l6;

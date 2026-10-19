@@ -21,7 +21,7 @@ Lad36:
 	l6 = roll_dice(format_dice(p12, p14, p16));
 	if ((p8) && (random(100) <= ((unsigned char)g453a[((432 * p4) + p8)] - (p12 * 3)))) goto Lae46;
 	if (p16 != 255) goto Ladaf;
-	g450a[((432 * p4) + p10)] = 255;
+	g450a[((432 * p4) + p10)] = -1;
 	goto Lade5;
 Ladaf:
 	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) <= 250) goto Ladd8;

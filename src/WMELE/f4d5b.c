@@ -58,7 +58,7 @@ L4dbe:
 	db 083h,0c4h,006h
 #endasm
 	((char *)monster_groups[rdi] + (44 * rsi))[35] = g458c[(432 * rsi)];
-	((char *)monster_groups[rdi] + (44 * rsi))[42] = 255;
+	((char *)monster_groups[rdi] + (44 * rsi))[42] = -1;
 	rsi++;
 L4ef6:
 	if (rsi < party_count) goto L4dbe;

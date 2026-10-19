@@ -147,7 +147,7 @@ L5b07:
 	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
 	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
-	((char *)g43a6[l2] + rsi)[42] = 255;
+	((char *)g43a6[l2] + rsi)[42] = -1;
 L5b62:
 	l4++;
 L5b65:

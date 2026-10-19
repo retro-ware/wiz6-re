@@ -24,7 +24,7 @@ init_main_screen()
 	int j;
 	stop_sound();
 	for (j = 0; j < 10; j++) {
-	pic_slot_monster[j] = 255;
+	pic_slot_monster[j] = -1;
 	pic_slot_loaded[j] = 0;
 	}
 	load_monster_pic(3, 0);
@@ -70,7 +70,7 @@ L5591:
 	member_pcfile_index[i] = -1;
 	}
 	for (j = 0; j < 3; j++) {
-	g4330[j] = 255;
+	g4330[j] = -1;
 	g4326[j] = 0;
 	}
 	g433a = 0;

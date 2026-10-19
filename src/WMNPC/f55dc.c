@@ -15,7 +15,7 @@ case -3:
 case -2:
 	fee2e();
 	for (l2 = 0; l2 < 12; l2++) {
-	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = 255;
+	(*(char **)((char *)sprite_list + (l2 << 1)))[20] = -1;
 	}
 	sprite_count = 0;
 	goto L567a;

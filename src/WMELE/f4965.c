@@ -125,7 +125,7 @@ l4af9:
 	rsi = (44 * i);
 	*(int *)(((char *)monster_groups[n] + rsi) + 6) = *(int *)(((char *)monster_groups[n] + rsi) + 8);
 	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[42] = 255;
+	((char *)monster_groups[n] + rsi)[42] = -1;
 	switch ((unsigned char)cfg_level) {
 case 1:
 	rsi = (44 * i);
@@ -133,13 +133,13 @@ case 1:
 	rsi = (44 * i);
 	((char *)monster_groups[n] + rsi)[39] = 2;
 	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[41] = 251;
+	((char *)monster_groups[n] + rsi)[41] = -5;
 	goto L4c82;
 case 2:
 	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[38] = 254;
+	((char *)monster_groups[n] + rsi)[38] = -2;
 	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[39] = 254;
+	((char *)monster_groups[n] + rsi)[39] = -2;
 	rsi = (44 * i);
 	((char *)monster_groups[n] + rsi)[41] = 5;
 	goto L4c82;

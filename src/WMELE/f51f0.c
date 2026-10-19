@@ -43,7 +43,7 @@ L529b:
 	g4348[((l12 * 5) + l14)] = 0;
 	g433e[((l12 * 5) + l14)] = 0;
 	*(int *)((char *)view_pos_group + ((l12 * 10) + (l14 << 1))) = 0;
-	c[42] = 255;
+	c[42] = -1;
 L5328:
 	if (!((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[220] & 1)) goto L5353;
 	set_bit(13464, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[218], 1);

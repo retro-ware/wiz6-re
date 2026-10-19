@@ -159,7 +159,7 @@ l91e3:
 	rsi = (44 * l2);
 	*(int *)(((char *)monster_groups[l4] + rsi) + 6) = *(int *)(((char *)monster_groups[l4] + rsi) + 8);
 	rsi = (44 * l2);
-	((char *)monster_groups[l4] + rsi)[42] = 255;
+	((char *)monster_groups[l4] + rsi)[42] = -1;
 	rsi = (44 * l2);
 	((char *)monster_groups[l4] + rsi)[30] = 10;
 	rsi = (44 * l2);

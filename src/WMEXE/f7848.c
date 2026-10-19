@@ -33,7 +33,7 @@ L78ab:
 	g4348[((l2 * 5) + l4)] = 0;
 	g433e[((l2 * 5) + l4)] = 0;
 L7936:
-	((char *)monster_groups[p4] + (44 * p6))[42] = 255;
+	((char *)monster_groups[p4] + (44 * p6))[42] = -1;
 	((char *)monster_groups[p4] + (44 * p6))[34] = 3;
 	*(int *)(((char *)monster_groups[p4] + (44 * p6)) + 2) = 0;
 	*(int *)(((char *)monster_groups[p4] + (44 * p6)) + 6) = 0;

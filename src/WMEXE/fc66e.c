@@ -114,7 +114,7 @@ Lc829:
 	g4348[((l14 * 5) + l16)] = 0;
 	g433e[((l14 * 5) + l16)] = 0;
 Lc91b:
-	((char *)monster_groups[g435e] + (44 * g435c))[42] = 255;
+	((char *)monster_groups[g435e] + (44 * g435c))[42] = -1;
 	if (l8 != 1) goto Lc96a;
 	((char *)monster_groups[g435e] + (44 * g435c))[34] = 3;
 	*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 2) = 0;

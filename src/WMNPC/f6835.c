@@ -31,7 +31,7 @@ case 7:
 	goto L68b5;
 	}
 L68b5:
-	pc_equipped[((432 * p4) + l4)] = 255;
+	pc_equipped[((432 * p4) + l4)] = -1;
 L68c5:
 	l4++;
 	if (l4 < 8) goto L684b;

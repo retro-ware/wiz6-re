@@ -70,7 +70,7 @@ char *p6;
 	register int rsi;
 	register int rdi;
 	for (l2 = 0; l2 < 8; l2++) {
-	pc_equipped[((432 * p8) + l2)] = 255;
+	pc_equipped[((432 * p8) + l2)] = -1;
 	l48[l2] = 0;
 	}
 	l2 = 0;

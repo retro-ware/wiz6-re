@@ -26,7 +26,8 @@
 	global g556c_:byte,1
 	global g556d_:byte,1
 	global g556e_:byte,1
-	global g556f_:byte,17
+	global g556f_:byte,15
+	global g557e_:byte,2
 	global g5580_:byte,8
 	global spell_picks_left_:byte,1
 	global g5589_:byte,1

@@ -188,7 +188,7 @@ L7b42:
 	action = combat_menu_select(win, 3000, enabled, 1, 1, 6, (l72 > 9 ? 4 : 3), 5, 0);
 	choice = -1;
 	rsi = (44 * member);
-	(monster_groups + rsi)[31] = 255;
+	(monster_groups + rsi)[31] = -1;
 	rsi = (44 * member);
 	(monster_groups + rsi)[32] = 0;
 	l168 = 0;

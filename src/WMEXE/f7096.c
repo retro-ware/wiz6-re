@@ -44,7 +44,7 @@ case 7:
 	goto L7132;
 	}
 L7132:
-	pc_equipped[((432 * g435c) + l4)] = 255;
+	pc_equipped[((432 * g435c) + l4)] = -1;
 L7143:
 	l4++;
 	if (l4 < 8) goto L70ca;
