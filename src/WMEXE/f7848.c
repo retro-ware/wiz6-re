@@ -27,11 +27,9 @@ L7880:
 	set_bit(13464, (unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[218], 1);
 L78ab:
 	rsi = (44 * p6);
-#asm
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,02ah,0ffh,074h
-	db 072h,08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0feh,08ah,040h
-	db 02ah,098h,099h,0f7h,0f9h,089h,056h,0fch
-#endasm
+	if (((char *)monster_groups[p4] + rsi)[42] == -1) goto L7936;
+	l2 = (((char *)monster_groups[p4] + rsi)[42] / 10);
+	l4 = (((char *)monster_groups[p4] + rsi)[42] % 10);
 	anim_cycle = 0;
 	*(int *)((char *)g50fe + ((l2 * 10) + (l4 << 1))) = 0;
 	reset_animation();

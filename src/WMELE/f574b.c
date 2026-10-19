@@ -147,11 +147,9 @@ l59da:
 	goto L5ae2;
 L5a93:
 	rsi = (44 * l4);
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a6h,043h,080h,078h,02ah,0ffh,074h
-	db 033h,08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h
-	db 02ah,098h,099h,0f7h,0f9h,089h,056h,0f8h
-#endasm
+	if (((char *)g43a6[l2] + rsi)[42] == -1) goto L5adf;
+	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
+	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)g50b4 + ((l6 * 10) + (l8 << 1))) = 1;
 L5adf:
 	l4++;
@@ -162,11 +160,9 @@ L5ae2:
 	goto L5b65;
 L5b07:
 	rsi = (44 * l4);
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a6h,043h,080h,078h,02ah,0ffh,074h
-	db 042h,08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h
-	db 02ah,098h,099h,0f7h,0f9h,089h,056h,0f8h
-#endasm
+	if (((char *)g43a6[l2] + rsi)[42] == -1) goto L5b62;
+	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
+	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
 	((char *)g43a6[l2] + rsi)[42] = 255;
 L5b62:

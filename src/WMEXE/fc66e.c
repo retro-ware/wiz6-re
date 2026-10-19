@@ -123,11 +123,9 @@ Lc829:
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
 	if (l8 <= 0) goto Lc9a0;
 	rsi = (44 * g435c);
-#asm
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,02ah,0ffh,074h
-	db 072h,08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0f2h,08ah,040h
-	db 02ah,098h,099h,0f7h,0f9h,089h,056h,0f0h
-#endasm
+	if (((char *)monster_groups[g435e] + rsi)[42] == -1) goto Lc91b;
+	l14 = (((char *)monster_groups[g435e] + rsi)[42] / 10);
+	l16 = (((char *)monster_groups[g435e] + rsi)[42] % 10);
 	anim_cycle = 0;
 	*(int *)((char *)g50fe + ((l14 * 10) + (l16 << 1))) = 1;
 	reset_animation();

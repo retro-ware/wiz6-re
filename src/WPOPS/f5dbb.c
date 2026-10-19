@@ -14,12 +14,7 @@ pick_target_monster(attacker, group)
 	l6 = 0;
 	goto L5def;
 L5dce:
-	;
-#asm
-l5dce:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0a8h,043h,080h,078h,02ah,0ffh,074h,005h
-#endasm
+	if (((char *)monster_groups[group] + (44 * l6))[42] == -1) goto L5dec;
 	l10 = 0;
 L5dec:
 	l6++;

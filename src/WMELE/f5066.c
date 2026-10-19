@@ -35,12 +35,7 @@ L5075:
 	if (!*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1)))) goto L514f;
 	new_col = ((new_col % 2) + 1);
 L514f:
-	;
-#asm
-l514f:
-	db 08bh,046h,0fah,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,003h,046h,0f8h,08bh,0d8h
-	db 080h,0bfh,0bah,000h,0ffh,074h,05eh
-#endasm
+	if (g00ba[((row * 5) + col)] == -1) goto L51c4;
 	if (*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1)))) goto L51c4;
 	*(int *)((char *)view_pos_group + ((new_row * 10) + (new_col << 1))) = g;
 #asm

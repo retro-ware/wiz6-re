@@ -1,6 +1,5 @@
 #asm
 	extrn $ldv:near
-	extrn calc_spell_level_value_:near
 	extrn clamp_toward_x_:near
 	extrn f5eea_:near
 	extrn f8149_:near
@@ -61,12 +60,11 @@ char *p4;
 	db 08ah,047h,020h,089h,046h,0f8h
 #endasm
 	g5116 = 0;
+	calc_spell_level_value(p6, p8);
+	if (*(char *)&l6 == -1) goto L9452;
 #asm
-	db 0ffh,076h,008h,0ffh,076h,006h
-	call calc_spell_level_value_
-	db 083h,0c4h,004h,080h,07eh,0fah,0ffh,074h,01ch,050h,0b8h,02ch,000h,0f7h,06eh,0f8h
-	db 08bh,0f0h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,02bh,000h
-	db 08bh,05eh,004h,003h,007h
+	db 050h,0b8h,02ch,000h,0f7h,06eh,0f8h,08bh,0f0h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h
+	db 08bh,09fh,0a8h,043h,058h,02bh,000h,08bh,05eh,004h,003h,007h
 #endasm
 L9452:
 	;

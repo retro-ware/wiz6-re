@@ -359,6 +359,8 @@ class Printer:
         if b == ('c', 0) and op in ('==', '!='):
             x = self.ex(a)
             return x if op == '!=' else '!' + x
+        if size_of(a) == 1 and b[0] == 'c' and 0x80 <= b[1] <= 0xff:
+            return '%s %s %d' % (self.ex(a), op, b[1] - 0x100)     # cmp byte,imm: a char vs a negative
         return '%s %s %s' % (self.ex(a), op, self.ex(b))
 
     # ---- statements

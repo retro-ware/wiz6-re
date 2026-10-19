@@ -1,6 +1,4 @@
 #asm
-	extrn combat_delay_:near
-	extrn do_damage_effect_:near
 	extrn f4572_:near
 	extrn get_message_:near
 	extrn print_combat_line_:near
@@ -707,15 +705,10 @@ l5d54:
 #endasm
 	rsi = (44 * l80);
 	if (*(int *)(((char *)monster_groups[l78] + rsi) + 2) > 0) goto L5dba;
-#asm
-	db 0a1h,0c8h,04fh,0b9h,004h,000h,099h,0f7h,0f9h,050h
-	call combat_delay_
-	db 059h,0b8h,000h,000h,050h,0b8h,050h,00dh,050h,0b8h,006h,000h,050h,050h,0b8h,000h
-	db 000h,050h,0b8h,003h,000h,050h,0b8h,000h,000h,050h,0b8h,09eh,00dh,050h,0ffh,076h
-	db 0b0h,0ffh,076h,0b2h
-	call do_damage_effect_
-	db 083h,0c4h,014h,08bh,05eh,004h,080h,07fh,02bh,0ffh,075h,004h,0c6h,047h,02bh,001h
-#endasm
+	combat_delay((g4fc8 / 4));
+	do_damage_effect(l78, l80, 3486, 0, 3, 0, 6, 6, 3408, 0);
+	if (p4[43] != -1) goto L5db8;
+	p4[43] = 1;
 L5db8:
 	goto L5e07;
 L5dba:
@@ -745,11 +738,8 @@ L5e71:
 	rsi = (44 * l80);
 	if ((unsigned)((char *)monster_groups[l78] + rsi)[34] < 3) goto L5a01;
 L5e95:
-	;
-#asm
-l5e95:
-	db 08bh,05eh,004h,080h,07fh,02bh,0ffh,075h,004h,0c6h,047h,02bh,000h
-#endasm
+	if (p4[43] != -1) goto L5ea2;
+	p4[43] = 0;
 L5ea2:
 	if (l78) goto L5eb5;
 	draw_member_card_x(l80, 0);

@@ -2,6 +2,8 @@
 	extrn $ldv:near
 	extrn random_:near
 #endasm
+extern char g433e[];
+extern char g4348[];
 extern int group_monster_rec[];
 extern int view_pos_group[];
 /* Apply damage/regeneration to one combatant; return 1 if it died. */
@@ -45,13 +47,11 @@ L529b:
 	c[34] = 3;
 	died = 1;
 	if (!g) goto L5353;
-#asm
-l52c9:
-	db 08bh,05eh,0fch,080h,07fh,02ah,0ffh,074h,056h,08ah,047h,02ah,098h,0b9h,00ah,000h
-	db 099h,0f7h,0f9h,089h,046h,0f4h,08ah,047h,02ah,098h,099h,0f7h,0f9h,089h,056h,0f2h
-	db 08bh,046h,0f4h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,08bh,056h,0f2h,003h,0c2h
-	db 08bh,0d8h,0c6h,087h,048h,043h,000h,0c6h,087h,03eh,043h,000h
-#endasm
+	if (c[42] == -1) goto L5328;
+	l12 = (c[42] / 10);
+	l14 = (c[42] % 10);
+	g4348[((l12 * 5) + l14)] = 0;
+	g433e[((l12 * 5) + l14)] = 0;
 	*(int *)((char *)view_pos_group + ((l12 * 10) + (l14 << 1))) = 0;
 	c[42] = 255;
 L5328:

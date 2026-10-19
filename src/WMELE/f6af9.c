@@ -21,10 +21,7 @@ L6b3a:
 	goto L6bb1;
 L6b3f:
 	rdi = (44 * i);
-#asm
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,079h,02ah,0ffh,075h
-	db 059h
-#endasm
+	if (((char *)monster_groups[g] + rdi)[42] != -1) goto L6bb0;
 	*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) = 1;
 	*(int *)((char *)view_pos_group + ((row * 10) + (col << 1))) = g;
 	((char *)monster_groups[g] + rdi)[42] = (char)((row * 10) + col);
