@@ -535,8 +535,15 @@ class Lifter:
             else:
                 self.store(self.memop(d), self.val(s), s)
         elif m == 'push':
-            self.stack.append(self.val(ops[0]))
+            v = self.val(ops[0])
+            p = self.f.seen.get(i.address - 2)
+            if v == ('c', 0) and p is not None and p.mnemonic == 'sub' and p.op_str == 'dx, dx' and \
+                    ops[0].type == X.X86_OP_REG and ops[0].reg == X.X86_REG_DX:
+                v = ('cz',)       # cgen's zero extension: the high word of (long)(unsigned)x
+            self.stack.append(v)
         elif m == 'pop' and ops[0].type == X.X86_OP_REG and self.stack:
+            if self.stack[-1] == ('cz',):
+                self.stack[-1] = ('c', 0)
             self.setreg(ops[0], self.stack.pop())
         elif m in ('cwd', 'cdq'):     # capstone names 99 'cdq'
             self.R['dx'] = ('sx', self.reg('ax'))
@@ -845,11 +852,13 @@ class Lifter:
         k = 0
         while k + 1 < len(args):      # a long argument: push dx; push ax
             E = pair(args[k], args[k + 1])
-            if E is not None and (args[k][0] == 'L0' or E[0] == 'L'):
+            if args[k + 1] == ('cz',) and args[k][0] != 'c' and size_of(args[k]) == 2:
+                args[k:k + 2] = [('U', args[k])]
+            elif E is not None and (args[k][0] == 'L0' or E[0] == 'L'):
                 args[k:k + 2] = [E]
             k += 1
         del self.stack[len(self.stack) - n:]
-        args = [x for x in args if x != ('pad',)]
+        args = [('c', 0) if x == ('cz',) else x for x in args if x != ('pad',)]
         # pushes still pending: this call is an argument of a later one (f(a, g(x)))
         self.R = {}
         self.R['ax'] = ('call', fn[:-1] if fn.endswith('_') else fn, args, i.address)
