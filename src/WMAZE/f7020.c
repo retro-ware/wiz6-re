@@ -55,9 +55,12 @@ L7062:
 	game_state = 5;
 	g503e = 1;
 L707a:
-	if (g5032 != 1) goto L7084;
+	;
+#asm
+l707a:
+	db 083h,03eh,032h,050h,001h,075h,003h
+#endasm
 	redraw_maze_view();
-L7084:
 	if ((l10 = test_bit(19976, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x))) != 1) goto L70d9;
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = l10;

@@ -108,9 +108,12 @@ Lbfd3:
 Lbfed:
 	goto Lc040;
 Lbfef:
-	if (l16 <= 0) goto Lbffc;
+	;
+#asm
+lbfef:
+	db 083h,07eh,0f0h,000h,07eh,007h
+#endasm
 	play_sound(l16);
-Lbffc:
 	if ((l4 = char_index(answer, (unsigned char)((l6 + 48)))) == -1) goto Lc02f;
 	if (l18) goto Lc040;
 	if (((unsigned char)answer[l2] + -48) == l6) goto Lc040;

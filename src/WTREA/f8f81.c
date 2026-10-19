@@ -1,4 +1,5 @@
 #asm
+	extrn extract_bits_:near
 	extrn set_bit_:near
 	extrn show_message_text_:near
 #endasm
@@ -17,10 +18,15 @@ mark_chest_opened()
 #endasm
 L8faf:
 	l4 = extract_bits(l2, 0, 8);
-	set_bit(((game_state_arg * 10) + 20204), l4, 0);
-	if (extract_bits(l2, 11, 1) != 1) goto L9015;
+#asm
+	db 0b8h,000h,000h,050h,0ffh,076h,0fch,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
+	db 003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
+	call set_bit_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,00bh,000h,050h,0ffh,076h,0feh
+	call extract_bits_
+	db 083h,0c4h,006h,03dh,001h,000h,075h,01eh
+#endasm
 	set_bit(((game_state_arg * 10) + 13304), l4, 0);
-L9015:
 	if ((l4 = extract_bits(l2, 9, 2)) <= 0) goto L9088;
 #asm
 	db 0b8h,001h,000h,050h,08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,0a0h,005h

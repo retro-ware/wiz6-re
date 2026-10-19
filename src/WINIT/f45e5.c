@@ -10,12 +10,17 @@ f45e5(p4)
 	copy_through_char(&l22, 13632, 58);
 	prompt_insert_disk(&l22, 1, 0, 0);
 	l24 = 1;
-	goto L464f;
+#asm
+	db 0ebh,02ch
+#endasm
 L4623:
-	if (g3592 != 5) goto L464f;
+	;
+#asm
+l4623:
+	db 080h,03eh,092h,035h,005h,075h,025h
+#endasm
 	copy_through_char(&l22, 13652, 58);
 	prompt_insert_disk(&l22, 1, 0, 0);
-L464f:
 	if ((l2 = open(make_data_path(p4, 1), 0)) != -1) goto L4677;
 	exit_game(4);
 L4677:

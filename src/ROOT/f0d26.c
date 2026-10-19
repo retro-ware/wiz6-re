@@ -1,3 +1,6 @@
+#asm
+	extrn strcat_:near
+#endasm
 extern char g3592;
 extern int disk_header;
 extern int main_window;
@@ -92,15 +95,29 @@ L0f5a:
 	if (disk == 1) goto L0f9e;
 	if (disk != 2) goto L0ff5;
 L0f9e:
-	switch (disk) {
-case 1:
-	strcat(path, 1472);
-	goto L0fcf;
-case 2:
-	strcat(path, 1484);
-	goto L0fcf;
-	}
-L0fcf:
+	;
+#asm
+l0f9e:
+	db 08bh,046h,006h,0ebh,022h
+#endasm
+#asm
+l0fa3:
+	db 0b8h,0c0h,005h,050h,08dh,086h,05ch,0ffh,050h
+	call strcat_
+	db 083h,0c4h,004h,0ebh,01bh
+#endasm
+#asm
+l0fb4:
+	db 0b8h,0cch,005h,050h,08dh,086h,05ch,0ffh,050h
+	call strcat_
+	db 083h,0c4h,004h,0ebh,00ah
+#endasm
+L0fc5:
+	;
+#asm
+l0fc5:
+	db 03dh,001h,000h,074h,0d9h,03dh,002h,000h,074h,0e5h
+#endasm
 	if ((fd = open(path, 0)) == -1) goto L0ff2;
 	ok = 1;
 	close(fd);
@@ -135,9 +152,11 @@ L1083:
 	flush_keys();
 	destroy_window(win, 0);
 	if (!reopen) goto L1120;
-	if ((msg_fd = open(make_data_path(1503, 0), 0)) != -1) goto L10ed;
+	msg_fd = open(make_data_path(1503, 0), 0);
+#asm
+	db 03dh,0ffh,0ffh,075h,008h
+#endasm
 	exit_game(17);
-L10ed:
 	if ((scenario_fd = open(make_data_path(1511, (orig_disk == 0 ? 0 : 1)), 0)) != -1) goto L1120;
 	exit_game(18);
 L1120:

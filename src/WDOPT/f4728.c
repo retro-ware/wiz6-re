@@ -1,3 +1,6 @@
+#asm
+	extrn key_available_:near
+#endasm
 extern int anim_phase;
 extern int click_flag;
 extern int g502e;
@@ -14,7 +17,13 @@ get_menu_choice_blink(keys, regions)
 L473e:
 	menu_clicked = 0;
 L4744:
-	if (key_available(1)) goto L47ab;
+	;
+#asm
+l4744:
+	db 0b8h,001h,000h,050h
+	call key_available_
+	db 059h,085h,0c0h,075h,05bh
+#endasm
 	choice = check_click_regions(regions);
 	if (click_flag != 1) goto L476c;
 	menu_clicked = 1;
@@ -33,7 +42,6 @@ L4798:
 L479b:
 	g506a = ((g506a + 1) % 10);
 	goto L4744;
-L47ab:
 	if ((choice = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L47c9;
 	return;
 L47c9:

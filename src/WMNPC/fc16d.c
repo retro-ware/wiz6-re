@@ -16,12 +16,13 @@ char *p4;
 	l134 = (unsigned char)l82[3];
 	l84 = 0;
 	l86 = 2;
-Lc19f:
 	if ((*(int *)(l82 + 0) = char_index((l86 + ((char *)l82 + 2)), 47)) == -1) goto Lc1d5;
 	l126[l84] = l86;
 	l86 = ((l86 + *(int *)(l82 + 0)) + 1);
 	l84++;
-	goto Lc19f;
+#asm
+	db 0ebh,0cah
+#endasm
 Lc1d5:
 	l126[l84] = l86;
 	if (p6) goto Lc207;

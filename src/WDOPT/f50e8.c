@@ -13,7 +13,6 @@ find_lock_event()
 	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,089h,046h
 	db 0feh
 #endasm
-L5100:
 	if ((ev = find_maze_event(party_cell_x, party_cell_y, party_level, ev)) == -1) goto L5176;
 #asm
 	db 08bh,01eh,0a8h,04fh,08bh,0f0h,080h,0b8h,060h,003h,007h,075h,047h,0b8h,002h,000h
@@ -29,7 +28,9 @@ L5169:
 	return ev;
 L5171:
 	ev++;
-	goto L5100;
+#asm
+	db 0ebh,08ah
+#endasm
 L5176:
 	return -1;
 }

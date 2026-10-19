@@ -2,7 +2,7 @@ extern int g58d6;
 fbb9a(p4)
 {
 	int l2;
-	char x2[2];
+	int l4;
 	register int rsi;
 	g58d6 = 0;
 	l2 = 0;
@@ -20,14 +20,7 @@ lbbae:
 #endasm
 	goto Lbbe6;
 Lbbcb:
-	;
-#asm
-lbbcb:
-	db 08bh,046h,0fch,03dh,021h,000h,074h,00ah,03dh,02eh,000h,074h,005h,03dh,02ch,000h
-	db 075h,009h
-#endasm
-Lbbdd:
-	;
+	if (((l4 != 33) && (l4 != 46)) && (l4 != 44)) goto Lbbe6;
 #asm
 lbbdd:
 	db 08bh,05eh,004h,08bh,076h,0feh,0c6h,000h,020h

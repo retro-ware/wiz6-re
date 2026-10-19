@@ -156,9 +156,7 @@ l4e25:
 L4e3d:
 	get_message((p8 + 3350), 20652);
 	if (!p4[43]) goto L4e7a;
-#asm
-	db 08bh,046h,008h,03dh,004h,000h,074h,01bh,03dh,008h,000h,074h,016h
-#endasm
+	if ((p8 == 4) || (p8 == 8)) goto L4e7a;
 	get_message((random(2) + 3385), 20652);
 L4e7a:
 	if (p8 == 4) goto L4e89;

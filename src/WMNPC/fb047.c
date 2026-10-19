@@ -25,7 +25,9 @@ do_npc_pilfer(member)
 	chance = (((*(int *)((char *)pc_level + (432 * member)) - (unsigned char)g51cf) * 5) + ((unsigned char)g452a[(432 * member)] / 2));
 	if (pc_class[(432 * member)] != 3) goto Lb095;
 	chance += ((unsigned char)g4518[(432 * member)] << 1);
-	goto Lb0ae;
+#asm
+	db 0ebh,019h
+#endasm
 Lb095:
 	;
 #asm

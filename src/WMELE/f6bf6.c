@@ -52,7 +52,11 @@ case 1:
 	place_first_group_from(1, row, col);
 	goto L6d20;
 L6cf5:
-	if (col == 1) goto L6d06;
+	;
+#asm
+l6cf5:
+	db 083h,0ffh,001h,074h,00ch
+#endasm
 	if (col == 2) goto L6d06;
 	if (monster_group_count != 2) goto L6d14;
 L6d06:

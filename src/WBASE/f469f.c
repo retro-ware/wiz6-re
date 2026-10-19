@@ -1,3 +1,6 @@
+#asm
+	extrn key_available_:near
+#endasm
 extern int anim_phase;
 extern int camp_anim_dx;
 extern int camp_anim_dy;
@@ -11,7 +14,13 @@ get_menu_choice_animated(keys, regions)
 	int choice;
 	menu_clicked = 0;
 L46ab:
-	if (key_available(1)) goto L4717;
+	;
+#asm
+l46ab:
+	db 0b8h,001h,000h,050h
+	call key_available_
+	db 059h,085h,0c0h,075h,060h
+#endasm
 	choice = check_click_regions(regions);
 	if (click_flag != 1) goto L46d3;
 	menu_clicked = 1;
@@ -28,7 +37,6 @@ L4701:
 L4707:
 	camp_anim_tick = ((camp_anim_tick + 1) % 10);
 	goto L46ab;
-L4717:
 	if ((choice = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L4735;
 	return;
 L4735:

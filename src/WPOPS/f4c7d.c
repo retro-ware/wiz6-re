@@ -53,9 +53,10 @@ L4d77:
 	l24 = (unsigned char)frames[0];
 	l28 = (unsigned char)g36e4[(((314 * l4) + (l6 % 2)) + (l24 << 1))];
 	l26 = (unsigned char)g3759[((314 * l4) + (l24 << 2))];
-	if (l26) goto L4de2;
+#asm
+	db 083h,07eh,0e6h,000h,075h,01ch
+#endasm
 	l26 = ((unsigned char)g00b0[((row * 5) + col)] - group);
-L4de2:
 	if ((l30 = ((g37fa[(((314 * l4) + (row * 10)) + (col << 1))] + (unsigned char)g4348[((row * 5) + col)]) + l28)) >= 0) goto L4e37;
 	l30 = 0;
 	goto L4e42;

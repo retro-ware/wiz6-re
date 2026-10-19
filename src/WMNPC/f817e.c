@@ -1,3 +1,4 @@
+extern char g450a[];
 extern char g450d[];
 extern char g450f[];
 extern char g4511[];
@@ -114,27 +115,11 @@ L8433:
 	goto L881c;
 	l4 = 1;
 L844f:
-	;
-#asm
-l844f:
-	db 08bh,046h,0fch,03dh,001h,000h,074h,014h,03dh,002h,000h,074h,00fh,03dh,004h,000h
-	db 074h,00ah,03dh,008h,000h,074h,005h,03dh,009h,000h,075h,030h
-#endasm
-L846b:
-	;
-#asm
-l846b:
-	db 0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0c8h,08bh,046h,0fch,003h,0c8h,08bh,0d9h,08ah
-	db 087h,00ah,045h,02ah,0e4h,08bh,04eh,008h,0d1h,0e1h,02bh,0c1h,089h,046h,0feh,03dh
-	db 000h,000h,07dh,005h
-#endasm
+	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L849b;
+	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) >= 0) goto L8494;
 	l2 = 0;
 L8494:
-	;
-#asm
-l8494:
-	db 08ah,046h,0feh,088h,087h,00ah,045h
-#endasm
+	g450a[((432 * p10) + l4)] = *(char *)&l2;
 L849b:
 	l4++;
 	if (l4 <= 9) goto L844f;

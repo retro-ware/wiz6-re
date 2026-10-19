@@ -87,18 +87,8 @@ L6ca2:
 	try_skill_gain(member, 15, 3);
 	goto L6d33;
 L6cff:
-	;
-#asm
-l6cff:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08ah,087h,087h,045h,03ch,00dh,074h,008h
-	db 03ch,004h,074h,004h,03ch,006h,075h,01ch
-#endasm
-L6d17:
-	;
-#asm
-l6d17:
-	db 08ah,087h,018h,045h,02ah,0e4h,0d1h,0e0h,001h,046h,0f8h
-#endasm
+	if (((pc_class[(432 * member)] != 13) && (pc_class[(432 * member)] != 4)) && (pc_class[(432 * member)] != 6)) goto L6d33;
+	chance += ((unsigned char)g4518[(432 * member)] << 1);
 	try_skill_gain(member, 15, 2);
 L6d33:
 	if (chance <= 95) goto L6d3e;

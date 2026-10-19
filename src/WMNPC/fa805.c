@@ -32,9 +32,11 @@ fa805(p4, p6, p8)
 	l2 = 0;
 	l84 = *(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3)));
 	access_scenario_record(1, &l78, l84, 0);
-	if ((l80 = (((unsigned char)l56 * (unsigned char)l55) + l58)) >= 1) goto La85f;
+	l80 = (((unsigned char)l56 * (unsigned char)l55) + l58);
+#asm
+	db 03dh,001h,000h,07dh,005h
+#endasm
 	l80 = 1;
-La85f:
 	if ((l82 = (unsigned char)pc_item_qty[((432 * p6) + (p8 << 3))]) >= 1) goto La885;
 	l82 = 1;
 La885:

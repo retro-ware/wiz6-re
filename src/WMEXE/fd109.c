@@ -53,7 +53,6 @@ ld166:
 	combat_delay(2);
 	fb85f(3518, -1, 6);
 	combat_delay((g4fc8 / 2));
-Ld1b2:
 	if ((l6 = ((g435a - random(10)) + -5)) >= 1) goto Ld1d1;
 	l6 = 1;
 Ld1d1:

@@ -1,12 +1,13 @@
+#asm
+	extrn access_scenario_record_:near
+#endasm
 extern char g4550[];
 extern char g51cf;
 extern char pc_item_flags[];
-extern int g51be;
 extern int g5274;
 extern int g527a;
 extern int pc_gold[];
 extern int pc_item_id[];
-extern int trap_guess_letters;
 extern long g51c0;
 /* Ask an amount and give that gold to the NPC, raising its friendliness (g4550). */
 do_npc_give_gold(win, member)
@@ -23,13 +24,9 @@ char *win;
 	int l25;
 	int l27;
 	char l31[4];
-	char x31[14];
-	char l46;
-	char x46[39];
+	char x31[54];
 	long l89;
-	char x89[14];
-	int l105;
-	char x105[1];
+	char x89[17];
 	l4 = 0;
 Lab35:
 	fill_window(win, 32, 3, 0);
@@ -77,13 +74,14 @@ Lacfa:
 	return;
 Lad83:
 	l8 = *(int *)((char *)pc_item_id + ((432 * member) + (l6 << 3)));
-	access_scenario_record(1, &l105, l8, 0);
-	if (!((unsigned char)l46 & 2)) goto Ladd5;
-	if (l8 == trap_guess_letters) goto Ladd5;
-	if (l8 == g51be) goto Ladd5;
+#asm
+	db 0b8h,000h,000h,050h,0ffh,076h,0f8h,08dh,046h,097h,050h,0b8h,001h,000h,050h
+	call access_scenario_record_
+	db 083h,0c4h,008h,08ah,046h,0d2h,02ah,0e4h,0a9h,002h,000h,074h,019h,08bh,046h,0f8h
+	db 03bh,006h,0bch,051h,074h,010h,03bh,006h,0beh,051h,074h,00ah
+#endasm
 	fa645(1529);
 	return;
-Ladd5:
 	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((l89 / 20L) / (long)(unsigned char)g51cf))) <= 100) goto Lae20;
 	l2 = 100;
 Lae20:

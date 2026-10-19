@@ -1,5 +1,6 @@
 #asm
 	extrn $ldv:near
+	extrn random_:near
 #endasm
 extern char *g4fa8;
 extern char g450c[];
@@ -86,9 +87,10 @@ Ld157:
 	db 099h,08bh,0c8h,08bh,0dah,05ah,058h,050h,052h,0f7h,0e3h,08bh,0d8h,058h,0f7h,0e1h
 	db 003h,0d8h,058h,0f7h,0e1h,003h,0d3h,0b9h,064h,000h,0bbh,000h,000h
 	call $ldv
-	db 089h,046h,0fah,03dh,000h,000h,07eh,00ch
+	db 089h,046h,0fah,03dh,000h,000h,07eh,00ch,0b8h,032h,000h,050h
+	call random_
+	db 059h,085h,0c0h,075h,05ch
 #endasm
-	if (random(50)) goto Ld227;
 Ld1cb:
 	(*(int *)((char *)pc_stamina + (432 * member)))--;
 	if (l6 <= 0) goto Ld1e4;
@@ -101,7 +103,6 @@ Ld1e4:
 	return (l60 + 1);
 Ld220:
 	draw_member_status_m(member);
-Ld227:
 	if ((strength = ((((random(l6) + random(l6)) + random(l6)) + random(l6)) / 4)) >= 1) goto Ld268;
 	strength = 1;
 Ld268:

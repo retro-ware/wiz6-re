@@ -151,21 +151,22 @@ L6906:
 	db 083h,0c4h,00ah,0ffh,036h,006h,033h,016h,08dh,086h,0fah,0f1h,050h,08bh,046h,0fch
 	db 0d1h,0e0h,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h
 	call copy_far_
-	db 083h,0c4h,00ah
+	db 083h,0c4h,00ah,0ebh,026h
 #endasm
-	goto L6976;
 L6950:
 	setmem(&l1850, 1346, 0);
 	setmem(&l3590, 1740, 0);
 L6976:
-	if ((l3592 = write(l6, &l1850, g3304)) > 0) goto L69c5;
+	l3592 = write(l6, &l1850, g3304);
+#asm
+	db 03dh,000h,000h,07fh,034h
+#endasm
 	show_error(&l3798);
 	close(l6);
 	if (!l3716) goto L69bf;
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
 L69bf:
 	return -1;
-L69c5:
 	if ((l3592 = write(l6, &l3590, g3306)) > 0) goto L6a14;
 	show_error(&l3798);
 	close(l6);

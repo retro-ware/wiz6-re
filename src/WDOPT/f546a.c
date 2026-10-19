@@ -1,3 +1,6 @@
+#asm
+	extrn get_bitfield_:near
+#endasm
 extern int g50c6[];
 extern int g50f8;
 extern int g50fc;
@@ -62,12 +65,20 @@ L559d:
 	if (get_bitfield((maze_data + 504), rsi, 4) != 13) goto L55ba;
 	l14 = g50f8;
 L55ba:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 14) goto L55d7;
+	;
+#asm
+l55ba:
+	db 0b8h,004h,000h,050h,056h,0a1h,0aah,04fh,005h,0f8h,001h,050h
+	call get_bitfield_
+	db 083h,0c4h,006h,03dh,00eh,000h,075h,006h
+#endasm
 	l14 = g5168;
 L55d7:
-	if ((l2 = test_bit((maze_data + 1082), rsi)) != 1) goto L55f3;
+	l2 = test_bit((maze_data + 1082), rsi);
+#asm
+	db 03dh,001h,000h,075h,006h
+#endasm
 	l14 = g516a;
-L55f3:
 	if ((l4 = test_bit((maze_data + 1178), rsi)) != 1) goto L560f;
 	l14 = pclist_sex;
 L560f:

@@ -2,7 +2,6 @@
 	extrn $ldv:near
 	extrn combat_delay_:near
 	extrn do_cast_action_:near
-	extrn f723e_:near
 	extrn fb934_:near
 	extrn random_:near
 	extrn reduce_field6_:near
@@ -44,7 +43,7 @@ fc66e()
 	int l6;
 	int l8;
 	int l10;
-	char x10[2];
+	int l12;
 	int l14;
 	int l16;
 	register int rsi;
@@ -277,11 +276,10 @@ lce81:
 	db 08bh,05eh,0feh,08ah,047h,021h,02ah,0e4h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
 	db 0d1h,0e0h,08bh,0f0h,08bh,040h,00ah,089h,046h,0f4h,051h
 	call combat_delay_
-	db 059h,0ffh,076h,0f4h,0ffh,076h,0f6h,0ffh,076h,0feh
-	call f723e_
-	db 083h,0c4h,006h,08bh,046h,0f4h,03dh,003h,000h,074h,005h,03dh,006h,000h,075h,017h
+	db 059h
 #endasm
-Lcebc:
+	f723e(l2, l10, l12);
+	if ((l12 != 3) && (l12 != 6)) goto Lced3;
 	reduce_field6(l2, (random(4) + 3));
 	goto Lcee7;
 Lced3:

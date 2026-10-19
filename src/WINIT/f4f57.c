@@ -122,16 +122,9 @@ L5201:
 	i = 8;
 	if (start[i] > frame) goto L5280;
 	y = (glyph_y[i] - (frame - start[i]));
-#asm
-	db 08bh,046h,0fah,03dh,003h,000h,07ch,005h,03dh,008h,000h,075h,011h
-#endasm
-L5242:
-	;
-#asm
-l5242:
-	db 0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,094h,03bh,046h,0f8h,07eh,003h,089h,046h
-	db 0f8h
-#endasm
+	if ((i >= 3) && (i != 8)) goto L5253;
+	if (min_y[i] <= y) goto L5253;
+	y = min_y[i];
 L5253:
 	if (min_y[i] > y) goto L5280;
 	draw_big_char(glyph[i], glyph_x[i], y);

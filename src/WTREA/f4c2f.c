@@ -1,3 +1,6 @@
+#asm
+	extrn key_available_:near
+#endasm
 extern int anim_phase;
 extern int click_flag;
 extern int g501c;
@@ -13,7 +16,13 @@ get_chest_input(keys, hotspots)
 L4c45:
 	menu_clicked = 0;
 L4c4b:
-	if (key_available(1)) goto L4cb2;
+	;
+#asm
+l4c4b:
+	db 0b8h,001h,000h,050h
+	call key_available_
+	db 059h,085h,0c0h,075h,05bh
+#endasm
 	key = check_click_regions(hotspots);
 	if (click_flag != 1) goto L4c73;
 	menu_clicked = 1;
@@ -32,7 +41,6 @@ L4c9f:
 L4ca2:
 	g502c = ((g502c + 1) % 10);
 	goto L4c4b;
-L4cb2:
 	if ((key = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L4cd0;
 	return;
 L4cd0:

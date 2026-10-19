@@ -1,8 +1,6 @@
-#asm
-	extrn fce81_:near
-#endasm
 extern char *g4fa8;
 extern char g452b[];
+extern char pc_class[];
 extern int lock_tumblers[];
 extern int main_window;
 extern int message_delay;
@@ -66,9 +64,11 @@ Ld592:
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
-	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) <= 95) goto Ld61c;
+	l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)]);
+#asm
+	db 03dh,05fh,000h,07eh,005h
+#endasm
 	l6 = 95;
-Ld61c:
 	if ((tumblers = ((l8 / 3) + 1)) <= 6) goto Ld633;
 	tumblers = 6;
 Ld633:
@@ -117,11 +117,7 @@ Ld7ac:
 Ld7bc:
 	if (!result) goto Ld806;
 	if (result != 1) goto Ld7f1;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08ah,087h,087h,045h,03ch,003h,074h,008h
-	db 03ch,006h,074h,004h,03ch,00dh,075h,011h
-#endasm
-Ld7e0:
+	if (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13)) goto Ld7f1;
 	try_skill_gain(member, 15, 1);
 Ld7f1:
 	if (random(3)) goto Ld804;
@@ -129,15 +125,8 @@ Ld7f1:
 Ld804:
 	goto Ld836;
 Ld806:
-	;
-#asm
-ld806:
-	db 0ffh,076h,006h
-	call fce81_
-	db 059h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08ah,087h,087h,045h,03ch,003h,074h
-	db 008h,03ch,006h,074h,004h,03ch,00dh,075h,011h
-#endasm
-Ld825:
+	fce81(event);
+	if (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13)) goto Ld836;
 	try_skill_gain(member, 15, 4);
 Ld836:
 	erase_window(main_window, 1);

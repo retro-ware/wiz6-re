@@ -11,11 +11,7 @@ start_encounter()
 	char x0[4];
 	g43c8 = 0;
 	combat_gold = 0;
-#asm
-	db 0a1h,03ah,043h,03dh,080h,000h,074h,00ah,03dh,097h,000h,074h,005h,03dh,099h,000h
-	db 075h,006h
-#endasm
-L62f3:
+	if (((g433a != 128) && (g433a != 151)) && (g433a != 153)) goto L62f9;
 	g4354 = 1;
 L62f9:
 	clear_combat_groups();

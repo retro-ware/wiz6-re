@@ -350,6 +350,25 @@ class Lifter:
             # 'mov lv, ax; test/cmp ax' is an assignment inside the condition: if ((lv = x) == 0)
             self.sts.pop()
             kw['cond'] = (c[0], ('=', p.lv, p.rv), c[2])
+        if kind == 'if' and p is not None and p.kind == 'if' and p.e == self.st_start and c is not None and \
+                c[0] not in ('&&', '||') and c[2][0] == 'c' and t0 is not None and t0.mnemonic == 'cmp' and \
+                t0.operands[0].type == X.X86_OP_REG and t0.operands[1].type == X.X86_OP_IMM and \
+                t0.address + t0.size == a.address and self.st_start not in self.targets:
+            # cmp reg,K; jcc right after an if on the same value: cgen kept it in a register for
+            # one || / && chain
+            last = p.cond
+            while last[0] in ('&&', '||'):
+                last = last[-1]
+            merged = None
+            if last[1] == c[1] and last[1][0] != 'c' and last[1][:2] != ('v', 'r'):
+                if p.target == kw['target']:
+                    merged = ('||', p.cond, c)
+                elif p.target == a.address + a.size:
+                    merged = ('&&', negate(p.cond), c)
+            if merged:
+                self.sts.pop()
+                kw['cond'] = merged
+                self.st_start = p.s
             self.st_start = p.s
         st = St(kind, self.st_start, a.address + a.size, **kw)
         self.sts.append(st)

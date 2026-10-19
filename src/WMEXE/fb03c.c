@@ -6,13 +6,16 @@ extern char g0191[];
 extern char g019d[];
 extern char g451b[];
 extern char g4529[];
+extern char g4535[];
 extern char party_count;
+extern char pc_class[];
 extern char spell_table[];
 extern int g435c;
 extern int g435e;
 extern int g4fc8;
 extern int g50fc;
 extern int g5118;
+extern int group_monster_rec[];
 extern int monster_groups[];
 extern int pc_spell_pts[];
 extern int realm_colors[];
@@ -41,19 +44,8 @@ char *p4;
 	g5118 = 1;
 Lb12f:
 	if (g435e) goto Lb21a;
-#asm
-lb139:
-	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,087h,045h,03ch,005h,074h
-	db 008h,03ch,004h,074h,004h,03ch,00dh,075h,030h
-#endasm
-Lb152:
-	;
-#asm
-lb152:
-	db 08ah,087h,035h,045h,02ah,0e4h,0b9h,003h,000h,099h,0f7h,0f9h,005h,05ah,000h,050h
-	db 08bh,046h,0fah,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0d8h,08ah,087h,0dfh
-	db 000h,02ah,0e4h,0f7h,06eh,0fch,08bh,0c8h,058h,02bh,0c1h,089h,046h,0f2h
-#endasm
+	if (((pc_class[(432 * g435c)] != 5) && (pc_class[(432 * g435c)] != 4)) && (pc_class[(432 * g435c)] != 13)) goto Lb182;
+	l14 = ((((unsigned char)g4535[(432 * g435c)] / 3) + 90) - ((unsigned char)g00df[(l6 * 6)] * l4));
 	goto Lb1cb;
 Lb182:
 	l14 = ((((unsigned char)g4529[(432 * g435c)] / 3) + 90) - ((unsigned char)g00df[(l6 * 6)] * l4));
@@ -82,22 +74,12 @@ Lb28a:
 Lb290:
 	l12 = 1;
 	if (g435e) goto Lb2bc;
-#asm
-	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,087h,045h,03ch,005h,074h
-	db 008h,03ch,004h,074h,004h,03ch,00dh,075h,005h
-#endasm
-Lb2b5:
+	if (((pc_class[(432 * g435c)] != 5) && (pc_class[(432 * g435c)] != 4)) && (pc_class[(432 * g435c)] != 13)) goto Lb2ba;
 	l12 = 0;
 Lb2ba:
 	goto Lb2dc;
 Lb2bc:
-	;
-#asm
-lb2bc:
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d0h,000h,03ch
-	db 005h,074h,008h,03ch,004h,074h,004h,03ch,00dh,075h,005h
-#endasm
-Lb2d7:
+	if ((((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 5) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 4)) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 13)) goto Lb2dc;
 	l12 = 0;
 Lb2dc:
 	if (g50fc != 1) goto Lb307;

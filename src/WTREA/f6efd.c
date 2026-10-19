@@ -1,6 +1,7 @@
 #asm
 	extrn try_spell_disarm_:near
 #endasm
+extern char g450a[];
 extern char g450d[];
 extern char g450f[];
 extern char g4511[];
@@ -126,27 +127,11 @@ L720e:
 	goto L749e;
 	l4 = 1;
 L7224:
-	;
-#asm
-l7224:
-	db 08bh,046h,0fch,03dh,001h,000h,074h,014h,03dh,002h,000h,074h,00fh,03dh,004h,000h
-	db 074h,00ah,03dh,008h,000h,074h,005h,03dh,009h,000h,075h,030h
-#endasm
-L7240:
-	;
-#asm
-l7240:
-	db 0b8h,0b0h,001h,0f7h,06eh,00ah,08bh,0c8h,08bh,046h,0fch,003h,0c8h,08bh,0d9h,08ah
-	db 087h,00ah,045h,02ah,0e4h,08bh,04eh,008h,0d1h,0e1h,02bh,0c1h,089h,046h,0feh,03dh
-	db 000h,000h,07dh,005h
-#endasm
+	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L7270;
+	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) >= 0) goto L7269;
 	l2 = 0;
 L7269:
-	;
-#asm
-l7269:
-	db 08ah,046h,0feh,088h,087h,00ah,045h
-#endasm
+	g450a[((432 * p10) + l4)] = *(char *)&l2;
 L7270:
 	l4++;
 	if (l4 <= 9) goto L7224;
