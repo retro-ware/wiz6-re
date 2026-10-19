@@ -7,7 +7,8 @@ char *p8;
 {
 	register int rsi;
 	register int rdi;
-	if (((rdi = f7ade(*(int *)p8, p10, p12)) != -1) || ((rdi = f7ade(g4fa6, p10, p12)) != -1)) goto L7b94;
+	if ((rdi = f7ade(*(int *)p8, p10, p12)) != -1) goto L7b94;
+	if ((rdi = f7ade(g4fa6, p10, p12)) != -1) goto L7b94;
 	rsi = ((*(int *)p8 + 1) % 12);
 L7b61:
 	if ((rdi = f7ade(rsi, p10, p12)) != -1) goto L7b94;

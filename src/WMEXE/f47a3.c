@@ -1,10 +1,7 @@
 #asm
 	extrn do_damage_effect_:near
 	extrn do_status_effect_:near
-	extrn f5eea_:near
-	extrn random_:near
 	extrn reduce_field6_:near
-	extrn roll_dice_x_:near
 #endasm
 extern char pc_sex[];
 extern int g435e;
@@ -14,32 +11,23 @@ extern int group_monster_rec[];
 extern int monster_groups[];
 extern int pc_hp[];
 extern int pc_hp_max[];
+struct s4 { int w[2]; };
+struct s4 f5eea();
 /* Apply special hit effects (poison, paralysis, drain, ...) of an attack. */
 apply_hit_effects(p4, p6, p8, p10)
 char *p4;
+char *p6;
 {
 	int l2;
 	int l4;
 	int l6;
 	int l8;
 	int l10;
-	register int rsi;
-	register int rdi;
 	g500a = 4;
-	rsi = (44 * p10);
-	l4 = ((*(int *)p4 - *(int *)((char *)monster_groups[p8] + rsi)) * 3);
+	l4 = ((*(int *)p4 - *(int *)((char *)monster_groups[p8] + (44 * p10))) * 3);
 	l2 = 0;
 L47db:
-	;
-#asm
-l47db:
-	db 0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,006h,08bh,076h,0feh,08ah,040h,004h,02ah,0e4h,08bh,0c8h,058h
-	db 03bh,0c1h,07ch,003h
-#endasm
-	goto L4c34;
-L47f9:
+	if (random(100) >= (unsigned char)(p6 + l2)[4]) goto L4c34;
 	l6 = ((*(int *)p4 / 3) + 1);
 #asm
 	db 08bh,0c6h,0e9h,01ah,004h
@@ -68,16 +56,10 @@ L47f9:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d9h,000h,02ah
 	db 0e4h,0e9h,04ah,001h
 #endasm
+	l8 = roll_dice_x(f5eea((l6 << 1), 5, (l6 * 3)));
 #asm
-l4904:
-	db 08bh,046h,0fah,08bh,0d0h,0d1h,0e0h,003h,0c2h,050h,0b8h,005h,000h,050h,08bh,046h
-	db 0fah,0d1h,0e0h,050h
-	call f5eea_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_x_
-	db 083h,0c4h,004h,089h,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,00ah,08bh,0c8h,08bh
-	db 046h,008h,0d1h,0e0h,08bh,0d8h,08bh,087h,0a8h,043h,003h,0c1h,050h
+	db 050h,0b8h,02ch,000h,0f7h,06eh,00ah,08bh,0c8h,08bh,046h,008h,0d1h,0e0h,08bh,0d8h
+	db 08bh,087h,0a8h,043h,003h,0c1h,050h
 	call reduce_field6_
 	db 083h,0c4h,004h
 #endasm
@@ -86,26 +68,15 @@ l4904:
 	db 0e9h,001h,001h
 #endasm
 	if (random(100) <= (unsigned char)(*(char **)((char *)group_monster_rec + (p8 << 1)))[161]) goto L4a4c;
-#asm
-l4981:
-	db 0b8h,000h,000h,050h,0b8h,004h,000h,050h,0b8h,001h,000h,050h
-	call f5eea_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_x_
-	db 083h,0c4h,004h,089h,046h,0f8h,08bh,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,00ah
-	db 08bh,0f0h,08bh,046h,008h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,029h,040h
-	db 004h,08bh,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,00ah,08bh,0f0h,08bh,046h,008h
-	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,029h,040h,002h
-#endasm
-	rsi = (44 * p10);
-	if (*(int *)(((char *)monster_groups[p8] + rsi) + 4) >= 1) goto L4a01;
-	*(int *)(((char *)monster_groups[p8] + rsi) + 4) = 1;
+	l8 = roll_dice_x(f5eea(1, 4, 0));
+	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) -= l8;
+	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2) -= l8;
+	if (*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) >= 1) goto L4a01;
+	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) = 1;
 L4a01:
 	if (p8) goto L4a47;
-	rsi = (44 * p10);
-	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + rsi) + 2);
-	*(int *)((char *)pc_hp_max + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + rsi) + 4);
+	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2);
+	*(int *)((char *)pc_hp_max + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4);
 L4a47:
 	l10 = 3752;
 L4a4c:
@@ -134,19 +105,12 @@ L4aa9:
 	draw_member_card_x(p10, 1);
 L4b09:
 	combat_delay((g4fc8 / 2));
-	rsi = (44 * p10);
-	if (*(int *)(((char *)monster_groups[p8] + rsi) + 2) > 0) goto L4b58;
+	if (*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2) > 0) goto L4b58;
 	do_damage_effect(p8, p10, 3486, 0, 3, l4, 6, 6, 3408, 0);
 L4b58:
 	goto L4c34;
 	l10 = (p8 == 0 ? 11 : 13);
-#asm
-	db 0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,08bh,046h,008h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0f6h
-	db 08ah,080h,094h,000h,02ah,0e4h,08bh,0c8h,02bh,046h,0fch,08bh,0c8h,058h,03bh,0c1h
-	db 07eh,050h
-#endasm
+	if (random(100) <= ((unsigned char)((char *)group_monster_rec[p8] + l10)[148] - l4)) goto L4be3;
 	clear_msg_line(4);
 	print_msg_centered(3495, 5, 4);
 	combat_delay((g4fc8 / 4));

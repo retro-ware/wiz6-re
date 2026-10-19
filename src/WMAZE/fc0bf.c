@@ -1,10 +1,7 @@
-#asm
-	extrn extract_bits_:near
-	extrn set_event_flags_:near
-	extrn swap_level_flags_:near
-#endasm
+extern char *g4fa8;
 extern char pc_item_count[];
 extern char pc_item_flags[];
+extern int cell_event_index;
 extern int party_count;
 extern int pc_item_id[];
 check_party_item_event()
@@ -13,11 +10,8 @@ check_party_item_event()
 	int l4;
 	int l6;
 	int l8;
-	register int rsi;
 	l8 = 1;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,000h,089h,046h,0fah
-#endasm
+	l6 = *(int *)(g4fa8 + (cell_event_index << 1));
 	l2 = 0;
 	goto Lc12e;
 Lc0e2:
@@ -33,21 +27,9 @@ Lc118:
 	l2++;
 Lc12e:
 	if (l2 < party_count) goto Lc0e2;
-#asm
-	db 0ffh,076h,0f8h,08bh,036h,0e8h,04eh,08bh,01eh,0a8h,04fh,08ah,080h,030h,006h,02ah
-	db 0e4h,050h,0d1h,0e6h,0ffh,0b0h,020h,001h
-	call swap_level_flags_
-	db 083h,0c4h,006h
-#endasm
+	swap_level_flags(*(int *)((g4fa8 + (cell_event_index << 1)) + 288), (unsigned char)(g4fa8 + cell_event_index)[1584], l8);
 	if (l8) goto Lc17d;
-#asm
-	db 0b8h,002h,000h,050h,0b8h,000h,000h,050h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh
-	db 01eh,0a8h,04fh,0ffh,0b0h,040h,002h
-	call extract_bits_
-	db 083h,0c4h,006h,050h
-	call set_event_flags_
-	db 059h
-#endasm
+	set_event_flags(extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), 0, 2));
 Lc17d:
 	;
 }

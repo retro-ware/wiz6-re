@@ -1,15 +1,15 @@
+extern char g4430[];
 extern char g4548[];
 extern char g454a[];
 extern char pc_equipped[];
 extern char pc_item_count[];
 extern char pc_swag_count[];
 extern int pc_item_id[];
+struct s8 { int w[4]; };
 f6835(p4, p6)
 {
 	int l2;
 	int l4;
-	register int rsi;
-	register int rdi;
 	if (p6 >= 10) goto L6978;
 	l4 = 0;
 L684b:
@@ -40,11 +40,8 @@ L68c5:
 	l2 = p6;
 	goto L6963;
 L6900:
-	rsi = (((432 * p4) + (l2 << 3)) + 17456);
-	rdi = (((432 * p4) + (l2 << 3)) + 17448);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,004h,000h,0f3h,0a5h,0c7h,046h,0fch,000h,000h
-#endasm
+	*(struct s8 *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * p4) + (l2 << 3)));
+	l4 = 0;
 L6935:
 	if ((unsigned char)pc_equipped[((432 * p4) + l4)] != (l2 + 1)) goto L6955;
 	pc_equipped[((432 * p4) + l4)] = *(char *)&l2;
@@ -60,11 +57,8 @@ L6978:
 	l2 = p6;
 	goto L69bf;
 L698c:
-	rsi = (((432 * p4) + (l2 << 3)) + 17456);
-	rdi = (((432 * p4) + (l2 << 3)) + 17448);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,004h,000h,0f3h,0a5h,0ffh,046h,0feh
-#endasm
+	*(struct s8 *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * p4) + (l2 << 3)));
+	l2++;
 L69bf:
 	if (((unsigned char)pc_swag_count[(432 * p4)] + 10) > l2) goto L698c;
 L69d5:

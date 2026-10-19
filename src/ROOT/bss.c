@@ -114,8 +114,11 @@
 	global g43ca_:byte,2
 	global cur_member_:byte,2
 	global party_count_:byte,2
-	global member_portrait_:byte,12
-	global member_pcfile_index_:byte,20
+	global member_portrait_:byte,2
+	global g43d2_:byte,10
+	global member_pcfile_index_:byte,2
+	global g43de_:byte,10
+	global party_:byte,8
 	global pc_age_days_:byte,4
 	global pc_exp_:byte,2
 	global g43f6_:byte,2
@@ -138,7 +141,8 @@
 	global pc_item_type_:byte,1
 	global pc_item_icon_:byte,1
 	global pc_item_qty_:byte,1
-	global pc_item_flags_:byte,73
+	global pc_item_flags_:byte,1
+	global g4430_:byte,72
 	global g4478_:byte,96
 	global g44d8_:byte,2
 	global g44da_:byte,1
@@ -218,7 +222,8 @@
 	global pc_item_count_:byte,1
 	global pc_swag_count_:byte,1
 	global g4596_:byte,1
-	global g4597_:byte,2353
+	global g4597_:byte,1
+	global g4598_:byte,2352
 	global g4ec8_:byte,2
 	global g4eca_:byte,2
 	global g4ecc_:byte,2

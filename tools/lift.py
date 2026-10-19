@@ -208,13 +208,15 @@ class Func:
             ops = list(i.operands)
             idx = any(o.type == X.X86_OP_MEM and X86 in (o.mem.base, o.mem.index) for o in ops)
             reg = [k for k, o in enumerate(ops) if o.type == X.X86_OP_REG and o.reg == X86]
-            if i.mnemonic == 'movsw':
-                if not live:            # the struct copy of a by-value argument
+            if i.mnemonic in ('movsw', 'rep movsw'):
+                if not live:            # the struct copy of a by-value argument or an assignment
                     return False
             elif idx:
                 if not live or reg:
                     return False
             elif reg:
+                if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic == 'mov' and reg == [1]):
+                    continue        # the temp scaled in place (shl si, cl), or copied out (mov cx, si)
                 if i.mnemonic != 'mov' or reg != [0] or ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM) or \
                         ops[1].size != 2:
                     return False
@@ -436,6 +438,7 @@ class Lifter:
         self.raw = False
         self.skip = None
         self.structs = set()    # (function, size): calls returning a struct passed on by value
+        self.scopies = set()    # sizes of structs copied by assignment (rep movsw)
         self.gptr = set()       # globals used as a base pointer
         self.st_start = f.body
         prev_end = f.body
@@ -575,6 +578,8 @@ class Lifter:
             d, s = ops
             if d.type == X.X86_OP_REG and d.reg == X.X86_REG_CX and s.type == X.X86_OP_IMM and \
                     self.long_shift(i):
+                return
+            if i.op_str == 'cx, ds' and self.struct_copy(i):
                 return
             if d.type == X.X86_OP_REG:
                 self.setreg(d, self.val(s))
@@ -847,6 +852,30 @@ class Lifter:
         self.out.setdefault(t, []).extend(dict(self.R) for _ in range(n))
         self.nolabel.add(f)
         self.skip_to = last.address + last.size
+        return True
+
+    def struct_copy(self, i):
+        """mov cx,ds; mov es,cx; mov cx,N; rep movsw with the scratch si/di set: a struct assignment
+        *(struct sB *)di = *(struct sB *)si."""
+        p, seq = i.address + i.size, []
+        for w in ('mov es, cx', 'mov cx, ', 'rep movsw'):
+            x = self.f.seen.get(p)
+            if x is None or not ('%s %s' % (x.mnemonic, x.op_str)).startswith(w) or p in self.targets:
+                return False
+            seq.append(x)
+            p += x.size
+        n = seq[1].operands[1]
+        if n.type != X.X86_OP_IMM or self.stack or not {'si', 'di'} <= self.f.scratch or \
+                'si' not in self.R or 'di' not in self.R:
+            return False
+        src, dst = self.R['si'], self.R['di']
+        self.cur = seq[-1]
+        self.emit('scopy', dst=dst, src=src, size=2 * n.imm)
+        self.scopies.add(2 * n.imm)
+        self.invalidate(('m', dst, 0, 2), None)
+        for r in ('si', 'di', 'cx'):
+            self.R.pop(r, None)
+        self.skip_to = p
         return True
 
     def struct_arg(self, i):

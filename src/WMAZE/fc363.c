@@ -1,20 +1,9 @@
-#asm
-	public fc363_
-	extrn extract_bits_:near
-	extrn set_event_flags_:near
-	extrn swap_level_flags_:near
-	extrn test_bit_:near
-fc363_:
-	db 055h,08bh,0ech,083h,0c4h,0feh,056h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh
-	db 0a8h,04fh,0ffh,030h,0b8h,098h,034h,050h
-	call test_bit_
-	db 083h,0c4h,004h,089h,046h,0feh,050h,08bh,036h,0e8h,04eh,08bh,01eh,0a8h,04fh,08ah
-	db 080h,030h,006h,02ah,0e4h,050h,0d1h,0e6h,0ffh,0b0h,020h,001h
-	call swap_level_flags_
-	db 083h,0c4h,006h,0b8h,002h,000h,050h,0b8h,000h,000h,050h,0a1h,0e8h,04eh,0d1h,0e0h
-	db 08bh,0f0h,08bh,01eh,0a8h,04fh,0ffh,0b0h,040h,002h
-	call extract_bits_
-	db 083h,0c4h,006h,050h
-	call set_event_flags_
-	db 059h,05eh,08bh,0e5h,05dh,0c3h
-#endasm
+extern char *g4fa8;
+extern int cell_event_index;
+fc363()
+{
+	int l2;
+	l2 = test_bit(13464, *(int *)(g4fa8 + (cell_event_index << 1)));
+	swap_level_flags(*(int *)((g4fa8 + (cell_event_index << 1)) + 288), (unsigned char)(g4fa8 + cell_event_index)[1584], l2);
+	set_event_flags(extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), 0, 2));
+}

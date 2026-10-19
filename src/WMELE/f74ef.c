@@ -1,15 +1,8 @@
-f74ef()
+extern char *maze_data;
+f74ef(p4, p6, p8)
 {
-	register int rsi;
-#asm
-$20004 equ 1
-#endasm
-#asm
-	db 08bh,01eh,0aah,04fh,08bh,076h,004h,08ah,080h,0e0h,001h,02ah,0e4h,03bh,046h,006h
-	db 07fh,022h,005h,007h,000h,03bh,046h,006h,07ch,01ah,08ah,080h,0ech,001h,02ah,0e4h
-	db 03bh,046h,008h,07fh,00fh,005h,007h,000h,03bh,046h,008h,07ch,007h
-#endasm
-	return rsi;
+	if (((((unsigned char)(maze_data + p4)[480] > p6) || (((unsigned char)(maze_data + p4)[480] + 7) < p6)) || ((unsigned char)(maze_data + p4)[492] > p8)) || (((unsigned char)(maze_data + p4)[492] + 7) < p8)) goto L7527;
+	return p4;
 L7527:
 	return -1;
 }

@@ -1,13 +1,12 @@
 extern int sprite_count[];
 extern int sprite_list[];
+struct s24 { int w[12]; };
 insert_sprite(depth, pic, x, y, w, h, mirror, frames)
 char pic;
 char mirror;
 {
 	int pos;
 	int l4;
-	register int rsi;
-	register int rdi;
 	pos = 0;
 L4b8a:
 	if ((pos >= sprite_count[0]) || ((unsigned char)(*(char **)((char *)sprite_list + (pos << 1)))[20] > depth)) goto L4baa;
@@ -17,11 +16,8 @@ L4baa:
 	l4 = sprite_count[0];
 	goto L4bcd;
 L4bb2:
-	rsi = sprite_count[l4];
-	rdi = sprite_list[l4];
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,00ch,000h,0f3h,0a5h,0ffh,04eh,0fch
-#endasm
+	*(struct s24 *)(*(char **)((char *)sprite_list + (l4 << 1))) = *(struct s24 *)(*(char **)((char *)sprite_count + (l4 << 1)));
+	l4--;
 L4bcd:
 	if (l4 > pos) goto L4bb2;
 	if (pos < 12) goto L4be5;

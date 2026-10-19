@@ -30,7 +30,7 @@ def linear(e):
 
 
 def st_exprs(st):
-    for k in ('lv', 'rv', 'x'):
+    for k in ('lv', 'rv', 'x', 'dst', 'src'):
         x = getattr(st, k, None)
         if x is not None:
             yield x
@@ -169,6 +169,10 @@ class Printer:
         self.names = names
         self.T = Types([s for s in lifter.sts if s.kind != 'raw'], self.img, lifter.f.locals)
         self.T.ptr |= {('g', a) for a in getattr(lifter, 'gptr', ())}
+        for st in lifter.sts:      # a struct copy at global + index: that global is an array
+            for e in (getattr(st, 'dst', None), getattr(st, 'src', None)) if st.kind == 'scopy' else ():
+                if e[0] == 'b' and e[1] == '+' and e[3][0] == 'c' and self.T.is_data(e[3][1]):
+                    self.T.arr.setdefault(e[3][1], set()).add(1)
         self.ext_vars = {}
         self.asm_ext = set()
         self.garr0 = {}
@@ -268,6 +272,12 @@ class Printer:
             return '((char *)%s + %s)' % (self.global_name(d), self.ex(b))
         p, sd = self.ptr(b), self.sdisp(d)
         return '(%s + %d)' % (p, sd) if sd else p
+
+    def saddr(self, e):
+        """A struct copy's address: global + index, or any pointer expression."""
+        if e[0] == 'b' and e[1] == '+' and e[3][0] == 'c' and self.T.is_data(e[3][1]):
+            return self.addr(('m', e[2], e[3][1], 1))
+        return self.ptr(e)
 
     def mem(self, m):
         b, d, size = m[1], m[2], m[3]
@@ -464,6 +474,9 @@ class Printer:
                 if getattr(st, 'incs', False) and st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr:
                     lv = '*(int *)&' + lv       # inc; inc: cgen adds to a pointer with add, an int with incs
                 out.append('\t%s %s= %s;' % (lv, st.op, self.ex(st.rv)))
+            elif kd == 'scopy':
+                out.append('\t*(struct s%d *)%s = *(struct s%d *)%s;' % (st.size, self.saddr(st.dst), st.size,
+                                                                       self.saddr(st.src)))
             elif kd == 'inc':
                 lv = self.ex(st.lv)
                 out.append('\t%s%s;' % ('(%s)' % lv if lv.startswith('*') else lv, '++' if st.op == '+' else '--'))
@@ -555,7 +568,7 @@ class Printer:
         if ext:
             head += ['#asm'] + ['\textrn %s:near' % x for x in ext] + ['#endasm']
         head += sorted(self.ext_vars.values())
-        for n in sorted({n for _, n in self.L.structs}):
+        for n in sorted({n for _, n in self.L.structs} | getattr(self.L, 'scopies', set())):
             head.append('struct s%d { int w[%d]; };' % (n, n // 2))
         for fn, n in sorted(self.L.structs):
             head.append('struct s%d %s();' % (n, fn))

@@ -1,7 +1,6 @@
-#asm
-	extrn show_message_text_m_:near
-#endasm
+extern char *g4fa8;
 extern int bottom_line_win;
+extern int cell_event_index;
 extern int event_screen_dirty;
 extern int g522a;
 extern int game_state_arg;
@@ -28,21 +27,10 @@ puzzle_event()
 	int l188;
 	int enabled[16];
 	int l222;
-	register int rsi;
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,080h,0b8h,030h,006h,000h,076h,01fh,0b8h
-	db 000h,000h,050h,0d1h,0e6h,08bh,000h,050h,08bh,036h,0e8h,04eh,08ah,080h,030h,006h
-	db 02ah,0e4h,08bh,0c8h,058h,003h,0c1h,050h
-	call show_message_text_m_
-	db 083h,0c4h,004h
-#endasm
+	if ((unsigned)(g4fa8 + cell_event_index)[1584] <= 0) goto Lbcc9;
+	show_message_text_m((*(int *)(g4fa8 + (cell_event_index << 1)) + (unsigned char)(g4fa8 + cell_event_index)[1584]), 0);
 Lbcc9:
-	;
-#asm
-lbcc9:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0f8h
-#endasm
+	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	choices = extract_bits(l8, 0, 4);
 	steps = extract_bits(l8, 4, 4);
 	l16 = extract_bits(l8, 8, 4);
@@ -51,9 +39,7 @@ lbcc9:
 	l22 = extract_bits(l8, 14, 1);
 	l28 = extract_bits(l8, 15, 1);
 	event_screen_dirty = 1;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,000h,089h,046h,0f6h
-#endasm
+	l10 = *(int *)(g4fa8 + (cell_event_index << 1));
 	erase_window(main_window, 0);
 	defer_window_draw(main_window);
 	if (l20 != 1) goto Lbda6;
@@ -119,10 +105,7 @@ Lc040:
 Lc043:
 	if (l2 < steps) goto Lbf3f;
 	if (l26) goto Lc090;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0f8h
-#endasm
+	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
 	swap_level_flags(extract_bits(l8, 0, 8), extract_bits(l8, 8, 8), failed);
 Lc090:
 	erase_window(main_window, 0);

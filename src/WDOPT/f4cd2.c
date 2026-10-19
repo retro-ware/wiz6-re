@@ -12,7 +12,6 @@ clear_weapon_slot(member, hand)
 {
 	int l2;
 	int l4;
-	register int rsi;
 	g44e5[((432 * member) + (hand << 4))] = 0;
 	g44e4[((432 * member) + (hand << 4))] = 0;
 	l4 = 0;
@@ -28,12 +27,9 @@ L4cfc:
 	l2 = ((unsigned char)g4525[(432 * member)] / 5);
 	l4 = ((unsigned char)g4539[(432 * member)] / 5);
 	if ((pc_class[(432 * member)] != 13) && (pc_class[(432 * member)] != 12)) goto L4dae;
-#asm
-l4d82:
-	db 08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,040h,040h,08bh,076h,006h,0b9h,004h
-	db 000h,0d3h,0e6h,08bh,0ceh,003h,0d9h,088h,087h,0dbh,044h,080h,08fh,0e7h,044h,040h
-	db 08bh,046h,0fch,005h,005h,000h,088h,087h,0e2h,044h
-#endasm
+	g44db[((432 * member) + (hand << 4))] = (char)((l2 / 3) + 2);
+	g44e7[((432 * member) + (hand << 4))] |= 64;
+	g44e2[((432 * member) + (hand << 4))] = (char)(l4 + 5);
 	goto L4e04;
 L4dae:
 	if (l2 <= 0) goto L4ddf;

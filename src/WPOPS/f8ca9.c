@@ -7,7 +7,8 @@ char *pos;
 {
 	register int rsi;
 	register int rdi;
-	if (((rdi = find_sprite_slot(*(int *)pos, p10, p12)) != -1) || ((rdi = find_sprite_slot(g4fa6, p10, p12)) != -1)) goto L8d22;
+	if ((rdi = find_sprite_slot(*(int *)pos, p10, p12)) != -1) goto L8d22;
+	if ((rdi = find_sprite_slot(g4fa6, p10, p12)) != -1) goto L8d22;
 	rsi = ((*(int *)pos + 1) % 12);
 L8cef:
 	if ((rdi = find_sprite_slot(rsi, p10, p12)) != -1) goto L8d22;

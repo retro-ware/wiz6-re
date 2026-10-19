@@ -1,18 +1,15 @@
-#asm
-	extrn play_sound_:near
-	extrn print_number_col16_:near
-#endasm
 extern char pc_skill_points[];
+extern char pc_skills[];
 extern int menu_clicked;
 fdeca(p4, p6, p8, p10, p12, p14)
 char *p4;
+char *p12;
 {
 	int l2;
 	int l4;
 	int l24[10];
 	int l26;
 	int l28;
-	register int rsi;
 	l26 = (unsigned char)pc_skill_points[(432 * p8)];
 	fill_window(p4, 32, 3, 0);
 	refresh_window(p4);
@@ -62,21 +59,11 @@ Le132:
 	switch (l2) {
 case 1:
 	if (l24[l4] <= 0) goto Le1b2;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh,00ch
-	db 08bh,008h,003h,0c1h,08bh,0d8h,0feh,08fh,01ch,045h,08bh,0deh,003h,0ddh,0ffh,04fh
-	db 0e8h
-#endasm
+	pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]--;
+	l24[l4]--;
 	l26++;
-#asm
-	db 0b8h,001h,000h,050h
-	call play_sound_
-	db 059h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh
-	db 00ch,08bh,008h,003h,0c1h,08bh,0d8h,08ah,087h,01ch,045h,02ah,0e4h,050h,08bh,046h
-	db 0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call print_number_col16_
-	db 083h,0c4h,006h
-#endasm
+	play_sound(1);
+	print_number_col16(p6, (l4 + 3), (unsigned char)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]);
 	print_number_col16(p6, 14, l26);
 	goto Le1ba;
 Le1b2:
@@ -96,26 +83,12 @@ Le1f4:
 	put_char(p6, 100, 4);
 	goto Le31b;
 case 3:
-	;
-#asm
-le21c:
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh,00ch
-	db 08bh,008h,003h,0c1h,08bh,0d8h,080h,0bfh,01ch,045h,064h,073h,05bh
-#endasm
-	if (l26 <= 0) goto Le294;
-#asm
-	db 0feh,087h,01ch,045h,08bh,0deh,003h,0ddh,0ffh,047h,0e8h
-#endasm
+	if (((unsigned)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))] >= 100) || (l26 <= 0)) goto Le294;
+	pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]++;
+	l24[l4]++;
 	l26--;
-#asm
-	db 0b8h,001h,000h,050h
-	call play_sound_
-	db 059h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh
-	db 00ch,08bh,008h,003h,0c1h,08bh,0d8h,08ah,087h,01ch,045h,02ah,0e4h,050h,08bh,046h
-	db 0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call print_number_col16_
-	db 083h,0c4h,006h
-#endasm
+	play_sound(1);
+	print_number_col16(p6, (l4 + 3), (unsigned char)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]);
 	print_number_col16(p6, 14, l26);
 	goto Le29c;
 Le294:

@@ -7,7 +7,8 @@ char *p8;
 {
 	register int rsi;
 	register int rdi;
-	if (((rdi = fd4c9(*(int *)p8, p10, p12)) != -1) || ((rdi = fd4c9(g4fa6, p10, p12)) != -1)) goto Ld57f;
+	if ((rdi = fd4c9(*(int *)p8, p10, p12)) != -1) goto Ld57f;
+	if ((rdi = fd4c9(g4fa6, p10, p12)) != -1) goto Ld57f;
 	rsi = ((*(int *)p8 + 1) % 12);
 Ld54c:
 	if ((rdi = fd4c9(rsi, p10, p12)) != -1) goto Ld57f;

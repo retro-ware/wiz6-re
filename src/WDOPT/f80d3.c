@@ -8,7 +8,8 @@ char *p8;
 {
 	register int rsi;
 	register int rdi;
-	if (((rdi = f8096(*(int *)p8, p10, p12)) != -1) || ((rdi = f8096(g4fa6, p10, p12)) != -1)) goto L814c;
+	if ((rdi = f8096(*(int *)p8, p10, p12)) != -1) goto L814c;
+	if ((rdi = f8096(g4fa6, p10, p12)) != -1) goto L814c;
 	rsi = ((*(int *)p8 + 1) % 12);
 L8119:
 	if ((rdi = f8096(rsi, p10, p12)) != -1) goto L814c;

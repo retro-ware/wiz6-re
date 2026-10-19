@@ -11,7 +11,6 @@ clear_hand_attack_x(p4)
 {
 	int l2;
 	int l4;
-	register int rsi;
 	g44e5[((432 * g435c) + (p4 << 4))] = 0;
 #asm
 	db 0c6h,087h,0e4h,044h,000h
@@ -29,11 +28,9 @@ L6f4f:
 	l2 = ((unsigned char)g4525[(432 * g435c)] / 5);
 	l4 = ((unsigned char)g4539[(432 * g435c)] / 5);
 	if ((pc_class[(432 * g435c)] != 13) && (pc_class[(432 * g435c)] != 12)) goto L7004;
+	g44db[((432 * g435c) + (p4 << 4))] = (char)((l2 / 3) + 2);
 #asm
-l6fd8:
-	db 08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,040h,040h,08bh,076h,004h,0b9h,004h
-	db 000h,0d3h,0e6h,08bh,0ceh,003h,0d9h,088h,087h,0dbh,044h,080h,08fh,0e7h,044h,040h
-	db 08bh,046h,0fch,005h,005h,000h,088h,087h,0e2h,044h
+	db 080h,08fh,0e7h,044h,040h,08bh,046h,0fch,005h,005h,000h,088h,087h,0e2h,044h
 #endasm
 	goto L705c;
 L7004:
@@ -46,16 +43,10 @@ L7036:
 	if (l4 <= 0) goto L705c;
 	g44e2[((432 * g435c) + (p4 << 4))] = *(char *)&l4;
 L705c:
-	rsi = (44 * g435c);
-	(monster_groups + rsi)[30] = 10;
+	(monster_groups + (44 * g435c))[30] = 10;
 	l2 = 0;
 L7072:
-	;
-#asm
-l7072:
-	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,003h,046h,0feh,08bh,0f0h,08bh,01eh,0a8h,043h
-	db 0c6h,040h,018h,000h
-#endasm
+	(monster_groups + ((44 * g435c) + l2))[24] = 0;
 	l2++;
 	if (l2 < 4) goto L7072;
 }

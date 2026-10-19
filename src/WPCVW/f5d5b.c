@@ -1,6 +1,4 @@
-#asm
-	extrn strcpy_:near
-#endasm
+extern char g4430[];
 extern char g4548[];
 extern char g454a[];
 extern char pc_equipped[];
@@ -8,13 +6,12 @@ extern char pc_item_count[];
 extern int g5680[];
 extern int item_row_color[];
 extern int pc_item_id[];
+struct s8 { int w[4]; };
 /* Remove inventory item p6 from member p4, unequipping it and shifting the rest down. */
 remove_item(member, item)
 {
 	int l2;
 	int slot;
-	register int rsi;
-	register int rdi;
 	slot = 0;
 L5d68:
 	if ((unsigned char)pc_equipped[((432 * member) + slot)] != item) goto L5de2;
@@ -44,14 +41,8 @@ L5de2:
 	l2 = item;
 	goto L5eab;
 L5e1e:
-	rsi = (((432 * member) + (l2 << 3)) + 17456);
-	rdi = (((432 * member) + (l2 << 3)) + 17448);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,004h,000h,0f3h,0a5h,08bh,046h,0feh,0b9h,004h,000h,0d3h
-	db 0e0h,005h,0eeh,055h,050h,08bh,046h,0feh,0d3h,0e0h,005h,0deh,055h,050h
-	call strcpy_
-	db 083h,0c4h,004h
-#endasm
+	*(struct s8 *)((char *)pc_item_id + ((432 * member) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * member) + (l2 << 3)));
+	strcpy(((l2 << 4) + 21982), ((l2 << 4) + 21998));
 	item_row_color[l2] = g5680[l2];
 	slot = 0;
 L5e7d:
