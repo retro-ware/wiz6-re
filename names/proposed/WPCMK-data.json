@@ -1,0 +1,33 @@
+{
+  "data": {
+    "4fc4": "input_was_mouse",
+    "4fd2": "roster_slot_count",
+    "4fd8": "roster_slot_used",
+    "546e": "sheet_win",
+    "56ca": "prompt_win",
+    "56cc": "menu_win",
+    "5470": "char_rec",
+    "5478": "char_age_days",
+    "5488": "char_hp",
+    "548a": "char_hp_max",
+    "548c": "char_stamina",
+    "548e": "char_stamina_max",
+    "5490": "char_load",
+    "5492": "char_carry_capacity",
+    "5498": "char_spell_points",
+    "549a": "char_spell_points_max",
+    "559c": "char_stats",
+    "55a4": "char_skills",
+    "55f8": "char_known_spells",
+    "560c": "char_portrait",
+    "560d": "char_race",
+    "560e": "char_sex",
+    "560f": "char_class",
+    "5618": "skill_points_left",
+    "561c": "char_item_count",
+    "56ac": "bonus_points",
+    "56ae": "class_eligible",
+    "5588": "spell_picks_left",
+    "00de": "spell_table"
+  }
+}

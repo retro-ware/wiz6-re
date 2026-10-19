@@ -1,0 +1,14 @@
+{
+  "data": {
+    "43a8": "combat_group",
+    "43b6": "group_monster_rec",
+    "4360": "monster_group_count",
+    "4356": "combat_over",
+    "4358": "view_anim_state",
+    "4390": "view_sprites",
+    "438e": "view_sprite_count",
+    "4362": "view_pos_group",
+    "433c": "view_rows_open",
+    "51a6": "view_glyph_count"
+  }
+}

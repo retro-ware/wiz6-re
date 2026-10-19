@@ -1,0 +1,18 @@
+{
+  "data": {
+    "3342": "combat_msg_win",
+    "363a": "game_state",
+    "43ce": "party_count",
+    "43e8": "party",
+    "4360": "monster_group_count",
+    "43a8": "monster_groups",
+    "4390": "sprite_list",
+    "438e": "sprite_count",
+    "4358": "anim_step",
+    "3646": "anim_phase",
+    "4f9a": "party_facing",
+    "507a": "view_depth",
+    "5108": "view_object_count",
+    "5016": "blink_state"
+  }
+}

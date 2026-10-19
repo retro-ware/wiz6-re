@@ -1,0 +1,42 @@
+extern char *g546e;
+extern char g560f;
+extern char g5610;
+extern int g547c;
+extern int g547e;
+extern int g5480;
+extern int g5482;
+extern int g5494;
+extern int g5496;
+extern long g5478;
+f535b()
+{
+	char x0[84];
+	register int rsi;
+	f4ffd(g546e, 4, 1, 21616, 5);
+	f030b(g546e, 4, 2);
+	f22b7(g546e, 30, 5);
+	f05a5(g546e, (int)(g5478 / 365L), 3, 14);
+	f030b(g546e, 4, 3);
+	f22b7(g546e, 31, 5);
+	f05a5(g546e, g5496, 3, 12);
+	f5022(200, g546e, 13, 3, 8);
+	g546e[6]++;
+	f05a5(g546e, g5494, 3, 9);
+	f5022(201, g546e, 25, 1, 11);
+	f075b(((((unsigned char)g560f * 10) + (unsigned char)g5610) + 800), 22048);
+	f030b(g546e, (39 - strlen(22048)), 1);
+	f24e9(g546e, 22048, 3);
+	f5022(202, g546e, 25, 2, 14);
+	g546e[6]++;
+	f0507(g546e, g547c, g547e, 10, 6);
+	f5022(203, g546e, 25, 3, 14);
+	g546e[6]++;
+	f0507(g546e, g5480, g5482, 10, 6);
+	f507f(g546e, 1, 14, 35);
+	f507f(g546e, 1, 16, 36);
+	f507f(g546e, 1, 18, 37);
+	f507f(g546e, 11, 14, 38);
+	f507f(g546e, 11, 16, 39);
+	f507f(g546e, 11, 18, 40);
+	f50d1(g546e);
+}

@@ -1,0 +1,33 @@
+{
+  "data": {
+    "43ce": "party_count",
+    "43cc": "cur_member",
+    "43e8": "party",
+    "43d0": "member_portrait_slot",
+    "43dc": "member_pcfile_index",
+    "4fd8": "pcfile_status",
+    "4fd2": "pcfile_count",
+    "4fd0": "pcfile_rec_size",
+    "4fd4": "pcfile_offset",
+    "4fc4": "menu_mouse_hit",
+    "3646": "camp_anim_frame",
+    "5060": "camp_anim_tick",
+    "5064": "camp_anim_dx",
+    "5062": "camp_anim_dy",
+    "4fbc": "picture_win",
+    "4fc0": "copy_protection_ok",
+    "4fce": "return_cmd",
+    "33f8": "scenario_hdr",
+    "4fea": "scenario_hdr_fd",
+    "50fa": "pclist_sex",
+    "511a": "pclist_race",
+    "513a": "pclist_class",
+    "3590": "cfg_sound",
+    "3591": "cfg_delay",
+    "3593": "cfg_level",
+    "3594": "cfg_input",
+    "3595": "cfg_gmode",
+    "0846": "mouse_active",
+    "515a": "pclist_pcindex"
+  }
+}

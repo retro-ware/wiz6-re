@@ -1,0 +1,30 @@
+{
+  "func": {
+    "57ac": "npc_input_line",
+    "6a80": "npc_give_item_to_member",
+    "8ce8": "npc_choose_spell",
+    "8a3e": "npc_draw_spell_window",
+    "9a42": "npc_choose_member_item",
+    "a378": "do_npc_buy",
+    "ab2a": "do_npc_give_gold",
+    "b047": "do_npc_pilfer",
+    "b8de": "init_npc_encounter",
+    "ba7d": "run_npc_encounter",
+    "c9d7": "npc_answer_topic",
+    "d53a": "npc_input_word"
+  },
+  "doc": {
+    "ba7d": "NPC encounter: set up windows, run the NPC interaction menu, then clean up.",
+    "b8de": "Allocate sprite list, clear combat state and load the NPC record g5274.",
+    "a378": "NPC shop list: let the party buy items from the NPC.",
+    "ab2a": "Ask an amount and give that gold to the NPC, raising its friendliness (g4550).",
+    "b047": "Try to steal gold or an item from the NPC; chance from level and skill.",
+    "d53a": "Prompt member p4 for a word and match it against the '/'-separated choices of message p6.",
+    "9a42": "List the inventory and swag of member p6 and let the player pick an item."
+  },
+  "local": {
+    "b047": {"p4": "member", "l2": "chance", "l4": "roll"},
+    "ab2a": {"p4": "win", "p6": "member"},
+    "d53a": {"p4": "member", "p6": "msg"}
+  }
+}

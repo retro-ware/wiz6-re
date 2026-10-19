@@ -1,0 +1,22 @@
+{
+  "data": {
+    "4410": "member_spell_points",
+    "00de": "spell_table",
+    "4428": "member_items",
+    "4594": "member_item_count",
+    "4595": "member_bag_count",
+    "44f8": "member_equipped",
+    "4404": "member_stamina",
+    "4406": "member_max_stamina",
+    "4400": "member_hp",
+    "4402": "member_max_hp",
+    "4fa4": "party_x",
+    "4fa2": "party_y",
+    "4fa0": "party_cell_x",
+    "4f9c": "party_block",
+    "4f9c": "party_level",
+    "4f9a": "party_facing",
+    "363c": "map_number",
+    "4faa": "maze_data"
+  }
+}

@@ -1,0 +1,5 @@
+extern char g00df[];
+f7816(p4, p6)
+{
+	return ((((unsigned char)g00df[(p4 * 6)] * 3) + (p6 * 3)) + -6);
+}

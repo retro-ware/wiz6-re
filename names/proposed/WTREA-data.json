@@ -1,0 +1,19 @@
+{
+  "data": {
+    "5192": "chest_trap",
+    "51bc": "trap_guess_letters",
+    "51d0": "trap_guess_len",
+    "51d2": "spell_disarm_result",
+    "5266": "loot_count",
+    "51d6": "loot_item",
+    "43c6": "combat_gold",
+    "43c4": "treasure_id",
+    "4589": "member_condition",
+    "4400": "member_hp",
+    "4402": "member_hp_max",
+    "4404": "member_stamina",
+    "4406": "member_stamina_max",
+    "440c": "member_level",
+    "4410": "member_spell_points"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "func": {
+    "469f": "read_file_bytes",
+    "4721": "load_monster_pic",
+    "47f5": "load_sounds",
+    "48ee": "load_sound",
+    "49ca": "show_credits",
+    "4a89": "init_game_data",
+    "4e5b": "load_fullscreen_pic",
+    "4ee0": "draw_big_char",
+    "4f12": "wait_enter_key",
+    "4f57": "show_title_sequence",
+    "535a": "show_graveyard",
+    "54a7": "init_main_screen"
+  },
+  "doc": {
+    "4572": "WINIT entry: dispatch on the overlay command (0 init data, 1 title, 2 main screen, 8 graveyard).",
+    "469f": "Open a data file by name and read len bytes into buf; fatal error 6 if missing.",
+    "4721": "Load MONnn.PIC for monster number mon into picture slot slot and mark the slots it covers.",
+    "47f5": "Load SOUNDnn.SND for each of the first count sound table entries that has a size.",
+    "48ee": "Load the single sound SOUNDnn.SND for sound number n.",
+    "49ca": "Load and display CREDITS.PIC in a full-screen window.",
+    "4a89": "Read SCENARIO.HDR, load fonts and maze graphics for the video mode, open the header and DBS files.",
+    "4e5b": "Create the full-screen window and load the picture file name into it; show it if show.",
+    "4ee0": "Draw one character ch of the big font at x, y.",
+    "4f12": "Wait up to secs seconds (tenths ticks); return 1 if Enter was pressed.",
+    "4f57": "Play the title page sequence (sounds, scrolling text); a key or Enter skips it.",
+    "535a": "Free the game windows and show the graveyard picture, wait for a key.",
+    "54a7": "Load monster pictures and the DRAGONSC screen and create the main game windows."
+  },
+  "local": {
+    "469f": {"p4": "name", "p6": "buf", "p8": "len", "l2": "fd"},
+    "4721": {"p4": "mon", "p6": "slot", "l2": "i", "l22": "fname"},
+    "47f5": {"p4": "count", "l24": "i", "l20": "fname", "l22": "fd"},
+    "48ee": {"p4": "n", "l20": "fname", "l34": "fd"},
+    "49ca": {"l4": "fd", "l2": "win"},
+    "4e5b": {"p4": "name", "p6": "show", "l2": "fd"},
+    "4ee0": {"p4": "ch", "p6": "x", "p8": "y", "l10": "text"},
+    "4f12": {"p4": "secs"},
+    "4f57": {"l4": "fd", "l2": "frame", "l6": "i", "l8": "y", "l28": "glyph", "l48": "glyph_x", "l68": "start", "l88": "glyph_y", "l108": "min_y", "l110": "animating", "l112": "key", "l114": "skipped"},
+    "54a7": {"l4": "i", "l6": "j"}
+  }
+}

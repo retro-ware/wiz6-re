@@ -1,0 +1,6 @@
+f63ce(p4, p6, p8, p10)
+char p10;
+{
+	f030b(p4, p6, p8);
+	f23e3(p4, (unsigned char)p10, 2);
+}

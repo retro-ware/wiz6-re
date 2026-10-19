@@ -1,0 +1,17 @@
+{
+  "data": {
+    "363a": "overlay_cmd",
+    "4fc6": "video_flags",
+    "4fbe": "fullscreen_win",
+    "432c": "pic_slot_monster",
+    "4322": "pic_slot_loaded",
+    "3348": "sound_table",
+    "4336": "cur_sound",
+    "33f0": "cur_sound_size",
+    "4fe8": "pic_fd",
+    "43dc": "member_pcfile_index",
+    "4fb6": "party_picture_win",
+    "3342": "status_line_win",
+    "4fb2": "bottom_line_win"
+  }
+}

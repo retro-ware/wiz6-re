@@ -1,0 +1,7 @@
+#asm
+dataseg segment word public 'data'
+	db 053h,04fh,055h,04eh,044h,030h,030h,02eh,053h,04eh,044h,000h,04dh,04fh,04eh,030h
+	db 030h,02eh,050h,049h,043h,000h,020h,020h,020h,020h,020h,020h,020h,020h,020h,020h
+	db 020h,020h,020h,020h,020h,000h,02ah,02ah,02ah,000h,02ah,02ah,02ah,000h
+dataseg ends
+#endasm

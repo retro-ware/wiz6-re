@@ -1,0 +1,13 @@
+{"data": {
+  "363a": "game_state",
+  "363c": "maze_level",
+  "43ce": "party_count",
+  "4f9a": "party_facing",
+  "4fa0": "party_x",
+  "4f9e": "party_y",
+  "4f9c": "party_z",
+  "4ee8": "cell_event_index",
+  "5230": "event_screen_dirty",
+  "5234": "lock_tumblers",
+  "4fca": "message_delay"
+}}

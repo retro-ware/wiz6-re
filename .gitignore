@@ -1,0 +1,13 @@
+# game data and third-party code: never committed
+/gog/
+/orig/
+/tc/
+/ref/
+# generated / local
+/build/
+/work/
+/ghidra/
+/.venv/
+__pycache__/
+*.pyc
+.DS_Store

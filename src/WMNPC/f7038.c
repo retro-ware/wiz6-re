@@ -1,0 +1,586 @@
+#asm
+	extrn f09e2_:near
+	extrn f28af_:near
+	extrn f5a1e_:near
+	extrn f5a69_:near
+	extrn f5c61_:near
+	extrn f69db_:near
+	extrn f6de9_:near
+	extrn fd90e_:near
+#endasm
+extern char g00cc[];
+extern char g442c[];
+extern char g450c[];
+extern char g4511[];
+extern char g4514[];
+extern char g4589[];
+extern char g51cc;
+extern int g363a;
+extern int g363c;
+extern int g4338;
+extern int g433a;
+extern int g4354;
+extern int g4362[];
+extern int g43ce;
+extern int g43fc[];
+extern int g43fe[];
+extern int g4400[];
+extern int g4402[];
+extern int g4404[];
+extern int g4406[];
+extern int g4f9a;
+extern int g4f9c;
+extern int g4f9e;
+extern int g4fa0;
+extern int g4fa2;
+extern int g4fa4;
+extern int g4fce;
+extern int g50de[];
+extern int g5186[];
+extern int g51c2;
+extern int g5264;
+extern int g5274;
+extern int g5276;
+extern int g527a;
+extern long g51c0;
+f7038(p4, p6)
+{
+	int l2;
+	int l4;
+	char l36[32];
+	int l38;
+	int l40;
+	int l42;
+	long l46;
+	int l54[4];
+	register int rsi;
+	l4 = g5186[p6];
+	f0882(6, l36, l4, 0);
+	l2 = 0;
+L7067:
+	if (l2 >= 8) goto L7f73;
+#asm
+l7070:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0dfh,02ah,0e4h
+	db 0e9h,0ddh,00eh
+#endasm
+	return 0;
+	if (l36[((l2 << 2) + 2)]) goto L70d1;
+	if (g5264) goto L70bd;
+	f6d9d();
+	fc999(*(int *)(l36 + (l2 << 2)));
+	f6de9();
+	goto L70cf;
+L70bd:
+	fc999(*(int *)(l36 + (l2 << 2)));
+L70cf:
+	goto L70ec;
+L70d1:
+	f5c61(*(int *)(l36 + (l2 << 2)), ((unsigned char)l36[((l2 << 2) + 2)] - 1));
+L70ec:
+	goto L7f6d;
+	f5d9b(1541, 1);
+	g433a = (unsigned char)g51cc;
+	g4338 = 1;
+	g4354 = 0;
+	g5276 = 0;
+	g363a = 10;
+	g4fce = 18;
+	return 1;
+	if (l36[((l2 << 2) + 2)]) goto L7148;
+	f5d9b(1542, 0);
+L7148:
+	g5276 = 1;
+	g363a = 5;
+	g4fce = 18;
+	return 1;
+	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
+	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
+	if ((unsigned)l36[((l2 << 2) + 2)] <= 0) goto L71aa;
+	f5508((unsigned char)l36[((l2 << 2) + 2)], l38);
+	g4362[l40] = l38;
+	f4572(g4362[l40], l40);
+	f5690();
+	goto L71ba;
+L71aa:
+	g4362[l40] = 0;
+	f5690();
+L71ba:
+	goto L7f6d;
+#asm
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 050h
+	call f5a1e_
+	db 059h,0e9h,098h,00dh
+#endasm
+	if (g5264) goto L7204;
+	f6d9d();
+	l42 = fd53a(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
+#asm
+	call f6de9_
+	db 0ebh,020h
+#endasm
+L7204:
+	l42 = fd53a(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
+L7224:
+	if (l42 <= 1) goto L7243;
+	if (f7038(p4, l42) != 1) goto L7241;
+	return 1;
+L7241:
+	goto L7287;
+L7243:
+	if (!g5264) goto L7287;
+	f075b((*(int *)(l36 + (l2 << 2)) + 1), 20948);
+	if (strlen(20948) <= 0) goto L7287;
+	fc7d9(20948, 5);
+	f4f73(g5264);
+L7287:
+	goto L7f6d;
+#asm
+	call f5a69_
+	db 0e9h,0ddh,00ch,0a1h,09ah,04fh,0ebh,018h
+#endasm
+	g4fa2--;
+#asm
+	db 0ebh,026h
+#endasm
+	g4fa4--;
+#asm
+	db 0ebh,020h
+#endasm
+	g4fa2++;
+#asm
+	db 0ebh,01ah
+#endasm
+	g4fa4++;
+#asm
+	db 0ebh,014h
+#endasm
+L72ad:
+	;
+#asm
+l72ad:
+	db 03dh,000h,000h,074h,0e3h,03dh,001h,000h,074h,0e4h,03dh,002h,000h,074h,0e5h,03dh
+	db 003h,000h,074h,0e6h
+#endasm
+L72c1:
+	g4f9a = ((g4f9a + 2) % 4);
+#asm
+	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
+	db 0b8h,0a0h,04fh,050h
+	call fd90e_
+	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
+	db 0e4h,0a3h,0e8h,04eh
+#endasm
+	g363a = 5;
+	g4fce = 18;
+	return 1;
+	l54[2] = f6a80(p4, *(int *)(l36 + (l2 << 2)), -1);
+	l40 = p4;
+	l38 = 0;
+#asm
+	db 0ebh,027h
+#endasm
+L7338:
+	l54[2] = f6a80(l38, *(int *)(l36 + (l2 << 2)), -1);
+	l40 = l38;
+	l38++;
+L735f:
+	if (l38 >= g43ce) goto L736e;
+	if (l54[2] == -1) goto L7338;
+L736e:
+	if (l54[2] != -1) goto L737a;
+	return 0;
+L737a:
+	if (l36[((l2 << 2) + 2)] != 1) goto L73bf;
+	f075b(1547, 20948);
+	f05c1(20948, ((432 * l40) + 17384), 94);
+	f5d0c(20948, 1);
+L73bf:
+	goto L7f6d;
+	l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)));
+	if (l42 == -1) goto L741d;
+	if (g00cc[(unsigned char)g442c[((432 * p4) + (l42 << 3))]] != 1) goto L7411;
+#asm
+	db 0ffh,076h,0d6h,0ffh,076h,004h
+	call f69db_
+	db 083h,0c4h,004h,0ebh,00ch
+#endasm
+L7411:
+	f6835(p4, l42);
+L741d:
+	goto L7f6d;
+#asm
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,050h,08ah
+	db 047h,0deh,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh,089h,056h,0d4h,089h,046h
+	db 0d2h
+#endasm
+	*(long *)((char *)g43fc + (432 * p4)) += l46;
+	g51c0 -= l46;
+	if (g51c0 >= 0L) goto L7487;
+	g51c2 = 0;
+	*(int *)&g51c0 = 0;
+L7487:
+	goto L7f6d;
+#asm
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,0bbh,00ah
+	db 000h,0f7h,0ebh,089h,056h,0d4h,089h,046h,0d2h
+#endasm
+	if (l46 != 0L) goto L74d6;
+	l38 = 0;
+#asm
+	db 0ebh,017h
+#endasm
+L74b6:
+	*(int *)((char *)g43fe + (432 * l38)) = 0;
+	*(int *)((char *)g43fc + (432 * l38)) = 0;
+	l38++;
+L74cd:
+	if (l38 < g43ce) goto L74b6;
+L74d6:
+	if (*(long *)((char *)g43fc + (432 * p4)) >= l46) goto L7544;
+	f5382(p4);
+	if (*(long *)((char *)g43fc + (432 * p4)) >= l46) goto L7544;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L753e;
+	return 1;
+L753e:
+	return 0;
+L7544:
+	*(long *)((char *)g43fc + (432 * p4)) -= l46;
+	g51c0 += l46;
+#asm
+	db 0e9h,0feh,009h
+#endasm
+	goto L7f6d;
+	l42 = *(int *)(l36 + (l2 << 2));
+	if (l42 <= 0) goto L75ad;
+	if (l42 >= 79) goto L75ad;
+	f2881(((g363c * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
+L75ad:
+	goto L7f6d;
+	l42 = *(int *)(l36 + (l2 << 2));
+	if (l42 <= 0) goto L7616;
+	if (l42 >= 79) goto L7616;
+	f2881(((g363c * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
+	f2881(((g363c * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
+L7616:
+	goto L7f6d;
+	l42 = *(int *)(l36 + (l2 << 2));
+	if (l42 <= 0) goto L7647;
+	if (l42 >= 15) goto L7647;
+	f2881(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
+L7647:
+	goto L7f6d;
+	l42 = *(int *)(l36 + (l2 << 2));
+	if (l42 <= 0) goto L769b;
+	if (l42 >= 15) goto L769b;
+	f2881(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
+	f2881(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
+L769b:
+	goto L7f6d;
+	if (f28af(((g363c * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L76ce;
+	return 0;
+L76ce:
+	goto L7f6d;
+	if (f28af(((g363c * 10) + 20204), *(int *)(l36 + (l2 << 2)))) goto L7700;
+	return 0;
+L7700:
+	goto L7f6d;
+	if (f28af(21112, *(int *)(l36 + (l2 << 2))) != 1) goto L7726;
+	return 0;
+L7726:
+	goto L7f6d;
+	if (f28af(21112, *(int *)(l36 + (l2 << 2)))) goto L774b;
+	return 0;
+L774b:
+	goto L7f6d;
+	if (l36[((l2 << 2) + 2)]) goto L7770;
+	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
+#asm
+	db 0ebh,038h
+#endasm
+L7770:
+	l54[2] = -1;
+	l38 = 0;
+	goto L7799;
+L777c:
+	l54[2] = f6d11(l38, *(int *)(l36 + (l2 << 2)));
+	l38++;
+L7799:
+	if (l38 >= g43ce) goto L77a8;
+	if (l54[2] == -1) goto L777c;
+L77a8:
+	if (l54[2] != -1) goto L77b4;
+	return 0;
+L77b4:
+	goto L7f6d;
+	if (l36[((l2 << 2) + 2)]) goto L77d9;
+	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
+#asm
+	db 0ebh,038h
+#endasm
+L77d9:
+	l54[2] = -1;
+	l38 = 0;
+	goto L7802;
+L77e5:
+	l54[2] = f6d11(l38, *(int *)(l36 + (l2 << 2)));
+	l38++;
+L7802:
+	if (l38 >= g43ce) goto L7811;
+	if (l54[2] == -1) goto L77e5;
+L7811:
+	if (l54[2] == -1) goto L781d;
+	return 0;
+L781d:
+	goto L7f6d;
+	if (f09e2(100) <= *(int *)(l36 + (l2 << 2))) goto L7840;
+	return 0;
+L7840:
+	goto L7f6d;
+#asm
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0a1h,03ch
+	db 036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
+	call f28af_
+	db 083h,0c4h,004h,085h,0c0h,075h,025h
+#endasm
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7891;
+	return 1;
+L7891:
+	goto L7f6d;
+	if (f28af(((g363c * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L78e3;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L78e3;
+	return 1;
+L78e3:
+	goto L7f6d;
+	if (f28af(21112, *(int *)(l36 + (l2 << 2)))) goto L7927;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7927;
+	return 1;
+L7927:
+	goto L7f6d;
+	if (f28af(21112, *(int *)(l36 + (l2 << 2))) != 1) goto L796c;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L796c;
+	return 1;
+L796c:
+	goto L7f6d;
+	if (f09e2(100) >= *(int *)(l36 + (l2 << 2))) goto L79a3;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L79a3;
+	return 1;
+L79a3:
+	goto L7f6d;
+	l38 = 0;
+#asm
+	db 0ebh,05fh
+#endasm
+L79ad:
+	if (g4589[(432 * l38)]) goto L7a09;
+	f075b(1548, 20948);
+	f05c1(20948, ((432 * l38) + 17384), 94);
+	f5d0c(20948, 1);
+	g4511[(432 * l38)]++;
+	f5078(l38, g527a);
+L7a09:
+	l38++;
+L7a0c:
+	if (l38 < g43ce) goto L79ad;
+	goto L7f6d;
+	l54[2] = *(int *)(l36 + (l2 << 2));
+	l38 = 0;
+#asm
+	db 0e9h,0d9h,000h
+#endasm
+L7a31:
+	if ((unsigned)g4589[(432 * l38)] >= 3) goto L7b07;
+	if (f6d11(l38, 245) == -1) goto L7a71;
+	l54[2] = (unsigned char)l36[((l2 << 2) + 2)];
+	l38 = g43ce;
+	goto L7b07;
+L7a71:
+	f075b(1549, 20948);
+	f05c1(20948, ((432 * l38) + 17384), 94);
+	f5d0c(20948, 1);
+	*(int *)((char *)g4400 + (432 * l38)) = (f09e2(*(int *)((char *)g4400 + (432 * l38))) + 1);
+	*(int *)((char *)g4402 + (432 * l38)) -= (f09e2(4) + 1);
+	if (*(int *)((char *)g4402 + (432 * l38)) >= 1) goto L7ae8;
+	*(int *)((char *)g4402 + (432 * l38)) = 1;
+L7ae8:
+	if (*(int *)((char *)g4400 + (432 * l38)) <= *(int *)((char *)g4402 + (432 * l38))) goto L7afa;
+	*(int *)((char *)g4400 + (432 * l38)) = *(int *)((char *)g4402 + (432 * l38));
+L7afa:
+	f5078(l38, g527a);
+L7b07:
+	l38++;
+L7b0a:
+	if (l38 < g43ce) goto L7a31;
+	if (f7038(0, l54[2]) != 1) goto L7b2e;
+	return 1;
+L7b2e:
+	goto L7f6d;
+	l38 = 0;
+#asm
+	db 0e9h,0c5h,000h
+#endasm
+L7b39:
+	l54[0] = (*(int *)(l36 + (l2 << 2)) - 1);
+	l54[1] = ((unsigned char)l36[((l2 << 2) + 2)] - 1);
+	l54[3] = 0;
+L7b59:
+	l54[2] = l54[l54[3]];
+	if (l54[2] < 0) goto L7bed;
+	if (l54[2] <= 7) goto L7b80;
+	l54[2] = f09e2(8);
+L7b80:
+	if ((unsigned)g4514[((432 * l38) + l54[2])] >= 18) goto L7bed;
+	g4514[((432 * l38) + l54[2])]++;
+	f075b(5015, 20948);
+	f075b((l54[2] + 5050), 21116);
+	f05c1(20948, ((432 * l38) + 17384), 94);
+	f05c1(20948, 21116, 36);
+	f5d0c(20948, 1);
+L7bed:
+	l54[3]++;
+	if (l54[3] < 2) goto L7b59;
+	l38++;
+L7bfe:
+	if (l38 < g43ce) goto L7b39;
+	goto L7f6d;
+	l42 = 0;
+	l38 = 0;
+#asm
+	db 0ebh,00eh
+#endasm
+L7c19:
+	l42 += f09e2(8);
+	l38++;
+L7c27:
+	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7c19;
+#asm
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh,0deh,000h,076h
+	db 027h
+#endasm
+	*(int *)((char *)g4404 + (432 * p4)) -= l42;
+	if (*(int *)((char *)g4404 + (432 * p4)) >= 0) goto L7c70;
+	*(int *)((char *)g4404 + (432 * p4)) = 0;
+	g450c[(432 * p4)] = *(char *)&l42;
+L7c70:
+	goto L7c95;
+L7c72:
+	*(int *)((char *)g4404 + (432 * p4)) += l42;
+	if (*(int *)((char *)g4404 + (432 * p4)) <= *(int *)((char *)g4406 + (432 * p4))) goto L7c95;
+	*(int *)((char *)g4404 + (432 * p4)) = *(int *)((char *)g4406 + (432 * p4));
+L7c95:
+	f5078(p4, g527a);
+	goto L7f6d;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7cca;
+	return 1;
+L7cca:
+	goto L7f6d;
+#asm
+	db 0b8h,001h,000h,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah
+	db 047h,0deh,02ah,0e4h,050h
+	call f09e2_
+	db 059h,0d1h,0e0h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,003h,0ddh,08bh,04fh
+	db 0dch,003h,0c1h,050h
+	call f5c61_
+	db 083h,0c4h,004h,0e9h,06bh,002h
+#endasm
+	g4f9a = *(int *)(l36 + (l2 << 2));
+	f5690();
+#asm
+	db 0b8h,004h,000h,050h
+	call f5a1e_
+	db 059h,0e9h,04ch,002h
+#endasm
+	l38 = 0;
+#asm
+	db 0ebh,077h
+#endasm
+L7d28:
+	switch ((unsigned char)l36[((l2 << 2) + 2)]) {
+case 0:
+	g4fa2++;
+	goto L7d66;
+case 1:
+	g4fa4++;
+	goto L7d66;
+case 2:
+	g4fa2--;
+	goto L7d66;
+case 3:
+	g4fa4--;
+	goto L7d66;
+	}
+L7d66:
+	;
+#asm
+l7d66:
+	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
+	db 0b8h,0a0h,04fh,050h
+	call fd90e_
+	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
+	db 0e4h,0a3h,0e8h,04eh
+#endasm
+	f5690();
+	f5a1e(4);
+	l38++;
+L7d9f:
+	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7d28;
+	goto L7f6d;
+	if (fb2fd(p4)) goto L7de8;
+	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7de8;
+	return 1;
+L7de8:
+	goto L7f6d;
+	return 1;
+	g4fa4 = 129;
+	g4fa2 = 132;
+	g4fa0 = 1;
+	g4f9e = 4;
+	g4f9c = 0;
+	g4f9a = 0;
+	g363c = 13;
+	g363a = 6;
+	g4fce = 18;
+#asm
+	db 0b8h,001h,000h,0e9h,059h,0f2h
+#endasm
+	f6e7e(*(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
+	return;
+	l54[2] = -1;
+	l38 = 0;
+#asm
+	db 0ebh,04ah
+#endasm
+L7e56:
+	l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)]);
+	if (l54[2] == -1) goto L7e9d;
+	f6835(l38, l54[2]);
+	f6a80(l38, *(int *)(l36 + (l2 << 2)), -1);
+L7e9d:
+	l38++;
+L7ea0:
+	if (l38 >= g43ce) goto L7eaf;
+	if (l54[2] == -1) goto L7e56;
+L7eaf:
+	goto L7f6d;
+	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
+	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
+	*(int *)((char *)g50de + ((l38 * 10) + (l40 << 1))) = (unsigned char)l36[((l2 << 2) + 2)];
+#asm
+	db 0ebh,07ch,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh
+	db 02ah,0e4h,0a3h,042h,051h,0ebh,067h,083h,070h,08bh,070h,0efh,070h,029h,071h,060h
+	db 071h,0bdh,071h,0d5h,071h,08ah,072h,090h,072h,00dh,073h,0c2h,073h,020h,074h,08ah
+	db 074h,06fh,075h,072h,075h,0b0h,075h,019h,076h,04ah,076h,09eh,076h,0d1h,076h,003h
+	db 077h,029h,077h,04eh,077h,0b7h,077h,020h,078h,043h,078h,094h,078h,0e6h,078h,02ah
+	db 079h,06fh,079h,0a6h,079h,018h,07ah,031h,07bh,00dh,07ch,0a5h,07ch,0cdh,07ch,002h
+	db 07dh,021h,07dh,0b8h,07dh,0ebh,07dh,0f1h,07dh,02dh,07eh,04ah,07eh,0b2h,07eh,0f1h
+	db 07eh
+l7f60:
+	db 03dh,02dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,006h,07fh
+#endasm
+L7f6d:
+	l2++;
+	goto L7067;
+L7f73:
+	return;
+}
