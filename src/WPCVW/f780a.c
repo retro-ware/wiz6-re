@@ -245,16 +245,7 @@ L7ee8:
 	refresh_window(l4);
 	power = 1;
 	l56 = ((*(int *)((char *)pc_level + (432 * member)) - (unsigned char)g00df[(spell * 6)]) + 1);
-#asm
-	db 0b8h,001h,000h,08bh,04eh,0c8h,083h,0f9h,001h,07ch,00ch,08bh,0c1h,050h,03dh,006h
-	db 000h,058h,07eh,003h,0b8h,006h,000h
-#endasm
-L7f74:
-	;
-#asm
-l7f74:
-	db 089h,046h,0c8h
-#endasm
+	l56 = (l56 >= 1 ? (l56 > 6 ? 6 : l56) : 1);
 	l6 = 0;
 	goto L7fb7;
 L7f7e:

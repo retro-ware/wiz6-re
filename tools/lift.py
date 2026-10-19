@@ -962,6 +962,15 @@ class Lifter:
                         break
                     p = self.skip_to
                     continue
+                x1 = self.f.seen.get(p + i.size)
+                x2 = x1 and self.f.seen.get(x1.address + x1.size)
+                if i.mnemonic == 'push' and i.op_str == 'ax' and x1 and x1.mnemonic == 'cmp' and \
+                        x1.op_str.startswith('ax, ') and x2 and x2.mnemonic == 'pop' and x2.op_str == 'ax':
+                    # push ax; cmp ax, K; pop ax: a nested ternary's compare (clamps)
+                    self.cur = x1
+                    self.step(x1)
+                    p = x2.address + x2.size
+                    continue
                 if i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH or \
                         i.mnemonic in ('call', 'ret', 'push', 'pop'):
                     break

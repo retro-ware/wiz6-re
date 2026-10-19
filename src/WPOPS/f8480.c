@@ -96,16 +96,7 @@ L8701:
 	l24 = -1;
 L872d:
 	l18 = ((*(int *)monster - (unsigned char)g00df[(l26 * 6)]) + 1);
-#asm
-	db 0b8h,001h,000h,08bh,04eh,0eeh,083h,0f9h,001h,07ch,00ch,08bh,0c1h,050h,03dh,006h
-	db 000h,058h,07eh,003h,0b8h,006h,000h
-#endasm
-L8764:
-	;
-#asm
-l8764:
-	db 089h,046h,0eeh
-#endasm
+	l18 = (l18 >= 1 ? (l18 > 6 ? 6 : l18) : 1);
 L8767:
 	if ((random(*(int *)monster) + 1) >= l18) goto L877b;
 	l18--;
