@@ -69,6 +69,12 @@
 - [x] Promoted run 46 (two-char struct params; clamp ternaries with push ax; cmp; pop ax): 890 functions in C (662 asm-free; 1135 left), sbuild all 12 OK
 - [x] Promoted run 47 (&&/|| merges through labels only the merged condition jumps to): 890 functions in C (676 asm-free; 1085 left), sbuild all 12 OK
 - [x] Promoted runs 48/49 (x += 2 as inc; inc on pointer-typed vars; a jmp after a jump-table dispatch back before the cases is a goto, not the default): 890 functions in C (680 asm-free; 1048 left), sbuild all 12 OK
+- [x] Promoted run 50 (struct copies `*(struct sN *)a = *(struct sN *)b`; si/di temps scaled in place or copied out): 891 functions in C (704 asm-free; 975 left), sbuild all 12 OK
+- [x] Promoted runs 51/52 (for loops: bottom-tested, with or without the initial jmp to the test; split back into gotos on mismatch): 891 functions in C (708 asm-free; 967 left), sbuild all 12 OK
+- [x] Promoted run 53 (a dead jump to the epilogue after a goto prints as return): 891 functions in C (719 asm-free; 954 left), sbuild all 12 OK
+- [x] Promoted run 54 (a function-final jmp to the epilogue after a jump-table dispatch is the end, not a default): 891 functions in C (720 asm-free; 951 left), sbuild all 12 OK
+- [x] Promoted run 55 (scratch si/di scan covers code after a mid-function epilogue): 891 functions in C (726 asm-free; 925 left), sbuild all 12 OK
+- [ ] Struct-returning functions (cgen's static return buffer, e.g. WMNPC 80ff, WMAZE 9f25, WMEXE 5eea, WTREA 5ac7): need the buffer placed in bss at the original address
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
