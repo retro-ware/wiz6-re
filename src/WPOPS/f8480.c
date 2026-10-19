@@ -23,12 +23,7 @@ choose_group_actions(group, target_group)
 	i = 0;
 	goto L8a27;
 L848f:
-	;
-#asm
-l848f:
-	db 0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0c8h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
-	db 087h,0a8h,043h,003h,0c1h,089h,046h,0f8h
-#endasm
+	monster = ((char *)monster_groups[group] + (44 * i));
 	if ((l10 = ((random(10) + ((char *)monster_groups[group] + (44 * i))[41]) + (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[211])) >= 1) goto L84f0;
 	l10 = 1;
 L84f0:

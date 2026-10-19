@@ -514,7 +514,13 @@ class Printer:
                 if forend[k]:
                     out.append('\t}')
             elif kd == 'asg':
-                out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(st.rv)))
+                rv = st.rv
+                if st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr and rv[0] == 'b' and rv[1] == '+' and \
+                        rv[2][0] == 'm' and rv[2][3] == 2 and rv[3][0] not in ('c', 'v', 'm'):
+                    # pointer + computed int: cgen computes the (scaled) int first
+                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ptr(rv)))
+                else:
+                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(rv)))
             elif kd == 'cas':
                 lv = self.ex(st.lv)
                 if getattr(st, 'incs', False) and st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr:

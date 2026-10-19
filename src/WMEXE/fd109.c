@@ -21,34 +21,11 @@ Ld122:
 	g435c = 0;
 	goto Ld2c3;
 Ld12b:
-	;
-#asm
-ld12b:
-	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0c8h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h
-	db 08bh,087h,0a8h,043h,003h,0c1h,089h,046h,0feh,08bh,0d8h,080h,07fh,024h,000h,077h
-	db 003h
-#endasm
-	goto Ld226;
-Ld14f:
-	;
-#asm
-ld14f:
-	db 08ah,047h,025h,02ah,0e4h,03bh,006h,05ah,043h,074h,003h
-#endasm
-	goto Ld226;
-Ld15d:
-	;
-#asm
-ld15d:
-	db 080h,07fh,02bh,000h,074h,003h,0e9h,076h,000h
-#endasm
-Ld166:
-	;
-#asm
-ld166:
-	db 08ah,047h,021h,02ah,0e4h,08bh,0f0h,08ah,040h,018h,02ah,0e4h,03bh,006h,05ah,043h
-	db 074h,03ah,0c6h,047h,02bh,003h
-#endasm
+	l2 = ((char *)monster_groups[g435e] + (44 * g435c));
+	if (((unsigned)l2[36] <= 0) || ((unsigned char)l2[37] != g435a)) goto Ld226;
+	if (l2[43]) goto Ld1dc;
+	if ((unsigned char)(l2 + (unsigned char)l2[33])[24] == g435a) goto Ld1b2;
+	l2[43] = 3;
 	clear_window(party_picture_win, 1);
 	combat_delay(2);
 	fb85f(3518, -1, 6);

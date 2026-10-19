@@ -49,11 +49,10 @@ fc66e()
 	g5114 = 6;
 	g50fc = 0;
 	g5118 = 0;
-#asm
-	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0c8h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h
-	db 08bh,087h,0a8h,043h,003h,0c1h,089h,046h,0feh,08bh,0d8h,080h,07fh,022h,002h,073h
-	db 00ch,080h,07fh,011h,000h,077h,006h,080h,07fh,010h,000h,076h,005h
-#endasm
+	l2 = ((char *)monster_groups[g435e] + (44 * g435c));
+	if (((unsigned)l2[34] >= 2) || ((unsigned)l2[17] > 0)) goto Lc6bd;
+	if ((unsigned)l2[16] <= 0) goto Lc6c2;
+Lc6bd:
 	return;
 Lc6c2:
 	clear_window(party_picture_win, 1);
