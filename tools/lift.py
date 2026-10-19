@@ -1217,11 +1217,10 @@ class Lifter:
         self.out.setdefault(t, []).append(dict(self.R))
 
     def fresh_switch(self, sw):
-        """sw is not emitted yet and all its cases lie ahead of the current jmp (the default may be
-        a loop's top: a switch with no default ending in a jump back)."""
+        """sw is not emitted yet and all its cases lie ahead of the current jmp."""
         if any(x.kind == 'switch' and x.sw is sw for x in self.sts):
             return False
-        tg = [t for v, t in sw['cases']]
+        tg = [t for v, t in sw['cases']] + ([sw['default']] if sw['default'] is not None else [])
         return all(t > self.cur.address for t in tg)
 
     def jump(self, t):
