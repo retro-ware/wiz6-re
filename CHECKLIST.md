@@ -61,6 +61,10 @@
 - [x] Promoted run 32 (bare returns before the epilogue print as goto to it): 890 functions in C (520 asm-free), sbuild all 12 OK
 - [x] Promoted run 33 (globals indexed as [bx+si+d] are char pointers; index temps loaded from memory): 890 functions in C (548 asm-free), sbuild all 12 OK
 - [x] Promoted runs 34-38 (assignment inside a condition; long constant arguments; compare chains on a kept register as one ||/&& condition, with a no-merge retry): 890 functions in C (574 asm-free), sbuild all 12 OK
+- [x] Promoted runs 39/40 (a lone jmp into a switch dispatch, only while the switch is still ahead): 890 functions in C (590 asm-free; 1351 #asm statements left), sbuild all 12 OK
+- [x] Promoted run 42 (si/di index temps reused across statements and jcc fall-throughs): 890 functions in C (602 asm-free; 1304 left), sbuild all 12 OK
+- [x] Promoted run 43 (ternaries whose arms join at the epilogue): 890 functions in C (616 asm-free; 1248 left), sbuild all 12 OK
+- [x] Promoted run 44 (adjacent ifs merged into &&/|| conditions, split again on mismatch): 890 functions in C (633 asm-free; 1202 left), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
