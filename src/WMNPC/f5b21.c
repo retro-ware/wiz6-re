@@ -1,5 +1,4 @@
 #asm
-	extrn char_index_:near
 	extrn f5690_:near
 	extrn f5a1e_:near
 	extrn f5af3_:near
@@ -14,16 +13,9 @@ f5b21(p4)
 char *p4;
 {
 	int l2;
-	char x2[2];
-#asm
-l5b27:
-	db 08bh,05eh,004h,08ah,007h,02ah,0e4h,050h,0b8h,004h,050h,050h
-	call char_index_
-	db 083h,0c4h,004h,089h,046h,0fch,03dh,000h,000h,07dh,003h
-#endasm
-	goto L5be0;
-L5b44:
-	;
+	int l4;
+	l4 = char_index(20484, (unsigned char)*p4);
+	if (l4 < 0) goto L5be0;
 #asm
 l5b44:
 	db 0e9h,089h,000h

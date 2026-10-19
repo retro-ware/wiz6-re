@@ -1,5 +1,4 @@
 #asm
-	extrn char_index_:near
 	extrn end_text_page_:near
 	extrn wait_animating_:near
 #endasm
@@ -11,12 +10,10 @@ print_text_line(text)
 char *text;
 {
 	int x;
-	char x2[2];
+	int l4;
+	if ((l4 = char_index(20462, (unsigned char)*text)) < 0) goto L4ab7;
 #asm
-l4a37:
-	db 08bh,05eh,004h,08ah,007h,02ah,0e4h,050h,0b8h,0eeh,04fh,050h
-	call char_index_
-	db 083h,0c4h,004h,089h,046h,0fch,03dh,000h,000h,07ch,066h,0ebh,055h
+	db 0ebh,055h
 #endasm
 	text++;
 	g5030++;
