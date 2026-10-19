@@ -10,22 +10,17 @@ char *p4;
 	l168 = 0;
 	l164 = 0;
 Lc40c:
-	;
-#asm
-lc40c:
-	db 08bh,09eh,05ch,0ffh,003h,0ddh,080h,07fh,0aeh,020h,075h,006h
-#endasm
+	if (l162[(l164 + 80)] != 32) goto Lc41e;
 	l164++;
 	goto Lc40c;
+Lc41e:
 	if ((l166 = fc282(((char *)l162 + 80), l164)) == -1) goto Lc4aa;
 	strncpy(l162, (l164 + ((char *)l162 + 80)), (l166 - l164));
 	l162[(l166 - l164)] = 32;
 	l162[((l166 - l164) + 1)] = 0;
 	fc2bf(l162);
 	l2 = 0;
-#asm
-	db 0ebh,01ah
-#endasm
+	goto Lc48f;
 Lc475:
 	*(p4 + (l168 + l2)) = l162[l2];
 	l2++;

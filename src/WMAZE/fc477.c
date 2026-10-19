@@ -1,6 +1,7 @@
 #asm
 	extrn clamp_value_:near
 	extrn format_dice_:near
+	extrn play_sound_:near
 	extrn random_:near
 	extrn roll_dice_:near
 	extrn show_message_text_m_:near
@@ -9,9 +10,6 @@ extern char g450a[];
 extern char g450f[];
 extern char g458c[];
 extern char pc_condition[];
-extern char pc_sex[];
-extern int pc_hp[];
-extern int pc_hp_max[];
 extern int pc_stamina[];
 extern int pc_stamina_max[];
 apply_member_effects()
@@ -150,11 +148,17 @@ lc73b:
 	l4++;
 	if (l4 < 6) goto Lc73b;
 	goto Lc8bf;
-	if ((*(int *)((char *)pc_hp + (432 * l6)) = clamp_value((*(int *)((char *)pc_hp + (432 * l6)) - l14), 0, *(int *)((char *)pc_hp_max + (432 * l6)))) > 0) goto Lc814;
-	pc_condition[(432 * l6)] = 3;
-	*(int *)((char *)pc_hp + (432 * l6)) = 0;
-	*(int *)((char *)pc_stamina + (432 * l6)) = 0;
-	play_sound(((unsigned char)pc_sex[(432 * l6)] + 8));
+#asm
+	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,0ffh,0b7h,002h,044h,0b8h,000h,000h,050h
+	db 08bh,087h,000h,044h,02bh,046h,0f2h,050h
+	call clamp_value_
+	db 083h,0c4h,006h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,058h,089h,087h,000h
+	db 044h,03dh,000h,000h,07fh,01fh,0c6h,087h,089h,045h,003h,0c7h,087h,000h,044h,000h
+	db 000h,0c7h,087h,004h,044h,000h,000h,08ah,087h,086h,045h,02ah,0e4h,005h,008h,000h
+	db 050h
+	call play_sound_
+	db 059h
+#endasm
 Lc814:
 	goto Lc8bf;
 	if ((unsigned char)g458c[(432 * l6)] >= l10) goto Lc831;

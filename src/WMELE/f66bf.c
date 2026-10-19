@@ -58,10 +58,9 @@ L67bd:
 	dx = 0;
 L6800:
 	l26 = (unsigned char)g3759[((314 * pic) + (l24 << 2))];
-#asm
-	db 083h,07eh,0e6h,000h,075h,01ch
-#endasm
+	if (l26) goto L6836;
 	l26 = ((unsigned char)g00b0[((row * 5) + col)] - g);
+L6836:
 	if ((l30 = (((g37fa[(((314 * pic) + (row * 10)) + (col << 1))] + (unsigned char)g4348[((row * 5) + col)]) + dx) + l28)) >= 0) goto L688e;
 	l30 = 0;
 	goto L6899;

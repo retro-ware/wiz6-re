@@ -50,10 +50,9 @@ L4ab6:
 	p8 = 0;
 L4af9:
 	l24 = (unsigned char)g3759[((314 * l2) + (l22 << 2))];
-#asm
-	db 083h,07eh,0e8h,000h,075h,019h
-#endasm
+	if (l24) goto L4b2c;
 	l24 = (unsigned char)g00b0[((p4 * 5) + p6)];
+L4b2c:
 	if ((l28 = (((g37fa[(((314 * l2) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + p8) + l26)) >= 0) goto L4b84;
 	l28 = 0;
 	goto L4b8f;

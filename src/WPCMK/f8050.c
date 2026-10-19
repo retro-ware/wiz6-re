@@ -46,15 +46,12 @@ L8118:
 	char_load = 0;
 	l2 = 0;
 	goto L8151;
+L8125:
 	if ((l80 = (unsigned char)g54b6[(l2 << 3)]) >= 1) goto L8143;
 	l80 = 1;
 L8143:
 	char_load += (*(int *)((char *)g54b2 + (l2 << 3)) * l80);
 	l2++;
 L8151:
-	;
-#asm
-l8151:
-	db 0a0h,01ch,056h,02ah,0e4h,03bh,046h,0feh,07fh,0cah
-#endasm
+	if ((unsigned char)char_item_count > l2) goto L8125;
 }

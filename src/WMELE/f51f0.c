@@ -69,9 +69,9 @@ l5358:
 L5371:
 	l8++;
 	if (l8 < 10) goto L5358;
-#asm
-	db 08bh,05eh,0fch,080h,07fh,013h,000h,075h,004h,0c6h,047h,023h,000h
-#endasm
+	if (c[19]) goto L5389;
+	c[35] = 0;
+L5389:
 	if ((l8 = c[41]) >= 0) goto L539b;
 #asm
 	db 040h,0ebh,00bh

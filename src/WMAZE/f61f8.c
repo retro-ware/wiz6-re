@@ -51,6 +51,7 @@ L62b9:
 #endasm
 L631f:
 	l4 = 0;
+L6324:
 	if ((l6 = (unsigned char)g450a[((432 * p4) + l4)]) <= 0) goto L635a;
 	if (l6 == 255) goto L635a;
 	l6 -= p10;
@@ -60,9 +61,7 @@ L6353:
 	g450a[((432 * p4) + l4)] = *(char *)&l6;
 L635a:
 	l4++;
-#asm
-	db 08bh,046h,0fch,03dh,00ah,000h,07ch,0bfh
-#endasm
+	if (l4 < 10) goto L6324;
 	if (!g450f[(432 * p4)]) goto L637b;
 	if (g458c[(432 * p4)]) goto L6385;
 L637b:

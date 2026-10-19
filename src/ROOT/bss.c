@@ -150,7 +150,8 @@
 	global g44e6_:byte,1
 	global g44e7_:byte,1
 	global g44e8_:byte,2
-	global g44ea_:byte,12
+	global g44ea_:byte,11
+	global g44f5_:byte,1
 	global g44f6_:byte,2
 	global pc_equipped_:byte,1
 	global g44f9_:byte,1

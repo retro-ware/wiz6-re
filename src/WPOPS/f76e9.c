@@ -1,438 +1,537 @@
-/* Ask each able party member for a combat action (fight, spell, item, ...), with back/redo. */
 #asm
-	public choose_party_actions_
-	extrn choose_combat_item_:near
-	extrn choose_combat_spell_:near
-	extrn combat_menu_select_:near
-	extrn copy_name_:near
-	extrn draw_monster_groups_:near
-	extrn fill_window_:near
-	extrn get_message_:near
-	extrn pick_random_set_bit_:near
 	extrn pick_target_monster_:near
-	extrn play_sound_:near
-	extrn print_combat_prompt_:near
 	extrn random_:near
-	extrn refresh_all_windows_:near
-	extrn replace_char_with_string_:near
-	extrn select_monster_group_:near
-	extrn select_party_member_:near
-	extrn setmem_:near
-	extrn test_bit_:near
-choose_party_actions_:
-	db 055h,08bh,0ech,081h,0c4h,036h,0ffh,056h,0c7h,046h,0fah,000h,000h,0e9h,06bh,001h
-l76f9:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0c8h,0a1h,0a8h,043h,003h,0c1h,089h,086h,04ch
-	db 0ffh,0b8h,00ah,000h,050h
+#endasm
+extern char *monster_groups;
+extern char g44e5[];
+extern char g44f5[];
+extern char g44f9[];
+extern char g450c[];
+extern char g450d[];
+extern char g451a[];
+extern char g452c[];
+extern char g4592[];
+extern char g504c[];
+extern char pc_class[];
+extern char pc_condition[];
+extern char pc_equipped[];
+extern char pc_item_count[];
+extern char pc_item_type[];
+extern char pc_race[];
+extern int blink_state;
+extern int g438c;
+extern int party_count;
+/* Ask each able party member for a combat action (fight, spell, item, ...), with back/redo. */
+choose_party_actions(win)
+{
+	int l2;
+	int l4;
+	int member;
+	int action;
+	int l10;
+	char x10[6];
+	int l18;
+	int l20;
+	int l22;
+	int l24;
+	char x24[2];
+	int l28;
+	int enabled[6];
+	char x40[12];
+	int l54;
+	int l70[8];
+	int l72;
+	char x72[78];
+	int l152;
+	char x152[6];
+	int l160;
+	int choice;
+	int l164;
+	char x164[2];
+	int l168;
+	int l170;
+	int l172;
+	int l174;
+	int l176;
+	int l178;
+	char *l180;
+	int l182;
+	int l184;
+	int l186;
+	int l188;
+	int done_count;
+	int done_members[6];
+	register int rsi;
+	member = 0;
+	goto L7864;
+L76f9:
+	l180 = (monster_groups + (44 * member));
+#asm
+	db 0b8h,00ah,000h,050h
 	call random_
 	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,093h,045h,02ah,0e4h
 	db 08bh,0c8h,058h,003h,0c1h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh
 	db 0a8h,043h,08ah,040h,029h,098h,08bh,0c8h,058h,003h,0c1h,089h,086h,052h,0ffh,03dh
-	db 001h,000h,07dh,006h,0c7h,086h,052h,0ffh,001h,000h
-l774b:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,092h,045h,02ah,0e4h,08bh,0c8h
-	db 08bh,086h,052h,0ffh,099h,0f7h,0f9h,089h,086h,050h,0ffh,08bh,09eh,04ch,0ffh,080h
-	db 07fh,024h,000h,076h,034h,08bh,086h,052h,0ffh,0b9h,002h,000h,099h,0f7h,0f9h,050h
-	call random_
-	db 059h,050h,0b8h,014h,000h,050h
-	call random_
-	db 059h,08bh,0c8h,058h,003h,0c1h,050h,08bh,086h,052h,0ffh,0b9h,002h,000h,099h,0f7h
-	db 0f9h,08bh,0c8h,058h,003h,0c1h,08bh,09eh,04ch,0ffh,088h,047h,025h
-l77a4:
-	db 08bh,09eh,04ch,0ffh,0c6h,047h,021h,000h,08bh,09eh,04ch,0ffh,0c6h,047h,01ch,000h
-	db 08bh,09eh,04ch,0ffh,0c6h,047h,01dh,001h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h
-	db 08ah,087h,092h,045h,02ah,0e4h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh
-	db 01eh,0a8h,043h,08ah,040h,029h,098h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c8h,058h
-	db 003h,0c1h,089h,086h,04eh,0ffh,03dh,001h,000h,07dh,006h,0c7h,086h,04eh,0ffh,001h
-	db 000h
-l77f5:
-	db 083h,0beh,04eh,0ffh,004h,07eh,006h,0c7h,086h,04eh,0ffh,004h,000h
-l7802:
-	db 0c7h,086h,054h,0ffh,000h,000h
-l7808:
-	db 08bh,086h,054h,0ffh,03bh,086h,04eh,0ffh,07dh,01dh,0b8h,0b0h,001h,0f7h,06eh,0fah
-	db 08bh,0d8h,080h,0bfh,089h,045h,002h,073h,00eh,080h,0bfh,00dh,045h,000h,077h,007h
-	db 080h,0bfh,00ch,045h,000h,076h,00eh
+	db 001h,000h,07dh,006h
+#endasm
+	l174 = 1;
+L774b:
+	l176 = (l174 / (unsigned char)g4592[(432 * member)]);
+	if ((unsigned)l180[36] <= 0) goto L77a4;
+	l180[37] = (char)((random((l174 / 2)) + random(20)) + (l174 / 2));
+L77a4:
+	l180[33] = 0;
+	l180[28] = 0;
+	l180[29] = 1;
+#asm
+	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,092h,045h,02ah,0e4h,050h,0b8h
+	db 02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,08ah,040h,029h,098h,0b9h
+	db 00ah,000h,099h,0f7h,0f9h,08bh,0c8h,058h,003h,0c1h,089h,086h,04eh,0ffh,03dh,001h
+	db 000h,07dh,006h
+#endasm
+	l178 = 1;
+L77f5:
+	if (l178 <= 4) goto L7802;
+	l178 = 4;
+L7802:
+	l172 = 0;
+L7808:
+	if (l172 >= l178) goto L782f;
+	if ((unsigned)pc_condition[(432 * member)] >= 2) goto L782f;
+	if ((unsigned)g450d[(432 * member)] > 0) goto L782f;
+	if ((unsigned)g450c[(432 * member)] <= 0) goto L783d;
+L782f:
+	;
+#asm
 l782f:
-	db 08bh,09eh,04ch,0ffh,08bh,0b6h,054h,0ffh,0c6h,040h,018h,000h,0ebh,017h
+	db 08bh,09eh,04ch,0ffh,08bh,0b6h,054h,0ffh,0c6h,040h,018h,000h
+#endasm
+	goto L7854;
+L783d:
+	;
+#asm
 l783d:
-	db 08ah,086h,052h,0ffh,08bh,09eh,04ch,0ffh,08bh,0b6h,054h,0ffh,088h,040h,018h,08bh
-	db 086h,050h,0ffh,029h,086h,052h,0ffh
-l7854:
-	db 0ffh,086h,054h,0ffh,08bh,086h,054h,0ffh,03dh,004h,000h,07ch,0a7h,0ffh,046h,0fah
-l7864:
-	db 08bh,046h,0fah,03bh,006h,0ceh,043h,07dh,003h,0e9h,089h,0feh
-l7870:
-	db 0b8h,000h,000h,050h,0b8h,02dh,000h,050h,0b8h,04ch,050h,050h
-	call setmem_
-	db 083h,0c4h,006h,0c7h,086h,042h,0ffh,000h,000h,0c7h,046h,0fah,000h,000h
-l788d:
-	db 08bh,046h,0fah,03bh,006h,0ceh,043h,07ch,003h,0e9h,044h,00ah
-l7899:
-	db 0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,080h,0bfh,089h,045h,002h,072h,003h,0e9h,0e3h
-	db 008h
-l78aa:
-	db 080h,0bfh,00dh,045h,000h,074h,003h,0e9h,0d9h,008h
-l78b4:
-	db 080h,0bfh,00ch,045h,000h,074h,003h,0e9h,0cfh,008h
-l78be:
-	db 08bh,046h,0fah,08bh,08eh,042h,0ffh,0d1h,0e1h,08bh,0d9h,003h,0ddh,089h,087h,036h
-	db 0ffh,0ffh,086h,042h,0ffh,0b9h,02ch,000h,0f7h,0e9h,08bh,0c8h,0a1h,0a8h,043h,003h
-	db 0c1h,089h,086h,04ch,0ffh,0c7h,046h,0feh,000h,000h
-l78e8:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0d8h,001h,000h,0ffh,046h
-	db 0feh,08bh,046h,0feh,03dh,00bh,000h,07ch,0e7h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh
-	db 0d8h,080h,0bfh,085h,045h,007h,074h,005h,0c7h,046h,0e8h,000h,000h
-l7915:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,02bh,000h
-	db 075h,027h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,087h,045h,03ch,003h
-	db 074h,01ch,03ch,00dh,074h,018h,03ch,004h,074h,014h,03ch,006h,074h,010h,03ch,00ch
-	db 074h,00ch,080h,0bfh,02ch,045h,000h,075h,005h
-l794e:
-	db 0c7h,046h,0e4h,000h,000h
-l7953:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,080h,0bfh,094h,045h,000h,075h,005h,0c7h
-	db 046h,0e0h,000h,000h
-l7967:
-	db 083h,0beh,042h,0ffh,002h,07dh,00ah,0c7h,046h,0eah,000h,000h,0c7h,046h,0ech,000h
-	db 000h
-l7978:
-	db 08ah,087h,0f8h,044h,02ah,0e4h,089h,086h,04ah,0ffh,03dh,0ffh,000h,075h,003h,0e9h
-	db 0fah,000h
-l798a:
-	db 0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,003h,0d8h,080h,0bfh,02ch,044h,003h,074h,003h,0e9h
-	db 0e8h,000h
-l799c:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,0f9h,044h,02ah,0e4h,089h,086h
-	db 048h,0ffh,03dh,0ffh,000h,075h,003h,0e9h,0c9h,000h
-l79b6:
-	db 0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,003h,0d8h,080h,0bfh,02ch,044h,004h,074h,008h,0c7h
-	db 046h,0d8h,000h,000h,0e9h,0b0h,000h
+	db 08ah,086h,052h,0ffh,08bh,09eh,04ch,0ffh,08bh,0b6h,054h,0ffh,088h,040h,018h
+#endasm
+	l174 -= l176;
+L7854:
+	l172++;
+	if (l172 < 4) goto L7808;
+	member++;
+L7864:
+	if (member < party_count) goto L76f9;
+	setmem(20556, 45, 0);
+	done_count = 0;
+	member = 0;
+L788d:
+	if (member >= party_count) goto L82dd;
+	if ((unsigned)pc_condition[(member * 432)] >= 2) goto L818d;
+	if (g450d[(member * 432)]) goto L818d;
+	if (g450c[(member * 432)]) goto L818d;
+	done_members[done_count] = member;
+	done_count++;
+	l180 = (monster_groups + (member * 44));
+	l2 = 0;
+L78e8:
+	enabled[l2] = 1;
+	l2++;
+	if (l2 < 11) goto L78e8;
+	if (pc_race[(432 * member)] == 7) goto L7915;
+	l24 = 0;
+L7915:
+	rsi = (44 * member);
+	if ((monster_groups + rsi)[43]) goto L794e;
+	if (((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) goto L7953;
+	if (g452c[(432 * member)]) goto L7953;
+L794e:
+	l28 = 0;
+L7953:
+	if (pc_item_count[(432 * member)]) goto L7967;
+	enabled[4] = 0;
+L7967:
+	if (done_count >= 2) goto L7978;
+	l22 = 0;
+	l20 = 0;
+L7978:
+	l182 = (unsigned char)pc_equipped[(432 * member)];
+	if (l182 == 255) goto L7a84;
+	if (pc_item_type[((432 * member) + (l182 << 3))] != 3) goto L7a84;
+	l184 = (unsigned char)g44f9[(432 * member)];
+	if (l184 == 255) goto L7a7f;
+	if (pc_item_type[((432 * member) + (l184 << 3))] == 4) goto L79cd;
+	enabled[0] = 0;
+	goto L7a7d;
+L79cd:
+	;
+#asm
 l79cd:
 	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
 	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00bh,075h,01fh,0b8h,0b0h,001h,0f7h
 	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
 	db 08ah,087h,02dh,044h,03ch,016h,074h,003h,0e9h,070h,000h
+#endasm
+L7a08:
+	;
+#asm
 l7a08:
 	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
 	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00dh,075h,01ch,0b8h,0b0h,001h,0f7h
 	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
 	db 08ah,087h,02dh,044h,03ch,017h,075h,038h
+#endasm
+L7a40:
+	;
+#asm
 l7a40:
 	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
 	db 003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,03ch,00ch,075h,021h,0b8h,0b0h,001h,0f7h
 	db 06eh,0fah,08bh,08eh,048h,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
 	db 08ah,087h,02dh,044h,03ch,053h,074h,005h
-l7a78:
-	db 0c7h,046h,0d8h,000h,000h
-l7a7d:
-	db 0ebh,005h
-l7a7f:
-	db 0c7h,046h,0d8h,000h,000h
+#endasm
+L7a78:
+	enabled[0] = 0;
+L7a7d:
+	goto L7a84;
+L7a7f:
+	enabled[0] = 0;
+L7a84:
+	;
+#asm
 l7a84:
 	db 08bh,046h,0fah,03dh,003h,000h,07ch,01dh,0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,080h
-	db 0bfh,0e5h,044h,000h,075h,00fh,08bh,01eh,0a8h,043h,080h,078h,02bh,001h,074h,005h
-	db 0c7h,046h,0d8h,000h,000h
-l7aa9:
-	db 0c7h,046h,0eeh,0ffh,0ffh,08dh,086h,060h,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,0fah
-	db 005h,0e8h,043h,050h
-	call copy_name_
-	db 083h,0c4h,004h
-l7ac3:
-	db 0b8h,000h,000h,050h,0ffh,036h,08ch,043h
-	call draw_monster_groups_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh
-	db 076h,004h
-	call fill_window_
-	db 083h,0c4h,008h,08dh,086h,068h,0ffh,050h,0b8h,0ach,00dh,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,024h,000h,050h,08dh,086h,060h,0ffh,050h,08dh,086h,068h,0ffh
-	db 050h
-	call replace_char_with_string_
-	db 083h,0c4h,006h,0b8h,000h,000h,050h,08dh,086h,068h,0ffh,050h
-	call print_combat_prompt_
-	db 083h,0c4h,004h
-	call refresh_all_windows_
-	db 0c7h,046h,0b8h,000h,000h,0c7h,046h,0fch,000h,000h
-l7b25:
-	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0d8h,0ffh,074h,00eh,083h
-	db 07fh,0d8h,001h,075h,003h,0ffh,046h,0b8h
-l7b3d:
-	db 0ffh,046h,0fch,0ebh,0e3h
-l7b42:
-	db 0b8h,000h,000h,050h,0b8h,005h,000h,050h,0b8h,003h,000h,083h,07eh,0b8h,009h,07eh
-	db 003h,0b8h,004h,000h
-l7b56:
-	db 050h,0b8h,006h,000h,050h,0b8h,001h,000h,050h,050h,08dh,046h,0d8h,050h,0b8h,0b8h
-	db 00bh,050h,0ffh,076h,004h
-	call combat_menu_select_
-	db 083h,0c4h,012h,089h,046h,0f8h,0c7h,086h,05eh,0ffh,0ffh,0ffh,0b8h,02ch,000h,0f7h
-	db 06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h,040h,01fh,0ffh,0b8h,02ch,000h,0f7h
-	db 06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h,040h,020h,000h,0c7h,086h,058h,0ffh
-	db 000h,000h,0c7h,086h,056h,0ffh,000h,000h,08bh,046h,0f8h,0e9h,02dh,004h,0b8h,000h
-	db 000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,004h
-	call fill_window_
-	db 083h,0c4h,008h,08dh,086h,068h,0ffh,050h,0b8h,0adh,00dh,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,024h,000h,050h,08dh,086h,060h,0ffh,050h,08dh,086h,068h,0ffh
-	db 050h
-	call replace_char_with_string_
-	db 083h,0c4h,006h,0b8h,000h,000h,050h,08dh,086h,068h,0ffh,050h
-	call print_combat_prompt_
-	db 083h,0c4h,004h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,0f8h,044h,02ah
-	db 0e4h,089h,086h,04ah,0ffh,03dh,0ffh,000h,074h,01bh,0d1h,0e0h,0d1h,0e0h,0d1h,0e0h
-	db 003h,0d8h,080h,0bfh,02ch,044h,003h,075h,00ch,0c7h,086h,046h,0ffh,001h,000h,0c7h
-	db 086h,05eh,0ffh,008h,000h
-l7c25:
-	db 083h,0beh,05eh,0ffh,0ffh,074h,003h,0e9h,096h,000h
-l7c2f:
-	db 0c7h,086h,046h,0ffh,000h,000h,0c7h,046h,0feh,000h,000h
-l7c3a:
-	db 0ffh,076h,0feh,0b8h,0b0h,001h,0f7h,06eh,0fah,005h,0e7h,044h,050h
-	call test_bit_
-	db 083h,0c4h,004h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h,003h,0ddh,089h,047h,0bah,08bh
-	db 046h,0feh,03dh,004h,000h,074h,037h,083h,07eh,0fah,003h,07ch,031h,081h,0beh,04ah
-	db 0ffh,0ffh,000h,074h,029h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h
-	db 0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,080h,0bfh,02ch,044h,002h,075h,00eh
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0bah,000h,000h
-l7c98:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0bah,001h,075h,00bh,0ffh
-	db 086h,046h,0ffh,08bh,046h,0feh,089h,086h,05eh,0ffh
-l7cb2:
-	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07dh,003h,0e9h,07ah,0ffh
-l7cc0:
-	db 0c7h,046h,0cah,0ffh,0ffh
-l7cc5:
-	db 083h,0beh,046h,0ffh,001h,07eh,030h
-	call refresh_all_windows_
-	db 0b8h,000h,000h,050h,0b8h,005h,000h,050h,0b8h,003h,000h,050h,0b8h,008h,000h,050h
-	db 0b8h,001h,000h,050h,0b8h,003h,000h,050h,08dh,046h,0bah,050h,0b8h,0eah,00bh,050h
-	db 0ffh,076h,004h
-	call combat_menu_select_
-	db 083h,0c4h,012h,089h,086h,05eh,0ffh
+	db 0bfh,0e5h,044h,000h,075h,00fh
+#endasm
+	if ((monster_groups + rsi)[43] == 1) goto L7aa9;
+	enabled[0] = 0;
+L7aa9:
+	l18 = -1;
+	copy_name(((432 * member) + 17384), &l160);
+L7ac3:
+	draw_monster_groups(g438c, 0);
+	fill_window(win, 32, 3, 0);
+	get_message(3500, &l152);
+	replace_char_with_string(&l152, &l160, 36);
+	print_combat_prompt(&l152, 0);
+	refresh_all_windows();
+	l72 = 0;
+	l4 = 0;
+L7b25:
+	if (enabled[l4] == -1) goto L7b42;
+	if (enabled[l4] != 1) goto L7b3d;
+	l72++;
+L7b3d:
+	l4++;
+	goto L7b25;
+L7b42:
+	action = combat_menu_select(win, 3000, enabled, 1, 1, 6, (l72 > 9 ? 4 : 3), 5, 0);
+	choice = -1;
+	rsi = (44 * member);
+	(monster_groups + rsi)[31] = 255;
+	rsi = (44 * member);
+	(monster_groups + rsi)[32] = 0;
+	l168 = 0;
+	l170 = 0;
+#asm
+	db 08bh,046h,0f8h,0e9h,02dh,004h
+#endasm
+	fill_window(win, 32, 3, 0);
+	get_message(3501, &l152);
+	replace_char_with_string(&l152, &l160, 36);
+	print_combat_prompt(&l152, 0);
+	if ((l182 = (unsigned char)pc_equipped[(432 * member)]) == 255) goto L7c25;
+	if (pc_item_type[((432 * member) + (l182 << 3))] != 3) goto L7c25;
+	l186 = 1;
+	choice = 8;
+L7c25:
+	if (choice != -1) goto L7cc5;
+	l186 = 0;
+	l2 = 0;
+L7c3a:
+	l70[l2] = test_bit(((432 * member) + 17639), l2);
+	if (l2 == 4) goto L7c98;
+	if (member < 3) goto L7c98;
+	if (l182 == 255) goto L7c98;
+	if (pc_item_type[((432 * member) + (l182 << 3))] != 2) goto L7c98;
+	l70[l2] = 0;
+L7c98:
+	if (l70[l2] != 1) goto L7cb2;
+	l186++;
+	choice = l2;
+L7cb2:
+	l2++;
+	if (l2 < 8) goto L7c3a;
+	l54 = -1;
+L7cc5:
+	if (l186 <= 1) goto L7cfc;
+	refresh_all_windows();
+	choice = combat_menu_select(win, 3050, l70, 3, 1, 8, 3, 5, 0);
+L7cfc:
+	;
+#asm
 l7cfc:
 	db 083h,0beh,05eh,0ffh,0ffh,075h,003h,0e9h,06dh,000h
-l7d06:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,0e5h,044h,02ah,0e4h,089h,086h
-	db 044h,0ffh,03dh,002h,000h,075h,00dh,083h,0beh,05eh,0ffh,004h,074h,006h,0c7h,086h
-	db 044h,0ffh,000h,000h
-l7d2a:
-	db 083h,0beh,044h,0ffh,000h,075h,029h,08bh,046h,0fah,03dh,003h,000h,07ch,021h,0b9h
-	db 02ch,000h,0f7h,0e9h,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,02bh,001h,074h,010h
-	db 0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0c7h,086h,05ch,0ffh,0ffh,0ffh,0ebh,019h
-l7d5a:
-	db 0b8h,000h,000h,050h,0ffh,0b6h,044h,0ffh,0b8h,012h,00eh,050h,0ffh,076h,004h
-	call select_monster_group_
-	db 083h,0c4h,008h,089h,086h,05ch,0ffh
-l7d73:
-	db 083h,0beh,05eh,0ffh,0ffh,074h,007h,083h,0beh,05ch,0ffh,0ffh,075h,008h
-l7d81:
-	db 0c7h,086h,058h,0ffh,001h,000h,0ebh,015h
+#endasm
+L7d06:
+	if ((l188 = (unsigned char)g44e5[(432 * member)]) != 2) goto L7d2a;
+	if (choice == 4) goto L7d2a;
+	l188 = 0;
+L7d2a:
+	if (l188) goto L7d5a;
+#asm
+	db 08bh,046h,0fah,03dh,003h,000h,07ch,021h,0b9h,02ch,000h,0f7h,0e9h,08bh,0f0h,08bh
+	db 01eh,0a8h,043h,080h,078h,02bh,001h,074h,010h
+#endasm
+	play_sound(0);
+	l164 = -1;
+	goto L7d73;
+L7d5a:
+	l164 = select_monster_group(win, 3602, l188, 0);
+L7d73:
+	if (choice == -1) goto L7d81;
+	if (l164 != -1) goto L7d89;
+L7d81:
+	l168 = 1;
+	goto L7d9e;
+L7d89:
+	;
+#asm
 l7d89:
 	db 08ah,086h,05ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
 	db 043h,058h,088h,040h,01fh
-l7d9e:
-	db 0e9h,045h,002h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh
-	db 076h,004h
-	call fill_window_
-	db 083h,0c4h,008h,08dh,086h,068h,0ffh,050h,0b8h,0aeh,00dh,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,024h,000h,050h,08dh,086h,060h,0ffh,050h,08dh,086h,068h,0ffh
-	db 050h
-	call replace_char_with_string_
-	db 083h,0c4h,006h,0b8h,000h,000h,050h,08dh,086h,068h,0ffh,050h
-	call print_combat_prompt_
-	db 083h,0c4h,004h
-	call refresh_all_windows_
-	db 0c7h,046h,0feh,000h,000h
-l7df0:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0d8h,001h,000h,0ffh,046h
-	db 0feh,08bh,046h,0feh,03dh,004h,000h,07ch,0e7h,0b8h,0b0h,001h,0f7h,06eh,0fah,050h
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,0f9h,044h,02ah,0e4h,08bh,0c8h
-	db 0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,080h,0bfh,02ch
-	db 044h,00bh,074h,005h,0c7h,046h,0d8h,000h,000h
-l7e39:
-	db 0c7h,046h,0e0h,0ffh,0ffh,0b8h,000h,000h,050h,0b8h,005h,000h,050h,0b8h,002h,000h
-	db 050h,0b8h,009h,000h,050h,0b8h,001h,000h,050h,0b8h,003h,000h,050h,08dh,046h,0d8h
-	db 050h,0b8h,01ch,00ch,050h,0ffh,076h,004h
-	call combat_menu_select_
-	db 083h,0c4h,012h,089h,086h,05eh,0ffh,03dh,0ffh,0ffh,075h,006h,0c7h,086h,058h,0ffh
-	db 001h,000h
-l7e76:
-	db 0e9h,06dh,001h,0e9h,06ah,001h,0ffh,076h,0fah,0ffh,076h,004h
-	call choose_combat_spell_
-	db 083h,0c4h,004h,089h,086h,05eh,0ffh,0c7h,006h,016h,050h,0ffh,0ffh,03dh,0ffh,0ffh
-	db 075h,006h,0c7h,086h,058h,0ffh,001h,000h
-l7e9d:
-	db 0e9h,046h,001h,0ffh,076h,0fah,0ffh,076h,004h
-	call choose_combat_item_
-	db 083h,0c4h,004h,089h,086h,05eh,0ffh,03dh,0ffh,0ffh,075h,006h,0c7h,086h,058h,0ffh
-	db 001h,000h
-l7ebb:
-	db 0e9h,028h,001h,0b8h,01bh,00eh,050h
-	call select_party_member_
-	db 059h,089h,086h,05eh,0ffh,03dh,0ffh,0ffh,075h,006h,0c7h,086h,058h,0ffh,001h,000h
-l7ed5:
-	db 0e9h,00eh,001h,0e9h,00bh,001h,0b8h,000h,000h,050h,0b8h,001h,000h,050h,0b8h,015h
-	db 00eh,050h,0ffh,076h,004h
-	call select_monster_group_
-	db 083h,0c4h,008h,089h,086h,05ch,0ffh,0c7h,086h,05eh,0ffh,008h,000h,03dh,0ffh,0ffh
-	db 075h,008h,0c7h,086h,058h,0ffh,001h,000h,0ebh,015h
+#endasm
+L7d9e:
+	goto L7fe6;
+	fill_window(win, 32, 3, 0);
+	get_message(3502, &l152);
+	replace_char_with_string(&l152, &l160, 36);
+	print_combat_prompt(&l152, 0);
+	refresh_all_windows();
+	l2 = 0;
+L7df0:
+	enabled[l2] = 1;
+	l2++;
+	if (l2 < 4) goto L7df0;
+	if (pc_item_type[((432 * member) + ((unsigned char)g44f9[(432 * member)] << 3))] == 11) goto L7e39;
+	enabled[0] = 0;
+L7e39:
+	enabled[4] = -1;
+	if ((choice = combat_menu_select(win, 3100, enabled, 3, 1, 9, 2, 5, 0)) != -1) goto L7e76;
+	l168 = 1;
+L7e76:
+	goto L7fe6;
+#asm
+	db 0e9h,06ah,001h
+#endasm
+	choice = choose_combat_spell(win, member);
+	blink_state = -1;
+	if (choice != -1) goto L7e9d;
+	l168 = 1;
+L7e9d:
+	goto L7fe6;
+	if ((choice = choose_combat_item(win, member)) != -1) goto L7ebb;
+	l168 = 1;
+L7ebb:
+	goto L7fe6;
+	if ((choice = select_party_member(3611)) != -1) goto L7ed5;
+	l168 = 1;
+L7ed5:
+	goto L7fe6;
+#asm
+	db 0e9h,00bh,001h
+#endasm
+	l164 = select_monster_group(win, 3605, 1, 0);
+	choice = 8;
+	if (l164 != -1) goto L7f07;
+	l168 = 1;
+#asm
+	db 0ebh,015h
+#endasm
+L7f07:
+	;
+#asm
 l7f07:
 	db 08ah,086h,05ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
 	db 043h,058h,088h,040h,01fh
+#endasm
+L7f1c:
+	;
+#asm
 l7f1c:
-	db 0e9h,0c7h,000h,0e9h,0c4h,000h,0b8h,000h,000h,050h,0b8h,02dh,000h,050h,0b8h,04ch
-	db 050h,050h
-	call setmem_
-	db 083h,0c4h,006h,0c7h,086h,05ch,0ffh,000h,000h,0ebh,036h
-l7f3c:
-	db 0b8h,02ch,000h,0f7h,0aeh,05ch,0ffh,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,01fh
-	db 000h,076h,01fh,08ah,040h,01fh,02ah,0e4h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h
-	db 050h,08ah,040h,020h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,0c6h,087h,04ch
-	db 050h,001h
-l7f6e:
-	db 0ffh,086h,05ch,0ffh
-l7f72:
-	db 08bh,046h,0fah,048h,03bh,086h,05ch,0ffh,07fh,0c0h,08bh,086h,042h,0ffh,0d1h,0e0h
-	db 08bh,0d8h,003h,0ddh,08bh,087h,032h,0ffh,048h,089h,046h,0fah,0ffh,08eh,042h,0ffh
-	db 0ffh,08eh,042h,0ffh,0c7h,086h,056h,0ffh,001h,000h,0ebh,048h,0b8h,000h,000h,050h
-	db 0b8h,02dh,000h,050h,0b8h,04ch,050h,050h
-	call setmem_
-	db 083h,0c4h,006h,0c7h,046h,0fah,0ffh,0ffh,0c7h,086h,056h,0ffh,001h,000h,0c7h,086h
-	db 042h,0ffh,000h,000h,0ebh,023h,0ach,07bh,0a1h,07dh,079h,07eh,07ch,07eh,0a0h,07eh
-	db 0beh,07eh,0d8h,07eh,01fh,07fh,0dbh,07eh,022h,07fh,09eh,07fh
+	db 0e9h,0c7h,000h
+#endasm
+	goto L7fe6;
+	setmem(20556, 45, 0);
+	l164 = 0;
+#asm
+	db 0ebh,036h
+#endasm
+L7f3c:
+	rsi = (44 * l164);
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L7f6e;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
+L7f6e:
+	l164++;
+L7f72:
+	if ((member - 1) > l164) goto L7f3c;
+	member = (done_members[(done_count - 2)] - 1);
+	done_count -= 2;
+	l170 = 1;
+	goto L7fe6;
+	setmem(20556, 45, 0);
+	member = -1;
+	l170 = 1;
+	done_count = 0;
+#asm
+	db 0ebh,023h,0ach,07bh,0a1h,07dh,079h,07eh,07ch,07eh,0a0h,07eh,0beh,07eh,0d8h,07eh
+	db 01fh,07fh,0dbh,07eh,022h,07fh,09eh,07fh
 l7fd9:
 	db 03dh,00bh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0c3h,07fh
-l7fe6:
-	db 083h,0beh,058h,0ffh,001h,075h,003h,0e9h,0d3h,0fah
-l7ff0:
-	db 083h,0beh,056h,0ffh,000h,074h,003h,0e9h,093h,001h
+#endasm
+L7fe6:
+	if (l168 == 1) goto L7ac3;
+	if (l170) goto L818d;
+#asm
 l7ffa:
 	db 08bh,086h,05eh,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,058h,089h,040h,00ah,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
-	db 043h,0c7h,040h,00ch,0ffh,0ffh,08ah,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,01eh,0a8h,043h,058h,088h,040h,01eh,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,01eh,0a8h,043h,08ah,040h,01fh,02ah,0e4h,089h,086h,05ch,0ffh,03dh
-	db 001h,000h,07ch,026h,03dh,005h,000h,07fh,021h,08ah,086h,05ch,0ffh,02ah,0e4h,050h
-	db 0ffh,076h,0fah
+	db 043h,058h,089h,040h,00ah
+#endasm
+	rsi = (44 * member);
+	*(int *)((monster_groups + rsi) + 12) = -1;
+#asm
+	db 08ah,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
+	db 058h,088h,040h,01eh
+#endasm
+	rsi = (44 * member);
+	if ((l164 = (unsigned char)(monster_groups + rsi)[31]) < 1) goto L8074;
+	if (l164 > 5) goto L8074;
+#asm
+	db 08ah,086h,05ch,0ffh,02ah,0e4h,050h,0ffh,076h,0fah
 	call pick_target_monster_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
 	db 058h,088h,040h,020h
-l8074:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,0f9h,044h,02ah,0e4h,089h,086h
-	db 04ah,0ffh,083h,07eh,0f8h,000h,074h,003h,0e9h,0feh,000h
-l808f:
-	db 03dh,0ffh,000h,075h,035h,08ah,087h,0f8h,044h,02ah,0e4h,03dh,0ffh,000h,075h,02ah
-	db 081h,0c3h,0e7h,044h,08bh,0c3h,050h
-	call pick_random_set_bit_
-	db 059h,089h,046h,0feh,03dh,0ffh,0ffh,074h,014h,08bh,046h,0feh,050h,0b8h,02ch,000h
-	db 0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,058h,089h,040h,00ch
-l80c6:
-	db 0e9h,0c4h,000h
-l80c9:
-	db 081h,0beh,04ah,0ffh,0ffh,000h,075h,003h,0e9h,0b9h,000h
-l80d4:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,08ah,087h,02ch,044h,03ch,002h,074h,008h,03ch,00ch,074h,004h
-	db 03ch,010h,075h,014h
-l80f8:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c7h,040h,00ch,004h
-	db 000h,0e9h,081h,000h
-l810c:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,08eh,04ah,0ffh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h
-	db 003h,0c1h,08bh,0d8h,080h,0bfh,02ch,044h,002h,073h,066h,0b8h,0b0h,001h,0f7h,06eh
-	db 0fah,08bh,0d8h,080h,0bfh,0f5h,044h,001h,074h,00dh,083h,07eh,0fah,003h,07dh,051h
-	db 083h,0beh,05ch,0ffh,003h,07dh,04ah
-l8143:
-	db 0c7h,046h,0f6h,000h,000h
-l8148:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,005h,0f7h,044h,050h
-	call pick_random_set_bit_
-	db 059h,089h,046h,0feh,0ffh,046h,0f6h,083h,07eh,0feh,004h,075h,006h,083h,07eh,0f6h
-	db 00ah,07ch,0e0h
+#endasm
+L8074:
+	l182 = (unsigned char)g44f9[(432 * member)];
+	if (action) goto L818d;
+	if (l182 != 255) goto L80c9;
+	if ((unsigned char)pc_equipped[(432 * member)] != 255) goto L80c9;
+	if ((l2 = pick_random_set_bit(((432 * member) + 17639))) == -1) goto L80c6;
+#asm
+	db 08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
+	db 058h,089h,040h,00ch
+#endasm
+L80c6:
+	goto L818d;
+L80c9:
+	if (l182 == 255) goto L818d;
+	if (((pc_item_type[((432 * member) + (l182 << 3))] != 2) && (pc_item_type[((432 * member) + (l182 << 3))] != 12)) && (pc_item_type[((432 * member) + (l182 << 3))] != 16)) goto L810c;
+	rsi = (44 * member);
+	*(int *)((monster_groups + rsi) + 12) = 4;
+	goto L818d;
+L810c:
+	if ((unsigned)pc_item_type[((432 * member) + (l182 << 3))] >= 2) goto L818d;
+	if (g44f5[(432 * member)] == 1) goto L8143;
+	if (member >= 3) goto L818d;
+	if (l164 >= 3) goto L818d;
+L8143:
+	l10 = 0;
+L8148:
+	l2 = pick_random_set_bit(((432 * member) + 17655));
+	l10++;
+#asm
+	db 083h,07eh,0feh,004h,075h,006h
+#endasm
+	if (l10 < 10) goto L8148;
+L8168:
+	;
+#asm
 l8168:
-	db 083h,07eh,0feh,004h,075h,005h,0c7h,046h,0feh,0ffh,0ffh
-l8173:
-	db 083h,07eh,0feh,0ffh,074h,014h,08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,0fah
-	db 08bh,0f0h,08bh,01eh,0a8h,043h,058h,089h,040h,00ch
-l818d:
-	db 0ffh,046h,0fah,08bh,046h,0fah,03bh,006h,0ceh,043h,074h,003h,0e9h,03eh,001h
-l819c:
-	db 0b8h,000h,000h,050h,0ffh,036h,08ch,043h
-	call draw_monster_groups_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh
-	db 076h,004h
-	call fill_window_
-	db 083h,0c4h,008h,08dh,086h,068h,0ffh,050h,0b8h,0b2h,00dh,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,08dh,086h,068h,0ffh,050h
-	call print_combat_prompt_
-	db 083h,0c4h,004h
-	call refresh_all_windows_
-	db 0c7h,046h,0feh,000h,000h
-l81e5:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0d8h,001h,000h,0ffh,046h
-	db 0feh,08bh,046h,0feh,03dh,003h,000h,07ch,0e7h,083h,0beh,042h,0ffh,000h,075h,00ah
-	db 0c7h,046h,0dch,000h,000h,0c7h,046h,0dah,000h,000h
-l820f:
-	db 0c7h,046h,0deh,0ffh,0ffh,0b8h,000h,000h,050h,0b8h,005h,000h,050h,0b8h,004h,000h
-	db 050h,0b8h,00eh,000h,050h,0b8h,001h,000h,050h,0b8h,003h,000h,050h,08dh,046h,0d8h
-	db 050h,0b8h,0b3h,00dh,050h,0ffh,076h,004h
-	call combat_menu_select_
-	db 083h,0c4h,012h,089h,046h,0feh,03dh,002h,000h,075h,020h,0b8h,000h,000h,050h,0b8h
-	db 02dh,000h,050h,0b8h,04ch,050h,050h
-	call setmem_
-	db 083h,0c4h,006h,0c7h,046h,0fah,000h,000h,0c7h,086h,042h,0ffh,000h,000h,0e9h,075h
-	db 000h
-l8265:
-	db 083h,07eh,0feh,001h,075h,06fh,0b8h,000h,000h,050h,0b8h,02dh,000h,050h,0b8h,04ch
-	db 050h,050h
-	call setmem_
-	db 083h,0c4h,006h,0c7h,086h,05ch,0ffh,000h,000h,0ebh,036h
-l8285:
-	db 0b8h,02ch,000h,0f7h,0aeh,05ch,0ffh,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,01fh
-	db 000h,076h,01fh,08ah,040h,01fh,02ah,0e4h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h
-	db 050h,08ah,040h,020h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,0c6h,087h,04ch
-	db 050h,001h
-l82b7:
-	db 0ffh,086h,05ch,0ffh
-l82bb:
-	db 0a1h,0ceh,043h,048h,03bh,086h,05ch,0ffh,07fh,0c0h,08bh,086h,042h,0ffh,0d1h,0e0h
-	db 08bh,0d8h,003h,0ddh,08bh,087h,034h,0ffh,089h,046h,0fah,0ffh,08eh,042h,0ffh
-l82da:
-	db 0e9h,0b0h,0f5h
-l82dd:
-	db 0c7h,046h,0fah,000h,000h,0e9h,0b5h,000h
-l82e5:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,00fh,000h
-	db 076h,033h,0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,01ah,045h,02ah,0e4h
-	db 08bh,0c8h,005h,050h,000h,08bh,0c8h,058h,03bh,0c1h,07eh,010h,0b8h,02ch,000h,0f7h
-	db 06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h,040h,01eh,007h
-l832a:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,01eh,001h
-	db 074h,006h,080h,078h,01eh,005h,075h,004h
-l8342:
-	db 0c6h,040h,018h,001h
-l8346:
-	db 0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,080h,078h,01eh,000h
-	db 075h,01ch,083h,078h,00ch,0ffh,075h,014h,0c6h,040h,019h,000h,0b8h,02ch,000h,0f7h
-	db 06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h,040h,01bh,000h
-l8372:
-	db 0ebh,023h
-l8374:
-	db 0c7h,046h,0feh,001h,000h
+	db 083h,07eh,0feh,004h,075h,005h
+#endasm
+	l2 = -1;
+L8173:
+	if (l2 == -1) goto L818d;
+#asm
+	db 08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
+	db 058h,089h,040h,00ch
+#endasm
+L818d:
+	member++;
+	if (member != party_count) goto L82da;
+	draw_monster_groups(g438c, 0);
+	fill_window(win, 32, 3, 0);
+	get_message(3506, &l152);
+	print_combat_prompt(&l152, 0);
+	refresh_all_windows();
+	l2 = 0;
+L81e5:
+	enabled[l2] = 1;
+	l2++;
+	if (l2 < 3) goto L81e5;
+	if (done_count) goto L820f;
+	enabled[2] = 0;
+	enabled[1] = 0;
+L820f:
+	enabled[3] = -1;
+	if ((l2 = combat_menu_select(win, 3507, enabled, 3, 1, 14, 4, 5, 0)) != 2) goto L8265;
+	setmem(20556, 45, 0);
+	member = 0;
+	done_count = 0;
+	goto L82da;
+L8265:
+	if (l2 != 1) goto L82da;
+	setmem(20556, 45, 0);
+	l164 = 0;
+	goto L82bb;
+L8285:
+	rsi = (44 * l164);
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L82b7;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
+L82b7:
+	l164++;
+L82bb:
+	if ((party_count - 1) > l164) goto L8285;
+	member = done_members[(done_count - 1)];
+	done_count--;
+L82da:
+	goto L788d;
+L82dd:
+	member = 0;
+	goto L839a;
+L82e5:
+	rsi = (44 * member);
+	if ((unsigned)(monster_groups + rsi)[15] <= 0) goto L832a;
+	if (random(100) <= ((unsigned char)g451a[(432 * member)] + 80)) goto L832a;
+	rsi = (44 * member);
+	(monster_groups + rsi)[30] = 7;
+L832a:
+	rsi = (44 * member);
+	if ((monster_groups + rsi)[30] == 1) goto L8342;
+	if ((monster_groups + rsi)[30] != 5) goto L8346;
+L8342:
+	(monster_groups + rsi)[24] = 1;
+L8346:
+	rsi = (44 * member);
+	if ((monster_groups + rsi)[30]) goto L8374;
+	if (*(int *)((monster_groups + rsi) + 12) != -1) goto L8372;
+	(monster_groups + rsi)[25] = 0;
+	rsi = (44 * member);
+	(monster_groups + rsi)[27] = 0;
+L8372:
+	goto L8397;
+L8374:
+	l2 = 1;
+L8379:
+	;
+#asm
 l8379:
 	db 0b8h,02ch,000h,0f7h,06eh,0fah,003h,046h,0feh,08bh,0f0h,08bh,01eh,0a8h,043h,0c6h
-	db 040h,018h,000h,0ffh,046h,0feh,08bh,046h,0feh,03dh,004h,000h,07ch,0e2h
-l8397:
-	db 0ffh,046h,0fah
-l839a:
-	db 08bh,046h,0fah,03bh,006h,0ceh,043h,07dh,003h,0e9h,03fh,0ffh
-l83a6:
-	db 05eh,08bh,0e5h,05dh,0c3h
+	db 040h,018h,000h
 #endasm
+	l2++;
+	if (l2 < 4) goto L8379;
+L8397:
+	member++;
+L839a:
+	if (member < party_count) goto L82e5;
+}

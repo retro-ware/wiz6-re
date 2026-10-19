@@ -554,6 +554,7 @@ L7de8:
 #asm
 	db 0ebh,04ah
 #endasm
+L7e56:
 	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) == -1) goto L7e9d;
 	f6835(l38, l54[2]);
 	npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
@@ -561,9 +562,7 @@ L7e9d:
 	l38++;
 L7ea0:
 	if (l38 >= party_count) goto L7eaf;
-#asm
-	db 083h,07eh,0ceh,0ffh,074h,0a7h
-#endasm
+	if (l54[2] == -1) goto L7e56;
 L7eaf:
 	goto L7f6d;
 	l38 = (*(int *)(l36 + (l2 << 2)) / 256);

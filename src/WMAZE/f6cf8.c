@@ -1,9 +1,3 @@
-#asm
-	extrn destroy_window_:near
-	extrn disk_options_menu_:near
-	extrn reorder_party_:near
-	extrn tick_effect_timers_:near
-#endasm
 extern char *g4f84;
 extern char *main_window;
 extern char pc_item_count[];
@@ -47,20 +41,20 @@ L6d93:
 L6db8:
 	l18 = -1;
 	l6 = maze_menu_select(l38, 2005, l36, 1, 1, 7, 3, 5, 0);
-#asm
-	db 0b8h,000h,000h,050h,0ffh,076h,0dah
-	call destroy_window_
-	db 083h,0c4h,004h,08bh,046h,0fah,0e9h,010h,001h
-#endasm
+	destroy_window(l38, 0);
+	switch (l6) {
+case 0:
 	search_cell();
 	tick_effect_timers(1);
 	goto L6f16;
+case 1:
 	if ((cur_member = choose_party_member_m(2026, 1)) == -1) goto L6e31;
 	tick_effect_timers(1);
 	game_state = 17;
 	return_cmd = 5;
 L6e31:
 	goto L6f16;
+case 2:
 	if ((cur_member = choose_party_member_m(2029, 1)) == -1) goto L6e67;
 	if (!is_member_able(cur_member)) goto L6e67;
 	tick_effect_timers(1);
@@ -68,6 +62,7 @@ L6e31:
 	return_cmd = 5;
 L6e67:
 	goto L6f16;
+case 3:
 	if ((cur_member = choose_party_member_m(2031, 1)) == -1) goto L6ead;
 	if (!is_member_able(cur_member)) goto L6ead;
 	if ((unsigned)pc_item_count[(432 * cur_member)] <= 0) goto L6ead;
@@ -76,14 +71,14 @@ L6e67:
 	return_cmd = 5;
 L6ead:
 	goto L6f16;
+case 4:
 	handle_locked_door();
-#asm
-	db 0b8h,001h,000h,050h
-	call tick_effect_timers_
-	db 059h,0ebh,05ah
-	call reorder_party_
-	db 0ebh,055h
-#endasm
+	tick_effect_timers(1);
+	goto L6f16;
+case 5:
+	reorder_party();
+	goto L6f16;
+case 6:
 	if (rest_party() != 1) goto L6eee;
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = 0;
@@ -91,13 +86,12 @@ L6ead:
 	game_state = 10;
 L6eee:
 	goto L6f16;
-#asm
-	call disk_options_menu_
-	db 0ebh,021h,0ebh,01fh,0f9h,06dh,007h,06eh,034h,06eh,06ah,06eh,0afh,06eh,0bch,06eh
-	db 0c1h,06eh,0f0h,06eh,0f5h,06eh
-l6f09:
-	db 03dh,009h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0f7h,06eh
-#endasm
+case 7:
+	disk_options_menu();
+	goto L6f16;
+case 8:
+	goto L6f16;
+	}
 L6f16:
 	resume_window_draw(g4fb0);
 	erase_window(main_window, 0);

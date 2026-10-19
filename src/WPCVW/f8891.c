@@ -1,6 +1,3 @@
-#asm
-	extrn key_available_:near
-#endasm
 extern int anim_phase;
 extern int click_flag;
 extern int g553c;
@@ -18,13 +15,7 @@ get_menu_input(p4, p6)
 L88ac:
 	menu_clicked = 0;
 L88b2:
-	;
-#asm
-l88b2:
-	db 0b8h,001h,000h,050h
-	call key_available_
-	db 059h,085h,0c0h,075h,056h
-#endasm
+	if (key_available(1)) goto L8914;
 	l2 = check_click_regions(p6);
 	if (click_flag != 1) goto L88da;
 	menu_clicked = 1;
@@ -43,6 +34,7 @@ L88ff:
 L8905:
 	l6 = ((l6 + 1) % 10);
 	goto L88b2;
+L8914:
 	if ((l2 = char_index(p4, (unsigned char)(get_key(1)))) < 0) goto L8932;
 	return;
 L8932:

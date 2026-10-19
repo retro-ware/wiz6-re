@@ -58,7 +58,7 @@ class Loop:
             st['status'], st['why'] = 'asm', 'handwritten'
             return None
         for _ in range(50):
-            L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False))
+            L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False))
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -120,6 +120,9 @@ class Loop:
         st = self.st(s)
         e = self.ranges[s]
         if errs == ['hang']:
+            if not st.get('nomerge'):      # retry without || / && chains
+                st['nomerge'], st['demote'] = True, []
+                return True
             st['status'], st['why'] = 'asm', 'cc hang'
             return False
         if errs:
@@ -175,6 +178,9 @@ class Loop:
         if not dem and L.f.scratch and not st.get('noscratch'):
             # prologue/epilogue differ: si/di were register variables, not cgen's index temps
             st['noscratch'], st['demote'] = True, []
+            return True
+        if not dem and not st.get('nomerge'):
+            st['nomerge'], st['demote'] = True, []
             return True
         if not dem:
             # mismatch in the prologue/epilogue/declarations

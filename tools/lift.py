@@ -221,8 +221,9 @@ class Func:
 
 # ---------------------------------------------------------------- symbolic execution
 class Lifter:
-    def __init__(self, img, s, e, names, demote=(), noscratch=False):
+    def __init__(self, img, s, e, names, demote=(), noscratch=False, nomerge=False):
         self.img, self.names = img, names
+        self.nomerge = nomerge  # no || / && chains from compares on a kept register
         self.f = Func(img, s, e)
         if noscratch:           # this function's si/di are register variables after all
             self.f.scratch = set()
@@ -350,7 +351,9 @@ class Lifter:
             # 'mov lv, ax; test/cmp ax' is an assignment inside the condition: if ((lv = x) == 0)
             self.sts.pop()
             kw['cond'] = (c[0], ('=', p.lv, p.rv), c[2])
-        if kind == 'if' and p is not None and p.kind == 'if' and p.e == self.st_start and c is not None and \
+            self.st_start = p.s
+        if kind == 'if' and not self.nomerge and p is not None and p.kind == 'if' and p.e == self.st_start and \
+                c is not None and \
                 c[0] not in ('&&', '||') and c[2][0] == 'c' and t0 is not None and t0.mnemonic == 'cmp' and \
                 t0.operands[0].type == X.X86_OP_REG and t0.operands[1].type == X.X86_OP_IMM and \
                 t0.address + t0.size == a.address and self.st_start not in self.targets:
@@ -369,7 +372,6 @@ class Lifter:
                 self.sts.pop()
                 kw['cond'] = merged
                 self.st_start = p.s
-            self.st_start = p.s
         st = St(kind, self.st_start, a.address + a.size, **kw)
         self.sts.append(st)
         self.st_start = st.e

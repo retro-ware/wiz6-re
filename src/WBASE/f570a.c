@@ -1,8 +1,6 @@
 #asm
 	extrn copy_far_:near
 	extrn lseek_:near
-	extrn make_data_path_:near
-	extrn strcpy_:near
 #endasm
 extern char cfg_delay;
 extern char cfg_gmode;
@@ -14,6 +12,7 @@ extern char sound_mode;
 extern int disk_header;
 extern int g3304;
 extern int g3306;
+extern int g3318;
 extern int g4ec8[];
 extern int g4eca[];
 extern int g4f8c;
@@ -43,7 +42,8 @@ load_game(resume)
 	int l2;
 	int l4;
 	int fd;
-	char l32[26];
+	int l8;
+	char l32[24];
 	long l36;
 	long l40;
 	long l44;
@@ -106,13 +106,8 @@ load_game(resume)
 	get_message(2259, &loading_text);
 	l4338 = 1;
 	if (resume) goto L57a0;
-#asm
-	db 0b8h,001h,000h,050h,0b8h,02fh,050h,050h
-	call make_data_path_
-	db 083h,0c4h,004h,050h,08dh,086h,0deh,0fdh,050h
-	call strcpy_
-	db 083h,0c4h,004h,0e9h,010h,001h
-#endasm
+	strcpy(&path, make_data_path(20527, 1));
+	goto L58b0;
 L57a0:
 	copy_through_char(&l4156, 13632, 58);
 	copy_through_char(&l4176, 13692, 58);
@@ -139,6 +134,7 @@ L5885:
 	strcpy(&path, 13692);
 L58a1:
 	strcat(&path, 20539);
+L58b0:
 	if ((fd = open(&path, 0)) != -1) goto L58fd;
 	show_error_text(&disk_error_text, 1);
 	if (!l4134) goto L58f4;
@@ -185,16 +181,14 @@ L59ad:
 	l4 = 0;
 	goto L5b16;
 L5a21:
-	l506 = read(fd, &l1978, g3304);
-#asm
-	db 03dh,000h,000h,07fh,03ah
-#endasm
+	if ((l506 = read(fd, &l1978, g3304)) > 0) goto L5a76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
 	if (!l4134) goto L5a70;
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
 L5a70:
 	return -1;
+L5a76:
 	if ((l506 = read(fd, &l3718, g3306)) > 0) goto L5acb;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
@@ -216,12 +210,7 @@ L5acb:
 L5b13:
 	l4++;
 L5b16:
-	;
-#asm
-l5b16:
-	db 08bh,046h,0fch,03bh,006h,018h,033h,07dh,003h
-#endasm
-	goto L5a21;
+	if (l4 < g3318) goto L5a21;
 	if ((l506 = read(fd, &l72, 66)) > 0) goto L5b76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
@@ -257,6 +246,7 @@ L5bcf:
 	party_count = 0;
 	l2 = 0;
 	goto L5cc9;
+L5c3e:
 	if ((l506 = read(fd, &l504, 432)) > 0) goto L5c93;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
@@ -273,11 +263,7 @@ L5c93:
 #endasm
 	l2++;
 L5cc9:
-	;
-#asm
-l5cc9:
-	db 08bh,046h,0feh,03bh,046h,0f8h,07dh,003h,0e9h,06ah,0ffh
-#endasm
+	if (l2 < l8) goto L5c3e;
 L5cd4:
 	close(fd);
 	if (!l4134) goto L5cf9;

@@ -81,10 +81,9 @@ L853e:
 	*(int *)((char *)pc_spell_pts + ((432 * p8) + (l2 << 2))) = 999;
 	l2++;
 	if (l2 < 6) goto L853e;
+L8581:
 	if ((l6 = choose_spell(p4, p6, p8, 0)) != -1) goto L859e;
-#asm
-	db 0ebh,0e3h
-#endasm
+	goto L8581;
 L859e:
 	g553c = -1;
 	movmem(&l28, ((432 * p8) + 17776), 12);

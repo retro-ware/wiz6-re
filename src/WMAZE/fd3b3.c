@@ -64,11 +64,9 @@ Ld592:
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
-	l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)]);
-#asm
-	db 03dh,05fh,000h,07eh,005h
-#endasm
+	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) <= 95) goto Ld61c;
 	l6 = 95;
+Ld61c:
 	if ((tumblers = ((l8 / 3) + 1)) <= 6) goto Ld633;
 	tumblers = 6;
 Ld633:

@@ -61,31 +61,25 @@ L9659:
 	l2 = 0;
 L967b:
 	if (random(100) >= (unsigned char)chest[((l2 * 6) + 5)]) goto L9763;
-#asm
-l96a2:
-	db 08ah,047h,0d8h,02ah,0e4h,0e9h,0a7h,000h
-#endasm
+	switch ((unsigned char)chest[((l2 * 6) + 4)]) {
+case 1:
 	l130 = (random((*(int *)(chest + (l2 * 6)) - *(int *)(chest + ((l2 * 6) + 2)))) + *(int *)(chest + ((l2 * 6) + 2)));
 	*(long *)(gold + (0 + 4)) += (long)l130;
 	goto L9763;
+case 4:
+	;
 #asm
 l96ed:
 	db 08bh,046h,0feh,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh
 	db 047h,0d4h,08bh,04fh,0d6h,08bh,0d9h,0f7h,0ebh,001h,046h,080h,011h,056h,082h,0ebh
 	db 055h
 #endasm
+case 2:
 	if ((loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)))) <= 0) goto L974f;
 	loot_count++;
 L974f:
 	goto L9763;
-L9751:
-	;
-#asm
-l9751:
-	db 03dh,001h,000h,075h,003h,0e9h,051h,0ffh
-l9759:
-	db 03dh,002h,000h,074h,0b0h,03dh,004h,000h,074h,08ah
-#endasm
+	}
 L9763:
 	l2++;
 	if (l2 < 6) goto L967b;

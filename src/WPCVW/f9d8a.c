@@ -1,4 +1,5 @@
 extern char g00cc[];
+extern char pc_item_count[];
 extern char pc_item_flags[];
 extern char pc_item_qty[];
 extern char pc_item_type[];
@@ -10,16 +11,12 @@ do_merge_items(p4, p6, p8)
 	int l2;
 	int l4;
 	int l6;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,094h,045h,002h,073h,004h
-#endasm
+	if ((unsigned)pc_item_count[(432 * p8)] >= 2) goto L9da3;
 	return;
 L9da3:
-	g43ca = choose_item(p4, p6, 406, p8, 0);
-#asm
-	db 03dh,0ffh,0ffh,075h,002h
-#endasm
+	if ((g43ca = choose_item(p4, p6, 406, p8, 0)) != -1) goto L9dc4;
 	return;
+L9dc4:
 	if ((l4 = choose_item(p4, p6, 407, p8, 0)) != -1) goto L9de5;
 	return;
 L9de5:

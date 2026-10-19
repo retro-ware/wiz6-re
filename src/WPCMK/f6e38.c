@@ -64,10 +64,9 @@ L6f70:
 	*(int *)((char *)char_spell_points + (l2 << 2)) = 999;
 	l2++;
 	if (l2 < 6) goto L6f70;
+L6fa3:
 	if ((spell = select_spell(sheet_win, win, 0)) != -1) goto L6fbd;
-#asm
-	db 0ebh,0e6h
-#endasm
+	goto L6fa3;
 L6fbd:
 	movmem(&saved_known, 22008, 12);
 	l2 = 0;
