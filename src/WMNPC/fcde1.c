@@ -1,6 +1,7 @@
 extern int g51b6;
 extern int g5894;
 extern int g5896;
+extern int g5898;
 extern int g58a4;
 extern int g58a6;
 extern int g58a8;
@@ -23,9 +24,8 @@ fcde1()
 	l2 += *(int *)((char *)g58d8 + (l2 * 20));
 Lce09:
 	l4 = fcdb0(l2);
-#asm
-	db 0a1h,098h,058h,0e9h,068h,004h
-#endasm
+	switch (g5898) {
+case 0:
 	if (((g58b4 != 1) || (l2)) || ((g58a4 != 1) && (g58a6 != 1))) goto Lce6b;
 	if (g51b6 <= 0) goto Lce59;
 	fc16d(&l84, 0);
@@ -44,6 +44,9 @@ Lce85:
 	fcd43((l4 + 3), 1625);
 	return;
 Lcead:
+case 1:
+case 2:
+case 3:
 	if (g58b4 != 1) goto Lcff2;
 	if (((((((g58a4) || (g58a6)) || (g58a8)) || (g58aa)) || (g58ac)) || (g58ae)) || (g58b0)) goto Lceee;
 	g58a6 = 1;
@@ -94,11 +97,8 @@ Ld009:
 	fc95b(1635, 20537);
 	return;
 Ld01a:
-	;
-#asm
-ld01a:
-	db 0e9h,071h,002h
-#endasm
+	goto Ld28e;
+case 4:
 	if (g58b4 != 1) goto Ld064;
 	if (g58ca) goto Ld053;
 	if (g58a6 != 1) goto Ld042;
@@ -118,6 +118,7 @@ Ld064:
 Ld07b:
 	fc95b(1627, 20542);
 	return;
+case 5:
 	if (g58b4 != 1) goto Ld0d3;
 	if (g58ca) goto Ld0c2;
 	if (g58a6 != 1) goto Ld0b1;
@@ -137,12 +138,15 @@ Ld0d3:
 Ld0ee:
 	fc95b(1636, 20546);
 	return;
+case 6:
+case 7:
 	if (g58b4 != 1) goto Ld117;
 	fc95b(1631, 20547);
 	return;
 Ld117:
 	fc95b(1637, 20548);
 	return;
+case 8:
 	if (g58b4 != 1) goto Ld1c3;
 	if (g58a4 != 1) goto Ld14a;
 	fc95b(1630, 20549);
@@ -169,6 +173,7 @@ Ld1af:
 Ld1c3:
 	fc95b(1633, 20552);
 	return;
+case 9:
 	if (g58b4 != 1) goto Ld25c;
 	if ((g58a4 != 1) && (g58ac != 1)) goto Ld1fd;
 	fc95b(1630, 20553);
@@ -191,12 +196,7 @@ Ld248:
 Ld25c:
 	fc95b(1635, 20556);
 	return;
-#asm
-	db 019h,0ceh,0adh,0ceh,0adh,0ceh,0adh,0ceh,01dh,0d0h,08ch,0d0h,0ffh,0d0h,0ffh,0d0h
-	db 028h,0d1h,0d4h,0d1h
-ld281:
-	db 03dh,00ah,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,06dh,0d2h
-#endasm
+	}
 Ld28e:
 	return;
 }

@@ -1324,7 +1324,9 @@ class Lifter:
                   for k in range(n)]
             stub = get(end)
             if stub is not None and stub.mnemonic == 'jmp' and stub.operands[0].type == X.X86_OP_IMM and \
-                    min(tg) <= (stub.operands[0].imm & 0xffff) < tbl:
+                    min(tg) <= (stub.operands[0].imm & 0xffff) < tbl and \
+                    not ((stub.operands[0].imm & 0xffff) == self.f.epi and end + stub.size == self.f.e):
+                # (the function's last instruction jumping to the epilogue is its end, not a default)
                 # (a jmp before every case body is the statement after the switch, e.g. a loop's goto)
                 default = stub.operands[0].imm & 0xffff
                 end += stub.size
