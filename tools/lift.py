@@ -975,7 +975,7 @@ class Lifter:
             raise Unlift('signed test')
         return (op, fl[1], ('c', 0))
 
-    def arm(self, a, end, t=None, conds=None):
+    def arm(self, a, end, t=None, conds=None, reg='ax'):
         """Value of ax after the register-only instructions [a, end), or None; state is kept.
         With conds: jcc to t inside are allowed and their conditions appended."""
         save = (dict(self.R), list(self.stack), self.flags, self.side, len(self.sts), dict(self.pend),
@@ -1027,7 +1027,7 @@ class Lifter:
                 if p == end and len(self.sts) == save[4] and len(self.stack) == len(save[1]) and \
                         self.pend == save[5] and \
                         self.side is None:
-                    v = self.R.get('ax')
+                    v = self.R.get(reg)
         except Unlift:
             v = None
         (R, stack, self.flags, self.side, n, pend, self.st_start, self.cur, self.skip, self.skip_to,
@@ -1108,13 +1108,18 @@ class Lifter:
         j = x.operands[0].imm & 0xffff
         if j <= t:
             return False
+        # the value register: ax, or cx when ax holds the left operand ((a ? 1 : 0) + (b ? 1 : 0))
+        ti = self.f.seen.get(t)
+        r = R16.get(ti.operands[0].reg) if ti is not None and ti.mnemonic == 'mov' and \
+            ti.operands[0].type == X.X86_OP_REG else None
+        r = r if r in ('cx', 'dx') and 'ax' in self.R else 'ax'
         conds = [c]
         self.armvals = [self.R.get('ax')]
-        b = self.arm(nxt, p, t, conds)
+        b = self.arm(nxt, p, t, conds, r)
         gb = self.got
         if b is None:
             return False
-        a = self.arm(t, j)
+        a = self.arm(t, j, reg=r)
         ga = self.got
         if a is None:
             return False
@@ -1130,7 +1135,7 @@ class Lifter:
         n[j] = n.get(j, 0) + 1
         self.cur = cur
         k = negate(c) if len(conds) == 1 else cond(conds)
-        self.R['ax'] = ('?', k, b, a)
+        self.R[r] = ('?', k, b, a)
         self.flags, self.skip_to = None, j
         nl = gb['nl'] | ga['nl'] | {t, j}
         self.nolabel |= nl
