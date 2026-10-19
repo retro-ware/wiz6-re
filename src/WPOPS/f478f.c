@@ -7,7 +7,6 @@ draw_ally_group()
 {
 	char x0[2];
 	int l4;
-	register int rsi;
 	defer_window_draw(g4fae);
 	fill_window(g4fae, 28, 3, 0);
 	set_cursor(g4fae, 4, 0);
@@ -17,10 +16,9 @@ draw_ally_group()
 	l4 = 0;
 	goto L4827;
 L4802:
-	rsi = (44 * l4);
-	if ((unsigned)(g43b4 + rsi)[34] >= 2) goto L4824;
-	if ((g43b4 + rsi)[17]) goto L4824;
-	if ((g43b4 + rsi)[16]) goto L4824;
+	if ((unsigned)(g43b4 + (44 * l4))[34] >= 2) goto L4824;
+	if ((g43b4 + (44 * l4))[17]) goto L4824;
+	if ((g43b4 + (44 * l4))[16]) goto L4824;
 	g43b4[414]++;
 L4824:
 	l4++;

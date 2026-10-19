@@ -1,6 +1,5 @@
-#asm
-	extrn show_maze_message_:near
-#endasm
+extern char *g4fa8;
+extern int cell_event_index;
 extern int g4f8c;
 extern int g4f8e;
 extern int g4f90;
@@ -30,32 +29,20 @@ f9f8c()
 	int l26;
 	int l28;
 	int l30;
-	register int rsi;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,083h,038h,000h,07eh,01ch
-	db 0ffh,030h
-	call show_maze_message_
-	db 059h
-#endasm
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto L9fbf;
+	show_maze_message(*(int *)(g4fa8 + (cell_event_index << 1)));
 	wait_animating_m(message_delay);
 	erase_window(main_window, 1);
 L9fbf:
-	;
-#asm
-l9fbf:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0e2h,08bh,080h,040h,002h,089h,046h,0f2h
-#endasm
+	l30 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
+	l14 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	l2 = 0;
 L9fdd:
 	l12[l2] = extract_bits(l14, (l2 + 8), 1);
 	l2++;
 	if (l2 < 4) goto L9fdd;
 	l16 = extract_bits(l14, 0, 8);
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,030h,006h,02ah,0e4h,089h,046h
-	db 0eeh
-#endasm
+	l18 = (unsigned char)(g4fa8 + cell_event_index)[1584];
 	l24 = extract_bits(l14, 12, 1);
 	l26 = (extract_bits(l14, 13, 1) == 1 ? 1 : -1);
 	l28 = extract_bits(l14, 14, 1);
@@ -103,12 +90,7 @@ La159:
 	kill_party(2022, 4);
 	return;
 La18b:
-	;
-#asm
-la18b:
-	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,0a3h,0e8h
-	db 04eh
-#endasm
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	g5232 = 0;
 La1a2:
 	redraw_maze_view();

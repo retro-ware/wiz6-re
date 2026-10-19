@@ -16,7 +16,6 @@ update_combatant(g, i, p8, p10)
 	int died;
 	int l12;
 	int l14;
-	register int rsi;
 #asm
 	db 0b8h,02ch,000h,0f7h,06eh,006h,08bh,0c8h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
 	db 087h,0a8h,043h,003h,0c1h,089h,046h,0fch
@@ -60,12 +59,9 @@ L5328:
 L5353:
 	l8 = 0;
 L5358:
-	;
-#asm
-l5358:
-	db 08bh,05eh,0fch,08bh,076h,0f8h,080h,078h,00eh,000h,076h,00dh,08ah,040h,00eh,02ah
-	db 0e4h,03dh,0ffh,000h,074h,003h,0feh,048h,00eh
-#endasm
+	if ((unsigned)(c + l8)[14] <= 0) goto L5371;
+	if ((unsigned char)(c + l8)[14] == 255) goto L5371;
+	(c + l8)[14]--;
 L5371:
 	l8++;
 	if (l8 < 10) goto L5358;

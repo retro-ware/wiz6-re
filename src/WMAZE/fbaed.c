@@ -1,7 +1,3 @@
-#asm
-	extrn play_sound_:near
-	extrn set_bitfield_:near
-#endasm
 extern char *g4fa8;
 extern int cell_event_index;
 extern int maze_data;
@@ -12,34 +8,18 @@ fbaed()
 	int l6;
 	int l8;
 	int l10;
-	register int rsi;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0fch
-#endasm
+	l4 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	l6 = extract_bits(l4, 0, 3);
 	l8 = extract_bits(l4, 3, 3);
 	l10 = extract_bits(l4, 6, 4);
 	l2 = (((l10 << 6) + (l8 << 3)) + l6);
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,0ffh,030h,0b8h,004h,000h
-	db 050h,0ffh,076h,0feh,0a1h,0aah,04fh,005h,0f8h,001h,050h
-	call set_bitfield_
-	db 083h,0c4h,008h
-#endasm
-	rsi = cell_event_index;
-	set_bitfield((maze_data + 888), l2, 2, (unsigned char)(g4fa8 + rsi)[1584]);
+	set_bitfield((maze_data + 504), l2, 4, *(int *)(g4fa8 + (cell_event_index << 1)));
+	set_bitfield((maze_data + 888), l2, 2, (unsigned char)(g4fa8 + cell_event_index)[1584]);
 	if (extract_bits(l4, 10, 1) != 1) goto Lbbb2;
 	redraw_maze_view();
 Lbbb2:
-	;
-#asm
-lbbb2:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,083h,0b8h,020h,001h,000h
-	db 07eh,008h,0ffh,0b0h,020h,001h
-	call play_sound_
-	db 059h
-#endasm
+	if (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) <= 0) goto Lbbcc;
+	play_sound(*(int *)((g4fa8 + (cell_event_index << 1)) + 288));
 Lbbcc:
 	set_event_flags(extract_bits(l4, 11, 2));
 }

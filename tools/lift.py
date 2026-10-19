@@ -177,7 +177,7 @@ class Func:
 
     def _is_scratch(self, r):
         """si/di saved by the prologue but used only as cgen's own index temp: every write is
-        `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call.
+        `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call."""
         X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
         lo, hi = self.body, self.epi if self.epi is not None else self.e
         labels = set()

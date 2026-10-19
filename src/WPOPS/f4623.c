@@ -11,7 +11,6 @@ char *win;
 {
 	int group;
 	int i;
-	register int rsi;
 	draw_combat_title();
 	defer_window_draw(win);
 	clear_window(win, 1);
@@ -22,10 +21,9 @@ L4649:
 	i = 0;
 	goto L468c;
 L4660:
-	rsi = (44 * i);
-	if ((unsigned)((char *)monster_groups[group] + rsi)[34] >= 2) goto L4689;
-	if (((char *)monster_groups[group] + rsi)[17]) goto L4689;
-	if (((char *)monster_groups[group] + rsi)[16]) goto L4689;
+	if ((unsigned)((char *)monster_groups[group] + (44 * i))[34] >= 2) goto L4689;
+	if (((char *)monster_groups[group] + (44 * i))[17]) goto L4689;
+	if (((char *)monster_groups[group] + (44 * i))[16]) goto L4689;
 #asm
 	db 0feh,087h,09eh,001h
 #endasm

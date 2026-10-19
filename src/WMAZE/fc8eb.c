@@ -19,6 +19,7 @@
 	extrn show_message_text_m_:near
 	extrn trap_event_:near
 #endasm
+extern char *g4fa8;
 extern int cell_event_index;
 extern int event_screen_dirty;
 extern int g4f8a;
@@ -31,7 +32,6 @@ extern int party_level;
 /* Run each event record attached to the party's cell while still in maze state. */
 run_cell_events()
 {
-	register int rsi;
 	g4f8a = -1;
 	event_screen_dirty = 0;
 Lc8f8:
@@ -57,8 +57,11 @@ Lc93e:
 	call check_party_item_event_
 	db 0e9h,0b6h,000h
 	call fa5cd_
-	db 0e9h,0b0h,000h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,083h,038h
-	db 000h,07eh,00eh,0b8h,000h,000h,050h,0ffh,030h
+	db 0e9h,0b0h,000h
+#endasm
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto Lc97d;
+#asm
+	db 0b8h,000h,000h,050h,0ffh,030h
 	call show_message_text_m_
 	db 083h,0c4h,004h,0ebh,003h
 #endasm

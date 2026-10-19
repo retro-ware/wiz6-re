@@ -1,35 +1,19 @@
-#asm
-	extrn extract_bits_:near
-	extrn show_message_text_m_:near
-#endasm
+extern char *g4fa8;
+extern int cell_event_index;
+extern int g4ee0[];
 fa5cd()
 {
 	int l2;
 	int l4;
 	int l6;
-	register int rsi;
-#asm
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,083h,038h,000h,07eh,00ch
-	db 0b8h,000h,000h,050h,0ffh,030h
-	call show_message_text_m_
-	db 083h,0c4h,004h
-#endasm
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto La5f0;
+	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);
 La5f0:
 	l4 = 0;
 	l2 = 0;
 La5fa:
-	;
-#asm
-la5fa:
-	db 0b8h,002h,000h,050h,08bh,046h,0feh,0d1h,0e0h,050h,0a1h,0e8h,04eh,0d1h,0e0h,08bh
-	db 0f0h,08bh,01eh,0a8h,04fh,0ffh,0b0h,040h,002h
-	call extract_bits_
-	db 083h,0c4h,006h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h,089h,087h,0e0h,04eh,0b8h,002h
-	db 000h,050h,083h,0c1h,008h,08bh,0c1h,050h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh
-	db 01eh,0a8h,04fh,0ffh,0b0h,040h,002h
-	call extract_bits_
-	db 083h,0c4h,006h,03dh,002h,000h,075h,005h
-#endasm
+	g4ee0[l2] = extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), (l2 << 1), 2);
+	if (extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), ((l2 << 1) + 8), 2) != 2) goto La64d;
 	l4 = 1;
 La64d:
 	l2++;
@@ -37,11 +21,6 @@ La64d:
 	if (!l4) goto La661;
 	check_secret_detect();
 La661:
-	;
-#asm
-la661:
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,030h,006h,02ah,0e4h,089h,046h
-	db 0fah
-#endasm
+	l6 = (unsigned char)(g4fa8 + cell_event_index)[1584];
 	set_event_flags(extract_bits(l6, 5, 2));
 }

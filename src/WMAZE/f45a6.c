@@ -1,15 +1,17 @@
 #asm
 	extrn copy_far_:near
 #endasm
+extern char *maze_data;
 extern char g4eea;
 extern char g4eeb;
 extern int g3304;
 extern int g3306;
 extern int g4fa8;
-extern int maze_data;
+extern int party_cell_x;
+extern int party_level;
+extern int party_x;
 alloc_maze_buffers()
 {
-	register int rsi;
 	if (maze_data) goto L45be;
 	maze_data = malloc(g3304);
 	g4eeb = 1;
@@ -36,9 +38,8 @@ L45fe:
 L4627:
 	g4eeb = 0;
 	g4eea = 0;
+	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);
 #asm
-	db 08bh,01eh,0aah,04fh,08bh,036h,09ch,04fh,08ah,080h,0e0h,001h,02ah,0e4h,003h,006h
-	db 0a0h,04fh,0a3h,0a4h,04fh,08ah,080h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h
-	db 0a2h,04fh
+	db 08ah,080h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h,0a2h,04fh
 #endasm
 }
