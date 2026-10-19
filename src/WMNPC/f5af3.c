@@ -2,7 +2,7 @@
 	extrn f5a1e_:near
 #endasm
 extern int g5264;
-extern int g5266;
+extern int loot_count;
 f5af3(p4)
 {
 	if (p4 != 1) goto L5b06;
@@ -13,8 +13,8 @@ f5af3(p4)
 #endasm
 L5b06:
 	f5a69();
-	f02f0(g5264, 1);
-	g5266 = 0;
+	clear_window(g5264, 1);
+	loot_count = 0;
 L5b1d:
 	;
 }

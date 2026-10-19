@@ -1,41 +1,42 @@
 extern char g4518[];
 extern char g452b[];
-extern char g4587[];
-extern int g363c;
-extern int g440c[];
-extern int g4fc4;
-extern int g5192;
-f6ae6(p4, p6)
+extern char pc_class[];
+extern int chest_trap;
+extern int game_state_arg;
+extern int menu_clicked;
+extern int pc_level[];
+/* Disarm: let the member pick a trap name; returns 1 disarmed, 0 failed safely, -1 trap sprung. */
+disarm_chest(member, chest)
 {
 	int l2;
 	int l4;
-	char *l6;
-	int l8;
-	int l10;
-	int l12;
-	int l44[16];
-	if (g5192) goto L6afa;
+	char *win;
+	int chance;
+	int sel;
+	int count;
+	int traps[16];
+	if (chest_trap) goto L6afa;
 	return -1;
 L6afa:
-	l6 = f011a(20, 19, 20, 5, 25, -5, 0, 0);
-	l12 = 0;
+	win = create_window(20, 19, 20, 5, 25, -5, 0, 0);
+	count = 0;
 	l2 = 0;
 L6b2a:
-	if (f28af((p6 + 36), l2) != 1) goto L6b51;
-	l44[l12] = l2;
-	l12++;
+	if (test_bit((chest + 36), l2) != 1) goto L6b51;
+	traps[count] = l2;
+	count++;
 L6b51:
 	l2++;
 	if (l2 < 16) goto L6b2a;
-	l10 = 0;
-	f0c16(0, ((unsigned char)l6[2] + 2), ((unsigned char)l6[3] + 2), ((unsigned char)l6[2] + 19), ((unsigned char)l6[3] + 2));
-	f0c16(1, ((unsigned char)l6[2] + 1), (unsigned char)l6[3], ((unsigned char)l6[2] + 1), (unsigned char)l6[3]);
-	f0c16(2, ((unsigned char)l6[2] + 1), ((unsigned char)l6[3] + 4), ((unsigned char)l6[2] + 1), ((unsigned char)l6[3] + 4));
-	f0c16(3, 255, 0, 0, 0);
+	sel = 0;
+	set_click_region(0, ((unsigned char)win[2] + 2), ((unsigned char)win[3] + 2), ((unsigned char)win[2] + 19), ((unsigned char)win[3] + 2));
+	set_click_region(1, ((unsigned char)win[2] + 1), (unsigned char)win[3], ((unsigned char)win[2] + 1), (unsigned char)win[3]);
+	set_click_region(2, ((unsigned char)win[2] + 1), ((unsigned char)win[3] + 4), ((unsigned char)win[2] + 1), ((unsigned char)win[3] + 4));
+	set_click_region(3, 255, 0, 0, 0);
 L6bf7:
-	f6a40(l6, l10, 1, l12, l44);
-	l2 = f4c2f(20670, 13720);
-	if (g4fc4 != 1) goto L6c4c;
+	draw_trap_list(win, sel, 1, count, traps);
+	l2 = get_chest_input(20670, 13720);
+	if (menu_clicked != 1) goto L6c4c;
 	goto L6c3d;
 	l2 = 5;
 #asm
@@ -58,13 +59,13 @@ l6c3d:
 L6c4c:
 	switch (l2) {
 case 2:
-	if (l10 <= 0) goto L6c5a;
-	l10--;
+	if (sel <= 0) goto L6c5a;
+	sel--;
 L6c5a:
 	goto L6c74;
 case 4:
-	if ((l10 + 1) >= l12) goto L6c68;
-	l10++;
+	if ((sel + 1) >= count) goto L6c68;
+	sel++;
 L6c68:
 	goto L6c74;
 	}
@@ -76,14 +77,14 @@ l6c74:
 #endasm
 	goto L6bf7;
 L6c7d:
-	f02d2(l6, 0);
-	if (l44[l10] == g5192) goto L6ca2;
+	destroy_window(win, 0);
+	if (traps[sel] == chest_trap) goto L6ca2;
 	return -1;
 L6ca2:
-	l8 = (((((unsigned char)g452b[(432 * p4)] / 2) + ((unsigned char)g4518[(432 * p4)] / 2)) + *(int *)((char *)g440c + (432 * p4))) - (g363c << 1));
-	if (g4587[(432 * p4)] != 3) goto L6cff;
-	l8 += ((unsigned char)g4518[(432 * p4)] * 3);
-	f5a56(p4, 15, 3);
+	chance = (((((unsigned char)g452b[(432 * member)] / 2) + ((unsigned char)g4518[(432 * member)] / 2)) + *(int *)((char *)pc_level + (432 * member))) - (game_state_arg << 1));
+	if (pc_class[(432 * member)] != 3) goto L6cff;
+	chance += ((unsigned char)g4518[(432 * member)] * 3);
+	try_skill_gain(member, 15, 3);
 	goto L6d33;
 L6cff:
 	;
@@ -98,19 +99,19 @@ L6d17:
 l6d17:
 	db 08ah,087h,018h,045h,02ah,0e4h,0d1h,0e0h,001h,046h,0f8h
 #endasm
-	f5a56(p4, 15, 2);
+	try_skill_gain(member, 15, 2);
 L6d33:
-	if (l8 <= 95) goto L6d3e;
-	l8 = 95;
+	if (chance <= 95) goto L6d3e;
+	chance = 95;
 L6d3e:
-	if (l8 >= 5) goto L6d49;
-	l8 = 5;
+	if (chance >= 5) goto L6d49;
+	chance = 5;
 L6d49:
-	l4 = f09e2(100);
-	if (l4 >= l8) goto L6d5f;
+	l4 = random(100);
+	if (l4 >= chance) goto L6d5f;
 	return 1;
 L6d5f:
-	if ((100 - ((100 - l8) / 3)) >= l4) goto L6d7d;
+	if ((100 - ((100 - chance) / 3)) >= l4) goto L6d7d;
 	return -1;
 L6d7d:
 	return 0;

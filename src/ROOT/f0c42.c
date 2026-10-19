@@ -1,12 +1,13 @@
-extern int g0846;
-extern int g3596;
-f0c42()
+extern int click_flag;
+extern int mouse_present;
+/* Return whether the mouse was clicked anywhere on the screen. */
+check_screen_click()
 {
-	if (g0846 != 1) goto L0c7d;
-	f0c16(0, 0, 0, 39, 24);
-	f0c16(1, 255, 0, 0, 0);
-	f0bd8(13720);
-	return g3596;
+	if (mouse_present != 1) goto L0c7d;
+	set_click_region(0, 0, 0, 39, 24);
+	set_click_region(1, 255, 0, 0, 0);
+	check_click_regions(13720);
+	return click_flag;
 L0c7d:
 	return 0;
 }

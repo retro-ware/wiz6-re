@@ -1,8 +1,8 @@
-extern int g363a;
+extern int game_state;
 ovmain()
 {
-	if (g363a != 13) goto L723a;
-	fd109();
+	if (game_state != 13) goto L723a;
+	run_combat_round();
 L723a:
 	return 0;
 }

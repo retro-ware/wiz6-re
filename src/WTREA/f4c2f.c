@@ -1,40 +1,40 @@
-extern int g3596;
-extern int g3646;
-extern int g4fc4;
+extern int anim_phase;
+extern int click_flag;
 extern int g501c;
 extern int g502c;
-f4c2f(p4, p6)
+extern int menu_clicked;
+get_chest_input(keys, hotspots)
 {
-	int l2;
+	int key;
 	int l4;
-	l4 = g3646;
+	l4 = anim_phase;
 	if (g501c == -1) goto L4c45;
-	f4bb5();
+	blink_selection();
 L4c45:
-	g4fc4 = 0;
+	menu_clicked = 0;
 L4c4b:
-	if (f2643(1)) goto L4cb2;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L4c73;
-	g4fc4 = 1;
-	return (l2 - 1);
+	if (key_available(1)) goto L4cb2;
+	key = check_click_regions(hotspots);
+	if (click_flag != 1) goto L4c73;
+	menu_clicked = 1;
+	return (key - 1);
 L4c73:
 	if (g502c) goto L4c9f;
-	g3646 = ((g3646 + 1) % 2);
-	f4811();
+	anim_phase = ((anim_phase + 1) % 2);
+	animate_treasure_view();
 	if (g501c == -1) goto L4c9d;
-	if (g3646 != l4) goto L4c9d;
-	f4bb5();
+	if (anim_phase != l4) goto L4c9d;
+	blink_selection();
 L4c9d:
 	goto L4ca2;
 L4c9f:
-	f45b8();
+	play_ambient_sound();
 L4ca2:
 	g502c = ((g502c + 1) % 10);
 	goto L4c4b;
 L4cb2:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
-	if (l2 < 0) goto L4cd0;
+	key = char_index(keys, (unsigned char)(get_key(1)));
+	if (key < 0) goto L4cd0;
 	return;
 L4cd0:
 	goto L4c4b;

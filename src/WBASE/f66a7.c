@@ -1,102 +1,103 @@
-extern char g4fd8[];
-extern int g0846;
-extern int g3342;
-extern int g4fb2;
-extern int g4fc4;
-extern int g4fd2;
-extern int g50fa[];
-extern int g511a[];
-extern int g513a[];
-extern int g515a[];
-f66a7()
+extern char roster_slot_used[];
+extern int bottom_line_win;
+extern int main_window;
+extern int menu_clicked;
+extern int mouse_present;
+extern int pclist_class[];
+extern int pclist_pcindex[];
+extern int pclist_race[];
+extern int pclist_sex[];
+extern int roster_slot_count;
+/* Let the player pick an available PCFILE character; return its list index or -1. */
+choose_pcfile_char()
 {
-	char *l2;
-	char *l4;
-	int l6;
-	int l8;
-	int l10;
-	int l12;
+	char *title_win;
+	char *list_win;
+	int i;
+	int count;
+	int top;
+	int on_cancel;
 	char x12[16];
 	char l29;
 	char l30;
 	char l31;
 	char x31[411];
-	int l444;
-	int l446;
+	int rec;
+	int n;
 	char x446[78];
-	int l526;
+	int title;
 	char x526[8];
-	int l536;
-	l8 = 0;
-	l6 = 0;
+	int cancel_text;
+	count = 0;
+	i = 0;
 	goto L671b;
 L66ba:
-	if (g4fd8[l6] != 1) goto L6718;
-	f459a(&l444, l6, 0);
-	strcpy(((l8 << 3) + 20602), &l444);
-	g50fa[l8] = (unsigned char)l30;
-	g511a[l8] = (unsigned char)l31;
-	g513a[l8] = (unsigned char)l29;
-	g515a[l8] = l6;
-	l8++;
+	if (roster_slot_used[i] != 1) goto L6718;
+	pcfile_record_io(&rec, i, 0);
+	strcpy(((count << 3) + 20602), &rec);
+	pclist_sex[count] = (unsigned char)l30;
+	pclist_race[count] = (unsigned char)l31;
+	pclist_class[count] = (unsigned char)l29;
+	pclist_pcindex[count] = i;
+	count++;
 L6718:
-	l6++;
+	i++;
 L671b:
-	if (l6 < g4fd2) goto L66ba;
-	if (l8) goto L6731;
+	if (i < roster_slot_count) goto L66ba;
+	if (count) goto L6731;
 	return -1;
 L6731:
-	l446 = l8;
-	l2 = f011a(0, 19, 19, 5, 10, -4, 0, 0);
-	f32be(l2, 32, 3, 0);
-	l4 = f011a(20, 19, 20, 5, 20, -5, 0, 0);
-	f32be(l4, 32, 3, 0);
-	f075b(1201, &l526);
-	f6372(&l526, (10 - ((strlen(&l526) + 1) / 2)));
-	f0a42(g4fb2, 0);
-	f3118(l2);
-	f030b(l2, 6, 1);
-	f083f(1206, l2, 18);
-	f31d1(l2);
-	f63f7(l4, 0);
-	f2a63();
-	f075b(1207, &l536);
-	l10 = 0;
-	l12 = 0;
-	f0c16(0, ((unsigned char)l4[2] + 2), ((unsigned char)l4[3] + 2), ((unsigned char)l4[2] + 18), ((unsigned char)l4[3] + 2));
-	f0c16(1, ((unsigned char)l4[2] + 1), (unsigned char)l4[3], ((unsigned char)l4[2] + 1), (unsigned char)l4[3]);
-	f0c16(2, ((unsigned char)l4[2] + 1), ((unsigned char)l4[3] + 4), ((unsigned char)l4[2] + 1), ((unsigned char)l4[3] + 4));
-	f0c16(3, ((unsigned char)l2[2] + 7), ((unsigned char)l2[3] + 3), ((strlen(&l536) + (unsigned char)l2[2]) + 6), ((unsigned char)l2[3] + 3));
-	f0c16(4, 255, 0, 0, 0);
+	n = count;
+	title_win = create_window(0, 19, 19, 5, 10, -4, 0, 0);
+	fill_window(title_win, 32, 3, 0);
+	list_win = create_window(20, 19, 20, 5, 20, -5, 0, 0);
+	fill_window(list_win, 32, 3, 0);
+	get_message(1201, &title);
+	show_title_text(&title, (10 - ((strlen(&title) + 1) / 2)));
+	f0a42(bottom_line_win, 0);
+	defer_window_draw(title_win);
+	set_cursor(title_win, 6, 1);
+	print_message(1206, title_win, 18);
+	resume_window_draw(title_win);
+	draw_list_frame(list_win, 0);
+	refresh_all_windows();
+	get_message(1207, &cancel_text);
+	top = 0;
+	on_cancel = 0;
+	set_click_region(0, ((unsigned char)list_win[2] + 2), ((unsigned char)list_win[3] + 2), ((unsigned char)list_win[2] + 18), ((unsigned char)list_win[3] + 2));
+	set_click_region(1, ((unsigned char)list_win[2] + 1), (unsigned char)list_win[3], ((unsigned char)list_win[2] + 1), (unsigned char)list_win[3]);
+	set_click_region(2, ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + 4), ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + 4));
+	set_click_region(3, ((unsigned char)title_win[2] + 7), ((unsigned char)title_win[3] + 3), ((strlen(&cancel_text) + (unsigned char)title_win[2]) + 6), ((unsigned char)title_win[3] + 3));
+	set_click_region(4, 255, 0, 0, 0);
 L691a:
-	if (g0846) goto L6960;
-	if (l12 != 1) goto L6960;
-	f030b(l2, 7, 3);
-	f24e9(l2, &l536, -5);
-	f6475(l4, l10, 0, l446);
+	if (mouse_present) goto L6960;
+	if (on_cancel != 1) goto L6960;
+	set_cursor(title_win, 7, 3);
+	print_string(title_win, &cancel_text, -5);
+	draw_pcfile_list(list_win, top, 0, n);
 	goto L6997;
 L6960:
-	f030b(l2, 7, 3);
-	f251d(l2, &l536, 3);
-	f6475(l4, l10, 1, l446);
+	set_cursor(title_win, 7, 3);
+	print_string_hi(title_win, &cancel_text, 3);
+	draw_pcfile_list(list_win, top, 1, n);
 L6997:
-	l6 = f469f(20582, 13720);
-	if (g4fc4 != 1) goto L69e6;
+	i = get_menu_choice_animated(20582, 13720);
+	if (menu_clicked != 1) goto L69e6;
 	goto L69d2;
-	l6 = 5;
+	i = 5;
 #asm
 	db 0ebh,02eh
 #endasm
-	l6 = 2;
+	i = 2;
 #asm
 	db 0ebh,027h
 #endasm
-	l6 = 4;
+	i = 4;
 #asm
 	db 0ebh,020h
 #endasm
-	l12 = 1;
-	l6 = 5;
+	on_cancel = 1;
+	i = 5;
 #asm
 	db 0ebh,014h
 #endasm
@@ -108,44 +109,44 @@ l69d2:
 	db 003h,000h,074h,0e0h
 #endasm
 L69e6:
-	switch (l6) {
+	switch (i) {
 case 1:
-	if (l12 == 1) goto L69f6;
-	l12 = 1;
+	if (on_cancel == 1) goto L69f6;
+	on_cancel = 1;
 L69f6:
 	goto L6a4d;
 case 2:
-	if (l12 != 1) goto L6a05;
-	l12 = 0;
+	if (on_cancel != 1) goto L6a05;
+	on_cancel = 0;
 	goto L6a0e;
 L6a05:
-	if (l10 <= 0) goto L6a0e;
-	l10--;
+	if (top <= 0) goto L6a0e;
+	top--;
 L6a0e:
 	goto L6a4d;
 case 3:
-	if (l12 != 1) goto L6a1b;
-	l12 = 0;
+	if (on_cancel != 1) goto L6a1b;
+	on_cancel = 0;
 L6a1b:
 	goto L6a4d;
 case 4:
-	if (l12 != 1) goto L6a2a;
-	l12 = 0;
+	if (on_cancel != 1) goto L6a2a;
+	on_cancel = 0;
 	goto L6a37;
 L6a2a:
-	if ((l10 + 1) >= l446) goto L6a37;
-	l10++;
+	if ((top + 1) >= n) goto L6a37;
+	top++;
 L6a37:
 	goto L6a4d;
 	}
 L6a4d:
-	if (l6 != 5) goto L691a;
-	f02d2(l2, 0);
-	f02d2(l4, 0);
-	f09fb(g3342, 0);
-	f0a42(g4fb2, 0);
-	if (l12) goto L6a98;
-	return l10;
+	if (i != 5) goto L691a;
+	destroy_window(title_win, 0);
+	destroy_window(list_win, 0);
+	erase_window(main_window, 0);
+	f0a42(bottom_line_win, 0);
+	if (on_cancel) goto L6a98;
+	return top;
 L6a98:
 	return -1;
 }

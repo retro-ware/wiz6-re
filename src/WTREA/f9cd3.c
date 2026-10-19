@@ -1,5 +1,5 @@
 extern int g4fa6;
-f9cd3(p4, p6, p8, p10, p12)
+move_to_view_cell(p4, p6, p8, p10, p12)
 char *p8;
 {
 	register int rsi;

@@ -1,7 +1,7 @@
 #asm
-	public f303e_
+	public unlink_window_
 	extrn f3250_:near
-f303e_:
+unlink_window_:
 	db 055h,08bh,0ech,083h,0ech,00ch,01eh,006h,056h,057h,08bh,076h,004h,08dh,03eh,0d2h
 	db 01bh,02eh,08bh,01dh,0bah,001h,000h
 l3055:

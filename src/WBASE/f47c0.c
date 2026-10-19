@@ -1,19 +1,20 @@
-extern int g0846;
 extern int g4fac;
-extern int g4fbc;
-extern int g4fc4;
-f47c0(p4, p6, p8, p10, p12, p14, p16, p18, p20)
-char *p4;
+extern int menu_clicked;
+extern int mouse_present;
+extern int picture_win;
+/* Draw a grid menu of messages from msgbase where enabled, let the player pick, return the item. */
+run_menu(win, msgbase, enabled, x0, y0, row_step, cols, color, sel)
+char *win;
 {
-	int l2;
-	int l4;
-	char l334[330];
-	int l336;
-	int l338;
+	int item;
+	int count;
+	char texts[330];
+	int x;
+	int y;
 	register int rsi;
-	f3118(p4);
-	l4 = 0;
-	l2 = 0;
+	defer_window_draw(win);
+	count = 0;
+	item = 0;
 L47d9:
 	;
 #asm
@@ -29,62 +30,62 @@ l47eb:
 #endasm
 	goto L48cf;
 L47f3:
-	l336 = (((l4 / p16) * p14) + p10);
-	l338 = ((l4 % p16) + p12);
-	f030b(p4, l336, l338);
-	f075b((p6 + l2), ((l4 * 20) + l334));
-	f251d(p4, ((l4 * 20) + l334), 3);
-	*(int *)(l334 + ((l4 << 1) + 300)) = l2;
-	f0c16(l4, ((unsigned char)p4[2] + l336), ((unsigned char)p4[3] + l338), (((strlen(((l4 * 20) + l334)) + (unsigned char)p4[2]) + l336) - 1), ((unsigned char)p4[3] + l338));
-	l4++;
+	x = (((count / cols) * row_step) + x0);
+	y = ((count % cols) + y0);
+	set_cursor(win, x, y);
+	get_message((msgbase + item), ((count * 20) + texts));
+	print_string_hi(win, ((count * 20) + texts), 3);
+	*(int *)(texts + ((count << 1) + 300)) = item;
+	set_click_region(count, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((count * 20) + texts)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
+	count++;
 L48cf:
-	l2++;
+	item++;
 	goto L47d9;
 L48d5:
-	f0c16(l4, 255, 0, 0, 0);
-	f31d1(p4);
-	f2a63();
-	f36a0(g4fac);
-	f36a0(g4fbc);
+	set_click_region(count, 255, 0, 0, 0);
+	resume_window_draw(win);
+	refresh_all_windows();
+	drv_op_c2(g4fac);
+	drv_op_c2(picture_win);
 L4902:
-	if (g0846) goto L4953;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f24e9(p4, ((p20 * 20) + l334), (0 - p18));
+	if (mouse_present) goto L4953;
+	set_cursor(win, (((sel / cols) * row_step) + x0), ((sel % cols) + y0));
+	print_string(win, ((sel * 20) + texts), (0 - color));
 L4953:
-	l2 = f469f(20582, 13720);
-	if (g4fc4 != 1) goto L4976;
-	p20 = l2;
-	l2 = 5;
+	item = get_menu_choice_animated(20582, 13720);
+	if (menu_clicked != 1) goto L4976;
+	sel = item;
+	item = 5;
 	goto L4aa8;
 L4976:
-	switch (l2) {
+	switch (item) {
 case 1:
-	if ((p20 - p16) < 0) goto L49b8;
-	f4785(p4, p20, p14, p16, p10, p12, ((p20 * 20) + l334));
-	p20 -= p16;
+	if ((sel - cols) < 0) goto L49b8;
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel -= cols;
 L49b8:
 	goto L4aa8;
 case 2:
-	if ((p20 % p16) <= 0) goto L49fa;
-	f4785(p4, p20, p14, p16, p10, p12, ((p20 * 20) + l334));
-	p20--;
+	if ((sel % cols) <= 0) goto L49fa;
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel--;
 L49fa:
 	goto L4aa8;
 case 3:
-	if ((p20 + p16) >= l4) goto L4a3c;
-	f4785(p4, p20, p14, p16, p10, p12, ((p20 * 20) + l334));
-	p20 += p16;
+	if ((sel + cols) >= count) goto L4a3c;
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel += cols;
 L4a3c:
 	goto L4aa8;
 case 4:
-	if ((p20 % p16) >= (p16 - 1)) goto L4a89;
-	if ((p20 + 1) >= l4) goto L4a89;
-	f4785(p4, p20, p14, p16, p10, p12, ((p20 * 20) + l334));
-	p20++;
+	if ((sel % cols) >= (cols - 1)) goto L4a89;
+	if ((sel + 1) >= count) goto L4a89;
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel++;
 L4a89:
 	goto L4aa8;
 	}
 L4aa8:
-	if (l2 != 5) goto L4902;
-	return *(int *)(l334 + ((p20 << 1) + 300));
+	if (item != 5) goto L4902;
+	return *(int *)(texts + ((sel << 1) + 300));
 }

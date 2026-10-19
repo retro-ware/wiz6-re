@@ -1,32 +1,33 @@
-extern int g4fbc;
-f4d1b(p4, p6, p8)
+extern int picture_win;
+/* Redraw the camp scene for animation frame, with sprite offsets dx, dy. */
+draw_camp_scene(frame, dx, dy)
 {
-	f3694(g4fbc, 0);
-	f36ac(123, 1, 123);
-	f36ac(124, 1, 124);
-	f36ac(125, 1, 125);
-	f36ac(20, 1, 16);
-	f36ac(21, 1, 17);
-	f36ac(22, 1, 18);
-	f36ac(16, 1, 20);
-	f36ac(17, 1, 21);
-	f36ac(18, 1, 22);
-	f36ac(151, 1, 151);
-	f36ac(152, 1, 152);
-	f36ac(153, 1, 153);
-	f36ac(25, 0, -1);
-	f36ac(28, 0, -1);
-	f36ac(31, 0, -1);
-	f36ac(34, 0, -1);
-	f4cd9(15);
-	f4cd9(12);
-	f4c96(1, 0, 72, 248);
-	f4c96(2, 0, 72, 248);
-	f4c96(3, p6, 128, 192);
-	f4c96(4, p8, 128, 192);
-	if (!p4) goto L4ee4;
-	f4c96(5, 0, 72, 248);
-	f4c96(6, 0, 72, 248);
+	drv_op_be(picture_win, 0);
+	drv_op_c6(123, 1, 123);
+	drv_op_c6(124, 1, 124);
+	drv_op_c6(125, 1, 125);
+	drv_op_c6(20, 1, 16);
+	drv_op_c6(21, 1, 17);
+	drv_op_c6(22, 1, 18);
+	drv_op_c6(16, 1, 20);
+	drv_op_c6(17, 1, 21);
+	drv_op_c6(18, 1, 22);
+	drv_op_c6(151, 1, 151);
+	drv_op_c6(152, 1, 152);
+	drv_op_c6(153, 1, 153);
+	drv_op_c6(25, 0, -1);
+	drv_op_c6(28, 0, -1);
+	drv_op_c6(31, 0, -1);
+	drv_op_c6(34, 0, -1);
+	draw_camp_backdrop_char(15);
+	draw_camp_backdrop_char(12);
+	draw_camp_sprite(1, 0, 72, 248);
+	draw_camp_sprite(2, 0, 72, 248);
+	draw_camp_sprite(3, dx, 128, 192);
+	draw_camp_sprite(4, dy, 128, 192);
+	if (!frame) goto L4ee4;
+	draw_camp_sprite(5, 0, 72, 248);
+	draw_camp_sprite(6, 0, 72, 248);
 L4ee4:
 	;
 }

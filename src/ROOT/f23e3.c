@@ -1,6 +1,6 @@
 #asm
-	public f23e3_
-f23e3_:
+	public put_char_hi_
+put_char_hi_:
 	db 055h,08bh,0ech,083h,0ech,004h,01eh,006h,057h,056h,02eh,0ffh,01eh,0a2h,01bh,08bh
 	db 076h,004h,08dh,03eh,0d2h,01bh,02eh,08bh,01dh,0bah,001h,000h
 l23ff:

@@ -1,5 +1,5 @@
-f4ffd(p4, p6, p8, p10, p12)
+print_str_at(p4, p6, p8, p10, p12)
 {
-	f030b(p4, p6, p8);
-	f24e9(p4, p10, p12);
+	set_cursor(p4, p6, p8);
+	print_string(p4, p10, p12);
 }

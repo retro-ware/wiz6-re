@@ -1,47 +1,48 @@
-extern int g4fc6;
-f5072(p4, p6)
+extern int video_flags;
+/* Load portrait number from WPORTn.* and define it as glyph set for slot. */
+load_portrait(portrait, slot)
 {
-	int l2;
+	int fd;
 	char x2[14];
 	char l17;
 	char x17[3];
-	int l22;
-	int l24;
+	int fname;
+	int glyph_size;
 	char x24[287];
-	int l313;
+	int bits;
 	char x313[1];
-	if (!(g4fc6 & 1)) goto L5096;
-	strcpy(&l22, 20483);
-	l24 = 32;
+	if (!(video_flags & 1)) goto L5096;
+	strcpy(&fname, 20483);
+	glyph_size = 32;
 	goto L50f1;
 L5096:
-	if (!(g4fc6 & 2)) goto L50b3;
-	strcpy(&l22, 20494);
-	l24 = 16;
+	if (!(video_flags & 2)) goto L50b3;
+	strcpy(&fname, 20494);
+	glyph_size = 16;
 	goto L50f1;
 L50b3:
-	if (!(g4fc6 & 4)) goto L50d0;
-	strcpy(&l22, 20505);
-	l24 = 16;
+	if (!(video_flags & 4)) goto L50d0;
+	strcpy(&fname, 20505);
+	glyph_size = 16;
 	goto L50f1;
 L50d0:
-	if (!(g4fc6 & 8)) goto L50ed;
-	strcpy(&l22, 20516);
-	l24 = 32;
+	if (!(video_flags & 8)) goto L50ed;
+	strcpy(&fname, 20516);
+	glyph_size = 32;
 	goto L50f1;
 L50ed:
 	return;
 L50f1:
-	l17 = (char)((p4 / 14) + 49);
-	p4 = (p4 % 14);
-	f3640();
-	l2 = open(f0cd6(&l22, 0), 0);
-	if (l2 != -1) goto L512c;
-	f00d5(14);
+	l17 = (char)((portrait / 14) + 49);
+	portrait = (portrait % 14);
+	stop_sound();
+	fd = open(make_data_path(&fname, 0), 0);
+	if (fd != -1) goto L512c;
+	exit_game(14);
 L512c:
-	lseek(l2, (long)((p4 * l24) * 9), 0);
-	read(l2, &l313, (l24 * 9));
-	close(l2);
-	f2256(&l313, 2, ((p6 * 9) + 72), 9);
+	lseek(fd, (long)((portrait * glyph_size) * 9), 0);
+	read(fd, &bits, (glyph_size * 9));
+	close(fd);
+	f2256(&bits, 2, ((slot * 9) + 72), 9);
 	return;
 }

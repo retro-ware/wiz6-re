@@ -1,98 +1,98 @@
 #asm
-	extrn f05a5_:near
+	extrn print_int_:near
 #endasm
-extern char g560f;
-extern char g5618;
+extern char char_class;
 extern char g5632;
+extern char skill_points_left;
 extern int g5670[];
-f5b3b(p4, p6, p8)
+draw_skill_page(win, win2, page)
 {
-	int l2;
+	int i;
 	int l4;
 	int l6;
 	int l8;
 	int l10;
 	int l12;
-	int l14;
+	int count;
 	register int rsi;
-	switch ((unsigned char)g560f) {
+	switch ((unsigned char)char_class) {
 case 0:
-	f55ad(20477, 20488, 20496, 20502);
+	set_class_skill_masks(20477, 20488, 20496, 20502);
 	goto L5ccd;
 case 1:
-	f55ad(20511, 20522, 20530, 20536);
+	set_class_skill_masks(20511, 20522, 20530, 20536);
 	goto L5ccd;
 case 2:
-	f55ad(20545, 20556, 20564, 20570);
+	set_class_skill_masks(20545, 20556, 20564, 20570);
 	goto L5ccd;
 case 3:
-	f55ad(20579, 20590, 20598, 20604);
+	set_class_skill_masks(20579, 20590, 20598, 20604);
 	goto L5ccd;
 case 4:
-	f55ad(20613, 20624, 20632, 20638);
+	set_class_skill_masks(20613, 20624, 20632, 20638);
 	goto L5ccd;
 case 5:
-	f55ad(20647, 20658, 20666, 20672);
+	set_class_skill_masks(20647, 20658, 20666, 20672);
 	goto L5ccd;
 case 6:
-	f55ad(20681, 20692, 20700, 20706);
+	set_class_skill_masks(20681, 20692, 20700, 20706);
 	goto L5ccd;
 case 7:
-	f55ad(20715, 20726, 20734, 20740);
+	set_class_skill_masks(20715, 20726, 20734, 20740);
 	goto L5ccd;
 case 8:
-	f55ad(20749, 20760, 20768, 20774);
+	set_class_skill_masks(20749, 20760, 20768, 20774);
 	goto L5ccd;
 case 9:
-	f55ad(20783, 20794, 20802, 20808);
+	set_class_skill_masks(20783, 20794, 20802, 20808);
 	goto L5ccd;
 case 10:
-	f55ad(20817, 20828, 20836, 20842);
+	set_class_skill_masks(20817, 20828, 20836, 20842);
 	goto L5ccd;
 case 11:
-	f55ad(20851, 20862, 20870, 20876);
+	set_class_skill_masks(20851, 20862, 20870, 20876);
 	goto L5ccd;
 case 12:
-	f55ad(20885, 20896, 20904, 20910);
+	set_class_skill_masks(20885, 20896, 20904, 20910);
 	goto L5ccd;
 case 13:
-	f55ad(20919, 20930, 20938, 20944);
+	set_class_skill_masks(20919, 20930, 20938, 20944);
 	goto L5ccd;
 	}
 L5ccd:
-	f32be(p4, 0, 1, 0);
-	f4bed(p4, 0, 0, 14);
-	f4bed(p4, 19, 0, 10);
-	f4bed(p4, 0, 15, 11);
-	f4bed(p4, 19, 15, 8);
-	l2 = 1;
+	fill_window(win, 0, 1, 0);
+	set_frame_glyph(win, 0, 0, 14);
+	set_frame_glyph(win, 19, 0, 10);
+	set_frame_glyph(win, 0, 15, 11);
+	set_frame_glyph(win, 19, 15, 8);
+	i = 1;
 L5d38:
-	f4bed(p4, l2, 0, 12);
-	f4bed(p4, l2, 2, 12);
-	f4bed(p4, l2, 13, 12);
-	f4bed(p4, l2, 15, 7);
-	l2++;
-	if (l2 < 19) goto L5d38;
-	l2 = 1;
+	set_frame_glyph(win, i, 0, 12);
+	set_frame_glyph(win, i, 2, 12);
+	set_frame_glyph(win, i, 13, 12);
+	set_frame_glyph(win, i, 15, 7);
+	i++;
+	if (i < 19) goto L5d38;
+	i = 1;
 L5d98:
-	f4bed(p4, 0, l2, 13);
-	f4bed(p4, 19, l2, 5);
-	l2++;
-	if (l2 < 15) goto L5d98;
-	f4bed(p4, 0, 2, 33);
-	f4bed(p4, 0, 9, 15);
-	f4bed(p4, 0, 11, 15);
-	f4bed(p4, 0, 13, 16);
-	f4bed(p4, 19, 2, 10);
-	f4bed(p4, 19, 13, 10);
-	f3118(p4);
-	f030b(p4, 1, 1);
+	set_frame_glyph(win, 0, i, 13);
+	set_frame_glyph(win, 19, i, 5);
+	i++;
+	if (i < 15) goto L5d98;
+	set_frame_glyph(win, 0, 2, 33);
+	set_frame_glyph(win, 0, 9, 15);
+	set_frame_glyph(win, 0, 11, 15);
+	set_frame_glyph(win, 0, 13, 16);
+	set_frame_glyph(win, 19, 2, 10);
+	set_frame_glyph(win, 19, 13, 10);
+	defer_window_draw(win);
+	set_cursor(win, 1, 1);
 	setmem(22048, 20, 32);
 	g5632 = 0;
-	f251d(p4, 22048, 3);
-	f030b(p4, 6, 1);
-	f083f((p8 + 600), p4, 18);
-	switch (p8) {
+	print_string_hi(win, 22048, 3);
+	set_cursor(win, 6, 1);
+	print_message((page + 600), win, 18);
+	switch (page) {
 case 0:
 	l4 = 1;
 	l6 = 1;
@@ -123,26 +123,26 @@ case 3:
 	goto L5f30;
 	}
 L5f30:
-	f50a8(p4, 2, 1, (l4 + 1));
-	f50a8(p4, 17, 1, (l6 + 1));
-	l14 = 0;
-	l2 = l8;
+	put_glyph_at_c4(win, 2, 1, (l4 + 1));
+	put_glyph_at_c4(win, 17, 1, (l6 + 1));
+	count = 0;
+	i = l8;
 	goto L5fe2;
 L5f69:
-	if (g5670[l2] != 1) goto L5fdf;
-	f030b(p4, 1, (l14 + 3));
-	f083f((l2 + 5500), p4, l12);
-	f030b(p4, 16, (l14 + 3));
+	if (g5670[i] != 1) goto L5fdf;
+	set_cursor(win, 1, (count + 3));
+	print_message((i + 5500), win, l12);
+	set_cursor(win, 16, (count + 3));
 #asm
 	db 0b8h,001h,000h,050h,0b8h,003h,000h,050h,08bh,05eh,0feh,08ah,087h,0a4h,055h,02ah
 	db 0e4h,050h,0ffh,076h,004h
-	call f05a5_
+	call print_int_
 	db 083h,0c4h,008h,08bh,046h,0feh,08bh,04eh,0f2h,0d1h,0e1h,08bh,0f1h,08bh,05eh,00ah
 	db 089h,000h
 #endasm
-	l14++;
+	count++;
 L5fdf:
-	l2++;
+	i++;
 L5fe2:
 	;
 #asm
@@ -151,11 +151,11 @@ l5fe2:
 #endasm
 	goto L5f69;
 L5fed:
-	f030b(p4, 1, 14);
-	f083f(5530, p4, 9);
-	f030b(p4, 16, 14);
-	f05a5(p4, (unsigned char)g5618, 3, 1);
-	f31d1(p4);
-	f2b19(p4);
-	return l14;
+	set_cursor(win, 1, 14);
+	print_message(5530, win, 9);
+	set_cursor(win, 16, 14);
+	print_int(win, (unsigned char)skill_points_left, 3, 1);
+	resume_window_draw(win);
+	refresh_window(win);
+	return count;
 }

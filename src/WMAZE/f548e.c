@@ -1,12 +1,12 @@
-extern int g4faa;
-f548e(p4, p6, p8, p10, p12, p14)
+extern int maze_data;
+get_wall_in_direction(p4, p6, p8, p10, p12, p14)
 {
 #asm
 	db 08bh,046h,004h,0e9h,084h,000h
 #endasm
-	f2925((g4faa + 96), (((p6 << 6) + (p10 << 3)) + p8), 2);
+	get_bitfield((maze_data + 96), (((p6 << 6) + (p10 << 3)) + p8), 2);
 	return;
-	f2925((g4faa + 288), (((p6 << 6) + (p10 << 3)) + p8), 2);
+	get_bitfield((maze_data + 288), (((p6 << 6) + (p10 << 3)) + p8), 2);
 	return;
 	f7c41(p12, p14, p8, p10, p6);
 	return;

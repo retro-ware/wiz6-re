@@ -1,18 +1,19 @@
-f63f7(p4, p6)
+/* Draw the border of a scrolling list window. */
+draw_list_frame(win, show)
 {
-	register int rsi;
-	f32be(p4, 32, 3, 0);
-	f3118(p4);
-	f63ce(p4, 1, 0, 69);
-	rsi = 1;
+	register int y;
+	fill_window(win, 32, 3, 0);
+	defer_window_draw(win);
+	draw_frame_glyph(win, 1, 0, 69);
+	y = 1;
 L642f:
-	f63ce(p4, 1, rsi, 71);
-	rsi++;
-	if (rsi < 4) goto L642f;
-	f63ce(p4, 1, 4, 70);
-	f31d1(p4);
-	if (!p6) goto L6470;
-	f2b19(p4);
+	draw_frame_glyph(win, 1, y, 71);
+	y++;
+	if (y < 4) goto L642f;
+	draw_frame_glyph(win, 1, 4, 70);
+	resume_window_draw(win);
+	if (!show) goto L6470;
+	refresh_window(win);
 L6470:
 	;
 }

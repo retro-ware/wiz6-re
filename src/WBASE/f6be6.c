@@ -1,5 +1,6 @@
-f6be6(p4, p6)
+/* Print member i's name in the member picker window. */
+draw_member_name(win, i)
 {
-	f030b(p4, (((p6 % 2) * 9) + 2), ((p6 / 2) + 1));
-	f251d(p4, ((432 * p6) + 17384), 3);
+	set_cursor(win, (((i % 2) * 9) + 2), ((i / 2) + 1));
+	print_string_hi(win, ((432 * i) + 17384), 3);
 }

@@ -29,19 +29,19 @@
 	global g50de_:byte,20
 	global g50f2_:byte,80
 	global g5142_:byte,80
-	global g5192_:byte,2
+	global chest_trap_:byte,2
 	global g5194_:byte,40
-	global g51bc_:byte,20
-	global g51d0_:byte,2
-	global g51d2_:byte,2
+	global trap_guess_letters_:byte,20
+	global trap_guess_len_:byte,2
+	global spell_disarm_result_:byte,2
 	global g51d4_:byte,2
-	global g51d6_:byte,2
+	global loot_item_:byte,2
 	global g51d8_:byte,10
 	global g51e2_:byte,2
 	global g51e4_:byte,118
 	global g525a_:byte,2
 	global g525c_:byte,10
-	global g5266_:byte,2
+	global loot_count_:byte,2
 	global g5268_:byte,2
 	global g526a_:byte,10
 	global g5274_:byte,2

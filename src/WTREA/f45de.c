@@ -1,6 +1,6 @@
 extern char g36e4[];
 extern char g3717[];
-f45de(p4)
+animate_chest_lid(p4)
 {
 	int l2;
 	char l14[12];
@@ -37,6 +37,6 @@ case 7:
 L4652:
 	l14[0] = *(char *)&l16;
 	l14[(0 + 1)] = 0;
-	f3670(0, (unsigned char)g36e4[(l16 << 1)], ((unsigned char)g3717[l16] + -8), 72, 248, l2, 0, l14);
+	drv_draw_text(0, (unsigned char)g36e4[(l16 << 1)], ((unsigned char)g3717[l16] + -8), 72, 248, l2, 0, l14);
 	return (p4 + 1);
 }

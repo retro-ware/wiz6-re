@@ -1,8 +1,8 @@
-extern int g433c;
 extern int g435c;
 extern int g435e;
-extern int g4362[];
 extern int g50fc;
+extern int view_pos_group[];
+extern int view_rows_open;
 f8efc(p4, p6, p8, p10)
 {
 	int l2;
@@ -35,15 +35,15 @@ L8f5a:
 	l2 = 1;
 	rsi = 0;
 L8f62:
-	if (g4362[rsi] != p4) goto L8f76;
+	if (view_pos_group[rsi] != p4) goto L8f76;
 	l2 = 0;
 L8f76:
 	rsi++;
 	if (rsi < 5) goto L8f62;
 L8f7c:
-	if (g433c) goto L8f88;
+	if (view_rows_open) goto L8f88;
 	l2 = 0;
 L8f88:
-	f695e(g435e, g435c, p8, l2, p4, p6, p10);
+	play_spell_animation(g435e, g435c, p8, l2, p4, p6, p10);
 	return;
 }

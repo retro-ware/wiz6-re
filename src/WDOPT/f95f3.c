@@ -8,19 +8,10 @@ extern char g5464[];
 extern char g546c[];
 extern char g5474[];
 extern char g5475;
+extern int char_known_spells;
 extern int g0042[];
 extern int g004a[];
-extern int g363c;
-extern int g433c;
-extern int g4f9a;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
 extern int g4fa6;
-extern int g4faa;
-extern int g4fbc;
 extern int g5412;
 extern int g5422[];
 extern int g54a0;
@@ -30,9 +21,19 @@ extern int g55f0;
 extern int g55f2;
 extern int g55f4;
 extern int g55f6;
-extern int g55f8;
 extern int g55fa;
-f95f3()
+extern int game_state_arg;
+extern int maze_data;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+extern int picture_win;
+extern int view_rows_open;
+/* Draw the 3D maze view from the party position and facing. */
+draw_maze_view_dopt()
 {
 	int l2;
 	int l4;
@@ -43,20 +44,20 @@ f95f3()
 	char *l14;
 	char l16[2];
 	register int rsi;
-	l2 = g4fa4;
-	l4 = g4fa2;
-	l6 = g4fa0;
-	l8 = g4f9e;
-	l10 = g4f9c;
+	l2 = party_x;
+	l4 = party_y;
+	l6 = party_cell_x;
+	l8 = party_cell_y;
+	l10 = party_level;
 	g4fa6 = 0;
-	g433c = 1;
-	f3694(g4fbc, 0);
-	if (f28af((g4faa + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto L9677;
-	switch (g363c) {
+	view_rows_open = 1;
+	drv_op_be(picture_win, 0);
+	if (test_bit((maze_data + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto L9677;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
-	f9531();
+	draw_compass_icons_dopt();
 	return;
 	}
 L9677:
@@ -87,14 +88,14 @@ L967a:
 	l12 = l10;
 	f82c3(&l2, &l4, &l6, &l8, &l12, 0, -1);
 	g55f0 = 4;
-	g55ec = (((g4fa4 + g4fa2) + g4f9a) % 2);
+	g55ec = (((party_x + party_y) + party_facing) % 2);
 	g5412 = 0;
 L977c:
 	if (g5412 >= g55f0) goto L9d10;
-	g55ee = ((((g4fa4 + g4fa2) + g4f9a) + g5412) % 2);
+	g55ee = ((((party_x + party_y) + party_facing) + g5412) % 2);
 	if (!f82c3(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L9825;
-	if (g363c == 10) goto L97da;
-	if (g363c != 12) goto L9811;
+	if (game_state_arg == 10) goto L97da;
+	if (game_state_arg != 12) goto L9811;
 L97da:
 	g5415[(g5412 * 3)] = 1;
 	g5422[(g5412 * 3)] = 1;
@@ -113,7 +114,7 @@ L9825:
 	g55f4 = f872d(l2, l4, l6, l8, l10, 0);
 	g55f6 = f88ea(l2, l4, l6, l8, l10, 0);
 L9879:
-	g55f8 = f8344(l2, l4, l6, l8, l10, -1);
+	char_known_spells = f8344(l2, l4, l6, l8, l10, -1);
 	g55fa = f8344(l2, l4, l6, l8, l10, 1);
 	if (g545c[g5412] != 1) goto L9927;
 	f8b88(g5412, g55f2, 1, 72, 248, 122, 122, 0, 0, 91, 23, 23, 26, 26, 29, 32, 32, 29, 178, 178, 199, 199, 242, 257, 278, 278, 299, 299, 314, 314, 329, 150, 150, 214, 214);
@@ -131,13 +132,13 @@ L99df:
 	f92bf(g5412, 0, 126, 146, 154, 174, 218, 238);
 L9a1b:
 	if (g5444[g5412] != 1) goto L9abd;
-	f8b88(g5412, g55f8, 0, 72, g0042[g5412], 130, 142, 3, 12, 94, 35, 62, 41, 68, 47, 80, 53, 74, 181, 190, 202, 211, 245, 260, 281, 290, 302, 311, 317, 326, 332, 158, 170, 222, 234);
+	f8b88(g5412, char_known_spells, 0, 72, g0042[g5412], 130, 142, 3, 12, 94, 35, 62, 41, 68, 47, 80, 53, 74, 181, 190, 202, 211, 245, 260, 281, 290, 302, 311, 317, 326, 332, 158, 170, 222, 234);
 L9abd:
-	f9473(g5412, g55f8);
+	f9473(g5412, char_known_spells);
 	if (g544c[g5412] != 1) goto L9b6d;
-	f8b88(g5412, g55f8, 0, g0042[g5412], 248, 134, 138, 6, 9, 97, 38, 59, 44, 65, 50, 77, 56, 71, 184, 187, 205, 208, 248, 263, 284, 287, 305, 308, 320, 323, 335, 162, 166, 226, 230);
+	f8b88(g5412, char_known_spells, 0, g0042[g5412], 248, 134, 138, 6, 9, 97, 38, 59, 44, 65, 50, 77, 56, 71, 184, 187, 205, 208, 248, 263, 284, 287, 305, 308, 320, 323, 335, 162, 166, 226, 230);
 L9b6d:
-	f94a0(g5412, g55f8);
+	f94a0(g5412, char_known_spells);
 	if (g5464[g5412] != 1) goto L9c1d;
 	f8b88(g5412, g55fa, 2, 72, g004a[g5412], 138, 134, 9, 6, 100, 59, 38, 65, 44, 71, 56, 77, 50, 187, 184, 208, 205, 251, 266, 287, 284, 308, 305, 323, 320, 338, 166, 162, 230, 226);
 L9c1d:
@@ -160,22 +161,22 @@ L9d19:
 	goto L9e05;
 L9d21:
 	l14 = ((rsi * 11) + 21666);
-	g55ee = (((((unsigned char)l14[10] + g4fa4) + g4fa2) + g4f9a) % 2);
+	g55ee = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
 	if ((unsigned char)l14[10] != g5412) goto L9e04;
 	if ((unsigned char)l14[8] != 255) goto L9e04;
 	if (*(int *)l14 == -1) goto L9db5;
 	if (*(int *)(l14 + 4) == -1) goto L9da0;
-	f36ac((g55ee != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g55ee != 0 ? *(int *)l14 : -1));
+	drv_op_c6((g55ee != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g55ee != 0 ? *(int *)l14 : -1));
 	goto L9db5;
 L9da0:
-	f36ac(*(int *)l14, (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
 L9db5:
 	if (*(int *)(l14 + 2) == -1) goto L9e04;
 	if (*(int *)(l14 + 6) == -1) goto L9dee;
-	f36ac((g55ee != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g55ee != 0 ? *(int *)(l14 + 2) : -1));
+	drv_op_c6((g55ee != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g55ee != 0 ? *(int *)(l14 + 2) : -1));
 	goto L9e04;
 L9dee:
-	f36ac(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
 L9e04:
 	rsi--;
 L9e05:
@@ -189,7 +190,7 @@ L9e14:
 	if ((unsigned char)l14[8] == 255) goto L9e69;
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
-	f3670((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
+	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
 L9e69:
 	rsi--;
 L9e6a:
@@ -197,6 +198,6 @@ L9e6a:
 	g5412--;
 L9e73:
 	if (g5412 >= 0) goto L9d19;
-	f9531();
+	draw_compass_icons_dopt();
 	return;
 }

@@ -1,5 +1,6 @@
-f4785(p4, p6, p8, p10, p12, p14, p16)
+/* Redraw menu entry item in its normal colour. */
+redraw_menu_item(win, item, row_step, cols, x0, y0, text)
 {
-	f030b(p4, (((p6 / p10) * p8) + p12), ((p6 % p10) + p14));
-	f251d(p4, p16, 3);
+	set_cursor(win, (((item / cols) * row_step) + x0), ((item % cols) + y0));
+	print_string_hi(win, text, 3);
 }

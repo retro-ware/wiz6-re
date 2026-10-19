@@ -10,9 +10,9 @@ extern char g375a[];
 extern char g375b[];
 extern char g375c[];
 extern char g3816[];
-extern char g432c[];
-extern int g43a8[];
-f48e4(p4, p6, p8)
+extern char pic_slot_monster[];
+extern int monster_groups[];
+build_monster_anim_frames(p4, p6, p8)
 char *p8;
 {
 	int l2;
@@ -23,24 +23,24 @@ char *p8;
 	int l12;
 	register int rsi;
 	register int rdi;
-	rsi = (unsigned char)g019b[g43a8[p4]];
+	rsi = (unsigned char)g019b[monster_groups[p4]];
 	l10 = 0;
 	l8 = 0;
 	goto L4934;
 L490b:
-	if (((char *)g43a8[p4] + (44 * l8))[42] != p6) goto L4931;
+	if (((char *)monster_groups[p4] + (44 * l8))[42] != p6) goto L4931;
 	l10 = l8;
 L4931:
 	l8++;
 L4934:
-	if ((unsigned char)g019d[g43a8[p4]] > l8) goto L490b;
+	if ((unsigned char)g019d[monster_groups[p4]] > l8) goto L490b;
 	l12 = 0;
 	rdi = 0;
 	goto L4b58;
 L4955:
-	if (((char *)g43a8[p4] + (44 * l10))[34] == 2) goto L497e;
-	if ((unsigned)((char *)g43a8[p4] + (44 * l10))[17] > 0) goto L497e;
-	if ((unsigned)((char *)g43a8[p4] + (44 * l10))[16] <= 0) goto L49be;
+	if (((char *)monster_groups[p4] + (44 * l10))[34] == 2) goto L497e;
+	if ((unsigned)((char *)monster_groups[p4] + (44 * l10))[17] > 0) goto L497e;
+	if ((unsigned)((char *)monster_groups[p4] + (44 * l10))[16] <= 0) goto L49be;
 L497e:
 	l2 = (unsigned char)g3648[((p6 * 30) + (rdi * 3))];
 	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
@@ -65,17 +65,17 @@ l49f5:
 	db 046h,037h,02ah,0e4h,050h,08ah,087h,050h,037h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
 	db 048h,03bh,046h,0fch,07dh,065h
 #endasm
-	l2 = (f09e2((unsigned char)g373c[((314 * rsi) + rdi)]) + (unsigned char)g3732[((314 * rsi) + rdi)]);
+	l2 = (random((unsigned char)g373c[((314 * rsi) + rdi)]) + (unsigned char)g3732[((314 * rsi) + rdi)]);
 	g3648[((p6 * 30) + (rdi * 3))] = *(char *)&l2;
 	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
 L4a8c:
 	g3649[((p6 * 30) + (rdi * 3))] = *(char *)&l4;
-	l6 = (f09e2((unsigned char)g375c[((314 * rsi) + (l4 << 2))]) + (unsigned char)g375b[((314 * rsi) + (l4 << 2))]);
+	l6 = (random((unsigned char)g375c[((314 * rsi) + (l4 << 2))]) + (unsigned char)g375b[((314 * rsi) + (l4 << 2))]);
 L4aec:
 	g364a[((p6 * 30) + (rdi * 3))] = *(char *)&l6;
 L4b12:
 	*(p8 + l12) = g375a[((314 * rsi) + (l4 << 2))];
-	if (g432c[rsi] != 40) goto L4b47;
+	if (pic_slot_monster[rsi] != 40) goto L4b47;
 	if (rdi != 4) goto L4b47;
 	*(p8 + l12) = 0;
 L4b47:

@@ -1,7 +1,7 @@
-extern int g363a;
+extern int game_state;
 ovmain()
 {
-	f9f44();
-	g363a = 4;
+	character_menu();
+	game_state = 4;
 	return 0;
 }

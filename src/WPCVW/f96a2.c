@@ -1,12 +1,13 @@
 extern char g00cc[];
-extern char g442c[];
-extern char g442e[];
-extern char g442f[];
-extern char g4594[];
-extern char g4595[];
+extern char pc_item_count[];
+extern char pc_item_flags[];
+extern char pc_item_qty[];
+extern char pc_item_type[];
+extern char pc_swag_count[];
 extern int g43ca;
-extern int g4428[];
-f96a2(p4, p6, p8)
+extern int pc_item_id[];
+/* Give items from member p8 to another member, splitting stacks by quantity. */
+do_trade_items(p4, p6, p8)
 {
 	int l2;
 	int l4;
@@ -19,7 +20,7 @@ f96a2(p4, p6, p8)
 	int l20;
 	register int rsi;
 	register int rdi;
-	l4 = f897d(p4, p6, 501, -1);
+	l4 = choose_member(p4, p6, 501, -1);
 	if (l4 == -1) goto L96cb;
 	if (l4 != p8) goto L96d1;
 L96cb:
@@ -34,7 +35,7 @@ l96d1:
 L96e9:
 	goto L978a;
 L96ec:
-	f95c6(p6, 404, 8);
+	input_number(p6, 404, 8);
 #asm
 	db 089h,056h,0f4h,089h,046h,0f2h,083h,0fah,000h,07ch,007h,075h,007h,03dh,000h,000h
 	db 073h,002h
@@ -62,37 +63,37 @@ l9733:
 L9769:
 	*(int *)(l14 + (0 + 2)) = -1;
 	*(int *)(l14 + 0) = -1;
-	f0aaa(0);
+	play_sound(0);
 L977b:
 	if (*(long *)(l14 + 0) != -1L) goto L978a;
 	goto L96ec;
 L978a:
-	f93f8(p4, p6, p8);
+	draw_sheet(p4, p6, p8);
 L9799:
-	if (((unsigned char)g4594[(432 * l4)] + (unsigned char)g4595[(432 * l4)]) >= 22) goto L9b3c;
-	if ((unsigned)g4594[(432 * p8)] <= 0) goto L9b3c;
-	g43ca = f5fac(p4, p6, 403, p8, 0);
+	if (((unsigned char)pc_item_count[(432 * l4)] + (unsigned char)pc_swag_count[(432 * l4)]) >= 22) goto L9b3c;
+	if ((unsigned)pc_item_count[(432 * p8)] <= 0) goto L9b3c;
+	g43ca = choose_item(p4, p6, 403, p8, 0);
 	if (g43ca == -1) goto L96cb;
-	if (((unsigned char)g442f[((432 * p8) + (g43ca << 3))] & 1)) goto L9813;
-	if (!((unsigned char)g442f[((432 * p8) + (g43ca << 3))] & 2)) goto L9828;
+	if (((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1)) goto L9813;
+	if (!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 2)) goto L9828;
 L9813:
 	l18 = 0;
 	l16 = 0;
-	f0aaa(0);
+	play_sound(0);
 	goto L98e2;
 L9828:
 	l18 = 1;
 	l16 = 1;
-	l8 = (unsigned char)g442e[((432 * p8) + (g43ca << 3))];
-	if (g00cc[(unsigned char)g442c[((432 * p8) + (g43ca << 3))]] != 1) goto L98e2;
+	l8 = (unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))];
+	if (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1) goto L98e2;
 L9861:
-	l8 = f95c6(p6, 405, 3);
-	if ((unsigned char)g442e[((432 * p8) + (g43ca << 3))] >= l8) goto L98a5;
+	l8 = input_number(p6, 405, 3);
+	if ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] >= l8) goto L98a5;
 	l8 = -1;
-	f0aaa(0);
+	play_sound(0);
 L98a5:
 	if ((long)l8 == -1L) goto L9861;
-	if ((unsigned char)g442e[((432 * p8) + (g43ca << 3))] <= l8) goto L98d7;
+	if ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] <= l8) goto L98d7;
 	l18 = 0;
 L98d7:
 	if (l8) goto L98e2;
@@ -100,13 +101,13 @@ L98d7:
 L98e2:
 	if (!l16) goto L9b39;
 	l20 = 1;
-	l6 = (unsigned char)g4594[(432 * l4)];
+	l6 = (unsigned char)pc_item_count[(432 * l4)];
 	l2 = (l6 - 1);
 	goto L9987;
 L9908:
-	if (*(int *)((char *)g4428 + ((432 * l4) + (l2 << 3))) != *(int *)((char *)g4428 + ((432 * p8) + (g43ca << 3)))) goto L9984;
-	if (g00cc[(unsigned char)g442c[((432 * l4) + (l2 << 3))]] != 1) goto L9984;
-	if (((unsigned char)g442e[((432 * l4) + (l2 << 3))] + l8) > 250) goto L9984;
+	if (*(int *)((char *)pc_item_id + ((432 * l4) + (l2 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) goto L9984;
+	if (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l2 << 3))]] != 1) goto L9984;
+	if (((unsigned char)pc_item_qty[((432 * l4) + (l2 << 3))] + l8) > 250) goto L9984;
 	l6 = l2;
 	l20 = 0;
 L9984:
@@ -115,14 +116,14 @@ L9987:
 	if (l2 >= 0) goto L9908;
 	if (l6 < 10) goto L9a50;
 	l20 = 2;
-	l6 = ((unsigned char)g4595[(432 * l4)] + 10);
-	l2 = ((unsigned char)g4595[(432 * l4)] - 1);
+	l6 = ((unsigned char)pc_swag_count[(432 * l4)] + 10);
+	l2 = ((unsigned char)pc_swag_count[(432 * l4)] - 1);
 	goto L9a47;
 L99bf:
 	l10 = (l2 + 10);
-	if (*(int *)((char *)g4428 + ((432 * l4) + (l10 << 3))) != *(int *)((char *)g4428 + ((432 * p8) + (g43ca << 3)))) goto L9a44;
-	if (g00cc[(unsigned char)g442c[((432 * l4) + (l10 << 3))]] != 1) goto L9a44;
-	if (((unsigned char)g442e[((432 * l4) + (l10 << 3))] + l8) > 250) goto L9a44;
+	if (*(int *)((char *)pc_item_id + ((432 * l4) + (l10 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) goto L9a44;
+	if (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l10 << 3))]] != 1) goto L9a44;
+	if (((unsigned char)pc_item_qty[((432 * l4) + (l10 << 3))] + l8) > 250) goto L9a44;
 	l6 = l10;
 	l20 = 0;
 L9a44:
@@ -153,15 +154,15 @@ l9acc:
 L9ad2:
 	goto L9af4;
 L9ad4:
-	g442e[((432 * l4) + (l6 << 3))] = (char)((unsigned char)g442e[((432 * l4) + (l6 << 3))] + l8);
+	pc_item_qty[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_qty[((432 * l4) + (l6 << 3))] + l8);
 L9af4:
 	if (!l18) goto L9b09;
-	f5d5b(p8, g43ca);
+	remove_item(p8, g43ca);
 	goto L9b2a;
 L9b09:
-	g442e[((432 * p8) + (g43ca << 3))] = (char)((unsigned char)g442e[((432 * p8) + (g43ca << 3))] - l8);
+	pc_item_qty[((432 * p8) + (g43ca << 3))] = (char)((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] - l8);
 L9b2a:
-	f93f8(p4, p6, p8);
+	draw_sheet(p4, p6, p8);
 L9b39:
 	goto L9799;
 L9b3c:

@@ -1,10 +1,10 @@
 #asm
-	extrn f6239_:near
+	extrn add_sprite_:near
 #endasm
-extern int g3644;
+extern int anim_cycle;
 extern int g50fe[];
 extern int g5112;
-f6742(p4, p6)
+queue_effect_sprite(p4, p6)
 {
 	int l2;
 	int l4;
@@ -16,7 +16,7 @@ f6742(p4, p6)
 	if (*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))) != -1) goto L6769;
 	return;
 L6769:
-	if (g3644 != 1) goto L677d;
+	if (anim_cycle != 1) goto L677d;
 	if (*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))) != 1) goto L677d;
 	g5112 = 1;
 L677d:
@@ -106,10 +106,10 @@ l68f7:
 	db 08bh,0d8h,08ah,087h,0e4h,036h,02ah,0e4h,050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h
 	db 0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0c8h,08bh,056h,006h,0d1h,0e2h,003h,0c2h,08bh
 	db 0d8h,058h,003h,087h,06ah,000h,050h,0ffh,076h,0feh,0ffh,076h,0ech
-	call f6239_
+	call add_sprite_
 	db 083h,0c4h,010h
 #endasm
-	if (g3644) goto L695b;
+	if (anim_cycle) goto L695b;
 #asm
 	db 08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,04eh,006h
 	db 0d1h,0e1h,003h,0c1h,08bh,0d8h,0ffh,087h,0feh,050h

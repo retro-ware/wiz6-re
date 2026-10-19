@@ -1,4 +1,4 @@
-f815f(p4, p6, p8, p10, p12)
+add_starting_items(p4, p6, p8, p10, p12)
 {
 	int l12[6];
 	l12[0] = p4;
@@ -9,7 +9,7 @@ f815f(p4, p6, p8, p10, p12)
 	l12[5] = 0;
 L8188:
 	if (l12[l12[5]] <= 0) goto L819e;
-	f8050(l12[l12[5]]);
+	add_starting_item(l12[l12[5]]);
 L819e:
 	l12[5]++;
 	if (l12[5] < 5) goto L8188;

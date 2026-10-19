@@ -52,6 +52,8 @@
 - [x] Promoted run 21 (ternary arm order + 'x == 0 ?' form, struct fields via loaded pointers, (*(char **)x) parens): 869 functions in C (385 asm-free; 1911 #asm statements left), sbuild all 12 OK
 - [x] Promoted run 22 (x*K through 'shl ax,cl'): 869 functions in C (417 asm-free; 1827 #asm statements left), sbuild all 12 OK
 - [x] Promoted run 23 (nested ternaries; `rsi = a + b + c` stored twice): 869 functions in C (425 asm-free), sbuild all 12 OK
+- [x] Promoted run 25 (nested ternaries/boolean chains inside ternary arms; liftloop stops when a demote makes no progress): 870 functions in C (437 asm-free), sbuild all 12 OK
+- [x] Readable names: names/*.json for every image (676 functions, 149 globals, docs, params/locals), applied by tools/render.py; build stays byte-identical
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical

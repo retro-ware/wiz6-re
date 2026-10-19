@@ -1,9 +1,9 @@
 #asm
-	extrn f0aaa_:near
-	extrn fde9f_:near
+	extrn play_sound_:near
+	extrn print_number_col16_:near
 #endasm
-extern char g4590[];
-extern int g4fc4;
+extern char pc_skill_points[];
+extern int menu_clicked;
 fdeca(p4, p6, p8, p10, p12, p14)
 char *p4;
 {
@@ -13,34 +13,34 @@ char *p4;
 	int l26;
 	int l28;
 	register int rsi;
-	l26 = (unsigned char)g4590[(432 * p8)];
-	f32be(p4, 32, 3, 0);
-	f2b19(p4);
-	f030b(p4, 2, 1);
-	f083f(606, p4, 18);
+	l26 = (unsigned char)pc_skill_points[(432 * p8)];
+	fill_window(p4, 32, 3, 0);
+	refresh_window(p4);
+	set_cursor(p4, 2, 1);
+	print_message(606, p4, 18);
 	p4[6] += 3;
-	f083f(607, p4, 18);
+	print_message(607, p4, 18);
 	l4 = 0;
 Ldf3d:
 	l24[l4] = 0;
 	l4++;
 	if (l4 < 10) goto Ldf3d;
 	l4 = 0;
-	f0c16(0, ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1));
-	f0c16(1, ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1));
-	f0c16(2, ((unsigned char)p4[2] + 22), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 22), ((unsigned char)p4[3] + 1));
-	f0c16(3, ((unsigned char)p4[2] + 23), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 23), ((unsigned char)p4[3] + 1));
-	f0c16(4, ((unsigned char)p4[2] + 13), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + 13), ((unsigned char)p4[3] + 2));
-	f0c16(5, 255, 0, 0, 0);
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 100, 4);
+	set_click_region(0, ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 1));
+	set_click_region(1, ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 3), ((unsigned char)p4[3] + 1));
+	set_click_region(2, ((unsigned char)p4[2] + 22), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 22), ((unsigned char)p4[3] + 1));
+	set_click_region(3, ((unsigned char)p4[2] + 23), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 23), ((unsigned char)p4[3] + 1));
+	set_click_region(4, ((unsigned char)p4[2] + 13), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + 13), ((unsigned char)p4[3] + 2));
+	set_click_region(5, 255, 0, 0, 0);
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 100, 4);
 Le075:
-	f030b(p4, 7, 2);
-	f083f((l26 > 0 ? 608 : 609), p4, 18);
+	set_cursor(p4, 7, 2);
+	print_message((l26 > 0 ? 608 : 609), p4, 18);
 	l28 = (l26 > 0 ? 13 : 18);
-	f0c16(4, ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2));
-	l2 = f8891(21822, 13720);
-	if (g4fc4 != 1) goto Le132;
+	set_click_region(4, ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + l28), ((unsigned char)p4[3] + 2));
+	l2 = get_menu_input(21822, 13720);
+	if (menu_clicked != 1) goto Le132;
 #asm
 	db 0ebh,02dh
 #endasm
@@ -76,30 +76,30 @@ case 1:
 	l26++;
 #asm
 	db 0b8h,001h,000h,050h
-	call f0aaa_
+	call play_sound_
 	db 059h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh
 	db 00ch,08bh,008h,003h,0c1h,08bh,0d8h,08ah,087h,01ch,045h,02ah,0e4h,050h,08bh,046h
 	db 0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call fde9f_
+	call print_number_col16_
 	db 083h,0c4h,006h
 #endasm
-	fde9f(p6, 14, l26);
+	print_number_col16(p6, 14, l26);
 	goto Le1ba;
 Le1b2:
-	f0aaa(0);
+	play_sound(0);
 Le1ba:
 	goto Le31b;
 case 2:
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 32, 7);
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 32, 7);
 	if (l4 <= 0) goto Le1ed;
 	l4--;
 	goto Le1f4;
 Le1ed:
 	l4 = (p14 - 1);
 Le1f4:
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 100, 4);
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 100, 4);
 	goto Le31b;
 case 3:
 	;
@@ -115,35 +115,35 @@ le21c:
 	l26--;
 #asm
 	db 0b8h,001h,000h,050h
-	call f0aaa_
+	call play_sound_
 	db 059h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0fch,0d1h,0e1h,08bh,0f1h,08bh,05eh
 	db 00ch,08bh,008h,003h,0c1h,08bh,0d8h,08ah,087h,01ch,045h,02ah,0e4h,050h,08bh,046h
 	db 0fch,040h,040h,040h,050h,0ffh,076h,006h
-	call fde9f_
+	call print_number_col16_
 	db 083h,0c4h,006h
 #endasm
-	fde9f(p6, 14, l26);
+	print_number_col16(p6, 14, l26);
 	goto Le29c;
 Le294:
-	f0aaa(0);
+	play_sound(0);
 Le29c:
 	goto Le31b;
 case 4:
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 32, 7);
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 32, 7);
 	if ((l4 + 1) >= p14) goto Le2d2;
 	l4++;
 	goto Le2d7;
 Le2d2:
 	l4 = 0;
 Le2d7:
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 100, 4);
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 100, 4);
 	goto Le31b;
 	}
 Le31b:
 	if (l2 != 5) goto Le075;
-	f030b(p6, 15, (l4 + 3));
-	f22b7(p6, 32, 7);
-	g4590[(432 * p8)] = *(char *)&l26;
+	set_cursor(p6, 15, (l4 + 3));
+	put_char(p6, 32, 7);
+	pc_skill_points[(432 * p8)] = *(char *)&l26;
 }

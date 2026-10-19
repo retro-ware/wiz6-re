@@ -1,10 +1,12 @@
+extern char char_class;
+extern char char_race;
+extern char char_stats;
 extern char g5563;
 extern char g5564[];
 extern char g556a;
 extern char g556c[];
 extern char g556d[];
 extern char g556f;
-extern char g559c;
 extern char g559d;
 extern char g559f;
 extern char g55a0;
@@ -13,98 +15,96 @@ extern char g55ad;
 extern char g55c1;
 extern char g55d0[];
 extern char g55d2;
-extern char g560d;
-extern char g560f;
 extern int g5560;
-f83f0()
+init_class_race_modifiers()
 {
 	int l2;
 	int l4;
-	switch ((unsigned char)g560f) {
+	switch ((unsigned char)char_class) {
 case 0:
-	f83b5(21308);
+	init_ratings_from_string(21308);
 	goto L848d;
 case 4:
 case 8:
-	f83b5(21323);
+	init_ratings_from_string(21323);
 	goto L848d;
 case 10:
-	f83b5(21338);
+	init_ratings_from_string(21338);
 	goto L848d;
 case 11:
-	f83b5(21353);
+	init_ratings_from_string(21353);
 	goto L848d;
 case 13:
-	f83b5(21368);
+	init_ratings_from_string(21368);
 	goto L848d;
 case 1:
 case 5:
-	f83b5(21383);
+	init_ratings_from_string(21383);
 	goto L848d;
 case 7:
-	f83b5(21398);
+	init_ratings_from_string(21398);
 	goto L848d;
 case 2:
 case 9:
-	f83b5(21413);
+	init_ratings_from_string(21413);
 	goto L848d;
 case 12:
-	f83b5(21428);
+	init_ratings_from_string(21428);
 	goto L848d;
 case 3:
 case 6:
-	f83b5(21443);
+	init_ratings_from_string(21443);
 	goto L848d;
 	}
 L848d:
-	switch ((unsigned char)g560d) {
+	switch ((unsigned char)char_race) {
 case 0:
-	f837b(11, 20);
+	add_class_rating(11, 20);
 	goto L85d8;
 case 2:
 case 4:
-	f837b(6, (((unsigned char)g559f / 5) * 5));
+	add_class_rating(6, (((unsigned char)g559f / 5) * 5));
 case 3:
-	f837b(12, (((unsigned char)g559f / 5) * 5));
+	add_class_rating(12, (((unsigned char)g559f / 5) * 5));
 	goto L85d8;
 case 1:
-	f837b(9, 20);
+	add_class_rating(9, 20);
 	goto L85d8;
 case 5:
-	f837b(12, 25);
-	f837b(4, 25);
-	f837b(7, 25);
-	f837b(10, 25);
-	f837b(11, 25);
+	add_class_rating(12, 25);
+	add_class_rating(4, 25);
+	add_class_rating(7, 25);
+	add_class_rating(10, 25);
+	add_class_rating(11, 25);
 	goto L85d8;
 case 6:
 case 7:
-	f837b(10, 25);
-	f837b(8, 10);
-	f837b(3, -20);
+	add_class_rating(10, 25);
+	add_class_rating(8, 10);
+	add_class_rating(3, -20);
 	goto L85d8;
 case 8:
-	f837b(7, 15);
-	f837b(4, 20);
+	add_class_rating(7, 15);
+	add_class_rating(4, 20);
 case 9:
-	f837b(3, 20);
+	add_class_rating(3, 20);
 	goto L85d8;
 case 10:
-	f837b(12, 25);
-	f837b(3, 15);
+	add_class_rating(12, 25);
+	add_class_rating(3, 15);
 	goto L85d8;
 	}
 L85d8:
 	if ((unsigned)g559f <= 15) goto L85fb;
-	f837b(6, 5);
-	f837b(11, 5);
+	add_class_rating(6, 5);
+	add_class_rating(11, 5);
 L85fb:
 	if ((unsigned)g559d <= 15) goto L8610;
-	f837b(9, 5);
+	add_class_rating(9, 5);
 L8610:
 	if ((unsigned)g55a1 <= 15) goto L8633;
-	f837b(7, 5);
-	f837b(4, 5);
+	add_class_rating(7, 5);
+	add_class_rating(4, 5);
 L8633:
 	l2 = 0;
 L8638:
@@ -124,8 +124,8 @@ L8651:
 	if (l2 < 2) goto L8638;
 	l2 = ((unsigned char)g55ad / 5);
 	l4 = ((unsigned char)g55c1 / 5);
-	if (g560f == 13) goto L86c4;
-	if (g560f != 12) goto L86e2;
+	if (char_class == 13) goto L86c4;
+	if (char_class != 12) goto L86e2;
 L86c4:
 	g5563 = (char)((l2 / 3) + 2);
 	g556f |= 64;
@@ -139,10 +139,10 @@ L86fa:
 	if (l4 <= 0) goto L8706;
 	g556a = *(char *)&l4;
 L8706:
-	if ((unsigned)g559c <= 15) goto L8711;
+	if ((unsigned)char_stats <= 15) goto L8711;
 	g5560++;
 L8711:
-	if ((unsigned)g559c <= 17) goto L871c;
+	if ((unsigned)char_stats <= 17) goto L871c;
 	g5560++;
 L871c:
 	if ((unsigned)g55a0 <= 15) goto L8728;
@@ -162,7 +162,7 @@ L8749:
 	if ((unsigned)g55a1 <= 17) goto L8754;
 	g55d0[0]--;
 L8754:
-	if (g560d != 5) goto L8763;
+	if (char_race != 5) goto L8763;
 	g55d0[0] -= 2;
 L8763:
 	g55d2 = 0;

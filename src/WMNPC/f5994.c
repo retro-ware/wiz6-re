@@ -1,37 +1,37 @@
-extern int g3596;
-extern int g3646;
-extern int g4358;
-extern int g4fc4;
+extern int anim_phase;
+extern int click_flag;
 extern int g522c;
+extern int menu_clicked;
+extern int view_anim_state;
 f5994(p4, p6)
 {
 	int l2;
 	int l4;
-	l4 = g3646;
+	l4 = anim_phase;
 	if (g522c == -1) goto L59aa;
 	f591a();
 L59aa:
-	f280c();
-	g4fc4 = 0;
+	flush_keys();
+	menu_clicked = 0;
 L59b3:
-	l2 = f2643(1);
+	l2 = key_available(1);
 #asm
 	db 085h,0c0h,075h,03ah
 #endasm
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L59de;
-	g4fc4 = 1;
+	l2 = check_click_regions(p6);
+	if (click_flag != 1) goto L59de;
+	menu_clicked = 1;
 	return (l2 - 1);
 L59de:
 	f55dc();
-	if (g4358 != -2) goto L59fa;
+	if (view_anim_state != -2) goto L59fa;
 	if (g522c == -1) goto L59fa;
-	if (g3646 != l4) goto L59fa;
+	if (anim_phase != l4) goto L59fa;
 	f591a();
 L59fa:
 	goto L59b3;
 L59fc:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
+	l2 = char_index(p4, (unsigned char)(get_key(1)));
 	if (l2 < 0) goto L5a1a;
 	return;
 L5a1a:

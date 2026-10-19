@@ -1,17 +1,17 @@
 #asm
-	extrn f00fe_:near
+	extrn copy_far_:near
 #endasm
 extern char g4eea;
 extern char g4eeb;
 extern int g3304;
 extern int g3306;
 extern int g4fa8;
-extern int g4faa;
-f45a6()
+extern int maze_data;
+alloc_maze_buffers()
 {
 	register int rsi;
-	if (g4faa) goto L45be;
-	g4faa = malloc(g3304);
+	if (maze_data) goto L45be;
+	maze_data = malloc(g3304);
 	g4eeb = 1;
 L45be:
 	if (g4fa8) goto L45d5;
@@ -22,7 +22,7 @@ L45d5:
 #asm
 	db 0ffh,036h,004h,033h,0a1h,0aah,04fh,08ch,0dah,052h,050h,0a1h,03ch,036h,0d1h,0e0h
 	db 0d1h,0e0h,08bh,0d8h,0ffh,0b7h,0d4h,007h,0ffh,0b7h,0d2h,007h
-	call f00fe_
+	call copy_far_
 	db 083h,0c4h,00ah
 #endasm
 L45fe:
@@ -30,7 +30,7 @@ L45fe:
 #asm
 	db 0ffh,036h,006h,033h,0a1h,0a8h,04fh,08ch,0dah,052h,050h,0a1h,03ch,036h,0d1h,0e0h
 	db 0d1h,0e0h,08bh,0d8h,0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h
-	call f00fe_
+	call copy_far_
 	db 083h,0c4h,00ah
 #endasm
 L4627:

@@ -1,8 +1,9 @@
 extern char g0190[];
-extern int g43a8;
 extern int g4ed8;
 extern int g4eda;
-f7113()
+extern int monster_groups;
+/* Count down timed effects of all combatants after a round. */
+tick_combat_effects()
 {
 	int l2;
 	int l4;
@@ -76,7 +77,7 @@ L720a:
 	l2++;
 	if (l2 < 7) goto L711f;
 	if (g4ed8 <= 0) goto L7237;
-	g4eda = (unsigned char)g0190[g43a8];
+	g4eda = (unsigned char)g0190[monster_groups];
 L7237:
 	if (g4eda > 0) goto L724a;
 	g4ed8 = 0;

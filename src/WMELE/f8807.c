@@ -9,7 +9,8 @@ extern char g516b[];
 extern char g516c[];
 extern char g5174[];
 extern int g52f6;
-f8807(p4, p6)
+/* Mark cells behind a closed center wall as hidden. */
+hide_far_center(p4, p6)
 {
 	if (p6 == 2) goto L8828;
 	if (p6 >= 5) goto L8828;

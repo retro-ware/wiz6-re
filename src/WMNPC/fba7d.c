@@ -1,23 +1,24 @@
-extern int g3342;
 extern int g438c;
 extern int g4fb0;
 extern int g5262;
 extern int g5264;
-fba7d()
+extern int main_window;
+/* NPC encounter: set up windows, run the NPC interaction menu, then clean up. */
+run_npc_encounter()
 {
 	g5264 = 0;
 	g5262 = 4;
-	fb8de();
+	init_npc_encounter();
 	f97c6();
 	fb805();
 	fd46f();
-	f09fb(g3342, 0);
-	f3118(g4fb0);
-	g438c = f011a(20, 19, 20, 5, 10, -1, 0, 0);
+	erase_window(main_window, 0);
+	defer_window_draw(g4fb0);
+	g438c = create_window(20, 19, 20, 5, 10, -1, 0, 0);
 	f5488(g438c);
 	fb344();
-	f02d2(g438c, 0);
-	f09fb(g3342, 0);
-	f31d1(g4fb0);
+	destroy_window(g438c, 0);
+	erase_window(main_window, 0);
+	resume_window_draw(g4fb0);
 	fba00();
 }

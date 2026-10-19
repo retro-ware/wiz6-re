@@ -1,9 +1,10 @@
-extern char g4587[];
-extern int g43f4[];
-extern int g440c[];
-extern int g4fb2;
+extern char pc_class[];
+extern int bottom_line_win;
 extern int g57fc;
-ff8c6(p4)
+extern int pc_exp[];
+extern int pc_level[];
+/* Level the member up while his experience reaches the next level. */
+check_level_up(p4)
 {
 	long l4;
 	char x4[62];
@@ -11,18 +12,18 @@ ff8c6(p4)
 	int l70;
 	char l72[2];
 	int l74;
-	*(int *)(l72 + 0) = f011a(0, 0, 40, 20, 20, -1, 0, 0);
-	l74 = f011a(0, 20, 40, 4, 15, -1, 0, 0);
-	f31d1(g4fb2);
-	f09fb(g4fb2, 0);
-	f0882(0, &l68, (unsigned char)g4587[(432 * p4)], 0);
+	*(int *)(l72 + 0) = create_window(0, 0, 40, 20, 20, -1, 0, 0);
+	l74 = create_window(0, 20, 40, 4, 15, -1, 0, 0);
+	resume_window_draw(bottom_line_win);
+	erase_window(bottom_line_win, 0);
+	access_scenario_record(0, &l68, (unsigned char)pc_class[(432 * p4)], 0);
 	g57fc = 0;
 Lf94f:
-	if (*(int *)((char *)g440c + (432 * p4)) >= 16) goto Lf978;
-	l4 = *(long *)(l72 + (*(int *)((char *)g440c + (432 * p4)) << 2));
+	if (*(int *)((char *)pc_level + (432 * p4)) >= 16) goto Lf978;
+	l4 = *(long *)(l72 + (*(int *)((char *)pc_level + (432 * p4)) << 2));
 	goto Lf9be;
 Lf978:
-	l70 = (*(int *)((char *)g440c + (432 * p4)) + -16);
+	l70 = (*(int *)((char *)pc_level + (432 * p4)) + -16);
 #asm
 	db 08bh,046h,0f8h,08bh,056h,0fah,02bh,046h,0f4h,01bh,056h,0f6h,050h,052h,08bh,046h
 	db 0bah,099h,08bh,0c8h,08bh,0dah,05ah,058h,050h,052h,0f7h,0e3h,08bh,0d8h,058h,0f7h
@@ -30,12 +31,12 @@ Lf978:
 	db 0feh,089h,046h,0fch
 #endasm
 Lf9be:
-	if (*(long *)((char *)g43f4 + (432 * p4)) < l4) goto Lf9ed;
-	ff784(*(int *)(l72 + 0), l74, p4);
+	if (*(long *)((char *)pc_exp + (432 * p4)) < l4) goto Lf9ed;
+	do_level_up(*(int *)(l72 + 0), l74, p4);
 	goto Lfa0b;
 Lf9ed:
-	f02d2(l74, 0);
-	f02d2(*(int *)(l72 + 0), 0);
+	destroy_window(l74, 0);
+	destroy_window(*(int *)(l72 + 0), 0);
 	return;
 Lfa0b:
 	goto Lf94f;

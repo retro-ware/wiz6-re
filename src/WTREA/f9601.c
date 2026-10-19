@@ -1,27 +1,28 @@
 extern char g00cc[];
-extern char g4589[];
 extern char g506d[];
-extern int g363a;
-extern int g43c4;
-extern int g43ce;
-extern int g43f4[];
-extern int g43fc[];
-extern int g4fb6;
-extern int g4fce;
+extern char pc_condition[];
 extern int g501e;
 extern int g50c8;
-extern int g51d6[];
 extern int g51e2[];
 extern int g525a[];
-extern int g5266;
 extern int g5268[];
 extern int g5274[];
-f9601()
+extern int game_state;
+extern int loot_count;
+extern int loot_item[];
+extern int party_count;
+extern int party_picture_win;
+extern int pc_exp[];
+extern int pc_gold[];
+extern int return_cmd;
+extern int treasure_id;
+/* Load the treasure record, handle the chest, roll gold and items and award them. */
+open_treasure()
 {
 	int l2;
 	int l4;
 	char l5;
-	char l44[39];
+	char chest[39];
 	char x44[12];
 	char l57;
 	char l58;
@@ -33,37 +34,37 @@ f9601()
 	int l98;
 	char x98[18];
 	int l118;
-	int l120;
-	char l128[8];
+	int alive;
+	char gold[8];
 	int l130;
 	char x130[18];
 	int l150;
 	char x150[4];
-	f0882(7, l44, g43c4, 0);
-	g43c4 = -1;
+	access_scenario_record(7, chest, treasure_id, 0);
+	treasure_id = -1;
 	if ((unsigned)l5 <= 0) goto L964f;
 	g50c8 = 1;
-	if (f9105(l44) != -1) goto L9641;
+	if (handle_chest(chest) != -1) goto L9641;
 	return;
 L9641:
-	f02f0(g4fb6, 0);
+	clear_window(party_picture_win, 0);
 L964f:
-	if (g4fce != 21) goto L9659;
-	f8f81();
+	if (return_cmd != 21) goto L9659;
+	mark_chest_opened();
 L9659:
-	f2a63();
-	*(int *)(l128 + (0 + 6)) = 0;
-	*(int *)(l128 + (0 + 4)) = 0;
-	*(int *)(l128 + (0 + 2)) = 0;
-	*(int *)(l128 + 0) = 0;
-	g5266 = 0;
+	refresh_all_windows();
+	*(int *)(gold + (0 + 6)) = 0;
+	*(int *)(gold + (0 + 4)) = 0;
+	*(int *)(gold + (0 + 2)) = 0;
+	*(int *)(gold + 0) = 0;
+	loot_count = 0;
 	l2 = 0;
 L967b:
-	if (f09e2(100) >= (unsigned char)l44[((l2 * 6) + 5)]) goto L9763;
-	switch ((unsigned char)l44[((l2 * 6) + 4)]) {
+	if (random(100) >= (unsigned char)chest[((l2 * 6) + 5)]) goto L9763;
+	switch ((unsigned char)chest[((l2 * 6) + 4)]) {
 case 1:
-	l130 = (f09e2((*(int *)(l44 + (l2 * 6)) - *(int *)(l44 + ((l2 * 6) + 2)))) + *(int *)(l44 + ((l2 * 6) + 2)));
-	*(long *)(l128 + (0 + 4)) += (long)l130;
+	l130 = (random((*(int *)(chest + (l2 * 6)) - *(int *)(chest + ((l2 * 6) + 2)))) + *(int *)(chest + ((l2 * 6) + 2)));
+	*(long *)(gold + (0 + 4)) += (long)l130;
 	goto L9763;
 case 4:
 	;
@@ -74,40 +75,40 @@ l96ed:
 	db 055h
 #endasm
 case 2:
-	g51d6[g5266] = (f09e2(*(int *)(l44 + ((l2 * 6) + 2))) + *(int *)(l44 + (l2 * 6)));
-	if (g51d6[g5266] <= 0) goto L974f;
-	g5266++;
+	loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)));
+	if (loot_item[loot_count] <= 0) goto L974f;
+	loot_count++;
 L974f:
 	goto L9763;
 	}
 L9763:
 	l2++;
 	if (l2 < 6) goto L967b;
-	l120 = 0;
+	alive = 0;
 	l2 = 0;
 	goto L9792;
 L977d:
-	if (g4589[(432 * l2)]) goto L978f;
-	l120++;
+	if (pc_condition[(432 * l2)]) goto L978f;
+	alive++;
 L978f:
 	l2++;
 L9792:
-	if (l2 < g43ce) goto L977d;
-	if (l120) goto L97aa;
-	g363a = 8;
+	if (l2 < party_count) goto L977d;
+	if (alive) goto L97aa;
+	game_state = 8;
 	return;
 L97aa:
-	*(long *)(l128 + (0 + 4)) = (*(long *)(l128 + (0 + 4)) / (long)l120);
+	*(long *)(gold + (0 + 4)) = (*(long *)(gold + (0 + 4)) / (long)alive);
 	l2 = 0;
 	goto L999a;
 L97cd:
-	f075b(5004, 20590);
-	f075b(5005, ((l2 * 18) + 20974));
-	if (g51d6[l2] <= 0) goto L98f5;
-	f0882(1, &l118, g51d6[l2], 0);
-	f05c1(((l2 * 18) + 20974), &l118, 94);
+	get_message(5004, 20590);
+	get_message(5005, ((l2 * 18) + 20974));
+	if (loot_item[l2] <= 0) goto L98f5;
+	access_scenario_record(1, &l118, loot_item[l2], 0);
+	replace_char_with_string(((l2 * 18) + 20974), &l118, 94);
 	if (g00cc[(unsigned char)l58] != 1) goto L9865;
-	g51e2[l2] = (unsigned char)(f5a98(l98, l96));
+	g51e2[l2] = (unsigned char)(roll_dice(l98, l96));
 	goto L9872;
 L9865:
 	g51e2[l2] = 1;
@@ -117,23 +118,23 @@ L9872:
 	g5274[l2] = (((unsigned char)l59 & 2) ? 1 : 0);
 	switch ((unsigned char)l58) {
 case 12:
-	f075b(5006, &l150);
+	get_message(5006, &l150);
 	goto L98f5;
 case 13:
-	f075b(5007, &l150);
+	get_message(5007, &l150);
 	goto L98f5;
 case 16:
-	f075b(5008, &l150);
+	get_message(5008, &l150);
 	goto L98f5;
 default:
 	*(char *)&l150 = 0;
 	goto L98f5;
 	}
 L98f5:
-	f04f1(g51e2[l2], 20802);
-	f05c1(((l2 * 18) + 20974), 20802, 36);
-	f05c1(20590, ((l2 * 18) + 20974), 37);
-	f05c1(20590, &l150, 64);
+	int_to_string(g51e2[l2], 20802);
+	replace_char_with_string(((l2 * 18) + 20974), 20802, 36);
+	replace_char_with_string(20590, ((l2 * 18) + 20974), 37);
+	replace_char_with_string(20590, &l150, 64);
 	l4 = strlen(20590);
 L9966:
 	if (l4 <= 0) goto L9980;
@@ -142,37 +143,37 @@ L9966:
 	l4--;
 	goto L9966;
 L9980:
-	f59e9(g4fb6, g50c8, 20590, 1, 1);
+	show_centered_line(party_picture_win, g50c8, 20590, 1, 1);
 	l2++;
 L999a:
-	if (l2 < g5266) goto L97cd;
-	if (*(long *)(l128 + (0 + 4)) <= 0L) goto L9a00;
-	f075b(5002, 20590);
-	f0453(*(int *)(l128 + (0 + 4)), *(int *)(l128 + (0 + 6)), 20722);
-	f05c1(20590, 20722, 36);
-	f59e9(g4fb6, g50c8, 20590, 0, 5);
+	if (l2 < loot_count) goto L97cd;
+	if (*(long *)(gold + (0 + 4)) <= 0L) goto L9a00;
+	get_message(5002, 20590);
+	long_to_string(*(int *)(gold + (0 + 4)), *(int *)(gold + (0 + 6)), 20722);
+	replace_char_with_string(20590, 20722, 36);
+	show_centered_line(party_picture_win, g50c8, 20590, 0, 5);
 L9a00:
-	if (*(long *)(l128 + 0) <= 0L) goto L9a5a;
-	f075b(5003, 20590);
-	f0453(*(int *)(l128 + 0), *(int *)(l128 + (0 + 2)), 20722);
-	f05c1(20590, 20722, 36);
-	f59e9(g4fb6, g50c8, 20590, 1, 4);
+	if (*(long *)(gold + 0) <= 0L) goto L9a5a;
+	get_message(5003, 20590);
+	long_to_string(*(int *)(gold + 0), *(int *)(gold + (0 + 2)), 20722);
+	replace_char_with_string(20590, 20722, 36);
+	show_centered_line(party_picture_win, g50c8, 20590, 1, 4);
 L9a5a:
 	l2 = 0;
 	goto L9a8f;
 L9a61:
-	if (g4589[(432 * l2)]) goto L9a8c;
-	*(long *)((char *)g43f4 + (432 * l2)) += *(long *)(l128 + 0);
-	*(long *)((char *)g43fc + (432 * l2)) += *(long *)(l128 + (0 + 4));
+	if (pc_condition[(432 * l2)]) goto L9a8c;
+	*(long *)((char *)pc_exp + (432 * l2)) += *(long *)(gold + 0);
+	*(long *)((char *)pc_gold + (432 * l2)) += *(long *)(gold + (0 + 4));
 L9a8c:
 	l2++;
 L9a8f:
-	if (l2 < g43ce) goto L9a61;
-	if (g5266 <= 0) goto L9aa2;
-	f8952();
+	if (l2 < party_count) goto L9a61;
+	if (loot_count <= 0) goto L9aa2;
+	distribute_loot();
 L9aa2:
 	g501e = 0;
-	f4811();
-	f48df(2);
+	animate_treasure_view();
+	wait_animating(2);
 	return;
 }

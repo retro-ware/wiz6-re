@@ -1,9 +1,10 @@
-extern char g442e[];
 extern char g558e[];
 extern char g558f;
-extern int g0004[];
-extern int g4428[];
-fb6c4(p4, p6, p8, p10)
+extern char pc_item_qty[];
+extern int pc_item_id[];
+extern int realm_colors[];
+/* Show an item's description window: type, damage, classes, spells. */
+show_item_info(p4, p6, p8, p10)
 {
 	int l2;
 	int l4;
@@ -47,9 +48,9 @@ fb6c4(p4, p6, p8, p10)
 	int l166;
 	int l168;
 	int l170;
-	f0882(1, &l80, *(int *)((char *)g4428 + ((432 * p6) + (p8 << 3))), 0);
-	l6 = f011a(20, 8, 20, 12, 25, -1, 0, 0);
-	f32be(l6, 0, 1, 0);
+	access_scenario_record(1, &l80, *(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))), 0);
+	l6 = create_window(20, 8, 20, 12, 25, -1, 0, 0);
+	fill_window(l6, 0, 1, 0);
 	fb139(l6, 0, 0, 21);
 	fb139(l6, 19, 0, 8);
 	fb139(l6, 0, 11, 11);
@@ -73,17 +74,17 @@ Lb7ce:
 	fb139(l6, 0, 7, 15);
 	fb139(l6, 0, 9, 15);
 	fb139(l6, 0, 1, 5);
-	f3118(l6);
-	f030b(l6, 1, 1);
+	defer_window_draw(l6);
+	set_cursor(l6, 1, 1);
 	l2 = 1;
 Lb899:
-	f23e3(l6, 32, 3);
+	put_char_hi(l6, 32, 3);
 	l2++;
 	if (l2 < 20) goto Lb899;
-	fb1bc(l6, 1, 1, ((unsigned char)l22[3] + 1));
-	fb1bc(l6, 18, 1, ((unsigned char)l22[3] + 1));
-	f030b(l6, (10 - ((strlen(&l80) + 1) / 2)), 1);
-	f251d(l6, &l80, 3);
+	put_icon_at2(l6, 1, 1, ((unsigned char)l22[3] + 1));
+	put_icon_at2(l6, 18, 1, ((unsigned char)l22[3] + 1));
+	set_cursor(l6, (10 - ((strlen(&l80) + 1) / 2)), 1);
+	print_string_hi(l6, &l80, 3);
 	l122[19] = 0;
 	l122[18] = 0;
 	l122[17] = 0;
@@ -158,29 +159,29 @@ case 15:
 	}
 Lba42:
 	if (p10) goto Lc029;
-	f075b(((unsigned char)l22[2] + 1550), 21902);
-	f030b(l6, (10 - ((strlen(21902) + 1) / 2)), 3);
-	f24e9(l6, 21902, 1);
+	get_message(((unsigned char)l22[2] + 1550), 21902);
+	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 3);
+	print_string(l6, 21902, 1);
 	if (!l122[10]) goto Lbbaa;
-	f030b(l6, 3, 4);
-	f075b(454, 21902);
+	set_cursor(l6, 3, 4);
+	get_message(454, 21902);
 	l2 = 0;
 Lbac0:
-	f22b7(l6, (unsigned char)g558e[l2], (f28af(&l24, l2) == 1 ? 6 : 11));
+	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l24, l2) == 1 ? 6 : 11));
 	l2++;
 	if (l2 < 11) goto Lbac0;
 	l6[6]++;
-	f075b(455, 21902);
+	get_message(455, 21902);
 	l2 = 0;
 Lbb12:
-	f22b7(l6, (unsigned char)g558e[l2], (f28af(l22, l2) == 1 ? 6 : 11));
+	put_char(l6, (unsigned char)g558e[l2], (test_bit(l22, l2) == 1 ? 6 : 11));
 	l2++;
 	if (l2 < 2) goto Lbb12;
-	f030b(l6, 3, 5);
-	f075b(456, 21902);
+	set_cursor(l6, 3, 5);
+	get_message(456, 21902);
 	l2 = 0;
 Lbb6f:
-	f22b7(l6, (unsigned char)g558e[l2], (f28af(&l26, l2) == 1 ? 6 : 11));
+	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l26, l2) == 1 ? 6 : 11));
 	l2++;
 	if (l2 < 14) goto Lbb6f;
 	goto Lbc08;
@@ -188,9 +189,9 @@ Lbbaa:
 	if (!l122[11]) goto Lbc08;
 	if (!l52) goto Lbc08;
 	l126 = (l52 % 256);
-	f075b((l126 + 4000), 21902);
-	f030b(l6, (10 - ((strlen(21902) + 1) / 2)), 5);
-	f24e9(l6, 21902, 4);
+	get_message((l126 + 4000), 21902);
+	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 5);
+	print_string(l6, 21902, 4);
 Lbc08:
 	if (!l122[14]) goto Lbdc3;
 #asm
@@ -232,120 +233,120 @@ lbcf3:
 Lbdc3:
 	if (!l122[13]) goto Lbe78;
 	if (l22[2] != 3) goto Lbe04;
-	f075b(3058, 21902);
-	f030b(l6, 3, 7);
-	f24e9(l6, 21902, 5);
+	get_message(3058, 21902);
+	set_cursor(l6, 3, 7);
+	print_string(l6, 21902, 5);
 	goto Lbe78;
 Lbe04:
 	l4 = 0;
 	l2 = 0;
 Lbe0e:
-	if (f28af(&l8, l2) != 1) goto Lbe6d;
-	f030b(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + 7));
-	f075b((l2 + 3050), 21902);
-	f24e9(l6, 21902, 5);
+	if (test_bit(&l8, l2) != 1) goto Lbe6d;
+	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + 7));
+	get_message((l2 + 3050), 21902);
+	print_string(l6, 21902, 5);
 	l4++;
 Lbe6d:
 	l2++;
 	if (l2 < 8) goto Lbe0e;
 Lbe78:
-	f030b(l6, 1, 10);
+	set_cursor(l6, 1, 10);
 	if (l122[19]) goto Lbe95;
 	if (!l122[18]) goto Lbef4;
 Lbe95:
-	f075b(451, 21902);
-	f22b7(l6, (unsigned char)g558e[0], (l122[19] != 0 ? 6 : 14));
-	f22b7(l6, 47, 14);
-	f22b7(l6, (unsigned char)g558f, (((unsigned char)l22[(0 + 1)] & 8) ? 6 : 14));
+	get_message(451, 21902);
+	put_char(l6, (unsigned char)g558e[0], (l122[19] != 0 ? 6 : 14));
+	put_char(l6, 47, 14);
+	put_char(l6, (unsigned char)g558f, (((unsigned char)l22[(0 + 1)] & 8) ? 6 : 14));
 	goto Lbf4a;
 Lbef4:
 	if (!l122[17]) goto Lbf4a;
-	f075b(452, 21902);
-	f24e9(l6, 21902, (l122[9] + 8));
+	get_message(452, 21902);
+	print_string(l6, 21902, (l122[9] + 8));
 	l6[6]++;
-	f04f1((0 - l10), 21902);
-	f24e9(l6, 21902, l122[9]);
+	int_to_string((0 - l10), 21902);
+	print_string(l6, 21902, l122[9]);
 Lbf4a:
 	if (!l122[16]) goto Lbf91;
-	f075b((((unsigned char)l22[(0 + 1)] & 4) ? 458 : 457), 21902);
-	f030b(l6, 8, 10);
-	f24e9(l6, 21902, 4);
+	get_message((((unsigned char)l22[(0 + 1)] & 4) ? 458 : 457), 21902);
+	set_cursor(l6, 8, 10);
+	print_string(l6, 21902, 4);
 	goto Lbfcc;
 Lbf91:
 	if (!l122[15]) goto Lbfcc;
-	f075b(((unsigned char)l22[2] + 454), 21902);
-	f030b(l6, 8, 10);
-	f24e9(l6, 21902, 4);
+	get_message(((unsigned char)l22[2] + 454), 21902);
+	set_cursor(l6, 8, 10);
+	print_string(l6, 21902, 4);
 Lbfcc:
-	f030b(l6, 14, 10);
-	f05a5(l6, (l50 / 10), 3, 9);
-	f22b7(l6, 46, 9);
-	f05a5(l6, (l50 % 10), 1, 9);
+	set_cursor(l6, 14, 10);
+	print_int(l6, (l50 / 10), 3, 9);
+	put_char(l6, 46, 9);
+	print_int(l6, (l50 % 10), 1, 9);
 	goto Lc661;
 Lc029:
 	if ((p10 * 3) <= (unsigned char)l22[4]) goto Lc61e;
 	l168 = 3;
 	if (!l122[8]) goto Lc1d5;
-	f030b(l6, 1, 3);
-	f075b(466, 21902);
-	f24e9(l6, 21902, 14);
-	f04f1((unsigned char)l54, 21902);
-	f04f1((unsigned char)l53, 22416);
-	f04f1(l56, &l166);
-	f030b(l6, (19 - (((strlen(21902) + strlen(22416)) + strlen(&l166)) + 2)), 3);
-	f24e9(l6, 21902, 5);
-	f075b(478, 21902);
-	f24e9(l6, 21902, 5);
-	f24e9(l6, 22416, 5);
-	f22b7(l6, 43, 5);
-	f24e9(l6, &l166, 5);
+	set_cursor(l6, 1, 3);
+	get_message(466, 21902);
+	print_string(l6, 21902, 14);
+	int_to_string((unsigned char)l54, 21902);
+	int_to_string((unsigned char)l53, 22416);
+	int_to_string(l56, &l166);
+	set_cursor(l6, (19 - (((strlen(21902) + strlen(22416)) + strlen(&l166)) + 2)), 3);
+	print_string(l6, 21902, 5);
+	get_message(478, 21902);
+	print_string(l6, 21902, 5);
+	print_string(l6, 22416, 5);
+	put_char(l6, 43, 5);
+	print_string(l6, &l166, 5);
 	if (!l9) goto Lc1cf;
-	f030b(l6, 1, 4);
-	f075b(467, 21902);
-	f24e9(l6, 21902, 14);
-	f030b(l6, 7, 4);
-	f04f1(l9, 21902);
+	set_cursor(l6, 1, 4);
+	get_message(467, 21902);
+	print_string(l6, 21902, 14);
+	set_cursor(l6, 7, 4);
+	int_to_string(l9, 21902);
 	if (l9 < 0) goto Lc1be;
-	f22b7(l6, 43, 5);
+	put_char(l6, 43, 5);
 Lc1be:
-	f24e9(l6, 21902, 5);
+	print_string(l6, 21902, 5);
 Lc1cf:
 	l168 = 5;
 Lc1d5:
 	if (!l122[7]) goto Lc296;
 	if (!((unsigned char)l14 - (unsigned char)l13)) goto Lc296;
 	l168 = (l122[8] != 0 ? 4 : 3);
-	f030b(l6, 11, l168);
-	f075b(468, 21902);
-	f24e9(l6, 21902, 14);
-	f030b(l6, 17, l168);
-	f04f1(((unsigned char)l14 - (unsigned char)l13), 21902);
+	set_cursor(l6, 11, l168);
+	get_message(468, 21902);
+	print_string(l6, 21902, 14);
+	set_cursor(l6, 17, l168);
+	int_to_string(((unsigned char)l14 - (unsigned char)l13), 21902);
 	if (((unsigned char)l14 - (unsigned char)l13) < 0) goto Lc27f;
-	f22b7(l6, 43, 5);
+	put_char(l6, 43, 5);
 Lc27f:
-	f24e9(l6, 21902, 5);
+	print_string(l6, 21902, 5);
 	l168 = 5;
 Lc296:
 	if (!l22[5]) goto Lc2f4;
-	f030b(l6, 1, l168);
-	f075b(465, 21902);
-	f24e9(l6, 21902, 3);
-	f030b(l6, 15, l168);
+	set_cursor(l6, 1, l168);
+	get_message(465, 21902);
+	print_string(l6, 21902, 3);
+	set_cursor(l6, 15, l168);
 	fb659(l6, (unsigned char)l22[5], 1);
 	l168++;
 Lc2f4:
 	if (!l52) goto Lc3b7;
 	l126 = (l52 % 256);
-	f075b((l126 + 4000), 21902);
-	f030b(l6, 1, l168);
-	f24e9(l6, 21902, 4);
-	f030b(l6, 16, l168);
-	if (g442e[((432 * p6) + (p8 << 3))]) goto Lc388;
-	f075b(480, 21902);
-	f24e9(l6, 21902, 1);
+	get_message((l126 + 4000), 21902);
+	set_cursor(l6, 1, l168);
+	print_string(l6, 21902, 4);
+	set_cursor(l6, 16, l168);
+	if (pc_item_qty[((432 * p6) + (p8 << 3))]) goto Lc388;
+	get_message(480, 21902);
+	print_string(l6, 21902, 1);
 	goto Lc3b3;
 Lc388:
-	f05a5(l6, (unsigned char)g442e[((432 * p6) + (p8 << 3))], 3, 1);
+	print_int(l6, (unsigned char)pc_item_qty[((432 * p6) + (p8 << 3))], 3, 1);
 Lc3b3:
 	l168++;
 Lc3b7:
@@ -354,10 +355,10 @@ Lc3b7:
 	l168++;
 Lc3c9:
 	if (!l12) goto Lc427;
-	f075b(469, 21902);
-	f030b(l6, 1, l168);
-	f24e9(l6, 21902, 7);
-	f030b(l6, 15, l168);
+	get_message(469, 21902);
+	set_cursor(l6, 1, l168);
+	print_string(l6, 21902, 7);
+	set_cursor(l6, 15, l168);
 	fb659(l6, (unsigned char)l12, 1);
 	l168++;
 Lc427:
@@ -366,9 +367,9 @@ Lc427:
 	l2 = 0;
 Lc437:
 	if ((unsigned)l34[l2] <= 0) goto Lc490;
-	f030b(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + l168));
-	f075b((l2 + 470), 21902);
-	f24e9(l6, 21902, 5);
+	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + l168));
+	get_message((l2 + 470), 21902);
+	print_string(l6, 21902, 5);
 	l4++;
 Lc490:
 	l2++;
@@ -385,39 +386,39 @@ Lc49e:
 	l2 = 0;
 Lc542:
 	l122[l2] = (l122[l2] > 99 ? 99 : l122[l2]);
-	f030b(l6, (((l2 / 3) * 9) + 1), ((l2 % 3) + l168));
-	f075b((l2 + 3950), 21902);
-	f24e9(l6, 21902, g0004[l2]);
-	f030b(l6, (((l2 / 3) * 9) + 7), ((l2 % 3) + l168));
-	f05a5(l6, l122[l2], 2, 1);
-	f22b7(l6, 37, g0004[l2]);
+	set_cursor(l6, (((l2 / 3) * 9) + 1), ((l2 % 3) + l168));
+	get_message((l2 + 3950), 21902);
+	print_string(l6, 21902, realm_colors[l2]);
+	set_cursor(l6, (((l2 / 3) * 9) + 7), ((l2 % 3) + l168));
+	print_int(l6, l122[l2], 2, 1);
+	put_char(l6, 37, realm_colors[l2]);
 	l2++;
 	if (l2 < 6) goto Lc542;
 Lc61c:
 	goto Lc661;
 Lc61e:
-	f075b(482, 21902);
-	f030b(l6, (10 - ((strlen(21902) + 1) / 2)), 4);
-	f24e9(l6, 21902, 1);
+	get_message(482, 21902);
+	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 4);
+	print_string(l6, 21902, 1);
 Lc661:
-	f31d1(l6);
-	f32be(p4, 32, 3, 0);
-	f3118(p4);
-	f075b(609, 21902);
-	f030b(p4, (20 - ((strlen(21902) + 1) / 2)), 1);
-	f251d(p4, 21902, 3);
-	f31d1(p4);
-	f2b19(l6);
-	f2b19(p4);
+	resume_window_draw(l6);
+	fill_window(p4, 32, 3, 0);
+	defer_window_draw(p4);
+	get_message(609, 21902);
+	set_cursor(p4, (20 - ((strlen(21902) + 1) / 2)), 1);
+	print_string_hi(p4, 21902, 3);
+	resume_window_draw(p4);
+	refresh_window(l6);
+	refresh_window(p4);
 	l170 = 1;
 Lc6e2:
-	if (!f0c42()) goto Lc6ef;
+	if (!check_screen_click()) goto Lc6ef;
 	l170 = 0;
 Lc6ef:
-	if (f2643(1) != 1) goto Lc70e;
-	if ((char)f2724(1) != 13) goto Lc70e;
+	if (key_available(1) != 1) goto Lc70e;
+	if ((char)get_key(1) != 13) goto Lc70e;
 	l170 = 0;
 Lc70e:
 	if (l170) goto Lc6e2;
-	f02d2(l6, 0);
+	destroy_window(l6, 0);
 }

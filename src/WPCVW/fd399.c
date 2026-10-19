@@ -1,36 +1,37 @@
 #asm
 	extrn $ldv:near
 #endasm
-extern char g442d[];
-extern char g442f[];
 extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
 extern char g44e6[];
-extern char g44f8[];
 extern char g450a[];
-extern char g4514[];
 extern char g4517[];
 extern char g4539[];
 extern char g453a[];
 extern char g4548[];
 extern char g4549[];
-extern char g4587[];
 extern char g458a[];
 extern char g458b[];
 extern char g4591[];
-extern char g4594[];
-extern int g0846;
-extern int g43f0[];
-extern int g4400[];
-extern int g4402[];
-extern int g4404[];
-extern int g4406[];
-extern int g4428[];
+extern char pc_class[];
+extern char pc_equipped[];
+extern char pc_item_count[];
+extern char pc_item_flags[];
+extern char pc_item_icon[];
+extern char pc_stats[];
 extern int g4fb8;
 extern int g4fba;
-extern int g4fc4;
-fd399(p4, p6, p8)
+extern int menu_clicked;
+extern int mouse_present;
+extern int pc_age_days[];
+extern int pc_hp[];
+extern int pc_hp_max[];
+extern int pc_item_id[];
+extern int pc_stamina[];
+extern int pc_stamina_max[];
+/* Equip menu: choose weapons and armor for each slot and recompute combat values. */
+do_equip_items(p4, p6, p8)
 char *p4;
 char *p6;
 {
@@ -70,17 +71,17 @@ char *p6;
 	register int rdi;
 	l2 = 0;
 Ld3a7:
-	g44f8[((432 * p8) + l2)] = 255;
+	pc_equipped[((432 * p8) + l2)] = 255;
 	l48[l2] = 0;
 	l2++;
 	if (l2 < 8) goto Ld3a7;
 	l2 = 0;
 	goto Ld3fa;
 Ld3d7:
-	g442f[((432 * p8) + (l2 << 3))] = (char)((unsigned char)g442f[((432 * p8) + (l2 << 3))] & -2);
+	pc_item_flags[((432 * p8) + (l2 << 3))] = (char)((unsigned char)pc_item_flags[((432 * p8) + (l2 << 3))] & -2);
 	l2++;
 Ld3fa:
-	if ((unsigned char)g4594[(432 * p8)] > l2) goto Ld3d7;
+	if ((unsigned char)pc_item_count[(432 * p8)] > l2) goto Ld3d7;
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,08ah,045h,000h,0c6h,087h,08bh
 	db 045h,000h
@@ -91,57 +92,57 @@ Ld424:
 	l2++;
 	if (l2 < 14) goto Ld424;
 	l298 = (!(p8 % 2) ? g4fba : g4fb8);
-	f030b(l298, 3, (((p8 / 2) << 2) + 1));
-	f23e3(l298, 37, 4);
-	f23e3(l298, 38, 4);
+	set_cursor(l298, 3, (((p8 / 2) << 2) + 1));
+	put_char_hi(l298, 37, 4);
+	put_char_hi(l298, 38, 4);
 	fcdb3(p8);
-	fb1e5(p4, p8);
-	f075b(359, &l218);
+	draw_inventory_panel(p4, p8);
+	get_message(359, &l218);
 	l2 = 0;
 Ld4bf:
-	l12 = fc8c2(p8, l2, ((char *)l48 + 16));
+	l12 = can_equip_item(p8, l2, ((char *)l48 + 16));
 	if (l12 <= 0) goto Ldac2;
-	f32be(p6, 32, 3, 0);
-	f2b19(p6);
-	f075b(350, &l128);
-	f075b((l2 + 351), &l208);
-	f05c1(&l128, &l208, 36);
-	f030b(p6, 2, 1);
-	f251d(p6, &l128, 3);
+	fill_window(p6, 32, 3, 0);
+	refresh_window(p6);
+	get_message(350, &l128);
+	get_message((l2 + 351), &l208);
+	replace_char_with_string(&l128, &l208, 36);
+	set_cursor(p6, 2, 1);
+	print_string_hi(p6, &l128, 3);
 	p6[6]++;
 	l220 = (unsigned char)p6[6];
 	l222 = (unsigned char)p6[7];
-	if (g0846 != 1) goto Ld57f;
-	f251d(p6, &l218, 3);
+	if (mouse_present != 1) goto Ld57f;
+	print_string_hi(p6, &l218, 3);
 	goto Ld591;
 Ld57f:
-	f24e9(p6, &l218, -5);
+	print_string(p6, &l218, -5);
 Ld591:
 	l4 = 0;
 	goto Ld62c;
 Ld599:
-	f030b(p4, 21, (l48[(l4 + 8)] + 9));
-	f22b7(p4, 100, 5);
-	f24e9(p4, ((l48[(l4 + 8)] << 4) + 21982), 4);
-	f0c16(l4, ((unsigned char)p4[2] + 21), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9), ((unsigned char)p4[2] + 36), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9));
+	set_cursor(p4, 21, (l48[(l4 + 8)] + 9));
+	put_char(p4, 100, 5);
+	print_string(p4, ((l48[(l4 + 8)] << 4) + 21982), 4);
+	set_click_region(l4, ((unsigned char)p4[2] + 21), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9), ((unsigned char)p4[2] + 36), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9));
 	l4++;
 Ld62c:
 	if (l4 < l12) goto Ld599;
-	f0c16(l12, ((unsigned char)p6[2] + l220), ((unsigned char)p6[3] + l222), (((strlen(&l218) + (unsigned char)p6[2]) + l220) - 1), ((unsigned char)p6[3] + l222));
-	f0c16((l12 + 1), 255, 0, 0, 0);
+	set_click_region(l12, ((unsigned char)p6[2] + l220), ((unsigned char)p6[3] + l222), (((strlen(&l218) + (unsigned char)p6[2]) + l220) - 1), ((unsigned char)p6[3] + l222));
+	set_click_region((l12 + 1), 255, 0, 0, 0);
 	l10 = -1;
 Ld695:
-	if (g0846) goto Ld706;
+	if (mouse_present) goto Ld706;
 	if (l10 != -1) goto Ld6c7;
-	f030b(p6, l220, l222);
-	f24e9(p6, &l218, -5);
+	set_cursor(p6, l220, l222);
+	print_string(p6, &l218, -5);
 	goto Ld706;
 Ld6c7:
-	f030b(p4, 22, (l48[(l10 + 8)] + 9));
-	f24e9(p4, ((l48[(l10 + 8)] << 4) + 21982), -5);
+	set_cursor(p4, 22, (l48[(l10 + 8)] + 9));
+	print_string(p4, ((l48[(l10 + 8)] << 4) + 21982), -5);
 Ld706:
-	l6 = f8891(21822, 13720);
-	if (g4fc4 != 1) goto Ld736;
+	l6 = get_menu_input(21822, 13720);
+	if (menu_clicked != 1) goto Ld736;
 	l10 = (l6 < l12 ? l6 : -1);
 	l6 = 5;
 	goto Ld80a;
@@ -149,12 +150,12 @@ Ld736:
 	switch (l6) {
 case 2:
 	if (l10 != -1) goto Ld76c;
-	f030b(p6, l220, l222);
-	f251d(p6, &l218, 3);
+	set_cursor(p6, l220, l222);
+	print_string_hi(p6, &l218, 3);
 	l10 = 0;
 	goto Ld799;
 Ld76c:
-	fd331(p4, l48[(l10 + 8)], 4, 0);
+	unhighlight_item_row(p4, l48[(l10 + 8)], 4, 0);
 	if ((l10 - 1) < 0) goto Ld794;
 	l10--;
 	goto Ld799;
@@ -164,12 +165,12 @@ Ld799:
 	goto Ld80a;
 case 4:
 	if (l10 != -1) goto Ld7cb;
-	f030b(p6, l220, l222);
-	f251d(p6, &l218, 3);
+	set_cursor(p6, l220, l222);
+	print_string_hi(p6, &l218, 3);
 	l10 = 0;
 	goto Ld7fb;
 Ld7cb:
-	fd331(p4, l48[(l10 + 8)], 4, 0);
+	unhighlight_item_row(p4, l48[(l10 + 8)], 4, 0);
 	if ((l10 + 1) >= l12) goto Ld7f6;
 	l10++;
 	goto Ld7fb;
@@ -182,9 +183,9 @@ Ld80a:
 	if (l6 != 5) goto Ld695;
 	if (l10 == -1) goto Ldab6;
 	l8 = l48[(l10 + 8)];
-	g44f8[((432 * p8) + l2)] = *(char *)&l8;
-	g442f[((432 * p8) + (l8 << 3))] |= 1;
-	f0882(1, &l296, *(int *)((char *)g4428 + ((432 * p8) + (l8 << 3))), 0);
+	pc_equipped[((432 * p8) + l2)] = *(char *)&l8;
+	pc_item_flags[((432 * p8) + (l8 << 3))] |= 1;
+	access_scenario_record(1, &l296, *(int *)((char *)pc_item_id + ((432 * p8) + (l8 << 3))), 0);
 	l48[l2] = (unsigned char)l228;
 	if (!l2) goto Ld88d;
 	if (l2 != 1) goto Lda1d;
@@ -200,8 +201,8 @@ Ld8b8:
 	l4++;
 	if (l4 < 8) goto Ld8b8;
 	l4 = ((unsigned char)g4539[(432 * p8)] / 5);
-	if (g4587[(432 * p8)] == 12) goto Ld912;
-	if (g4587[(432 * p8)] != 13) goto Ld934;
+	if (pc_class[(432 * p8)] == 12) goto Ld912;
+	if (pc_class[(432 * p8)] != 13) goto Ld934;
 Ld912:
 	g44e2[((432 * p8) + (l2 << 4))] = (char)(((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4) + 5);
 	goto Ld95b;
@@ -222,51 +223,51 @@ ld9b8:
 	db 08bh,086h,0f0h,0feh,089h,087h,0d8h,044h,08bh,086h,0f2h,0feh,089h,087h,0dah,044h
 	db 08ah,086h,020h,0ffh,088h,087h,0e7h,044h
 #endasm
-	f030b(l298, (l2 + 3), (((p8 / 2) << 2) + 1));
-	f23e3(l298, (unsigned char)(((unsigned char)g442d[((432 * p8) + (l8 << 3))] + 1)), 4);
+	set_cursor(l298, (l2 + 3), (((p8 / 2) << 2) + 1));
+	put_char_hi(l298, (unsigned char)(((unsigned char)pc_item_icon[((432 * p8) + (l8 << 3))] + 1)), 4);
 	goto Lda34;
 Lda1d:
 	g4548[((432 * p8) + l2)] -= l226;
 Lda34:
 	l4 = 1;
 Lda39:
-	fcbf4(p8, l4, (unsigned char)l264[l4]);
+	add_skill_bonus(p8, l4, (unsigned char)l264[l4]);
 	l4++;
 	if (l4 < 14) goto Lda39;
 	g458a[(432 * p8)] = (char)((unsigned)g458a[(432 * p8)] < l230 ? l230 : g458a[(432 * p8)]);
 	g458b[(432 * p8)] = (char)((unsigned)g458b[(432 * p8)] < l229 ? l229 : g458b[(432 * p8)]);
 	if (l2) goto Ldaaf;
-	if (!((unsigned char)g442f[((432 * p8) + (l8 << 3))] & 8)) goto Ldaaf;
+	if (!((unsigned char)pc_item_flags[((432 * p8) + (l8 << 3))] & 8)) goto Ldaaf;
 	l2++;
 Ldaaf:
 	fc726(p8);
 Ldab6:
-	fb1e5(p4, p8);
+	draw_inventory_panel(p4, p8);
 Ldac2:
 	l2++;
 	if (l2 < 8) goto Ld4bf;
 	l2 = 0;
 Ldad5:
 	if (l48[l2] <= 0) goto Ldd7f;
-	f32be(p6, 32, 3, 0);
-	f2b19(p6);
-	f075b(380, 21902);
-	f030b(p6, (20 - ((strlen(21902) + 1) / 2)), 1);
-	f251d(p6, 21902, 3);
-	f030b(p6, (20 - ((strlen((((unsigned char)g44f8[((432 * p8) + l2)] << 4) + 21982)) + 11) / 2)), 2);
-	f251d(p6, (((unsigned char)g44f8[((432 * p8) + l2)] << 4) + 21982), 3);
+	fill_window(p6, 32, 3, 0);
+	refresh_window(p6);
+	get_message(380, 21902);
+	set_cursor(p6, (20 - ((strlen(21902) + 1) / 2)), 1);
+	print_string_hi(p6, 21902, 3);
+	set_cursor(p6, (20 - ((strlen((((unsigned char)pc_equipped[((432 * p8) + l2)] << 4) + 21982)) + 11) / 2)), 2);
+	print_string_hi(p6, (((unsigned char)pc_equipped[((432 * p8) + l2)] << 4) + 21982), 3);
 	p6[6]++;
-	f23e3(p6, 63, 3);
+	put_char_hi(p6, 63, 3);
 	p6[6] += 2;
 	l304 = 1;
 	l302 = 1;
 	l300 = -1;
-	l10 = rename_test_fn(p6, 381, &l304, (unsigned char)p6[6], 2, 3, 1, 5, 0);
+	l10 = run_menu(p6, 381, &l304, (unsigned char)p6[6], 2, 3, 1, 5, 0);
 	if (l10 != 1) goto Ldd7f;
 	if (l48[l2] >= 9) goto Ldc46;
 	l4 = (l48[l2] - 1);
-	if ((unsigned)g4514[((432 * p8) + l4)] >= 20) goto Ldc43;
-	g4514[((432 * p8) + l4)]++;
+	if ((unsigned)pc_stats[((432 * p8) + l4)] >= 20) goto Ldc43;
+	pc_stats[((432 * p8) + l4)]++;
 Ldc43:
 	goto Ldd55;
 Ldc46:
@@ -293,8 +294,8 @@ Ldc95:
 	g450a[((432 * p8) + l4)] = 0;
 	l4++;
 	if (l4 < 10) goto Ldc95;
-	*(int *)((char *)g4400 + (432 * p8)) = *(int *)((char *)g4402 + (432 * p8));
-	*(int *)((char *)g4404 + (432 * p8)) = *(int *)((char *)g4406 + (432 * p8));
+	*(int *)((char *)pc_hp + (432 * p8)) = *(int *)((char *)pc_hp_max + (432 * p8));
+	*(int *)((char *)pc_stamina + (432 * p8)) = *(int *)((char *)pc_stamina_max + (432 * p8));
 	goto Ldd55;
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08bh,087h,0f0h,043h,08bh,097h,0f2h,043h
@@ -305,23 +306,23 @@ Ldc95:
 Ldcf0:
 	goto Ldd05;
 Ldcf2:
-	*(long *)((char *)g43f0 + (432 * p8)) += -365L;
+	*(long *)((char *)pc_age_days + (432 * p8)) += -365L;
 Ldd05:
 	if ((unsigned)g4517[(432 * p8)] >= 18) goto Ldd18;
 	g4517[(432 * p8)]++;
 Ldd18:
 	goto Ldd55;
-	l4 = (f09e2(5) + 2);
-	*(int *)((char *)g4402 + (432 * p8)) += l4;
-	*(int *)((char *)g4400 + (432 * p8)) += l4;
+	l4 = (random(5) + 2);
+	*(int *)((char *)pc_hp_max + (432 * p8)) += l4;
+	*(int *)((char *)pc_hp + (432 * p8)) += l4;
 #asm
 	db 0ebh,01ah,055h,0dch,06ch,0dch,083h,0dch,0cbh,0dch,01ah,0ddh
 ldd45:
 	db 02dh,009h,000h,03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,03bh,0ddh
 #endasm
 Ldd55:
-	f5f53(p8, (unsigned char)g44f8[((432 * p8) + l2)]);
-	f93f8(p4, p6, p8);
+	use_item_charge(p8, (unsigned char)pc_equipped[((432 * p8) + l2)]);
+	draw_sheet(p4, p6, p8);
 Ldd7f:
 	l2++;
 	if (l2 < 8) goto Ldad5;

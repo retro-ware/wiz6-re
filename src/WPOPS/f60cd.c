@@ -2,7 +2,7 @@ extern char g02ca[];
 extern char g02cb[];
 extern char g02cc[];
 extern char g02cd[];
-f60cd(p4)
+draw_spell_frame(p4)
 {
 	int l2;
 	int l4;

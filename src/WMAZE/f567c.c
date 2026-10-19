@@ -1,9 +1,9 @@
-extern int g3342;
+extern int main_window;
 f567c(p4, p6, p8)
 {
-	f53e5(p4);
-	f280c();
-	f0aaa(p6);
-	f533b(p8);
-	f09fb(g3342, 1);
+	show_maze_message(p4);
+	flush_keys();
+	play_sound(p6);
+	wait_animating_m(p8);
+	erase_window(main_window, 1);
 }

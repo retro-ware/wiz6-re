@@ -10,13 +10,13 @@ extern char g4519[];
 extern char g4525[];
 extern char g4539[];
 extern char g4548[];
-extern char g4585[];
-extern char g4587[];
+extern char pc_class[];
+extern char pc_race[];
 fcdb3(p4)
 {
 	int l2;
 	int l4;
-	switch ((unsigned char)g4587[(432 * p4)]) {
+	switch ((unsigned char)pc_class[(432 * p4)]) {
 case 0:
 	fcc36(p4, 20885, 20900);
 	goto Lceb6;
@@ -53,56 +53,56 @@ case 6:
 	goto Lceb6;
 	}
 Lceb6:
-	switch ((unsigned char)g4585[(432 * p4)]) {
+	switch ((unsigned char)pc_race[(432 * p4)]) {
 case 0:
-	fcbf4(p4, 11, 20);
+	add_skill_bonus(p4, 11, 20);
 	goto Ld04f;
 case 2:
 case 4:
-	fcbf4(p4, 6, (((unsigned char)g4517[(432 * p4)] / 5) * 5));
+	add_skill_bonus(p4, 6, (((unsigned char)g4517[(432 * p4)] / 5) * 5));
 case 3:
-	fcbf4(p4, 12, (((unsigned char)g4517[(432 * p4)] / 5) * 5));
+	add_skill_bonus(p4, 12, (((unsigned char)g4517[(432 * p4)] / 5) * 5));
 	goto Ld04f;
 case 1:
-	fcbf4(p4, 9, 20);
+	add_skill_bonus(p4, 9, 20);
 	goto Ld04f;
 case 5:
-	fcbf4(p4, 12, 25);
-	fcbf4(p4, 4, 25);
-	fcbf4(p4, 7, 25);
-	fcbf4(p4, 10, 25);
-	fcbf4(p4, 11, 25);
+	add_skill_bonus(p4, 12, 25);
+	add_skill_bonus(p4, 4, 25);
+	add_skill_bonus(p4, 7, 25);
+	add_skill_bonus(p4, 10, 25);
+	add_skill_bonus(p4, 11, 25);
 	goto Ld04f;
 case 6:
 case 7:
-	fcbf4(p4, 10, 25);
-	fcbf4(p4, 8, 10);
-	fcbf4(p4, 3, -20);
+	add_skill_bonus(p4, 10, 25);
+	add_skill_bonus(p4, 8, 10);
+	add_skill_bonus(p4, 3, -20);
 	goto Ld04f;
 case 8:
-	fcbf4(p4, 7, 15);
-	fcbf4(p4, 4, 20);
+	add_skill_bonus(p4, 7, 15);
+	add_skill_bonus(p4, 4, 20);
 case 9:
-	fcbf4(p4, 3, 20);
+	add_skill_bonus(p4, 3, 20);
 	goto Ld04f;
 case 10:
-	fcbf4(p4, 12, 25);
-	fcbf4(p4, 3, 15);
+	add_skill_bonus(p4, 12, 25);
+	add_skill_bonus(p4, 3, 15);
 	goto Ld04f;
 	}
 Ld04f:
 	if ((unsigned)g4517[(432 * p4)] <= 15) goto Ld080;
-	fcbf4(p4, 6, 5);
-	fcbf4(p4, 11, 5);
+	add_skill_bonus(p4, 6, 5);
+	add_skill_bonus(p4, 11, 5);
 Ld080:
 	if ((unsigned)g4515[(432 * p4)] <= 15) goto Ld0a0;
-	fcbf4(p4, 9, 5);
+	add_skill_bonus(p4, 9, 5);
 Ld0a0:
 	if ((unsigned)g4519[(432 * p4)] <= 15) goto Ld0d1;
-	fcbf4(p4, 7, 5);
-	fcbf4(p4, 4, 5);
+	add_skill_bonus(p4, 7, 5);
+	add_skill_bonus(p4, 4, 5);
 Ld0d1:
-	switch ((unsigned char)g4587[(432 * p4)]) {
+	switch ((unsigned char)pc_class[(432 * p4)]) {
 case 0:
 case 4:
 case 8:
@@ -147,8 +147,8 @@ Ld189:
 Ld1ec:
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
-	if (g4587[(432 * p4)] == 13) goto Ld21d;
-	if (g4587[(432 * p4)] != 12) goto Ld23d;
+	if (pc_class[(432 * p4)] == 13) goto Ld21d;
+	if (pc_class[(432 * p4)] != 12) goto Ld23d;
 Ld21d:
 	g44db[(432 * p4)] = (char)((l2 / 3) + 2);
 	g44e7[(432 * p4)] |= 64;

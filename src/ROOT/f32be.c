@@ -1,6 +1,6 @@
 #asm
-	public f32be_
-f32be_:
+	public fill_window_
+fill_window_:
 	db 055h,08bh,0ech,083h,0ech,002h,01eh,006h,056h,057h,08bh,076h,004h,08dh,03eh,0d2h
 	db 01bh,02eh,08bh,01dh,0bah,001h,000h
 l32d5:

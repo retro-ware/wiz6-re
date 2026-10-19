@@ -1,21 +1,22 @@
-extern int g363a;
-extern int g43ce;
 extern int g5012;
-f70ce()
+extern int game_state;
+extern int party_count;
+/* Redraw party panels and monsters; let monsters advance; continue with combat menu. */
+redraw_combat_screen()
 {
-	int l2;
-	l2 = 0;
+	int i;
+	i = 0;
 	goto L70e5;
 L70db:
-	f5fe6(l2);
-	l2++;
+	draw_member_panel_mele(i);
+	i++;
 L70e5:
-	if (l2 < g43ce) goto L70db;
-	f6bf6();
-	f6e12(0);
+	if (i < party_count) goto L70db;
+	arrange_monster_positions();
+	show_encounter_view(0);
 	if (g5012) goto L7103;
-	f574b();
+	advance_monster_groups();
 L7103:
 	g5012 = 0;
-	g363a = 12;
+	game_state = 12;
 }

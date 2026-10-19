@@ -1,22 +1,22 @@
 #asm
-	public f4937_
-	extrn f1124_:near
-	extrn f2881_:near
-	extrn f2925_:near
-	extrn f45a6_:near
-	extrn f4735_:near
+	public load_maze_level_
+	extrn alloc_maze_buffers_:near
+	extrn ensure_disk_for_:near
+	extrn flood_mark_cells_:near
+	extrn get_bitfield_:near
 	extrn movmem_:near
+	extrn set_bit_:near
 	extrn setmem_:near
-f4937_:
+load_maze_level_:
 	db 055h,08bh,0ech,083h,0c4h,0f8h,057h,056h,08bh,046h,004h,0a3h,03ch,036h,050h,0b8h
 	db 002h,000h,050h
-	call f1124_
+	call ensure_disk_for_
 	db 083h,0c4h,004h,083h,03eh,03ch,036h,000h,07dh,00ch,0c7h,006h,03ah,036h,007h,000h
 l495d:
 	db 05eh,05fh,08bh,0e5h,05dh,0c3h
 l4963:
 	db 0c6h,006h,0ebh,04eh,001h,0c6h,006h,0eah,04eh,001h
-	call f45a6_
+	call alloc_maze_buffers_
 	db 0b8h,00ah,000h,050h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h
 	db 0e0h,005h,0ech,04eh,050h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h
 	db 0d1h,0e0h,005h,0f8h,033h,050h
@@ -34,7 +34,7 @@ l49db:
 	db 0c6h,0b9h,006h,000h,0d3h,0e0h,050h,08ah,081h,080h,004h,02ah,0e4h,08bh,0c8h,0d1h
 	db 0e0h,0d1h,0e0h,0d1h,0e0h,08bh,0c8h,058h,003h,0c1h,050h,08ah,081h,0f0h,003h,02ah
 	db 0e4h,08bh,0c8h,058h,003h,0c1h,050h,0b8h,068h,04eh,050h
-	call f2881_
+	call set_bit_
 	db 083h,0c4h,006h
 l4a2c:
 	db 047h,0ebh,0ach
@@ -48,13 +48,13 @@ l4a4a:
 l4a4d:
 	db 0b8h,003h,000h,050h,08bh,0c6h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,003h,0c7h
 	db 050h,0a1h,0aah,04fh,005h,0fah,004h,050h
-	call f2925_
+	call get_bitfield_
 	db 083h,0c4h,006h,089h,046h,0feh,0b8h,003h,000h,050h,08bh,0c6h,08bh,0d0h,0d1h,0e0h
 	db 0d1h,0e0h,003h,0c2h,003h,0c7h,050h,0a1h,0aah,04fh,005h,012h,005h,050h
-	call f2925_
+	call get_bitfield_
 	db 083h,0c4h,006h,089h,046h,0fch,003h,046h,0feh,07eh,011h,0b8h,001h,000h,050h,0ffh
 	db 076h,0fch,0ffh,076h,0feh,056h
-	call f4735_
+	call flood_mark_cells_
 	db 083h,0c4h,008h
 l4aa5:
 	db 046h,083h,0feh,00ch,07ch,0a2h,047h,083h,0ffh,005h,07ch,099h,083h,03eh,03ch,036h

@@ -10,7 +10,7 @@
 	global g5114_:byte,2
 	global g5116_:byte,2
 	global g5118_:byte,2
-	global g511a_:byte,2
+	global pclist_race_:byte,2
 	global g511c_:byte,1
 	global g511d_:byte,11
 	global g5128_:byte,2
@@ -42,7 +42,7 @@
 	global g517e_:byte,6
 	global g5184_:byte,1
 	global g5185_:byte,13
-	global g5192_:byte,22
+	global chest_trap_:byte,22
 	global g51a8_:byte,2
 	global g51aa_:byte,2
 	global g51ac_:byte,6

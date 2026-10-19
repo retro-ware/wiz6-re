@@ -1,4 +1,4 @@
-extern int g440c[];
+extern int pc_level[];
 ff6e6(p4)
 {
 	int l2;
@@ -31,7 +31,7 @@ case 6:
 	goto Lf747;
 	}
 Lf747:
-	if (*(int *)((char *)g440c + (432 * p4)) < l6) goto Lf75b;
+	if (*(int *)((char *)pc_level + (432 * p4)) < l6) goto Lf75b;
 	l4++;
 Lf75b:
 	l2++;

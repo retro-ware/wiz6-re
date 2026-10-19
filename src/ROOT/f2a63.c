@@ -1,11 +1,12 @@
+/* Redraw all windows to the screen. */
 #asm
-	public f2a63_
-	extrn f2b19_:near
-f2a63_:
+	public refresh_all_windows_
+	extrn refresh_window_:near
+refresh_all_windows_:
 	db 055h,08bh,0ech,083h,0ech,006h,006h,057h,056h,08dh,03eh,0d2h,01bh
 l2a70:
 	db 02eh,08bh,035h,00bh,0f6h,074h,00ch,056h
-	call f2b19_
+	call refresh_window_
 	db 083h,0c4h,002h,083h,0c7h,002h,0ebh,0edh
 l2a83:
 	db 02eh,0ffh,01eh,0a2h,01bh,02eh,0a1h,060h,01bh,08eh,0c0h,0beh,000h,000h,0bfh,000h

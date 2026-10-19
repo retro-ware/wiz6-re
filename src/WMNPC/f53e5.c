@@ -1,8 +1,8 @@
-extern int g3342;
+extern int main_window;
 f53e5()
 {
-	f3118(g3342);
-	f030b(g3342, 22, 0);
-	f083f(3503, g3342, 18);
-	f31d1(g3342);
+	defer_window_draw(main_window);
+	set_cursor(main_window, 22, 0);
+	print_message(3503, main_window, 18);
+	resume_window_draw(main_window);
 }

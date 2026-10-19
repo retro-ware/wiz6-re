@@ -1,9 +1,9 @@
 #asm
-	global g5060_:byte,2
-	global g5062_:byte,2
-	global g5064_:byte,150
-	global g50fa_:byte,32
-	global g511a_:byte,32
-	global g513a_:byte,32
-	global g515a_:byte,32
+	global camp_anim_tick_:byte,2
+	global camp_anim_dy_:byte,2
+	global camp_anim_dx_:byte,150
+	global pclist_sex_:byte,32
+	global pclist_race_:byte,32
+	global pclist_class_:byte,32
+	global pclist_pcindex_:byte,32
 #endasm

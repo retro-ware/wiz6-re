@@ -1,22 +1,23 @@
 #asm
 	extrn $ldv:near
-	extrn f45a6_:near
 	extrn strcpy_:near
+	extrn wait_animating_view_:near
 #endasm
 extern char g019b[];
 extern char g019d[];
 extern char g3813[];
-extern int g3342;
-extern int g4360;
-extern int g4362[];
+extern int bottom_line_win;
 extern int g43a6[];
-extern int g43a8[];
 extern int g43b4[];
-extern int g43b6[];
-extern int g4fb2;
-extern int g4fb6;
 extern int g50b4[];
-f574b()
+extern int group_monster_rec[];
+extern int main_window;
+extern int monster_group_count;
+extern int monster_groups[];
+extern int party_picture_win;
+extern int view_pos_group[];
+/* Let monster groups advance and swap places, announcing 'ADVANCE(S)!'. */
+advance_monster_groups()
 {
 	int l2;
 	int l4;
@@ -27,8 +28,8 @@ f574b()
 	int l28[8];
 	char x28[800];
 	register int rsi;
-	f3118(g3342);
-	f3118(g4fb2);
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
 	l2 = 1;
 	goto L5967;
 L576b:
@@ -37,7 +38,7 @@ L576b:
 	goto L5821;
 L5781:
 	rsi = (44 * l4);
-	if (((char *)g43a8[l2] + rsi)[34]) goto L581e;
+	if (((char *)monster_groups[l2] + rsi)[34]) goto L581e;
 #asm
 l579d:
 	db 080h,078h,010h,000h,074h,003h,0e9h,078h,000h
@@ -73,15 +74,15 @@ L57e6:
 L581e:
 	l4++;
 L5821:
-	if ((unsigned char)g019d[g43a8[l2]] > l4) goto L5781;
-	if ((unsigned)(*(char **)((char *)g43b6 + (l2 << 1)))[168] <= 0) goto L5877;
+	if ((unsigned char)g019d[monster_groups[l2]] > l4) goto L5781;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[168] <= 0) goto L5877;
 #asm
 	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh
 	db 0b4h,0b6h,043h,08ah,084h,0a8h,000h,02ah,0e4h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh
 	db 0c8h,040h,08bh,0c8h,058h,099h,0f7h,0f9h,089h,047h,0e6h
 #endasm
 L5877:
-	if ((unsigned)(*(char **)((char *)g43b6 + (l2 << 1)))[170] <= 0) goto L58d7;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170] <= 0) goto L58d7;
 #asm
 	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh
 	db 09fh,0b6h,043h,08ah,087h,0aah,000h,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh
@@ -92,7 +93,7 @@ L5877:
 	db 003h,0ddh,089h,047h,0e6h
 #endasm
 L58d7:
-	if ((unsigned)(*(char **)((char *)g43b6 + (l2 << 1)))[171] <= 0) goto L5937;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171] <= 0) goto L5937;
 #asm
 	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh
 	db 09fh,0b6h,043h,08ah,087h,0abh,000h,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh
@@ -103,21 +104,21 @@ L58d7:
 	db 003h,0ddh,089h,047h,0e6h
 #endasm
 L5937:
-	if (!g3813[((unsigned char)g019b[g43a8[l2]] * 314)]) goto L5964;
+	if (!g3813[((unsigned char)g019b[monster_groups[l2]] * 314)]) goto L5964;
 	l28[(l2 + 1)] = 0;
 L5964:
 	l2++;
 L5967:
-	if (l2 <= g4360) goto L576b;
-	l2 = g4360;
+	if (l2 <= monster_group_count) goto L576b;
+	l2 = monster_group_count;
 	goto L5be5;
 L597c:
-	if (f09e2(l28[(l2 + 1)]) <= f09e2(l28[l2])) goto L5be2;
-	f02f0(g4fb6, 0);
-	f2a63();
+	if (random(l28[(l2 + 1)]) <= random(l28[l2])) goto L5be2;
+	clear_window(party_picture_win, 0);
+	refresh_all_windows();
 #asm
 	db 0b8h,001h,000h,050h
-	call f45a6_
+	call wait_animating_view_
 	db 059h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h
 	db 001h,075h,005h,0b8h,000h,000h,0ebh,003h
 #endasm
@@ -137,11 +138,11 @@ l59da:
 	call strcpy_
 	db 083h,0c4h,004h
 #endasm
-	f075b((g019d[g43a8[l2]] == 1 ? 3510 : 3511), 20580);
-	f030b(g4fb6, (20 - (((strlen(20500) + strlen(20580)) + 1) / 2)), 0);
-	f24e9(g4fb6, 20500, 6);
-	f24e9(g4fb6, 20580, 14);
-	f0aaa(0);
+	get_message((g019d[monster_groups[l2]] == 1 ? 3510 : 3511), 20580);
+	set_cursor(party_picture_win, (20 - (((strlen(20500) + strlen(20580)) + 1) / 2)), 0);
+	print_string(party_picture_win, 20500, 6);
+	print_string(party_picture_win, 20580, 14);
+	play_sound(0);
 	l4 = 0;
 	goto L5ae2;
 L5a93:
@@ -156,7 +157,7 @@ L5adf:
 	l4++;
 L5ae2:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5a93;
-	f6e12(1);
+	show_encounter_view(1);
 	l4 = 0;
 	goto L5b65;
 L5b07:
@@ -166,22 +167,22 @@ L5b07:
 	db 042h,08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h
 	db 02ah,098h,099h,0f7h,0f9h,089h,056h,0f8h
 #endasm
-	*(int *)((char *)g4362 + ((l6 * 10) + (l8 << 1))) = 0;
+	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
 	((char *)g43a6[l2] + rsi)[42] = 255;
 L5b62:
 	l4++;
 L5b65:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5b07;
-	f6e01();
+	redraw_view_background();
 	l6 = l28[(l2 + 1)];
 	l28[(l2 + 1)] = l28[l2];
 	l28[l2] = l6;
-	swapmem(g43a8[l2], g43a6[l2], 416);
-	swapmem(g43b6[l2], g43b4[l2], 222);
-	f5574();
-	f5066((l2 - 1));
-	f6bf6();
-	f6e12(0);
+	swapmem(monster_groups[l2], g43a6[l2], 416);
+	swapmem(group_monster_rec[l2], g43b4[l2], 222);
+	load_group_pics();
+	place_group_sprites((l2 - 1));
+	arrange_monster_positions();
+	show_encounter_view(0);
 L5be2:
 	l2--;
 L5be5:

@@ -1,10 +1,10 @@
-extern int g546e;
-f4b9c(p4)
+extern int sheet_win;
+print_status_centered(p4)
 {
 	char x0[38];
 	int l40;
-	f4b6d();
-	f075b(p4, &l40);
-	f030b(g546e, (30 - ((strlen(&l40) + 1) / 2)), 5);
-	f251d(g546e, &l40, 3);
+	clear_status_line();
+	get_message(p4, &l40);
+	set_cursor(sheet_win, (30 - ((strlen(&l40) + 1) / 2)), 5);
+	print_string_hi(sheet_win, &l40, 3);
 }

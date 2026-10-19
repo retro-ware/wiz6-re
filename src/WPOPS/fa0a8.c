@@ -1,7 +1,7 @@
 extern char g50a2[];
 extern char g50d5[];
 extern char g50de[];
-fa0a8(p4, p6)
+hide_right_far(p4, p6)
 {
 	if (p6 == 2) goto La0c9;
 	if (p6 >= 5) goto La0c9;

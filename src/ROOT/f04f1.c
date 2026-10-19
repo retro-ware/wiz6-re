@@ -1,4 +1,4 @@
-f04f1(p4, p6)
+int_to_string(value, buf)
 {
-	f0453((long)p4, p6);
+	long_to_string((long)value, buf);
 }

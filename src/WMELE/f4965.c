@@ -1,47 +1,48 @@
 #asm
-	extrn f09e2_:near
-	extrn f45f1_:near
-	extrn f4829_:near
 	extrn f4858_:near
+	extrn load_sound_mele_:near
+	extrn random_:near
+	extrn roll_dice_:near
 #endasm
+extern char cfg_level;
 extern char g019a[];
 extern char g019d[];
-extern char g3593;
-extern int g363c;
-extern int g4336;
+extern int cur_sound;
 extern int g4338;
-extern int g4360;
-extern int g43a8[];
-extern int g43b6[];
-f4965(p4, p6)
+extern int game_state_arg;
+extern int group_monster_rec[];
+extern int monster_group_count;
+extern int monster_groups[];
+/* Read monster record mon into group n, roll its members and maybe chain a companion group. */
+generate_monster_group(mon, n)
 {
-	int l2;
+	int i;
 	int l4;
 	register int rsi;
 	register int rdi;
-	g4360++;
-	f0882(4, g43b6[p6], p4, 0);
-	g019a[g43a8[p6]] = *(char *)&p4;
+	monster_group_count++;
+	access_scenario_record(4, group_monster_rec[n], mon, 0);
+	g019a[monster_groups[n]] = *(char *)&mon;
 #asm
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d1h,000h,02ah
 	db 0e4h,050h
 	call f4858_
 	db 059h,08bh,04eh,006h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h,09bh,001h
 #endasm
-	if (p6 != 1) goto L49ef;
+	if (n != 1) goto L49ef;
 #asm
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,080h,0bfh,0d2h,000h,000h
 	db 076h,00dh,08ah,087h,0d2h,000h,02ah,0e4h,050h
-	call f45f1_
+	call load_sound_mele_
 	db 059h
 #endasm
 	goto L49ef;
 L49e9:
-	g4336 = -1;
+	cur_sound = -1;
 L49ef:
-	switch ((unsigned char)g3593) {
+	switch ((unsigned char)cfg_level) {
 case 1:
-	if (*(int *)((*(char **)((char *)g43b6 + (p6 << 1))) + 116) <= 0) goto L4a0a;
+	if (*(int *)((*(char **)((char *)group_monster_rec + (n << 1))) + 116) <= 0) goto L4a0a;
 #asm
 	db 0ffh,04fh,074h
 #endasm
@@ -61,12 +62,12 @@ L4a26:
 l4a26:
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h,0c1h,074h,083h,0ech
 	db 004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h
-	call f4829_
+	call roll_dice_
 	db 083h,0c4h,004h,08bh,04eh,006h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h
 	db 09dh,001h
 #endasm
-	if ((unsigned)g019d[g43a8[p6]] >= 1) goto L4a6f;
-	g019d[g43a8[p6]] = 1;
+	if ((unsigned)g019d[monster_groups[n]] >= 1) goto L4a6f;
+	g019d[monster_groups[n]] = 1;
 L4a6f:
 	;
 #asm
@@ -88,9 +89,9 @@ l4a9b:
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,076h,0feh,0c6h,080h
 	db 08ch,001h,000h
 #endasm
-	l2++;
-	if (l2 < 6) goto L4a9b;
-	l2 = 0;
+	i++;
+	if (i < 6) goto L4a9b;
+	i = 0;
 L4abe:
 	;
 #asm
@@ -98,12 +99,12 @@ l4abe:
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,076h,0feh,0c6h,080h
 	db 092h,001h,000h
 #endasm
-	l2++;
-	if (l2 < 4) goto L4abe;
-	if (g3593 != 2) goto L4af1;
-	(*(char **)((char *)g43b6 + (p6 << 1)))[122]++;
+	i++;
+	if (i < 4) goto L4abe;
+	if (cfg_level != 2) goto L4af1;
+	(*(char **)((char *)group_monster_rec + (n << 1)))[122]++;
 L4af1:
-	l2 = 0;
+	i = 0;
 	goto L4c85;
 L4af9:
 	;
@@ -114,76 +115,76 @@ l4af9:
 	db 08bh,09fh,0a8h,043h,058h,089h,000h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,08fh
 	db 0b6h,043h,083h,0c1h,078h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
 	db 08bh,0f8h,0a5h,0a5h
-	call f4829_
+	call roll_dice_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,006h,0d1h
 	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,004h
 #endasm
-	rsi = (44 * l2);
-	*(int *)(((char *)g43a8[p6] + rsi) + 2) = *(int *)(((char *)g43a8[p6] + rsi) + 4);
+	rsi = (44 * i);
+	*(int *)(((char *)monster_groups[n] + rsi) + 2) = *(int *)(((char *)monster_groups[n] + rsi) + 4);
 #asm
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h,0c1h,07ch,083h,0ech
 	db 004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h
-	call f4829_
+	call roll_dice_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,006h,0d1h
 	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,008h
 #endasm
-	rsi = (44 * l2);
-	*(int *)(((char *)g43a8[p6] + rsi) + 6) = *(int *)(((char *)g43a8[p6] + rsi) + 8);
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[42] = 255;
-	switch ((unsigned char)g3593) {
+	rsi = (44 * i);
+	*(int *)(((char *)monster_groups[n] + rsi) + 6) = *(int *)(((char *)monster_groups[n] + rsi) + 8);
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[42] = 255;
+	switch ((unsigned char)cfg_level) {
 case 1:
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[38] = 2;
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[39] = 2;
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[41] = 251;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[38] = 2;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[39] = 2;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[41] = 251;
 	goto L4c82;
 case 2:
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[38] = 254;
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[39] = 254;
-	rsi = (44 * l2);
-	((char *)g43a8[p6] + rsi)[41] = 5;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[38] = 254;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[39] = 254;
+	rsi = (44 * i);
+	((char *)monster_groups[n] + rsi)[41] = 5;
 	goto L4c82;
 	}
 L4c82:
-	l2++;
+	i++;
 L4c85:
-	if ((unsigned char)g019d[g43a8[p6]] > l2) goto L4af9;
-	l2 = (((g363c + 1) / 2) + 1);
+	if ((unsigned char)g019d[monster_groups[n]] > i) goto L4af9;
+	i = (((game_state_arg + 1) / 2) + 1);
 	if (g4338 <= 0) goto L4cb6;
-	l2++;
+	i++;
 L4cb6:
-	l2 = (l2 < 5 ? l2 : 5);
-	l4 = (g3593 != 1 ? (g3593 == 2 ? 75 : 100) : 150);
+	i = (i < 5 ? i : 5);
+	l4 = (cfg_level != 1 ? (cfg_level == 2 ? 75 : 100) : 150);
 #asm
 	db 08bh,046h,006h,03bh,046h,0feh,07dh,06eh
 #endasm
-	l2 = 0;
-	p4 = -1;
+	i = 0;
+	mon = -1;
 L4cf1:
 	;
 #asm
 l4cf1:
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0feh,080h,0b8h
 	db 0a6h,000h,000h,076h,02ch,0ffh,076h,0fch
-	call f09e2_
+	call random_
 	db 059h,050h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0feh
 	db 08ah,080h,0a6h,000h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h,07dh,009h,08ah,080h,0a4h
 	db 000h,02ah,0e4h,089h,046h,004h
 #endasm
 L4d32:
-	l2++;
+	i++;
 #asm
 	db 083h,07eh,0feh,002h,07dh,006h
 #endasm
-	if (p4 == -1) goto L4cf1;
+	if (mon == -1) goto L4cf1;
 L4d41:
-	if (p4 == -1) goto L4d55;
-	f4965(p4, (p6 + 1));
+	if (mon == -1) goto L4d55;
+	generate_monster_group(mon, (n + 1));
 L4d55:
 	;
 }

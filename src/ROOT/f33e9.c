@@ -1,11 +1,11 @@
 #asm
-	public f33e9_
+	public load_sound_slot_
 	extrn f34bc_:near
-	extrn f3556_:near
-f33e9_:
+	extrn free_sounds_:near
+load_sound_slot_:
 	db 055h,08bh,0ech,083h,0ech,008h,01eh,006h,056h,057h,08bh,05eh,00eh,0d1h,0e3h,0d1h
 	db 0e3h,081h,0c3h,079h,035h,089h,05eh,0feh
-	call f3556_
+	call free_sounds_
 	db 0b4h,042h,0b0h,000h,08bh,05eh,004h,08bh,04eh,008h,08bh,056h,006h,0cdh,021h,02eh
 	db 0a1h,07ch,01bh,08eh,0d8h,033h,0d2h,08bh,05eh,004h,0b9h,002h,000h,0b4h,03fh,0cdh
 	db 021h,033h,0dbh,08bh,007h,00bh,0c0h,075h,042h,08bh,05eh,0feh,08bh,046h,00ah,02dh

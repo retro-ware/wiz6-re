@@ -1,6 +1,7 @@
+/* Return the index of a substring in a string, or -1. */
 #asm
-	public f3384_
-f3384_:
+	public string_index_
+string_index_:
 	db 055h,08bh,0ech,083h,0ech,006h,01eh,006h,056h,057h,0fch,08bh,07eh,004h,08bh,076h
 	db 006h,08bh,0dfh,0b0h,000h,0b9h,0ffh,0ffh,0f2h,0aeh,08bh,0cfh,02bh,0cbh,049h,089h
 	db 04eh,0feh,08bh,0fbh

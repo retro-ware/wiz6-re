@@ -1,13 +1,13 @@
 extern char g4597[];
-extern int g440c[];
+extern int pc_level[];
 fccd2(p4)
 {
 	int l2;
-	if (*(int *)((char *)g440c + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lcd03;
+	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lcd03;
 	l2 = ((unsigned)g4597[(432 * p4)] <= 20 ? (unsigned char)g4597[(432 * p4)] : 20);
 	goto Lcd14;
 Lcd03:
-	l2 = (*(int *)((char *)g440c + (432 * p4)) > 20 ? 20 : *(int *)((char *)g440c + (432 * p4)));
+	l2 = (*(int *)((char *)pc_level + (432 * p4)) > 20 ? 20 : *(int *)((char *)pc_level + (432 * p4)));
 Lcd14:
 	;
 #asm

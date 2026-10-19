@@ -1,6 +1,6 @@
-extern int g4fbc;
-f98cb()
+extern int picture_win;
+redraw_maze_view()
 {
-	f903b();
-	f36a0(g4fbc);
+	draw_maze_view_m();
+	drv_op_c2(picture_win);
 }

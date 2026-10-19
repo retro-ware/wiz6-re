@@ -9,7 +9,7 @@ extern char g50cd[];
 extern char g50ce[];
 extern char g50d6[];
 extern int g5258;
-f9f84(p4, p6)
+hide_behind_front(p4, p6)
 {
 	if (p6 == 2) goto L9fa5;
 	if (p6 >= 5) goto L9fa5;

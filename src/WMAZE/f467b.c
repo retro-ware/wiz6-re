@@ -4,8 +4,8 @@ f467b()
 	int l4;
 	int l6;
 	register int rsi;
-	l2 = (f09e2(100) % 4);
-	l4 = f09e2(100);
+	l2 = (random(100) % 4);
+	l4 = random(100);
 	l6 = (l4 >= 74 ? (l4 < 92 ? 1 : 2) : 0);
 #asm
 	db 08bh,046h,004h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,050h,08bh,046h

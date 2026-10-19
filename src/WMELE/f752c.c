@@ -1,5 +1,6 @@
 extern int g4fa6;
-f752c(p4, p6, p8, p10, p12)
+/* Find the next free sprite slot after *slot that passes the visibility test. */
+next_sprite_slot(p4, p6, p8, p10, p12)
 char *p8;
 {
 	register int rsi;

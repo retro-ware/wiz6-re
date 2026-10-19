@@ -1,7 +1,8 @@
-extern int g3342;
-f51e4(p4)
+extern int main_window;
+/* Print text on the message line. */
+show_status_text(text)
 {
-	f09fb(g3342, 1);
-	f0b7e(g3342, p4, 0, 18);
-	f280c();
+	erase_window(main_window, 1);
+	print_centered(main_window, text, 0, 18);
+	flush_keys();
 }

@@ -1,15 +1,15 @@
 #asm
 	extrn strcpy_:near
 #endasm
-extern char g4595[];
-f5ec7(p4, p6)
+extern char pc_swag_count[];
+remove_swag_item(p4, p6)
 {
 	int l2;
 	char x2[2];
 	int l6;
 	register int rsi;
 	register int rdi;
-	g4595[(432 * p4)]--;
+	pc_swag_count[(432 * p4)]--;
 	l2 = p6;
 	goto L5f3a;
 L5ee3:
@@ -24,5 +24,5 @@ L5ee3:
 #endasm
 	l2++;
 L5f3a:
-	if ((unsigned char)g4595[(432 * p4)] > l2) goto L5ee3;
+	if ((unsigned char)pc_swag_count[(432 * p4)] > l2) goto L5ee3;
 }

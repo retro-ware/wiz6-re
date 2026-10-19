@@ -1,20 +1,21 @@
-extern int g3596;
-extern int g4fc4;
-f73c0(p4, p6)
+extern int click_flag;
+extern int menu_clicked;
+/* Wait for a key or mouse region; return the region (menu_hit=1) or key mapping. */
+get_menu_choice(keys, regions)
 {
-	int l2;
-	g4fc4 = 0;
+	int choice;
+	menu_clicked = 0;
 L73cc:
-	if (f2643(1)) goto L73f6;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L73f4;
-	g4fc4 = 1;
-	return (l2 - 1);
+	if (key_available(1)) goto L73f6;
+	choice = check_click_regions(regions);
+	if (click_flag != 1) goto L73f4;
+	menu_clicked = 1;
+	return (choice - 1);
 L73f4:
 	goto L73cc;
 L73f6:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
-	if (l2 < 0) goto L7414;
+	choice = char_index(keys, (unsigned char)(get_key(1)));
+	if (choice < 0) goto L7414;
 	return;
 L7414:
 	goto L73cc;

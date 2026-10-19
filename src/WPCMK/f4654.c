@@ -1,49 +1,50 @@
-f4654(p4, p6, p8, p10, p12)
-char *p4;
-char *p6;
+/* Line editor: read up to maxlen chars into buf; mode 0 printable, mode 1 digits only. */
+input_text(win, buf, maxlen, color, mode)
+char *win;
+char *buf;
 {
-	int l2;
-	int l4;
-	int l6;
-	int l8;
+	int ch;
+	int len;
+	int x;
+	int y;
 	register int rsi;
-	l6 = (unsigned char)p4[6];
-	l8 = (unsigned char)p4[7];
-	l4 = 0;
-	*p6 = 0;
-	f22b7(p4, 97, 1);
+	x = (unsigned char)win[6];
+	y = (unsigned char)win[7];
+	len = 0;
+	*buf = 0;
+	put_char(win, 97, 1);
 L468a:
-	l2 = (unsigned char)(f2724(1));
-	if (l2 == 13) goto L479c;
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
-	f030b(p4, l6, l8);
-	if (l2 != 8) goto L4724;
-	if (l4 <= 0) goto L471a;
-	l4--;
+	ch = (unsigned char)(get_key(1));
+	if (ch == 13) goto L479c;
+	set_cursor(win, x, y);
+	put_char(win, 32, 1);
+	set_cursor(win, x, y);
+	if (ch != 8) goto L4724;
+	if (len <= 0) goto L471a;
+	len--;
 #asm
 	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
 #endasm
-	l6--;
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
-	f030b(p4, l6, l8);
+	x--;
+	set_cursor(win, x, y);
+	put_char(win, 32, 1);
+	set_cursor(win, x, y);
 	goto L4722;
 L471a:
-	f0aaa(0);
+	play_sound(0);
 L4722:
 	goto L4788;
 L4724:
-	if (l4 < p8) goto L4736;
-	f0aaa(0);
+	if (len < maxlen) goto L4736;
+	play_sound(0);
 	goto L4788;
 L4736:
-	if (p12) goto L4749;
+	if (mode) goto L4749;
 #asm
 	db 08bh,046h,0feh,03dh,020h,000h,07ch,005h,03dh,07fh,000h,07eh,013h
 #endasm
 L4749:
-	if (p12 != 1) goto L4788;
+	if (mode != 1) goto L4788;
 #asm
 	db 08bh,046h,0feh,03dh,030h,000h,07ch,031h,03dh,039h,000h,07fh,02ch
 #endasm
@@ -53,16 +54,16 @@ L475c:
 l475c:
 	db 08ah,046h,0feh,08bh,05eh,006h,08bh,076h,0fch,088h,000h
 #endasm
-	l4++;
+	len++;
 #asm
 	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
 #endasm
-	f22b7(p4, (unsigned char)*(char *)&l2, p10);
-	l6++;
+	put_char(win, (unsigned char)*(char *)&ch, color);
+	x++;
 L4788:
-	f22b7(p4, 97, 1);
+	put_char(win, 97, 1);
 	goto L468a;
 L479c:
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
+	set_cursor(win, x, y);
+	put_char(win, 32, 1);
 }

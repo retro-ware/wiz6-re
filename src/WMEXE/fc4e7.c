@@ -1,4 +1,4 @@
-extern int g43ce;
+extern int party_count;
 fc4e7(p4)
 {
 	int l2;
@@ -13,7 +13,7 @@ Lc501:
 #endasm
 	return l4;
 Lc521:
-	l4 = ((g43ce - 1) > p4 ? (p4 + 1) : p4);
+	l4 = ((party_count - 1) > p4 ? (p4 + 1) : p4);
 	l2++;
 	if (l2 < 2) goto Lc501;
 	return p4;

@@ -8,8 +8,8 @@ fcd43(p4, p6)
 	char l80[80];
 	char x80[78];
 	int l160;
-	f075b(p4, l80);
-	f075b(p6, &l160);
+	get_message(p4, l80);
+	get_message(p6, &l160);
 	if (l80[0]) goto Lcd7c;
 #asm
 	db 08dh,086h,060h,0ffh,050h,0b8h,050h,006h,050h

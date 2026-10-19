@@ -1,20 +1,20 @@
-extern char g4fd8[];
-extern int g4fd2;
-f9575(p4)
+extern char roster_slot_used[];
+extern int roster_slot_count;
+is_name_taken(name)
 {
 	char x0[430];
-	int l432;
-	register int rsi;
-	rsi = 0;
+	int rec;
+	register int slot;
+	slot = 0;
 	goto L95b4;
 L9582:
-	if ((unsigned)g4fd8[rsi] <= 0) goto L95b3;
-	f457f(&l432, rsi, 0);
-	if (strcmp(p4, &l432)) goto L95b3;
+	if ((unsigned)roster_slot_used[slot] <= 0) goto L95b3;
+	access_roster_record(&rec, slot, 0);
+	if (strcmp(name, &rec)) goto L95b3;
 	return -1;
 L95b3:
-	rsi++;
+	slot++;
 L95b4:
-	if (rsi < g4fd2) goto L9582;
+	if (slot < roster_slot_count) goto L9582;
 	return 0;
 }

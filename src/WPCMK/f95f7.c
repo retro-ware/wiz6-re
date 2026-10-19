@@ -1,11 +1,11 @@
-extern int g56cc;
-f95f7(p4, p6)
+extern int menu_win;
+draw_creation_screen(p4, p6)
 {
-	f32be(p4, 0, 1, 0);
-	f32be(p6, 32, 3, 0);
-	f32be(g56cc, 32, 3, 0);
-	f3118(p4);
-	f4c13(p4);
-	f31d1(p4);
-	f2a63();
+	fill_window(p4, 0, 1, 0);
+	fill_window(p6, 32, 3, 0);
+	fill_window(menu_win, 32, 3, 0);
+	defer_window_draw(p4);
+	draw_creation_frame(p4);
+	resume_window_draw(p4);
+	refresh_all_windows();
 }

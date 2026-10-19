@@ -2,7 +2,8 @@ extern char g513f[];
 extern char g516a[];
 extern char g5173[];
 extern char g517c[];
-f889b(p4, p6)
+/* Mark cells behind a closed right wall as hidden. */
+hide_far_right(p4, p6)
 {
 	if (p6) goto L88b6;
 	if (g513f[(p4 * 3)] != 1) goto L88c8;

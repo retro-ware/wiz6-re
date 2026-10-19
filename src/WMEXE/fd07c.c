@@ -1,5 +1,5 @@
 extern int g50fe[];
-fd07c()
+reset_effects()
 {
 	register int rsi;
 	register int rdi;

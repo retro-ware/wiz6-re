@@ -4,7 +4,7 @@ extern char g558e;
 extern char g558f;
 extern char g5590;
 extern char g5591;
-f8de0(p4, p6, p8, p10, p12, p14)
+set_six_ratings(p4, p6, p8, p10, p12, p14)
 {
 	g558c = (char)(p4 < 1 ? 1 : p4);
 	g558d = (char)(p6 < 1 ? 1 : p6);

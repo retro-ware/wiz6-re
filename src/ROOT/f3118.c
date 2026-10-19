@@ -1,7 +1,7 @@
 #asm
-	public f3118_
+	public defer_window_draw_
 	extrn f3250_:near
-f3118_:
+defer_window_draw_:
 	db 055h,08bh,0ech,083h,0ech,00ch,01eh,006h,056h,057h,08bh,076h,004h,08dh,03eh,0d2h
 	db 01bh,02eh,08bh,01dh,0bah,001h,000h,080h,04ch,005h,001h
 l3133:

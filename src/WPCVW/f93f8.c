@@ -1,11 +1,12 @@
-f93f8(p4, p6, p8)
+/* Redraw the full character sheet of member p8. */
+draw_sheet(sheet, menu, member)
 {
-	f32be(p4, 0, 1, 0);
-	f32be(p6, 32, 3, 0);
-	f3118(p4);
-	f4ca8(p4);
-	f54ab(p4, p8);
-	fb1e5(p4, p8);
-	f31d1(p4);
-	f2a63();
+	fill_window(sheet, 0, 1, 0);
+	fill_window(menu, 32, 3, 0);
+	defer_window_draw(sheet);
+	draw_sheet_frame(sheet);
+	draw_stats_panel(sheet, member);
+	draw_inventory_panel(sheet, member);
+	resume_window_draw(sheet);
+	refresh_all_windows();
 }

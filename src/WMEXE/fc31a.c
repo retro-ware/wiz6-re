@@ -1,9 +1,10 @@
 #asm
 	extrn swapmem_:near
 #endasm
-extern int g43d0[];
-extern int g43dc[];
-fc31a(p4, p6)
+extern int member_pcfile_index[];
+extern int member_portrait[];
+/* Swap two party members (records, portraits) and redraw their cards. */
+swap_members(p4, p6)
 {
 	char x0[476];
 	int l478;
@@ -17,13 +18,13 @@ fc31a(p4, p6)
 	call swapmem_
 	db 083h,0c4h,006h
 #endasm
-	l478 = g43dc[p6];
-	g43dc[p6] = g43dc[p4];
-	g43dc[p4] = l478;
-	l478 = g43d0[p6];
-	g43d0[p6] = g43d0[p4];
-	g43d0[p4] = l478;
-	f7353(p4, 0);
-	f7353(p6, 0);
-	f774b(3);
+	l478 = member_pcfile_index[p6];
+	member_pcfile_index[p6] = member_pcfile_index[p4];
+	member_pcfile_index[p4] = l478;
+	l478 = member_portrait[p6];
+	member_portrait[p6] = member_portrait[p4];
+	member_portrait[p4] = l478;
+	draw_member_card_x(p4, 0);
+	draw_member_card_x(p6, 0);
+	combat_delay(3);
 }

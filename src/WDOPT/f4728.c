@@ -1,40 +1,41 @@
-extern int g3596;
-extern int g3646;
-extern int g4fc4;
+extern int anim_phase;
+extern int click_flag;
 extern int g502e;
 extern int g506a;
-f4728(p4, p6)
+extern int menu_clicked;
+/* Wait for a key or mouse region while blinking the cursor and animating the view. */
+get_menu_choice_blink(keys, regions)
 {
-	int l2;
-	int l4;
-	l4 = g3646;
+	int choice;
+	int frame0;
+	frame0 = anim_phase;
 	if (g502e == -1) goto L473e;
-	f46ae();
+	blink_cursor_text();
 L473e:
-	g4fc4 = 0;
+	menu_clicked = 0;
 L4744:
-	if (f2643(1)) goto L47ab;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L476c;
-	g4fc4 = 1;
-	return (l2 - 1);
+	if (key_available(1)) goto L47ab;
+	choice = check_click_regions(regions);
+	if (click_flag != 1) goto L476c;
+	menu_clicked = 1;
+	return (choice - 1);
 L476c:
 	if (g506a) goto L4798;
-	g3646 = ((g3646 + 1) % 2);
-	f9e83();
+	anim_phase = ((anim_phase + 1) % 2);
+	redraw_maze_view();
 	if (g502e == -1) goto L4796;
-	if (g3646 != l4) goto L4796;
-	f46ae();
+	if (anim_phase != frame0) goto L4796;
+	blink_cursor_text();
 L4796:
 	goto L479b;
 L4798:
-	f4688();
+	play_random_drip();
 L479b:
 	g506a = ((g506a + 1) % 10);
 	goto L4744;
 L47ab:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
-	if (l2 < 0) goto L47c9;
+	choice = char_index(keys, (unsigned char)(get_key(1)));
+	if (choice < 0) goto L47c9;
 	return;
 L47c9:
 	goto L4744;

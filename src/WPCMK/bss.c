@@ -1,21 +1,21 @@
 #asm
 	global g541e_:byte,80
-	global g546e_:byte,10
-	global g5478_:byte,4
+	global sheet_win_:byte,10
+	global char_age_days_:byte,4
 	global g547c_:byte,2
 	global g547e_:byte,2
 	global g5480_:byte,2
 	global g5482_:byte,6
-	global g5488_:byte,2
-	global g548a_:byte,2
-	global g548c_:byte,2
-	global g548e_:byte,2
-	global g5490_:byte,2
-	global g5492_:byte,2
+	global char_hp_:byte,2
+	global char_hp_max_:byte,2
+	global char_stamina_:byte,2
+	global char_stamina_max_:byte,2
+	global char_load_:byte,2
+	global char_carry_capacity_:byte,2
 	global g5494_:byte,2
 	global g5496_:byte,2
-	global g5498_:byte,2
-	global g549a_:byte,24
+	global char_spell_points_:byte,2
+	global char_spell_points_max_:byte,24
 	global g54b2_:byte,4
 	global g54b6_:byte,170
 	global g5560_:byte,3
@@ -27,7 +27,7 @@
 	global g556e_:byte,1
 	global g556f_:byte,17
 	global g5580_:byte,8
-	global g5588_:byte,1
+	global spell_picks_left_:byte,1
 	global g5589_:byte,1
 	global g558a_:byte,1
 	global g558b_:byte,1
@@ -37,7 +37,7 @@
 	global g558f_:byte,1
 	global g5590_:byte,1
 	global g5591_:byte,11
-	global g559c_:byte,1
+	global char_stats_:byte,1
 	global g559d_:byte,1
 	global g559e_:byte,1
 	global g559f_:byte,1
@@ -45,7 +45,7 @@
 	global g55a1_:byte,1
 	global g55a2_:byte,1
 	global g55a3_:byte,1
-	global g55a4_:byte,1
+	global char_skills_:byte,1
 	global g55a5_:byte,3
 	global g55a8_:byte,3
 	global g55ab_:byte,1
@@ -66,10 +66,10 @@
 	global g55c2_:byte,14
 	global g55d0_:byte,2
 	global g55d2_:byte,58
-	global g560c_:byte,1
-	global g560d_:byte,1
-	global g560e_:byte,1
-	global g560f_:byte,1
+	global char_portrait_:byte,1
+	global char_race_:byte,1
+	global char_sex_:byte,1
+	global char_class_:byte,1
 	global g5610_:byte,2
 	global g5612_:byte,1
 	global g5613_:byte,1
@@ -77,18 +77,18 @@
 	global g5615_:byte,1
 	global g5616_:byte,1
 	global g5617_:byte,1
-	global g5618_:byte,1
+	global skill_points_left_:byte,1
 	global g5619_:byte,1
 	global g561a_:byte,1
 	global g561b_:byte,1
-	global g561c_:byte,2
+	global char_item_count_:byte,2
 	global g561e_:byte,20
 	global g5632_:byte,62
 	global g5670_:byte,60
-	global g56ac_:byte,2
-	global g56ae_:byte,28
-	global g56ca_:byte,2
-	global g56cc_:byte,2
+	global bonus_points_:byte,2
+	global class_eligible_:byte,28
+	global prompt_win_:byte,2
+	global menu_win_:byte,2
 	global g56ce_:byte,130
 	global g5750_:byte,32
 	global g5770_:byte,32

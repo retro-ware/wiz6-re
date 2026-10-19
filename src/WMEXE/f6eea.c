@@ -1,16 +1,17 @@
-f6eea(p4)
-char *p4;
+/* Pick an index 0..7 by percent weights from a byte table. */
+pick_weighted(weights)
+char *weights;
 {
-	int l2;
-	register int rsi;
-	l2 = f09e2(100);
-	rsi = 0;
+	int roll;
+	register int i;
+	roll = random(100);
+	i = 0;
 L6eff:
-	if ((unsigned char)*(p4 + rsi) <= l2) goto L6f12;
-	return rsi;
+	if ((unsigned char)*(weights + i) <= roll) goto L6f12;
+	return i;
 L6f12:
-	l2 -= (unsigned char)*(p4 + rsi);
-	rsi++;
-	if (rsi < 8) goto L6eff;
+	roll -= (unsigned char)*(weights + i);
+	i++;
+	if (i < 8) goto L6eff;
 	return 4;
 }

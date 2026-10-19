@@ -1,11 +1,12 @@
 #asm
-	extrn f05a5_:near
+	extrn print_int_:near
 #endasm
-extern char g4587[];
-extern char g4590[];
 extern char g55a0;
+extern char pc_class[];
+extern char pc_skill_points[];
 extern int g57fe[];
-fe35f(p4, p6, p8, p10)
+/* Draw a page of the skills screen of member p8. */
+draw_skills_page(p4, p6, p8, p10)
 {
 	int l2;
 	int l4;
@@ -15,7 +16,7 @@ fe35f(p4, p6, p8, p10)
 	int l12;
 	int l14;
 	register int rsi;
-	switch ((unsigned char)g4587[(432 * p8)]) {
+	switch ((unsigned char)pc_class[(432 * p8)]) {
 case 0:
 	fdd93(p8, 21185, 21196, 21204, 21210);
 	goto Le524;
@@ -60,7 +61,7 @@ case 13:
 	goto Le524;
 	}
 Le524:
-	f32be(p4, 0, 1, 0);
+	fill_window(p4, 0, 1, 0);
 	fb139(p4, 0, 0, 14);
 	fb139(p4, 19, 0, 10);
 	fb139(p4, 0, 15, 11);
@@ -85,13 +86,13 @@ Le5ef:
 	fb139(p4, 0, 13, 16);
 	fb139(p4, 19, 2, 10);
 	fb139(p4, 19, 13, 10);
-	f3118(p4);
-	f030b(p4, 1, 1);
+	defer_window_draw(p4);
+	set_cursor(p4, 1, 1);
 	setmem(21902, 20, 32);
 	g55a0 = 0;
-	f251d(p4, 21902, 3);
-	f030b(p4, 6, 1);
-	f083f((p10 + 600), p4, 18);
+	print_string_hi(p4, 21902, 3);
+	set_cursor(p4, 6, 1);
+	print_message((p10 + 600), p4, 18);
 	switch (p10) {
 case 0:
 	l4 = 1;
@@ -123,20 +124,20 @@ case 3:
 	goto Le787;
 	}
 Le787:
-	fb1bc(p4, 2, 1, (l4 + 1));
-	fb1bc(p4, 17, 1, (l6 + 1));
+	put_icon_at2(p4, 2, 1, (l4 + 1));
+	put_icon_at2(p4, 17, 1, (l6 + 1));
 	l14 = 0;
 	l2 = l8;
 	goto Le842;
 Le7c1:
 	if (g57fe[l2] != 1) goto Le83f;
-	f030b(p4, 1, (l14 + 3));
-	f083f((l2 + 5500), p4, l12);
-	f030b(p4, 16, (l14 + 3));
+	set_cursor(p4, 1, (l14 + 3));
+	print_message((l2 + 5500), p4, l12);
+	set_cursor(p4, 16, (l14 + 3));
 #asm
 	db 0b8h,001h,000h,050h,0b8h,003h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h
 	db 0feh,08bh,0d8h,08ah,087h,01ch,045h,02ah,0e4h,050h,0ffh,076h,004h
-	call f05a5_
+	call print_int_
 	db 083h,0c4h,008h,08bh,046h,0feh,08bh,04eh,0f2h,0d1h,0e1h,08bh,0f1h,08bh,05eh,00ch
 	db 089h,000h
 #endasm
@@ -145,11 +146,11 @@ Le83f:
 	l2++;
 Le842:
 	if (l2 <= l10) goto Le7c1;
-	f030b(p4, 1, 14);
-	f083f(5530, p4, 9);
-	f030b(p4, 16, 14);
-	f05a5(p4, (unsigned char)g4590[(432 * p8)], 3, 1);
-	f31d1(p4);
-	f2b19(p4);
+	set_cursor(p4, 1, 14);
+	print_message(5530, p4, 9);
+	set_cursor(p4, 16, 14);
+	print_int(p4, (unsigned char)pc_skill_points[(432 * p8)], 3, 1);
+	resume_window_draw(p4);
+	refresh_window(p4);
 	return l14;
 }

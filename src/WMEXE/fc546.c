@@ -1,5 +1,5 @@
 extern char g019d[];
-extern int g43a8[];
+extern int monster_groups[];
 fc546(p4, p6)
 {
 	int l2;
@@ -34,7 +34,7 @@ lc59e:
 Lc5f6:
 	l6++;
 Lc5f9:
-	if ((unsigned char)g019d[g43a8[p4]] > l6) goto Lc59e;
+	if ((unsigned char)g019d[monster_groups[p4]] > l6) goto Lc59e;
 Lc60f:
 	l4++;
 	if (l4 < 5) goto Lc557;
@@ -44,11 +44,11 @@ Lc60f:
 	goto Lc653;
 Lc632:
 	rsi = (44 * l6);
-	if ((unsigned)((char *)g43a8[p4] + rsi)[34] >= 3) goto Lc650;
+	if ((unsigned)((char *)monster_groups[p4] + rsi)[34] >= 3) goto Lc650;
 	return l6;
 Lc650:
 	l6++;
 Lc653:
-	if ((unsigned char)g019d[g43a8[p4]] > l6) goto Lc632;
+	if ((unsigned char)g019d[monster_groups[p4]] > l6) goto Lc632;
 	return p6;
 }

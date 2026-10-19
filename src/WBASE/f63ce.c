@@ -1,6 +1,7 @@
-f63ce(p4, p6, p8, p10)
-char p10;
+/* Draw frame glyph ch at x, y. */
+draw_frame_glyph(win, x, y, ch)
+char ch;
 {
-	f030b(p4, p6, p8);
-	f23e3(p4, (unsigned char)p10, 2);
+	set_cursor(win, x, y);
+	put_char_hi(win, (unsigned char)ch, 2);
 }

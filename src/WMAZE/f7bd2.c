@@ -1,5 +1,5 @@
 #asm
-	extrn f28af_:near
+	extrn test_bit_:near
 #endasm
 f7bd2(p4, p6, p8, p10)
 {
@@ -21,7 +21,7 @@ l7bf2:
 	db 0e4h,03bh,046h,006h,075h,02dh,080h,0b8h,060h,003h,000h,076h,026h,08ah,080h,0a0h
 	db 005h,02ah,0e4h,050h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h
 	db 0e0h,005h,0ech,04eh,050h
-	call f28af_
+	call test_bit_
 	db 083h,0c4h,004h,085h,0c0h,075h,004h
 #endasm
 	return rsi;

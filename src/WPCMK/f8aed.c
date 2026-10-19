@@ -1,17 +1,17 @@
-extern char g559c;
+extern char char_class;
+extern char char_race;
+extern char char_stats;
 extern char g559f;
-extern char g560d;
-extern char g560f;
 extern char g5616;
 extern char g5617;
-extern int g5488;
-extern int g548a;
-extern int g548c;
-extern int g548e;
-extern int g5490;
-extern int g5492;
-extern long g5478;
-f8aed()
+extern int char_carry_capacity;
+extern int char_hp;
+extern int char_hp_max;
+extern int char_load;
+extern int char_stamina;
+extern int char_stamina_max;
+extern long char_age_days;
+init_hp_stamina()
 {
 	int l2;
 	int l4;
@@ -20,65 +20,65 @@ f8aed()
 	int l10;
 	g5616 = 1;
 	g5617 = 10;
-	g5478 = (long)(f09e2(1000) + 6570);
-	l8 = (unsigned char)g559c;
+	char_age_days = (long)(random(1000) + 6570);
+	l8 = (unsigned char)char_stats;
 	l10 = (unsigned char)g559f;
-	switch ((unsigned char)g560f) {
+	switch ((unsigned char)char_class) {
 case 0:
-	l2 = (f09e2(5) + 6);
-	f8786(4, 0, 0);
+	l2 = (random(5) + 6);
+	init_class_skills(4, 0, 0);
 	goto L8d43;
 case 1:
-	l2 = (f09e2(3) + 2);
-	f8786(1, 0, 3);
+	l2 = (random(3) + 2);
+	init_class_skills(1, 0, 3);
 	goto L8d43;
 case 2:
-	l2 = (f09e2(4) + 4);
-	f8786(1, 0, 3);
+	l2 = (random(4) + 4);
+	init_class_skills(1, 0, 3);
 	goto L8d43;
 case 3:
-	l2 = (f09e2(4) + 3);
-	f8786(1, 2, 1);
+	l2 = (random(4) + 3);
+	init_class_skills(1, 2, 1);
 	goto L8d43;
 case 4:
-	l2 = ((f09e2(4) + f09e2(4)) + 6);
-	f8786(2, 2, 0);
+	l2 = ((random(4) + random(4)) + 6);
+	init_class_skills(2, 2, 0);
 	goto L8d43;
 case 5:
-	l2 = (f09e2(4) + 3);
-	f8786(0, 1, 3);
+	l2 = (random(4) + 3);
+	init_class_skills(0, 1, 3);
 	goto L8d43;
 case 6:
-	l2 = (f09e2(4) + 2);
-	f8786(1, 2, 1);
+	l2 = (random(4) + 2);
+	init_class_skills(1, 2, 1);
 	goto L8d43;
 case 7:
-	l2 = (f09e2(3) + 3);
-	f8786(0, 1, 3);
+	l2 = (random(3) + 3);
+	init_class_skills(0, 1, 3);
 	goto L8d43;
 case 8:
-	l2 = (f09e2(5) + 5);
-	f8786(3, 1, 0);
+	l2 = (random(5) + 5);
+	init_class_skills(3, 1, 0);
 	goto L8d43;
 case 9:
-	l2 = (f09e2(4) + 3);
-	f8786(0, 0, 4);
+	l2 = (random(4) + 3);
+	init_class_skills(0, 0, 4);
 	goto L8d43;
 case 10:
-	l2 = (f09e2(7) + 8);
-	f8786(2, 1, 2);
+	l2 = (random(7) + 8);
+	init_class_skills(2, 1, 2);
 	goto L8d43;
 case 11:
-	l2 = ((f09e2(4) + f09e2(4)) + 6);
-	f8786(2, 1, 1);
+	l2 = ((random(4) + random(4)) + 6);
+	init_class_skills(2, 1, 1);
 	goto L8d43;
 case 12:
-	l2 = (f09e2(4) + 4);
-	f8786(1, 2, 1);
+	l2 = (random(4) + 4);
+	init_class_skills(1, 2, 1);
 	goto L8d43;
 case 13:
-	l2 = (f09e2(5) + 4);
-	f8786(2, 2, 1);
+	l2 = (random(5) + 4);
+	init_class_skills(2, 2, 1);
 	goto L8d43;
 	}
 L8d43:
@@ -101,14 +101,14 @@ L8d98:
 	if (l8 <= 17) goto L8da4;
 	l6 += l8;
 L8da4:
-	g5488 = l2;
-	g548a = g5488;
-	g548c = l4;
-	g548e = g548c;
-	g5490 = 0;
-	g5492 = (l6 * 15);
-	if (g560d != 5) goto L8ddc;
-	g5492 = ((g5492 << 1) / 3);
+	char_hp = l2;
+	char_hp_max = char_hp;
+	char_stamina = l4;
+	char_stamina_max = char_stamina;
+	char_load = 0;
+	char_carry_capacity = (l6 * 15);
+	if (char_race != 5) goto L8ddc;
+	char_carry_capacity = ((char_carry_capacity << 1) / 3);
 L8ddc:
 	;
 }

@@ -1,6 +1,6 @@
 extern char g019d[];
-extern int g4360;
 extern int g43b4;
+extern int monster_group_count;
 f861e(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
@@ -12,7 +12,7 @@ L8637:
 	f8149(l2, -10, p6, p8, p10, p12, p14);
 	l2++;
 L8656:
-	if (l2 <= g4360) goto L8637;
+	if (l2 <= monster_group_count) goto L8637;
 #asm
 	db 0ebh,045h
 #endasm

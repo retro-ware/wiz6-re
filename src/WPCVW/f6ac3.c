@@ -1,7 +1,7 @@
-f6ac3(p4, p6)
+refresh_member_card(p4, p6)
 {
-	f31d1(p4);
-	f49c9(p4, p6);
-	f09a3(4);
-	f3118(p4);
+	resume_window_draw(p4);
+	draw_member_card(p4, p6);
+	wait_seconds_or_enter(4);
+	defer_window_draw(p4);
 }

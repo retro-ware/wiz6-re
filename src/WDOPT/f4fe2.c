@@ -1,5 +1,6 @@
 extern int g5028;
-f4fe2(p4, p6, p8)
+/* Build a two-character text in a static buffer. */
+make_two_char_text(p4, p6, p8)
 char p4;
 char p6;
 {

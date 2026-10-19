@@ -1,10 +1,11 @@
-extern char g451c[];
-extern int g440c[];
-f5493(p4, p6, p8)
+extern char pc_skills[];
+extern int pc_level[];
+/* Possibly raise skill of member by a random check. */
+maybe_raise_skill(member, skill, p8)
 {
-	if ((unsigned)g451c[((432 * p4) + p6)] >= 100) goto L54d1;
-	if ((f09e2((unsigned char)g451c[((432 * p4) + p6)]) - (*(int *)((char *)g440c + (432 * p4)) * p8)) > 0) goto L54d1;
-	g451c[((432 * p4) + p6)]++;
+	if ((unsigned)pc_skills[((432 * member) + skill)] >= 100) goto L54d1;
+	if ((random((unsigned char)pc_skills[((432 * member) + skill)]) - (*(int *)((char *)pc_level + (432 * member)) * p8)) > 0) goto L54d1;
+	pc_skills[((432 * member) + skill)]++;
 L54d1:
 	;
 }

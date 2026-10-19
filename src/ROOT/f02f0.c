@@ -1,8 +1,8 @@
-f02f0(p4, p6)
+clear_window(win, redraw)
 {
-	f329a(p4);
-	if (!p6) goto L0307;
-	f2b19(p4);
+	blank_window(win);
+	if (!redraw) goto L0307;
+	refresh_window(win);
 L0307:
 	;
 }

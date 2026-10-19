@@ -1,16 +1,16 @@
 #asm
-	extrn f2858_:near
+	extrn delay_tick_:near
 #endasm
 f4655()
 {
-	if (f09e2(40) <= 0) goto L466a;
-	f2858();
+	if (random(40) <= 0) goto L466a;
+	delay_tick();
 #asm
-	call f2858_
+	call delay_tick_
 	db 0ebh,010h
 #endasm
 L466a:
-	f0aaa((f09e2(3) + 10));
+	play_sound((random(3) + 10));
 L467a:
 	;
 }

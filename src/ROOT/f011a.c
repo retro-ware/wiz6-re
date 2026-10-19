@@ -1,76 +1,77 @@
-f011a(p4, p6, p8, p10, p12, p14, p16, p18)
-char p4;
-char p6;
-char p12;
+/* Allocate a window struct (w,h,x,y,color,flags,cursor,border chars), link it into the window list, clear it, optionally refresh. */
+create_window(x, y, width, height, color, border, flags, refresh)
+char x;
+char y;
+char color;
 {
-	char *l2;
-	int l4;
-	register int rsi;
-	l4 = ((p16 & 2) ? 20 : (((p8 << 1) * p10) + 20));
-	l2 = malloc(l4);
-	if (l2) goto L0151;
-	f00d5(11);
+	char *win;
+	int size;
+	register int i;
+	size = ((flags & 2) ? 20 : (((width << 1) * height) + 20));
+	win = malloc(size);
+	if (win) goto L0151;
+	exit_game(11);
 L0151:
-	*l2 = *(char *)&p8;
-	l2[1] = *(char *)&p10;
-	l2[2] = p4;
-	l2[3] = p6;
-	l2[4] = p12;
-	l2[5] = *(char *)&p16;
-	l2[6] = 0;
-	l2[7] = 0;
-	if (p14 != -1) goto L01b2;
-	setmem((l2 + 8), 8, 0);
+	*win = *(char *)&width;
+	win[1] = *(char *)&height;
+	win[2] = x;
+	win[3] = y;
+	win[4] = color;
+	win[5] = *(char *)&flags;
+	win[6] = 0;
+	win[7] = 0;
+	if (border != -1) goto L01b2;
+	setmem((win + 8), 8, 0);
 	goto L02ac;
 L01b2:
-	if (p14 != -2) goto L01f3;
-	l2[8] = 27;
-	l2[9] = 27;
-	l2[10] = 28;
-	l2[11] = 27;
-	l2[12] = 28;
-	l2[13] = 27;
-	l2[14] = 27;
-	l2[15] = 28;
+	if (border != -2) goto L01f3;
+	win[8] = 27;
+	win[9] = 27;
+	win[10] = 28;
+	win[11] = 27;
+	win[12] = 28;
+	win[13] = 27;
+	win[14] = 27;
+	win[15] = 28;
 	goto L02ac;
 L01f3:
-	if (p14 != -3) goto L0234;
-	l2[8] = 26;
-	l2[9] = 27;
-	l2[10] = 27;
-	l2[11] = 26;
-	l2[12] = 27;
-	l2[13] = 26;
-	l2[14] = 27;
-	l2[15] = 27;
+	if (border != -3) goto L0234;
+	win[8] = 26;
+	win[9] = 27;
+	win[10] = 27;
+	win[11] = 26;
+	win[12] = 27;
+	win[13] = 26;
+	win[14] = 27;
+	win[15] = 27;
 	goto L02ac;
 L0234:
-	if (p14 != -4) goto L0266;
-	setmem((l2 + 8), 8, 0);
-	l2[10] = 28;
-	l2[12] = 28;
-	l2[15] = 28;
+	if (border != -4) goto L0266;
+	setmem((win + 8), 8, 0);
+	win[10] = 28;
+	win[12] = 28;
+	win[15] = 28;
 	goto L02ac;
 L0266:
-	if (p14 != -5) goto L0298;
-	setmem((l2 + 8), 8, 0);
-	l2[8] = 35;
-	l2[9] = 35;
-	l2[10] = 35;
+	if (border != -5) goto L0298;
+	setmem((win + 8), 8, 0);
+	win[8] = 35;
+	win[9] = 35;
+	win[10] = 35;
 	goto L02ac;
 L0298:
-	rsi = 0;
+	i = 0;
 L029b:
-	(l2 + rsi)[8] = (char)(p14 + rsi);
-	rsi++;
-	if (rsi < 8) goto L029b;
+	(win + i)[8] = (char)(border + i);
+	i++;
+	if (i < 8) goto L029b;
 L02ac:
-	f2f76(l2);
-	if ((p16 & 2)) goto L02c1;
-	f329a(l2);
+	link_window(win);
+	if ((flags & 2)) goto L02c1;
+	blank_window(win);
 L02c1:
-	if (!p18) goto L02ca;
-	f2a63();
+	if (!refresh) goto L02ca;
+	refresh_all_windows();
 L02ca:
-	return l2;
+	return win;
 }

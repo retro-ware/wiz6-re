@@ -1,8 +1,9 @@
+/* PC-speaker/timer sound player (programs PIT and hooks IRQ0). */
 #asm
-	public f1462_
+	public sound_driver_
 	extrn f173d_:near
 	extrn f17fe_:near
-f1462_:
+sound_driver_:
 	db 055h,08bh,0ech,057h,056h,006h,01eh,052h,053h,080h,07eh,010h,0ffh,074h,00ah,02eh
 	db 0a0h,056h,017h,088h,046h,011h,0e9h,018h,001h
 l147b:

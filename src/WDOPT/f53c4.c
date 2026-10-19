@@ -1,16 +1,17 @@
-extern int g4faa;
-f53c4(p4, p6, p8, p10, p12, p14)
+extern int maze_data;
+/* Return the wall of map cell x, y, level in direction dir. */
+get_wall_in_direction(dir, level, x, y, p12, p14)
 {
 #asm
 	db 08bh,046h,004h,0e9h,084h,000h
 #endasm
-	f2925((g4faa + 96), (((p6 << 6) + (p10 << 3)) + p8), 2);
+	get_bitfield((maze_data + 96), (((level << 6) + (y << 3)) + x), 2);
 	return;
-	f2925((g4faa + 288), (((p6 << 6) + (p10 << 3)) + p8), 2);
+	get_bitfield((maze_data + 288), (((level << 6) + (y << 3)) + x), 2);
 	return;
-	f81f9(p12, p14, p8, p10, p6);
+	f81f9(p12, p14, x, y, level);
 	return;
-	f825e(p12, p14, p8, p10, p6);
+	f825e(p12, p14, x, y, level);
 	return;
 L5451:
 	;

@@ -32,7 +32,7 @@ fa247()
 	goto La368;
 La255:
 	l80 = g54b4[l78];
-	f0882(1, &l76, g5856[l80], 0);
+	access_scenario_record(1, &l76, g5856[l80], 0);
 	strcpy(((l80 << 4) + 21744), &l76);
 	g56d0[l80] = l16;
 	g56ee[l80] = (((unsigned char)l54 * (unsigned char)l53) + l56);

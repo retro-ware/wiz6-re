@@ -1,16 +1,16 @@
 #asm
-	extrn f2858_:near
+	extrn delay_tick_:near
 #endasm
-f45b8()
+play_ambient_sound()
 {
-	if (f09e2(40) <= 0) goto L45cd;
-	f2858();
+	if (random(40) <= 0) goto L45cd;
+	delay_tick();
 #asm
-	call f2858_
+	call delay_tick_
 	db 0ebh,010h
 #endasm
 L45cd:
-	f0aaa((f09e2(3) + 10));
+	play_sound((random(3) + 10));
 L45dd:
 	;
 }

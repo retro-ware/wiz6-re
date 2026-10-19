@@ -1,20 +1,21 @@
 #asm
-	extrn f09e2_:near
+	extrn random_:near
 #endasm
-f6a65(p4, p6)
-char p6;
+/* Sum of p6 random rolls (p4 is the start value). */
+roll_dice(base, count)
+char count;
 {
-	int l2;
-	l2 = p4;
+	int sum;
+	sum = base;
 L6a71:
-	if ((unsigned)p6 <= 0) goto L6a8d;
+	if ((unsigned)count <= 0) goto L6a8d;
 #asm
 	db 08ah,046h,007h,02ah,0e4h,050h
-	call f09e2_
+	call random_
 	db 059h,003h,046h,0feh,040h,089h,046h,0feh
 #endasm
-	p6--;
+	count--;
 	goto L6a71;
 L6a8d:
-	return l2;
+	return sum;
 }

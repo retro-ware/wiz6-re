@@ -4,14 +4,14 @@ extern char g5072[];
 extern char g508a[];
 extern char g5092[];
 extern char g50ab[];
-extern int g363c;
-extern int g433c;
-extern int g4f9a;
-extern int g4faa;
 extern int g5040;
 extern int g5050[];
 extern int g50b8[];
-f7d8c(p4, p6, p8, p10, p12, p14)
+extern int game_state_arg;
+extern int maze_data;
+extern int party_facing;
+extern int view_rows_open;
+get_front_wall_m(p4, p6, p8, p10, p12, p14)
 {
 	char x0[2];
 	int l4;
@@ -20,13 +20,13 @@ f7d8c(p4, p6, p8, p10, p12, p14)
 	register int rsi;
 	register int rdi;
 	if (!p14) goto L7e1e;
-	if (!f7d0b(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L7e1e;
+	if (!step_relative_m(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L7e1e;
 	if (g5040) goto L7dd5;
 	if (p14) goto L7dd5;
-	g433c = 0;
+	view_rows_open = 0;
 L7dd5:
-	if (g363c == 10) goto L7de3;
-	if (g363c != 12) goto L7e19;
+	if (game_state_arg == 10) goto L7de3;
+	if (game_state_arg != 12) goto L7e19;
 L7de3:
 	g5043[((g5040 * 3) + p14)] = 1;
 	*(int *)((char *)g5050 + ((g5040 * 6) + (p14 << 1))) = 1;
@@ -35,13 +35,13 @@ L7e19:
 	return 2;
 L7e1e:
 	rsi = (((p12 << 6) + (p10 << 3)) + p8);
-	if (f28af((g4faa + 1082), rsi) != 1) goto L7f55;
-	switch (g363c) {
+	if (test_bit((maze_data + 1082), rsi) != 1) goto L7f55;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
 case 12:
-	if (g363c != 12) goto L7e7d;
+	if (game_state_arg != 12) goto L7e7d;
 	if (p12 >= 9) goto L7e7d;
 	*(int *)((char *)g5050 + ((g5040 * 6) + (p14 << 1))) = 1;
 	goto L7edf;
@@ -87,8 +87,8 @@ case 10:
 	goto L7f55;
 	}
 L7f55:
-	if (f28af((g4faa + 1178), rsi) != 1) goto L7fab;
-	switch (g363c) {
+	if (test_bit((maze_data + 1178), rsi) != 1) goto L7fab;
+	switch (game_state_arg) {
 case 0:
 case 1:
 case 3:
@@ -104,12 +104,12 @@ case 13:
 	}
 L7fab:
 	l4 = 0;
-	switch (g4f9a) {
+	switch (party_facing) {
 case 0:
-	l4 = f2925((g4faa + 96), rsi, 2);
+	l4 = get_bitfield((maze_data + 96), rsi, 2);
 	goto L802b;
 case 1:
-	l4 = f2925((g4faa + 288), rsi, 2);
+	l4 = get_bitfield((maze_data + 288), rsi, 2);
 	goto L802b;
 case 2:
 	l4 = f7c41(p4, p6, p8, p10, p12);
@@ -119,9 +119,9 @@ case 3:
 	goto L802b;
 	}
 L802b:
-	l6 = f2925((g4faa + 504), rsi, 4);
-	l8 = f2925((g4faa + 888), rsi, 2);
-	if (l8 == g4f9a) goto L806a;
+	l6 = get_bitfield((maze_data + 504), rsi, 4);
+	l8 = get_bitfield((maze_data + 888), rsi, 2);
+	if (l8 == party_facing) goto L806a;
 	if (l6 == 6) goto L806a;
 	if (l6 <= 12) goto L8156;
 L806a:
@@ -176,7 +176,7 @@ L8156:
 	if (!l4) goto L816f;
 	if (g5040) goto L816f;
 	if (p14) goto L816f;
-	g433c = 0;
+	view_rows_open = 0;
 L816f:
 	return l4;
 }

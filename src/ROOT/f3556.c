@@ -1,6 +1,6 @@
 #asm
-	public f3556_
-f3556_:
+	public free_sounds_
+free_sounds_:
 l3556:
 	db 02eh,08bh,007h,00bh,0c0h,074h,016h,03dh,0ffh,0ffh,074h,016h,08eh,0c0h,0b4h,049h
 	db 053h,0cdh,021h,05bh,033h,0c0h,02eh,089h,007h,02eh,089h,047h,002h

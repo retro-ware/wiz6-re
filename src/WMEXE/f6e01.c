@@ -1,15 +1,15 @@
 extern char g00cc[];
-extern char g442c[];
-extern char g442e[];
-extern int g442a[];
-f6e01(p4, p6)
+extern char pc_item_qty[];
+extern char pc_item_type[];
+extern int pc_item_weight[];
+get_item_weight_x(item, member)
 {
-	int l2;
-	l2 = 1;
-	if (g00cc[(unsigned char)g442c[((432 * p6) + (p4 << 3))]] != 1) goto L6e4b;
-	l2 = (unsigned char)g442e[((432 * p6) + (p4 << 3))];
-	if (l2 >= 1) goto L6e4b;
-	l2 = 1;
+	int qty;
+	qty = 1;
+	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (item << 3))]] != 1) goto L6e4b;
+	qty = (unsigned char)pc_item_qty[((432 * member) + (item << 3))];
+	if (qty >= 1) goto L6e4b;
+	qty = 1;
 L6e4b:
-	return (*(int *)((char *)g442a + ((432 * p6) + (p4 << 3))) * l2);
+	return (*(int *)((char *)pc_item_weight + ((432 * member) + (item << 3))) * qty);
 }

@@ -1,10 +1,11 @@
-f469f(p4, p6, p8)
+/* Open a data file by name and read len bytes into buf; fatal error 6 if missing. */
+read_file_bytes(name, buf, len)
 {
-	int l2;
-	l2 = open(f0cd6(p4, 0), 0);
-	if (l2 != -1) goto L46ca;
-	f00d5(6);
+	int fd;
+	fd = open(make_data_path(name, 0), 0);
+	if (fd != -1) goto L46ca;
+	exit_game(6);
 L46ca:
-	read(l2, p6, p8);
-	close(l2);
+	read(fd, buf, len);
+	close(fd);
 }

@@ -1,11 +1,11 @@
-extern int g3342;
-f45b5(p4, p6)
+extern int main_window;
+print_combat_prompt(text, extra_width)
 {
-	f09fb(g3342, 0);
-	f0a42(g3342, 0);
-	f4580();
-	f3118(g3342);
-	f030b(g3342, (10 - (((strlen(p4) + p6) + 1) / 2)), 0);
-	f251d(g3342, p4, 3);
-	f31d1(g3342);
+	erase_window(main_window, 0);
+	f0a42(main_window, 0);
+	draw_combat_title();
+	defer_window_draw(main_window);
+	set_cursor(main_window, (10 - (((strlen(text) + extra_width) + 1) / 2)), 0);
+	print_string_hi(main_window, text, 3);
+	resume_window_draw(main_window);
 }

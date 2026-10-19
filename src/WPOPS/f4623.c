@@ -1,41 +1,41 @@
 #asm
-	extrn f24e9_:near
+	extrn print_string_:near
 #endasm
 extern char g019d[];
 extern char g019e[];
-extern int g3342;
-extern int g4360;
-extern int g43a8[];
-f4623(p4, p6)
-char *p4;
+extern int main_window;
+extern int monster_group_count;
+extern int monster_groups[];
+draw_monster_groups(win, refresh)
+char *win;
 {
-	int l2;
-	int l4;
+	int group;
+	int i;
 	register int rsi;
-	f4580();
-	f3118(p4);
-	f02f0(p4, 1);
-	l2 = 1;
+	draw_combat_title();
+	defer_window_draw(win);
+	clear_window(win, 1);
+	group = 1;
 	goto L4762;
 L4649:
-	g019e[g43a8[l2]] = 0;
-	l4 = 0;
+	g019e[monster_groups[group]] = 0;
+	i = 0;
 	goto L468c;
 L4660:
-	rsi = (44 * l4);
-	if ((unsigned)((char *)g43a8[l2] + rsi)[34] >= 2) goto L4689;
-	if (((char *)g43a8[l2] + rsi)[17]) goto L4689;
-	if (((char *)g43a8[l2] + rsi)[16]) goto L4689;
+	rsi = (44 * i);
+	if ((unsigned)((char *)monster_groups[group] + rsi)[34] >= 2) goto L4689;
+	if (((char *)monster_groups[group] + rsi)[17]) goto L4689;
+	if (((char *)monster_groups[group] + rsi)[16]) goto L4689;
 #asm
 	db 0feh,087h,09eh,001h
 #endasm
 L4689:
-	l4++;
+	i++;
 L468c:
-	if ((unsigned char)g019d[g43a8[l2]] > l4) goto L4660;
-	f030b(p4, 0, (l2 - 1));
-	f22b7(p4, (unsigned char)(((unsigned char)g019d[g43a8[l2]] + 48)), 6);
-	p4[6]++;
+	if ((unsigned char)g019d[monster_groups[group]] > i) goto L4660;
+	set_cursor(win, 0, (group - 1));
+	put_char(win, (unsigned char)(((unsigned char)g019d[monster_groups[group]] + 48)), 6);
+	win[6]++;
 #asm
 	db 0b8h,00eh,000h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h
 	db 0bfh,09dh,001h,001h,075h,005h,0b8h,000h,000h,0ebh,003h
@@ -53,18 +53,18 @@ l46fc:
 	db 0b9h,004h,000h,0d3h,0e0h,08bh,0c8h,051h,08ah,087h,09ch,001h,02ah,0e4h,0b9h,005h
 	db 000h,0d3h,0e0h,059h,003h,0c8h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h
 	db 043h,003h,0c1h,050h,0ffh,076h,004h
-	call f24e9_
+	call print_string_
 	db 083h,0c4h,006h
 #endasm
-	f030b(p4, 19, (l2 - 1));
-	f22b7(p4, (unsigned char)(((unsigned char)g019e[g43a8[l2]] + 48)), 9);
-	l2++;
+	set_cursor(win, 19, (group - 1));
+	put_char(win, (unsigned char)(((unsigned char)g019e[monster_groups[group]] + 48)), 9);
+	group++;
 L4762:
-	if (l2 <= g4360) goto L4649;
-	f31d1(p4);
-	if (p6 != 1) goto L478a;
-	f2b19(g3342);
-	f2b19(p4);
+	if (group <= monster_group_count) goto L4649;
+	resume_window_draw(win);
+	if (refresh != 1) goto L478a;
+	refresh_window(main_window);
+	refresh_window(win);
 L478a:
 	;
 }

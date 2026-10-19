@@ -1,7 +1,7 @@
 #asm
-	extrn f09e2_:near
+	extrn random_:near
 #endasm
-f5ebb(p4, p6)
+roll_dice_x(p4, p6)
 char p6;
 {
 	int l2;
@@ -10,7 +10,7 @@ L5ec7:
 	if ((unsigned)p6 <= 0) goto L5ee3;
 #asm
 	db 08ah,046h,007h,02ah,0e4h,050h
-	call f09e2_
+	call random_
 	db 059h,003h,046h,0feh,040h,089h,046h,0feh
 #endasm
 	p6--;

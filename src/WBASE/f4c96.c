@@ -1,9 +1,10 @@
 extern char g3bcc[];
 extern char g3bff[];
-f4c96(p4, p6, p8, p10)
+/* Draw camp scene sprite n offset by dx with clip range lo..hi. */
+draw_camp_sprite(n, dx, lo, hi)
 {
-	char l10[10];
-	l10[0] = *(char *)&p4;
-	l10[(0 + 1)] = 0;
-	f3670(4, ((unsigned char)g3bcc[(p4 << 1)] + p6), (unsigned char)g3bff[p4], p8, p10, 0, 0, l10);
+	char text[10];
+	text[0] = *(char *)&n;
+	text[(0 + 1)] = 0;
+	drv_draw_text(4, ((unsigned char)g3bcc[(n << 1)] + dx), (unsigned char)g3bff[n], lo, hi, 0, 0, text);
 }

@@ -4,7 +4,7 @@
 	global g5012_:byte,162
 	global g50b4_:byte,100
 	global g5118_:byte,2
-	global g511a_:byte,1
+	global pclist_race_:byte,1
 	global g511b_:byte,11
 	global g5126_:byte,2
 	global g5128_:byte,22
@@ -17,7 +17,7 @@
 	global g5152_:byte,1
 	global g5153_:byte,1
 	global g5154_:byte,6
-	global g515a_:byte,1
+	global pclist_pcindex_:byte,1
 	global g515b_:byte,1
 	global g515c_:byte,6
 	global g5162_:byte,1
@@ -36,7 +36,7 @@
 	global g5182_:byte,1
 	global g5183_:byte,13
 	global g5190_:byte,22
-	global g51a6_:byte,2
+	global view_glyph_count_:byte,2
 	global g51a8_:byte,2
 	global g51aa_:byte,6
 	global g51b0_:byte,1

@@ -1,87 +1,88 @@
-extern int g363c;
-extern int g4f9a;
-extern int g4faa;
-f7d43(p4, p6, p8, p10, p12, p14)
+extern int game_state_arg;
+extern int maze_data;
+extern int party_facing;
+/* Return the wall type on the right of the cell. */
+get_right_wall(x, y, cx, cy, level, side)
 {
 	int l2;
 	int l4;
-	register int rsi;
-	register int rdi;
-	if (!p14) goto L7d92;
-	if (!f771c(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto L7d92;
-	if (g363c == 10) goto L7d84;
-	if (g363c != 12) goto L7d8d;
+	register int cell;
+	register int wall;
+	if (!side) goto L7d92;
+	if (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0)) goto L7d92;
+	if (game_state_arg == 10) goto L7d84;
+	if (game_state_arg != 12) goto L7d8d;
 L7d84:
 	return 0;
 L7d8d:
 	return 2;
 L7d92:
-	rsi = (((p12 << 6) + (p10 << 3)) + p8);
-	if (f28af((g4faa + 1082), rsi) != 1) goto L7dec;
-	switch (g363c) {
+	cell = (((level << 6) + (cy << 3)) + cx);
+	if (test_bit((maze_data + 1082), cell) != 1) goto L7dec;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
 case 12:
-	if (g363c != 12) goto L7dd1;
-	if (p12 <= 8) goto L7dd6;
+	if (game_state_arg != 12) goto L7dd1;
+	if (level <= 8) goto L7dd6;
 L7dd1:
 	return 0;
 L7dd6:
 	goto L7dec;
 	}
 L7dec:
-	rdi = 0;
-	switch (g4f9a) {
+	wall = 0;
+	switch (party_facing) {
 case 0:
-	rdi = f2925((g4faa + 288), rsi, 2);
+	wall = get_bitfield((maze_data + 288), cell, 2);
 	goto L7e66;
 case 1:
-	rdi = f7652(p4, p6, p8, p10, p12);
+	wall = f7652(x, y, cx, cy, level);
 	goto L7e66;
 case 2:
-	rdi = f76b7(p4, p6, p8, p10, p12);
+	wall = f76b7(x, y, cx, cy, level);
 	goto L7e66;
 case 3:
-	rdi = f2925((g4faa + 96), rsi, 2);
+	wall = get_bitfield((maze_data + 96), cell, 2);
 	goto L7e66;
 	}
 L7e66:
-	l2 = f2925((g4faa + 504), rsi, 4);
-	l4 = ((f2925((g4faa + 888), rsi, 2) + 3) % 4);
-	if (l4 != g4f9a) goto L7efd;
+	l2 = get_bitfield((maze_data + 504), cell, 4);
+	l4 = ((get_bitfield((maze_data + 888), cell, 2) + 3) % 4);
+	if (l4 != party_facing) goto L7efd;
 	switch (l2) {
 case 1:
-	rdi = 5;
+	wall = 5;
 	goto L7efd;
 case 2:
-	rdi = 6;
+	wall = 6;
 	goto L7efd;
 case 3:
-	rdi = 8;
+	wall = 8;
 	goto L7efd;
 case 4:
-	rdi = 9;
+	wall = 9;
 	goto L7efd;
 case 7:
-	rdi = 4;
+	wall = 4;
 	goto L7efd;
 case 8:
-	rdi = 7;
+	wall = 7;
 	goto L7efd;
 case 9:
-	rdi = 10;
+	wall = 10;
 	goto L7efd;
 case 10:
-	rdi = 11;
+	wall = 11;
 	goto L7efd;
 case 11:
-	rdi = 12;
+	wall = 12;
 	goto L7efd;
 case 12:
-	rdi = 13;
+	wall = 13;
 	goto L7efd;
 	}
 L7efd:
-	return rdi;
+	return wall;
 }

@@ -1,6 +1,6 @@
 #asm
-	public f2168_
-f2168_:
+	public free_dos_blocks_
+free_dos_blocks_:
 	db 006h
 l2169:
 	db 083h,0eeh,004h,02eh,08bh,01ch,00bh,0dbh,074h,00eh,02eh,08bh,05ch,002h,08eh,0c3h

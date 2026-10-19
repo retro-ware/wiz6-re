@@ -3,13 +3,13 @@ char *p4;
 {
 	char x0[4];
 	f53e5();
-	f3118(p4);
-	f02f0(p4, 1);
-	f030b(p4, 0, 0);
-	f22b7(p4, 49, 6);
+	defer_window_draw(p4);
+	clear_window(p4, 1);
+	set_cursor(p4, 0, 0);
+	put_char(p4, 49, 6);
 	p4[6]++;
-	f24e9(p4, 20806, 14);
-	f030b(p4, 19, 0);
-	f22b7(p4, 49, 9);
-	f31d1(p4);
+	print_string(p4, 20806, 14);
+	set_cursor(p4, 19, 0);
+	put_char(p4, 49, 9);
+	resume_window_draw(p4);
 }

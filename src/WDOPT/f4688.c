@@ -1,16 +1,17 @@
 #asm
-	extrn f2858_:near
+	extrn delay_tick_:near
 #endasm
-f4688()
+/* Occasionally wait and play a random ambient sound. */
+play_random_drip()
 {
-	if (f09e2(40) <= 0) goto L469d;
-	f2858();
+	if (random(40) <= 0) goto L469d;
+	delay_tick();
 #asm
-	call f2858_
+	call delay_tick_
 	db 0ebh,010h
 #endasm
 L469d:
-	f0aaa((f09e2(3) + 10));
+	play_sound((random(3) + 10));
 L46ad:
 	;
 }

@@ -1,7 +1,7 @@
 #asm
 	extrn $ldv:near
 #endasm
-f4ac7(p4, p6, p8, p10, p12, p14)
+draw_vital_bar_m(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
 	char l5[3];
@@ -38,8 +38,8 @@ L4b50:
 L4b69:
 	l2 = 0;
 L4b6e:
-	f030b(p4, p6, (p8 + l2));
-	f23e3(p4, (unsigned char)l5[l2], 1);
+	set_cursor(p4, p6, (p8 + l2));
+	put_char_hi(p4, (unsigned char)l5[l2], 1);
 	l2++;
 	if (l2 < 3) goto L4b6e;
 }

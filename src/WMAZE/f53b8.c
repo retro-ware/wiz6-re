@@ -1,7 +1,7 @@
-extern int g3342;
-f53b8(p4)
+extern int main_window;
+show_maze_text(p4)
 {
-	f09fb(g3342, 1);
-	f0b7e(g3342, p4, 0, 18);
-	f280c();
+	erase_window(main_window, 1);
+	print_centered(main_window, p4, 0, 18);
+	flush_keys();
 }

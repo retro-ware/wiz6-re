@@ -1,18 +1,18 @@
-f6029(p4, p6)
+draw_combat_list_box(p4, p6)
 {
 	register int rsi;
-	f32be(p4, 32, 3, 0);
-	f3118(p4);
-	f5fad(p4, 1, 0, 69);
+	fill_window(p4, 32, 3, 0);
+	defer_window_draw(p4);
+	put_combat_glyph_at(p4, 1, 0, 69);
 	rsi = 1;
 L6061:
-	f5fad(p4, 1, rsi, 71);
+	put_combat_glyph_at(p4, 1, rsi, 71);
 	rsi++;
 	if (rsi < 4) goto L6061;
-	f5fad(p4, 1, 4, 70);
-	f31d1(p4);
+	put_combat_glyph_at(p4, 1, 4, 70);
+	resume_window_draw(p4);
 	if (!p6) goto L60a2;
-	f2b19(p4);
+	refresh_window(p4);
 L60a2:
 	;
 }

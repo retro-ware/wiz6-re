@@ -1,89 +1,89 @@
-extern char g00de[];
 extern char g00df[];
 extern char g00e0[];
 extern char g00e3[];
-extern char g5588[];
-extern int g5498[];
-extern int g549a[];
-f6e38(p4, p6, p8)
+extern char spell_picks_left[];
+extern char spell_table[];
+extern int char_spell_points[];
+extern int char_spell_points_max[];
+choose_starting_spell(sheet_win, win, category)
 {
 	int l2;
 	int l4;
-	int l6;
+	int spell;
 	int l8;
-	int l10;
+	int class_bit;
 	int l12;
 	char x12[10];
-	int l24;
-	int l36[6];
-	switch (p8) {
+	int saved_known;
+	int saved_sp[6];
+	switch (category) {
 case 0:
-	l10 = 8;
+	class_bit = 8;
 	l12 = 28;
 	goto L6e87;
 case 1:
-	l10 = 4;
+	class_bit = 4;
 	l12 = 26;
 	goto L6e87;
 case 3:
-	l10 = 2;
+	class_bit = 2;
 	l12 = 27;
 	goto L6e87;
 case 2:
-	l10 = 1;
+	class_bit = 1;
 	l12 = 25;
 	goto L6e87;
 	}
 L6e87:
-	movmem(22008, &l24, 12);
+	movmem(22008, &saved_known, 12);
 	setmem(22008, 12, 0);
 	l8 = 1;
 	l4 = 0;
 	l2 = 0;
 L6eba:
-	if (!(l10 & (unsigned char)g00e3[(l2 * 6)])) goto L6f02;
+	if (!(class_bit & (unsigned char)g00e3[(l2 * 6)])) goto L6f02;
 	if ((unsigned char)g00df[(l2 * 6)] > l8) goto L6f02;
-	if (f28af(&l24, l2)) goto L6f02;
-	f2881(22008, l2, 1);
+	if (test_bit(&saved_known, l2)) goto L6f02;
+	set_bit(22008, l2, 1);
 	l4++;
 L6f02:
 	l2++;
 	if (l2 < 82) goto L6eba;
 	if (l4) goto L6f29;
-	movmem(&l24, 22008, 12);
+	movmem(&saved_known, 22008, 12);
 	return;
 L6f29:
-	f32be(p6, 32, 3, 0);
-	f3118(p6);
-	f030b(p6, 1, 1);
-	f083f(703, p6, 18);
-	f31d1(p6);
+	fill_window(win, 32, 3, 0);
+	defer_window_draw(win);
+	set_cursor(win, 1, 1);
+	print_message(703, win, 18);
+	resume_window_draw(win);
 	l2 = 0;
 L6f70:
-	l36[l2] = *(int *)((char *)g5498 + (l2 << 2));
-	*(int *)((char *)g5498 + (l2 << 2)) = 999;
+	saved_sp[l2] = *(int *)((char *)char_spell_points + (l2 << 2));
+	*(int *)((char *)char_spell_points + (l2 << 2)) = 999;
 	l2++;
 	if (l2 < 6) goto L6f70;
 L6fa3:
-	l6 = f6800(p4, p6, 0);
-	if (l6 != -1) goto L6fbd;
+	spell = select_spell(sheet_win, win, 0);
+	if (spell != -1) goto L6fbd;
 	goto L6fa3;
 L6fbd:
-	movmem(&l24, 22008, 12);
+	movmem(&saved_known, 22008, 12);
 	l2 = 0;
 L6fd4:
-	*(int *)((char *)g5498 + (l2 << 2)) = l36[l2];
+	*(int *)((char *)char_spell_points + (l2 << 2)) = saved_sp[l2];
 	l2++;
 	if (l2 < 6) goto L6fd4;
-	f2881(22008, l6, 1);
-	l2 = (((unsigned char)g00df[(l6 * 6)] << 1) + 1);
-	l4 = (unsigned char)g00de[(l6 * 6)];
-	if ((unsigned char)g00e0[(l6 * 6)] <= (*(int *)((char *)g549a + (l4 << 2)) + l2)) goto L704c;
-	l2 = ((unsigned char)g00e0[(l6 * 6)] - *(int *)((char *)g549a + (l4 << 2)));
+	set_bit(22008, spell, 1);
+	l2 = (((unsigned char)g00df[(spell * 6)] << 1) + 1);
+	l4 = (unsigned char)spell_table[(spell * 6)];
+	if ((unsigned char)g00e0[(spell * 6)] <= (*(int *)((char *)char_spell_points_max + (l4 << 2)) + l2)) goto L704c;
+	l2 = ((unsigned char)g00e0[(spell * 6)] - *(int *)((char *)char_spell_points_max + (l4 << 2)));
 L704c:
-	*(int *)((char *)g549a + (l4 << 2)) += l2;
-	*(int *)((char *)g5498 + (l4 << 2)) += l2;
-	g5588[p8]--;
-	f50d1(p4);
+	*(int *)((char *)char_spell_points_max + (l4 << 2)) += l2;
+	*(int *)((char *)char_spell_points + (l4 << 2)) += l2;
+	spell_picks_left[category]--;
+	draw_spell_points(sheet_win);
 	return;
 }

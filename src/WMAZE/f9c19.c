@@ -1,26 +1,26 @@
-extern int g3646;
+extern int anim_phase;
 extern int g5036;
 extern int g522a;
-f9c19()
+wait_more_prompt_m()
 {
 	int l2;
 	l2 = 3;
-	f280c();
+	flush_keys();
 L9c27:
-	if (f2643(1)) goto L9ccc;
-	if (!f0c42()) goto L9c41;
+	if (key_available(1)) goto L9ccc;
+	if (!check_screen_click()) goto L9c41;
 	return;
 L9c41:
 	if (g5036) goto L9cb8;
-	g3646 = ((g3646 + 1) % 2);
-	f98cb();
+	anim_phase = ((anim_phase + 1) % 2);
+	redraw_maze_view();
 	if (l2 >= 2) goto L9c85;
-	f030b(g522a, 39, 4);
-	f22b7(g522a, 32, 1);
+	set_cursor(g522a, 39, 4);
+	put_char(g522a, 32, 1);
 	goto L9ca9;
 L9c85:
-	f030b(g522a, 39, 4);
-	f23e3(g522a, 126, 1);
+	set_cursor(g522a, 39, 4);
+	put_char_hi(g522a, 126, 1);
 L9ca9:
 	l2 = ((l2 + 1) % 4);
 	goto L9cbb;
@@ -30,6 +30,6 @@ L9cbb:
 	g5036 = ((g5036 + 1) % 10);
 	goto L9c27;
 L9ccc:
-	if ((char)f2724(1) != 13) goto L9c27;
+	if ((char)get_key(1) != 13) goto L9c27;
 	return;
 }

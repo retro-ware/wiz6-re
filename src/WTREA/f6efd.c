@@ -1,6 +1,6 @@
 #asm
-	public f6efd_
-f6efd_:
+	public cast_chest_spell_
+cast_chest_spell_:
 	db 055h,08bh,0ech,083h,0c4h,0f6h,057h,056h,08bh,046h,006h,0e9h,07ch,005h,08bh,046h
 	db 008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0b1h,003h,0d3h,0e0h,003h,0c2h,0d1h,0e0h,001h
 	db 006h,0d0h,04eh,0b8h,000h,000h,050h,0ffh,036h,0d2h,04eh,08bh,046h,008h,08bh,0d0h

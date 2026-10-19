@@ -1,18 +1,19 @@
-extern int g4fbe;
-f4e5b(p4, p6)
+extern int fullscreen_win;
+/* Create the full-screen window and load the picture file name into it; show it if show. */
+load_fullscreen_pic(name, show)
 {
-	int l2;
-	g4fbe = f011a(0, 0, 40, 25, 1, -1, 2, 0);
-	f3640();
-	l2 = open(f0cd6(p4, 1), 0);
-	if (l2 != -1) goto L4eb2;
-	f00d5(12);
+	int fd;
+	fullscreen_win = create_window(0, 0, 40, 25, 1, -1, 2, 0);
+	stop_sound();
+	fd = open(make_data_path(name, 1), 0);
+	if (fd != -1) goto L4eb2;
+	exit_game(12);
 L4eb2:
-	f3694(g4fbe, 0);
-	f367c(l2);
-	close(l2);
-	if (!p6) goto L4edc;
-	f36a0(g4fbe);
+	drv_op_be(fullscreen_win, 0);
+	drv_op_b6(fd);
+	close(fd);
+	if (!show) goto L4edc;
+	drv_op_c2(fullscreen_win);
 L4edc:
 	;
 }

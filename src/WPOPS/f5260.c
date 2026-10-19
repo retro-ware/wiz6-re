@@ -1,16 +1,16 @@
-extern int g0846;
-extern int g4fc4;
-f5260(p4, p6, p8, p10, p12, p14, p16, p18, p20)
-char *p4;
+extern int menu_clicked;
+extern int mouse_present;
+combat_menu_select(win, first_msg, enabled, x0, y0, col_width, rows, color, sel)
+char *win;
 {
-	int l2;
-	int l4;
-	char l334[330];
-	int l336;
-	int l338;
+	int item;
+	int n;
+	char labels[330];
+	int x;
+	int y;
 	register int rsi;
-	l4 = 0;
-	l2 = 0;
+	n = 0;
+	item = 0;
 L5272:
 	;
 #asm
@@ -26,68 +26,68 @@ l5284:
 #endasm
 	goto L539f;
 L528c:
-	l336 = (((l4 / p16) * p14) + p10);
-	l338 = ((l4 % p16) + p12);
-	f030b(p4, l336, l338);
-	f075b((p6 + l2), ((l4 * 20) + l334));
-	if (g0846) goto L5315;
-	if (p20 != l4) goto L5315;
-	f24e9(p4, ((l4 * 20) + l334), (0 - p18));
+	x = (((n / rows) * col_width) + x0);
+	y = ((n % rows) + y0);
+	set_cursor(win, x, y);
+	get_message((first_msg + item), ((n * 20) + labels));
+	if (mouse_present) goto L5315;
+	if (sel != n) goto L5315;
+	print_string(win, ((n * 20) + labels), (0 - color));
 	goto L5338;
 L5315:
-	f251d(p4, ((l4 * 20) + l334), 3);
+	print_string_hi(win, ((n * 20) + labels), 3);
 L5338:
-	*(int *)(l334 + ((l4 << 1) + 300)) = l2;
-	f0c16(l4, ((unsigned char)p4[2] + l336), ((unsigned char)p4[3] + l338), (((strlen(((l4 * 20) + l334)) + (unsigned char)p4[2]) + l336) - 1), ((unsigned char)p4[3] + l338));
-	l4++;
+	*(int *)(labels + ((n << 1) + 300)) = item;
+	set_click_region(n, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((n * 20) + labels)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
+	n++;
 L539f:
-	l2++;
+	item++;
 	goto L5272;
 L53a5:
-	f0c16(l4, 255, 0, 0, 0);
+	set_click_region(n, 255, 0, 0, 0);
 L53b8:
-	if (g0846) goto L5409;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f24e9(p4, ((p20 * 20) + l334), (0 - p18));
+	if (mouse_present) goto L5409;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string(win, ((sel * 20) + labels), (0 - color));
 L5409:
-	l2 = f51d9(17270, 13720);
-	if (g4fc4 != 1) goto L542c;
-	p20 = l2;
-	l2 = 5;
+	item = get_combat_input(17270, 13720);
+	if (menu_clicked != 1) goto L542c;
+	sel = item;
+	item = 5;
 	goto L55b3;
 L542c:
-	switch (l2) {
+	switch (item) {
 case 1:
-	if ((p20 - p16) < 0) goto L5487;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 20) + l334), 3);
-	p20 -= p16;
+	if ((sel - rows) < 0) goto L5487;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 20) + labels), 3);
+	sel -= rows;
 L5487:
 	goto L55b3;
 case 2:
-	if ((p20 % p16) <= 0) goto L54d9;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 20) + l334), 3);
-	p20--;
+	if ((sel % rows) <= 0) goto L54d9;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 20) + labels), 3);
+	sel--;
 L54d9:
 	goto L55b3;
 case 3:
-	if ((p20 + p16) >= l4) goto L5534;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 20) + l334), 3);
-	p20 += p16;
+	if ((sel + rows) >= n) goto L5534;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 20) + labels), 3);
+	sel += rows;
 L5534:
 	goto L55b3;
 case 4:
-	if ((p20 % p16) >= (p16 - 1)) goto L5594;
-	if ((p20 + 1) >= l4) goto L5594;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 20) + l334), 3);
-	p20++;
+	if ((sel % rows) >= (rows - 1)) goto L5594;
+	if ((sel + 1) >= n) goto L5594;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 20) + labels), 3);
+	sel++;
 L5594:
 	goto L55b3;
 	}
 L55b3:
-	if (l2 != 5) goto L53b8;
-	return *(int *)(l334 + ((p20 << 1) + 300));
+	if (item != 5) goto L53b8;
+	return *(int *)(labels + ((sel << 1) + 300));
 }

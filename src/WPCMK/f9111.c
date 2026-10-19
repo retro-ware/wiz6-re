@@ -1,34 +1,34 @@
-extern char *g56ca;
-extern char g560c;
-extern int g4fc4;
-extern int g546e;
-extern int g56cc;
-f9111()
+extern char *prompt_win;
+extern char char_portrait;
+extern int menu_clicked;
+extern int menu_win;
+extern int sheet_win;
+choose_portrait()
 {
 	int l2;
 	int l4;
-	f32be(g56cc, 32, 3, 0);
-	f2b19(g56cc);
-	f32be(g56ca, 32, 3, 0);
-	f2b19(g56ca);
-	f030b(g56ca, 9, 1);
-	f083f(1112, g56ca, 18);
-	f030b(g56ca, 12, 2);
-	f083f(1113, g56ca, 18);
+	fill_window(menu_win, 32, 3, 0);
+	refresh_window(menu_win);
+	fill_window(prompt_win, 32, 3, 0);
+	refresh_window(prompt_win);
+	set_cursor(prompt_win, 9, 1);
+	print_message(1112, prompt_win, 18);
+	set_cursor(prompt_win, 12, 2);
+	print_message(1113, prompt_win, 18);
 	l4 = -1;
-	f4b9c(1119);
-	f0c16(0, ((unsigned char)g56ca[2] + 9), ((unsigned char)g56ca[3] + 1), ((unsigned char)g56ca[2] + 9), ((unsigned char)g56ca[3] + 1));
-	f0c16(1, ((unsigned char)g56ca[2] + 10), ((unsigned char)g56ca[3] + 1), ((unsigned char)g56ca[2] + 10), ((unsigned char)g56ca[3] + 1));
-	f0c16(2, ((unsigned char)g56ca[2] + 18), ((unsigned char)g56ca[3] + 2), ((unsigned char)g56ca[2] + 18), ((unsigned char)g56ca[3] + 2));
-	f0c16(3, 255, 0, 0, 0);
+	print_status_centered(1119);
+	set_click_region(0, ((unsigned char)prompt_win[2] + 9), ((unsigned char)prompt_win[3] + 1), ((unsigned char)prompt_win[2] + 9), ((unsigned char)prompt_win[3] + 1));
+	set_click_region(1, ((unsigned char)prompt_win[2] + 10), ((unsigned char)prompt_win[3] + 1), ((unsigned char)prompt_win[2] + 10), ((unsigned char)prompt_win[3] + 1));
+	set_click_region(2, ((unsigned char)prompt_win[2] + 18), ((unsigned char)prompt_win[3] + 2), ((unsigned char)prompt_win[2] + 18), ((unsigned char)prompt_win[3] + 2));
+	set_click_region(3, 255, 0, 0, 0);
 L9248:
-	if ((unsigned char)g560c == l4) goto L925f;
-	f8ffe((unsigned char)g560c);
-	l4 = (unsigned char)g560c;
+	if ((unsigned char)char_portrait == l4) goto L925f;
+	load_portrait((unsigned char)char_portrait);
+	l4 = (unsigned char)char_portrait;
 L925f:
-	f5176(g56cc, 8, 3);
-	l2 = f45fc(21534, 13720);
-	if (g4fc4 != 1) goto L92af;
+	draw_portrait(menu_win, 8, 3);
+	l2 = get_menu_input(21534, 13720);
+	if (menu_clicked != 1) goto L92af;
 	goto L92a0;
 	l2 = 1;
 #asm
@@ -51,18 +51,18 @@ l92a0:
 L92af:
 	switch (l2) {
 case 1:
-	g560c = (char)(((unsigned char)g560c + 41) % 42);
+	char_portrait = (char)(((unsigned char)char_portrait + 41) % 42);
 	goto L92e6;
 case 3:
-	g560c = (char)(((unsigned char)g560c + 1) % 42);
+	char_portrait = (char)(((unsigned char)char_portrait + 1) % 42);
 	goto L92e6;
 	}
 L92e6:
 	if (l2 != 5) goto L9248;
-	f4b6d();
-	f32be(g56cc, 32, 3, 0);
-	f2b19(g56cc);
-	f32be(g56ca, 32, 3, 0);
-	f2b19(g56ca);
-	f5176(g546e, 1, 1);
+	clear_status_line();
+	fill_window(menu_win, 32, 3, 0);
+	refresh_window(menu_win);
+	fill_window(prompt_win, 32, 3, 0);
+	refresh_window(prompt_win);
+	draw_portrait(sheet_win, 1, 1);
 }

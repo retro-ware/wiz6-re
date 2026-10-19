@@ -1,22 +1,22 @@
-f47c1(p4, p6)
-char *p4;
+count_enabled_options(flags, count)
+char *flags;
 {
-	int l2;
-	int l4;
+	int i;
+	int n;
 	register int rsi;
-	l2 = 0;
-	l4 = 0;
+	i = 0;
+	n = 0;
 L47d2:
-	if (l2 == p6) goto L47fb;
-	rsi = (l2 << 1);
-	if (*(int *)(p4 + rsi) != -1) goto L47ee;
+	if (i == count) goto L47fb;
+	rsi = (i << 1);
+	if (*(int *)(flags + rsi) != -1) goto L47ee;
 	return 0;
 L47ee:
-	if (*(int *)(p4 + rsi) != 1) goto L47f6;
-	l4++;
+	if (*(int *)(flags + rsi) != 1) goto L47f6;
+	n++;
 L47f6:
-	l2++;
+	i++;
 	goto L47d2;
 L47fb:
-	return l4;
+	return n;
 }

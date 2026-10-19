@@ -4,51 +4,51 @@ extern char g452c[];
 extern char g505c;
 extern int g435c;
 extern int g435e;
-extern int g4360;
-extern int g43a8[];
-extern int g43b6[];
-extern int g43ce;
-extern int g440c[];
 extern int g4fc8;
-fc064(p4)
+extern int group_monster_rec[];
+extern int monster_group_count;
+extern int monster_groups[];
+extern int party_count;
+extern int pc_level[];
+do_hide(p4)
 char *p4;
 {
 	int l2;
 	int l4;
 	int l6;
 	if (g435e) goto Lc0db;
-	l6 = ((*(int *)((char *)g440c + (432 * g435c)) + (unsigned char)g452c[(432 * g435c)]) + 50);
+	l6 = ((*(int *)((char *)pc_level + (432 * g435c)) + (unsigned char)g452c[(432 * g435c)]) + 50);
 	l2 = 1;
 	goto Lc0d0;
 Lc097:
-	l6 -= (((unsigned char)g019d[g43a8[l2]] + (unsigned char)(*(char **)((char *)g43b6 + (l2 << 1)))[122]) + (unsigned char)(*(char **)((char *)g43b6 + (l2 << 1)))[135]);
+	l6 -= (((unsigned char)g019d[monster_groups[l2]] + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[122]) + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[135]);
 	l2++;
 Lc0d0:
-	if (l2 <= g4360) goto Lc097;
+	if (l2 <= monster_group_count) goto Lc097;
 	goto Lc12b;
 Lc0db:
 	l6 = ((*(int *)p4 * 5) + 50);
-	l4 = (g43ce > 3 ? 3 : g43ce);
+	l4 = (party_count > 3 ? 3 : party_count);
 	l2 = 0;
 	goto Lc123;
 Lc105:
-	l6 -= (*(int *)((char *)g440c + (432 * l2)) + (unsigned char)g4515[(432 * l2)]);
+	l6 -= (*(int *)((char *)pc_level + (432 * l2)) + (unsigned char)g4515[(432 * l2)]);
 	l2++;
 Lc123:
 	if (l2 < l4) goto Lc105;
 Lc12b:
-	f6ba3(20492, g435e, g435c);
-	f075b(3515, 20652);
+	get_combatant_name(20492, g435e, g435c);
+	get_message(3515, 20652);
 	g505c = 0;
-	f6d32(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
-	f774b((g4fc8 / 4));
-	if (f09e2(100) >= l6) goto Lc1c0;
+	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
+	combat_delay((g4fc8 / 4));
+	if (random(100) >= l6) goto Lc1c0;
 	p4[43] = 1;
-	f77d4(g435c, 16, 1);
-	f6d0b(3520, 6, 2);
+	try_raise_skill(g435c, 16, 1);
+	print_msg_centered(3520, 6, 2);
 	goto Lc1d2;
 Lc1c0:
-	f6d0b(3521, 6, 2);
+	print_msg_centered(3521, 6, 2);
 Lc1d2:
-	f774b((g4fc8 / 4));
+	combat_delay((g4fc8 / 4));
 }

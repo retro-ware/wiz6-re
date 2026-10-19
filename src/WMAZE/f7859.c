@@ -1,6 +1,6 @@
-f7859()
+show_fleeing_msg()
 {
-	f2a63();
-	f53e5(2041);
+	refresh_all_windows();
+	show_maze_message(2041);
 	return 1;
 }

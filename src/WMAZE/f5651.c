@@ -1,4 +1,3 @@
-extern int g363c;
 extern int g4f8c;
 extern int g4f8e;
 extern int g4f90;
@@ -6,19 +5,20 @@ extern int g4f92;
 extern int g4f94;
 extern int g4f96;
 extern int g4f98;
-extern int g4f9a;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
-f5651()
+extern int game_state_arg;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+save_position()
 {
-	g4f96 = g4fa4;
-	g4f94 = g4fa2;
-	g4f92 = g4fa0;
-	g4f90 = g4f9e;
-	g4f8e = g4f9c;
-	g4f98 = g363c;
-	g4f8c = g4f9a;
+	g4f96 = party_x;
+	g4f94 = party_y;
+	g4f92 = party_cell_x;
+	g4f90 = party_cell_y;
+	g4f8e = party_level;
+	g4f98 = game_state_arg;
+	g4f8c = party_facing;
 }

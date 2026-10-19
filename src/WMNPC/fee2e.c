@@ -10,17 +10,7 @@ extern char g6b06[];
 extern char g6b07;
 extern int g0042[];
 extern int g004a[];
-extern int g363c;
-extern int g433c;
-extern int g4f9a;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
 extern int g4fa6;
-extern int g4faa;
-extern int g4fbc;
 extern int g6aa4;
 extern int g6ab4[];
 extern int g6b32;
@@ -32,6 +22,16 @@ extern int g6c86;
 extern int g6c88;
 extern int g6c8a;
 extern int g6c8c;
+extern int game_state_arg;
+extern int maze_data;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+extern int picture_win;
+extern int view_rows_open;
 fee2e()
 {
 	int l2;
@@ -43,16 +43,16 @@ fee2e()
 	char *l14;
 	char l16[2];
 	register int rsi;
-	l2 = g4fa4;
-	l4 = g4fa2;
-	l6 = g4fa0;
-	l8 = g4f9e;
-	l10 = g4f9c;
+	l2 = party_x;
+	l4 = party_y;
+	l6 = party_cell_x;
+	l8 = party_cell_y;
+	l10 = party_level;
 	g4fa6 = 0;
-	g433c = 1;
-	f3694(g4fbc, 0);
-	if (f28af((g4faa + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto Leeb2;
-	switch (g363c) {
+	view_rows_open = 1;
+	drv_op_be(picture_win, 0);
+	if (test_bit((maze_data + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto Leeb2;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
@@ -87,14 +87,14 @@ Leeb5:
 	l12 = l10;
 	fdafe(&l2, &l4, &l6, &l8, &l12, 0, -1);
 	g6c82 = 4;
-	g6c7e = (((g4fa4 + g4fa2) + g4f9a) % 2);
+	g6c7e = (((party_x + party_y) + party_facing) % 2);
 	g6aa4 = 0;
 Lefb7:
 	if (g6aa4 >= g6c82) goto Lf54b;
-	g6c80 = ((((g4fa4 + g4fa2) + g4f9a) + g6aa4) % 2);
+	g6c80 = ((((party_x + party_y) + party_facing) + g6aa4) % 2);
 	if (!fdafe(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto Lf060;
-	if (g363c == 10) goto Lf015;
-	if (g363c != 12) goto Lf04c;
+	if (game_state_arg == 10) goto Lf015;
+	if (game_state_arg != 12) goto Lf04c;
 Lf015:
 	g6aa7[(g6aa4 * 3)] = 1;
 	g6ab4[(g6aa4 * 3)] = 1;
@@ -160,22 +160,22 @@ Lf554:
 	goto Lf640;
 Lf55c:
 	l14 = ((rsi * 11) + 27444);
-	g6c80 = (((((unsigned char)l14[10] + g4fa4) + g4fa2) + g4f9a) % 2);
+	g6c80 = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
 	if ((unsigned char)l14[10] != g6aa4) goto Lf63f;
 	if ((unsigned char)l14[8] != 255) goto Lf63f;
 	if (*(int *)l14 == -1) goto Lf5f0;
 	if (*(int *)(l14 + 4) == -1) goto Lf5db;
-	f36ac((g6c80 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)l14 : -1));
+	drv_op_c6((g6c80 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)l14 : -1));
 	goto Lf5f0;
 Lf5db:
-	f36ac(*(int *)l14, (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
 Lf5f0:
 	if (*(int *)(l14 + 2) == -1) goto Lf63f;
 	if (*(int *)(l14 + 6) == -1) goto Lf629;
-	f36ac((g6c80 != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)(l14 + 2) : -1));
+	drv_op_c6((g6c80 != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)(l14 + 2) : -1));
 	goto Lf63f;
 Lf629:
-	f36ac(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
 Lf63f:
 	rsi--;
 Lf640:
@@ -189,7 +189,7 @@ Lf64f:
 	if ((unsigned char)l14[8] == 255) goto Lf6a4;
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
-	f3670((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
+	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
 Lf6a4:
 	rsi--;
 Lf6a5:

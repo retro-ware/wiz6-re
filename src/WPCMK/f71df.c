@@ -1,11 +1,11 @@
-extern char g559c[];
-f71df(p4)
+extern char char_stats[];
+raise_stats_to_minimum(p4)
 char *p4;
 {
 	register int rsi;
 	rsi = 0;
 L71e6:
-	if ((unsigned char)g559c[rsi] >= (*(p4 + rsi) + -65)) goto L7207;
+	if ((unsigned char)char_stats[rsi] >= (*(p4 + rsi) + -65)) goto L7207;
 #asm
 	db 08ah,000h,004h,0bfh,088h,084h,09ch,055h
 #endasm

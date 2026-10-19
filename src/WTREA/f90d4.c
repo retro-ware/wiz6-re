@@ -1,9 +1,9 @@
-extern int g3342;
-extern int g4fb2;
-f90d4(p4, p6)
+extern int bottom_line_win;
+extern int main_window;
+close_chest_windows(p4, p6)
 {
-	f02d2(p6, 0);
-	f02d2(p4, 0);
-	f3118(g3342);
-	f3118(g4fb2);
+	destroy_window(p6, 0);
+	destroy_window(p4, 0);
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
 }

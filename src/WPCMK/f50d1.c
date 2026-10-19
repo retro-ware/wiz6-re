@@ -1,16 +1,16 @@
-extern int g0004[];
-extern int g546e;
-extern int g5498[];
-extern int g549a[];
-f50d1()
+extern int char_spell_points[];
+extern int char_spell_points_max[];
+extern int realm_colors[];
+extern int sheet_win;
+draw_spell_points()
 {
 	int l2;
 	l2 = 0;
 L50dc:
-	f030b(g546e, (l2 < 3 ? 3 : 13), (((l2 % 3) << 1) + 14));
-	f05a5(g546e, *(int *)((char *)g5498 + (l2 << 2)), 3, g0004[l2]);
-	f22b7(g546e, 47, 9);
-	f05a5(g546e, *(int *)((char *)g549a + (l2 << 2)), 3, g0004[l2]);
+	set_cursor(sheet_win, (l2 < 3 ? 3 : 13), (((l2 % 3) << 1) + 14));
+	print_int(sheet_win, *(int *)((char *)char_spell_points + (l2 << 2)), 3, realm_colors[l2]);
+	put_char(sheet_win, 47, 9);
+	print_int(sheet_win, *(int *)((char *)char_spell_points_max + (l2 << 2)), 3, realm_colors[l2]);
 	l2++;
 	if (l2 < 6) goto L50dc;
 }

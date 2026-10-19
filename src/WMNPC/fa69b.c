@@ -1,20 +1,20 @@
-extern int g43fc[];
 extern int g527a;
 extern int g54b4[];
 extern int g56ee[];
 extern int g57de[];
 extern int g5856[];
+extern int pc_gold[];
 fa69b(p4, p6)
 {
 	int l2;
 	int l4;
 	l2 = g54b4[p6];
 	l4 = g5856[l2];
-	if (*(long *)((char *)g43fc + (432 * p4)) >= *(long *)((char *)g57de + (l2 << 2))) goto La6f3;
+	if (*(long *)((char *)pc_gold + (432 * p4)) >= *(long *)((char *)g57de + (l2 << 2))) goto La6f3;
 	fa645(1503);
 	return;
 La6f3:
-	if (f6a80(p4, l4, g56ee[l2]) != -1) goto La719;
+	if (npc_give_item_to_member(p4, l4, g56ee[l2]) != -1) goto La719;
 	fa645(1505);
 	goto La76d;
 La719:

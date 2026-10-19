@@ -1,8 +1,8 @@
-extern int g4358;
-f51c8()
+extern int view_anim_state;
+animate_until_reset()
 {
-	g4358 = -2;
+	view_anim_state = -2;
 L51ce:
-	f511c();
-	if (g4358 != -2) goto L51ce;
+	animate_combat_step();
+	if (view_anim_state != -2) goto L51ce;
 }

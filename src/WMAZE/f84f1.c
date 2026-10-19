@@ -5,7 +5,7 @@ extern char g50d9[];
 extern int g50ce;
 extern int g50d0[];
 extern int g50d2[];
-f84f1(p4, p6, p8, p10)
+add_view_object_m(p4, p6, p8, p10)
 char p10;
 {
 	g50d8[(g50ce * 11)] = *(char *)&p4;
@@ -24,7 +24,7 @@ L8587:
 	g50ce++;
 	if (g50ce < 30) goto L85cc;
 L85c2:
-	f0aaa(0);
+	play_sound(0);
 	goto L85c2;
 L85cc:
 	;

@@ -1,6 +1,6 @@
 #asm
-	public f25b9_
-f25b9_:
+	public step_random_
+step_random_:
 	db 050h,053h,051h,052h,02eh,0a1h,03bh,01dh,099h,0bbh,0b1h,000h,0f7h,0fbh,08bh,0cah
 	db 0bah,002h,000h,0f7h,0eah,08bh,0d8h,0b8h,0abh,000h,0f7h,0e9h,02bh,0c3h,079h,003h
 	db 005h,03dh,076h

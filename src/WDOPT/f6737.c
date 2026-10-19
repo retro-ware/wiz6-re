@@ -1,6 +1,7 @@
-f6737(p4, p6, p8, p10)
-char p10;
+/* Draw char ch at x, y. */
+draw_char_at(win, x, y, ch)
+char ch;
 {
-	f030b(p4, p6, p8);
-	f22b7(p4, (unsigned char)p10, 5);
+	set_cursor(win, x, y);
+	put_char(win, (unsigned char)ch, 5);
 }

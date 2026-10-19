@@ -1,13 +1,13 @@
-extern char g560c;
-f9986(p4)
+extern char char_portrait;
+change_portrait(slot)
 {
-	int l2;
-	f972a(p4);
-	l2 = (unsigned char)g560c;
-	f9111();
-	if ((unsigned char)g560c == l2) goto L99bc;
-	f457f(21616, p4, 1);
-	f9778();
+	int old_portrait;
+	load_and_show_character(slot);
+	old_portrait = (unsigned char)char_portrait;
+	choose_portrait();
+	if ((unsigned char)char_portrait == old_portrait) goto L99bc;
+	access_roster_record(21616, slot, 1);
+	wait_for_key();
 L99bc:
 	;
 }

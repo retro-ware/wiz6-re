@@ -1,8 +1,8 @@
-extern int g4358;
-f773a()
+extern int view_anim_state;
+reset_animation()
 {
-	g4358 = -2;
+	view_anim_state = -2;
 L7740:
-	f765a();
-	if (g4358 != -2) goto L7740;
+	animate_step();
+	if (view_anim_state != -2) goto L7740;
 }

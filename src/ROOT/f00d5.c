@@ -1,5 +1,6 @@
-f00d5(p4)
+/* Clean up and exit to DOS with the given code. */
+exit_game(code)
 {
-	f0000(p4);
-	exit(p4);
+	shutdown_game(code);
+	exit(code);
 }

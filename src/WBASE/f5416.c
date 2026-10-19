@@ -1,6 +1,7 @@
-f5416(p4, p6, p8, p10)
-char p10;
+/* Draw glyph ch at x, y. */
+draw_glyph_at(win, x, y, ch)
+char ch;
 {
-	f030b(p4, p6, p8);
-	f23e3(p4, (unsigned char)p10, 1);
+	set_cursor(win, x, y);
+	put_char_hi(win, (unsigned char)ch, 1);
 }

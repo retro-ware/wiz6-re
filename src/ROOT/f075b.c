@@ -1,55 +1,56 @@
 #asm
-	extrn f06aa_:near
+	extrn load_message_block_:near
 #endasm
-extern char g1c3e[];
-extern int g303e;
-extern int g3042;
-f075b(p4, p6)
+extern char msg_block[];
+extern int msg_block_num;
+extern int msg_not_found;
+/* Fetch message number N from MSG.DBS and decode it into a buffer. */
+get_message(msg, buf)
 {
-	int l2;
-	int l4;
-	int l6;
-	char *l8;
-	int l10;
-	char l265[255];
+	int pos;
+	int n;
+	int len;
+	char *entry;
+	int dst;
+	char raw[255];
 	char x265[1];
-	l8 = f063a(p4);
+	entry = find_message_index(msg);
 #asm
 	db 085h,0c0h,075h,00ah
 #endasm
-	g3042 = 1;
+	msg_not_found = 1;
 	return;
 L077a:
 	;
 #asm
 l077a:
 	db 08bh,0d8h,08ah,047h,005h,02ah,0e4h,03bh,006h,03eh,030h,074h,005h,050h
-	call f06aa_
+	call load_message_block_
 	db 059h
 #endasm
 L078c:
-	l2 = *(int *)(l8 + 2);
-	l4 = *(int *)l8;
+	pos = *(int *)(entry + 2);
+	n = *(int *)entry;
 L079a:
-	if (p4 == l4) goto L07b6;
-	l2 = (((unsigned char)g1c3e[l2] + l2) + 1);
-	l4++;
+	if (msg == n) goto L07b6;
+	pos = (((unsigned char)msg_block[pos] + pos) + 1);
+	n++;
 	goto L079a;
 L07b6:
-	l6 = (unsigned char)g1c3e[l2];
-	l2++;
-	l4 = l6;
-	l10 = l265;
-	if ((l2 + l4) <= 1024) goto L080b;
-	movmem((l2 + 7230), l10, (1024 - l2));
-	l4 -= (1024 - l2);
-	l10 += (1024 - l2);
-	f06aa((g303e + 1));
-	l2 = 0;
+	len = (unsigned char)msg_block[pos];
+	pos++;
+	n = len;
+	dst = raw;
+	if ((pos + n) <= 1024) goto L080b;
+	movmem((pos + 7230), dst, (1024 - pos));
+	n -= (1024 - pos);
+	dst += (1024 - pos);
+	load_message_block((msg_block_num + 1));
+	pos = 0;
 L080b:
-	movmem((l2 + 7230), l10, l4);
-	l265[l6] = 0;
-	f29d9(l265, p6);
-	g3042 = 0;
+	movmem((pos + 7230), dst, n);
+	raw[len] = 0;
+	decode_text(raw, buf);
+	msg_not_found = 0;
 	return;
 }

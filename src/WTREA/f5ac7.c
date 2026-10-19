@@ -1,5 +1,5 @@
 extern int g501a;
-f5ac7(p4, p6, p8)
+format_dice(p4, p6, p8)
 char p4;
 char p6;
 {

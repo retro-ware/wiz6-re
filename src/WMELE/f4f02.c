@@ -10,38 +10,39 @@ extern char g375b[];
 extern char g375c[];
 extern char g3813[];
 extern char g3816[];
-extern char g432c[];
-extern int g43a8[];
-f4f02(p4, p6)
+extern char pic_slot_monster[];
+extern int monster_groups[];
+/* Pick animation frames for the members of group g shown at view position pos. */
+choose_monster_frames(g, pos)
 {
-	int l2;
-	int l4;
-	register int rsi;
-	register int rdi;
-	rsi = (unsigned char)g019b[g43a8[p4]];
-	rdi = 0;
+	int frame;
+	int step;
+	register int pic;
+	register int i;
+	pic = (unsigned char)g019b[monster_groups[g]];
+	i = 0;
 	goto L504c;
 L4f23:
-	if ((unsigned)g3813[(314 * rsi)] <= 0) goto L4f6d;
-	if ((unsigned char)g3813[(314 * rsi)] == 255) goto L4f6d;
-	if (g432c[rsi] == 46) goto L4f6d;
-	if (g432c[rsi] == 36) goto L4f6d;
-	l2 = ((unsigned char)g3813[(314 * rsi)] / 25);
-	l4 = ((unsigned char)g3813[(314 * rsi)] % 25);
-	if (g432c[rsi] != 54) goto L4f6b;
-	if (rdi) goto L4f6b;
-	l2 = 0;
-	l4 = 0;
+	if ((unsigned)g3813[(314 * pic)] <= 0) goto L4f6d;
+	if ((unsigned char)g3813[(314 * pic)] == 255) goto L4f6d;
+	if (pic_slot_monster[pic] == 46) goto L4f6d;
+	if (pic_slot_monster[pic] == 36) goto L4f6d;
+	frame = ((unsigned char)g3813[(314 * pic)] / 25);
+	step = ((unsigned char)g3813[(314 * pic)] % 25);
+	if (pic_slot_monster[pic] != 54) goto L4f6b;
+	if (i) goto L4f6b;
+	frame = 0;
+	step = 0;
 L4f6b:
 	goto L4fc4;
 L4f6d:
-	l2 = (f09e2((unsigned char)g373c[((314 * rsi) + rdi)]) + (unsigned char)g3732[((314 * rsi) + rdi)]);
-	l4 = (f09e2((unsigned char)g3750[((314 * rsi) + l2)]) + (unsigned char)g3746[((314 * rsi) + l2)]);
+	frame = (random((unsigned char)g373c[((314 * pic) + i)]) + (unsigned char)g3732[((314 * pic) + i)]);
+	step = (random((unsigned char)g3750[((314 * pic) + frame)]) + (unsigned char)g3746[((314 * pic) + frame)]);
 L4fc4:
-	g3648[((p6 * 30) + (rdi * 3))] = *(char *)&l2;
-	g3649[((p6 * 30) + (rdi * 3))] = *(char *)&l4;
-	g364a[((p6 * 30) + (rdi * 3))] = (char)(f09e2((unsigned char)g375c[((314 * rsi) + (l4 << 2))]) + (unsigned char)g375b[((314 * rsi) + (l4 << 2))]);
-	rdi++;
+	g3648[((pos * 30) + (i * 3))] = *(char *)&frame;
+	g3649[((pos * 30) + (i * 3))] = *(char *)&step;
+	g364a[((pos * 30) + (i * 3))] = (char)(random((unsigned char)g375c[((314 * pic) + (step << 2))]) + (unsigned char)g375b[((314 * pic) + (step << 2))]);
+	i++;
 L504c:
-	if ((unsigned char)g3816[(314 * rsi)] > rdi) goto L4f23;
+	if ((unsigned char)g3816[(314 * pic)] > i) goto L4f23;
 }

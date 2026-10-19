@@ -1,9 +1,10 @@
+/* Return 1 if a key (of the requested class) is waiting. */
 #asm
-	public f2643_
-	extrn f25b9_:near
-f2643_:
+	public key_available_
+	extrn step_random_:near
+key_available_:
 	db 055h,08bh,0ech,01eh,006h,056h,0fch,08ch,0c8h,08eh,0d8h,08eh,0c0h
-	call f25b9_
+	call step_random_
 	db 08dh,036h,02bh,026h
 l2657:
 	db 08bh,01ch,00bh,0dbh,074h,069h,08bh,046h,004h,03ch,000h,074h,045h,03ch,002h,074h

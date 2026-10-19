@@ -1,5 +1,5 @@
-f6faa(p4, p6, p8, p10)
+print_option_at(p4, p6, p8, p10)
 {
-	f030b(p4, (((p6 / 5) * 20) + 2), (p6 % 5));
-	f24e9(p4, p8, p10);
+	set_cursor(p4, (((p6 / 5) * 20) + 2), (p6 % 5));
+	print_string(p4, p8, p10);
 }

@@ -1,7 +1,7 @@
-extern char g451c[];
 extern char g4526[];
 extern char g452d[];
 extern char g4532[];
+extern char pc_skills[];
 fdd93(p4, p6, p8, p10, p12)
 {
 	int l2;
@@ -14,7 +14,7 @@ Ldda1:
 ldda1:
 	db 08bh,05eh,006h,08bh,076h,0feh,080h,038h,031h,074h,011h
 #endasm
-	if ((unsigned)g451c[((432 * p4) + rsi)] <= 0) goto Lddc2;
+	if ((unsigned)pc_skills[((432 * p4) + rsi)] <= 0) goto Lddc2;
 Lddbd:
 	;
 #asm

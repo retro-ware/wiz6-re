@@ -1,16 +1,16 @@
-extern char g4fd8[];
-extern int g4fd2;
-f9558()
+extern char roster_slot_used[];
+extern int roster_slot_count;
+find_free_roster_slot()
 {
 	register int rsi;
 	rsi = 0;
 	goto L956a;
 L955e:
-	if (g4fd8[rsi]) goto L9569;
+	if (roster_slot_used[rsi]) goto L9569;
 	return rsi;
 L9569:
 	rsi++;
 L956a:
-	if (rsi < g4fd2) goto L955e;
+	if (rsi < roster_slot_count) goto L955e;
 	return -1;
 }

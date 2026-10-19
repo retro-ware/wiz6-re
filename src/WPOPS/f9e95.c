@@ -1,15 +1,15 @@
 #asm
-	extrn f36ac_:near
+	extrn drv_op_c6_:near
 #endasm
 extern char g507c[];
 extern char g50e4[];
-extern int g3646;
+extern int anim_phase;
 extern int g5088[];
 extern int g5254;
-f9e95(p4, p6, p8, p10, p12, p14, p16, p18)
+draw_floor_ceiling(p4, p6, p8, p10, p12, p14, p16, p18)
 {
 	if (g507c[((p4 * 3) + p6)]) goto L9ede;
-	f36ac((g5254 ? (p10 + p4) : (p8 + p4)), 1, (g5254 != 0 ? (p8 + p4) : -1));
+	drv_op_c6((g5254 ? (p10 + p4) : (p8 + p4)), 1, (g5254 != 0 ? (p8 + p4) : -1));
 L9ede:
 	if (g50e4[((p4 * 3) + p6)]) goto L9f80;
 	if (*(int *)((char *)g5088 + ((p4 * 6) + (p6 << 1)))) goto L9f44;
@@ -22,11 +22,11 @@ l9f35:
 	db 08bh,046h,00ch,003h,046h,004h
 l9f3b:
 	db 050h
-	call f36ac_
+	call drv_op_c6_
 	db 083h,0c4h,006h,0ebh,03ch
 #endasm
 L9f44:
-	f36ac((((g5254 + g3646) % 2) ? (p18 + p4) : (p16 + p4)), 1, (((g5254 + g3646) % 2) ? (p16 + p4) : -1));
+	drv_op_c6((((g5254 + anim_phase) % 2) ? (p18 + p4) : (p16 + p4)), 1, (((g5254 + anim_phase) % 2) ? (p16 + p4) : -1));
 L9f80:
 	;
 }

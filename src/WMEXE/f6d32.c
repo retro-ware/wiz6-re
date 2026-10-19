@@ -1,8 +1,8 @@
 #asm
 	extrn strlen_:near
 #endasm
-extern char *g4fb6;
-f6d32(p4, p6, p8, p10, p12, p14)
+extern char *party_picture_win;
+print_combat_line(p4, p6, p8, p10, p12, p14)
 char *p4;
 char *p6;
 char *p8;
@@ -42,15 +42,15 @@ l6d6a:
 #endasm
 	l2 = 0;
 L6db3:
-	f030b(g4fb6, l2, (unsigned char)g4fb6[7]);
+	set_cursor(party_picture_win, l2, (unsigned char)party_picture_win[7]);
 	if (!*p4) goto L6dd9;
-	f6bf1(p4, p10);
+	print_wrapped(p4, p10);
 L6dd9:
 	if (!*p6) goto L6deb;
-	f6bf1(p6, p12);
+	print_wrapped(p6, p12);
 L6deb:
 	if (!*p8) goto L6dfd;
-	f6bf1(p8, p14);
+	print_wrapped(p8, p14);
 L6dfd:
 	;
 }

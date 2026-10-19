@@ -1,18 +1,18 @@
-f040e(p4)
-char *p4;
+reverse_string(str)
+char *str;
 {
-	int l2;
-	register int rsi;
-	register int rdi;
-	rdi = 0;
-	l2 = (strlen(p4) - 1);
+	int j;
+	register int c;
+	register int i;
+	i = 0;
+	j = (strlen(str) - 1);
 	goto L0448;
 L0426:
-	rsi = *(p4 + rdi);
-	*(p4 + rdi) = *(p4 + l2);
-	*(p4 + l2) = rsi;
-	l2--;
-	rdi++;
+	c = *(str + i);
+	*(str + i) = *(str + j);
+	*(str + j) = c;
+	j--;
+	i++;
 L0448:
-	if (rdi < l2) goto L0426;
+	if (i < j) goto L0426;
 }

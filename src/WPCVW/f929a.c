@@ -1,5 +1,5 @@
-extern char g451c[];
-f929a(p4, p6)
+extern char pc_skills[];
+do_skills_menu(p4, p6)
 {
 	int l2;
 	int l4;
@@ -18,14 +18,14 @@ f929a(p4, p6)
 	l52 = 0;
 	l2 = 17;
 L92af:
-	if ((unsigned)g451c[((432 * p6) + l2)] <= 0) goto L92c6;
+	if ((unsigned)pc_skills[((432 * p6) + l2)] <= 0) goto L92c6;
 	l52 = 1;
 L92c6:
 	l2++;
 	if (l2 < 22) goto L92af;
-	l4 = f011a(20, 4, 20, 16, 25, -1, 0, 0);
+	l4 = create_window(20, 4, 20, 16, 25, -1, 0, 0);
 L92f7:
-	l28 = fe35f(l4, p4, p6, l26, &l48);
+	l28 = draw_skills_page(l4, p4, p6, l26, &l48);
 	l2 = 0;
 L9315:
 	l24[l2] = 1;
@@ -38,19 +38,19 @@ L9315:
 L934c:
 	if ((l26 + 1) != 2) goto L9370;
 	if (l52) goto L9370;
-	l50 = f5be5(l24, (l26 + 2));
+	l50 = count_enabled_before(l24, (l26 + 2));
 	goto L9382;
 L9370:
-	l50 = f5be5(l24, (l26 + 1));
+	l50 = count_enabled_before(l24, (l26 + 1));
 L9382:
-	f32be(p4, 32, 3, 0);
-	f2b19(p4);
-	l26 = rename_test_fn(p4, 600, l24, 2, 1, 10, 2, 5, l50);
+	fill_window(p4, 32, 3, 0);
+	refresh_window(p4);
+	l26 = run_menu(p4, 600, l24, 2, 1, 10, 2, 5, l50);
 #asm
 	db 083h,07eh,0e6h,004h,074h,003h
 #endasm
 	goto L92f7;
 L93d2:
-	f32be(p4, 32, 3, 0);
-	f02d2(l4, 1);
+	fill_window(p4, 32, 3, 0);
+	destroy_window(l4, 1);
 }

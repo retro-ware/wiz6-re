@@ -1,9 +1,9 @@
-extern int g363a;
+extern int cell_event_index;
 extern int g4338;
-extern int g4ee8;
 extern int g4f8a;
-extern int g4f9a;
-fb252()
+extern int game_state;
+extern int party_facing;
+npc_event()
 {
 	int l2;
 	register int rsi;
@@ -11,9 +11,9 @@ fb252()
 	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
 	db 046h,0feh
 #endasm
-	if (f2962(l2, 2, 1) != 1) goto Lb2a0;
-	g4f8a = f2962(l2, 0, 2);
-	if (g4f8a == g4f9a) goto Lb2a0;
+	if (extract_bits(l2, 2, 1) != 1) goto Lb2a0;
+	g4f8a = extract_bits(l2, 0, 2);
+	if (g4f8a == party_facing) goto Lb2a0;
 	return;
 Lb2a0:
 	;
@@ -23,7 +23,7 @@ lb2a0:
 	db 084h,04fh,089h,007h
 #endasm
 	g4338 = 1;
-	g363a = 18;
-	g4ee8++;
+	game_state = 18;
+	cell_event_index++;
 	return;
 }

@@ -7,7 +7,7 @@ extern char g545e[];
 extern char g545f[];
 extern char g5465[];
 extern char g5466[];
-extern char g546e[];
+extern char sheet_win[];
 extern int g55f0;
 f93ae(p4, p6)
 {
@@ -23,7 +23,7 @@ L93cf:
 	g5446[p4] = 0;
 	g544e[p4] = 0;
 	g5466[p4] = 0;
-	g546e[p4] = 0;
+	sheet_win[p4] = 0;
 	if ((p4 + 3) >= g55f0) goto L940d;
 	g55f0 = (p4 + 3);
 L940d:

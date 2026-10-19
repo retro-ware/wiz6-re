@@ -1,10 +1,10 @@
-extern char g451c[];
-extern int g440c[];
-f5a56(p4, p6, p8)
+extern char pc_skills[];
+extern int pc_level[];
+try_skill_gain(member, skill, factor)
 {
-	if ((unsigned)g451c[((432 * p4) + p6)] >= 100) goto L5a94;
-	if ((f09e2((unsigned char)g451c[((432 * p4) + p6)]) - (*(int *)((char *)g440c + (432 * p4)) * p8)) > 0) goto L5a94;
-	g451c[((432 * p4) + p6)]++;
+	if ((unsigned)pc_skills[((432 * member) + skill)] >= 100) goto L5a94;
+	if ((random((unsigned char)pc_skills[((432 * member) + skill)]) - (*(int *)((char *)pc_level + (432 * member)) * factor)) > 0) goto L5a94;
+	pc_skills[((432 * member) + skill)]++;
 L5a94:
 	;
 }

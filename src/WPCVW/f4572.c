@@ -1,14 +1,14 @@
-extern int g363a;
-extern int g43cc;
+extern int cur_member;
 extern int g553c;
+extern int game_state;
 ovmain()
 {
 	g553c = -1;
-	if (g363a != 17) goto L4587;
-	fad5a(g43cc);
+	if (game_state != 17) goto L4587;
+	view_character(cur_member);
 L4587:
-	if (g363a != 22) goto L4591;
-	ffa10();
+	if (game_state != 22) goto L4591;
+	level_up_entry();
 L4591:
 	return 0;
 }

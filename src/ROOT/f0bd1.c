@@ -1,5 +1,5 @@
-extern int g3596;
-f0bd1()
+extern int click_flag;
+clear_click_flag()
 {
-	g3596 = 0;
+	click_flag = 0;
 }

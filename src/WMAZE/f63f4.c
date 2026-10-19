@@ -1,18 +1,19 @@
 #asm
 	extrn $ldv:near
 #endasm
-extern char g3593;
+extern char cfg_level;
 extern char g450c[];
 extern char g458c[];
 extern char g458e[];
 extern char g458f[];
-extern int g363a;
-extern int g43ce;
 extern int g5038;
+extern int game_state;
+extern int party_count;
 extern long g4f78;
 extern long g4f7c;
 extern long g4f80;
-f63f4()
+/* Rest the party, regenerating hp and stamina; returns 1 if interrupted by an encounter. */
+rest_party()
 {
 	int l2;
 	char x2[4];
@@ -20,7 +21,7 @@ f63f4()
 	int l10;
 	int l12;
 	int l14;
-	f53e5(2036);
+	show_maze_message(2036);
 	g5038 = 0;
 	l8 = 8;
 	*(int *)&g4f78 += (int)(g4f80 - g4f7c);
@@ -46,38 +47,38 @@ l6456:
 L6464:
 	if (l8 <= 0) goto L658a;
 	if (g5038) goto L658a;
-	if (g363a != 5) goto L658a;
+	if (game_state != 5) goto L658a;
 	l2 = 0;
 	goto L649f;
 L6488:
 	g450c[(432 * l2)] = 10;
-	f4ba8(l2);
+	draw_member_status_m(l2);
 	l2++;
 L649f:
-	if (l2 < g43ce) goto L6488;
-	f533b(10);
+	if (l2 < party_count) goto L6488;
+	wait_animating_m(10);
 	l8--;
 	g4f80 += 60L;
-	f55b7(60);
+	tick_effect_timers(60);
 	l2 = 0;
 	goto L6521;
 L64cc:
-	f61f8(l2, (l12 > 0 ? ((unsigned char)g458e[(432 * l2)] + 1) : 0), (unsigned char)g458f[(432 * l2)], 6, 1);
-	g450c[(432 * l2)] = (char)f09e2(5);
+	heal_member(l2, (l12 > 0 ? ((unsigned char)g458e[(432 * l2)] + 1) : 0), (unsigned char)g458f[(432 * l2)], 6, 1);
+	g450c[(432 * l2)] = (char)random(5);
 	if ((unsigned)g458c[(432 * l2)] <= 0) goto L651e;
 	g458c[(432 * l2)]--;
 L651e:
 	l2++;
 L6521:
-	if (l2 < g43ce) goto L64cc;
+	if (l2 < party_count) goto L64cc;
 	l12--;
-	g450c[(f09e2(g43ce) * 432)] = 0;
-	l14 = (g3593 == 1 ? 990 : 975);
-	if (f09e2(1000) < l14) goto L6569;
+	g450c[(random(party_count) * 432)] = 0;
+	l14 = (cfg_level == 1 ? 990 : 975);
+	if (random(1000) < l14) goto L6569;
 	return 1;
 L6569:
-	if (!f2643(1)) goto L6587;
-	if ((char)f2724(1) != 13) goto L6587;
+	if (!key_available(1)) goto L6587;
+	if ((char)get_key(1) != 13) goto L6587;
 	g5038 = 1;
 L6587:
 	goto L6464;
@@ -98,9 +99,9 @@ L65c2:
 L65c4:
 	g450c[(432 * l2)] = 0;
 L65d1:
-	f4ba8(l2);
+	draw_member_status_m(l2);
 	l2++;
 L65db:
-	if (l2 < g43ce) goto L6591;
+	if (l2 < party_count) goto L6591;
 	return 0;
 }

@@ -1,4 +1,4 @@
-f0a8f(p4)
+is_sound_10_to_12(sound)
 {
-	return ((p4 >= 10) && (p4 <= 12) ? 1 : 0);
+	return ((sound >= 10) && (sound <= 12) ? 1 : 0);
 }

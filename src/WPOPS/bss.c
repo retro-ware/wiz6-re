@@ -2,7 +2,7 @@
 	global g5010_:byte,2
 	global g5012_:byte,2
 	global g5014_:byte,2
-	global g5016_:byte,2
+	global blink_state_:byte,2
 	global g5018_:byte,2
 	global g501a_:byte,2
 	global g501c_:byte,1
@@ -11,7 +11,7 @@
 	global g5035_:byte,1
 	global g5036_:byte,13
 	global g5043_:byte,55
-	global g507a_:byte,2
+	global view_depth_:byte,2
 	global g507c_:byte,1
 	global g507d_:byte,11
 	global g5088_:byte,2
@@ -44,7 +44,7 @@
 	global g50e4_:byte,1
 	global g50e5_:byte,13
 	global g50f2_:byte,22
-	global g5108_:byte,2
+	global view_object_count_:byte,2
 	global g510a_:byte,2
 	global g510c_:byte,6
 	global g5112_:byte,1

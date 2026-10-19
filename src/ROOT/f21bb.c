@@ -1,6 +1,6 @@
 #asm
-	public f21bb_
-f21bb_:
+	public load_font_
+load_font_:
 	db 055h,08bh,0ech,01eh,006h,08bh,046h,006h,00bh,0c0h,075h,01eh,0b9h,000h,004h,02eh
 	db 080h,03eh,04eh,01bh,001h,074h,00ch,0d1h,0e1h,02eh,080h,03eh,050h,01bh,001h,075h
 	db 002h,0d1h,0e1h

@@ -1,47 +1,48 @@
-extern int g3646;
+extern int anim_phase;
 extern int g4ec8[];
 extern int g4f86;
-extern int g4f9a;
 extern int g4fac;
-f898a()
+extern int party_facing;
+/* Draw the six status/compass icons (facing, light, etc). */
+draw_compass_icons()
 {
-	int l2;
-	int l4;
-	int l6;
-	l2 = 0;
+	int i;
+	int icon;
+	int frame;
+	i = 0;
 L8995:
-	switch (l2) {
+	switch (i) {
 case 3:
-	l4 = 346;
-	l6 = (g3646 + 1);
+	icon = 346;
+	frame = (anim_phase + 1);
 	goto L8a0b;
 case 1:
-	l4 = 349;
-	l6 = (g3646 + 1);
+	icon = 349;
+	frame = (anim_phase + 1);
 	goto L8a0b;
 case 4:
-	l4 = 352;
-	l6 = (g3646 + 1);
+	icon = 352;
+	frame = (anim_phase + 1);
 	goto L8a0b;
 case 0:
-	l4 = 361;
-	l6 = (g4f9a + 1);
+	icon = 361;
+	frame = (party_facing + 1);
 	goto L8a0b;
 case 2:
-	l4 = 355;
-	l6 = ((g3646 * g4f86) + 1);
+	icon = 355;
+	frame = ((anim_phase * g4f86) + 1);
 	goto L8a0b;
 case 5:
-	l4 = 358;
-	l6 = (g3646 + 1);
+	icon = 358;
+	frame = (anim_phase + 1);
 	goto L8a0b;
 	}
 L8a0b:
-	if (*(int *)((char *)g4ec8 + (l2 << 2)) <= 0) goto L8a21;
-	l4 += l6;
+	if (*(int *)((char *)g4ec8 + (i << 2)) <= 0) goto L8a21;
+	icon += frame;
 L8a21:
-	f36ac(l4, 0, -1);
-	l2++;
-	if (l2 < 6) goto L8995;
-	f36a0(g4fac);
+	drv_op_c6(icon, 0, -1);
+	i++;
+	if (i < 6) goto L8995;
+	drv_op_c2(g4fac);
 }

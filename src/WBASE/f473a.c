@@ -1,11 +1,12 @@
-extern int g3342;
-f473a(p4)
+extern int main_window;
+/* Load message msg and print it on the message line window. */
+show_message_line(msg)
 {
 	char x0[78];
-	int l80;
-	f075b(p4, &l80);
-	f09fb(g3342, 0);
-	f3118(g3342);
-	f0b7e(g3342, &l80, 0, 18);
-	f31d1(g3342);
+	int text;
+	get_message(msg, &text);
+	erase_window(main_window, 0);
+	defer_window_draw(main_window);
+	print_centered(main_window, &text, 0, 18);
+	resume_window_draw(main_window);
 }

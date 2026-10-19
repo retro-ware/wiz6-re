@@ -1,14 +1,14 @@
-extern char g00de[];
 extern char g4500[];
 extern char g4504[];
 extern char g4515[];
 extern char g4516[];
 extern char g4517[];
 extern char g451a[];
-extern char g451c[];
 extern char g4597[];
-extern int g440c[];
-extern int g4412[];
+extern char pc_skills[];
+extern char spell_table[];
+extern int pc_level[];
+extern int pc_spell_pts_max[];
 ff201(p4)
 {
 	int l2;
@@ -130,16 +130,16 @@ Lf413:
 	if (l22) goto Lf41d;
 	return;
 Lf41d:
-	if (*(int *)((char *)g440c + (432 * p4)) < l22) goto Lf565;
+	if (*(int *)((char *)pc_level + (432 * p4)) < l22) goto Lf565;
 	g4500[((432 * p4) + l18)]++;
 	l2 = 0;
 Lf43d:
 	l16 = 0;
-	if (*(int *)((char *)g4412 + ((432 * p4) + (l2 << 2))) <= 0) goto Lf49d;
+	if (*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))) <= 0) goto Lf49d;
 	l4 = 0;
 Lf45f:
-	if ((unsigned char)g00de[(l4 * 6)] != l2) goto Lf492;
-	if (f28af(((432 * p4) + 17776), l4) != 1) goto Lf492;
+	if ((unsigned char)spell_table[(l4 * 6)] != l2) goto Lf492;
+	if (test_bit(((432 * p4) + 17776), l4) != 1) goto Lf492;
 	l16++;
 Lf492:
 	l4++;
@@ -153,13 +153,13 @@ Lf4b4:
 	if (l12 <= 16) goto Lf4bd;
 	l14++;
 Lf4bd:
-	if (*(int *)((char *)g440c + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf4e6;
+	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf4e6;
 #asm
 	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,003h,0d8h,0ffh,087h,012h,044h
 #endasm
 	goto Lf557;
 Lf4e6:
-	*(int *)((char *)g4412 + ((432 * p4) + (l2 << 2))) = ((((f09e2(((unsigned char)g451c[((432 * p4) + l20)] / 20)) + *(int *)((char *)g4412 + ((432 * p4) + (l2 << 2)))) + (unsigned char)g4504[((432 * p4) + l2)]) + (l16 << 1)) + l14);
+	*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))) = ((((random(((unsigned char)pc_skills[((432 * p4) + l20)] / 20)) + *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) + (unsigned char)g4504[((432 * p4) + l2)]) + (l16 << 1)) + l14);
 Lf557:
 	l2++;
 	if (l2 < 6) goto Lf43d;

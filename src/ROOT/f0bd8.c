@@ -1,13 +1,14 @@
-extern int g0846;
-extern int g3596;
-f0bd8(p4)
+extern int click_flag;
+extern int mouse_present;
+/* Poll the mouse against the click-region table; returns region, sets click flag if negative. */
+check_click_regions(arg)
 {
-	int l2;
-	l2 = 0;
-	f0bd1();
-	if (g0846 != 1) goto L0c06;
-	l2 = f36d0(p4);
-	g3596 = (l2 < 0 ? 1 : 0);
+	int result;
+	result = 0;
+	clear_click_flag();
+	if (mouse_present != 1) goto L0c06;
+	result = drv_poll_click(arg);
+	click_flag = (result < 0 ? 1 : 0);
 L0c06:
-	return (l2 < 0 ? -l2 : l2);
+	return (result < 0 ? -result : result);
 }

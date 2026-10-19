@@ -1,6 +1,6 @@
 extern char g50a2[];
 extern char g50dd[];
-fa0da(p4, p6)
+hide_right_center(p4, p6)
 {
 	if (p6 == 2) goto La0fb;
 	if (p6 >= 5) goto La0fb;

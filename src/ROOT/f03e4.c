@@ -1,6 +1,6 @@
-f03e4(p4)
-char *p4;
+window_newline(win)
+char *win;
 {
-	p4[6] = 0;
-	p4[7] = (char)((unsigned char)(((unsigned char)p4[7] + 1)) % (unsigned char)p4[1]);
+	win[6] = 0;
+	win[7] = (char)((unsigned char)(((unsigned char)win[7] + 1)) % (unsigned char)win[1]);
 }

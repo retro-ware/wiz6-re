@@ -24,7 +24,7 @@ Le37a:
 	g6b32++;
 	if (g6b32 < 30) goto Le3bf;
 Le3b5:
-	f0aaa(0);
+	play_sound(0);
 	goto Le3b5;
 Le3bf:
 	;

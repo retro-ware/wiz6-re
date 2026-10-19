@@ -1,9 +1,9 @@
 #asm
 	public fcb7f_
-	extrn f09e2_:near
 	extrn f5a1e_:near
 	extrn fbb28_:near
 	extrn fc95b_:near
+	extrn random_:near
 fcb7f_:
 	db 0c7h,006h,098h,058h,0ffh,0ffh,0c7h,006h,094h,058h,0ffh,0ffh,0c7h,006h,096h,058h
 	db 000h,000h,0a1h,09ah,058h,0e9h,09eh,001h,0b8h,028h,050h,050h,0ffh,036h,098h,06ah
@@ -30,11 +30,11 @@ lcbc5:
 	db 083h,0c4h,004h,0e9h,010h,001h,0b8h,02eh,050h,050h,0b8h,04ch,006h,050h
 	call fc95b_
 	db 083h,0c4h,004h,0b8h,005h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,08bh,0c8h,040h,08bh,0c8h,0b8h,0b0h,001h,0f7h,02eh,09ch,06ah,003h,006h,074h
 	db 052h,08bh,0d8h,08ah,087h,050h,045h,098h,02bh,0c1h,088h,087h,050h,045h,0b8h,002h
 	db 000h,050h
-	call f09e2_
+	call random_
 	db 059h,03dh,001h,000h,075h,006h,0c7h,006h,0c2h,058h,001h,000h
 lcc78:
 	db 0e9h,0c7h,000h,0b8h,02fh,050h,050h,0b8h,04dh,006h,050h
@@ -47,11 +47,11 @@ lcc78:
 	db 083h,0c4h,004h,0e9h,07bh,000h,0b8h,031h,050h,050h,0b8h,04fh,006h,050h
 	call fc95b_
 	db 083h,0c4h,004h,0b8h,002h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,03dh,001h,000h,075h,03dh,0b8h,0b0h,001h,0f7h,02eh,09ch,06ah,003h,006h,074h
 	db 052h,08bh,0d8h,080h,0bfh,050h,045h,032h,07dh,029h,08ah,087h,050h,045h,098h,08bh
 	db 0c8h,051h,0b8h,003h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,059h,003h,0c1h,040h,050h,0b8h,0b0h,001h,0f7h,02eh,09ch,06ah,08bh,0c8h,003h
 	db 006h,074h,052h,08bh,0d8h,058h,088h,087h,050h,045h
 lcd1f:

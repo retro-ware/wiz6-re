@@ -8,7 +8,7 @@ fbcec(p4, p6)
 	int l4;
 	int l6;
 	register int rsi;
-	l6 = f3350(((p4 * 20) + 22746), 37);
+	l6 = char_index(((p4 * 20) + 22746), 37);
 	if (l6 < 0) goto Lbd4c;
 #asm
 	db 040h,050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h
@@ -18,7 +18,7 @@ fbcec(p4, p6)
 	db 076h,0fah,0c6h,040h,001h,000h,0e9h,029h,001h
 #endasm
 Lbd4c:
-	l6 = f3350(((p4 * 20) + 22746), 64);
+	l6 = char_index(((p4 * 20) + 22746), 64);
 	if (l6 < 0) goto Lbd9a;
 #asm
 	db 050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h
@@ -27,7 +27,7 @@ Lbd4c:
 	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0fah,0c6h,000h,000h,0e9h,0dbh,000h
 #endasm
 Lbd9a:
-	l6 = f3350(((p4 * 20) + 22746), 94);
+	l6 = char_index(((p4 * 20) + 22746), 94);
 	if (l6 < 0) goto Lbe75;
 	l4 = ((unsigned char)g58db[((p4 * 20) + l6)] + -48);
 #asm

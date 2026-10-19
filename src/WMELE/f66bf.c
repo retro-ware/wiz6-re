@@ -11,63 +11,64 @@ extern char g3814[];
 extern char g3815[];
 extern char g433e[];
 extern char g4348[];
-extern int g433c;
-extern int g4362[];
-extern int g43a8[];
-f66bf(p4, p6, p8)
+extern int monster_groups[];
+extern int view_pos_group[];
+extern int view_rows_open;
+/* Queue the sprite of the monster at view row, col. */
+queue_monster_sprite(row, col, dx)
 {
-	int l2;
-	int l4;
+	int g;
+	int pic;
 	int l6;
 	int l8;
 	int l10;
-	char l22[12];
+	char chars[12];
 	int l24;
 	int l26;
 	int l28;
 	int l30;
-	l22[0] = 0;
-	l2 = *(int *)((char *)g4362 + ((p4 * 10) + (p6 << 1)));
-	if (l2 < 1) goto L66f9;
-	if (l2 > 3) goto L66f9;
-	if (p4 <= g433c) goto L66fd;
+	chars[0] = 0;
+	g = *(int *)((char *)view_pos_group + ((row * 10) + (col << 1)));
+	if (g < 1) goto L66f9;
+	if (g > 3) goto L66f9;
+	if (row <= view_rows_open) goto L66fd;
 L66f9:
 	return;
 L66fd:
-	l4 = (unsigned char)g019b[g43a8[l2]];
+	pic = (unsigned char)g019b[monster_groups[g]];
 	l8 = 72;
 	l10 = 248;
-	if (p4) goto L6733;
-	f6326(l2, p6, l22);
+	if (row) goto L6733;
+	get_monster_anim_chars(g, col, chars);
 	goto L6746;
 L6733:
-	l22[0] = g3810[(314 * l4)];
-	l22[(0 + 1)] = 0;
+	chars[0] = g3810[(314 * pic)];
+	chars[(0 + 1)] = 0;
 L6746:
-	if (l22[0]) goto L674e;
+	if (chars[0]) goto L674e;
 	return;
 L674e:
-	l6 = (p6 % 2);
-	if (f09e2(10) != 9) goto L67bd;
-	g4348[((p4 * 5) + p6)] = (char)f09e2((unsigned char)g3814[(314 * l4)]);
-	g433e[((p4 * 5) + p6)] = (char)f09e2((unsigned char)g3815[(314 * l4)]);
+	l6 = (col % 2);
+	if (random(10) != 9) goto L67bd;
+	g4348[((row * 5) + col)] = (char)random((unsigned char)g3814[(314 * pic)]);
+	g433e[((row * 5) + col)] = (char)random((unsigned char)g3815[(314 * pic)]);
 L67bd:
-	l24 = (unsigned char)l22[0];
-	l28 = (unsigned char)g36e4[(((314 * l4) + (l6 % 2)) + (l24 << 1))];
-	if (!g3813[(314 * l4)]) goto L6800;
-	p8 = 0;
+	l24 = (unsigned char)chars[0];
+	l28 = (unsigned char)g36e4[(((314 * pic) + (l6 % 2)) + (l24 << 1))];
+	if (!g3813[(314 * pic)]) goto L6800;
+	dx = 0;
 L6800:
-	l26 = (unsigned char)g3759[((314 * l4) + (l24 << 2))];
+	l26 = (unsigned char)g3759[((314 * pic) + (l24 << 2))];
 	if (l26) goto L6836;
-	l26 = ((unsigned char)g00b0[((p4 * 5) + p6)] - l2);
+	l26 = ((unsigned char)g00b0[((row * 5) + col)] - g);
 L6836:
-	l30 = (((g37fa[(((314 * l4) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + p8) + l28);
+	l30 = (((g37fa[(((314 * pic) + (row * 10)) + (col << 1))] + (unsigned char)g4348[((row * 5) + col)]) + dx) + l28);
 	if (l30 >= 0) goto L688e;
 	l30 = 0;
 	goto L6899;
 L688e:
 	if (l30 >= l10) goto L66f9;
 L6899:
-	f65bf(l26, l4, l30, ((g37fb[(((314 * l4) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g433e[((p4 * 5) + p6)]) + (unsigned char)g3717[((314 * l4) + l24)]), l8, l10, l6, l22);
+	add_view_sprite(l26, pic, l30, ((g37fb[(((314 * pic) + (row * 10)) + (col << 1))] + (unsigned char)g433e[((row * 5) + col)]) + (unsigned char)g3717[((314 * pic) + l24)]), l8, l10, l6, chars);
 	return;
 }

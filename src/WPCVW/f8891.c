@@ -1,40 +1,41 @@
-extern int g3596;
-extern int g3646;
-extern int g4fc4;
+extern int anim_phase;
+extern int click_flag;
 extern int g553c;
-f8891(p4, p6)
+extern int menu_clicked;
+/* Wait for a key or mouse click; g4fc4 is set when a hotspot was clicked. */
+get_menu_input(p4, p6)
 {
 	int l2;
 	int l4;
 	int l6;
 	l6 = 0;
-	l4 = g3646;
+	l4 = anim_phase;
 	if (g553c == -1) goto L88ac;
-	f8817();
+	blink_cursor();
 L88ac:
-	g4fc4 = 0;
+	menu_clicked = 0;
 L88b2:
-	if (f2643(1)) goto L8914;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L88da;
-	g4fc4 = 1;
+	if (key_available(1)) goto L8914;
+	l2 = check_click_regions(p6);
+	if (click_flag != 1) goto L88da;
+	menu_clicked = 1;
 	return (l2 - 1);
 L88da:
 	if (l6) goto L88ff;
-	g3646 = ((g3646 + 1) % 2);
+	anim_phase = ((anim_phase + 1) % 2);
 	if (g553c == -1) goto L88fd;
-	if (g3646 != l4) goto L88fd;
-	f8817();
+	if (anim_phase != l4) goto L88fd;
+	blink_cursor();
 L88fd:
 	goto L8905;
 L88ff:
-	f2858();
-	f2858();
+	delay_tick();
+	delay_tick();
 L8905:
 	l6 = ((l6 + 1) % 10);
 	goto L88b2;
 L8914:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
+	l2 = char_index(p4, (unsigned char)(get_key(1)));
 	if (l2 < 0) goto L8932;
 	return;
 L8932:

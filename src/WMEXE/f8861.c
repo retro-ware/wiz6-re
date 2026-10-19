@@ -1,4 +1,4 @@
-f8861(p4, p6, p8)
+clamp_toward_x(p4, p6, p8)
 {
 	if (p8 != 1) goto L8888;
 	if (p6 <= 0) goto L8878;

@@ -1,4 +1,4 @@
-f57ac(p4, p6, p8, p10, p12)
+npc_input_line(p4, p6, p8, p10, p12)
 char *p4;
 char *p6;
 {
@@ -11,14 +11,14 @@ char *p6;
 	l8 = (unsigned char)p4[7];
 	l4 = 0;
 	*p6 = 0;
-	f22b7(p4, 97, 1);
-	f280c();
+	put_char(p4, 97, 1);
+	flush_keys();
 L57e5:
 	l2 = f578c(1);
 	if (l2 == 13) goto L58f5;
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
-	f030b(p4, l6, l8);
+	set_cursor(p4, l6, l8);
+	put_char(p4, 32, 1);
+	set_cursor(p4, l6, l8);
 	if (l2 != 8) goto L587d;
 	if (l4 <= 0) goto L5873;
 	l4--;
@@ -26,17 +26,17 @@ L57e5:
 	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
 #endasm
 	l6--;
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
-	f030b(p4, l6, l8);
+	set_cursor(p4, l6, l8);
+	put_char(p4, 32, 1);
+	set_cursor(p4, l6, l8);
 	goto L587b;
 L5873:
-	f0aaa(0);
+	play_sound(0);
 L587b:
 	goto L58e1;
 L587d:
 	if (l4 < p8) goto L588f;
-	f0aaa(0);
+	play_sound(0);
 	goto L58e1;
 L588f:
 	if (p12) goto L58a2;
@@ -58,12 +58,12 @@ l58b5:
 #asm
 	db 08bh,05eh,006h,08bh,076h,0fch,0c6h,000h,000h
 #endasm
-	f22b7(p4, (unsigned char)*(char *)&l2, p10);
+	put_char(p4, (unsigned char)*(char *)&l2, p10);
 	l6++;
 L58e1:
-	f22b7(p4, 97, 1);
+	put_char(p4, 97, 1);
 	goto L57e5;
 L58f5:
-	f030b(p4, l6, l8);
-	f22b7(p4, 32, 1);
+	set_cursor(p4, l6, l8);
+	put_char(p4, 32, 1);
 }

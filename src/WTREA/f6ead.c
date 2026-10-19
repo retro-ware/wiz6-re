@@ -1,4 +1,4 @@
-f6ead(p4, p6, p8)
+clamp_toward_zero(p4, p6, p8)
 {
 	if (p8 != 1) goto L6ed4;
 	if (p6 <= 0) goto L6ec4;

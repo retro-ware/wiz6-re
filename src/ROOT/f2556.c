@@ -1,11 +1,11 @@
-f2556()
+random_word()
 {
 	register int rsi;
 	register int rdi;
 #asm
 $20004 equ 1
 #endasm
-	f25b9();
+	step_random();
 #asm
 	db 02eh,0a1h,03bh,01dh,033h,0d2h,0bbh,03dh,076h,0f7h,0f3h,0b8h,010h,027h,0f7h,0e2h
 	db 0bbh,03dh,076h,0f7h,0f3h,025h,0ffh,07fh,08bh,0c8h,02eh,0a1h,03dh,01dh,033h,0d2h

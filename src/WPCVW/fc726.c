@@ -1,13 +1,13 @@
 #asm
 	extrn strcpy_:near
 #endasm
-extern char g44f8[];
-extern int g4428[];
-extern int g442a[];
-extern int g442c[];
-extern int g442e[];
+extern char pc_equipped[];
 extern int g567c[];
-extern int g567e[];
+extern int item_row_color[];
+extern int pc_item_id[];
+extern int pc_item_qty[];
+extern int pc_item_type[];
+extern int pc_item_weight[];
 fc726(p4)
 {
 	int l2;
@@ -26,14 +26,14 @@ fc726(p4)
 	l14 = 0;
 Lc738:
 	if (l10 >= 8) goto Lc8bc;
-	rsi = (unsigned char)g44f8[((432 * p4) + l10)];
+	rsi = (unsigned char)pc_equipped[((432 * p4) + l10)];
 	if (rsi == 255) goto Lc8b6;
-	l8 = *(int *)((char *)g4428 + ((432 * p4) + (rsi << 3)));
-	l6 = *(int *)((char *)g442a + ((432 * p4) + (rsi << 3)));
-	l4 = *(int *)((char *)g442c + ((432 * p4) + (rsi << 3)));
-	l2 = *(int *)((char *)g442e + ((432 * p4) + (rsi << 3)));
+	l8 = *(int *)((char *)pc_item_id + ((432 * p4) + (rsi << 3)));
+	l6 = *(int *)((char *)pc_item_weight + ((432 * p4) + (rsi << 3)));
+	l4 = *(int *)((char *)pc_item_type + ((432 * p4) + (rsi << 3)));
+	l2 = *(int *)((char *)pc_item_qty + ((432 * p4) + (rsi << 3)));
 	strcpy(&l30, ((rsi << 4) + 21982));
-	l32 = g567e[rsi];
+	l32 = item_row_color[rsi];
 	l12 = rsi;
 	goto Lc83f;
 Lc7b3:
@@ -48,13 +48,13 @@ lc7b3:
 	call strcpy_
 	db 083h,0c4h,004h
 #endasm
-	g567e[l12] = g567c[l12];
+	item_row_color[l12] = g567c[l12];
 	rdi = l10;
 	rdi++;
 	goto Lc837;
 Lc817:
-	if ((unsigned char)g44f8[((432 * p4) + rdi)] != (l12 - 1)) goto Lc836;
-	g44f8[((432 * p4) + rdi)] = *(char *)&l12;
+	if ((unsigned char)pc_equipped[((432 * p4) + rdi)] != (l12 - 1)) goto Lc836;
+	pc_equipped[((432 * p4) + rdi)] = *(char *)&l12;
 Lc836:
 	rdi++;
 Lc837:
@@ -71,7 +71,7 @@ lc84a:
 	db 058h,088h,087h,0f8h,044h
 #endasm
 	strcpy(((l14 << 4) + 21982), &l30);
-	g567e[l14] = l32;
+	item_row_color[l14] = l32;
 	l14++;
 Lc8b6:
 	l10++;

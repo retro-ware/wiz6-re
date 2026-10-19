@@ -1,74 +1,74 @@
-extern char g4fd8[];
-extern char g560d;
-extern char g560e;
-extern char g560f;
-extern int g4fc4;
-extern int g4fd2;
+extern char char_class;
+extern char char_race;
+extern char char_sex;
+extern char roster_slot_used[];
 extern int g5750[];
 extern int g5770[];
 extern int g5790[];
 extern int g57b0[];
-f9c04(p4, p6, p8)
-char *p4;
-char *p6;
+extern int menu_clicked;
+extern int roster_slot_count;
+select_roster_character(win, list_win, title_msg)
+char *win;
+char *list_win;
 {
 	int l2;
-	int l4;
-	int l6;
-	int l8;
-	int l10;
+	int count;
+	int sel;
+	int on_cancel;
+	int n;
 	char x10[8];
-	int l20;
-	l4 = 0;
+	int cancel_text;
+	count = 0;
 	l2 = 0;
 	goto L9c75;
 L9c16:
-	if (g4fd8[l2] != 1) goto L9c72;
-	f457f(21616, l2, 0);
-	strcpy(((l4 << 3) + 22224), 21616);
-	g5750[l4] = (unsigned char)g560e;
-	g5770[l4] = (unsigned char)g560d;
-	g5790[l4] = (unsigned char)g560f;
-	g57b0[l4] = l2;
-	l4++;
+	if (roster_slot_used[l2] != 1) goto L9c72;
+	access_roster_record(21616, l2, 0);
+	strcpy(((count << 3) + 22224), 21616);
+	g5750[count] = (unsigned char)char_sex;
+	g5770[count] = (unsigned char)char_race;
+	g5790[count] = (unsigned char)char_class;
+	g57b0[count] = l2;
+	count++;
 L9c72:
 	l2++;
 L9c75:
-	if (l2 < g4fd2) goto L9c16;
-	if (l4 >= 1) goto L9c88;
+	if (l2 < roster_slot_count) goto L9c16;
+	if (count >= 1) goto L9c88;
 	return;
 L9c88:
-	l10 = l4;
-	f32be(p4, 32, 3, 0);
-	f32be(p6, 32, 3, 0);
-	f3118(p4);
-	f075b(p8, 22048);
-	f030b(p4, (20 - ((strlen(22048) + 1) / 2)), 1);
-	f251d(p4, 22048, 3);
-	f31d1(p4);
-	f619b(p6, 0);
-	f2a63();
-	f075b(1124, &l20);
-	l6 = 0;
-	l8 = 0;
-	f0c16(0, ((unsigned char)p6[2] + 1), ((unsigned char)p6[3] + 3), ((unsigned char)p6[2] + 19), ((unsigned char)p6[3] + 3));
-	f0c16(1, (unsigned char)p6[2], (unsigned char)p6[3], (unsigned char)p6[2], (unsigned char)p6[3]);
-	f0c16(2, (unsigned char)p6[2], ((unsigned char)p6[3] + 6), (unsigned char)p6[2], ((unsigned char)p6[3] + 6));
-	f0c16(3, ((unsigned char)p4[2] + 17), ((unsigned char)p4[3] + 3), ((strlen(&l20) + (unsigned char)p4[2]) + 16), ((unsigned char)p4[3] + 3));
-	f0c16(4, 255, 0, 0, 0);
+	n = count;
+	fill_window(win, 32, 3, 0);
+	fill_window(list_win, 32, 3, 0);
+	defer_window_draw(win);
+	get_message(title_msg, 22048);
+	set_cursor(win, (20 - ((strlen(22048) + 1) / 2)), 1);
+	print_string_hi(win, 22048, 3);
+	resume_window_draw(win);
+	draw_list_box(list_win, 0);
+	refresh_all_windows();
+	get_message(1124, &cancel_text);
+	sel = 0;
+	on_cancel = 0;
+	set_click_region(0, ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + 3), ((unsigned char)list_win[2] + 19), ((unsigned char)list_win[3] + 3));
+	set_click_region(1, (unsigned char)list_win[2], (unsigned char)list_win[3], (unsigned char)list_win[2], (unsigned char)list_win[3]);
+	set_click_region(2, (unsigned char)list_win[2], ((unsigned char)list_win[3] + 6), (unsigned char)list_win[2], ((unsigned char)list_win[3] + 6));
+	set_click_region(3, ((unsigned char)win[2] + 17), ((unsigned char)win[3] + 3), ((strlen(&cancel_text) + (unsigned char)win[2]) + 16), ((unsigned char)win[3] + 3));
+	set_click_region(4, 255, 0, 0, 0);
 L9e02:
-	if (l8 != 1) goto L9e3f;
-	f030b(p4, 17, 3);
-	f24e9(p4, &l20, -5);
-	f99d1(p6, l6, 0, l10);
+	if (on_cancel != 1) goto L9e3f;
+	set_cursor(win, 17, 3);
+	print_string(win, &cancel_text, -5);
+	draw_roster_list(list_win, sel, 0, n);
 	goto L9e74;
 L9e3f:
-	f030b(p4, 17, 3);
-	f251d(p4, &l20, 3);
-	f99d1(p6, l6, 1, l10);
+	set_cursor(win, 17, 3);
+	print_string_hi(win, &cancel_text, 3);
+	draw_roster_list(list_win, sel, 1, n);
 L9e74:
-	l2 = f45fc(21534, 13720);
-	if (g4fc4 != 1) goto L9ec3;
+	l2 = get_menu_input(21534, 13720);
+	if (menu_clicked != 1) goto L9ec3;
 	goto L9eaf;
 	l2 = 5;
 #asm
@@ -82,7 +82,7 @@ L9e74:
 #asm
 	db 0ebh,020h
 #endasm
-	l8 = 1;
+	on_cancel = 1;
 	l2 = 5;
 #asm
 	db 0ebh,014h
@@ -97,38 +97,38 @@ l9eaf:
 L9ec3:
 	switch (l2) {
 case 1:
-	if (l8 == 1) goto L9ed3;
-	l8 = 1;
+	if (on_cancel == 1) goto L9ed3;
+	on_cancel = 1;
 L9ed3:
 	goto L9f29;
 case 2:
-	if (l8 != 1) goto L9ee2;
-	l8 = 0;
+	if (on_cancel != 1) goto L9ee2;
+	on_cancel = 0;
 	goto L9eeb;
 L9ee2:
-	if (l6 <= 0) goto L9eeb;
-	l6--;
+	if (sel <= 0) goto L9eeb;
+	sel--;
 L9eeb:
 	goto L9f29;
 case 3:
-	if (l8 != 1) goto L9ef8;
-	l8 = 0;
+	if (on_cancel != 1) goto L9ef8;
+	on_cancel = 0;
 L9ef8:
 	goto L9f29;
 case 4:
-	if (l8 != 1) goto L9f07;
-	l8 = 0;
+	if (on_cancel != 1) goto L9f07;
+	on_cancel = 0;
 	goto L9f13;
 L9f07:
-	if ((l6 + 1) >= l10) goto L9f13;
-	l6++;
+	if ((sel + 1) >= n) goto L9f13;
+	sel++;
 L9f13:
 	goto L9f29;
 	}
 L9f29:
 	if (l2 != 5) goto L9e02;
-	if (l8) goto L9f3e;
-	return l6;
+	if (on_cancel) goto L9f3e;
+	return sel;
 L9f3e:
 	return -1;
 }

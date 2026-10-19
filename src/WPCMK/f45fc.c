@@ -1,20 +1,21 @@
-extern int g3596;
-extern int g4fc4;
-f45fc(p4, p6)
+extern int click_flag;
+extern int menu_clicked;
+/* Wait for a key or mouse click; returns hotspot index-1 with input_was_mouse set, else the mapped key. */
+get_menu_input(keys, hotspots)
 {
-	int l2;
-	g4fc4 = 0;
+	int key;
+	menu_clicked = 0;
 L4608:
-	if (f2643(1)) goto L4632;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L4630;
-	g4fc4 = 1;
-	return (l2 - 1);
+	if (key_available(1)) goto L4632;
+	key = check_click_regions(hotspots);
+	if (click_flag != 1) goto L4630;
+	menu_clicked = 1;
+	return (key - 1);
 L4630:
 	goto L4608;
 L4632:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
-	if (l2 < 0) goto L4650;
+	key = char_index(keys, (unsigned char)(get_key(1)));
+	if (key < 0) goto L4650;
 	return;
 L4650:
 	goto L4608;

@@ -1,7 +1,7 @@
-extern char *g3342;
-extern int g0846;
-extern int g43ce;
-extern int g4fc4;
+extern char *main_window;
+extern int menu_clicked;
+extern int mouse_present;
+extern int party_count;
 f62ee(p4, p6)
 {
 	int l2;
@@ -16,58 +16,58 @@ f62ee(p4, p6)
 	int l32;
 	int l34;
 	register int rsi;
-	if (g43ce >= 2) goto L6304;
+	if (party_count >= 2) goto L6304;
 	return 0;
 L6304:
-	l4 = f011a(0, 19, 19, 5, 25, -4, 0, 0);
-	f32be(l4, 32, 3, 0);
-	f09fb(g3342, 0);
-	f0a42(g3342, 0);
-	f075b(p4, 20948);
+	l4 = create_window(0, 19, 19, 5, 25, -4, 0, 0);
+	fill_window(l4, 32, 3, 0);
+	erase_window(main_window, 0);
+	f0a42(main_window, 0);
+	get_message(p4, 20948);
 	f541a(20948, (p6 == 1 ? 5 : 0));
-	f2a63();
+	refresh_all_windows();
 	if (p6 != 1) goto L63e9;
-	g3342[6]++;
-	l28 = (unsigned char)g3342[6];
-	l30 = (unsigned char)g3342[7];
-	f075b(2027, &l16);
-	f075b(2028, &l26);
-	if (g0846 != 1) goto L63d7;
-	f251d(g3342, &l16, 3);
+	main_window[6]++;
+	l28 = (unsigned char)main_window[6];
+	l30 = (unsigned char)main_window[7];
+	get_message(2027, &l16);
+	get_message(2028, &l26);
+	if (mouse_present != 1) goto L63d7;
+	print_string_hi(main_window, &l16, 3);
 	goto L63e9;
 L63d7:
-	f24e9(g3342, &l26, -5);
+	print_string(main_window, &l26, -5);
 L63e9:
 	rsi = 0;
 	goto L6478;
 L63ef:
 	l32 = (((rsi % 2) * 9) + 2);
 	l34 = ((rsi / 2) + 1);
-	f030b(l4, l32, l34);
-	f251d(l4, ((432 * rsi) + 17384), 3);
-	f0c16(rsi, ((unsigned char)l4[2] + l32), ((unsigned char)l4[3] + l34), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l32) - 1), ((unsigned char)l4[3] + l34));
+	set_cursor(l4, l32, l34);
+	print_string_hi(l4, ((432 * rsi) + 17384), 3);
+	set_click_region(rsi, ((unsigned char)l4[2] + l32), ((unsigned char)l4[3] + l34), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l32) - 1), ((unsigned char)l4[3] + l34));
 	rsi++;
 L6478:
-	if (rsi < g43ce) goto L63ef;
-	f0c16(g43ce, 255, 0, 0, 0);
+	if (rsi < party_count) goto L63ef;
+	set_click_region(party_count, 255, 0, 0, 0);
 	if (p6 != 1) goto L64f2;
-	f0c16(g43ce, ((unsigned char)g3342[2] + l28), ((unsigned char)g3342[3] + l30), (((strlen(&l26) + (unsigned char)g3342[2]) + l28) - 1), ((unsigned char)g3342[3] + l30));
-	f0c16((g43ce + 1), 255, 0, 0, 0);
+	set_click_region(party_count, ((unsigned char)main_window[2] + l28), ((unsigned char)main_window[3] + l30), (((strlen(&l26) + (unsigned char)main_window[2]) + l28) - 1), ((unsigned char)main_window[3] + l30));
+	set_click_region((party_count + 1), 255, 0, 0, 0);
 L64f2:
 	l6 = (p6 == 1 ? -1 : 0);
 L6501:
-	if (g0846) goto L6570;
+	if (mouse_present) goto L6570;
 	if (l6 != -1) goto L6532;
-	f030b(g3342, l28, l30);
-	f24e9(g3342, &l26, -5);
+	set_cursor(main_window, l28, l30);
+	print_string(main_window, &l26, -5);
 	goto L6570;
 L6532:
-	f030b(l4, (((l6 % 2) * 9) + 2), ((l6 / 2) + 1));
-	f24e9(l4, ((432 * l6) + 17384), -5);
+	set_cursor(l4, (((l6 % 2) * 9) + 2), ((l6 / 2) + 1));
+	print_string(l4, ((432 * l6) + 17384), -5);
 L6570:
 	l2 = f5994(21098, 13720);
-	if (g4fc4 != 1) goto L65a1;
-	l6 = (l2 < g43ce ? l2 : -1);
+	if (menu_clicked != 1) goto L65a1;
+	l6 = (l2 < party_count ? l2 : -1);
 	l2 = 5;
 	goto L66a5;
 L65a1:
@@ -98,19 +98,19 @@ l660a:
 	db 08bh,046h,0fah,03dh,0ffh,0ffh,074h,026h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
 	db 03dh,001h,000h,07dh,019h
 #endasm
-	if ((l6 + 1) >= g43ce) goto L6638;
+	if ((l6 + 1) >= party_count) goto L6638;
 	f62a9(l4, l6);
 	l6++;
 L6638:
 	goto L66a5;
 case 4:
 	if (l6 != -1) goto L6669;
-	f030b(g3342, l28, l30);
-	f251d(g3342, &l16, 3);
+	set_cursor(main_window, l28, l30);
+	print_string_hi(main_window, &l16, 3);
 	l6 = 0;
 	goto L6686;
 L6669:
-	if ((l6 + 2) >= g43ce) goto L6686;
+	if ((l6 + 2) >= party_count) goto L6686;
 	f62a9(l4, l6);
 	l6 += 2;
 L6686:
@@ -118,7 +118,7 @@ L6686:
 	}
 L66a5:
 	if (l2 != 5) goto L6501;
-	f09fb(g3342, 0);
-	f02d2(l4, 0);
+	erase_window(main_window, 0);
+	destroy_window(l4, 0);
 	return l6;
 }

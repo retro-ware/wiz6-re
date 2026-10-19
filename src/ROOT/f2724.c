@@ -1,6 +1,7 @@
+/* Read a key, mapping arrow keys to 8..11. */
 #asm
-	public f2724_
-f2724_:
+	public get_key_
+get_key_:
 	db 055h,08bh,0ech,056h,01eh,006h,0fch,08ch,0c8h,08eh,0d8h,08eh,0c0h,08dh,036h,02bh
 	db 026h
 l2735:

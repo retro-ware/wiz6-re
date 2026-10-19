@@ -1,16 +1,16 @@
+extern int blink_state;
 extern int g5010;
 extern int g5012;
 extern int g5014;
-extern int g5016;
 extern int g5018[];
-f50a2()
+blink_cursor_text()
 {
-	f030b(g5014, g5012, g5010);
-	if (g5018[g5016] < 16) goto L50e7;
-	f251d(g5014, ((g5016 * 24) + 20508), (g5018[g5016] + -15));
+	set_cursor(g5014, g5012, g5010);
+	if (g5018[blink_state] < 16) goto L50e7;
+	print_string_hi(g5014, ((blink_state * 24) + 20508), (g5018[blink_state] + -15));
 	goto L510d;
 L50e7:
-	f24e9(g5014, ((g5016 * 24) + 20508), g5018[g5016]);
+	print_string(g5014, ((blink_state * 24) + 20508), g5018[blink_state]);
 L510d:
-	g5016 = ((g5016 + 1) % 2);
+	blink_state = ((blink_state + 1) % 2);
 }

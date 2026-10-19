@@ -1,47 +1,47 @@
-extern int g4fc6;
-f8ffe(p4)
+extern int video_flags;
+load_portrait(portrait)
 {
-	int l2;
+	int fd;
 	char x2[14];
 	char l17;
 	char x17[3];
-	int l22;
-	int l24;
+	int fname;
+	int size;
 	char x24[287];
-	int l313;
+	int pixels;
 	char x313[1];
-	if (!(g4fc6 & 1)) goto L9022;
-	strcpy(&l22, 21458);
-	l24 = 32;
+	if (!(video_flags & 1)) goto L9022;
+	strcpy(&fname, 21458);
+	size = 32;
 	goto L907d;
 L9022:
-	if (!(g4fc6 & 2)) goto L903f;
-	strcpy(&l22, 21469);
-	l24 = 16;
+	if (!(video_flags & 2)) goto L903f;
+	strcpy(&fname, 21469);
+	size = 16;
 	goto L907d;
 L903f:
-	if (!(g4fc6 & 4)) goto L905c;
-	strcpy(&l22, 21480);
-	l24 = 16;
+	if (!(video_flags & 4)) goto L905c;
+	strcpy(&fname, 21480);
+	size = 16;
 	goto L907d;
 L905c:
-	if (!(g4fc6 & 8)) goto L9079;
-	strcpy(&l22, 21491);
-	l24 = 32;
+	if (!(video_flags & 8)) goto L9079;
+	strcpy(&fname, 21491);
+	size = 32;
 	goto L907d;
 L9079:
 	return;
 L907d:
-	l17 = (char)((p4 / 14) + 49);
-	p4 = (p4 % 14);
-	f3640();
-	l2 = open(f0cd6(&l22, 0), 0);
-	if (l2 != -1) goto L90b8;
-	f00d5(14);
+	l17 = (char)((portrait / 14) + 49);
+	portrait = (portrait % 14);
+	stop_sound();
+	fd = open(make_data_path(&fname, 0), 0);
+	if (fd != -1) goto L90b8;
+	exit_game(14);
 L90b8:
-	lseek(l2, (long)((p4 * l24) * 9), 0);
-	read(l2, &l313, (l24 * 9));
-	close(l2);
-	f2256(&l313, 2, 72, 9);
+	lseek(fd, (long)((portrait * size) * 9), 0);
+	read(fd, &pixels, (size * 9));
+	close(fd);
+	f2256(&pixels, 2, 72, 9);
 	return;
 }

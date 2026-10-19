@@ -3,8 +3,8 @@ dataseg segment word public 'data'
 	public g0002_
 g0002_ label byte
 	db 005h,000h
-	public g0004_
-g0004_ label byte
+	public realm_colors_
+realm_colors_ label byte
 	db 004h,000h,002h,000h,003h,000h,006h,000h,007h,000h,005h,000h,006h,000h,006h,000h
 	db 003h,000h,007h,000h,007h,000h,007h,000h,007h,000h,007h,000h,009h,000h
 	public g0022_
@@ -46,8 +46,8 @@ g00ba_ label byte
 g00cc_ label byte
 	db 000h,000h,001h,000h,001h,000h,000h,000h,000h,000h,000h,000h,001h,000h,000h,001h
 	db 001h,000h
-	public g00de_
-g00de_ label byte
+	public spell_table_
+spell_table_ label byte
 	db 000h
 	public g00df_
 g00df_ label byte
@@ -189,8 +189,8 @@ g038f_ label byte
 	db 03fh,0ach,041h,07ch,041h,066h,03fh,04fh,03ch,0ach,041h,0bah,03fh,0d2h,03ch,051h
 	db 03dh,06ah,03fh,080h,043h,0d0h,03dh,0beh,03fh,0b0h,043h,07ch,043h,06ah,03fh,04eh
 	db 03dh,0b5h,043h,0bfh,03fh,0d3h,03dh
-	public rename_test_table_
-rename_test_table_ label byte
+	public g0526_
+g0526_ label byte
 	db 000h,000h,001h,000h,003h,000h,004h,000h,004h,000h,000h,000h
 	public g0532_
 g0532_ label byte

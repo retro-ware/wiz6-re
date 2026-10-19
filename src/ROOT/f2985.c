@@ -1,6 +1,6 @@
 #asm
-	public f2985_
-f2985_:
+	public load_misc_table_
+load_misc_table_:
 	db 055h,08bh,0ech,01eh,006h,0b9h,000h,004h,02eh,08bh,01eh,080h,01bh,08eh,0dbh,033h
 	db 0d2h,08bh,05eh,004h,0b4h,03fh,0cdh,021h,072h,006h,007h,01fh,08bh,0e5h,05dh,0c3h
 l29a5:

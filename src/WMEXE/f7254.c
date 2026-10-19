@@ -1,4 +1,4 @@
-f7254(p4, p6)
+reduce_field6(p4, p6)
 char *p4;
 {
 	*(int *)(p4 + 6) -= p6;

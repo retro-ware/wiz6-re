@@ -1,17 +1,17 @@
 extern char g452b[];
-extern char g4587[];
-extern int g363c;
-extern int g440c[];
-f6919(p4, p6)
+extern char pc_class[];
+extern int game_state_arg;
+extern int pc_level[];
+inspect_chest(win, member)
 {
-	int l2;
-	int l4;
+	int letters;
+	int accuracy;
 	int l6;
-	l6 = (*(int *)((char *)g440c + (432 * p6)) / 5);
+	l6 = (*(int *)((char *)pc_level + (432 * member)) / 5);
 	l6 = (l6 > 6 ? 6 : l6);
-	if (g4587[(432 * p6)] != 3) goto L6987;
-	l2 = (((((unsigned char)g452b[(432 * p6)] / 10) + l6) - g363c) + 5);
-	l4 = (((((unsigned char)g452b[(432 * p6)] / 2) + l6) + 50) - (g363c << 1));
+	if (pc_class[(432 * member)] != 3) goto L6987;
+	letters = (((((unsigned char)g452b[(432 * member)] / 10) + l6) - game_state_arg) + 5);
+	accuracy = (((((unsigned char)g452b[(432 * member)] / 2) + l6) + 50) - (game_state_arg << 1));
 	goto L6a09;
 L6987:
 	;
@@ -38,14 +38,14 @@ l69d9:
 	db 099h,0f7h,0f9h,003h,046h,0fah,005h,00fh,000h,02bh,006h,03ch,036h,089h,046h,0fch
 #endasm
 L6a09:
-	if (l2 >= 1) goto L6a14;
-	l2 = 1;
+	if (letters >= 1) goto L6a14;
+	letters = 1;
 L6a14:
-	if (l4 >= 5) goto L6a1f;
-	l4 = 5;
+	if (accuracy >= 5) goto L6a1f;
+	accuracy = 5;
 L6a1f:
-	if (l4 <= 95) goto L6a2a;
-	l4 = 95;
+	if (accuracy <= 95) goto L6a2a;
+	accuracy = 95;
 L6a2a:
-	f672d(p4, p6, l2, l4);
+	reveal_trap_letters(win, member, letters, accuracy);
 }

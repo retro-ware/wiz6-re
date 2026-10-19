@@ -1,7 +1,7 @@
 #asm
 	extrn $ldv:near
 #endasm
-f48e8(p4, p6, p8, p10, p12, p14)
+draw_gauge(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
 	char l5[3];
@@ -38,8 +38,8 @@ L4971:
 L498a:
 	l2 = 0;
 L498f:
-	f030b(p4, p6, (p8 + l2));
-	f23e3(p4, (unsigned char)l5[l2], 1);
+	set_cursor(p4, p6, (p8 + l2));
+	put_char_hi(p4, (unsigned char)l5[l2], 1);
 	l2++;
 	if (l2 < 3) goto L498f;
 }

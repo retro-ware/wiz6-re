@@ -24,7 +24,7 @@ Ldf72:
 	g51a8++;
 	if (g51a8 < 30) goto Ldfb7;
 Ldfad:
-	f0aaa(0);
+	play_sound(0);
 	goto Ldfad;
 Ldfb7:
 	;

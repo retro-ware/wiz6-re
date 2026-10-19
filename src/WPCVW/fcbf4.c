@@ -1,5 +1,5 @@
 extern char g453a[];
-fcbf4(p4, p6, p8)
+add_skill_bonus(p4, p6, p8)
 {
 	int l2;
 	l2 = ((unsigned char)g453a[((432 * p4) + p6)] + p8);

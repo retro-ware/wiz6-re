@@ -1,8 +1,9 @@
-extern int g4358;
-f6e01()
+extern int view_anim_state;
+/* Redraw the maze view background and sprite list. */
+redraw_view_background()
 {
-	g4358 = -2;
+	view_anim_state = -2;
 L6e07:
-	f6d4d();
-	if (g4358 != -2) goto L6e07;
+	animate_view_step();
+	if (view_anim_state != -2) goto L6e07;
 }

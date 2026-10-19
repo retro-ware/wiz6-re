@@ -1,35 +1,36 @@
-extern int g3596;
-extern int g3646;
-extern int g4fbc;
-extern int g4fc4;
-extern int g5060;
-extern int g5062;
-extern int g5064;
-f469f(p4, p6)
+extern int anim_phase;
+extern int camp_anim_dx;
+extern int camp_anim_dy;
+extern int camp_anim_tick;
+extern int click_flag;
+extern int menu_clicked;
+extern int picture_win;
+/* Wait for a key or mouse region while animating; return the region (menu_hit=1) or key mapping. */
+get_menu_choice_animated(keys, regions)
 {
-	int l2;
-	g4fc4 = 0;
+	int choice;
+	menu_clicked = 0;
 L46ab:
-	if (f2643(1)) goto L4717;
-	l2 = f0bd8(p6);
-	if (g3596 != 1) goto L46d3;
-	g4fc4 = 1;
-	return (l2 - 1);
+	if (key_available(1)) goto L4717;
+	choice = check_click_regions(regions);
+	if (click_flag != 1) goto L46d3;
+	menu_clicked = 1;
+	return (choice - 1);
 L46d3:
-	if (g5060) goto L4701;
-	g3646 = ((g3646 + 1) % 2);
-	f4d1b(g3646, g5064, g5062);
-	f36a0(g4fbc);
+	if (camp_anim_tick) goto L4701;
+	anim_phase = ((anim_phase + 1) % 2);
+	draw_camp_scene(anim_phase, camp_anim_dx, camp_anim_dy);
+	drv_op_c2(picture_win);
 	goto L4707;
 L4701:
-	f2858();
-	f2858();
+	delay_tick();
+	delay_tick();
 L4707:
-	g5060 = ((g5060 + 1) % 10);
+	camp_anim_tick = ((camp_anim_tick + 1) % 10);
 	goto L46ab;
 L4717:
-	l2 = f3350(p4, (unsigned char)(f2724(1)));
-	if (l2 < 0) goto L4735;
+	choice = char_index(keys, (unsigned char)(get_key(1)));
+	if (choice < 0) goto L4735;
 	return;
 L4735:
 	goto L46ab;

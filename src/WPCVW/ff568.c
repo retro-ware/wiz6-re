@@ -1,4 +1,4 @@
-extern char g4514[];
+extern char pc_stats[];
 ff568(p4, p6, p8)
 char *p4;
 {
@@ -13,7 +13,7 @@ Lf573:
 Lf58c:
 	l4 = 0;
 Lf591:
-	l2 = f09e2(7);
+	l2 = random(7);
 	l4++;
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,080h,0bfh,014h,045h,012h
@@ -36,16 +36,16 @@ Lf5db:
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,0feh,087h,014h,045h
 #endasm
-	f075b(5014, 21902);
-	f075b((l2 + 5050), 22416);
-	f05c1(21902, 22416, 36);
-	fb15f((l2 + 204), p4, 1, (l2 + 5), -5);
+	get_message(5014, 21902);
+	get_message((l2 + 5050), 22416);
+	replace_char_with_string(21902, 22416, 36);
+	print_msg_at2((l2 + 204), p4, 1, (l2 + 5), -5);
 	p4[6]++;
-	f05a5(p4, (unsigned char)g4514[((432 * p8) + l2)], 2, -1);
-	fe8b6(p6, 21902, 1);
-	fb15f((l2 + 204), p4, 1, (l2 + 5), 5);
+	print_int(p4, (unsigned char)pc_stats[((432 * p8) + l2)], 2, -1);
+	show_centered_msg(p6, 21902, 1);
+	print_msg_at2((l2 + 204), p4, 1, (l2 + 5), 5);
 	p4[6]++;
-	f05a5(p4, (unsigned char)g4514[((432 * p8) + l2)], 2, 1);
+	print_int(p4, (unsigned char)pc_stats[((432 * p8) + l2)], 2, 1);
 Lf6d3:
-	if (f09e2(2)) goto Lf58c;
+	if (random(2)) goto Lf58c;
 }

@@ -1,46 +1,46 @@
 #asm
-	extrn f7b1b_:near
+	extrn move_to_maze_cell_m_:near
 #endasm
-extern int g363c;
 extern int g4eca;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
-extern int g4faa;
 extern int g5032;
-f56f4(p4)
+extern int game_state_arg;
+extern int maze_data;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+try_move(p4)
 {
 	int l2;
 	int l4;
 	int l6;
 	register int rsi;
 	register int rdi;
-	f5651();
-	rsi = (((g4f9c << 6) + (g4f9e << 3)) + g4fa0);
+	save_position();
+	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
 	g5032 = 1;
-	l6 = f2925((g4faa + 504), rsi, 4);
+	l6 = get_bitfield((maze_data + 504), rsi, 4);
 	if (l6 == 1) goto L5740;
 	if (l6 != 2) goto L575d;
 L5740:
-	if (f2925((g4faa + 888), rsi, 2) != p4) goto L575d;
+	if (get_bitfield((maze_data + 888), rsi, 2) != p4) goto L575d;
 	g5032 = 0;
 L575d:
-	f55ef(p4, 1);
-	if (!f7b1b(20384, 20382, 20380, g4fa4, g4fa2)) goto L57b5;
-	if (g363c == 10) goto L5796;
-	if (g363c != 12) goto L57a2;
+	step_position(p4, 1);
+	if (!move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y)) goto L57b5;
+	if (game_state_arg == 10) goto L5796;
+	if (game_state_arg != 12) goto L57a2;
 L5796:
-	f56a9();
+	restore_position();
 	return 0;
 L57a2:
-	f5404(2022, 4);
+	kill_party(2022, 4);
 	return 1;
 L57b5:
-	rsi = (((g4f9c << 6) + (g4f9e << 3)) + g4fa0);
-	l2 = f28af((g4faa + 1082), rsi);
-	l4 = f28af((g4faa + 1178), rsi);
+	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
+	l2 = test_bit((maze_data + 1082), rsi);
+	l4 = test_bit((maze_data + 1178), rsi);
 	if (g4eca != 1) goto L5806;
 	if (l2) goto L5806;
 	g4eca = 0;
@@ -50,20 +50,20 @@ L5806:
 l580f:
 	db 0a1h,03ch,036h,0e9h,0ech,000h
 #endasm
-	f5404(10000, 4);
+	kill_party(10000, 4);
 	return 1;
-	if (g4f9c != 10) goto L58af;
-	f98cb();
-	f0aaa(8);
-	if (g4fa0 >= 4) goto L5857;
-	g4f9c = 4;
-	g4fa0 += 4;
-	g4f9e += 3;
+	if (party_level != 10) goto L58af;
+	redraw_maze_view();
+	play_sound(8);
+	if (party_cell_x >= 4) goto L5857;
+	party_level = 4;
+	party_cell_x += 4;
+	party_cell_y += 3;
 	goto L5867;
 L5857:
-	g4f9c = 5;
-	g4fa0 += -4;
-	g4f9e += 3;
+	party_level = 5;
+	party_cell_x += -4;
+	party_cell_y += 3;
 L5867:
 	;
 #asm
@@ -72,26 +72,26 @@ l5867:
 	db 0a0h,04fh,0a3h,0a4h,04fh,08ah,081h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h
 	db 0a2h,04fh,050h,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h,0b8h
 	db 0a0h,04fh,050h
-	call f7b1b_
+	call move_to_maze_cell_m_
 	db 083h,0c4h,00ah
 #endasm
 	l2 = 0;
 	l4 = 0;
-	f5651();
+	save_position();
 	goto L58c3;
 L58af:
-	f5404(10000, 4);
+	kill_party(10000, 4);
 	return 1;
 L58c3:
 	goto L590e;
 #asm
 	db 0ebh,047h
 #endasm
-	if (g363c != 12) goto L58d5;
-	if (g4f9c >= 9) goto L58e5;
+	if (game_state_arg != 12) goto L58d5;
+	if (party_level >= 9) goto L58e5;
 L58d5:
 	if (g4eca) goto L58e5;
-	f56a9();
+	restore_position();
 	return 0;
 L58e5:
 	goto L590e;
@@ -103,9 +103,9 @@ l5901:
 #endasm
 L590e:
 	if (l4 != 1) goto L5932;
-	switch (g363c) {
+	switch (game_state_arg) {
 case 2:
-	f5404(2022, 4);
+	kill_party(2022, 4);
 	return 1;
 	}
 L5932:

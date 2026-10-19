@@ -6,7 +6,7 @@ extern char g44e5[];
 extern char g44e7[];
 extern char g4525[];
 extern char g4539[];
-extern char g4587[];
+extern char pc_class[];
 f66fe(p4, p6)
 {
 	int l2;
@@ -26,8 +26,8 @@ L6728:
 #endasm
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
-	if (g4587[(432 * p4)] == 13) goto L67ae;
-	if (g4587[(432 * p4)] != 12) goto L67da;
+	if (pc_class[(432 * p4)] == 13) goto L67ae;
+	if (pc_class[(432 * p4)] != 12) goto L67da;
 L67ae:
 	;
 #asm

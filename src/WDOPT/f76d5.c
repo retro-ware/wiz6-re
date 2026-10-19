@@ -1,48 +1,49 @@
-extern char g442d[];
+extern char pc_item_icon[];
 extern int g51b8;
 extern int g51ba[];
 extern int g5346[];
-f76d5(p4, p6, p8, p10)
-char *p4;
+/* Draw five rows of member's item list around sel. */
+draw_item_list(win, member, sel, highlight)
+char *win;
 {
-	int l2;
-	register int rsi;
-	f67dc(p4, 0);
-	f3118(p4);
-	rsi = -2;
+	int slot;
+	register int row;
+	draw_list_frame_dopt(win, 0);
+	defer_window_draw(win);
+	row = -2;
 L76f3:
-	if ((p8 + rsi) < 0) goto L7844;
-	if ((p8 + rsi) >= g51b8) goto L7844;
-	f030b(p4, 2, (rsi + 2));
-	l2 = g51ba[(p8 + rsi)];
-	if (p10 != 1) goto L77b3;
-	if (rsi) goto L77b3;
-	f24e9(p4, ((l2 << 4) + 20966), 3);
-	if (g5346[l2] <= 0) goto L7797;
+	if ((sel + row) < 0) goto L7844;
+	if ((sel + row) >= g51b8) goto L7844;
+	set_cursor(win, 2, (row + 2));
+	slot = g51ba[(sel + row)];
+	if (highlight != 1) goto L77b3;
+	if (row) goto L77b3;
+	print_string(win, ((slot << 4) + 20966), 3);
+	if (g5346[slot] <= 0) goto L7797;
 L775f:
-	if ((unsigned)p4[6] >= 15) goto L7779;
-	f22b7(p4, 32, 3);
+	if ((unsigned)win[6] >= 15) goto L7779;
+	put_char(win, 32, 3);
 	goto L775f;
 L7779:
-	f05a5(p4, g5346[l2], 3, 1);
+	print_int(win, g5346[slot], 3, 1);
 	goto L77b1;
 L7797:
-	if ((unsigned)p4[6] >= 18) goto L77b1;
-	f22b7(p4, 32, 3);
+	if ((unsigned)win[6] >= 18) goto L77b1;
+	put_char(win, 32, 3);
 	goto L7797;
 L77b1:
 	goto L7808;
 L77b3:
-	f251d(p4, ((l2 << 4) + 20966), 3);
-	if (g5346[l2] <= 0) goto L7808;
-	f030b(p4, 15, (rsi + 2));
-	f05a5(p4, g5346[l2], 3, 18);
+	print_string_hi(win, ((slot << 4) + 20966), 3);
+	if (g5346[slot] <= 0) goto L7808;
+	set_cursor(win, 15, (row + 2));
+	print_int(win, g5346[slot], 3, 18);
 L7808:
-	f030b(p4, 18, (rsi + 2));
-	f23e3(p4, (unsigned char)(((unsigned char)g442d[((432 * p6) + (l2 << 3))] + 1)), 4);
+	set_cursor(win, 18, (row + 2));
+	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + (slot << 3))] + 1)), 4);
 L7844:
-	rsi++;
-	if (rsi <= 2) goto L76f3;
-	f31d1(p4);
-	f2b19(p4);
+	row++;
+	if (row <= 2) goto L76f3;
+	resume_window_draw(win);
+	refresh_window(win);
 }

@@ -17,5 +17,5 @@ L7b36:
 	if (l2 <= p6) goto L7b44;
 	l2 = p6;
 L7b44:
-	return (p6 - f09e2((l2 + 1)));
+	return (p6 - random((l2 + 1)));
 }

@@ -1,7 +1,7 @@
 #asm
-	public f2b19_
+	public refresh_window_
 	extrn f3250_:near
-f2b19_:
+refresh_window_:
 	db 055h,08bh,0ech,083h,0ech,012h,01eh,006h,057h,056h,02eh,0ffh,01eh,0a2h,01bh,0c7h
 	db 046h,0eeh,000h,000h,02eh,080h,03eh,04eh,01bh,000h,075h,028h,02eh,080h,03eh,04fh
 	db 01bh,000h,075h,02ch,02eh,080h,03eh,050h,01bh,000h,075h,00ch,0c7h,046h,0f2h,002h

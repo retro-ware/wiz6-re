@@ -1,6 +1,6 @@
-extern int g363c;
-extern int g4f9a;
-extern int g4faa;
+extern int game_state_arg;
+extern int maze_data;
+extern int party_facing;
 fdb60(p4, p6, p8, p10, p12, p14)
 {
 	int l2;
@@ -9,21 +9,21 @@ fdb60(p4, p6, p8, p10, p12, p14)
 	register int rdi;
 	if (!p14) goto Ldbaf;
 	if (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0)) goto Ldbaf;
-	if (g363c == 10) goto Ldba1;
-	if (g363c != 12) goto Ldbaa;
+	if (game_state_arg == 10) goto Ldba1;
+	if (game_state_arg != 12) goto Ldbaa;
 Ldba1:
 	return 0;
 Ldbaa:
 	return 2;
 Ldbaf:
 	rsi = (((p12 << 6) + (p10 << 3)) + p8);
-	if (f28af((g4faa + 1082), rsi) != 1) goto Ldc09;
-	switch (g363c) {
+	if (test_bit((maze_data + 1082), rsi) != 1) goto Ldc09;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
 case 12:
-	if (g363c != 12) goto Ldbee;
+	if (game_state_arg != 12) goto Ldbee;
 	if (p12 <= 8) goto Ldbf3;
 Ldbee:
 	return 0;
@@ -32,24 +32,24 @@ Ldbf3:
 	}
 Ldc09:
 	rdi = 0;
-	switch (g4f9a) {
+	switch (party_facing) {
 case 0:
 	rdi = fd691(p4, p6, p8, p10, p12);
 	goto Ldc83;
 case 1:
-	rdi = f2925((g4faa + 96), rsi, 2);
+	rdi = get_bitfield((maze_data + 96), rsi, 2);
 	goto Ldc83;
 case 2:
-	rdi = f2925((g4faa + 288), rsi, 2);
+	rdi = get_bitfield((maze_data + 288), rsi, 2);
 	goto Ldc83;
 case 3:
 	rdi = fd62c(p4, p6, p8, p10, p12);
 	goto Ldc83;
 	}
 Ldc83:
-	l2 = f2925((g4faa + 504), rsi, 4);
-	l4 = ((f2925((g4faa + 888), rsi, 2) + 1) % 4);
-	if (l4 != g4f9a) goto Ldd18;
+	l2 = get_bitfield((maze_data + 504), rsi, 4);
+	l4 = ((get_bitfield((maze_data + 888), rsi, 2) + 1) % 4);
+	if (l4 != party_facing) goto Ldd18;
 	switch (l2) {
 case 1:
 	rdi = 5;

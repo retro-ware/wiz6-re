@@ -1,9 +1,10 @@
 extern char g3958[];
 extern char g398b[];
-f4cd9(p4)
+/* Draw camp scene background sprite n. */
+draw_camp_backdrop_char(n)
 {
-	char l10[10];
-	l10[0] = *(char *)&p4;
-	l10[(0 + 1)] = 0;
-	f3670(2, (unsigned char)g3958[(p4 << 1)], (unsigned char)g398b[p4], 72, 248, 0, 0, l10);
+	char text[10];
+	text[0] = *(char *)&n;
+	text[(0 + 1)] = 0;
+	drv_draw_text(2, (unsigned char)g3958[(n << 1)], (unsigned char)g398b[n], 72, 248, 0, 0, text);
 }

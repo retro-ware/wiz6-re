@@ -1,10 +1,10 @@
 #asm
-	extrn f32be_:near
+	extrn fill_window_:near
 #endasm
-f09fb(p4, p6)
+erase_window(win, no_defer)
 {
-	if (p6) goto L0a0b;
-	f3118(p4);
+	if (no_defer) goto L0a0b;
+	defer_window_draw(win);
 L0a0b:
 	;
 #asm
@@ -17,12 +17,12 @@ L0a20:
 #asm
 l0a20:
 	db 02ah,0e4h,050h,051h
-	call f32be_
+	call fill_window_
 	db 083h,0c4h,008h
 #endasm
-	f2b19(p4);
-	if (p6) goto L0a3e;
-	f31d1(p4);
+	refresh_window(win);
+	if (no_defer) goto L0a3e;
+	resume_window_draw(win);
 L0a3e:
 	;
 }

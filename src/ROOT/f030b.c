@@ -1,6 +1,7 @@
-f030b(p4, p6, p8)
-char *p4;
+/* Set a window's cursor column/row (wrapped to window size). */
+set_cursor(win, col, row)
+char *win;
 {
-	p4[6] = (char)(p6 % (unsigned char)*p4);
-	p4[7] = (char)(p8 % (unsigned char)p4[1]);
+	win[6] = (char)(col % (unsigned char)*win);
+	win[7] = (char)(row % (unsigned char)win[1]);
 }

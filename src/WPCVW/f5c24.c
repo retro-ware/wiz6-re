@@ -6,8 +6,8 @@ extern char g44e5[];
 extern char g44e7[];
 extern char g4525[];
 extern char g4539[];
-extern char g4587[];
-f5c24(p4, p6)
+extern char pc_class[];
+clear_hand_attack(p4, p6)
 {
 	int l2;
 	int l4;
@@ -26,8 +26,8 @@ L5c4e:
 #endasm
 	l2 = ((unsigned char)g4525[(432 * p4)] / 5);
 	l4 = ((unsigned char)g4539[(432 * p4)] / 5);
-	if (g4587[(432 * p4)] == 13) goto L5cd4;
-	if (g4587[(432 * p4)] != 12) goto L5d00;
+	if (pc_class[(432 * p4)] == 13) goto L5cd4;
+	if (pc_class[(432 * p4)] != 12) goto L5d00;
 L5cd4:
 	;
 #asm

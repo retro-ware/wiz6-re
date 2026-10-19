@@ -1,4 +1,4 @@
-f6aec(p4, p6, p8)
+clamp_toward(p4, p6, p8)
 {
 	if (p8 != 1) goto L6b13;
 	if (p6 <= 0) goto L6b03;

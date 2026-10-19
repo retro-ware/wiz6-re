@@ -1,7 +1,7 @@
-f5058(p4, p6, p8)
+print_msg_color(msg, win, color)
 {
 	char x0[78];
-	int l80;
-	f075b(p4, &l80);
-	f24e9(p6, &l80, p8);
+	int text;
+	get_message(msg, &text);
+	print_string(win, &text, color);
 }

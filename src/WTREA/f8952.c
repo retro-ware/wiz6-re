@@ -1,170 +1,171 @@
-extern int g0846;
-extern int g3342;
-extern int g4fb2;
-extern int g4fc4;
-extern int g4fca;
-extern int g51d6[];
-extern int g5266;
+extern int bottom_line_win;
 extern int g5268[];
 extern int g5274[];
-f8952()
+extern int loot_count;
+extern int loot_item[];
+extern int main_window;
+extern int menu_clicked;
+extern int message_delay;
+extern int mouse_present;
+/* Let the player hand out the found items to party members. */
+distribute_loot()
 {
 	int l2;
 	char x2[2];
-	int l6;
+	int member;
 	int l8;
-	int l10;
-	char *l12;
-	char *l14;
+	int sel;
+	char *win;
+	char *list_win;
 	int l16;
 	int l18;
 	char x18[8];
 	int l28;
 	char x28[2];
 	int l32;
-	f31d1(g3342);
-	f31d1(g4fb2);
-	f0a42(g4fb2, 0);
-	l12 = f011a(0, 19, 19, 5, 20, -4, 0, 0);
-	f32be(l12, 32, 3, 0);
-	l14 = f011a(20, 19, 20, 5, 21, -5, 0, 0);
-	f32be(l14, 32, 3, 0);
-	f3118(l12);
-	f030b(l12, 2, 1);
-	f083f(5102, l12, 18);
-	l12[6]++;
-	l16 = (unsigned char)l12[6];
-	l18 = (unsigned char)l12[7];
-	f075b(5103, &l28);
-	f251d(l12, &l28, 3);
-	f88a9(l12, 1, 2, 17);
-	f88a9(l12, 18, 2, 19);
-	f88a9(l12, 1, 4, 6);
-	f88a9(l12, 18, 4, 8);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
+	f0a42(bottom_line_win, 0);
+	win = create_window(0, 19, 19, 5, 20, -4, 0, 0);
+	fill_window(win, 32, 3, 0);
+	list_win = create_window(20, 19, 20, 5, 21, -5, 0, 0);
+	fill_window(list_win, 32, 3, 0);
+	defer_window_draw(win);
+	set_cursor(win, 2, 1);
+	print_message(5102, win, 18);
+	win[6]++;
+	l16 = (unsigned char)win[6];
+	l18 = (unsigned char)win[7];
+	get_message(5103, &l28);
+	print_string_hi(win, &l28, 3);
+	put_glyph_c1(win, 1, 2, 17);
+	put_glyph_c1(win, 18, 2, 19);
+	put_glyph_c1(win, 1, 4, 6);
+	put_glyph_c1(win, 18, 4, 8);
 	l2 = 2;
 L8aa3:
-	f88a9(l12, l2, 2, 18);
-	f88a9(l12, l2, 4, 7);
+	put_glyph_c1(win, l2, 2, 18);
+	put_glyph_c1(win, l2, 4, 7);
 	l2++;
 	if (l2 < 18) goto L8aa3;
-	f88a9(l12, 1, 3, 4);
-	f88a9(l12, 18, 3, 5);
-	f033f(l12, 2, 3, 17, 3);
-	f31d1(l12);
-	l10 = 0;
+	put_glyph_c1(win, 1, 3, 4);
+	put_glyph_c1(win, 18, 3, 5);
+	clear_window_area(win, 2, 3, 17, 3);
+	resume_window_draw(win);
+	sel = 0;
 L8b25:
-	if (l10 < g5266) goto L8b33;
-	l10--;
+	if (sel < loot_count) goto L8b33;
+	sel--;
 	goto L8b25;
 L8b33:
-	f5097(5101, 2);
-	f3118(l14);
-	f32be(l14, 32, 3, 0);
+	print_chest_prompt(5101, 2);
+	defer_window_draw(list_win);
+	fill_window(list_win, 32, 3, 0);
 	l2 = 0;
 	goto L8ba1;
 L8b64:
-	f8848(l14, l2);
-	f0c16(l2, ((unsigned char)l14[2] + 1), ((unsigned char)l14[3] + l2), ((unsigned char)l14[2] + 19), ((unsigned char)l14[3] + l2));
+	draw_loot_line(list_win, l2);
+	set_click_region(l2, ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + l2), ((unsigned char)list_win[2] + 19), ((unsigned char)list_win[3] + l2));
 	l2++;
 L8ba1:
-	if (l2 < g5266) goto L8b64;
-	f31d1(l14);
-	f0c16(g5266, ((unsigned char)l12[2] + l16), ((unsigned char)l12[3] + l18), (((strlen(&l28) + (unsigned char)l12[2]) + l16) - 1), ((unsigned char)l12[3] + l18));
-	f0c16((g5266 + 1), 255, 0, 0, 0);
-	f2a63();
+	if (l2 < loot_count) goto L8b64;
+	resume_window_draw(list_win);
+	set_click_region(loot_count, ((unsigned char)win[2] + l16), ((unsigned char)win[3] + l18), (((strlen(&l28) + (unsigned char)win[2]) + l16) - 1), ((unsigned char)win[3] + l18));
+	set_click_region((loot_count + 1), 255, 0, 0, 0);
+	refresh_all_windows();
 L8c09:
-	if (l10 != -1) goto L8c52;
-	if (g0846) goto L8c36;
-	f030b(l12, l16, l18);
-	f24e9(l12, &l28, -3);
+	if (sel != -1) goto L8c52;
+	if (mouse_present) goto L8c36;
+	set_cursor(win, l16, l18);
+	print_string(win, &l28, -3);
 L8c36:
-	f033f(l12, 2, 3, 17, 3);
+	clear_window_area(win, 2, 3, 17, 3);
 	goto L8d0c;
 L8c52:
-	f030b(l14, 21, l10);
-	f24e9(l14, ((l10 * 18) + 20974), -3);
-	f030b(l12, 2, 3);
-	f083f(5104, l12, 11);
-	f030b(l12, 12, 3);
-	f05a5(l12, (g5268[l10] / 10), 4, 3);
-	f22b7(l12, 46, 3);
-	f05a5(l12, (g5268[l10] % 10), 1, 3);
+	set_cursor(list_win, 21, sel);
+	print_string(list_win, ((sel * 18) + 20974), -3);
+	set_cursor(win, 2, 3);
+	print_message(5104, win, 11);
+	set_cursor(win, 12, 3);
+	print_int(win, (g5268[sel] / 10), 4, 3);
+	put_char(win, 46, 3);
+	print_int(win, (g5268[sel] % 10), 1, 3);
 L8d0c:
-	l8 = f4c2f(20670, 13720);
-	if (g4fc4 != 1) goto L8d65;
-	if (l8 != l10) goto L8d30;
+	l8 = get_chest_input(20670, 13720);
+	if (menu_clicked != 1) goto L8d65;
+	if (l8 != sel) goto L8d30;
 	l8 = 5;
 	goto L8d62;
 L8d30:
-	if (l10 == -1) goto L8d42;
-	f8848(l14, l10);
+	if (sel == -1) goto L8d42;
+	draw_loot_line(list_win, sel);
 L8d42:
-	l10 = (l8 < g5266 ? l8 : -1);
-	l8 = (l10 == -1 ? 5 : 0);
+	sel = (l8 < loot_count ? l8 : -1);
+	l8 = (sel == -1 ? 5 : 0);
 L8d62:
 	goto L8e6a;
 L8d65:
 	switch (l8) {
 case 1:
-	if (l10 == -1) goto L8d82;
-	f8848(l14, l10);
-	l10 = -1;
+	if (sel == -1) goto L8d82;
+	draw_loot_line(list_win, sel);
+	sel = -1;
 L8d82:
 	goto L8e6a;
 case 2:
-	if (l10 != -1) goto L8db2;
-	f030b(l12, l16, l18);
-	f251d(l12, &l28, 3);
-	l10 = 0;
+	if (sel != -1) goto L8db2;
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
 	goto L8dce;
 L8db2:
-	f8848(l14, l10);
-	if (l10 <= 0) goto L8dc9;
-	l10--;
+	draw_loot_line(list_win, sel);
+	if (sel <= 0) goto L8dc9;
+	sel--;
 	goto L8dce;
 L8dc9:
-	l10 = -1;
+	sel = -1;
 L8dce:
 	goto L8e6a;
 case 3:
-	if (l10 != -1) goto L8dfc;
-	f030b(l12, l16, l18);
-	f251d(l12, &l28, 3);
-	l10 = 0;
+	if (sel != -1) goto L8dfc;
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
 L8dfc:
 	goto L8e6a;
 case 4:
-	if (l10 != -1) goto L8e2b;
-	f030b(l12, l16, l18);
-	f251d(l12, &l28, 3);
-	l10 = 0;
+	if (sel != -1) goto L8e2b;
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
 	goto L8e4b;
 L8e2b:
-	f8848(l14, l10);
-	if ((l10 + 1) >= g5266) goto L8e46;
-	l10++;
+	draw_loot_line(list_win, sel);
+	if ((sel + 1) >= loot_count) goto L8e46;
+	sel++;
 	goto L8e4b;
 L8e46:
-	l10 = -1;
+	sel = -1;
 L8e4b:
 	goto L8e6a;
 	}
 L8e6a:
 	if (l8 != 5) goto L8c09;
-	if (l10 == -1) goto L8edd;
-	l6 = f5649(5105, 0);
-	if (l6 == -1) goto L8edd;
-	if (g51d6[l10] <= 0) goto L8edd;
-	if (f8583(l6, l10) == -1) goto L8eb7;
-	f88d2(l10);
+	if (sel == -1) goto L8edd;
+	member = choose_party_member(5105, 0);
+	if (member == -1) goto L8edd;
+	if (loot_item[sel] <= 0) goto L8edd;
+	if (give_item_to_member(member, sel) == -1) goto L8eb7;
+	remove_loot_entry(sel);
 	goto L8edd;
 L8eb7:
-	f5097(5108, 6);
-	f2b19(g3342);
-	f0aaa(0);
-	f48df(g4fca);
+	print_chest_prompt(5108, 6);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating(message_delay);
 L8edd:
-	if (l10 != -1) goto L8f3a;
+	if (sel != -1) goto L8f3a;
 	l32 = 0;
 	l2 = 0;
 	goto L8f05;
@@ -174,19 +175,19 @@ L8eef:
 L8f02:
 	l2++;
 L8f05:
-	if (l2 < g5266) goto L8eef;
+	if (l2 < loot_count) goto L8eef;
 	if (l32 != 1) goto L8f3a;
-	f5097(5109, 1);
-	f2b19(g3342);
-	f0aaa(0);
-	f48df(g4fca);
+	print_chest_prompt(5109, 1);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating(message_delay);
 L8f3a:
-	if (g5266 <= 0) goto L8f53;
-	if (l10 != -1) goto L8b25;
+	if (loot_count <= 0) goto L8f53;
+	if (sel != -1) goto L8b25;
 	if (l32 == 1) goto L8b25;
 L8f53:
-	f02d2(l14, 0);
-	f02d2(l12, 0);
-	f3118(g3342);
-	f3118(g4fb2);
+	destroy_window(list_win, 0);
+	destroy_window(win, 0);
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
 }

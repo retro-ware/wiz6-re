@@ -1,7 +1,7 @@
 extern int g4fc8;
-f8036(p4)
+show_combat_msg(p4)
 {
-	f779c(2);
-	f6d0b(p4, 5, 2);
-	f774b((g4fc8 / 2));
+	clear_msg_line(2);
+	print_msg_centered(p4, 5, 2);
+	combat_delay((g4fc8 / 2));
 }

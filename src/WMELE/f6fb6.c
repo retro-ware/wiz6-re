@@ -1,42 +1,43 @@
 extern char g4326[];
-extern int g3342;
+extern int bottom_line_win;
 extern int g438a;
 extern int g438c;
-extern int g4390[];
-extern int g43a8[];
-extern int g43b6[];
 extern int g4fb0;
-extern int g4fb2;
-extern int g4fb6;
-f6fb6()
+extern int group_monster_rec[];
+extern int main_window;
+extern int monster_groups[];
+extern int party_picture_win;
+extern int sprite_list[];
+/* Close the combat windows and free the combat buffers. */
+end_encounter()
 {
 	int l2;
 	int l4;
-	f02d2(g438a, 0);
-	f02d2(g438c, 0);
-	f31d1(g3342);
-	f31d1(g4fb2);
-	f31d1(g4fb0);
-	f09fb(g3342, 0);
-	f3118(g4fb6);
-	f32be(g4fb6, 26, 3, 0);
+	destroy_window(g438a, 0);
+	destroy_window(g438c, 0);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
+	resume_window_draw(g4fb0);
+	erase_window(main_window, 0);
+	defer_window_draw(party_picture_win);
+	fill_window(party_picture_win, 26, 3, 0);
 	l2 = 0;
 L7021:
-	f030b(g4fb6, 19, l2);
-	f23e3(g4fb6, 27, 3);
+	set_cursor(party_picture_win, 19, l2);
+	put_char_hi(party_picture_win, 27, 3);
 	l2++;
 	if (l2 < 5) goto L7021;
-	f31d1(g4fb6);
-	f0a42(g4fb2, 0);
+	resume_window_draw(party_picture_win);
+	f0a42(bottom_line_win, 0);
 	l2 = 0;
 L706a:
-	free(g43b6[l2]);
-	free(g43a8[l2]);
+	free(group_monster_rec[l2]);
+	free(monster_groups[l2]);
 	l2++;
 	if (l2 < 7) goto L706a;
 	l2 = 0;
 L7098:
-	free(g4390[l2]);
+	free(sprite_list[l2]);
 	l2++;
 	if (l2 < 12) goto L7098;
 	l4 = 0;

@@ -1,35 +1,36 @@
 #asm
-	extrn f09e2_:near
-	extrn f48df_:near
-	extrn f5c0f_:near
-	extrn f5dbb_:near
-	extrn f5edf_:near
+	extrn inflict_condition_:near
+	extrn inflict_status_:near
+	extrn random_:near
+	extrn show_trap_effect_:near
+	extrn wait_animating_:near
 #endasm
-extern char g4514[];
 extern char g4517[];
 extern char g451b[];
 extern char g453c[];
 extern char g4545[];
-extern char g4589[];
 extern char g50f2;
 extern char g5142;
-extern int g363c;
-extern int g43ce;
-extern int g4400[];
-extern int g4402[];
-extern int g4fb6;
-extern int g4fca;
+extern char pc_condition[];
+extern char pc_stats[];
 extern int g50c8;
-f5f49(p4, p6)
+extern int game_state_arg;
+extern int message_delay;
+extern int party_count;
+extern int party_picture_win;
+extern int pc_hp[];
+extern int pc_hp_max[];
+/* Apply the effects of a sprung chest trap (damage, poison, stat loss, teleport...) to the party. */
+spring_trap(trap, member)
 {
 	char x0[78];
 	int l80;
-	int l82;
-	f02f0(g4fb6, 0);
-	f2a63();
-	if (p4) goto L5f92;
-	f075b(5228, &l80);
-	f59e9(g4fb6, g50c8, &l80, 1, 7);
+	int i;
+	clear_window(party_picture_win, 0);
+	refresh_all_windows();
+	if (trap) goto L5f92;
+	get_message(5228, &l80);
+	show_centered_line(party_picture_win, g50c8, &l80, 1, 7);
 	return;
 L5f92:
 	;
@@ -37,223 +38,223 @@ L5f92:
 l5f92:
 	db 08bh,046h,004h,0e9h,009h,007h
 #endasm
-	f5edf(0, 15);
-	l82 = 0;
+	show_trap_effect(0, 15);
+	i = 0;
 	goto L5fc2;
 L5fad:
-	f5cc3(l82, (g363c + 1), 8);
-	l82++;
+	trap_damage_member(i, (game_state_arg + 1), 8);
+	i++;
 L5fc2:
-	if (l82 < g43ce) goto L5fad;
+	if (i < party_count) goto L5fad;
 #asm
 	db 0e9h,0e0h,006h
 #endasm
-	f5edf(0, 16);
-	l82 = 0;
+	show_trap_effect(0, 16);
+	i = 0;
 	goto L6004;
 L5fe3:
-	f5dbb(l82, 5253, 10, 3, 10, 10, 50);
-	l82++;
+	inflict_status(i, 5253, 10, 3, 10, 10, 50);
+	i++;
 L6004:
-	if (l82 < g43ce) goto L5fe3;
+	if (i < party_count) goto L5fe3;
 #asm
 	db 0e9h,09eh,006h,0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
-	call f5edf_
+	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,08dh,006h
 #endasm
-	f5edf(p6, 6);
-	f5cc3(p6, 1, 6);
+	show_trap_effect(member, 6);
+	trap_damage_member(member, 1, 6);
 #asm
 	db 0b8h,032h,000h,050h,0b8h,00ah,000h,050h,0a1h,03ch,036h,040h,040h,050h,0b8h,005h
 	db 000h,050h,0b8h,000h,000h,050h,0b8h,087h,014h,050h,0ffh,076h,006h
-	call f5dbb_
+	call inflict_status_
 	db 083h,0c4h,00eh,0e9h,049h,006h
 #endasm
-	f5edf(0, 2);
-	l82 = 0;
+	show_trap_effect(0, 2);
+	i = 0;
 	goto L6167;
 L607b:
-	if (f09e2(100) <= (unsigned char)g453c[(432 * l82)]) goto L6164;
+	if (random(100) <= (unsigned char)g453c[(432 * i)]) goto L6164;
 #asm
 l609c:
 	db 0b8h,006h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,0e9h,0b0h,000h
 #endasm
-	f5cc3(l82, (g363c + 1), 8);
+	trap_damage_member(i, (game_state_arg + 1), 8);
 	goto L6164;
 #asm
 	db 0b8h,032h,000h,050h,0b8h,00ah,000h,050h,050h,0b8h,004h,000h,050h,0b8h,002h,000h
 	db 050h,0b8h,086h,014h,050h,0ffh,076h,0aeh
-	call f5dbb_
+	call inflict_status_
 	db 083h,0c4h,00eh,0e9h,087h,000h,0b8h,032h,000h,050h,0b8h,00ah,000h,050h,050h,0b8h
 	db 002h,000h,050h,0b8h,009h,000h,050h,0b8h,084h,014h,050h,0ffh,076h,0aeh
-	call f5dbb_
+	call inflict_status_
 	db 083h,0c4h,00eh,0ebh,067h,0b8h,032h,000h,050h,0b8h,00ah,000h,050h,050h,0b8h,003h
 	db 000h,050h,0b8h,004h,000h,050h,0b8h,085h,014h,050h,0ffh,076h,0aeh
-	call f5dbb_
+	call inflict_status_
 	db 083h,0c4h,00eh,0ebh,047h,0b8h,003h,000h,050h,0b8h,00bh,000h,050h,0b8h,08ch,014h
 	db 050h,0ffh,076h,0aeh
-	call f5c0f_
+	call inflict_condition_
 	db 083h,0c4h,008h,0ebh,030h,0b8h,002h,000h,050h,0b8h,00bh,000h,050h,0b8h,08fh,014h
 	db 050h,0ffh,076h,0aeh
-	call f5c0f_
+	call inflict_condition_
 	db 083h,0c4h,008h,0ebh,019h,0a7h,060h,0bch,060h,0ddh,060h,0fdh,060h,01dh,061h,034h
 	db 061h
 l6157:
 	db 03dh,006h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,04bh,061h
 #endasm
 L6164:
-	l82++;
+	i++;
 L6167:
-	if (l82 < g43ce) goto L607b;
+	if (i < party_count) goto L607b;
 #asm
 l6173:
 	db 0e9h,038h,005h
 #endasm
-	f5edf(0, 16);
-	l82 = 0;
+	show_trap_effect(0, 16);
+	i = 0;
 	goto L62b0;
 L618c:
-	f5dbb(l82, 5265, 11, 9, 10, 10, 50);
-	if (f09e2(100) <= ((unsigned char)g4545[(432 * l82)] + 75)) goto L622d;
-	if ((unsigned)g4514[(432 * l82)] <= 3) goto L622d;
-	if ((unsigned)g4589[(432 * l82)] >= 3) goto L622d;
-	g4514[(432 * l82)]--;
-	f075b(5266, &l80);
-	f075b(5267, 20722);
+	inflict_status(i, 5265, 11, 9, 10, 10, 50);
+	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) goto L622d;
+	if ((unsigned)pc_stats[(432 * i)] <= 3) goto L622d;
+	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L622d;
+	pc_stats[(432 * i)]--;
+	get_message(5266, &l80);
+	get_message(5267, 20722);
 	g5142 = 0;
-	f5af6(l82, &l80, 20722, 20802, 1, 5, 5, 0);
-	f48df(g4fca);
+	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
+	wait_animating(message_delay);
 	goto L62ad;
 L622d:
-	if (f09e2(100) <= ((unsigned char)g4545[(432 * l82)] + 75)) goto L62ad;
-	if ((unsigned)g4517[(432 * l82)] <= 3) goto L62ad;
-	if ((unsigned)g4589[(432 * l82)] >= 3) goto L62ad;
-	g4517[(432 * l82)]--;
-	f075b(5266, &l80);
-	f075b(5268, 20722);
+	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) goto L62ad;
+	if ((unsigned)g4517[(432 * i)] <= 3) goto L62ad;
+	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L62ad;
+	g4517[(432 * i)]--;
+	get_message(5266, &l80);
+	get_message(5268, 20722);
 	g5142 = 0;
-	f5af6(l82, &l80, 20722, 20802, 1, 5, 5, 0);
-	f48df(g4fca);
+	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
+	wait_animating(message_delay);
 L62ad:
-	l82++;
+	i++;
 L62b0:
-	if (l82 < g43ce) goto L618c;
+	if (i < party_count) goto L618c;
 #asm
 l62bc:
 	db 0e9h,0efh,003h,0b8h,010h,000h,050h,0b8h,000h,000h,050h
-	call f5edf_
+	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0deh,003h
 #endasm
-	f5edf(0, 2);
-	l82 = 0;
+	show_trap_effect(0, 2);
+	i = 0;
 	goto L639a;
 L62e6:
-	if (f09e2(100) <= ((unsigned char)g4545[(432 * l82)] + 50)) goto L6397;
-	if ((unsigned)g4589[(432 * l82)] >= 3) goto L6397;
-	*(int *)((char *)g4402 + (432 * l82)) -= (f09e2(4) + 1);
-	if (*(int *)((char *)g4402 + (432 * l82)) >= 1) goto L633a;
-	*(int *)((char *)g4402 + (432 * l82)) = 1;
+	if (random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) goto L6397;
+	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L6397;
+	*(int *)((char *)pc_hp_max + (432 * i)) -= (random(4) + 1);
+	if (*(int *)((char *)pc_hp_max + (432 * i)) >= 1) goto L633a;
+	*(int *)((char *)pc_hp_max + (432 * i)) = 1;
 L633a:
-	if (*(int *)((char *)g4400 + (432 * l82)) <= *(int *)((char *)g4402 + (432 * l82))) goto L634c;
-	*(int *)((char *)g4400 + (432 * l82)) = *(int *)((char *)g4402 + (432 * l82));
+	if (*(int *)((char *)pc_hp + (432 * i)) <= *(int *)((char *)pc_hp_max + (432 * i))) goto L634c;
+	*(int *)((char *)pc_hp + (432 * i)) = *(int *)((char *)pc_hp_max + (432 * i));
 L634c:
-	f075b(5266, &l80);
-	f075b(5269, 20722);
+	get_message(5266, &l80);
+	get_message(5269, 20722);
 	g5142 = 0;
-	f5af6(l82, &l80, 20722, 20802, 1, 5, 5, 0);
-	f48df(g4fca);
+	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
+	wait_animating(message_delay);
 L6397:
-	l82++;
+	i++;
 L639a:
-	if (l82 < g43ce) goto L62e6;
+	if (i < party_count) goto L62e6;
 #asm
 l63a6:
 	db 0e9h,005h,003h,0b8h,0ffh,0ffh,050h,0b8h,000h,000h,050h
-	call f5edf_
+	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0f4h,002h
 #endasm
-	f5edf(0, 16);
-	l82 = 0;
+	show_trap_effect(0, 16);
+	i = 0;
 	goto L63e7;
 L63cf:
-	f5c0f(l82, 5263, 11, 2);
-	l82++;
+	inflict_condition(i, 5263, 11, 2);
+	i++;
 L63e7:
-	if (l82 < g43ce) goto L63cf;
+	if (i < party_count) goto L63cf;
 #asm
 	db 0e9h,0bbh,002h,0b8h,004h,000h,050h,0b8h,000h,000h,050h
-	call f5edf_
+	call show_trap_effect_
 	db 083h,0c4h,004h,0e9h,0aah,002h
 #endasm
-	l82 = f09e2(g43ce);
+	i = random(party_count);
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,0aeh,08bh,0d8h,080h,0bfh,089h,045h,003h,073h,0e6h
 #endasm
-	f5edf(l82, 4);
-	f075b(5270, &l80);
-	f02f0(g4fb6, 1);
-	f0b7e(g4fb6, &l80, g50c8, 5);
-	f0aaa(0);
-	f48df(g4fca);
-	f075b(5271, &l80);
+	show_trap_effect(i, 4);
+	get_message(5270, &l80);
+	clear_window(party_picture_win, 1);
+	print_centered(party_picture_win, &l80, g50c8, 5);
+	play_sound(0);
+	wait_animating(message_delay);
+	get_message(5271, &l80);
 	g50f2 = 0;
 	g5142 = 0;
-	f5af6(l82, &l80, 20722, 20802, 1, 6, 0, 0);
-	f48df(g4fca);
-	f5cc3(l82, (g363c + 1), 8);
-	if ((unsigned)g4589[(432 * l82)] >= 3) goto L657e;
-	if (f09e2(21) <= (unsigned char)g451b[(432 * l82)]) goto L657e;
-	f075b(5272, &l80);
+	print_member_message(i, &l80, 20722, 20802, 1, 6, 0, 0);
+	wait_animating(message_delay);
+	trap_damage_member(i, (game_state_arg + 1), 8);
+	if ((unsigned)pc_condition[(432 * i)] >= 3) goto L657e;
+	if (random(21) <= (unsigned char)g451b[(432 * i)]) goto L657e;
+	get_message(5272, &l80);
 	g50f2 = 0;
 	g5142 = 0;
-	f5af6(l82, &l80, 20722, 20802, 1, 6, 0, 0);
-	f48df(g4fca);
-	f5cc3(l82, ((g363c << 1) + 2), 8);
-	if (f09e2(21) <= (unsigned char)g451b[(432 * l82)]) goto L657e;
-	f5c0f(l82, 5273, 11, 3);
+	print_member_message(i, &l80, 20722, 20802, 1, 6, 0, 0);
+	wait_animating(message_delay);
+	trap_damage_member(i, ((game_state_arg << 1) + 2), 8);
+	if (random(21) <= (unsigned char)g451b[(432 * i)]) goto L657e;
+	inflict_condition(i, 5273, 11, 3);
 L657e:
-	f075b(5274, &l80);
-	f02f0(g4fb6, 1);
-	f0b7e(g4fb6, &l80, g50c8, 5);
-	f0aaa(0);
+	get_message(5274, &l80);
+	clear_window(party_picture_win, 1);
+	print_centered(party_picture_win, &l80, g50c8, 5);
+	play_sound(0);
 #asm
 	db 0ffh,036h,0cah,04fh
-	call f48df_
+	call wait_animating_
 	db 059h,0e9h,0ebh,000h
 #endasm
-	f5edf(0, 3);
-	l82 = 0;
+	show_trap_effect(0, 3);
+	i = 0;
 	goto L660b;
 L65d8:
-	f5cc3(l82, (g363c + 1), 8);
-	f5dbb(l82, 5275, 5, 8, 10, 10, 50);
-	l82++;
+	trap_damage_member(i, (game_state_arg + 1), 8);
+	inflict_status(i, 5275, 5, 8, 10, 10, 50);
+	i++;
 L660b:
-	if (l82 < g43ce) goto L65d8;
+	if (i < party_count) goto L65d8;
 #asm
 	db 0e9h,097h,000h
 #endasm
-	f5edf(0, 0);
-	l82 = 0;
+	show_trap_effect(0, 0);
+	i = 0;
 	goto L663e;
 L6629:
-	f5cc3(l82, (g363c + 1), 10);
-	l82++;
+	trap_damage_member(i, (game_state_arg + 1), 10);
+	i++;
 L663e:
-	if (l82 < g43ce) goto L6629;
+	if (i < party_count) goto L6629;
 #asm
 	db 0ebh,065h
 #endasm
-	f5edf(0, 4);
-	l82 = 0;
+	show_trap_effect(0, 4);
+	i = 0;
 	goto L6676;
 L665e:
-	f5c0f(l82, 5260, 11, 3);
-	l82++;
+	inflict_condition(i, 5260, 11, 3);
+	i++;
 L6676:
-	if (l82 < g43ce) goto L665e;
+	if (i < party_count) goto L665e;
 #asm
 	db 0ebh,02dh,0aeh,066h,098h,05fh,0ceh,05fh,010h,060h,021h,060h,065h,060h,076h,061h
 	db 0bfh,062h,0d0h,062h,0a9h,063h,0bah,063h,0f3h,063h,004h,064h,0c3h,065h,017h,066h

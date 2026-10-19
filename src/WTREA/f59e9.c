@@ -1,12 +1,12 @@
-extern int g4fca;
-f59e9(p4, p6, p8, p10, p12)
+extern int message_delay;
+show_centered_line(win, y, text, beep, color)
 {
-	f033f(p4, 0, p6, 39, p6);
-	f48df(1);
-	f030b(p4, (20 - ((strlen(p8) + 1) / 2)), p6);
-	f24e9(p4, p8, p12);
-	if (!p10) goto L5a4a;
-	f0aaa(0);
+	clear_window_area(win, 0, y, 39, y);
+	wait_animating(1);
+	set_cursor(win, (20 - ((strlen(text) + 1) / 2)), y);
+	print_string(win, text, color);
+	if (!beep) goto L5a4a;
+	play_sound(0);
 L5a4a:
-	f48df(g4fca);
+	wait_animating(message_delay);
 }

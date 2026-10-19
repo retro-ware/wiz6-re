@@ -1,10 +1,11 @@
 #asm
-	extrn f28af_:near
+	extrn test_bit_:near
 #endasm
-f818a(p4, p6, p8, p10)
+/* Return the next maze event index from start at map position x, y, level, or -1. */
+find_maze_event(x, y, level, start)
 {
-	register int rsi;
-	rsi = p10;
+	register int ev;
+	ev = start;
 	goto L81ee;
 L8193:
 	;
@@ -21,13 +22,13 @@ l81aa:
 	db 0e4h,03bh,046h,006h,075h,02dh,080h,0b8h,060h,003h,000h,076h,026h,08ah,080h,0a0h
 	db 005h,02ah,0e4h,050h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h
 	db 0e0h,005h,0ech,04eh,050h
-	call f28af_
+	call test_bit_
 	db 083h,0c4h,004h,085h,0c0h,075h,004h
 #endasm
-	return rsi;
+	return ev;
 L81ed:
-	rsi++;
+	ev++;
 L81ee:
-	if (rsi < 144) goto L8193;
+	if (ev < 144) goto L8193;
 	return -1;
 }

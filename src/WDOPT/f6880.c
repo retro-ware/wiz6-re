@@ -2,7 +2,8 @@ extern char g02ca[];
 extern char g02cb[];
 extern char g02cc[];
 extern char g02cd[];
-f6880(p4)
+/* Draw the frame of the spell book window. */
+draw_spell_window_frame(p4)
 {
 	int l2;
 	int l4;

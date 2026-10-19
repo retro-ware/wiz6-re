@@ -1,9 +1,9 @@
 #asm
 	extrn f49db_:near
 #endasm
-extern int g3342;
-extern int g4358;
 extern int g5224;
+extern int main_window;
+extern int view_anim_state;
 f56a1(p4)
 {
 	int l2;
@@ -11,21 +11,21 @@ f56a1(p4)
 	char x4[2];
 	int l8;
 	if (p4) goto L56df;
-	f075b(2025, 20948);
-	f09fb(g3342, 1);
-	f0b7e(g3342, 20948, 0, 18);
+	get_message(2025, 20948);
+	erase_window(main_window, 1);
+	print_centered(main_window, 20948, 0, 18);
 L56df:
-	l8 = f09e2(2);
-	l4 = f09e2(4);
+	l8 = random(2);
+	l4 = random(4);
 	l2 = 0;
 L56fa:
-	if (!f09e2(8)) goto L570e;
+	if (!random(8)) goto L570e;
 	if (l2 != l4) goto L571d;
 L570e:
 	if (g5224 <= 0) goto L571d;
-	f0aaa(g5224);
+	play_sound(g5224);
 L571d:
-	g4358 = -2;
+	view_anim_state = -2;
 	f55dc();
 	if (l8) goto L5749;
 #asm
@@ -47,10 +47,10 @@ l575b:
 	call f49db_
 	db 083h,0c4h,006h
 #endasm
-	g4358 = 0;
+	view_anim_state = 0;
 L5770:
 	f55dc();
-	if (g4358 != -2) goto L5770;
+	if (view_anim_state != -2) goto L5770;
 	l2++;
 #asm
 	db 08bh,046h,0feh,03dh,004h,000h,07dh,003h

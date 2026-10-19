@@ -9,7 +9,7 @@ extern char g375a[];
 extern char g375b[];
 extern char g375c[];
 extern char g3816[];
-extern char g432c[];
+extern char pic_slot_monster[];
 extern int g50de[];
 extern int g5142;
 f46b8(p4, p6, p8)
@@ -42,18 +42,18 @@ l4702:
 	rdi = *(int *)((char *)g50de + ((p4 * 10) + (p6 << 1)));
 	goto L477e;
 L4755:
-	rdi = f09e2((unsigned char)g373c[((314 * p4) + rsi)]);
+	rdi = random((unsigned char)g373c[((314 * p4) + rsi)]);
 	rdi = (rdi + (unsigned char)g3732[((314 * p4) + rsi)]);
 L477e:
 	g3648[((p6 * 30) + (rsi * 3))] = rdi;
 	l2 = (unsigned char)g3746[((314 * p4) + rdi)];
 L47b6:
 	g3649[((p6 * 30) + (rsi * 3))] = *(char *)&l2;
-	l4 = (f09e2((unsigned char)g375c[((314 * p4) + (l2 << 2))]) + (unsigned char)g375b[((314 * p4) + (l2 << 2))]);
+	l4 = (random((unsigned char)g375c[((314 * p4) + (l2 << 2))]) + (unsigned char)g375b[((314 * p4) + (l2 << 2))]);
 L4818:
 	g364a[((p6 * 30) + (rsi * 3))] = *(char *)&l4;
 	*(p8 + l6) = g375a[((314 * p4) + (l2 << 2))];
-	switch ((unsigned char)g432c[p4]) {
+	switch ((unsigned char)pic_slot_monster[p4]) {
 case 40:
 	if (rsi != 4) goto L4890;
 	if (g5142 != 1) goto L4885;

@@ -1,17 +1,17 @@
-extern int g3342;
-extern int g4fca;
-fc3e5(p4)
+extern int main_window;
+extern int message_delay;
+show_centered_notice(msg)
 {
 	char x0[78];
 	int l80;
-	f3118(g3342);
-	f09fb(g3342, 0);
-	f0a42(g3342, 0);
-	f075b(p4, &l80);
-	f030b(g3342, (10 - ((strlen(&l80) + 1) / 2)), 0);
-	f251d(g3342, &l80, 3);
-	f31d1(g3342);
-	f2b19(g3342);
-	f0aaa(0);
-	f533b(g4fca);
+	defer_window_draw(main_window);
+	erase_window(main_window, 0);
+	f0a42(main_window, 0);
+	get_message(msg, &l80);
+	set_cursor(main_window, (10 - ((strlen(&l80) + 1) / 2)), 0);
+	print_string_hi(main_window, &l80, 3);
+	resume_window_draw(main_window);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating_m(message_delay);
 }

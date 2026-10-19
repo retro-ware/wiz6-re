@@ -1,7 +1,8 @@
+/* Decode Huffman-compressed text into a zero-terminated string. */
 #asm
-	public f29d9_
+	public decode_text_
 	extrn f2a18_:near
-f29d9_:
+decode_text_:
 	db 055h,08bh,0ech,083h,0ech,004h,01eh,006h,056h,057h,08bh,076h,004h,08bh,07eh,006h
 	db 02eh,0a1h,080h,01bh,08eh,0c0h,0ach,032h,0e4h,089h,046h,0fch,0c7h,046h,0feh,008h
 	db 000h,0ach

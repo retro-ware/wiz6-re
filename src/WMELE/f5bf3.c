@@ -1,7 +1,8 @@
 #asm
 	extrn movmem_:near
 #endasm
-f5bf3(p4)
+/* Copy party member i's stats into its combat group entry. */
+copy_member_to_combatant(p4)
 {
 	register int rsi;
 	rsi = (44 * p4);

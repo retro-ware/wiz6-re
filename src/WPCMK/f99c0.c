@@ -1,5 +1,5 @@
-f99c0(p4)
+view_character(slot)
 {
-	f972a(p4);
-	f9778();
+	load_and_show_character(slot);
+	wait_for_key();
 }

@@ -1,137 +1,138 @@
 #asm
-	extrn f3664_:near
+	extrn drv_op_ae_:near
 #endasm
-extern int g363a;
-extern int g4fbe;
-extern int g4fc6;
-f4f57()
+extern int fullscreen_win;
+extern int game_state;
+extern int video_flags;
+/* Play the title page sequence (sounds, scrolling text); a key or Enter skips it. */
+show_title_sequence()
 {
-	int l2;
-	int l4;
-	int l6;
-	int l8;
-	int l28[10];
-	int l48[10];
-	int l68[10];
-	int l88[10];
-	int l108[10];
-	int l110;
-	int l112;
-	int l114;
-	f280c();
-	f48ee(39);
-	l4 = open(f0cd6(20794, 1), 0);
-	if (l4 != -1) goto L4f91;
-	f00d5(9);
+	int frame;
+	int fd;
+	int i;
+	int y;
+	int glyph[10];
+	int glyph_x[10];
+	int start[10];
+	int glyph_y[10];
+	int min_y[10];
+	int animating;
+	int key;
+	int skipped;
+	flush_keys();
+	load_sound(39);
+	fd = open(make_data_path(20794, 1), 0);
+	if (fd != -1) goto L4f91;
+	exit_game(9);
 L4f91:
 	;
 #asm
 l4f91:
 	db 0b8h,000h,000h,050h,0b8h,0aah,051h,0bah,000h,000h,052h,050h,0b8h,000h,000h,0bah
 	db 000h,000h,052h,050h,0ffh,076h,0fch
-	call f3664_
+	call drv_op_ae_
 	db 083h,0c4h,00ch
 #endasm
-	close(l4);
-	if (!(g4fc6 & 1)) goto L4fcd;
-	f4e5b(20806, 0);
+	close(fd);
+	if (!(video_flags & 1)) goto L4fcd;
+	load_fullscreen_pic(20806, 0);
 	goto L501d;
 L4fcd:
-	if (!(g4fc6 & 2)) goto L4fe5;
-	f4e5b(20819, 0);
+	if (!(video_flags & 2)) goto L4fe5;
+	load_fullscreen_pic(20819, 0);
 	goto L501d;
 L4fe5:
-	if (!(g4fc6 & 4)) goto L4ffd;
-	f4e5b(20832, 0);
+	if (!(video_flags & 4)) goto L4ffd;
+	load_fullscreen_pic(20832, 0);
 	goto L501d;
 L4ffd:
-	if (!(g4fc6 & 8)) goto L5015;
-	f4e5b(20845, 0);
+	if (!(video_flags & 8)) goto L5015;
+	load_fullscreen_pic(20845, 0);
 	goto L501d;
 L5015:
-	f00d5(12);
+	exit_game(12);
 L501d:
-	l114 = 0;
-	f0aaa(4);
-	if (l114) goto L503b;
-	l114 += f4f12(2);
+	skipped = 0;
+	play_sound(4);
+	if (skipped) goto L503b;
+	skipped += wait_enter_key(2);
 L503b:
-	f0aaa(13);
-	f3694(g4fbe, 0);
-	f4ee0(13, 91, 52);
-	f4ee0(9, 107, 82);
-	f36a0(g4fbe);
-	if (l114) goto L508e;
-	l114 += f4f12(72);
+	play_sound(13);
+	drv_op_be(fullscreen_win, 0);
+	draw_big_char(13, 91, 52);
+	draw_big_char(9, 107, 82);
+	drv_op_c2(fullscreen_win);
+	if (skipped) goto L508e;
+	skipped += wait_enter_key(72);
 L508e:
-	l112 = 0;
-	f367c(-1);
-	f36a0(g4fbe);
-	f0aaa(14);
-	if (l114) goto L50bc;
-	l114 += f4f12(10);
+	key = 0;
+	drv_op_b6(-1);
+	drv_op_c2(fullscreen_win);
+	play_sound(14);
+	if (skipped) goto L50bc;
+	skipped += wait_enter_key(10);
 L50bc:
-	f0aaa(6);
-	f4ee0(7, 76, 67);
-	f4ee0(8, 76, 99);
-	f36a0(g4fbe);
-	f0aaa(7);
-	if (l114) goto L5109;
-	l114 += f4f12(10);
+	play_sound(6);
+	draw_big_char(7, 76, 67);
+	draw_big_char(8, 76, 99);
+	drv_op_c2(fullscreen_win);
+	play_sound(7);
+	if (skipped) goto L5109;
+	skipped += wait_enter_key(10);
 L5109:
-	l28[0] = 7;
-	l48[0] = 76;
-	l68[0] = 0;
-	l88[0] = 67;
-	l108[0] = 3;
-	l28[1] = 8;
-	l48[1] = 76;
-	l68[1] = 0;
-	l88[1] = 99;
-	l108[1] = 35;
-	l28[2] = 12;
-	l48[2] = 8;
-	l68[2] = 0;
-	l88[2] = 13;
-	l108[2] = 13;
-	l28[3] = 1;
-	l48[3] = 20;
-	l68[3] = 4;
-	l88[3] = 144;
-	l108[3] = 13;
-	l28[4] = 2;
-	l48[4] = 20;
-	l68[4] = 36;
-	l88[4] = 144;
-	l108[4] = 13;
-	l28[5] = 3;
-	l48[5] = 20;
-	l68[5] = 60;
-	l88[5] = 144;
-	l108[5] = 13;
-	l28[6] = 4;
-	l48[6] = 20;
-	l68[6] = 88;
-	l88[6] = 144;
-	l108[6] = 13;
-	l28[7] = 5;
-	l48[7] = 20;
-	l68[7] = 120;
-	l88[7] = 144;
-	l108[7] = 13;
-	l28[8] = 6;
-	l48[8] = 14;
-	l68[8] = 152;
-	l88[8] = 144;
-	l108[8] = 80;
-	l110 = (l114 == 0 ? 1 : 0);
-	l2 = 0;
+	glyph[0] = 7;
+	glyph_x[0] = 76;
+	start[0] = 0;
+	glyph_y[0] = 67;
+	min_y[0] = 3;
+	glyph[1] = 8;
+	glyph_x[1] = 76;
+	start[1] = 0;
+	glyph_y[1] = 99;
+	min_y[1] = 35;
+	glyph[2] = 12;
+	glyph_x[2] = 8;
+	start[2] = 0;
+	glyph_y[2] = 13;
+	min_y[2] = 13;
+	glyph[3] = 1;
+	glyph_x[3] = 20;
+	start[3] = 4;
+	glyph_y[3] = 144;
+	min_y[3] = 13;
+	glyph[4] = 2;
+	glyph_x[4] = 20;
+	start[4] = 36;
+	glyph_y[4] = 144;
+	min_y[4] = 13;
+	glyph[5] = 3;
+	glyph_x[5] = 20;
+	start[5] = 60;
+	glyph_y[5] = 144;
+	min_y[5] = 13;
+	glyph[6] = 4;
+	glyph_x[6] = 20;
+	start[6] = 88;
+	glyph_y[6] = 144;
+	min_y[6] = 13;
+	glyph[7] = 5;
+	glyph_x[7] = 20;
+	start[7] = 120;
+	glyph_y[7] = 144;
+	min_y[7] = 13;
+	glyph[8] = 6;
+	glyph_x[8] = 14;
+	start[8] = 152;
+	glyph_y[8] = 144;
+	min_y[8] = 80;
+	animating = (skipped == 0 ? 1 : 0);
+	frame = 0;
 	goto L52bd;
 L5201:
-	f367c(-1);
-	l6 = 8;
-	if (l68[l6] > l2) goto L5280;
-	l8 = (l88[l6] - (l2 - l68[l6]));
+	drv_op_b6(-1);
+	i = 8;
+	if (start[i] > frame) goto L5280;
+	y = (glyph_y[i] - (frame - start[i]));
 #asm
 	db 08bh,046h,0fah,03dh,003h,000h,07ch,005h,03dh,008h,000h,075h,011h
 #endasm
@@ -143,42 +144,42 @@ l5242:
 	db 0f8h
 #endasm
 L5253:
-	if (l108[l6] > l8) goto L5280;
-	f4ee0(l28[l6], l48[l6], l8);
+	if (min_y[i] > y) goto L5280;
+	draw_big_char(glyph[i], glyph_x[i], y);
 L5280:
-	l6--;
+	i--;
 #asm
 	db 07dh,089h
 #endasm
-	f36a0(g4fbe);
-	if (!f0c42()) goto L5299;
-	l110 = 0;
+	drv_op_c2(fullscreen_win);
+	if (!check_screen_click()) goto L5299;
+	animating = 0;
 L5299:
-	if (!f2643(1)) goto L52b7;
-	l112 = (unsigned char)(f2724(1));
-	l110 = 0;
+	if (!key_available(1)) goto L52b7;
+	key = (unsigned char)(get_key(1));
+	animating = 0;
 L52b7:
-	l2 += 2;
+	frame += 2;
 L52bd:
-	if (!l110) goto L52d4;
-	if (((l68[7] + l88[7]) - l108[7]) > l2) goto L5201;
+	if (!animating) goto L52d4;
+	if (((start[7] + glyph_y[7]) - min_y[7]) > frame) goto L5201;
 L52d4:
-	f367c(-1);
-	f4ee0(7, 76, 3);
-	f4ee0(8, 76, 35);
-	f4ee0(6, 14, 80);
-	f36a0(g4fbe);
-	f02d2(g4fbe, 0);
-	g363a = 2;
-	if (!l110) goto L534b;
+	drv_op_b6(-1);
+	draw_big_char(7, 76, 3);
+	draw_big_char(8, 76, 35);
+	draw_big_char(6, 14, 80);
+	drv_op_c2(fullscreen_win);
+	destroy_window(fullscreen_win, 0);
+	game_state = 2;
+	if (!animating) goto L534b;
 L5334:
-	if (f2643(1)) goto L5349;
-	if (f0c42()) goto L5349;
+	if (key_available(1)) goto L5349;
+	if (check_screen_click()) goto L5349;
 	goto L5334;
 L5349:
 	goto L5353;
 L534b:
-	f09a3(28);
+	wait_seconds_or_enter(28);
 L5353:
-	f280c();
+	flush_keys();
 }

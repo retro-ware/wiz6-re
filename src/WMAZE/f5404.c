@@ -1,31 +1,31 @@
-extern char g4586[];
-extern char g4589[];
-extern int g3342;
-extern int g363a;
-extern int g43ce;
-extern int g4400[];
-extern int g4404[];
-extern int g4fca;
-f5404(p4)
+extern char pc_condition[];
+extern char pc_sex[];
+extern int game_state;
+extern int main_window;
+extern int message_delay;
+extern int party_count;
+extern int pc_hp[];
+extern int pc_stamina[];
+kill_party(p4)
 {
 	int l2;
-	f98cb();
-	f53e5(p4);
+	redraw_maze_view();
+	show_maze_message(p4);
 	l2 = 0;
 	goto L5463;
 L541b:
-	if ((unsigned)g4589[(432 * l2)] >= 3) goto L5438;
-	f0aaa(((unsigned char)g4586[(432 * l2)] + 8));
+	if ((unsigned)pc_condition[(432 * l2)] >= 3) goto L5438;
+	play_sound(((unsigned char)pc_sex[(432 * l2)] + 8));
 L5438:
-	g4589[(432 * l2)] = 3;
-	*(int *)((char *)g4400 + (432 * l2)) = 0;
-	*(int *)((char *)g4404 + (432 * l2)) = 0;
-	f4ba8(l2);
-	f533b(2);
+	pc_condition[(432 * l2)] = 3;
+	*(int *)((char *)pc_hp + (432 * l2)) = 0;
+	*(int *)((char *)pc_stamina + (432 * l2)) = 0;
+	draw_member_status_m(l2);
+	wait_animating_m(2);
 	l2++;
 L5463:
-	if (l2 < g43ce) goto L541b;
-	f533b((g4fca << 1));
-	f09fb(g3342, 1);
-	g363a = 8;
+	if (l2 < party_count) goto L541b;
+	wait_animating_m((message_delay << 1));
+	erase_window(main_window, 1);
+	game_state = 8;
 }

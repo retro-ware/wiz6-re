@@ -1,148 +1,149 @@
 extern char g3592;
-extern int g0842;
-extern int g0844;
-extern int g3044;
-extern int g3342;
-f0d26(p4, p6, p8, p10)
+extern int disk_header;
+extern int main_window;
+extern int msg_fd;
+extern int scenario_fd;
+/* Show 'INSERT DISK' window and wait until the right disk (DISK.HDR) is present; reopen data files. */
+prompt_insert_disk(label, disk, close_files, reopen)
 {
-	int l2;
-	int l4;
+	int win;
+	int waiting;
 	char x4[73];
 	char l78;
 	char x78[4];
-	int l84;
+	int line;
 	char x84[38];
-	int l124;
-	char l164[40];
-	int l166;
-	int l168;
-	int l170;
-	int l172;
-	int l174;
-	int l176;
-	int l178;
-	f3640();
-	l178 = p6;
-	strcpy(&l124, p4);
-	if (!p8) goto L0d5a;
-	close(g0844);
-	close(g0842);
+	int name;
+	char path[40];
+	int fd;
+	int nread;
+	int col;
+	int ok;
+	int next_disk;
+	int want;
+	int orig_disk;
+	stop_sound();
+	orig_disk = disk;
+	strcpy(&name, label);
+	if (!close_files) goto L0d5a;
+	close(msg_fd);
+	close(scenario_fd);
 L0d5a:
-	if (!g3342) goto L0d6f;
-	f09fb(g3342, 0);
+	if (!main_window) goto L0d6f;
+	erase_window(main_window, 0);
 L0d6f:
-	l2 = f011a(0, 19, 40, 6, 31, -1, 0, 0);
-	l174 = -2;
+	win = create_window(0, 19, 40, 6, 31, -1, 0, 0);
+	next_disk = -2;
 	if (g3592 != 5) goto L0df1;
-	if (p6) goto L0db0;
-	l174 = 1;
+	if (disk) goto L0db0;
+	next_disk = 1;
 	goto L0df1;
 L0db0:
-	if (p6 <= 2) goto L0df1;
-	l166 = open(1404, 0);
-	if (l166 != -1) goto L0ddb;
-	l174 = p6;
-	p6 = 2;
+	if (disk <= 2) goto L0df1;
+	fd = open(1404, 0);
+	if (fd != -1) goto L0ddb;
+	next_disk = disk;
+	disk = 2;
 	goto L0df1;
 L0ddb:
-	close(l166);
-	strcpy(&l124, 13652);
+	close(fd);
+	strcpy(&name, 13652);
 L0df1:
-	l172 = 0;
+	ok = 0;
 L0df7:
-	f3118(l2);
-	f32be(l2, 32, 3, 0);
-	if (p6 >= 0) goto L0e29;
-	strcpy(&l84, 1414);
+	defer_window_draw(win);
+	fill_window(win, 32, 3, 0);
+	if (disk >= 0) goto L0e29;
+	strcpy(&line, 1414);
 	goto L0e59;
 L0e29:
-	l164[0] = (char)(p6 + 65);
-	l164[(0 + 1)] = 0;
-	strcpy(&l84, 1435);
-	f05c1(&l84, l164, 94);
+	path[0] = (char)(disk + 65);
+	path[(0 + 1)] = 0;
+	strcpy(&line, 1435);
+	replace_char_with_string(&line, path, 94);
 L0e59:
-	l170 = (20 - ((strlen(&l84) + 1) / 2));
-	f030b(l2, l170, 1);
-	f251d(l2, &l84, 3);
-	strcpy(&l84, 1451);
-	f05c1(&l84, &l124, 94);
-	f030b(l2, l170, 2);
-	f251d(l2, &l84, 3);
-	strcpy(&l84, 1464);
+	col = (20 - ((strlen(&line) + 1) / 2));
+	set_cursor(win, col, 1);
+	print_string_hi(win, &line, 3);
+	strcpy(&line, 1451);
+	replace_char_with_string(&line, &name, 94);
+	set_cursor(win, col, 2);
+	print_string_hi(win, &line, 3);
+	strcpy(&line, 1464);
 	l78 = 21;
-	f030b(l2, (20 - ((strlen(&l84) + 1) / 2)), 4);
-	f251d(l2, &l84, 3);
-	f31d1(l2);
-	f2a63();
-	f280c();
-	l4 = 1;
+	set_cursor(win, (20 - ((strlen(&line) + 1) / 2)), 4);
+	print_string_hi(win, &line, 3);
+	resume_window_draw(win);
+	refresh_all_windows();
+	flush_keys();
+	waiting = 1;
 L0f30:
-	if (!f0c42()) goto L0f3c;
-	l4 = 0;
+	if (!check_screen_click()) goto L0f3c;
+	waiting = 0;
 L0f3c:
-	if (f2643(1) != 1) goto L0f5a;
-	if ((char)f2724(1) != 13) goto L0f5a;
-	l4 = 0;
+	if (key_available(1) != 1) goto L0f5a;
+	if ((char)get_key(1) != 13) goto L0f5a;
+	waiting = 0;
 L0f5a:
-	if (l4) goto L0f30;
-	f32be(l2, 32, 3, 0);
-	f2b19(l2);
-	strcpy(l164, &l124);
+	if (waiting) goto L0f30;
+	fill_window(win, 32, 3, 0);
+	refresh_window(win);
+	strcpy(path, &name);
 	if (g3592 != 5) goto L0ff5;
-	if (p6 == 1) goto L0f9e;
-	if (p6 != 2) goto L0ff5;
+	if (disk == 1) goto L0f9e;
+	if (disk != 2) goto L0ff5;
 L0f9e:
-	switch (p6) {
+	switch (disk) {
 case 1:
-	strcat(l164, 1472);
+	strcat(path, 1472);
 	goto L0fcf;
 case 2:
-	strcat(l164, 1484);
+	strcat(path, 1484);
 	goto L0fcf;
 	}
 L0fcf:
-	l166 = open(l164, 0);
-	if (l166 == -1) goto L0ff2;
-	l172 = 1;
-	close(l166);
+	fd = open(path, 0);
+	if (fd == -1) goto L0ff2;
+	ok = 1;
+	close(fd);
 L0ff2:
 	goto L1083;
 L0ff5:
-	strcat(l164, 1494);
-	l166 = open(l164, 0);
-	if (p6 >= 0) goto L1031;
-	if (l166 != -1) goto L102a;
-	l172 = 1;
+	strcat(path, 1494);
+	fd = open(path, 0);
+	if (disk >= 0) goto L1031;
+	if (fd != -1) goto L102a;
+	ok = 1;
 	goto L102f;
 L102a:
-	close(l166);
+	close(fd);
 L102f:
 	goto L1083;
 L1031:
-	if (l166 == -1) goto L1083;
-	l168 = read(l166, 12356, 700);
-	l176 = ((g3592 == 5) && (p6 > 0) ? (p6 - 2) : p6);
-	if (l168 <= 0) goto L107b;
-	if (l176 != g3044) goto L107b;
-	l172 = 1;
+	if (fd == -1) goto L1083;
+	nread = read(fd, 12356, 700);
+	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
+	if (nread <= 0) goto L107b;
+	if (want != disk_header) goto L107b;
+	ok = 1;
 L107b:
-	close(l166);
+	close(fd);
 L1083:
-	if (!l172) goto L0df7;
-	p6 = l174;
-	l174 = -2;
-	strcpy(&l124, 13652);
-	if (p6 != -2) goto L0df1;
-	f280c();
-	f02d2(l2, 0);
-	if (!p10) goto L1120;
-	g0844 = open(f0cd6(1503, 0), 0);
-	if (g0844 != -1) goto L10ed;
-	f00d5(17);
+	if (!ok) goto L0df7;
+	disk = next_disk;
+	next_disk = -2;
+	strcpy(&name, 13652);
+	if (disk != -2) goto L0df1;
+	flush_keys();
+	destroy_window(win, 0);
+	if (!reopen) goto L1120;
+	msg_fd = open(make_data_path(1503, 0), 0);
+	if (msg_fd != -1) goto L10ed;
+	exit_game(17);
 L10ed:
-	g0842 = open(f0cd6(1511, (l178 == 0 ? 0 : 1)), 0);
-	if (g0842 != -1) goto L1120;
-	f00d5(18);
+	scenario_fd = open(make_data_path(1511, (orig_disk == 0 ? 0 : 1)), 0);
+	if (scenario_fd != -1) goto L1120;
+	exit_game(18);
 L1120:
 	;
 }

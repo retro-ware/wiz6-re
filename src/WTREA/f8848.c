@@ -1,8 +1,8 @@
 extern int g525a[];
-f8848(p4, p6)
+draw_loot_line(p4, p6)
 {
-	f030b(p4, 1, p6);
-	f251d(p4, ((p6 * 18) + 20974), 3);
-	f030b(p4, 18, p6);
-	f23e3(p4, (unsigned char)((g525a[p6] + 1)), 4);
+	set_cursor(p4, 1, p6);
+	print_string_hi(p4, ((p6 * 18) + 20974), 3);
+	set_cursor(p4, 18, p6);
+	put_char_hi(p4, (unsigned char)((g525a[p6] + 1)), 4);
 }

@@ -10,7 +10,7 @@ extern char g3814[];
 extern char g3815[];
 extern char g433e[];
 extern char g4348[];
-extern int g4362[];
+extern int view_pos_group[];
 f49db(p4, p6, p8)
 {
 	int l2;
@@ -23,7 +23,7 @@ f49db(p4, p6, p8)
 	int l26;
 	int l28;
 	l20[0] = 0;
-	l2 = *(int *)((char *)g4362 + ((p4 * 10) + (p6 << 1)));
+	l2 = *(int *)((char *)view_pos_group + ((p4 * 10) + (p6 << 1)));
 #asm
 	db 085h,0c0h,075h,004h
 #endasm
@@ -43,9 +43,9 @@ L4a3f:
 	return;
 L4a47:
 	l4 = (p6 % 2);
-	if (f09e2(10) != 9) goto L4ab6;
-	g4348[((p4 * 5) + p6)] = (char)f09e2((unsigned char)g3814[(314 * l2)]);
-	g433e[((p4 * 5) + p6)] = (char)f09e2((unsigned char)g3815[(314 * l2)]);
+	if (random(10) != 9) goto L4ab6;
+	g4348[((p4 * 5) + p6)] = (char)random((unsigned char)g3814[(314 * l2)]);
+	g433e[((p4 * 5) + p6)] = (char)random((unsigned char)g3815[(314 * l2)]);
 L4ab6:
 	l22 = (unsigned char)l20[0];
 	l26 = (unsigned char)g36e4[(((314 * l2) + (l4 % 2)) + (l22 << 1))];

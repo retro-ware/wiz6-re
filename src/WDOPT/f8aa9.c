@@ -5,7 +5,8 @@ extern char g54ab[];
 extern int g54a0;
 extern int g54a2[];
 extern int g54a4[];
-f8aa9(p4, p6, p8, p10)
+/* Append a glyph to the view glyph queue. */
+queue_view_glyph_dopt(p4, p6, p8, p10)
 char p10;
 {
 	g54aa[(g54a0 * 11)] = *(char *)&p4;
@@ -24,7 +25,7 @@ L8b3f:
 	g54a0++;
 	if (g54a0 < 30) goto L8b84;
 L8b7a:
-	f0aaa(0);
+	play_sound(0);
 	goto L8b7a;
 L8b84:
 	;

@@ -14,13 +14,13 @@ fc16d(p4, p6)
 	int l132;
 	int l134;
 	register int rsi;
-	f075b(g51b6, ((char *)l82 + 2));
+	get_message(g51b6, ((char *)l82 + 2));
 	l132 = (unsigned char)l82[(0 + 2)];
 	l134 = (unsigned char)l82[3];
 	l84 = 0;
 	l86 = 2;
 Lc19f:
-	*(int *)(l82 + 0) = f3350((l86 + ((char *)l82 + 2)), 47);
+	*(int *)(l82 + 0) = char_index((l86 + ((char *)l82 + 2)), 47);
 	if (*(int *)(l82 + 0) == -1) goto Lc1d5;
 	l126[l84] = l86;
 	l86 = ((l86 + *(int *)(l82 + 0)) + 1);
@@ -32,11 +32,11 @@ Lc1d5:
 	if (l84 <= l132) goto Lc1fa;
 	l84 = l132;
 Lc1fa:
-	l130 = f09e2(l84);
+	l130 = random(l84);
 	goto Lc221;
 Lc207:
 	l84 -= l134;
-	l130 = (f09e2(l84) + l134);
+	l130 = (random(l84) + l134);
 Lc221:
 	*(int *)(l82 + 0) = (l126[(l130 + 1)] - l126[l130]);
 #asm

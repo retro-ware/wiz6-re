@@ -1,11 +1,12 @@
 #asm
-	extrn f2858_:near
+	extrn delay_tick_:near
 #endasm
 extern char g36e4[];
 extern char g3717[];
-extern char g432c[];
-extern int g4390[];
-f6913(p4)
+extern char pic_slot_monster[];
+extern int sprite_list[];
+/* Draw view sprite list entry i. */
+draw_view_sprite(i)
 {
 	int l2;
 	int l4;
@@ -15,10 +16,10 @@ f6913(p4)
 	char x9[1];
 	register int rsi;
 	register int rdi;
-	if ((unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[20] != 255) goto L6939;
-	f2858();
+	if ((unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[20] != 255) goto L6939;
+	delay_tick();
 #asm
-	call f2858_
+	call delay_tick_
 	db 0e9h,0bah,001h
 #endasm
 L6939:
@@ -36,28 +37,28 @@ L6962:
 l6962:
 	db 08bh,0fbh,0c6h,046h,0f9h,000h
 #endasm
-	l9 = (*(char **)((char *)g4390 + (p4 << 1)))[8];
+	l9 = (*(char **)((char *)sprite_list + (i << 1)))[8];
 	rsi = 0;
 	goto L6aa9;
 L697f:
-	*(char *)&l8 = ((char *)g4390[p4] + rsi)[8];
-	if (g432c[(unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[21]] != 54) goto L69b4;
+	*(char *)&l8 = ((char *)sprite_list[i] + rsi)[8];
+	if (pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[21]] != 54) goto L69b4;
 	if (*(char *)&l8 != 8) goto L69b4;
-	((char *)g4390[p4] + rsi)[8] = 9;
+	((char *)sprite_list[i] + rsi)[8] = 9;
 	rsi--;
 L69b4:
-	l2 = ((*(int *)(*(char **)((char *)g4390 + (p4 << 1))) - (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[22] % 2)) + ((unsigned char)l9 << 1))]) + (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[22] % 2)) + ((unsigned char)*(char *)&l8 << 1))]);
-	l4 = ((*(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 2) - (unsigned char)g3717[((314 * rdi) + (unsigned char)l9)]) + (unsigned char)g3717[((314 * rdi) + (unsigned char)*(char *)&l8)]);
-	f3670(rdi, l2, l4, *(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 4), *(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 6), (unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[22], 0, &l8);
+	l2 = ((*(int *)(*(char **)((char *)sprite_list + (i << 1))) - (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[22] % 2)) + ((unsigned char)l9 << 1))]) + (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[22] % 2)) + ((unsigned char)*(char *)&l8 << 1))]);
+	l4 = ((*(int *)((*(char **)((char *)sprite_list + (i << 1))) + 2) - (unsigned char)g3717[((314 * rdi) + (unsigned char)l9)]) + (unsigned char)g3717[((314 * rdi) + (unsigned char)*(char *)&l8)]);
+	drv_draw_text(rdi, l2, l4, *(int *)((*(char **)((char *)sprite_list + (i << 1))) + 4), *(int *)((*(char **)((char *)sprite_list + (i << 1))) + 6), (unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[22], 0, &l8);
 	rsi++;
 L6aa9:
-	if (((char *)g4390[p4] + rsi)[8]) goto L697f;
+	if (((char *)sprite_list[i] + rsi)[8]) goto L697f;
 #asm
 l6abd:
 	db 0ebh,034h
 #endasm
 L6abf:
-	f3670((unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[21], *(int *)(*(char **)((char *)g4390 + (p4 << 1))), *(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 2), *(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 4), *(int *)((*(char **)((char *)g4390 + (p4 << 1))) + 6), (unsigned char)(*(char **)((char *)g4390 + (p4 << 1)))[22], 0, (g4390[p4] + 8));
+	drv_draw_text((unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[21], *(int *)(*(char **)((char *)sprite_list + (i << 1))), *(int *)((*(char **)((char *)sprite_list + (i << 1))) + 2), *(int *)((*(char **)((char *)sprite_list + (i << 1))) + 4), *(int *)((*(char **)((char *)sprite_list + (i << 1))) + 6), (unsigned char)(*(char **)((char *)sprite_list + (i << 1)))[22], 0, (sprite_list[i] + 8));
 L6af3:
 	;
 }

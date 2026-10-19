@@ -1,6 +1,7 @@
+/* Put a character at the window cursor with a color and advance. */
 #asm
-	public f22b7_
-f22b7_:
+	public put_char_
+put_char_:
 	db 055h,08bh,0ech,083h,0ech,006h,01eh,006h,057h,056h,02eh,0ffh,01eh,0a2h,01bh,0c7h
 	db 046h,0fah,000h,000h,08bh,046h,008h,0f6h,0c4h,080h,074h,00ah,0c7h,046h,0fah,001h
 	db 000h,0f7h,0d8h,089h,046h,008h

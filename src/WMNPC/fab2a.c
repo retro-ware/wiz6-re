@@ -1,15 +1,16 @@
-extern char g442f[];
 extern char g4550[];
 extern char g51cf;
-extern int g43fc[];
-extern int g4428[];
-extern int g51bc;
+extern char pc_item_flags[];
 extern int g51be;
 extern int g5274;
 extern int g527a;
+extern int pc_gold[];
+extern int pc_item_id[];
+extern int trap_guess_letters;
 extern long g51c0;
-fab2a(p4, p6)
-char *p4;
+/* Ask an amount and give that gold to the NPC, raising its friendliness (g4550). */
+do_npc_give_gold(win, member)
+char *win;
 {
 	int l2;
 	int l4;
@@ -31,68 +32,68 @@ char *p4;
 	char x105[1];
 	l4 = 0;
 Lab35:
-	f32be(p4, 32, 3, 0);
-	f3118(p4);
-	f030b(p4, 5, 1);
-	f083f(1581, p4, 18);
-	f030b(p4, 2, 3);
-	f083f(1582, p4, 18);
-	l25 = (unsigned char)p4[6];
-	l27 = (unsigned char)p4[7];
+	fill_window(win, 32, 3, 0);
+	defer_window_draw(win);
+	set_cursor(win, 5, 1);
+	print_message(1581, win, 18);
+	set_cursor(win, 2, 3);
+	print_message(1582, win, 18);
+	l25 = (unsigned char)win[6];
+	l27 = (unsigned char)win[7];
 	setmem(&l23, 9, 32);
 	l14 = 0;
-	f24e9(p4, &l23, 1);
-	f31d1(p4);
-	f2a63();
-	f030b(p4, l25, l27);
-	f57ac(p4, &l23, 8, 5, 1);
+	print_string(win, &l23, 1);
+	resume_window_draw(win);
+	refresh_all_windows();
+	set_cursor(win, l25, l27);
+	npc_input_line(win, &l23, 8, 5, 1);
 	*(int *)(l31 + (0 + 2)) = 0;
 	*(int *)(l31 + 0) = 0;
 	if (!*(char *)&l23) goto Laceb;
 	*(long *)(l31 + 0) = (long)atol(&l23);
 	if (*(long *)(l31 + 0) < 0L) goto Lacd9;
-	if (*(long *)((char *)g43fc + (432 * p6)) < *(long *)(l31 + 0)) goto Lacd9;
-	*(long *)((char *)g43fc + (432 * p6)) -= *(long *)(l31 + 0);
+	if (*(long *)((char *)pc_gold + (432 * member)) < *(long *)(l31 + 0)) goto Lacd9;
+	*(long *)((char *)pc_gold + (432 * member)) -= *(long *)(l31 + 0);
 	g51c0 += *(long *)(l31 + 0);
-	l2 = (int)((long)g4550[((432 * p6) + g5274)] + ((*(long *)(l31 + 0) / 10L) / (long)(unsigned char)g51cf));
+	l2 = (int)((long)g4550[((432 * member) + g5274)] + ((*(long *)(l31 + 0) / 10L) / (long)(unsigned char)g51cf));
 	if (l2 <= 100) goto Lacc0;
 	l2 = 100;
 Lacc0:
-	g4550[((432 * p6) + g5274)] = *(char *)&l2;
+	g4550[((432 * member) + g5274)] = *(char *)&l2;
 	goto Laceb;
 Lacd9:
 	*(int *)(l31 + (0 + 2)) = -1;
 	*(int *)(l31 + 0) = -1;
-	f0aaa(0);
+	play_sound(0);
 Laceb:
 	if (*(long *)(l31 + 0) != -1L) goto Lacfa;
 	goto Lab35;
 Lacfa:
-	f5078(p6, g527a);
-	f7f76(p6, 2, (int)(*(long *)(l31 + 0) / 256L), (unsigned char)((int)(*(long *)(l31 + 0) % 256L)), 0);
-	l6 = f9a42(p4, p6, 1580, 0);
+	f5078(member, g527a);
+	f7f76(member, 2, (int)(*(long *)(l31 + 0) / 256L), (unsigned char)((int)(*(long *)(l31 + 0) % 256L)), 0);
+	l6 = npc_choose_member_item(win, member, 1580, 0);
 	if (l6 == -1) goto Lae70;
-	if (!((unsigned char)g442f[((432 * p6) + (l6 << 3))] & 1)) goto Lad83;
+	if (!((unsigned char)pc_item_flags[((432 * member) + (l6 << 3))] & 1)) goto Lad83;
 	fa645(1528);
 	return;
 Lad83:
-	l8 = *(int *)((char *)g4428 + ((432 * p6) + (l6 << 3)));
-	f0882(1, &l105, l8, 0);
+	l8 = *(int *)((char *)pc_item_id + ((432 * member) + (l6 << 3)));
+	access_scenario_record(1, &l105, l8, 0);
 	if (!((unsigned char)l46 & 2)) goto Ladd5;
-	if (l8 == g51bc) goto Ladd5;
+	if (l8 == trap_guess_letters) goto Ladd5;
 	if (l8 == g51be) goto Ladd5;
 	fa645(1529);
 	return;
 Ladd5:
-	l2 = (int)((long)g4550[((432 * p6) + g5274)] + ((l89 / 20L) / (long)(unsigned char)g51cf));
+	l2 = (int)((long)g4550[((432 * member) + g5274)] + ((l89 / 20L) / (long)(unsigned char)g51cf));
 	if (l2 <= 100) goto Lae20;
 	l2 = 100;
 Lae20:
-	g4550[((432 * p6) + g5274)] = *(char *)&l2;
-	f6835(p6, l6);
-	f5078(p6, g527a);
+	g4550[((432 * member) + g5274)] = *(char *)&l2;
+	f6835(member, l6);
+	f5078(member, g527a);
 	fa645(1504);
-	l4 = f7f76(p6, 1, l8, 0, 0);
+	l4 = f7f76(member, 1, l8, 0, 0);
 Lae70:
 	return l4;
 }

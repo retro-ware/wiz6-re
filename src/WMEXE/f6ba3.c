@@ -2,9 +2,9 @@
 	extrn strcpy_:near
 #endasm
 extern char g019c[];
-extern int g43a8[];
-extern int g43b6[];
-f6ba3(p4, p6)
+extern int group_monster_rec[];
+extern int monster_groups[];
+get_combatant_name(p4, p6)
 {
 	if (p6) goto L6bc1;
 #asm
@@ -13,7 +13,7 @@ f6ba3(p4, p6)
 	db 083h,0c4h,004h,0ebh,02ch
 #endasm
 L6bc1:
-	strcpy(p4, (g43b6[p6] + ((unsigned char)g019c[g43a8[p6]] << 5)));
+	strcpy(p4, (group_monster_rec[p6] + ((unsigned char)g019c[monster_groups[p6]] << 5)));
 L6bed:
 	;
 }

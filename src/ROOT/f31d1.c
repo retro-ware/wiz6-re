@@ -1,7 +1,7 @@
 #asm
-	public f31d1_
+	public resume_window_draw_
 	extrn f3250_:near
-f31d1_:
+resume_window_draw_:
 	db 055h,08bh,0ech,083h,0ech,00ch,01eh,006h,056h,057h,08bh,076h,004h,080h,064h,005h
 	db 0feh,08dh,03eh,0d2h,01bh,02eh,08bh,01dh,0bah,001h,000h
 l31ec:

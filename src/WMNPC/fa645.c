@@ -1,11 +1,11 @@
-extern int g3342;
-extern int g4fca;
+extern int main_window;
+extern int message_delay;
 fa645(p4)
 {
-	f09fb(g3342, 1);
-	f075b(p4, 20948);
-	f0b7e(g3342, 20948, 0, 18);
-	f0aaa(0);
-	f5a1e(g4fca);
-	f09fb(g3342, 1);
+	erase_window(main_window, 1);
+	get_message(p4, 20948);
+	print_centered(main_window, 20948, 0, 18);
+	play_sound(0);
+	f5a1e(message_delay);
+	erase_window(main_window, 1);
 }

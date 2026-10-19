@@ -1,9 +1,9 @@
-extern int g4fca;
-extern int g56ca;
-f95bf(p4, p6, p8)
+extern int message_delay;
+extern int prompt_win;
+show_error_msg(msg, x, y)
 {
-	f030b(g56ca, p6, p8);
-	f083f(p4, g56ca, 18);
-	f0aaa(0);
-	f09a3(g4fca);
+	set_cursor(prompt_win, x, y);
+	print_message(msg, prompt_win, 18);
+	play_sound(0);
+	wait_seconds_or_enter(message_delay);
 }

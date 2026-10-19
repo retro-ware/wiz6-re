@@ -1,18 +1,18 @@
 #asm
-	extrn f533b_:near
-	extrn f9cde_:near
+	extrn end_text_page_m_:near
+	extrn wait_animating_m_:near
 #endasm
+extern int cur_sound;
 extern int g0002;
-extern int g4336;
 extern int g522a;
 extern int g522c;
 extern int g522e;
-f9d0c(p4)
+print_text_line_m(p4)
 char *p4;
 {
 	int l2;
 	int l4;
-	l4 = f3350(20488, (unsigned char)*p4);
+	l4 = char_index(20488, (unsigned char)*p4);
 	if (l4 < 0) goto L9dd2;
 #asm
 l9d2f:
@@ -26,7 +26,7 @@ l9d2f:
 	p4++;
 #asm
 	db 0ffh,036h,0cah,04fh
-	call f533b_
+	call wait_animating_m_
 	db 059h,0e9h,085h,000h,0ffh,046h,004h
 #endasm
 	p4++;
@@ -38,7 +38,7 @@ l9d2f:
 	db 0e9h,076h,000h
 #endasm
 	p4++;
-	f02f0(g522a, 1);
+	clear_window(g522a, 1);
 	g522c = 0;
 #asm
 	db 0ebh,05dh
@@ -46,18 +46,18 @@ l9d2f:
 	p4++;
 #asm
 	db 0b8h,000h,000h,050h
-	call f9cde_
+	call end_text_page_m_
 	db 059h,0ebh,050h
 #endasm
 	p4++;
 	if ((unsigned)*p4 < 14) goto L9da3;
-	if ((unsigned char)*p4 == g4336) goto L9d99;
-	f9948((unsigned char)*p4);
+	if ((unsigned char)*p4 == cur_sound) goto L9d99;
+	load_sound_bank((unsigned char)*p4);
 L9d99:
-	f0aaa(14);
+	play_sound(14);
 	goto L9daf;
 L9da3:
-	f0aaa((unsigned char)*p4);
+	play_sound((unsigned char)*p4);
 L9daf:
 	p4++;
 #asm
@@ -69,7 +69,7 @@ l9dcf:
 #endasm
 L9dd2:
 	if (g522c <= 4) goto L9de1;
-	f9cde(0);
+	end_text_page_m(0);
 L9de1:
 	l2 = (20 - ((strlen(p4) + 1) / 2));
 	switch ((unsigned char)*p4) {
@@ -83,8 +83,8 @@ case 94:
 	goto L9e21;
 	}
 L9e21:
-	f030b(g522a, l2, g522c);
+	set_cursor(g522a, l2, g522c);
 	g522e = l2;
 	g522c++;
-	f24e9(g522a, p4, g0002);
+	print_string(g522a, p4, g0002);
 }

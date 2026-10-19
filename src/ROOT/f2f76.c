@@ -1,7 +1,7 @@
 #asm
-	public f2f76_
+	public link_window_
 	extrn f3250_:near
-f2f76_:
+link_window_:
 	db 055h,08bh,0ech,083h,0ech,00ch,01eh,006h,056h,057h,08bh,076h,004h,0bah,001h,000h
 	db 08ah,044h,004h,08dh,03eh,0d2h,01bh,02eh,08bh,01dh,00bh,0dbh,075h,00bh,02eh,089h
 	db 035h,089h,07eh,0feh,089h,056h,0fch,0ebh,030h

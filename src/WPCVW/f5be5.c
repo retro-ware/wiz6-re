@@ -1,4 +1,4 @@
-f5be5(p4, p6)
+count_enabled_before(p4, p6)
 char *p4;
 {
 	int l2;

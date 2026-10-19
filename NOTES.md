@@ -108,6 +108,10 @@ Code at file offset 14; file length = 14 + code + data. Entry = code base (4572)
     pointer is a field offset, not a global.
   - `cc -L500`: big functions otherwise stop with "Local table full!" (no code change).
   - as mis-resolves some short jumps to labels inside one #asm block: skel.py keeps in-block jumps raw.
+  - as loses an extern now and then ("gXXXX_ is undefined", then a garbled "fXXXX_" at link). It depends
+    on the whole symbol set incl. the module (file) name: the same source compiles as abc.c, fails as
+    abcd.c, compiles as abcdefgh.c. A rename can trigger it; renaming one of the file's symbols
+    (WMEXE fc66e: g3644 -> anim_cycle) clears it. sbuild catches it.
 - Functions only reached through pointers and without a prologue are added by hand
   (x86dis.EXTRA_FUNCS; WPOPS 51c8). Changing the function list needs new skeletons + link.lst entry.
 - Big switches can also compile to an inline `repne scasw` lookup in a cs: table (WMELE 4858): not lifted.

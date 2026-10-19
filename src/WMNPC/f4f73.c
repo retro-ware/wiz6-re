@@ -12,7 +12,7 @@ char *p4;
 	db 059h,0ebh,015h
 #endasm
 L4f93:
-	f030b(p4, g5144, ((unsigned char)p4[7] + 1));
+	set_cursor(p4, g5144, ((unsigned char)p4[7] + 1));
 L4fa8:
 	;
 }

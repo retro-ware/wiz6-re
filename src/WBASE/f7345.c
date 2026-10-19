@@ -1,23 +1,24 @@
-extern int g363a;
-extern int g43ce;
 extern int g4fa8;
-extern int g4faa;
 extern int g4fb0;
-extern int g4fb6;
 extern int g4fb8;
 extern int g4fba;
-f7345()
+extern int game_state;
+extern int maze_data;
+extern int party_count;
+extern int party_picture_win;
+/* Free buffers and clear the party windows, then go back to the camp menu. */
+reset_party_screen()
 {
 	if (!g4fa8) goto L7354;
 	free(g4fa8);
 L7354:
-	if (!g4faa) goto L7363;
-	free(g4faa);
+	if (!maze_data) goto L7363;
+	free(maze_data);
 L7363:
-	f02d2(g4fb0, 0);
-	f32be(g4fba, 32, 3, 0);
-	f32be(g4fb8, 32, 3, 0);
-	f32be(g4fb6, 26, 3, 0);
-	g43ce = 0;
-	g363a = 4;
+	destroy_window(g4fb0, 0);
+	fill_window(g4fba, 32, 3, 0);
+	fill_window(g4fb8, 32, 3, 0);
+	fill_window(party_picture_win, 26, 3, 0);
+	party_count = 0;
+	game_state = 4;
 }

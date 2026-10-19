@@ -1,7 +1,7 @@
-extern char *g3342;
-extern int g0846;
-extern int g4fc4;
-f5ad8(p4, p6, p8, p10, p12, p14, p16, p18, p20)
+extern char *main_window;
+extern int menu_clicked;
+extern int mouse_present;
+maze_menu_select(p4, p6, p8, p10, p12, p14, p16, p18, p20)
 char *p4;
 {
 	int l2;
@@ -18,15 +18,15 @@ char *p4;
 	int l664;
 	register int rsi;
 	if (p20 != 1) goto L5b4c;
-	l658 = (unsigned char)g3342[6];
-	l660 = (unsigned char)g3342[7];
-	f075b(2027, &l646);
-	f075b(2028, &l656);
-	if (g0846 != 1) goto L5b36;
-	f251d(g3342, &l646, 3);
+	l658 = (unsigned char)main_window[6];
+	l660 = (unsigned char)main_window[7];
+	get_message(2027, &l646);
+	get_message(2028, &l656);
+	if (mouse_present != 1) goto L5b36;
+	print_string_hi(main_window, &l646, 3);
 	goto L5b4c;
 L5b36:
-	f24e9(g3342, &l656, (0 - p18));
+	print_string(main_window, &l656, (0 - p18));
 L5b4c:
 	l4 = 0;
 	l2 = 0;
@@ -47,41 +47,41 @@ l5b68:
 L5b70:
 	l662 = (((l4 / p16) * p14) + p10);
 	l664 = ((l4 % p16) + p12);
-	f030b(p4, l662, l664);
-	f075b((p6 + l2), ((l4 * 40) + l636));
-	if (g0846) goto L5bfd;
+	set_cursor(p4, l662, l664);
+	get_message((p6 + l2), ((l4 * 40) + l636));
+	if (mouse_present) goto L5bfd;
 	if (p20) goto L5bfd;
 	if (l4) goto L5bfd;
-	f24e9(p4, ((l4 * 40) + l636), (0 - p18));
+	print_string(p4, ((l4 * 40) + l636), (0 - p18));
 	goto L5c20;
 L5bfd:
-	f251d(p4, ((l4 * 40) + l636), 3);
+	print_string_hi(p4, ((l4 * 40) + l636), 3);
 L5c20:
 	*(int *)(l636 + ((l4 << 1) + 600)) = l2;
-	f0c16(l4, ((unsigned char)p4[2] + l662), ((unsigned char)p4[3] + l664), (((strlen(((l4 * 40) + l636)) + (unsigned char)p4[2]) + l662) - 1), ((unsigned char)p4[3] + l664));
+	set_click_region(l4, ((unsigned char)p4[2] + l662), ((unsigned char)p4[3] + l664), (((strlen(((l4 * 40) + l636)) + (unsigned char)p4[2]) + l662) - 1), ((unsigned char)p4[3] + l664));
 	l4++;
 L5c87:
 	l2++;
 	goto L5b56;
 L5c8d:
-	f0c16(l4, 255, 0, 0, 0);
+	set_click_region(l4, 255, 0, 0, 0);
 	if (p20 != 1) goto L5d01;
-	f0c16(l4, ((unsigned char)g3342[2] + l658), ((unsigned char)g3342[3] + l660), (((strlen(&l656) + (unsigned char)g3342[2]) + l658) - 1), ((unsigned char)g3342[3] + l660));
-	f0c16((l4 + 1), 255, 0, 0, 0);
+	set_click_region(l4, ((unsigned char)main_window[2] + l658), ((unsigned char)main_window[3] + l660), (((strlen(&l656) + (unsigned char)main_window[2]) + l658) - 1), ((unsigned char)main_window[3] + l660));
+	set_click_region((l4 + 1), 255, 0, 0, 0);
 L5d01:
 	l6 = (p20 == 1 ? -1 : 0);
 L5d10:
-	if (g0846) goto L5d94;
+	if (mouse_present) goto L5d94;
 	if (l6 != -1) goto L5d4a;
-	f030b(g3342, l658, l660);
-	f24e9(g3342, &l656, (0 - p18));
+	set_cursor(main_window, l658, l660);
+	print_string(main_window, &l656, (0 - p18));
 	goto L5d94;
 L5d4a:
-	f030b(p4, (((l6 / p16) * p14) + p10), ((l6 % p16) + p12));
-	f24e9(p4, ((l6 * 40) + l636), (0 - p18));
+	set_cursor(p4, (((l6 / p16) * p14) + p10), ((l6 % p16) + p12));
+	print_string(p4, ((l6 * 40) + l636), (0 - p18));
 L5d94:
-	l2 = f5534(20520, 13720);
-	if (g4fc4 != 1) goto L5dc4;
+	l2 = get_maze_input(20520, 13720);
+	if (menu_clicked != 1) goto L5dc4;
 	l6 = (l2 < l4 ? l2 : -1);
 	l2 = 5;
 	goto L5f7c;
@@ -115,8 +115,8 @@ L5eda:
 	goto L5f7c;
 case 4:
 	if (l6 != -1) goto L5f0f;
-	f030b(g3342, l658, l660);
-	f251d(g3342, &l646, 3);
+	set_cursor(main_window, l658, l660);
+	print_string_hi(main_window, &l646, 3);
 	l6 = 0;
 	goto L5f5a;
 L5f0f:

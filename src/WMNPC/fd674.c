@@ -1,8 +1,6 @@
 extern char *g5264;
-extern int g3342;
-extern int g4fb2;
+extern int bottom_line_win;
 extern int g5144;
-extern int g5266;
 extern int g5268;
 extern int g5894;
 extern int g5896;
@@ -40,6 +38,8 @@ extern int g58d4;
 extern int g58d6;
 extern int g6a82;
 extern int g6a9c;
+extern int loot_count;
+extern int main_window;
 fd674(p4)
 {
 	char l80[80];
@@ -56,18 +56,18 @@ fd674(p4)
 	g58a2 = -1;
 	g5144 = 0;
 	g5268 = 0;
-	g5266 = 0;
-	f3118(g3342);
-	f3118(g4fb2);
-	g5264 = f011a(0, 19, 40, 5, 30, -1, 0, 1);
-	f075b(1513, &l99);
-	f05c1(&l99, ((432 * p4) + 17384), 94);
+	loot_count = 0;
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
+	g5264 = create_window(0, 19, 40, 5, 30, -1, 0, 1);
+	get_message(1513, &l99);
+	replace_char_with_string(&l99, ((432 * p4) + 17384), 94);
 	l101 = (37 - strlen(&l99));
-	f030b(g5264, g5144, 0);
+	set_cursor(g5264, g5144, 0);
 Ld73f:
-	f24e9(g5264, &l99, 1);
+	print_string(g5264, &l99, 1);
 	g5264[6]++;
-	f57ac(g5264, l80, l101, 6, 0);
+	npc_input_line(g5264, l80, l101, 6, 0);
 	f4f73(g5264);
 	fbb9a(l80);
 	l82 = strlen(l80);
@@ -113,12 +113,12 @@ Ld863:
 	l82 = fc282(l80, l82);
 	if (l82 != -1) goto Ld853;
 	if (strlen(l80) <= 0) goto Ld89f;
-	if (fc9d7()) goto Ld89f;
+	if (npc_answer_topic()) goto Ld89f;
 	fd291();
 Ld89f:
 	if (g58c2 != 1) goto Ld73f;
-	f02d2(g5264, 0);
+	destroy_window(g5264, 0);
 	g5264 = 0;
-	f31d1(g3342);
-	f31d1(g4fb2);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
 }

@@ -19,7 +19,7 @@
 	global g5072_:byte,1
 	global g5073_:byte,1
 	global g5074_:byte,6
-	global g507a_:byte,1
+	global view_depth_:byte,1
 	global g507b_:byte,1
 	global g507c_:byte,6
 	global g5082_:byte,1
@@ -57,7 +57,7 @@
 	global g522a_:byte,2
 	global g522c_:byte,2
 	global g522e_:byte,2
-	global g5230_:byte,2
+	global event_screen_dirty_:byte,2
 	global g5232_:byte,2
-	global g5234_:byte,12
+	global lock_tumblers_:byte,12
 #endasm

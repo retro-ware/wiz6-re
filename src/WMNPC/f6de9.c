@@ -1,10 +1,10 @@
-extern int g3342;
-extern int g4fb2;
+extern int bottom_line_win;
 extern int g5264;
+extern int main_window;
 f6de9()
 {
-	f02d2(g5264, 0);
+	destroy_window(g5264, 0);
 	g5264 = 0;
-	f31d1(g3342);
-	f31d1(g4fb2);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
 }

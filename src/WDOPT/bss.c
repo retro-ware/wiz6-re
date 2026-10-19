@@ -16,7 +16,7 @@
 	global g506a_:byte,92
 	global g50c6_:byte,50
 	global g50f8_:byte,2
-	global g50fa_:byte,2
+	global pclist_sex_:byte,2
 	global g50fc_:byte,2
 	global g50fe_:byte,50
 	global g5130_:byte,2
@@ -68,13 +68,13 @@
 	global g5466_:byte,6
 	global g546c_:byte,1
 	global g546d_:byte,1
-	global g546e_:byte,6
+	global sheet_win_:byte,6
 	global g5474_:byte,1
 	global g5475_:byte,1
 	global g5476_:byte,6
 	global g547c_:byte,1
 	global g547d_:byte,13
-	global g548a_:byte,22
+	global char_hp_max_:byte,22
 	global g54a0_:byte,2
 	global g54a2_:byte,2
 	global g54a4_:byte,6
@@ -86,6 +86,6 @@
 	global g55f2_:byte,2
 	global g55f4_:byte,2
 	global g55f6_:byte,2
-	global g55f8_:byte,2
+	global char_known_spells_:byte,2
 	global g55fa_:byte,2
 #endasm

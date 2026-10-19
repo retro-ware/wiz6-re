@@ -3,8 +3,8 @@
 #endasm
 extern char g4591[];
 extern char g4592[];
-extern int g4406[];
-f518e(p4)
+extern int pc_stamina_max[];
+get_load_category(p4)
 {
 	int l2;
 	int l4;
@@ -70,7 +70,7 @@ L525a:
 	if (l6 <= 2) goto L5265;
 	l6 = 2;
 L5265:
-	l4 = (*(int *)((char *)g4406 + (432 * p4)) / 100);
+	l4 = (*(int *)((char *)pc_stamina_max + (432 * p4)) / 100);
 	l2 = -7;
 	goto L52f9;
 L5281:
@@ -80,7 +80,7 @@ L5281:
 	l10 = 40;
 	l8 = 1;
 	l6 = 1;
-	l4 = (*(int *)((char *)g4406 + (432 * p4)) / 50);
+	l4 = (*(int *)((char *)pc_stamina_max + (432 * p4)) / 50);
 	l2 = -5;
 	goto L52f9;
 L52c6:
@@ -89,7 +89,7 @@ L52c6:
 	l10 = 80;
 	l8 = 1;
 	l6 = 1;
-	l4 = (*(int *)((char *)g4406 + (432 * p4)) / 25);
+	l4 = (*(int *)((char *)pc_stamina_max + (432 * p4)) / 25);
 	l2 = -4;
 L52f9:
 	rsi = &l14;

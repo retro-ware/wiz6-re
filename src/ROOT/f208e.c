@@ -1,7 +1,7 @@
 #asm
-	public f208e_
-	extrn f2168_:near
-f208e_:
+	public alloc_video_buffers_
+	extrn free_dos_blocks_:near
+alloc_video_buffers_:
 	db 083h,07eh,0feh,000h,075h,003h,0e9h,08bh,000h
 l2097:
 	db 0b8h,000h,004h,0b1h,004h,0d3h,0e8h,02eh,080h,03eh,04eh,01bh,001h,074h,00ch,0d1h
@@ -16,7 +16,7 @@ l20e3:
 	db 02eh,08bh,01ch,00bh,0dbh,074h,024h,0b4h,048h,056h,0cdh,021h,05eh,072h,009h,02eh
 	db 089h,044h,002h,083h,0c6h,004h,0ebh,0e8h
 l20fb:
-	call f2168_
+	call free_dos_blocks_
 	db 08ch,0c8h,08eh,0d8h,0bah,036h,021h,0b4h,009h,0cdh,021h,0b8h,001h,04ch,0cdh,021h
 l210e:
 	db 006h,057h,02eh,0a1h,060h,01bh,08eh,0c0h,0bfh,000h,000h,0b9h,0e8h,003h,0b0h,080h

@@ -5,6 +5,6 @@ ovmain()
 {
 	g522c = -1;
 	g5274 = g433a;
-	fba7d();
+	run_npc_encounter();
 	return 0;
 }

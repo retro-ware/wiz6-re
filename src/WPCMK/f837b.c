@@ -1,8 +1,8 @@
 extern char g55c2[];
-f837b(p4, p6)
+add_class_rating(idx, delta)
 {
 	int l2;
-	l2 = ((unsigned char)g55c2[p4] + p6);
+	l2 = ((unsigned char)g55c2[idx] + delta);
 #asm
 	db 0b8h,000h,000h,08bh,04eh,0feh,083h,0f9h,000h,07ch,00ch,08bh,0c1h,050h,03dh,07dh
 	db 000h,058h,07eh,003h,0b8h,07dh,000h

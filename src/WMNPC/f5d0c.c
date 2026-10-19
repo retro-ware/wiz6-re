@@ -1,19 +1,19 @@
-extern int g3342;
-extern int g4fb2;
-extern int g4fca;
+extern int bottom_line_win;
 extern int g5264;
+extern int main_window;
+extern int message_delay;
 f5d0c(p4, p6)
 {
-	f3118(g3342);
-	f3118(g4fb2);
-	g5264 = f011a(0, 19, 40, 5, 30, -1, 0, 1);
-	f0b7e(g5264, p4, 1, 5);
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
+	g5264 = create_window(0, 19, 40, 5, 30, -1, 0, 1);
+	print_centered(g5264, p4, 1, 5);
 	if (!p6) goto L5d6b;
-	f0aaa(0);
+	play_sound(0);
 L5d6b:
-	f5a1e(g4fca);
-	f02d2(g5264, 0);
+	f5a1e(message_delay);
+	destroy_window(g5264, 0);
 	g5264 = 0;
-	f31d1(g3342);
-	f31d1(g4fb2);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
 }

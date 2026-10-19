@@ -1,8 +1,8 @@
-extern int g4fa2;
-extern int g4fa4;
-f75d7(p4, p6)
+extern int party_x;
+extern int party_y;
+set_map_offset(p4, p6)
 {
-	g4fa4 = p4;
-	g4fa2 = p6;
-	f7b1b(20384, 20382, 20380, g4fa4, g4fa2);
+	party_x = p4;
+	party_y = p6;
+	move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y);
 }

@@ -1,7 +1,7 @@
 #asm
-	public f1d56_
+	public detect_video_adapter_
 	extrn f1c9f_:near
-f1d56_:
+detect_video_adapter_:
 	db 0b4h,00fh,0cdh,010h,02eh,0a2h,04ch,01bh,08bh,046h,004h,025h,001h,000h,075h,01eh
 	db 08bh,046h,004h,025h,002h,000h,075h,02fh,08bh,046h,004h,025h,004h,000h,074h,003h
 	db 0e9h,08fh,000h

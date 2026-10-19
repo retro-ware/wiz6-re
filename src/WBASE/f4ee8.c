@@ -1,16 +1,17 @@
-extern int g3646;
-extern int g5062;
-extern int g5064;
-f4ee8()
+extern int anim_phase;
+extern int camp_anim_dx;
+extern int camp_anim_dy;
+/* Reset the camp scene animation and draw it. */
+init_camp_scene()
 {
-	f36ac(346, 0, -1);
-	f36ac(349, 0, -1);
-	f36ac(352, 0, -1);
-	f36ac(361, 0, -1);
-	f36ac(355, 0, -1);
-	f36ac(358, 0, -1);
-	g3646 = 0;
-	g5064 = 0;
-	g5062 = 0;
-	f4d1b(g3646, g5064, g5062);
+	drv_op_c6(346, 0, -1);
+	drv_op_c6(349, 0, -1);
+	drv_op_c6(352, 0, -1);
+	drv_op_c6(361, 0, -1);
+	drv_op_c6(355, 0, -1);
+	drv_op_c6(358, 0, -1);
+	anim_phase = 0;
+	camp_anim_dx = 0;
+	camp_anim_dy = 0;
+	draw_camp_scene(anim_phase, camp_anim_dx, camp_anim_dy);
 }

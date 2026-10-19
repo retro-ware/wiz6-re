@@ -1,6 +1,6 @@
 #asm
-	public f282f_
-f282f_:
+	public delay_long_
+delay_long_:
 	db 055h,08bh,0ech,01eh,00eh,01fh,0bbh,06bh,020h,02eh,08bh,00eh,0deh,01fh,02eh,08bh
 	db 016h,0e0h,01fh
 l2842:

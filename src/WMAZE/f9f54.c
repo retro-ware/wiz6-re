@@ -2,7 +2,7 @@ f9f54()
 {
 	int l2;
 	register int rsi;
-	l2 = f09e2(4);
+	l2 = random(4);
 L9f66:
 	;
 #asm

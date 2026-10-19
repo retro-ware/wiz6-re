@@ -1,9 +1,9 @@
-extern int g4f9a;
+extern int party_facing;
 fd6f6(p4, p6, p8, p10, p12, p14, p16)
 char *p4;
 char *p6;
 {
-	switch (g4f9a) {
+	switch (party_facing) {
 case 0:
 	*(int *)p4 += p14;
 	*(int *)p6 += p16;

@@ -1,22 +1,22 @@
 extern char g51cd;
-extern char g51d2;
-extern int g4336;
-extern int g4362;
+extern char spell_disarm_result;
+extern int cur_sound;
 extern int g5224;
+extern int view_pos_group;
 f97c6()
 {
 	f5508((unsigned char)g51cd, 4);
-	g4362 = 4;
+	view_pos_group = 4;
 	f4572(4, 0);
-	if (g51d2 < 14) goto L9808;
-	if (g51d2 == g4336) goto L9800;
-	f4def(g51d2);
+	if (spell_disarm_result < 14) goto L9808;
+	if (spell_disarm_result == cur_sound) goto L9800;
+	f4def(spell_disarm_result);
 L9800:
 	g5224 = 14;
 	goto L981e;
 L9808:
-	if (g51d2 <= 0) goto L9818;
-	g5224 = g51d2;
+	if (spell_disarm_result <= 0) goto L9818;
+	g5224 = spell_disarm_result;
 	goto L981e;
 L9818:
 	g5224 = 0;

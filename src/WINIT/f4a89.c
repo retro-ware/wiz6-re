@@ -1,16 +1,17 @@
+/* Read SCENARIO.HDR, load fonts and maze graphics for the video mode, open the header and DBS files. */
 #asm
-	public f4a89_
+	public init_game_data_
 	extrn close_:near
-	extrn f00d5_:near
+	extrn exit_game_:near
 	extrn open_:near
 	extrn read_:near
-f4a89_:
+init_game_data_:
 	db 055h,08bh,0ech,081h,0c4h,0e6h,0f3h,0c7h,006h,0beh,04fh,000h,000h,0c7h,006h,042h
 	db 033h,000h,000h,0c7h,006h,0cch,04fh,000h,000h,0b8h,000h,000h,050h,0b8h,01ch,050h
 	db 050h
 	call open_
 	db 083h,0c4h,004h,0a3h,0eah,04fh,03dh,0ffh,0ffh,075h,008h,0b8h,001h,000h,050h
-	call f00d5_
+	call exit_game_
 	db 059h
 l4ac0:
 	db 0b8h,09eh,001h,050h,0b8h,0f8h,033h,050h,0ffh,036h,0eah,04fh

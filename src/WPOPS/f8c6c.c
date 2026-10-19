@@ -1,4 +1,4 @@
-f8c6c()
+find_sprite_slot()
 {
 	register int rsi;
 #asm

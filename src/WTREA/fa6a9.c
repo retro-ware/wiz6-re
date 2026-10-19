@@ -5,7 +5,7 @@ extern char g531b[];
 extern int g5310;
 extern int g5312[];
 extern int g5314[];
-fa6a9(p4, p6, p8, p10)
+add_view_object_t(p4, p6, p8, p10)
 char p10;
 {
 	g531a[(g5310 * 11)] = *(char *)&p4;
@@ -24,7 +24,7 @@ La73f:
 	g5310++;
 	if (g5310 < 30) goto La784;
 La77a:
-	f0aaa(0);
+	play_sound(0);
 	goto La77a;
 La784:
 	;

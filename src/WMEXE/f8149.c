@@ -1,5 +1,5 @@
 extern char g019d[];
-extern int g43a8[];
+extern int monster_groups[];
 f8149(p4, p6, p8, p10, p12, p14, p16)
 {
 	int l2;
@@ -23,12 +23,12 @@ L818f:
 	if (l10 != p8) goto L819f;
 	if (l12 == p10) goto L81a7;
 L819f:
-	f8036(3213);
+	show_combat_msg(3213);
 L81a7:
 	if (p6 < 0) goto L81de;
 	f7ddc(p4, p6, l10, l12, p12, p14, p16);
 	if (p4) goto L81db;
-	f7353(p6, 0);
+	draw_member_card_x(p6, 0);
 L81db:
 	;
 #asm
@@ -36,18 +36,18 @@ l81db:
 	db 0e9h,07dh,000h
 #endasm
 L81de:
-	l4 = (unsigned char)g019d[g43a8[p4]];
+	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);
 	if (l6 <= l4) goto L820c;
 	l6 = l4;
 L820c:
-	l8 = f09e2((l4 - l6));
+	l8 = random((l4 - l6));
 	l2 = l8;
 	goto L8250;
 L821f:
 	f7ddc(p4, l2, l10, l12, p12, p14, p16);
 	if (p4) goto L824d;
-	f7353(l2, 0);
+	draw_member_card_x(l2, 0);
 L824d:
 	l2++;
 L8250:

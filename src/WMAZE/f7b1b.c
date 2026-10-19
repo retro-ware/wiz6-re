@@ -1,5 +1,5 @@
 extern int g4fa6;
-f7b1b(p4, p6, p8, p10, p12)
+move_to_maze_cell_m(p4, p6, p8, p10, p12)
 char *p8;
 {
 	register int rsi;

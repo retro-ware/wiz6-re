@@ -1,13 +1,13 @@
-f033f(p4, p6, p8, p10, p12)
+clear_window_area(win, col1, row1, col2, row2)
 {
-	char l80[80];
-	setmem(l80, 80, 32);
-	l80[((p10 - p6) + 1)] = 0;
+	char blanks[80];
+	setmem(blanks, 80, 32);
+	blanks[((col2 - col1) + 1)] = 0;
 	goto L038a;
 L0367:
-	f030b(p4, p6, p8);
-	f24e9(p4, l80, 0);
-	p8++;
+	set_cursor(win, col1, row1);
+	print_string(win, blanks, 0);
+	row1++;
 L038a:
-	if (p8 <= p12) goto L0367;
+	if (row1 <= row2) goto L0367;
 }

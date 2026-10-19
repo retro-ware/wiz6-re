@@ -1,19 +1,20 @@
 #asm
-	extrn f251d_:near
+	extrn print_string_hi_:near
 #endasm
-f083f(p4, p6, p8)
+/* Fetch message N and print it into a window with a color. */
+print_message(msg, win, color)
 {
 	char x0[78];
-	int l80;
-	f075b(p4, &l80);
-	if (p8 < 16) goto L086e;
+	int buf;
+	get_message(msg, &buf);
+	if (color < 16) goto L086e;
 #asm
 	db 08bh,046h,008h,005h,0f1h,0ffh,050h,08dh,046h,0b0h,050h,0ffh,076h,006h
-	call f251d_
+	call print_string_hi_
 	db 083h,0c4h,006h,0ebh,010h
 #endasm
 L086e:
-	f24e9(p6, &l80, p8);
+	print_string(win, &buf, color);
 L087e:
 	;
 }

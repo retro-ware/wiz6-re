@@ -1,4 +1,4 @@
-f0c82()
+copy_through_char()
 {
 	int l2;
 	int l4;

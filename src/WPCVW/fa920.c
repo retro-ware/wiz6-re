@@ -1,10 +1,11 @@
 extern char g3592;
-extern char g4584[];
-extern int g3044;
-extern int g43d0[];
-extern int g4fc4;
-fa920(p4, p6)
-char *p4;
+extern char pc_portrait[];
+extern int disk_header;
+extern int member_portrait[];
+extern int menu_clicked;
+/* Cycle through the 42 portraits and set the member's portrait. */
+do_choose_portrait(win, member)
+char *win;
 {
 	int l2;
 	int l4;
@@ -14,37 +15,37 @@ char *p4;
 	char x10[18];
 	int l30;
 	l8 = 0;
-	l10 = g3044;
+	l10 = disk_header;
 	l10 = ((g3592 == 5) && (l10 > 0) ? (l10 + 2) : l10);
-	f0c82(&l30, 13632, 58);
+	copy_through_char(&l30, 13632, 58);
 	if (!l10) goto La977;
 	l8 = 1;
-	f0d26(&l30, 0, 1, 1);
+	prompt_insert_disk(&l30, 0, 1, 1);
 La977:
-	l6 = f011a(20, 4, 20, 16, 30, -1, 0, 0);
-	f32be(l6, 32, 3, 0);
-	f3118(l6);
-	f9fa8(l6);
-	f31d1(l6);
-	f32be(p4, 32, 3, 0);
-	f2a63();
-	f030b(p4, 9, 1);
-	f083f(1112, p4, 18);
-	f030b(p4, 12, 2);
-	f083f(1113, p4, 18);
+	l6 = create_window(20, 4, 20, 16, 30, -1, 0, 0);
+	fill_window(l6, 32, 3, 0);
+	defer_window_draw(l6);
+	draw_portrait_frame(l6);
+	resume_window_draw(l6);
+	fill_window(win, 32, 3, 0);
+	refresh_all_windows();
+	set_cursor(win, 9, 1);
+	print_message(1112, win, 18);
+	set_cursor(win, 12, 2);
+	print_message(1113, win, 18);
 	l4 = -1;
-	f0c16(0, ((unsigned char)p4[2] + 9), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 9), ((unsigned char)p4[3] + 1));
-	f0c16(1, ((unsigned char)p4[2] + 10), ((unsigned char)p4[3] + 1), ((unsigned char)p4[2] + 10), ((unsigned char)p4[3] + 1));
-	f0c16(2, ((unsigned char)p4[2] + 18), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + 18), ((unsigned char)p4[3] + 2));
-	f0c16(3, 255, 0, 0, 0);
+	set_click_region(0, ((unsigned char)win[2] + 9), ((unsigned char)win[3] + 1), ((unsigned char)win[2] + 9), ((unsigned char)win[3] + 1));
+	set_click_region(1, ((unsigned char)win[2] + 10), ((unsigned char)win[3] + 1), ((unsigned char)win[2] + 10), ((unsigned char)win[3] + 1));
+	set_click_region(2, ((unsigned char)win[2] + 18), ((unsigned char)win[3] + 2), ((unsigned char)win[2] + 18), ((unsigned char)win[3] + 2));
+	set_click_region(3, 255, 0, 0, 0);
 Laac5:
-	if ((unsigned char)g4584[(432 * p6)] == l4) goto Lab09;
-	fa78d((unsigned char)g4584[(432 * p6)], g43d0[p6]);
-	l4 = (unsigned char)g4584[(432 * p6)];
+	if ((unsigned char)pc_portrait[(432 * member)] == l4) goto Lab09;
+	load_portrait((unsigned char)pc_portrait[(432 * member)], member_portrait[member]);
+	l4 = (unsigned char)pc_portrait[(432 * member)];
 Lab09:
-	fa8ab(l6, p6, 8, 6);
-	l2 = f8891(21822, 13720);
-	if (g4fc4 != 1) goto Lab5b;
+	draw_portrait(l6, member, 8, 6);
+	l2 = get_menu_input(21822, 13720);
+	if (menu_clicked != 1) goto Lab5b;
 	goto Lab4c;
 	l2 = 1;
 #asm
@@ -67,17 +68,17 @@ lab4c:
 Lab5b:
 	switch (l2) {
 case 1:
-	g4584[(432 * p6)] = (char)(((unsigned char)g4584[(432 * p6)] + 41) % 42);
+	pc_portrait[(432 * member)] = (char)(((unsigned char)pc_portrait[(432 * member)] + 41) % 42);
 	goto Laba6;
 case 3:
-	g4584[(432 * p6)] = (char)(((unsigned char)g4584[(432 * p6)] + 1) % 42);
+	pc_portrait[(432 * member)] = (char)(((unsigned char)pc_portrait[(432 * member)] + 1) % 42);
 	goto Laba6;
 	}
 Laba6:
 	if (l2 != 5) goto Laac5;
-	f02d2(l6, 0);
+	destroy_window(l6, 0);
 	if (l8 != 1) goto Labd4;
-	f0d26(&l30, l10, 1, 1);
+	prompt_insert_disk(&l30, l10, 1, 1);
 Labd4:
 	;
 }

@@ -1,35 +1,35 @@
-extern char g4589[];
-extern int g43ce;
-extern int g43f4[];
-extern int g4fb6;
-extern long g43c6;
-f9ab6()
+extern char pc_condition[];
+extern int party_count;
+extern int party_picture_win;
+extern int pc_exp[];
+extern long combat_gold;
+share_combat_gold()
 {
 	int l2;
-	int l4;
-	char l8[4];
-	l4 = 0;
+	int alive;
+	char share[4];
+	alive = 0;
 	l2 = 0;
 	goto L9add;
 L9ac8:
-	if (g4589[(432 * l2)]) goto L9ada;
-	l4++;
+	if (pc_condition[(432 * l2)]) goto L9ada;
+	alive++;
 L9ada:
 	l2++;
 L9add:
-	if (l2 < g43ce) goto L9ac8;
-	*(long *)(l8 + 0) = (g43c6 / (long)l4);
-	f075b(5001, 20590);
-	f0453(*(int *)(l8 + 0), *(int *)(l8 + (0 + 2)), 20722);
-	f05c1(20590, 20722, 36);
-	f59e9(g4fb6, 2, 20590, 0, 6);
+	if (l2 < party_count) goto L9ac8;
+	*(long *)(share + 0) = (combat_gold / (long)alive);
+	get_message(5001, 20590);
+	long_to_string(*(int *)(share + 0), *(int *)(share + (0 + 2)), 20722);
+	replace_char_with_string(20590, 20722, 36);
+	show_centered_line(party_picture_win, 2, 20590, 0, 6);
 	l2 = 0;
 	goto L9b73;
 L9b53:
-	if (g4589[(432 * l2)]) goto L9b70;
-	*(long *)((char *)g43f4 + (432 * l2)) += *(long *)(l8 + 0);
+	if (pc_condition[(432 * l2)]) goto L9b70;
+	*(long *)((char *)pc_exp + (432 * l2)) += *(long *)(share + 0);
 L9b70:
 	l2++;
 L9b73:
-	if (l2 < g43ce) goto L9b53;
+	if (l2 < party_count) goto L9b53;
 }

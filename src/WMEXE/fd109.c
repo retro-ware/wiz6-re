@@ -1,19 +1,20 @@
 extern char g019d[];
-extern int g363a;
 extern int g435a;
 extern int g435c;
 extern int g435e;
-extern int g43a8[];
-extern int g4fb6;
 extern int g4fc8;
-fd109()
+extern int game_state;
+extern int monster_groups[];
+extern int party_picture_win;
+/* Main loop of a combat round: run every combatant's action in initiative order. */
+run_combat_round()
 {
 	char *l2;
 	int l4;
 	int l6;
 	register int rsi;
-	fd07c();
-	f2a63();
+	reset_effects();
+	refresh_all_windows();
 	g435a = 100;
 Ld11c:
 	g435e = 0;
@@ -49,12 +50,12 @@ ld166:
 	db 08ah,047h,021h,02ah,0e4h,08bh,0f0h,08ah,040h,018h,02ah,0e4h,03bh,006h,05ah,043h
 	db 074h,03ah,0c6h,047h,02bh,003h
 #endasm
-	f02f0(g4fb6, 1);
-	f774b(2);
+	clear_window(party_picture_win, 1);
+	combat_delay(2);
 	fb85f(3518, -1, 6);
-	f774b((g4fc8 / 2));
+	combat_delay((g4fc8 / 2));
 Ld1b2:
-	l6 = ((g435a - f09e2(10)) + -5);
+	l6 = ((g435a - random(10)) + -5);
 	if (l6 >= 1) goto Ld1d1;
 	l6 = 1;
 Ld1d1:
@@ -64,10 +65,10 @@ Ld1dc:
 	if (l2[43] != 3) goto Ld226;
 	l2[43] = 0;
 	l2[37] = 0;
-	f02f0(g4fb6, 1);
-	f774b(2);
+	clear_window(party_picture_win, 1);
+	combat_delay(2);
 	fb85f(3519, -1, 6);
-	f774b((g4fc8 / 2));
+	combat_delay((g4fc8 / 2));
 Ld226:
 	rsi = (unsigned char)l2[33];
 	if ((unsigned char)(l2 + rsi)[24] != g435a) goto Ld29f;
@@ -75,14 +76,14 @@ Ld226:
 	if (l2[43] != 3) goto Ld288;
 	l2[43] = 0;
 	l2[37] = 0;
-	f02f0(g4fb6, 1);
-	f774b(2);
+	clear_window(party_picture_win, 1);
+	combat_delay(2);
 	fb85f(3519, -1, 6);
-	f774b((g4fc8 / 2));
+	combat_delay((g4fc8 / 2));
 Ld288:
 	fc66e();
 	l2[33]++;
-	if (g363a == 13) goto Ld29d;
+	if (game_state == 13) goto Ld29d;
 	return;
 Ld29d:
 	goto Ld2b2;
@@ -96,7 +97,7 @@ Ld2b2:
 Ld2bf:
 	g435c++;
 Ld2c3:
-	if ((unsigned char)g019d[g43a8[g435e]] > g435c) goto Ld12b;
+	if ((unsigned char)g019d[monster_groups[g435e]] > g435c) goto Ld12b;
 #asm
 ld2dd:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h,000h
@@ -116,8 +117,8 @@ ld2f7:
 	goto Ld492;
 Ld31d:
 	if (l6 <= 0) goto Ld492;
-	f02f0(g4fb6, 1);
-	f774b(2);
+	clear_window(party_picture_win, 1);
+	combat_delay(2);
 	switch (l4) {
 case 0:
 	fd0ad(3220, 4);
@@ -148,7 +149,7 @@ Ld4a0:
 #endasm
 	goto Ld11c;
 Ld4b8:
-	f774b(8);
-	g363a = 14;
+	combat_delay(8);
+	game_state = 14;
 	return;
 }

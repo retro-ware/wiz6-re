@@ -1,27 +1,24 @@
 #asm
-	extrn f075b_:near
-	extrn f09e2_:near
+	extrn combat_delay_:near
+	extrn do_damage_effect_:near
 	extrn f4572_:near
-	extrn f6d32_:near
-	extrn f774b_:near
-	extrn f7b59_:near
+	extrn get_message_:near
+	extrn print_combat_line_:near
+	extrn random_:near
 #endasm
 extern char g018e[];
-extern char g442c[];
 extern char g44f6[];
-extern char g44f8[];
 extern char g44f9[];
 extern char g4524[];
 extern char g4525[];
-extern char g4587[];
 extern char g505c;
 extern char g50ac;
+extern char pc_class[];
+extern char pc_equipped[];
+extern char pc_item_type[];
 extern int g4352;
 extern int g435c;
 extern int g435e;
-extern int g43a8[];
-extern int g43b6[];
-extern int g4428[];
 extern int g44d8[];
 extern int g44da[];
 extern int g44e8[];
@@ -30,11 +27,15 @@ extern int g4ecc;
 extern int g4ece;
 extern int g4ed4;
 extern int g4ed6;
-extern int g4fb6;
 extern int g4fc8;
 extern int g500a;
 extern int g50fc;
-f4c48(p4, p6, p8)
+extern int group_monster_rec[];
+extern int monster_groups[];
+extern int party_picture_win;
+extern int pc_item_id[];
+/* Execute one melee/missile attack of the acting combatant (g435e side, g435c index); p8 is the attack kind. */
+do_attack(p4, p6, p8)
 char *p4;
 {
 	char x0[44];
@@ -86,22 +87,22 @@ char *p4;
 	l150 = -1;
 	l158 = 0;
 	g500a = 4;
-	f6ba3(20492, g435e, g435c);
+	get_combatant_name(20492, g435e, g435c);
 	g50ac = 0;
 	g505c = 0;
 	if (g435e) goto L4e25;
-	f075b((p8 + 3350), 20652);
-	l76 = (unsigned char)g44f8[((432 * g435c) + p6)];
+	get_message((p8 + 3350), 20652);
+	l76 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
 	if (p8 != 8) goto L4cdf;
 	l76 = (unsigned char)g44f9[(432 * g435c)];
 L4cdf:
 	if (!p4[43]) goto L4d0a;
 	if (p8 == 4) goto L4d0a;
 	if (p8 == 8) goto L4d0a;
-	f075b((f09e2(2) + 3385), 20652);
+	get_message((random(2) + 3385), 20652);
 L4d0a:
 	if (l76 == 255) goto L4e22;
-	f0882(1, &l74, *(int *)((char *)g4428 + ((432 * g435c) + (l76 << 3))), 0);
+	access_scenario_record(1, &l74, *(int *)((char *)pc_item_id + ((432 * g435c) + (l76 << 3))), 0);
 	strcpy(20572, &l74);
 	if (p8 == 4) goto L4d5b;
 	if (p8 != 8) goto L4e22;
@@ -109,7 +110,7 @@ L4d5b:
 	if (p8 != 4) goto L4d7c;
 	if (!l46) goto L4d7c;
 	l150 = l46;
-	f075b(3384, 20652);
+	get_message(3384, 20652);
 L4d7c:
 	;
 #asm
@@ -142,12 +143,12 @@ l4e25:
 #endasm
 	goto L4f79;
 L4e3d:
-	f075b((p8 + 3350), 20652);
+	get_message((p8 + 3350), 20652);
 	if (!p4[43]) goto L4e7a;
 #asm
 	db 08bh,046h,008h,03dh,004h,000h,074h,01bh,03dh,008h,000h,074h,016h
 #endasm
-	f075b((f09e2(2) + 3385), 20652);
+	get_message((random(2) + 3385), 20652);
 L4e7a:
 	if (p8 == 4) goto L4e89;
 	if (p8 != 8) goto L4f4e;
@@ -185,7 +186,7 @@ l4f4e:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,006h,080h,0b8h
 	db 083h,000h,000h,076h,014h,0b8h,05ch,050h,050h,08ah,080h,083h,000h,02ah,0e4h,005h
 	db 0d7h,00eh,050h
-	call f075b_
+	call get_message_
 	db 083h,0c4h,004h
 #endasm
 L4f77:
@@ -196,27 +197,27 @@ L4f79:
 l4f79:
 	db 0b8h,0ach,050h,050h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh
 	db 076h,006h,08ah,080h,080h,000h,02ah,0e4h,005h,02bh,00dh,050h
-	call f075b_
+	call get_message_
 	db 083h,0c4h,004h
 #endasm
 L4f9b:
-	f6d32(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 11);
+	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 11);
 	if (l150 != -1) goto L4ff5;
-	f6ba3(20492, l78, l80);
-	f6cc3(20492, (l78 == 0 ? 1 : 6), 2);
+	get_combatant_name(20492, l78, l80);
+	print_combat_centered(20492, (l78 == 0 ? 1 : 6), 2);
 L4ff5:
 	if (l118 == -1) goto L501e;
 	f8efc(l78, l80, l118, (l150 == -1 ? 0 : 1));
 	l158 = 1;
 L501e:
-	l84 = (((((unsigned char)(*(char **)((char *)g43b6 + (l78 << 1)))[137] + (unsigned char)(*(char **)((char *)g43b6 + (l78 << 1)))[136]) + (unsigned char)(*(char **)((char *)g43b6 + (l78 << 1)))[135]) - (((unsigned char)(*(char **)((char *)g43b6 + (g435e << 1)))[137] + (unsigned char)(*(char **)((char *)g43b6 + (g435e << 1)))[136]) + (unsigned char)(*(char **)((char *)g43b6 + (g435e << 1)))[135])) / 2);
+	l84 = (((((unsigned char)(*(char **)((char *)group_monster_rec + (l78 << 1)))[137] + (unsigned char)(*(char **)((char *)group_monster_rec + (l78 << 1)))[136]) + (unsigned char)(*(char **)((char *)group_monster_rec + (l78 << 1)))[135]) - (((unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[137] + (unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[136]) + (unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[135])) / 2);
 	l126 = p4[40];
 	if (g435e) goto L5408;
 	if (p8 != 4) goto L509d;
 	l124 = 5;
 	goto L51d1;
 L509d:
-	if ((unsigned char)g44f8[((432 * g435c) + p6)] == 255) goto L51cc;
+	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] == 255) goto L51cc;
 #asm
 l50b7:
 	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,050h,08ah,087h,0f8h,044h,02ah,0e4h,08bh,0c8h
@@ -248,12 +249,12 @@ L51cc:
 L51d1:
 	if (l124 != 9) goto L51f5;
 	if ((unsigned)g4525[(432 * g435c)] > 0) goto L51f5;
-	if (g4587[(432 * g435c)] == 12) goto L51f5;
-	if (g4587[(432 * g435c)] != 13) goto L5206;
+	if (pc_class[(432 * g435c)] == 12) goto L51f5;
+	if (pc_class[(432 * g435c)] != 13) goto L5206;
 L51f5:
-	f77d4(g435c, l124, 2);
+	try_raise_skill(g435c, l124, 2);
 L5206:
-	rsi = f4620(g435c);
+	rsi = get_load_category_x(g435c);
 	rdi = &l142;
 #asm
 	db 08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h,08bh,086h,076h,0ffh,083h,07eh,006h
@@ -277,17 +278,17 @@ l522b:
 	l112 = *(int *)((char *)g44d8 + ((432 * g435c) + (p6 << 4)));
 	l110 = *(int *)((char *)g44da + ((432 * g435c) + (p6 << 4)));
 	l82 = (((432 * g435c) + (p6 << 4)) + 17624);
-	l114 = (unsigned char)g44f8[((432 * g435c) + p6)];
+	l114 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
 	if (p8 != 8) goto L5356;
 	l116 = (unsigned char)g44f9[(432 * g435c)];
 	if (l116 == 255) goto L5354;
-	if (g442c[((432 * g435c) + (l116 << 3))] != 4) goto L5354;
+	if (pc_item_type[((432 * g435c) + (l116 << 3))] != 4) goto L5354;
 	l112 = *(int *)((char *)g44e8 + (432 * g435c));
 	l110 = *(int *)((char *)g44ea + (432 * g435c));
 	l82 = ((432 * g435c) + 17640);
 	l86 += g44f6[(432 * g435c)];
 	l126 = 0;
-	f7096(l116);
+	use_item_charge_x(l116);
 L5354:
 	goto L5391;
 L5356:
@@ -305,7 +306,7 @@ l5380:
 #endasm
 L5385:
 	l126 = 0;
-	f7096(l114);
+	use_item_charge_x(l114);
 L5391:
 	rsi = (44 * l80);
 #asm
@@ -319,9 +320,9 @@ L5391:
 	if (g4ed4 <= 0) goto L53e1;
 	l88 += g4ed6;
 L53e1:
-	l90 = ((*(char **)((char *)g43b6 + (l78 << 1)))[190] + l88);
+	l90 = ((*(char **)((char *)group_monster_rec + (l78 << 1)))[190] + l88);
 	rsi = p8;
-	l92 = (((char *)g43b6[l78] + rsi)[198] + l88);
+	l92 = (((char *)group_monster_rec[l78] + rsi)[198] + l88);
 	goto L5531;
 L5408:
 	;
@@ -342,7 +343,7 @@ L5475:
 	l126 = 0;
 L547a:
 	if (l78) goto L54a0;
-	rsi = f4620(l80);
+	rsi = get_load_category_x(l80);
 	rdi = &l142;
 #asm
 	db 08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h,08bh,086h,072h,0ffh,089h,086h,06eh
@@ -365,11 +366,11 @@ L54a6:
 	if (g4ecc <= 0) goto L54fc;
 	l88 -= g4ece;
 L54fc:
-	l90 = (((*(char **)((char *)g43b6 + (l78 << 1)))[190] + l88) + l146);
+	l90 = (((*(char **)((char *)group_monster_rec + (l78 << 1)))[190] + l88) + l146);
 	l92 = (l88 + l146);
 	if (!l78) goto L5531;
 	rsi = p8;
-	l92 += ((char *)g43b6[l78] + rsi)[198];
+	l92 += ((char *)group_monster_rec[l78] + rsi)[198];
 L5531:
 	l156 = 1;
 	if (!p4[43]) goto L5555;
@@ -387,28 +388,28 @@ L558d:
 	l86 += 25;
 L5591:
 	rsi = (44 * l80);
-	if ((unsigned)((char *)g43a8[l78] + rsi)[18] > 0) goto L55bc;
-	if ((unsigned)((char *)g43a8[l78] + rsi)[16] > 0) goto L55bc;
-	if ((unsigned)((char *)g43a8[l78] + rsi)[17] > 0) goto L55bc;
-	if (((char *)g43a8[l78] + rsi)[34] != 2) goto L55c7;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[18] > 0) goto L55bc;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[16] > 0) goto L55bc;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[17] > 0) goto L55bc;
+	if (((char *)monster_groups[l78] + rsi)[34] != 2) goto L55c7;
 L55bc:
 	l90 = 15;
 	l156 = 2;
 L55c7:
-	if ((unsigned)((char *)g43a8[l78] + rsi)[22] > 0) goto L55d3;
-	if ((unsigned)((char *)g43a8[l78] + rsi)[15] <= 0) goto L55d7;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[22] > 0) goto L55d3;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[15] <= 0) goto L55d7;
 L55d3:
 	l90 += 4;
 L55d7:
 	l128 = 0;
-	if ((unsigned)(*(char **)((char *)g43b6 + (g435e << 1)))[134] <= 15) goto L55f1;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (g435e << 1)))[134] <= 15) goto L55f1;
 	l128++;
 L55f1:
-	if ((unsigned)(*(char **)((char *)g43b6 + (g435e << 1)))[134] <= 17) goto L55fb;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (g435e << 1)))[134] <= 17) goto L55fb;
 	l128++;
 L55fb:
 	l126 += l128;
-	l100 = (f09e2(((unsigned char)(*(char **)((char *)g43b6 + (g435e << 1)))[212] - (((char *)g43a8[l78] + rsi)[41] / 10))) + 1);
+	l100 = (random(((unsigned char)(*(char **)((char *)group_monster_rec + (g435e << 1)))[212] - (((char *)monster_groups[l78] + rsi)[41] / 10))) + 1);
 	if (l100 >= 1) goto L563e;
 	l100 = 1;
 L563e:
@@ -471,24 +472,24 @@ l56ec:
 #endasm
 L56f9:
 	rsi = (44 * l80);
-	if (((char *)g43a8[l78] + rsi)[30] != 7) goto L5727;
+	if (((char *)monster_groups[l78] + rsi)[30] != 7) goto L5727;
 	l90 = (l90 > 10 ? l90 : 10);
 	l156 = 2;
 L5727:
-	if (((char *)g43a8[l78] + rsi)[18]) goto L59aa;
-	if (((char *)g43a8[l78] + rsi)[16]) goto L59aa;
-	if (((char *)g43a8[l78] + rsi)[17]) goto L59aa;
-	if (((char *)g43a8[l78] + rsi)[34]) goto L59aa;
-	if (((char *)g43a8[l78] + rsi)[30] != 1) goto L5971;
-	switch (*(int *)(((char *)g43a8[l78] + rsi) + 10)) {
+	if (((char *)monster_groups[l78] + rsi)[18]) goto L59aa;
+	if (((char *)monster_groups[l78] + rsi)[16]) goto L59aa;
+	if (((char *)monster_groups[l78] + rsi)[17]) goto L59aa;
+	if (((char *)monster_groups[l78] + rsi)[34]) goto L59aa;
+	if (((char *)monster_groups[l78] + rsi)[30] != 1) goto L5971;
+	switch (*(int *)(((char *)monster_groups[l78] + rsi) + 10)) {
 case 0:
 	if (l78) goto L578b;
 	l90 -= (((unsigned char)g4524[(432 * l80)] / 10) + 1);
-	f77d4(l80, 8, 2);
+	try_raise_skill(l80, 8, 2);
 	goto L57aa;
 L578b:
 	rsi = (44 * l80);
-	l90 -= ((*(int *)((char *)g43a8[l78] + rsi) / 4) + 1);
+	l90 -= ((*(int *)((char *)monster_groups[l78] + rsi) / 4) + 1);
 L57aa:
 	l156 = 1;
 	goto L596f;
@@ -500,9 +501,9 @@ case 2:
 	if (p8 == 4) goto L5949;
 	if (p8 == 8) goto L5949;
 	rsi = (44 * l80);
-	((char *)g43a8[l78] + rsi)[30] = 0;
+	((char *)monster_groups[l78] + rsi)[30] = 0;
 	rsi = (44 * l80);
-	((char *)g43a8[l78] + rsi)[33] = 0;
+	((char *)monster_groups[l78] + rsi)[33] = 0;
 #asm
 	db 0a1h,05ah,043h,048h,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh,046h,0b2h
 	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,088h,040h,018h,0a0h,05eh,043h,050h
@@ -512,12 +513,12 @@ case 2:
 	db 040h,020h
 #endasm
 	rsi = (44 * l80);
-	*(int *)(((char *)g43a8[l78] + rsi) + 12) = -1;
+	*(int *)(((char *)monster_groups[l78] + rsi) + 12) = -1;
 	rsi = (44 * l80);
-	*(int *)(((char *)g43a8[l78] + rsi) + 10) = 255;
+	*(int *)(((char *)monster_groups[l78] + rsi) + 10) = 255;
 	if (l78) goto L58cd;
 	l148 = 7;
-	if (f28af(((432 * l80) + 17639), l148) != 1) goto L58c5;
+	if (test_bit(((432 * l80) + 17639), l148) != 1) goto L58c5;
 #asm
 	db 08bh,086h,06ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh,046h,0b2h
 	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,00ah
@@ -530,7 +531,7 @@ L58c5:
 	goto L5913;
 L58cd:
 	l148 = 7;
-	if (f28af((g43b6[l78] + 83), l148) != 1) goto L590d;
+	if (test_bit((group_monster_rec[l78] + 83), l148) != 1) goto L590d;
 #asm
 	db 08bh,086h,06ch,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh,046h,0b2h
 	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,00ah
@@ -542,11 +543,11 @@ L590d:
 #endasm
 L5913:
 	rsi = (44 * l80);
-	if (*(int *)(((char *)g43a8[l78] + rsi) + 10) != 255) goto L5932;
-	*(int *)(((char *)g43a8[l78] + rsi) + 10) = 8;
+	if (*(int *)(((char *)monster_groups[l78] + rsi) + 10) != 255) goto L5932;
+	*(int *)(((char *)monster_groups[l78] + rsi) + 10) = 8;
 L5932:
 	rsi = (44 * l80);
-	((char *)g43a8[l78] + rsi)[28] = 0;
+	((char *)monster_groups[l78] + rsi)[28] = 0;
 L5949:
 	goto L596f;
 case 3:
@@ -558,8 +559,8 @@ L596f:
 L5971:
 	if (l78) goto L59aa;
 	if ((unsigned char)g44f9[(432 * l80)] == 255) goto L59aa;
-	if (g442c[((432 * l80) + ((unsigned char)g44f9[(432 * l80)] << 3))] != 11) goto L59aa;
-	f77d4(l80, 8, 0);
+	if (pc_item_type[((432 * l80) + ((unsigned char)g44f9[(432 * l80)] << 3))] != 11) goto L59aa;
+	try_raise_skill(l80, 8, 0);
 L59aa:
 	if (!g435e) goto L59eb;
 	if (l158) goto L59eb;
@@ -568,9 +569,9 @@ L59aa:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,08fh,0d2h,000h,08bh
 	db 01eh,0b8h,043h,08ah,087h,0d2h,000h,03ah,0c8h,075h,008h
 #endasm
-	f0aaa(14);
+	play_sound(14);
 L59eb:
-	f774b((g4fc8 / 4));
+	combat_delay((g4fc8 / 4));
 	l98 = 0;
 	goto L5e71;
 L5a01:
@@ -579,7 +580,7 @@ L5a01:
 l5a01:
 	db 0b8h,000h,000h,083h,03eh,0cch,04fh,000h,075h,008h
 #endasm
-	f09e2(100);
+	random(100);
 L5a13:
 	;
 #asm
@@ -587,32 +588,32 @@ l5a13:
 	db 089h,046h,0a0h
 #endasm
 	if (l78) goto L5a4d;
-	l108 = f6eea((g43b6[g435e] + 182));
+	l108 = pick_weighted((group_monster_rec[g435e] + 182));
 #asm
 	db 08bh,046h,0b2h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,094h,08ah,080h
 	db 0beh,000h,098h,003h,046h,0a4h,089h,046h,0a2h
 #endasm
 	goto L5a7c;
 L5a4d:
-	l108 = f6eea((g43b6[l78] + 174));
+	l108 = pick_weighted((group_monster_rec[l78] + 174));
 #asm
 	db 08bh,046h,0b2h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,094h,08ah,080h
 	db 0beh,000h,098h,003h,046h,0a4h,089h,046h,0a2h
 #endasm
 L5a7c:
 	rsi = (44 * l80);
-	if (((char *)g43a8[l78] + rsi)[34] != 2) goto L5aa5;
+	if (((char *)monster_groups[l78] + rsi)[34] != 2) goto L5aa5;
 	l94 = (l94 > 0 ? 0 : l94);
 L5aa5:
-	f033f(g4fb6, 0, 3, 39, 4);
+	clear_window_area(party_picture_win, 0, 3, 39, 4);
 	if (l158) goto L5ace;
-	f0aaa(6);
+	play_sound(6);
 L5ace:
-	if ((*(char **)((char *)g43b6 + (l78 << 1)))[208] != 22) goto L5b4f;
+	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 22) goto L5b4f;
 	if (l150 != -1) goto L5b4f;
 	if (g435e) goto L5b4a;
-	if ((unsigned char)g44f8[((432 * g435c) + p6)] == 255) goto L5b43;
-	if (*(int *)((char *)g4428 + ((432 * g435c) + ((unsigned char)g44f8[((432 * g435c) + p6)] << 3))) != 458) goto L5b34;
+	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] == 255) goto L5b43;
+	if (*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) != 458) goto L5b34;
 	if (g4352) goto L5b3b;
 L5b34:
 	l96 = 0;
@@ -631,9 +632,9 @@ L5b4f:
 	if (p8 == 4) goto L5b5b;
 	if (p8 != 8) goto L5b99;
 L5b5b:
-	if (f09e2(100) >= (unsigned char)g018e[g43a8[l78]]) goto L5b99;
-	f6d0b(3214, 14, 3);
-	f0aaa(7);
+	if (random(100) >= (unsigned char)g018e[monster_groups[l78]]) goto L5b99;
+	print_msg_centered(3214, 14, 3);
+	play_sound(7);
 	goto L5e60;
 L5b99:
 	;
@@ -655,41 +656,41 @@ L5bca:
 	l154 = (l150 / 256);
 	l152 = (l150 % 256);
 	g50fc = 1;
-	f9405(p4, l152, l154);
+	do_cast_spell(p4, l152, l154);
 	goto L5e4c;
 L5bf7:
-	f6d0b(3302, 4, 3);
-	f0aaa(7);
-	if ((*(char **)((char *)g43b6 + (l78 << 1)))[208] != 17) goto L5c36;
-	f075b((l108 + 3330), 20492);
+	print_msg_centered(3302, 4, 3);
+	play_sound(7);
+	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 17) goto L5c36;
+	get_message((l108 + 3330), 20492);
 	goto L5c47;
 L5c36:
-	f075b((l108 + 3320), 20492);
+	get_message((l108 + 3320), 20492);
 L5c47:
 	l102++;
 	if (p4[43] != 1) goto L5c57;
 	p4[43] = 255;
 L5c57:
-	l106 = ((f5ebb(l112, l110) + l126) * l156);
+	l106 = ((roll_dice_x(l112, l110) + l126) * l156);
 	if (l106 <= 0) goto L5e09;
 	if (l96 >= 95) goto L5c95;
 	if ((l86 - (l94 * 5)) >= l96) goto L5e09;
 L5c95:
-	f04f1(l106, 20652);
-	f075b(3306, 20572);
-	f030b(g4fb6, 0, 4);
+	int_to_string(l106, 20652);
+	get_message(3306, 20572);
+	set_cursor(party_picture_win, 0, 4);
 #asm
 	db 0b8h,005h,000h,050h,050h,0b8h,004h,000h,050h,0b8h,05ch,050h,050h,0b8h,0ach,050h
 	db 050h,0b8h,00ch,050h,050h
-	call f6d32_
+	call print_combat_line_
 	db 083h,0c4h,00ch,08bh,046h,096h,050h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh
 	db 046h,0b2h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,029h,040h,002h
 #endasm
 	rsi = (44 * l80);
-	((char *)g43a8[l78] + rsi)[16] = 0;
+	((char *)monster_groups[l78] + rsi)[16] = 0;
 #asm
 	db 0b8h,003h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,08bh,0c8h,040h,040h,08bh,0c8h,0b8h,02ch,000h,0f7h,06eh,0b0h,08bh,0f0h,08bh
 	db 046h,0b2h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,040h,011h,02ah,0e4h,02bh
 	db 0c1h,089h,086h,060h,0ffh,03dh,000h,000h,07dh,006h
@@ -705,44 +706,44 @@ l5d54:
 	db 08ah,086h,060h,0ffh,088h,040h,011h
 #endasm
 	rsi = (44 * l80);
-	if (*(int *)(((char *)g43a8[l78] + rsi) + 2) > 0) goto L5dba;
+	if (*(int *)(((char *)monster_groups[l78] + rsi) + 2) > 0) goto L5dba;
 #asm
 	db 0a1h,0c8h,04fh,0b9h,004h,000h,099h,0f7h,0f9h,050h
-	call f774b_
+	call combat_delay_
 	db 059h,0b8h,000h,000h,050h,0b8h,050h,00dh,050h,0b8h,006h,000h,050h,050h,0b8h,000h
 	db 000h,050h,0b8h,003h,000h,050h,0b8h,000h,000h,050h,0b8h,09eh,00dh,050h,0ffh,076h
 	db 0b0h,0ffh,076h,0b2h
-	call f7b59_
+	call do_damage_effect_
 	db 083h,0c4h,014h,08bh,05eh,004h,080h,07fh,02bh,0ffh,075h,004h,0c6h,047h,02bh,001h
 #endasm
 L5db8:
 	goto L5e07;
 L5dba:
 	if (l78) goto L5dd5;
-	f0aaa(2);
-	f7353(l80, 1);
+	play_sound(2);
+	draw_member_card_x(l80, 1);
 L5dd5:
-	f774b((g4fc8 / 4));
-	if ((*(char **)((char *)g43b6 + (l78 << 1)))[208] == 22) goto L5e07;
-	f47a3(p4, l82, l78, l80);
+	combat_delay((g4fc8 / 4));
+	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] == 22) goto L5e07;
+	apply_hit_effects(p4, l82, l78, l80);
 L5e07:
 	goto L5e4c;
 L5e09:
-	f075b(3303, 20652);
-	f030b(g4fb6, 0, 4);
+	get_message(3303, 20652);
+	set_cursor(party_picture_win, 0, 4);
 	g505c = 0;
-	f6d32(20492, 20652, 20572, 4, 14, 0);
+	print_combat_line(20492, 20652, 20572, 4, 14, 0);
 L5e4c:
 	goto L5e60;
 L5e4e:
-	f6d0b(3301, 14, 3);
+	print_msg_centered(3301, 14, 3);
 L5e60:
-	f774b((g4fc8 / 4));
+	combat_delay((g4fc8 / 4));
 	l98++;
 L5e71:
 	if (l98 >= l100) goto L5e95;
 	rsi = (44 * l80);
-	if ((unsigned)((char *)g43a8[l78] + rsi)[34] < 3) goto L5a01;
+	if ((unsigned)((char *)monster_groups[l78] + rsi)[34] < 3) goto L5a01;
 L5e95:
 	;
 #asm
@@ -751,7 +752,7 @@ l5e95:
 #endasm
 L5ea2:
 	if (l78) goto L5eb5;
-	f7353(l80, 0);
+	draw_member_card_x(l80, 0);
 L5eb5:
 	;
 }

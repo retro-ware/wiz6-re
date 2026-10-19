@@ -1,22 +1,23 @@
-f6004(p4, p6, p8)
+/* Reduce value by amount toward zero (mode 1 for positive, 0 for negative). */
+reduce_toward_zero(amount, value, mode)
 {
-	if (p8 != 1) goto L602b;
-	if (p6 <= 0) goto L601b;
-	p6 -= p4;
+	if (mode != 1) goto L602b;
+	if (value <= 0) goto L601b;
+	value -= amount;
 	goto L6029;
 L601b:
-	if ((0 - p4) >= p6) goto L6029;
-	p6 = (0 - p4);
+	if ((0 - amount) >= value) goto L6029;
+	value = (0 - amount);
 L6029:
 	goto L604d;
 L602b:
-	if (p8) goto L604d;
-	if (p6 >= 0) goto L603f;
-	p6 += p4;
+	if (mode) goto L604d;
+	if (value >= 0) goto L603f;
+	value += amount;
 	goto L604d;
 L603f:
-	if (p6 >= p4) goto L604d;
-	p6 = p4;
+	if (value >= amount) goto L604d;
+	value = amount;
 L604d:
-	return p6;
+	return value;
 }

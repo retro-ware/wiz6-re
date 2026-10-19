@@ -1,6 +1,6 @@
 extern int g4ec8[];
 extern int g4eca[];
-f55b7(p4)
+tick_effect_timers(p4)
 {
 	register int rsi;
 	rsi = 0;

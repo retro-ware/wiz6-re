@@ -1,15 +1,15 @@
-extern int g363a;
-extern int g363c;
+extern int game_state;
+extern int game_state_arg;
 ovmain()
 {
-	if (g363a != 23) goto L4589;
-	f7868((f09e2(10) + 4));
+	if (game_state != 23) goto L4589;
+	flee_party((random(10) + 4));
 L4589:
-	if (g363a != 6) goto L4598;
-	f4937(g363c);
+	if (game_state != 6) goto L4598;
+	load_maze_level(game_state_arg);
 L4598:
-	if (g363a != 5) goto L45a2;
-	f7020();
+	if (game_state != 5) goto L45a2;
+	maze_main_loop();
 L45a2:
 	return 0;
 }

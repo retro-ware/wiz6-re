@@ -1,5 +1,5 @@
-f59ee(p4, p6)
+draw_member_name(win, member)
 {
-	f030b(p4, (((p6 % 2) * 9) + 2), ((p6 / 2) + 1));
-	f251d(p4, ((432 * p6) + 17384), 3);
+	set_cursor(win, (((member % 2) * 9) + 2), ((member / 2) + 1));
+	print_string_hi(win, ((432 * member) + 17384), 3);
 }

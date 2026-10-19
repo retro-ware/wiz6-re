@@ -1,6 +1,5 @@
 extern char g5043[];
 extern char g5072[];
-extern char g507a[];
 extern char g5082[];
 extern char g5083;
 extern char g508a[];
@@ -8,19 +7,10 @@ extern char g5092[];
 extern char g509a[];
 extern char g50a2[];
 extern char g50a3;
+extern char view_depth[];
 extern int g0042[];
 extern int g004a[];
-extern int g363c;
-extern int g433c;
-extern int g4f9a;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
 extern int g4fa6;
-extern int g4faa;
-extern int g4fbc;
 extern int g5040;
 extern int g5050[];
 extern int g50ce;
@@ -32,7 +22,17 @@ extern int g5222;
 extern int g5224;
 extern int g5226;
 extern int g5228;
-f903b()
+extern int game_state_arg;
+extern int maze_data;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+extern int picture_win;
+extern int view_rows_open;
+draw_maze_view_m()
 {
 	int l2;
 	int l4;
@@ -43,20 +43,20 @@ f903b()
 	char *l14;
 	char l16[2];
 	register int rsi;
-	l2 = g4fa4;
-	l4 = g4fa2;
-	l6 = g4fa0;
-	l8 = g4f9e;
-	l10 = g4f9c;
+	l2 = party_x;
+	l4 = party_y;
+	l6 = party_cell_x;
+	l8 = party_cell_y;
+	l10 = party_level;
 	g4fa6 = 0;
-	g433c = 1;
-	f3694(g4fbc, 0);
-	if (f28af((g4faa + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto L90bf;
-	switch (g363c) {
+	view_rows_open = 1;
+	drv_op_be(picture_win, 0);
+	if (test_bit((maze_data + 1082), (((l10 << 6) + (l8 << 3)) + l6)) != 1) goto L90bf;
+	switch (game_state_arg) {
 case 0:
 case 4:
 case 5:
-	f8f79();
+	draw_view_frame_m();
 	return;
 	}
 L90bf:
@@ -64,7 +64,7 @@ L90bf:
 L90c2:
 	g508a[rsi] = 1;
 	g5072[rsi] = 1;
-	g507a[rsi] = 1;
+	view_depth[rsi] = 1;
 	g5092[rsi] = 1;
 	g509a[rsi] = 1;
 	g5082[rsi] = 1;
@@ -85,16 +85,16 @@ L90c2:
 	g50a2[0] = 0;
 	g50a3 = 0;
 	l12 = l10;
-	f7d0b(&l2, &l4, &l6, &l8, &l12, 0, -1);
+	step_relative_m(&l2, &l4, &l6, &l8, &l12, 0, -1);
 	g521e = 4;
-	g521a = (((g4fa4 + g4fa2) + g4f9a) % 2);
+	g521a = (((party_x + party_y) + party_facing) % 2);
 	g5040 = 0;
 L91c4:
 	if (g5040 >= g521e) goto L9758;
-	g521c = ((((g4fa4 + g4fa2) + g4f9a) + g5040) % 2);
-	if (!f7d0b(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L926d;
-	if (g363c == 10) goto L9222;
-	if (g363c != 12) goto L9259;
+	g521c = ((((party_x + party_y) + party_facing) + g5040) % 2);
+	if (!step_relative_m(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L926d;
+	if (game_state_arg == 10) goto L9222;
+	if (game_state_arg != 12) goto L9259;
 L9222:
 	g5043[(g5040 * 3)] = 1;
 	g5050[(g5040 * 3)] = 1;
@@ -109,12 +109,12 @@ L9259:
 L926b:
 	goto L92c1;
 L926d:
-	g5220 = f7d8c(l2, l4, l6, l8, l10, 0);
-	g5222 = f8175(l2, l4, l6, l8, l10, 0);
-	g5224 = f8332(l2, l4, l6, l8, l10, 0);
+	g5220 = get_front_wall_m(l2, l4, l6, l8, l10, 0);
+	g5222 = get_left_wall_m(l2, l4, l6, l8, l10, 0);
+	g5224 = get_right_wall_m(l2, l4, l6, l8, l10, 0);
 L92c1:
-	g5226 = f7d8c(l2, l4, l6, l8, l10, -1);
-	g5228 = f7d8c(l2, l4, l6, l8, l10, 1);
+	g5226 = get_front_wall_m(l2, l4, l6, l8, l10, -1);
+	g5228 = get_front_wall_m(l2, l4, l6, l8, l10, 1);
 	if (g508a[g5040] != 1) goto L936f;
 	f85d0(g5040, g5220, 1, 72, 248, 122, 122, 0, 0, 91, 23, 23, 26, 26, 29, 32, 32, 29, 178, 178, 199, 199, 242, 257, 278, 278, 299, 299, 314, 314, 329, 150, 150, 214, 214);
 L936f:
@@ -134,7 +134,7 @@ L9463:
 	f85d0(g5040, g5226, 0, 72, g0042[g5040], 130, 142, 3, 12, 94, 35, 62, 41, 68, 47, 80, 53, 74, 181, 190, 202, 211, 245, 260, 281, 290, 302, 311, 317, 326, 332, 158, 170, 222, 234);
 L9505:
 	f8ebb(g5040, g5226);
-	if (g507a[g5040] != 1) goto L95b5;
+	if (view_depth[g5040] != 1) goto L95b5;
 	f85d0(g5040, g5226, 0, g0042[g5040], 248, 134, 138, 6, 9, 97, 38, 59, 44, 65, 50, 77, 56, 71, 184, 187, 205, 208, 248, 263, 284, 287, 305, 308, 320, 323, 335, 162, 166, 226, 230);
 L95b5:
 	f8ee8(g5040, g5226);
@@ -160,22 +160,22 @@ L9761:
 	goto L984d;
 L9769:
 	l14 = ((rsi * 11) + 20688);
-	g521c = (((((unsigned char)l14[10] + g4fa4) + g4fa2) + g4f9a) % 2);
+	g521c = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
 	if ((unsigned char)l14[10] != g5040) goto L984c;
 	if ((unsigned char)l14[8] != 255) goto L984c;
 	if (*(int *)l14 == -1) goto L97fd;
 	if (*(int *)(l14 + 4) == -1) goto L97e8;
-	f36ac((g521c != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g521c != 0 ? *(int *)l14 : -1));
+	drv_op_c6((g521c != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g521c != 0 ? *(int *)l14 : -1));
 	goto L97fd;
 L97e8:
-	f36ac(*(int *)l14, (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
 L97fd:
 	if (*(int *)(l14 + 2) == -1) goto L984c;
 	if (*(int *)(l14 + 6) == -1) goto L9836;
-	f36ac((g521c != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g521c != 0 ? *(int *)(l14 + 2) : -1));
+	drv_op_c6((g521c != 0 ? *(int *)(l14 + 6) : *(int *)(l14 + 2)), (unsigned char)l14[9], (g521c != 0 ? *(int *)(l14 + 2) : -1));
 	goto L984c;
 L9836:
-	f36ac(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
+	drv_op_c6(*(int *)(l14 + 2), (unsigned char)l14[9], -1);
 L984c:
 	rsi--;
 L984d:
@@ -189,7 +189,7 @@ L985c:
 	if ((unsigned char)l14[8] == 255) goto L98b1;
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
-	f3670((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
+	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
 L98b1:
 	rsi--;
 L98b2:
@@ -197,6 +197,6 @@ L98b2:
 	g5040--;
 L98bb:
 	if (g5040 >= 0) goto L9761;
-	f8f79();
+	draw_view_frame_m();
 	return;
 }

@@ -1,22 +1,23 @@
-f705b(p4, p6)
-char *p4;
+/* Count enabled entries before index n; 0 if a -1 end mark comes first. */
+count_enabled_items(enabled, n)
+char *enabled;
 {
-	int l2;
-	int l4;
+	int i;
+	int count;
 	register int rsi;
-	l2 = 0;
-	l4 = 0;
+	i = 0;
+	count = 0;
 L706c:
-	if (l2 == p6) goto L7095;
-	rsi = (l2 << 1);
-	if (*(int *)(p4 + rsi) != -1) goto L7088;
+	if (i == n) goto L7095;
+	rsi = (i << 1);
+	if (*(int *)(enabled + rsi) != -1) goto L7088;
 	return 0;
 L7088:
-	if (*(int *)(p4 + rsi) != 1) goto L7090;
-	l4++;
+	if (*(int *)(enabled + rsi) != 1) goto L7090;
+	count++;
 L7090:
-	l2++;
+	i++;
 	goto L706c;
 L7095:
-	return l4;
+	return count;
 }

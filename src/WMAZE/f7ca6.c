@@ -1,12 +1,12 @@
 #asm
-	extrn f2925_:near
+	extrn get_bitfield_:near
 #endasm
-extern int g363c;
+extern int game_state_arg;
 f7ca6(p4, p6, p8, p10, p12)
 {
-	if (!f7b1b(&p8, &p10, &p12, (p4 - 1), p6)) goto L7ce1;
-	if (g363c == 10) goto L7cda;
-	if (g363c == 12) goto L7cda;
+	if (!move_to_maze_cell_m(&p8, &p10, &p12, (p4 - 1), p6)) goto L7ce1;
+	if (game_state_arg == 10) goto L7cda;
+	if (game_state_arg == 12) goto L7cda;
 #asm
 	db 0b8h,002h,000h,0ebh,003h
 #endasm
@@ -24,7 +24,7 @@ l7ce1:
 	db 0b8h,002h,000h,050h,08bh,046h,00ch,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,00ah,0d1h
 	db 0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,003h,046h,008h,050h,0a1h,0aah,04fh,005h,020h
 	db 001h,050h
-	call f2925_
+	call get_bitfield_
 	db 083h,0c4h,006h
 #endasm
 	return;

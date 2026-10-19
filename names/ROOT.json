@@ -157,7 +157,7 @@
     "363a": "game_state",
     "363c": "game_state_arg",
     "0004": "realm_colors", "00de": "spell_table", "3348": "sound_table", "33f0": "cur_sound_size", "33f8": "scenario_hdr",
-    "3591": "cfg_delay", "3593": "cfg_level", "3594": "cfg_input", "3595": "cfg_gmode", "3646": "anim_phase",
+    "3591": "cfg_delay", "3593": "cfg_level", "3594": "cfg_input", "3595": "cfg_gmode", "3644": "anim_cycle", "3646": "anim_phase",
     "4322": "pic_slot_loaded", "432c": "pic_slot_monster", "4336": "cur_sound", "433c": "view_rows_open", "4356": "combat_over",
     "4358": "view_anim_state", "4360": "monster_group_count", "4362": "view_pos_group", "438e": "sprite_count", "4390": "sprite_list",
     "43a8": "monster_groups", "43b6": "group_monster_rec", "43c4": "treasure_id", "43c6": "combat_gold", "43cc": "cur_member",

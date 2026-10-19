@@ -1,6 +1,6 @@
 #asm
-	public f1fe8_
-f1fe8_:
+	public calibrate_delay_
+calibrate_delay_:
 	db 01eh,056h,050h,053h,051h,052h,0b9h,000h,000h,08eh,0d9h,0bbh,06ch,004h,08bh,0f1h
 	db 08bh,017h
 l1ffa:

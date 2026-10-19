@@ -1,15 +1,16 @@
-extern char g3598[];
+extern char click_regions[];
 extern char g3599[];
 extern char g359a[];
 extern char g359b[];
-f0c16(p4, p6, p8, p10, p12)
-char p6;
-char p8;
-char p10;
-char p12;
+/* Set click region i to the rectangle x1,y1,x2,y2 (255 ends the table). */
+set_click_region(i, x1, y1, x2, y2)
+char x1;
+char y1;
+char x2;
+char y2;
 {
-	g3598[(p4 << 2)] = p6;
-	g3599[(p4 << 2)] = p8;
-	g359a[(p4 << 2)] = p10;
-	g359b[(p4 << 2)] = p12;
+	click_regions[(i << 2)] = x1;
+	g3599[(i << 2)] = y1;
+	g359a[(i << 2)] = x2;
+	g359b[(i << 2)] = y2;
 }

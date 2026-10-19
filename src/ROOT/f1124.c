@@ -1,25 +1,26 @@
 extern char g3592;
-extern int g3044;
-f1124(p4, p6)
+extern int disk_header;
+/* Make sure the disk needed for an action is inserted. */
+ensure_disk_for(kind, arg)
 {
 	char x0[18];
-	int l20;
-	int l22;
-	int l24;
-	l22 = 0;
+	int label;
+	int disk;
+	int want;
+	disk = 0;
 #asm
 	db 0a0h,092h,035h,02ah,0e4h,0e9h,09fh,001h
 #endasm
-	l22 = 0;
+	disk = 0;
 	goto L12e3;
 #asm
 	db 08bh,046h,004h,0ebh,021h
 #endasm
-	l22 = (p6 >= 0 ? (p6 < 8 ? 1 : 2) : 0);
+	disk = (arg >= 0 ? (arg < 8 ? 1 : 2) : 0);
 #asm
 	db 0ebh,01bh
 #endasm
-	l22 = 0;
+	disk = 0;
 #asm
 	db 0ebh,014h
 #endasm
@@ -60,7 +61,7 @@ l11ae:
 	db 089h,046h,0eah
 #endasm
 	goto L11ce;
-	l22 = 0;
+	disk = 0;
 #asm
 	db 0ebh,014h
 #endasm
@@ -114,7 +115,7 @@ l122b:
 	db 089h,046h,0eah
 #endasm
 	goto L124b;
-	l22 = 0;
+	disk = 0;
 #asm
 	db 0ebh,014h
 #endasm
@@ -168,7 +169,7 @@ l12a8:
 	db 089h,046h,0eah
 #endasm
 	goto L12c8;
-	l22 = 0;
+	disk = 0;
 #asm
 	db 0ebh,014h
 #endasm
@@ -187,11 +188,11 @@ l12d6:
 	db 03dh,006h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0cah,012h
 #endasm
 L12e3:
-	l24 = ((g3592 == 5) && (l22 > 0) ? (l22 - 2) : l22);
-	if (l24 == g3044) goto L1329;
-	f0c82(&l20, 13632, 58);
-	f0d26(&l20, l22, 1, 1);
-	f2a63();
+	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
+	if (want == disk_header) goto L1329;
+	copy_through_char(&label, 13632, 58);
+	prompt_insert_disk(&label, disk, 1, 1);
+	refresh_all_windows();
 L1329:
 	;
 }

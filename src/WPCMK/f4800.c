@@ -1,17 +1,18 @@
-extern int g0846;
-extern int g4fc4;
-f4800(p4, p6, p8, p10, p12, p14, p16, p18, p20)
-char *p4;
+extern int menu_clicked;
+extern int mouse_present;
+/* Menu of consecutive messages with enabled flags laid out in columns; returns the chosen item index. */
+menu_select(win, first_msg, enabled, x0, y0, col_width, rows, color, sel)
+char *win;
 {
-	int l2;
-	int l4;
-	char l409[405];
-	int l411;
-	int l413;
+	int item;
+	int n;
+	char labels[405];
+	int x;
+	int y;
 	char x413[1];
 	register int rsi;
-	l4 = 0;
-	l2 = 0;
+	n = 0;
+	item = 0;
 L4812:
 	;
 #asm
@@ -27,68 +28,68 @@ l4824:
 #endasm
 	goto L493f;
 L482c:
-	l411 = (((l4 / p16) * p14) + p10);
-	l413 = ((l4 % p16) + p12);
-	f030b(p4, l411, l413);
-	f075b((p6 + l2), ((l4 * 25) + l409));
-	if (g0846) goto L48b5;
-	if (p20 != l4) goto L48b5;
-	f24e9(p4, ((l4 * 25) + l409), (0 - p18));
+	x = (((n / rows) * col_width) + x0);
+	y = ((n % rows) + y0);
+	set_cursor(win, x, y);
+	get_message((first_msg + item), ((n * 25) + labels));
+	if (mouse_present) goto L48b5;
+	if (sel != n) goto L48b5;
+	print_string(win, ((n * 25) + labels), (0 - color));
 	goto L48d8;
 L48b5:
-	f251d(p4, ((l4 * 25) + l409), 3);
+	print_string_hi(win, ((n * 25) + labels), 3);
 L48d8:
-	*(int *)(l409 + ((l4 << 1) + 375)) = l2;
-	f0c16(l4, ((unsigned char)p4[2] + l411), ((unsigned char)p4[3] + l413), (((strlen(((l4 * 25) + l409)) + (unsigned char)p4[2]) + l411) - 1), ((unsigned char)p4[3] + l413));
-	l4++;
+	*(int *)(labels + ((n << 1) + 375)) = item;
+	set_click_region(n, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((n * 25) + labels)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
+	n++;
 L493f:
-	l2++;
+	item++;
 	goto L4812;
 L4945:
-	f0c16(l4, 255, 0, 0, 0);
+	set_click_region(n, 255, 0, 0, 0);
 L4958:
-	if (g0846) goto L49a9;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f24e9(p4, ((p20 * 25) + l409), (0 - p18));
+	if (mouse_present) goto L49a9;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string(win, ((sel * 25) + labels), (0 - color));
 L49a9:
-	l2 = f45fc(21534, 13720);
-	if (g4fc4 != 1) goto L49cc;
-	p20 = l2;
-	l2 = 5;
+	item = get_menu_input(21534, 13720);
+	if (menu_clicked != 1) goto L49cc;
+	sel = item;
+	item = 5;
 	goto L4b53;
 L49cc:
-	switch (l2) {
+	switch (item) {
 case 1:
-	if ((p20 - p16) < 0) goto L4a27;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 25) + l409), 3);
-	p20 -= p16;
+	if ((sel - rows) < 0) goto L4a27;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 25) + labels), 3);
+	sel -= rows;
 L4a27:
 	goto L4b53;
 case 2:
-	if ((p20 % p16) <= 0) goto L4a79;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 25) + l409), 3);
-	p20--;
+	if ((sel % rows) <= 0) goto L4a79;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 25) + labels), 3);
+	sel--;
 L4a79:
 	goto L4b53;
 case 3:
-	if ((p20 + p16) >= l4) goto L4ad4;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 25) + l409), 3);
-	p20 += p16;
+	if ((sel + rows) >= n) goto L4ad4;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 25) + labels), 3);
+	sel += rows;
 L4ad4:
 	goto L4b53;
 case 4:
-	if ((p20 % p16) >= (p16 - 1)) goto L4b34;
-	if ((p20 + 1) >= l4) goto L4b34;
-	f030b(p4, (((p20 / p16) * p14) + p10), ((p20 % p16) + p12));
-	f251d(p4, ((p20 * 25) + l409), 3);
-	p20++;
+	if ((sel % rows) >= (rows - 1)) goto L4b34;
+	if ((sel + 1) >= n) goto L4b34;
+	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
+	print_string_hi(win, ((sel * 25) + labels), 3);
+	sel++;
 L4b34:
 	goto L4b53;
 	}
 L4b53:
-	if (l2 != 5) goto L4958;
-	return *(int *)(l409 + ((p20 << 1) + 375));
+	if (item != 5) goto L4958;
+	return *(int *)(labels + ((sel << 1) + 375));
 }

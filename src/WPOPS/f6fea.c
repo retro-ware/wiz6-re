@@ -1,4 +1,4 @@
-f6fea(p4, p6)
+copy_name(p4, p6)
 char *p4;
 char *p6;
 {

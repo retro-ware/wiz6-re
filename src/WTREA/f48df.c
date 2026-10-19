@@ -1,27 +1,27 @@
-extern int g3646;
+extern int anim_phase;
 extern int g502c;
-f48df(p4)
+wait_animating(seconds)
 {
-	f280c();
-	p4 = (p4 * 5);
+	flush_keys();
+	seconds = (seconds * 5);
 L48f3:
-	if (p4 <= 0) goto L494e;
-	if (!f0c42()) goto L4904;
+	if (seconds <= 0) goto L494e;
+	if (!check_screen_click()) goto L4904;
 	return;
 L4904:
-	if (!f2643(1)) goto L491e;
-	if ((char)f2724(1) != 13) goto L491e;
+	if (!key_available(1)) goto L491e;
+	if ((char)get_key(1) != 13) goto L491e;
 	return;
 L491e:
 	if (g502c) goto L4938;
-	g3646 = ((g3646 + 1) % 2);
-	f4811();
+	anim_phase = ((anim_phase + 1) % 2);
+	animate_treasure_view();
 	goto L493b;
 L4938:
-	f45b8();
+	play_ambient_sound();
 L493b:
 	g502c = ((g502c + 1) % 10);
-	p4--;
+	seconds--;
 	goto L48f3;
 L494e:
 	return;

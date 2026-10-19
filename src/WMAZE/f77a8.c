@@ -1,15 +1,15 @@
-extern int g4f9a;
-extern int g4f9c;
-extern int g4f9e;
-extern int g4fa0;
-extern int g4fa2;
-extern int g4fa4;
-f77a8(p4)
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+try_step(p4)
 {
 	int l2;
-	l2 = f548e(g4f9a, g4f9c, g4fa0, g4f9e, g4fa4, g4fa2);
+	l2 = get_wall_in_direction(party_facing, party_level, party_cell_x, party_cell_y, party_x, party_y);
 	if (l2 >= 2) goto L77e5;
-	f7601(g4f9a, p4);
+	can_enter_cell(party_facing, p4);
 	return;
 L77e5:
 	return 1;

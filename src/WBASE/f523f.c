@@ -1,23 +1,24 @@
-extern int g3646;
-extern int g4fbc;
-extern int g5060;
-extern int g5062;
-extern int g5064;
-f523f(p4)
+extern int anim_phase;
+extern int camp_anim_dx;
+extern int camp_anim_dy;
+extern int camp_anim_tick;
+extern int picture_win;
+/* Wait for a key while animating the camp scene; return the key. */
+wait_key_animated(mode)
 {
 L5242:
-	if (f2643(p4)) goto L5291;
-	if (g5060) goto L527b;
-	g3646 = ((g3646 + 1) % 2);
-	f4d1b(g3646, g5064, g5062);
-	f36a0(g4fbc);
+	if (key_available(mode)) goto L5291;
+	if (camp_anim_tick) goto L527b;
+	anim_phase = ((anim_phase + 1) % 2);
+	draw_camp_scene(anim_phase, camp_anim_dx, camp_anim_dy);
+	drv_op_c2(picture_win);
 	goto L5281;
 L527b:
-	f2858();
-	f2858();
+	delay_tick();
+	delay_tick();
 L5281:
-	g5060 = ((g5060 + 1) % 10);
+	camp_anim_tick = ((camp_anim_tick + 1) % 10);
 	goto L5242;
 L5291:
-	return (unsigned char)(f2724(p4));
+	return (unsigned char)(get_key(mode));
 }

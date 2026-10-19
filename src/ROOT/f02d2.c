@@ -1,9 +1,10 @@
-f02d2(p4, p6)
+/* Unlink and free a window, optionally refreshing the screen. */
+destroy_window(win, refresh)
 {
-	f303e(p4);
-	free(p4);
-	if (!p6) goto L02ec;
-	f2a63();
+	unlink_window(win);
+	free(win);
+	if (!refresh) goto L02ec;
+	refresh_all_windows();
 L02ec:
 	;
 }

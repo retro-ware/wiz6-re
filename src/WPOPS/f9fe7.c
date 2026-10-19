@@ -2,7 +2,7 @@ extern char g50a1[];
 extern char g50ad[];
 extern char g50b4[];
 extern char g50be[];
-f9fe7(p4, p6)
+hide_behind_left(p4, p6)
 {
 	if (p6) goto La002;
 	if (g50a1[(p4 * 3)] != 1) goto La014;

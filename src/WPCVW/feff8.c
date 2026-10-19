@@ -5,11 +5,11 @@ extern char g4518[];
 extern char g4519[];
 extern char g452c[];
 extern char g4548[];
-extern char g4585[];
-extern char g4587[];
 extern char g4596[];
 extern char g4597[];
-extern int g440c[];
+extern char pc_class[];
+extern char pc_race[];
+extern int pc_level[];
 feff8(p4)
 {
 	int l2;
@@ -17,40 +17,40 @@ feff8(p4)
 	int l6;
 	int l8;
 	int l10;
-	if (*(int *)((char *)g440c + (432 * p4)) <= 20) goto Lf011;
+	if (*(int *)((char *)pc_level + (432 * p4)) <= 20) goto Lf011;
 	return;
 Lf011:
 	l6 = (unsigned char)g4518[(432 * p4)];
 	l4 = 0;
-	switch ((unsigned char)g4587[(432 * p4)]) {
+	switch ((unsigned char)pc_class[(432 * p4)]) {
 case 0:
 case 4:
 case 8:
 case 10:
 case 12:
-	l4 = (f09e2(4) + 2);
+	l4 = (random(4) + 2);
 	goto Lf08b;
 case 1:
 case 5:
 case 7:
 case 9:
-	l4 = (f09e2(3) + 1);
+	l4 = (random(3) + 1);
 	goto Lf08b;
 case 2:
 case 3:
 case 6:
-	l4 = (f09e2(4) + 1);
+	l4 = (random(4) + 1);
 	goto Lf08b;
 case 11:
 case 13:
-	l4 = (f09e2(4) + 3);
+	l4 = (random(4) + 3);
 	goto Lf08b;
 	}
 Lf08b:
 	if (l6 >= 8) goto Lf094;
 	l4--;
 Lf094:
-	if (*(int *)((char *)g440c + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf0b3;
+	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf0b3;
 	l4 = 0;
 Lf0b3:
 	g4596[(432 * p4)] = (char)(g4596[(432 * p4)] - l4);
@@ -86,13 +86,13 @@ Lf16a:
 	if ((unsigned)g4519[(432 * p4)] <= 17) goto Lf174;
 	l8--;
 Lf174:
-	if (g4585[(432 * p4)] != 5) goto Lf181;
+	if (pc_race[(432 * p4)] != 5) goto Lf181;
 	l8 -= 2;
 Lf181:
-	if (g4587[(432 * p4)] == 13) goto Lf18f;
-	if (g4587[(432 * p4)] != 12) goto Lf1bb;
+	if (pc_class[(432 * p4)] == 13) goto Lf18f;
+	if (pc_class[(432 * p4)] != 12) goto Lf1bb;
 Lf18f:
-	l2 = (*(int *)((char *)g440c + (432 * p4)) <= 20 ? (*(int *)((char *)g440c + (432 * p4)) / 2) : 20);
+	l2 = (*(int *)((char *)pc_level + (432 * p4)) <= 20 ? (*(int *)((char *)pc_level + (432 * p4)) / 2) : 20);
 	l2 += ((unsigned char)g452c[(432 * p4)] / 10);
 	l8 -= l2;
 Lf1bb:

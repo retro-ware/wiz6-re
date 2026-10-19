@@ -1,26 +1,27 @@
 extern int g50c6[];
-f5357(p4, p6, p8, p10)
+/* Set the map cell next to x, y in direction dir to value. */
+mark_map_neighbor(dir, value, x, y)
 {
-	switch (p4) {
+	switch (dir) {
 case 0:
-	p10--;
+	y--;
 	goto L5387;
 case 1:
-	p8++;
+	x++;
 	goto L5387;
 case 2:
-	p10++;
+	y++;
 	goto L5387;
 case 3:
-	p8--;
+	x--;
 	goto L5387;
 	}
 L5387:
-	if (p8 < 0) goto L53c0;
-	if (p8 >= 5) goto L53c0;
-	if (p10 < 0) goto L53c0;
-	if (p10 >= 5) goto L53c0;
-	*(int *)((char *)g50c6 + ((p8 * 10) + (p10 << 1))) = p6;
+	if (x < 0) goto L53c0;
+	if (x >= 5) goto L53c0;
+	if (y < 0) goto L53c0;
+	if (y >= 5) goto L53c0;
+	*(int *)((char *)g50c6 + ((x * 10) + (y << 1))) = value;
 L53c0:
 	;
 }

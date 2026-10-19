@@ -1,8 +1,8 @@
-extern char g55a4[];
+extern char char_skills[];
 extern char g55ae[];
 extern char g55b5[];
 extern char g55ba[];
-f55ad(p4, p6, p8, p10)
+set_class_skill_masks(p4, p6, p8, p10)
 {
 	int l2;
 	register int rsi;
@@ -14,7 +14,7 @@ L55bb:
 l55bb:
 	db 08bh,05eh,004h,08bh,076h,0feh,080h,038h,031h,074h,007h
 #endasm
-	if ((unsigned)g55a4[rsi] <= 0) goto L55d2;
+	if ((unsigned)char_skills[rsi] <= 0) goto L55d2;
 L55cd:
 	;
 #asm

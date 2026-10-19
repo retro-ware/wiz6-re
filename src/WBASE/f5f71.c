@@ -1,17 +1,18 @@
-extern int g363a;
-extern int g363c;
-f5f71(p4)
+extern int game_state;
+extern int game_state_arg;
+/* Check copy protection, load the game and switch to the maze. */
+start_game(resume)
 {
-	if (f543f() != -1) goto L5f89;
-	f6fe7();
-	g363a = 3;
+	if (check_magic_word() != -1) goto L5f89;
+	close_game_windows();
+	game_state = 3;
 	return;
 L5f89:
-	if (f570a(p4) != -1) goto L5f97;
+	if (load_game(resume) != -1) goto L5f97;
 	return;
 L5f97:
-	f1124(0, g363c);
-	f5d39();
-	g363a = 6;
+	ensure_disk_for(0, game_state_arg);
+	setup_game_windows();
+	game_state = 6;
 	return;
 }

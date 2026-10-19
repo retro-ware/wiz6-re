@@ -1,12 +1,8 @@
 #asm
 	public fb344_
-	extrn f011a_:near
-	extrn f02d2_:near
-	extrn f075b_:near
-	extrn f09e2_:near
-	extrn f0aaa_:near
-	extrn f2a63_:near
-	extrn f32be_:near
+	extrn create_window_:near
+	extrn destroy_window_:near
+	extrn do_npc_pilfer_:near
 	extrn f5382_:near
 	extrn f541a_:near
 	extrn f56a1_:near
@@ -20,9 +16,13 @@
 	extrn f9edb_:near
 	extrn fa645_:near
 	extrn faeb5_:near
-	extrn fb047_:near
 	extrn fb2fd_:near
 	extrn fd674_:near
+	extrn fill_window_:near
+	extrn get_message_:near
+	extrn play_sound_:near
+	extrn random_:near
+	extrn refresh_all_windows_:near
 fb344_:
 	db 055h,08bh,0ech,083h,0c4h,0cah,0c7h,006h,076h,052h,000h,000h,0c7h,006h,092h,058h
 	db 000h,000h,0c7h,046h,0fah,000h,000h
@@ -30,10 +30,10 @@ lb35b:
 	db 08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0e6h,001h,000h,0ffh,046h
 	db 0fah,08bh,046h,0fah,03dh,007h,000h,07eh,0e7h,0c7h,046h,0f6h,0ffh,0ffh,0c7h,046h
 	db 0fah,000h,000h,08dh,046h,0d0h,050h,0b8h,0e6h,005h,050h
-	call f075b_
+	call get_message_
 	db 083h,0c4h,004h,0b8h,000h,000h,050h,050h,0b8h,0fch,0ffh,050h,0b8h,012h,000h,050h
 	db 0b8h,005h,000h,050h,0b8h,013h,000h,050h,050h,0b8h,000h,000h,050h
-	call f011a_
+	call create_window_
 	db 083h,0c4h,010h,089h,046h,0e4h,083h,03eh,0b0h,051h,000h,07eh,00eh,0b8h,000h,000h
 	db 050h,0ffh,036h,0b0h,051h
 	call f5c61_
@@ -43,7 +43,7 @@ lb3c4:
 lb3c9:
 	db 0c7h,006h,07ah,052h,000h,000h,083h,03eh,024h,052h,000h,07eh,008h,0ffh,036h,024h
 	db 052h
-	call f0aaa_
+	call play_sound_
 	db 059h
 lb3de:
 	db 0c7h,046h,0feh,000h,000h
@@ -57,18 +57,18 @@ lb3e3:
 	db 059h
 lb411:
 	db 0b8h,000h,000h,050h,0ffh,076h,0e4h
-	call f02d2_
+	call destroy_window_
 	db 083h,0c4h,004h
 lb41e:
 	db 08bh,0e5h,05dh,0c3h
 lb422:
 	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07ch,0b6h,0b8h,000h,000h,050h,0b8h
 	db 003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,0e4h
-	call f32be_
+	call fill_window_
 	db 083h,0c4h,008h,0b8h,000h,000h,050h,08dh,046h,0d0h,050h
 	call f541a_
 	db 083h,0c4h,004h,0c7h,046h,0ceh,0ffh,0ffh
-	call f2a63_
+	call refresh_all_windows_
 	db 0b8h,000h,000h,050h,050h,0b8h,005h,000h,050h,0b8h,003h,000h,050h,0b8h,006h,000h
 	db 050h,0b8h,001h,000h,050h,050h,08dh,046h,0e6h,050h,0b8h,0fah,005h,050h,0ffh,076h
 	db 0e4h
@@ -133,7 +133,7 @@ lb5c3:
 	db 083h,0c4h,004h,089h,046h,0ceh,03dh,000h,000h,07ch,010h,050h
 	call fb2fd_
 	db 059h,085h,0c0h,074h,007h,0ffh,076h,0ceh
-	call fb047_
+	call do_npc_pilfer_
 	db 059h
 lb5ec:
 	db 0e9h,0bdh,000h,0c7h,046h,0feh,000h,000h,0ebh,05bh
@@ -143,7 +143,7 @@ lb5f6:
 	db 050h,045h
 lb618:
 	db 0b8h,005h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,08bh,0c8h,005h,005h,000h,08bh,0c8h,0b8h,0b0h,001h,0f7h,06eh,0feh,003h,006h
 	db 074h,052h,08bh,0d8h,08ah,087h,050h,045h,098h,02bh,0c1h,089h,046h,0fch,03dh,09ch
 	db 0ffh,07dh,005h,0c7h,046h,0fch,09ch,0ffh
@@ -160,11 +160,11 @@ lb69f:
 lb6ac:
 	db 083h,07eh,0ceh,000h,07ch,015h,0a1h,0ceh,043h,048h,03bh,046h,0ceh,07ch,00ch,0b8h
 	db 004h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,085h,0c0h,075h,00bh
 lb6c7:
 	db 0ffh,036h,0ceh,043h
-	call f09e2_
+	call random_
 	db 059h,089h,046h,0ceh
 lb6d2:
 	db 0b8h,0b0h,001h,0f7h,06eh,0ceh,003h,006h,074h,052h,08bh,0d8h,08ah,087h,050h,045h
@@ -174,7 +174,7 @@ lb700:
 	db 0a0h,0d3h,051h,02ah,0e4h,0a9h,010h,000h,074h,000h
 lb70a:
 	db 0b8h,064h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0ceh,08bh,0d8h,08ah,087h,01ah,045h,02ah,0e4h
 	db 08bh,0c8h,058h,003h,0c1h,003h,006h,0d0h,052h,003h,01eh,074h,052h,080h,0bfh,050h
 	db 045h,000h,07dh,00fh,050h,08ah,087h,050h,045h,098h,08bh,0c8h,0f7h,0d8h,08bh,0c8h
@@ -183,7 +183,7 @@ lb744:
 	db 050h,08ah,087h,050h,045h,098h,08bh,0c8h,058h
 lb74d:
 	db 03bh,0c1h,07dh,05bh,0b8h,002h,000h,050h
-	call f09e2_
+	call random_
 	db 059h,03dh,001h,000h,075h,035h,0b8h,001h,000h,050h,0b8h,005h,006h,050h
 	call f5d9b_
 	db 083h,0c4h,004h,0a0h,0cch,051h,02ah,0e4h,0a3h,03ah,043h,0c7h,006h,038h,043h,001h
@@ -210,6 +210,6 @@ lb7e6:
 	db 059h
 lb7f5:
 	db 0b8h,000h,000h,050h,0ffh,076h,0e4h
-	call f02d2_
+	call destroy_window_
 	db 083h,0c4h,004h,0e9h,019h,0fch
 #endasm
