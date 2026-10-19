@@ -36,7 +36,8 @@ l5195:
 	jammed = 1;
 L5201:
 	result = 0;
-	if ((roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2)) >= lock_level) goto L5246;
+	roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2);
+	if (roll >= lock_level) goto L5246;
 	result = 1;
 L5246:
 	if (!jammed) goto L5251;

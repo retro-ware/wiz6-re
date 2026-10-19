@@ -119,7 +119,8 @@ l9452:
 #endasm
 	f8efc(l6, 0, 0, 1);
 	f8149(l6, -10, 2, 4, p8, 1, l10);
-	if ((l2 = (unsigned char)g0192[monster_groups[l6]]) >= p8) goto L964e;
+	l2 = (unsigned char)g0192[monster_groups[l6]];
+	if (l2 >= p8) goto L964e;
 	l2 = p8;
 L964e:
 	g0192[monster_groups[l6]] = (char)(l2 + 1);
@@ -255,7 +256,8 @@ L97ea:
 #endasm
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3477, 6, p8, l10, 1, 4, 5, 0, (p8 * 10), 2, p8, 0, 0);
-	if ((l2 = (unsigned char)g0193[monster_groups[l6]]) >= p8) goto L9ad7;
+	l2 = (unsigned char)g0193[monster_groups[l6]];
+	if (l2 >= p8) goto L9ad7;
 	l2 = p8;
 L9ad7:
 	g0193[monster_groups[l6]] = (char)(l2 + 1);
@@ -316,7 +318,8 @@ L9c9e:
 	goto Lb021;
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3480, 5, p8, l10, 2, 3, 8, 0, p8, 4, p8, 0, 0);
-	if ((l2 = (unsigned char)g0194[monster_groups[l6]]) >= p8) goto L9d0f;
+	l2 = (unsigned char)g0194[monster_groups[l6]];
+	if (l2 >= p8) goto L9d0f;
 	l2 = p8;
 L9d0f:
 	g0194[monster_groups[l6]] = (char)(l2 + 1);
@@ -400,7 +403,8 @@ l9e24:
 #endasm
 	f8efc(l6, 0, 3, 1);
 	f8149(l6, -10, 1, 6, p8, 8, l10);
-	if ((l2 = (unsigned char)g0195[monster_groups[l6]]) >= p8) goto L9fc3;
+	l2 = (unsigned char)g0195[monster_groups[l6]];
+	if (l2 >= p8) goto L9fc3;
 	l2 = p8;
 L9fc3:
 	g0195[monster_groups[l6]] = (char)(l2 + 1);

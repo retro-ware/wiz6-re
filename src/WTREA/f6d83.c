@@ -22,7 +22,8 @@ L6de6:
 	if (l4 >= 5) goto L6df1;
 	l4 = 5;
 L6df1:
-	if ((l2 = random(100)) >= l4) goto L6e3d;
+	l2 = random(100);
+	if (l2 >= l4) goto L6e3d;
 	chest_trap = 0;
 	spell_disarm_result = 1;
 	g501e = 1;

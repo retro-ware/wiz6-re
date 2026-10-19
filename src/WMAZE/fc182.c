@@ -19,7 +19,8 @@ riddle_event()
 	int l172;
 	l6 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	if (extract_bits(l6, 11, 1) != 1) goto Lc1d1;
-	if ((g4f8a = extract_bits(l6, 9, 2)) == party_facing) goto Lc1d1;
+	g4f8a = extract_bits(l6, 9, 2);
+	if (g4f8a == party_facing) goto Lc1d1;
 	return;
 Lc1d1:
 	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);

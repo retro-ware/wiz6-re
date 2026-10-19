@@ -10,7 +10,8 @@ do_message_event()
 	char x2[2];
 	l2 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	if (extract_bits(l2, 14, 1) != 1) goto La3d4;
-	if ((g4f8a = extract_bits(l2, 12, 2)) == party_facing) goto La3d4;
+	g4f8a = extract_bits(l2, 12, 2);
+	if (g4f8a == party_facing) goto La3d4;
 	return;
 La3d4:
 	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto La3f0;

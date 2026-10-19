@@ -121,7 +121,8 @@ case 3:
 	}
 L7a3c:
 	l6 = get_bitfield((maze_data + 504), cell, 4);
-	if ((l8 = get_bitfield((maze_data + 888), cell, 2)) == party_facing) goto L7a7b;
+	l8 = get_bitfield((maze_data + 888), cell, 2);
+	if (l8 == party_facing) goto L7a7b;
 	if (l6 == 6) goto L7a7b;
 	if (l6 <= 12) goto L7b67;
 L7a7b:

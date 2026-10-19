@@ -18,15 +18,9 @@ f88b1(p4, p6, p8, p10, p12)
 	int l16;
 	register int rsi;
 	l10 = (unsigned char)g019d[monster_groups[p4]];
-#asm
-	db 08bh,046h,006h,050h,03dh,000h,000h,058h,07dh,002h,0f7h,0d8h
-#endasm
-L88d8:
-	;
-#asm
-l88d8:
-	db 089h,046h,0f4h,03bh,046h,0f6h,07eh,006h,08bh,046h,0f6h,089h,046h,0f4h
-#endasm
+	l12 = (p6 < 0 ? -p6 : p6);
+	if (l12 <= l10) goto L88e6;
+	l12 = l10;
 L88e6:
 	l14 = random((l10 - l12));
 	l2 = l14;

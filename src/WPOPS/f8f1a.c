@@ -121,7 +121,8 @@ case 3:
 	}
 L91b9:
 	feature = get_bitfield((maze_data + 504), cell, 4);
-	if ((facing = get_bitfield((maze_data + 888), cell, 2)) == party_facing) goto L91f8;
+	facing = get_bitfield((maze_data + 888), cell, 2);
+	if (facing == party_facing) goto L91f8;
 	if (feature == 6) goto L91f8;
 	if (feature <= 12) goto L92e4;
 L91f8:

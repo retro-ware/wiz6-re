@@ -120,7 +120,8 @@ case 3:
 	}
 La1e3:
 	l6 = get_bitfield((maze_data + 504), rsi, 4);
-	if ((l8 = get_bitfield((maze_data + 888), rsi, 2)) == party_facing) goto La222;
+	l8 = get_bitfield((maze_data + 888), rsi, 2);
+	if (l8 == party_facing) goto La222;
 	if (l6 == 6) goto La222;
 	if (l6 <= 12) goto La30e;
 La222:

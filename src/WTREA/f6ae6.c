@@ -107,7 +107,8 @@ L6d3e:
 	if (chance >= 5) goto L6d49;
 	chance = 5;
 L6d49:
-	if ((l4 = random(100)) >= chance) goto L6d5f;
+	l4 = random(100);
+	if (l4 >= chance) goto L6d5f;
 	return 1;
 L6d5f:
 	if ((100 - ((100 - chance) / 3)) >= l4) goto L6d7d;

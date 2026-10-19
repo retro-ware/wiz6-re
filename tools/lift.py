@@ -345,7 +345,8 @@ class Lifter:
         if kind == 'if' and p is not None and p.kind == 'asg' and p.e == self.st_start and c is not None and \
                 c[0] not in ('&&', '||') and c[1] == p.lv and p.lv[0] in ('v', 'm') and p.lv[1] != 'r' and \
                 size_of(p.lv) == 2 and t0 is not None and t0.mnemonic in ('test', 'cmp') and \
-                t0.op_str.startswith('ax, ') and t0.address + t0.size == a.address:
+                t0.op_str.startswith('ax, ') and t0.operands[1].type != X.X86_OP_MEM and \
+                t0.address + t0.size == a.address:
             # 'mov lv, ax; test/cmp ax' is an assignment inside the condition: if ((lv = x) == 0)
             self.sts.pop()
             kw['cond'] = (c[0], ('=', p.lv, p.rv), c[2])
