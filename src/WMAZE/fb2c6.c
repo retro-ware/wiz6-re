@@ -14,11 +14,7 @@ Lb329:
 	set_bitfield((maze_data + 504), l2, 4, 0);
 	set_bitfield((maze_data + 888), l2, 2, 0);
 Lb359:
-	;
-#asm
-lb359:
-	db 0ebh,04dh
-#endasm
+	goto Lb3a8;
 Lb35b:
 	if (p12 == 1) goto Lb379;
 	if (get_bitfield((maze_data + 504), l2, 4)) goto Lb3a8;

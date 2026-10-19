@@ -13,9 +13,7 @@ L8637:
 	l2++;
 L8656:
 	if (l2 <= monster_group_count) goto L8637;
-#asm
-	db 0ebh,045h
-#endasm
+	goto L86a6;
 L8661:
 	f8149(0, -10, p6, p8, p10, p12, p14);
 	if ((unsigned)g019d[g43b4] <= 0) goto L86a6;

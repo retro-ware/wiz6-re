@@ -37,11 +37,7 @@ L8320:
 	if (p4) goto L8333;
 	draw_member_card_x(p6, 0);
 L8333:
-	;
-#asm
-l8333:
-	db 0e9h,0b9h,000h
-#endasm
+	goto L83ef;
 L8336:
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);

@@ -1,6 +1,3 @@
-#asm
-	extrn refresh_member_card_:near
-#endasm
 extern char g450d[];
 extern char g450f[];
 extern char g4511[];
@@ -39,9 +36,7 @@ cast_spell(p4, p6, p8, p10, p12, p14)
 #endasm
 	g4ed0 += (p8 * 50);
 	g4ed2 = clamp_toward(((p8 * 5) + 70), g4ed2, 0);
-#asm
-	db 0e9h,097h,005h
-#endasm
+	goto L7119;
 	g4ed4 += (p8 * 35);
 	g4ed6 = clamp_toward((((p8 - 1) / 2) + 1), g4ed6, 0);
 #asm
@@ -70,23 +65,15 @@ cast_spell(p4, p6, p8, p10, p12, p14)
 	if (*(int *)((char *)pc_stamina + (432 * p10)) <= *(int *)((char *)pc_stamina_max + (432 * p10))) goto L6c8b;
 	*(int *)((char *)pc_stamina + (432 * p10)) = *(int *)((char *)pc_stamina_max + (432 * p10));
 L6c8b:
-	;
-#asm
-l6c8b:
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,07eh,004h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
 	if (l2 >= 0) goto L6ccb;
 	l2 = 0;
 L6ccb:
 	g450d[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,037h,004h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
 	if (l2 > 0) goto L6d05;
 	l2 = 0;
@@ -99,11 +86,8 @@ L6d05:
 	g458c[(432 * p10)] = 0;
 L6d35:
 	g450f[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,0cdh,003h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	if (pc_condition[(432 * p10)] != 2) goto L6dbe;
 	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L6dbe;
 	g4517[(432 * p10)]--;
@@ -111,27 +95,26 @@ L6d35:
 	pc_condition[(432 * p10)] = 3;
 	*(int *)((char *)pc_hp + (432 * p10)) = 0;
 	*(int *)((char *)pc_stamina + (432 * p10)) = 0;
-	goto L6db1;
+#asm
+	db 0ebh,005h
+#endasm
 L6dac:
-	pc_condition[(432 * p10)] = 0;
+	;
+#asm
+l6dac:
+	db 0c6h,087h,089h,045h,000h
+#endasm
 L6db1:
 	refresh_member_card(g5752, p10);
 L6dbe:
-	;
-#asm
-l6dbe:
-	db 0e9h,058h,003h
-#endasm
+	goto L7119;
 	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
 	if (l2 >= 0) goto L6df1;
 	l2 = 0;
 L6df1:
 	g4511[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,011h,003h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	l4 = 1;
 L6e0d:
 	;
@@ -158,23 +141,15 @@ l6e52:
 L6e59:
 	l4++;
 	if (l4 <= 9) goto L6e0d;
-#asm
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,0a5h,002h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	l2 = roll_dice(f6a94(p8, 7, p8));
 	*(int *)((char *)pc_hp + (432 * p10)) += l2;
 	if (*(int *)((char *)pc_hp + (432 * p10)) <= *(int *)((char *)pc_hp_max + (432 * p10))) goto L6ebe;
 	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)((char *)pc_hp_max + (432 * p10));
 L6ebe:
-	;
-#asm
-l6ebe:
-	db 0ffh,076h,00ah,0ffh,036h,052h,057h
-	call refresh_member_card_
-	db 083h,0c4h,004h,0e9h,04bh,002h
-#endasm
+	refresh_member_card(g5752, p10);
+	goto L7119;
 	if (pc_condition[(432 * p10)] != 3) goto L6f27;
 	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L6f27;
 	g4517[(432 * p10)]--;
@@ -184,11 +159,7 @@ l6ebe:
 	(*(int *)((char *)g440e + (432 * p10)))++;
 	refresh_member_card(g5752, p10);
 L6f27:
-	;
-#asm
-l6f27:
-	db 0e9h,0efh,001h
-#endasm
+	goto L7119;
 	l2 = roll_dice(f6a94(p8, 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p4)) += l2;
 	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L6f74;
@@ -199,11 +170,7 @@ L6f74:
 	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L6fbf;
 	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
 L6fbf:
-	;
-#asm
-l6fbf:
-	db 0e9h,057h,001h
-#endasm
+	goto L7119;
 	l2 = 0;
 L6fc7:
 	l4 = roll_dice(f6a94(p8, 10, 0));
@@ -213,20 +180,16 @@ L6fc7:
 L701d:
 	l2++;
 	if (l2 < 6) goto L6fc7;
+	goto L7119;
 #asm
-	db 0e9h,0eeh,000h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,080h,0bfh,094h,045h,000h
-	db 076h,032h
+	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,080h,0bfh,094h,045h,000h,076h,032h
 #endasm
 	refresh_all_windows();
 	g43ca = choose_item(p12, p14, 481, p4, 0);
 	if (g43ca == -1) goto L706c;
 	show_item_info(p14, p4, g43ca, p8);
 L706c:
-	;
-#asm
-l706c:
-	db 0e9h,0aah,000h
-#endasm
+	goto L7119;
 	l2 = 0;
 #asm
 	db 0ebh,02dh
@@ -238,12 +201,13 @@ L70a0:
 	l2++;
 L70a3:
 	if ((unsigned char)pc_item_count[(432 * p10)] > l2) goto L7076;
+	goto L7119;
 #asm
-	db 0ebh,061h,00ah,000h,00fh,000h,01ah,000h,01eh,000h,026h,000h,029h,000h,02eh,000h
-	db 033h,000h,035h,000h,036h,000h,039h,000h,040h,000h,044h,000h,046h,000h,049h,000h
-	db 04dh,000h,050h,000h,051h,000h,03eh,06ch,09bh,06ch,0e2h,06ch,0eah,06bh,0fch,06bh
-	db 0b5h,06bh,04ch,06dh,008h,06eh,04ah,06bh,02bh,070h,0c1h,06dh,074h,06eh,082h,06bh
-	db 009h,06ch,06fh,070h,0ceh,06eh,02ah,06fh,0c2h,06fh,019h,071h
+	db 00ah,000h,00fh,000h,01ah,000h,01eh,000h,026h,000h,029h,000h,02eh,000h,033h,000h
+	db 035h,000h,036h,000h,039h,000h,040h,000h,044h,000h,046h,000h,049h,000h,04dh,000h
+	db 050h,000h,051h,000h,03eh,06ch,09bh,06ch,0e2h,06ch,0eah,06bh,0fch,06bh,0b5h,06bh
+	db 04ch,06dh,008h,06eh,04ah,06bh,02bh,070h,0c1h,06dh,074h,06eh,082h,06bh,009h,06ch
+	db 06fh,070h,0ceh,06eh,02ah,06fh,0c2h,06fh,019h,071h
 l7102:
 	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,0b8h,070h,0b9h,013h,000h,0fch,0f2h,0afh,026h
 	db 08bh,04dh,022h,05fh,007h,0ffh,0e1h

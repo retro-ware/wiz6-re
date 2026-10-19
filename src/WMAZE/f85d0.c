@@ -132,11 +132,7 @@ l8a8d:
 #endasm
 	drv_op_c6(345, 0, (g521a != 0 ? 345 : -1));
 L8ad6:
-	;
-#asm
-l8ad6:
-	db 0ebh,03ch
-#endasm
+	goto L8b14;
 L8ad8:
 	drv_op_c6((((g521a + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g521a + anim_phase) % 2) ? (p70 + p4) : -1));
 L8b14:

@@ -8,11 +8,7 @@ L039f:
 	put_char_hi(win, 32, (color + -15));
 	goto L039f;
 L03c0:
-	;
-#asm
-l03c0:
-	db 0ebh,01eh
-#endasm
+	goto L03e0;
 L03c2:
 	if ((unsigned char)win[6] >= col) goto L03e0;
 	put_char(win, 32, 1);

@@ -1,6 +1,3 @@
-#asm
-	extrn refresh_all_windows_:near
-#endasm
 extern int combat_over;
 extern int g438a;
 extern int g438c;
@@ -29,16 +26,10 @@ L72b0:
 	if (l2 < party_count) goto L72a6;
 	end_encounter();
 	game_state = return_cmd;
-#asm
-	db 0ebh,009h
-#endasm
+	goto L72cd;
 L72c4:
-	;
-#asm
-l72c4:
-	db 0c7h,006h,03ah,036h,00bh,000h
-	call refresh_all_windows_
-#endasm
+	game_state = 11;
+	refresh_all_windows();
 L72cd:
 	;
 }

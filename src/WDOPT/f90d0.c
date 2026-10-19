@@ -29,11 +29,9 @@ L9183:
 	if (p6 != 4) goto L91a7;
 	drv_op_c6((p22 + p4), (p4 < 3 ? 0 : 1), -1);
 L91a7:
-	;
+	goto L92bb;
 #asm
-l91a7:
-	db 0e9h,011h,001h,0b8h,0ffh,0ffh,083h,03eh,0ech,055h,000h,074h,006h,08bh,046h,018h
-	db 003h,046h,004h
+	db 0b8h,0ffh,0ffh,083h,03eh,0ech,055h,000h,074h,006h,08bh,046h,018h,003h,046h,004h
 l91ba:
 	db 050h,0b8h,001h,000h,050h,083h,03eh,0ech,055h,000h,074h,008h,08bh,046h,01ah,003h
 	db 046h,004h,0ebh,006h

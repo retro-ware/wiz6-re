@@ -98,15 +98,9 @@ case 13:
 L8ad2:
 	if ((unsigned char)skill_points_left <= l12) goto L8ae4;
 	skill_points_left = (char)((unsigned char)skill_points_left - l12);
-#asm
-	db 0ebh,005h
-#endasm
+	goto L8ae9;
 L8ae4:
-	;
-#asm
-l8ae4:
-	db 0c6h,006h,018h,056h,000h
-#endasm
+	skill_points_left = 0;
 L8ae9:
 	;
 }

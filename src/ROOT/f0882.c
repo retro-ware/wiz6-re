@@ -51,11 +51,7 @@ L0951:
 	if (mode != 1) goto L096f;
 	write(scenario_fd, buf, record_sizes[type]);
 L096f:
-	;
-#asm
-l096f:
-	db 0ebh,02eh
-#endasm
+	goto L099f;
 L0971:
 	if (mode) goto L099f;
 	read(scenario_fd, &raw, record_sizes[type]);

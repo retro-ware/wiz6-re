@@ -1,6 +1,3 @@
-#asm
-	extrn delay_tick_:near
-#endasm
 extern char g36e4[];
 extern char g3717[];
 extern char pic_slot_monster[];
@@ -17,10 +14,8 @@ draw_sprite(p4)
 	register int rdi;
 	if ((unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[20] != 255) goto L6582;
 	delay_tick();
-#asm
-	call delay_tick_
-	db 0e9h,0bah,001h
-#endasm
+	delay_tick();
+	goto L673c;
 L6582:
 	;
 #asm
@@ -52,10 +47,7 @@ L65fd:
 	rsi++;
 L66f2:
 	if (((char *)sprite_list[p4] + rsi)[8]) goto L65c8;
-#asm
-l6706:
-	db 0ebh,034h
-#endasm
+	goto L673c;
 L6708:
 	drv_draw_text((unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21], *(int *)(*(char **)((char *)sprite_list + (p4 << 1))), *(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 2), *(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 4), *(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 6), (unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[22], 0, (sprite_list[p4] + 8));
 L673c:

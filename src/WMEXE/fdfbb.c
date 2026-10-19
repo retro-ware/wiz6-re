@@ -132,11 +132,7 @@ le478:
 #endasm
 	drv_op_c6(345, 0, (g52f4 != 0 ? 345 : -1));
 Le4c1:
-	;
-#asm
-le4c1:
-	db 0ebh,03ch
-#endasm
+	goto Le4ff;
 Le4c3:
 	drv_op_c6((((g52f4 + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g52f4 + anim_phase) % 2) ? (p70 + p4) : -1));
 Le4ff:

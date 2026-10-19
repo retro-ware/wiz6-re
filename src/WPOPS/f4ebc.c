@@ -1,6 +1,3 @@
-#asm
-	extrn delay_tick_:near
-#endasm
 extern char g36e4[];
 extern char g3717[];
 extern char pic_slot_monster[];
@@ -17,10 +14,8 @@ draw_sprite(idx)
 	register int rdi;
 	if ((unsigned char)(*(char **)((char *)sprite_list + (idx << 1)))[20] != 255) goto L4ee2;
 	delay_tick();
-#asm
-	call delay_tick_
-	db 0e9h,0bah,001h
-#endasm
+	delay_tick();
+	goto L509c;
 L4ee2:
 	;
 #asm
@@ -52,10 +47,7 @@ L4f5d:
 	rsi++;
 L5052:
 	if (((char *)sprite_list[idx] + rsi)[8]) goto L4f28;
-#asm
-l5066:
-	db 0ebh,034h
-#endasm
+	goto L509c;
 L5068:
 	drv_draw_text((unsigned char)(*(char **)((char *)sprite_list + (idx << 1)))[21], *(int *)(*(char **)((char *)sprite_list + (idx << 1))), *(int *)((*(char **)((char *)sprite_list + (idx << 1))) + 2), *(int *)((*(char **)((char *)sprite_list + (idx << 1))) + 4), *(int *)((*(char **)((char *)sprite_list + (idx << 1))) + 6), (unsigned char)(*(char **)((char *)sprite_list + (idx << 1)))[22], 0, (sprite_list[idx] + 8));
 L509c:

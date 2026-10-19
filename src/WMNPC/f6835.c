@@ -54,9 +54,7 @@ L6955:
 	l2++;
 L6963:
 	if ((unsigned char)pc_item_count[(432 * p4)] > l2) goto L6900;
-#asm
-	db 0ebh,05dh
-#endasm
+	goto L69d5;
 L6978:
 	pc_swag_count[(432 * p4)]--;
 	l2 = p6;

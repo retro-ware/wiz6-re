@@ -10,9 +10,9 @@ do_teleport_event()
 #asm
 	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,000h,089h,046h,0feh
 	db 0ebh,049h
-	call teleport_party_
-	db 0ebh,051h
 #endasm
+	teleport_party();
+	goto La380;
 	show_maze_message(2052);
 	play_sound(8);
 	wait_animating_m((message_delay / 4));

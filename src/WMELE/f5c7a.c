@@ -97,9 +97,7 @@ L5e9d:
 	if (j != party_count) goto L5ebd;
 	return_cmd = 8;
 	combat_over = 1;
-#asm
-	db 0ebh,013h
-#endasm
+	goto L5ed0;
 L5ebd:
 	if (any <= 0) goto L5ed0;
 	return_cmd = 23;

@@ -15,8 +15,9 @@ fbcec(p4, p6)
 	db 0e0h,005h,0dah,058h,050h,0ffh,076h,006h
 	call strncpy_
 	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0fah,0c6h,000h,053h,08bh,05eh,006h,08bh
-	db 076h,0fah,0c6h,040h,001h,000h,0e9h,029h,001h
+	db 076h,0fah,0c6h,040h,001h,000h
 #endasm
+	goto Lbe75;
 Lbd4c:
 	l6 = char_index(((p4 * 20) + 22746), 64);
 	if (l6 < 0) goto Lbd9a;
@@ -24,8 +25,9 @@ Lbd4c:
 	db 050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h
 	db 005h,0dah,058h,050h,0ffh,076h,006h
 	call strncpy_
-	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0fah,0c6h,000h,000h,0e9h,0dbh,000h
+	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0fah,0c6h,000h,000h
 #endasm
+	goto Lbe75;
 Lbd9a:
 	l6 = char_index(((p4 * 20) + 22746), 94);
 	if (l6 < 0) goto Lbe75;

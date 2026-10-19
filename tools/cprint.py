@@ -420,6 +420,14 @@ class Printer:
                 if k + 1 < len(sts) and getattr(sts[k + 1], 'epi', False) and not open_sw:
                     brk |= {j for j in range(k0 + 1, k) if sts[j].kind == 'ret' and
                             not getattr(sts[j], 'epi', False) and sts[j].rv is None}
+        # a bare return before the epilogue is a jump forward to it (cgen puts the epilogue at the
+        # first 'return'): goto a label on the epilogue
+        epi_k = next((k for k, st in enumerate(sts) if getattr(st, 'epi', False)), None)
+        fwd = set()
+        if epi_k is not None:
+            fwd = {k for k, st in enumerate(sts[:epi_k]) if st.kind == 'ret' and st.rv is None and k not in brk}
+            if fwd:
+                labels.add(sts[epi_k].s)
         for k, st in enumerate(sts):
             lab = []
             if st.s in labels:
@@ -467,7 +475,7 @@ class Printer:
                 elif st.rv is not None:
                     out.append('\treturn %s;' % self.ex(st.rv))
                 else:
-                    out.append('\tbreak;' if k in brk else '\treturn;')
+                    out.append('\tbreak;' if k in brk else '\tgoto L%04x;' % sts[epi_k].s if k in fwd else '\treturn;')
             fell = kd == 'ret' and getattr(st, 'fall', False)
             owners += [st] * (len(out) - len(owners))
         if out and out[-1].endswith(':'):

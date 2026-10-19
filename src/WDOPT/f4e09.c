@@ -55,9 +55,7 @@ L4f29:
 	i++;
 L4f37:
 	if ((unsigned char)pc_item_count[(432 * member)] > i) goto L4ed4;
-#asm
-	db 0ebh,05dh
-#endasm
+	goto L4fa9;
 L4f4c:
 	pc_swag_count[(432 * member)]--;
 	i = slot;

@@ -1,6 +1,3 @@
-#asm
-	extrn show_error_msg_:near
-#endasm
 extern char *prompt_win;
 extern int sheet_win;
 rename_character(slot)
@@ -19,11 +16,8 @@ rename_character(slot)
 	input_text(prompt_win, &name, 7, 5, 0);
 	if (!*(char *)&name) goto L9982;
 	if (is_name_taken(&name) != -1) goto L9943;
-#asm
-	db 0b8h,002h,000h,050h,0b8h,006h,000h,050h,0b8h,04eh,004h,050h
-	call show_error_msg_
-	db 083h,0c4h,006h,0ebh,03fh
-#endasm
+	show_error_msg(1102, 6, 2);
+	goto L9982;
 L9943:
 	strcpy(21616, &name);
 	access_roster_record(21616, slot, 1);

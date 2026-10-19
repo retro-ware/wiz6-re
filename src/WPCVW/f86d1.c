@@ -20,9 +20,7 @@ do_cast_menu(p4, p6, p8, p10)
 	if (p10) goto L873e;
 	choose_spell(p4, p6, p8, 0);
 	g553c = -1;
-#asm
-	db 0e9h,0d5h,000h
-#endasm
+	goto L8813;
 L873e:
 	l2 = choose_spell(p4, p6, p8, 1);
 	if (l2 == -1) goto L8813;

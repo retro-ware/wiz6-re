@@ -132,11 +132,7 @@ le880:
 #endasm
 	drv_op_c6(345, 0, (g6c7e != 0 ? 345 : -1));
 Le8c9:
-	;
-#asm
-le8c9:
-	db 0ebh,03ch
-#endasm
+	goto Le907;
 Le8cb:
 	drv_op_c6((((g6c7e + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g6c7e + anim_phase) % 2) ? (p70 + p4) : -1));
 Le907:

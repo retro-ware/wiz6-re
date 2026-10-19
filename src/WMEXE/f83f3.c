@@ -54,11 +54,7 @@ L8527:
 	if (p4) goto L853a;
 	draw_member_card_x(p6, 0);
 L853a:
-	;
-#asm
-l853a:
-	db 0e9h,0ddh,000h
-#endasm
+	goto L861a;
 L853d:
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);

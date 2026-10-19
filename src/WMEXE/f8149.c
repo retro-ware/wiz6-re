@@ -30,11 +30,7 @@ L81a7:
 	if (p4) goto L81db;
 	draw_member_card_x(p6, 0);
 L81db:
-	;
-#asm
-l81db:
-	db 0e9h,07dh,000h
-#endasm
+	goto L825b;
 L81de:
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);

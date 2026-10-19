@@ -132,11 +132,7 @@ lac45:
 #endasm
 	drv_op_c6(345, 0, (g545c != 0 ? 345 : -1));
 Lac8e:
-	;
-#asm
-lac8e:
-	db 0ebh,03ch
-#endasm
+	goto Laccc;
 Lac90:
 	drv_op_c6((((g545c + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g545c + anim_phase) % 2) ? (p70 + p4) : -1));
 Laccc:

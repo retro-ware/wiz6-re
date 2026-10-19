@@ -132,11 +132,7 @@ l9045:
 #endasm
 	drv_op_c6(345, 0, (g55ec != 0 ? 345 : -1));
 L908e:
-	;
-#asm
-l908e:
-	db 0ebh,03ch
-#endasm
+	goto L90cc;
 L9090:
 	drv_op_c6((((g55ec + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g55ec + anim_phase) % 2) ? (p70 + p4) : -1));
 L90cc:

@@ -1,6 +1,3 @@
-#asm
-	extrn fc95b_:near
-#endasm
 extern int g51b6;
 extern int g5894;
 extern int g5896;
@@ -36,13 +33,11 @@ Lce09:
 Lce34:
 	if (g51b6 <= 0) goto Lce59;
 	fc16d(&l84, 0);
-#asm
-	db 08dh,046h,0ach,050h,0b8h,051h,006h,050h
-	call fc95b_
-	db 083h,0c4h,004h,0ebh,00eh
-#endasm
+	fc95b(1617, &l84);
+	goto Lce67;
 Lce59:
 	fc95b(1638, 20531);
+Lce67:
 	return;
 Lce6b:
 	if (g58b4) goto Lce85;

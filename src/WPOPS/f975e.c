@@ -132,11 +132,7 @@ l9c1b:
 #endasm
 	drv_op_c6(345, 0, (g5254 != 0 ? 345 : -1));
 L9c64:
-	;
-#asm
-l9c64:
-	db 0ebh,03ch
-#endasm
+	goto L9ca2;
 L9c66:
 	drv_op_c6((((g5254 + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g5254 + anim_phase) % 2) ? (p70 + p4) : -1));
 L9ca2:

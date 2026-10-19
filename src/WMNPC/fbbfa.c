@@ -11,8 +11,9 @@ fbbfa(p4)
 	db 050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h
 	db 005h,0dah,058h,050h,0ffh,076h,006h
 	call strncpy_
-	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0feh,0c6h,000h,000h,0e9h,098h,000h
+	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0feh,0c6h,000h,000h
 #endasm
+	goto Lbce7;
 Lbc4f:
 	l2 = char_index(((p4 * 20) + 22746), 64);
 	if (l2 < 0) goto Lbc9c;
@@ -20,8 +21,9 @@ Lbc4f:
 	db 050h,08bh,046h,004h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h
 	db 005h,0dah,058h,050h,0ffh,076h,006h
 	call strncpy_
-	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0feh,0c6h,000h,000h,0ebh,04bh
+	db 083h,0c4h,006h,08bh,05eh,006h,08bh,076h,0feh,0c6h,000h,000h
 #endasm
+	goto Lbce7;
 Lbc9c:
 	l2 = char_index(((p4 * 20) + 22746), 94);
 	if (l2 < 0) goto Lbce7;

@@ -1,17 +1,11 @@
-#asm
-	extrn strcpy_:near
-#endasm
 extern char g019c[];
 extern int group_monster_rec[];
 extern int monster_groups[];
-get_combatant_name(p4, p6)
+get_combatant_name(p4, p6, p8)
 {
 	if (p6) goto L6bc1;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,005h,0e8h,043h,050h,0ffh,076h,004h
-	call strcpy_
-	db 083h,0c4h,004h,0ebh,02ch
-#endasm
+	strcpy(p4, ((432 * p8) + 17384));
+	goto L6bed;
 L6bc1:
 	strcpy(p4, (group_monster_rec[p6] + ((unsigned char)g019c[monster_groups[p6]] << 5)));
 L6bed:

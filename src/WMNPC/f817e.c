@@ -1,7 +1,3 @@
-#asm
-	extrn f5078_:near
-	extrn f5a1e_:near
-#endasm
 extern char g450d[];
 extern char g450f[];
 extern char g4511[];
@@ -21,7 +17,9 @@ extern int g4ed6;
 extern int g4ed8;
 extern int g4eda;
 extern int g4edc;
+extern int g527a;
 extern int g52d0;
+extern int message_delay;
 extern int pc_hp[];
 extern int pc_hp_max[];
 extern int pc_level[];
@@ -40,9 +38,7 @@ f817e(p4, p6, p8, p10)
 #endasm
 	g4ed0 += (p8 * 50);
 	g4ed2 = f812e(((p8 * 5) + 70), g4ed2, 0);
-#asm
-	db 0e9h,058h,006h
-#endasm
+	goto L881c;
 	g4ed4 += (p8 * 35);
 	g4ed6 = f812e((((p8 - 1) / 2) + 1), g4ed6, 0);
 #asm
@@ -71,23 +67,15 @@ f817e(p4, p6, p8, p10)
 	if (*(int *)((char *)pc_stamina + (432 * p10)) <= *(int *)((char *)pc_stamina_max + (432 * p10))) goto L82cd;
 	*(int *)((char *)pc_stamina + (432 * p10)) = *(int *)((char *)pc_stamina_max + (432 * p10));
 L82cd:
-	;
-#asm
-l82cd:
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,03fh,005h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25));
 	if (l2 >= 0) goto L830d;
 	l2 = 0;
 L830d:
 	g450d[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,0f8h,004h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	l2 = ((unsigned char)g458c[(432 * p10)] - p8);
 	if (l2 > 0) goto L8347;
 	l2 = 0;
@@ -100,11 +88,8 @@ L8347:
 	g458c[(432 * p10)] = 0;
 L8377:
 	g450f[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,08eh,004h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	if (pc_condition[(432 * p10)] != 2) goto L83f3;
 	if ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)])) goto L83f3;
 	g4517[(432 * p10)]--;
@@ -112,27 +97,25 @@ L8377:
 	pc_condition[(432 * p10)] = 3;
 	*(int *)((char *)pc_hp + (432 * p10)) = 0;
 	*(int *)((char *)pc_stamina + (432 * p10)) = 0;
-	goto L83f3;
+#asm
+	db 0ebh,005h
+#endasm
 L83ee:
-	pc_condition[(432 * p10)] = 0;
-L83f3:
 	;
 #asm
-l83f3:
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,019h,004h
+l83ee:
+	db 0c6h,087h,089h,045h,000h
 #endasm
+L83f3:
+	f5078(p10, g527a);
+	goto L881c;
 	l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25));
 	if (l2 >= 0) goto L8433;
 	l2 = 0;
 L8433:
 	g4511[(432 * p10)] = *(char *)&l2;
-#asm
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,0d2h,003h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	l4 = 1;
 L844f:
 	;
@@ -159,23 +142,15 @@ l8494:
 L849b:
 	l4++;
 	if (l4 <= 9) goto L844f;
-#asm
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,066h,003h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	l2 = f66cf(f80ff(p8, 7, p8));
 	*(int *)((char *)pc_hp + (432 * p10)) += l2;
 	if (*(int *)((char *)pc_hp + (432 * p10)) <= *(int *)((char *)pc_hp_max + (432 * p10))) goto L8500;
 	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)((char *)pc_hp_max + (432 * p10));
 L8500:
-	;
-#asm
-l8500:
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,00ch,003h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	if (pc_condition[(432 * p10)] != 3) goto L855c;
 	if ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)])) goto L855c;
 	g4517[(432 * p10)]--;
@@ -184,13 +159,8 @@ l8500:
 	*(int *)((char *)pc_stamina + (432 * p10)) = (*(int *)((char *)pc_stamina_max + (432 * p10)) / 10);
 	(*(int *)((char *)g440e + (432 * p10)))++;
 L855c:
-	;
-#asm
-l855c:
-	db 0ffh,036h,07ah,052h,0ffh,076h,00ah
-	call f5078_
-	db 083h,0c4h,004h,0e9h,0b0h,002h
-#endasm
+	f5078(p10, g527a);
+	goto L881c;
 	l2 = f66cf(f80ff(p8, 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p4)) += l2;
 	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L85b6;
@@ -201,13 +171,8 @@ L85b6:
 	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L8601;
 	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
 L8601:
-	;
-#asm
-l8601:
-	db 0ffh,036h,07ah,052h,0ffh,076h,004h
-	call f5078_
-	db 083h,0c4h,004h,0e9h,00bh,002h
-#endasm
+	f5078(p4, g527a);
+	goto L881c;
 	l2 = 0;
 L8616:
 	l4 = f66cf(f80ff(p8, 10, 0));
@@ -217,11 +182,8 @@ L8616:
 L866c:
 	l2++;
 	if (l2 < 6) goto L8616;
-#asm
-	db 0ffh,036h,07ah,052h,0ffh,076h,004h
-	call f5078_
-	db 083h,0c4h,004h,0e9h,095h,001h
-#endasm
+	f5078(p4, g527a);
+	goto L881c;
 	l2 = (((p8 * 10) + ((*(int *)((char *)pc_level + (432 * p4)) - (unsigned char)g51cf) * 5)) + 25);
 	if (((unsigned char)g51d3 & 4)) goto L86d6;
 	if (random(100) <= l2) goto L86e6;
@@ -232,11 +194,7 @@ L86e6:
 	f5d9b(1543, 0);
 	g52d0 += f66cf(f80ff((p8 << 1), 6, (p8 << 1)));
 L8725:
-	;
-#asm
-l8725:
-	db 0e9h,0f4h,000h
-#endasm
+	goto L881c;
 	if (((unsigned char)g51d3 & 8)) goto L8765;
 	if (random(((*(int *)((char *)pc_level + (432 * p4)) / 2) + (p8 * 3))) >= (unsigned char)g51cf) goto L8775;
 L8765:
@@ -248,14 +206,14 @@ L8775:
 	replace_char_with_string(21116, 21202, 94);
 L87a3:
 	f5d0c(21116, 0);
+	f5a1e(message_delay);
+	goto L881c;
 #asm
-	db 0ffh,036h,0cah,04fh
-	call f5a1e_
-	db 059h,0ebh,061h,00ah,000h,00fh,000h,01ah,000h,01eh,000h,026h,000h,029h,000h,02eh
-	db 000h,032h,000h,033h,000h,035h,000h,038h,000h,039h,000h,040h,000h,044h,000h,046h
-	db 000h,04dh,000h,050h,000h,051h,000h,080h,082h,0ddh,082h,024h,083h,02ch,082h,03eh
-	db 082h,0f7h,081h,08eh,083h,087h,086h,04ah,084h,08ch,081h,028h,087h,003h,084h,0b6h
-	db 084h,0c4h,081h,04bh,082h,010h,085h,06ch,085h,011h,086h,01ch,088h
+	db 00ah,000h,00fh,000h,01ah,000h,01eh,000h,026h,000h,029h,000h,02eh,000h,032h,000h
+	db 033h,000h,035h,000h,038h,000h,039h,000h,040h,000h,044h,000h,046h,000h,04dh,000h
+	db 050h,000h,051h,000h,080h,082h,0ddh,082h,024h,083h,02ch,082h,03eh,082h,0f7h,081h
+	db 08eh,083h,087h,086h,04ah,084h,08ch,081h,028h,087h,003h,084h,0b6h,084h,0c4h,081h
+	db 04bh,082h,010h,085h,06ch,085h,011h,086h,01ch,088h
 l8805:
 	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,0bbh,087h,0b9h,013h,000h,0fch,0f2h,0afh,026h
 	db 08bh,04dh,022h,05fh,007h,0ffh,0e1h

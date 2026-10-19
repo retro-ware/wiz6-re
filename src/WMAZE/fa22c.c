@@ -1,6 +1,3 @@
-#asm
-	extrn redraw_maze_view_:near
-#endasm
 extern int g5034;
 extern int g5232;
 extern int game_state_arg;
@@ -35,10 +32,8 @@ la2af:
 #endasm
 	g5232 = 0;
 	if (l4 != game_state_arg) goto La2f2;
-#asm
-	call redraw_maze_view_
-	db 0ebh,01ah
-#endasm
+	redraw_maze_view();
+	goto La30c;
 La2f2:
 	save_level_flags();
 	load_maze_level(l4);

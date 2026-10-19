@@ -59,8 +59,9 @@ case 13:
 Lecf6:
 	if ((unsigned char)pc_skill_points[(432 * p4)] <= l12) goto Led18;
 #asm
-	db 08ah,087h,090h,045h,02ah,0e4h,02bh,046h,0f4h,088h,087h,090h,045h,0ebh,005h
+	db 08ah,087h,090h,045h,02ah,0e4h,02bh,046h,0f4h,088h,087h,090h,045h
 #endasm
+	goto Led1d;
 Led18:
 	;
 #asm

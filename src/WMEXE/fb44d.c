@@ -153,11 +153,7 @@ Lb7fa:
 Lb83b:
 	do_cast_spell(p4, l6, l4);
 Lb84a:
-	;
-#asm
-lb84a:
-	db 0ebh,00eh
-#endasm
+	goto Lb85a;
 Lb84c:
 	combat_delay((g4fc8 / 2));
 Lb85a:

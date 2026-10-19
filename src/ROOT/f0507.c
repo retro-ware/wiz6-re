@@ -1,7 +1,3 @@
-#asm
-	extrn print_string_hi_:near
-	extrn strlen_:near
-#endasm
 /* Print a long right-aligned in a field of the given width. */
 print_long(win, value, p8, width, color)
 {
@@ -19,13 +15,8 @@ L0556:
 	goto L051d;
 L055b:
 	if (color < 16) goto L0584;
-#asm
-	db 08bh,046h,00ch,005h,0f1h,0ffh,050h,08dh,046h,0b0h,050h
-	call strlen_
-	db 059h,02bh,046h,00ah,08dh,04eh,0b0h,003h,0c1h,050h,0ffh,076h,004h
-	call print_string_hi_
-	db 083h,0c4h,006h,0ebh,01dh
-#endasm
+	print_string_hi(win, ((strlen(buf) - width) + buf), (color + -15));
+	goto L05a1;
 L0584:
 	print_string(win, ((strlen(buf) - width) + buf), color);
 L05a1:
