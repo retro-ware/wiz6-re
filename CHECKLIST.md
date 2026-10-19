@@ -19,7 +19,7 @@
 - [ ] Shrink #asm islands inside "ok" functions (raw statements left)
 
 ## Root (WROOT.EXE game code 0000-36DC)
-- [~] all root C-able functions in C (38/105 ok; ~45 are hand-written asm: ds/es, lcall, in/out; 5 are frameless fragments on the caller's frame)
+- [~] all root C-able functions in C (39/105 ok; the rest are hand-written asm: ds/es, lcall, int, in/out, cs: data; or frameless fragments on the caller's frame)
 
 ## Overlays (functions in C / total; all 12 files still byte-identical after promotion)
 - [~] WINIT 15/16
@@ -60,6 +60,7 @@
 - [x] Promoted run 31 (zero-extended long call arguments): 890 functions in C (480 asm-free), sbuild all 12 OK
 - [x] Promoted run 32 (bare returns before the epilogue print as goto to it): 890 functions in C (520 asm-free), sbuild all 12 OK
 - [x] Promoted run 33 (globals indexed as [bx+si+d] are char pointers; index temps loaded from memory): 890 functions in C (548 asm-free), sbuild all 12 OK
+- [x] Promoted runs 34-38 (assignment inside a condition; long constant arguments; compare chains on a kept register as one ||/&& condition, with a no-merge retry): 890 functions in C (574 asm-free), sbuild all 12 OK
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
