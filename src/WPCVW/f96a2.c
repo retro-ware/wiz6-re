@@ -7,6 +7,7 @@ extern char pc_swag_count[];
 extern int g43ca;
 extern int pc_gold[];
 extern int pc_item_id[];
+long input_number();
 struct s8 { int w[4]; };
 /* Give items from member p8 to another member, splitting stacks by quantity. */
 do_trade_items(p4, p6, p8)
@@ -27,31 +28,11 @@ L96cb:
 L96d1:
 	if (*(long *)((char *)pc_gold + (432 * p8)) <= 0L) goto L978a;
 L96ec:
-	input_number(p6, 404, 8);
-#asm
-	db 089h,056h,0f4h,089h,046h,0f2h,083h,0fah,000h,07ch,007h,075h,007h,03dh,000h,000h
-	db 073h,002h
-#endasm
-L970f:
-	goto L9769;
-L9711:
-	;
-#asm
-l9711:
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08bh,08fh,0fch,043h,08bh,09fh,0feh,043h
-	db 08bh,046h,0f2h,08bh,056h,0f4h,03bh,0dah,07ch,006h,075h,006h,03bh,0c8h,073h,002h
-#endasm
-L9731:
-	goto L9769;
-L9733:
-	;
-#asm
-l9733:
-	db 08bh,046h,0f2h,08bh,056h,0f4h,050h,052h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h
-	db 05ah,058h,029h,087h,0fch,043h,019h,097h,0feh,043h,08bh,046h,0f2h,08bh,056h,0f4h
-	db 050h,052h,0b8h,0b0h,001h,0f7h,06eh,0fch,08bh,0d8h,05ah,058h,001h,087h,0fch,043h
-	db 011h,097h,0feh,043h,0ebh,012h
-#endasm
+	*(long *)(l14 + 0) = input_number(p6, 404, 8);
+	if ((*(long *)(l14 + 0) < 0L) || (*(long *)((char *)pc_gold + (432 * p8)) < *(long *)(l14 + 0))) goto L9769;
+	*(long *)((char *)pc_gold + (432 * p8)) -= *(long *)(l14 + 0);
+	*(long *)((char *)pc_gold + (432 * l4)) += *(long *)(l14 + 0);
+	goto L977b;
 L9769:
 	*(int *)(l14 + (0 + 2)) = -1;
 	*(int *)(l14 + 0) = -1;

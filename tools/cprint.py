@@ -176,6 +176,7 @@ class Printer:
         self.ext_vars = {}
         self.asm_ext = set()
         self.garr0 = {}
+        self.lcalls = set()        # callees used as returning a long
 
     # ---- expressions
     def name(self, v):
@@ -308,6 +309,9 @@ class Printer:
             if e[1][0] == 'u':
                 return '((%s)%s %s %s)' % (self.unsigned(e), self.ex(e[2]), e[1][1:], self.ex(e[3]))
             return '(%s %s %s)' % (self.ex(e[2]), e[1], self.ex(e[3]))
+        if k == 'lc':           # a call returning a long (dx:ax)
+            self.lcalls.add(e[1][1])
+            return self.ex(e[1])
         if k == 'pre':          # if (--x > 0): the inc/dec's own flags
             return '%s%s' % ('++' if e[1] == '+' else '--', self.ex(e[2]))
         if k == 'u':
@@ -641,6 +645,7 @@ class Printer:
         if ext:
             head += ['#asm'] + ['\textrn %s:near' % x for x in ext] + ['#endasm']
         head += sorted(self.ext_vars.values())
+        head += ['long %s();' % fn for fn in sorted(self.lcalls)]
         for n in sorted({n for _, n in self.L.structs} | getattr(self.L, 'scopies', set())):
             head.append('struct s%d { int w[%d]; };' % (n, n // 2))
         for fn, n in sorted(self.L.structs):

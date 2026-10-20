@@ -54,6 +54,8 @@ def add_const(e, k):
 
 def pair(lo, hi):
     """The long whose low word is lo and high word is hi, or None."""
+    if hi[0] == 'L1' and hi[1][0] == 'lc' and hi[1][1] == lo:
+        return hi[1]        # a call returning a long in dx:ax
     if lo[0] == 'L0' and hi == ('L1', lo[1]):
         return lo[1]
     if hi[0] == 'L1' and lo[0] == 'b' and lo[1] == '*' and hi[1] == ('b', '*', ('L', lo[2]), lo[3]):
@@ -570,7 +572,8 @@ class Lifter:
             writes = {R16.get(r) or (R8[r][0] if r in R8 else None) for r in wr}
             sw = m == 'jmp' and ops[0].type == X.X86_OP_IMM and (ops[0].imm & 0xffff) in self.switches and \
                 self.side == 'ax'           # switch (f(..)): the dispatch reads ax
-            if self.side in reads or sw or any(self.R.get(x) == ('sx', self.R[self.side]) for x in reads):
+            lc = ('L1', ('lc', self.R[self.side]))
+            if self.side in reads or sw or any(self.R.get(x) in (('sx', self.R[self.side]), lc) for x in reads):
                 self.side = None
             elif self.side in writes or i.group(X.X86_GRP_JUMP) or m in BRANCH or m == 'call' or \
                     m == 'push' and not self.stack or \
@@ -580,6 +583,8 @@ class Lifter:
                 self.sts.append(St('expr', self.st_start, a, x=self.R[self.side]))
                 self.st_start = a
                 del self.R[self.side]
+                if self.R.get('dx') == lc:
+                    del self.R['dx']
                 self.side = None
         if m == 'mov':
             d, s = ops
@@ -844,12 +849,22 @@ class Lifter:
             else:
                 return False
             c, last, n = j3, j4, 2
-        a = pair(self.val(c.operands[0]), self.val(i.operands[0]))
+        p = self.sts[-1] if self.sts else None
+        reg = lambda o: o.type == X.X86_OP_REG and R16.get(o.reg)
+        if p is not None and p.kind == 'asg' and size_of(p.lv) == 4 and p.e == i.address and \
+                reg(i.operands[0]) == 'dx' and reg(c.operands[0]) == 'ax' and 'dx' not in self.R:
+            # mov lv+2, dx; mov lv, ax; cmp dx, ..: an assignment inside the condition
+            a = ('=', p.lv, p.rv)
+        else:
+            a = pair(self.val(c.operands[0]), self.val(i.operands[0]))
         b = pair(self.val(c.operands[1]), self.val(i.operands[1]))
         if a is None or b is None:
             return False
         if self.stack:
             raise Unlift('branch with pushes')
+        if a[0] == '=':
+            self.sts.pop()
+            self.st_start = p.s
         self.cur = last
         self.flags = None
         jm = get(f) if n == 2 else None
@@ -961,6 +976,7 @@ class Lifter:
         self.R = {}
         self.R['ax'] = ('call', fn[:-1] if fn.endswith('_') else fn, args, i.address)
         self.side = 'ax'
+        self.R['dx'] = ('L1', ('lc', self.R['ax']))      # read only if the callee returns a long
 
     def condition(self, m):
         op = JCC[m]
@@ -1505,7 +1521,7 @@ def size_of(e):
         return 1
     if e[0] == 'la':
         return e[2]
-    if e[0] in ('L', 'U', 'cl'):
+    if e[0] in ('L', 'U', 'cl', 'lc'):
         return 4
     if e[0] == 'b' and 4 in (size_of(e[2]), size_of(e[3])):
         return 4
