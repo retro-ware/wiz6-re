@@ -1,3 +1,6 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 extern int g5752;
 extern int menu_clicked;
 extern int mouse_present;
@@ -17,7 +20,13 @@ char *win;
 	if (party_count >= 2) goto L8993;
 	return 0;
 L8993:
-	defer_window_draw(g5752);
+	;
+#asm
+l8993:
+	db 0ffh,036h,052h,057h
+	call defer_window_draw_
+	db 059h
+#endasm
 	for (rsi = 0; rsi < party_count; rsi++) {
 	draw_member_card(g5752, rsi);
 	}

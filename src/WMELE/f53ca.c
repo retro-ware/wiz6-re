@@ -12,11 +12,9 @@ update_group(g)
 	i = 0;
 	goto L5462;
 L53df:
-	rsi = (44 * i);
-	if (((unsigned)((char *)monster_groups[g] + rsi)[34] >= 3) || (update_combatant(g, i, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[215], 0) != 1)) goto L541f;
+	if (((unsigned)((rsi = (44 * i), (*(char **)((char *)monster_groups + (g << 1)))) + rsi)[34] >= 3) || (update_combatant(g, i, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[215], 0) != 1)) goto L541f;
 L541f:
-	rsi = (44 * i);
-	if ((unsigned)((char *)monster_groups[g] + rsi)[34] >= 3) goto L545f;
+	if ((unsigned)((rsi = (44 * i), (*(char **)((char *)monster_groups + (g << 1)))) + rsi)[34] >= 3) goto L545f;
 #asm
 	db 003h,0deh,08bh,0f3h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0c8h,08bh,046h,004h,0d1h
 	db 0e0h,08bh,0d8h,08bh,087h,0a8h,043h,003h,0c1h,08bh,0f8h,08ch,0d9h,08eh,0c1h,0b9h

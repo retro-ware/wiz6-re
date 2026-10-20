@@ -1,7 +1,3 @@
-extern char char_skills[];
-extern char g55ae[];
-extern char g55b5[];
-extern char g55ba[];
 set_class_skill_masks(p4, p6, p8, p10)
 {
 	int l2;
@@ -12,24 +8,12 @@ L55bb:
 	;
 #asm
 l55bb:
-	db 08bh,05eh,004h,08bh,076h,0feh,080h,038h,031h,074h,007h
-#endasm
-	if ((unsigned)char_skills[rsi] <= 0) goto L55d2;
-L55cd:
-	;
-#asm
+	db 08bh,05eh,004h,08bh,076h,0feh,080h,038h,031h,074h,007h,080h,0bch,0a4h,055h,000h
+	db 076h,005h
 l55cd:
 	db 0b8h,001h,000h,0ebh,003h
-#endasm
-L55d2:
-	;
-#asm
 l55d2:
 	db 0b8h,000h,000h
-#endasm
-L55d5:
-	;
-#asm
 l55d5:
 	db 0d1h,0e6h,089h,084h,070h,056h
 #endasm
@@ -42,24 +26,12 @@ L55f1:
 	;
 #asm
 l55f1:
-	db 08bh,05eh,006h,08bh,076h,0feh,080h,038h,031h,074h,007h
-#endasm
-	if ((unsigned)g55ae[rsi] <= 0) goto L5608;
-L5603:
-	;
-#asm
+	db 08bh,05eh,006h,08bh,076h,0feh,080h,038h,031h,074h,007h,080h,0bch,0aeh,055h,000h
+	db 076h,005h
 l5603:
 	db 0b8h,001h,000h,0ebh,003h
-#endasm
-L5608:
-	;
-#asm
 l5608:
 	db 0b8h,000h,000h
-#endasm
-L560b:
-	;
-#asm
 l560b:
 	db 0d1h,0e6h,089h,084h,084h,056h
 #endasm
@@ -72,24 +44,12 @@ L5627:
 	;
 #asm
 l5627:
-	db 08bh,05eh,008h,08bh,076h,0feh,080h,038h,031h,074h,007h
-#endasm
-	if ((unsigned)g55b5[rsi] <= 0) goto L563e;
-L5639:
-	;
-#asm
+	db 08bh,05eh,008h,08bh,076h,0feh,080h,038h,031h,074h,007h,080h,0bch,0b5h,055h,000h
+	db 076h,005h
 l5639:
 	db 0b8h,001h,000h,0ebh,003h
-#endasm
-L563e:
-	;
-#asm
 l563e:
 	db 0b8h,000h,000h
-#endasm
-L5641:
-	;
-#asm
 l5641:
 	db 0d1h,0e6h,089h,084h,092h,056h
 #endasm
@@ -102,24 +62,12 @@ L565d:
 	;
 #asm
 l565d:
-	db 08bh,05eh,00ah,08bh,076h,0feh,080h,038h,031h,074h,007h
-#endasm
-	if ((unsigned)g55ba[rsi] <= 0) goto L5674;
-L566f:
-	;
-#asm
+	db 08bh,05eh,00ah,08bh,076h,0feh,080h,038h,031h,074h,007h,080h,0bch,0bah,055h,000h
+	db 076h,005h
 l566f:
 	db 0b8h,001h,000h,0ebh,003h
-#endasm
-L5674:
-	;
-#asm
 l5674:
 	db 0b8h,000h,000h
-#endasm
-L5677:
-	;
-#asm
 l5677:
 	db 0d1h,0e6h,089h,084h,09ch,056h
 #endasm

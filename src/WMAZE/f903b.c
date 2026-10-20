@@ -1,3 +1,7 @@
+#asm
+	extrn drv_draw_text_:near
+	extrn drv_op_c6_:near
+#endasm
 extern char g5043[];
 extern char g5072[];
 extern char g5082[];
@@ -41,7 +45,8 @@ draw_maze_view_m()
 	int l10;
 	int l12;
 	char *l14;
-	char l16[2];
+	char l15;
+	char x15[1];
 	register int rsi;
 	l2 = party_x;
 	l4 = party_y;
@@ -148,17 +153,51 @@ L92c1:
 	g5040++;
 	goto L91c4;
 L9758:
-	for (g5040 = g521e; g5040 >= 0; g5040--) {
+	g5040 = g521e;
+	goto L98bb;
+L9761:
 	rsi = g50ce;
 	rsi--;
 	goto L984d;
 L9769:
-	l14 = ((rsi * 11) + 20688);
-	g521c = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if (((unsigned char)l14[10] != g5040) || ((unsigned char)l14[8] != 255)) goto L984c;
-	if (*(int *)l14 == -1) goto L97fd;
-	if (*(int *)(l14 + 4) == -1) goto L97e8;
-	drv_op_c6((g521c != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g521c != 0 ? *(int *)l14 : -1));
+	;
+#asm
+l9769:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0d0h
+	db 050h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,003h,006h,0a4h,04fh,003h
+	db 006h,0a2h,04fh,003h,006h,09ah,04fh,0b9h,002h,000h,099h,0f7h,0f9h,089h,016h,01ch
+	db 052h,08ah,047h,00ah,02ah,0e4h,03bh,006h,040h,050h,074h,003h
+#endasm
+	goto L984c;
+L97a8:
+	;
+#asm
+l97a8:
+	db 08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,003h
+#endasm
+	goto L984c;
+L97b5:
+	;
+#asm
+l97b5:
+	db 083h,03fh,0ffh,074h,043h,083h,07fh,004h,0ffh,074h,028h,0b8h,0ffh,0ffh,083h,03eh
+	db 01ch,052h,000h,074h,002h,08bh,007h
+#endasm
+L97cc:
+	;
+#asm
+l97cc:
+	db 050h,08ah,047h,009h,02ah,0e4h,050h,08bh,007h,083h,03eh,01ch,052h,000h,074h,003h
+	db 08bh,047h,004h
+#endasm
+L97df:
+	;
+#asm
+l97df:
+	db 050h
+	call drv_op_c6_
+	db 083h,0c4h,006h
+#endasm
 	goto L97fd;
 L97e8:
 	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
@@ -177,16 +216,28 @@ L984d:
 	rsi--;
 	goto L98b2;
 L985c:
-	l14 = ((rsi * 11) + 20688);
-	if (((unsigned char)l14[10] != g5040) || ((unsigned char)l14[8] == 255)) goto L98b1;
-	l16[0] = l14[9];
-	l16[(0 + 1)] = 0;
-	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
+	;
+#asm
+l985c:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0d0h
+	db 050h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,03bh,006h,040h,050h,075h
+	db 034h,08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,02ah,08ah,047h,009h,088h,046h
+	db 0f0h
+#endasm
+	l15 = 0;
+#asm
+	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,0ffh,077h,006h,0ffh,077h,004h,0ffh
+	db 077h,002h,0ffh,037h,08ah,047h,008h,02ah,0e4h,050h
+	call drv_draw_text_
+	db 083h,0c4h,010h
+#endasm
 L98b1:
 	rsi--;
 L98b2:
 	if (rsi >= 0) goto L985c;
-	}
+	g5040--;
+L98bb:
+	if (g5040 >= 0) goto L9761;
 	draw_view_frame_m();
 	return;
 }

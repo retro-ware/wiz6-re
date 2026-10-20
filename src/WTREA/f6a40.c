@@ -1,11 +1,17 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 draw_trap_list(p4, p6, p8, p10, p12)
 char *p4;
 char *p12;
 {
 	register int rsi;
 	draw_chest_list_box(p4, 0);
-	defer_window_draw(p4);
-	rsi = -2;
+#asm
+	db 0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0beh,0feh,0ffh
+#endasm
 L6a5c:
 	if (((p6 + rsi) < 0) || ((p6 + rsi) >= p10)) goto L6acc;
 	set_cursor(p4, 2, (rsi + 2));

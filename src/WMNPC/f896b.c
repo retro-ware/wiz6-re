@@ -17,14 +17,28 @@ L8976:
 	goto L8a2f;
 L89b7:
 	if (l4) goto L89f7;
-	for (rsi = (unsigned char)g02ca[(rdi << 2)]; rsi < l2; rsi++) {
+#asm
+	db 08bh,0c7h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,08ah,087h,0cah,002h,02ah,0e4h,08bh,0f0h
+	db 0ebh,021h
+#endasm
+L89cf:
 	f8945(p4, rsi, (unsigned char)g02cb[(rdi << 2)], (unsigned char)g02cc[(rdi << 2)]);
-	}
+	rsi++;
+L89f0:
+	if (rsi < l2) goto L89cf;
 	goto L8a2f;
 L89f7:
-	for (rsi = (unsigned char)g02cb[(rdi << 2)]; rsi < l2; rsi++) {
+	;
+#asm
+l89f7:
+	db 08bh,0c7h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,08ah,087h,0cbh,002h,02ah,0e4h,08bh,0f0h
+	db 0ebh,021h
+#endasm
+L8a09:
 	f8945(p4, (unsigned char)g02ca[(rdi << 2)], rsi, (unsigned char)g02cc[(rdi << 2)]);
-	}
+	rsi++;
+L8a2a:
+	if (rsi < l2) goto L8a09;
 L8a2f:
 	rdi++;
 	if (rdi < 49) goto L8976;

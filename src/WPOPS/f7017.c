@@ -1,3 +1,6 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 extern char pc_item_count[];
 extern char pc_item_icon[];
 draw_item_list(win, member, pos, highlight, p12, p14)
@@ -7,8 +10,11 @@ char *p14;
 {
 	register int rsi;
 	draw_combat_list_box(win, 0);
-	defer_window_draw(win);
-	rsi = -2;
+#asm
+	db 0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0beh,0feh,0ffh
+#endasm
 L7033:
 	if (((pos + rsi) < 0) || ((unsigned char)pc_item_count[(432 * member)] <= (pos + rsi))) goto L71a1;
 	set_cursor(win, 2, (rsi + 2));

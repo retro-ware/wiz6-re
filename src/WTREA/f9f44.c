@@ -1,3 +1,6 @@
+#asm
+	extrn test_bit_:near
+#endasm
 extern char g5285[];
 extern char g52a9[];
 extern char g52b4[];
@@ -30,8 +33,17 @@ L9f8d:
 L9fd1:
 	return 2;
 L9fd6:
-	rsi = (((p12 << 6) + (p10 << 3)) + p8);
-	if (test_bit((maze_data + 1082), rsi) != 1) goto La10d;
+	;
+#asm
+l9fd6:
+	db 08bh,046h,00ch,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,00ah,0d1h,0e1h,0d1h,0e1h,0d1h
+	db 0e1h,003h,0c1h,08bh,0f0h,003h,046h,008h,08bh,0f0h,056h,0a1h,0aah,04fh,005h,03ah
+	db 004h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,074h,003h
+#endasm
+	goto La10d;
+La006:
 	switch (game_state_arg) {
 case 0:
 case 4:

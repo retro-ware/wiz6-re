@@ -1,4 +1,3 @@
-extern char g019b[];
 extern char g3648[];
 extern char g3649[];
 extern char g364a[];
@@ -11,7 +10,6 @@ extern char g375c[];
 extern char g3813[];
 extern char g3816[];
 extern char pic_slot_monster[];
-extern int monster_groups[];
 /* Pick animation frames for the members of group g shown at view position pos. */
 choose_monster_frames(g, pos)
 {
@@ -19,9 +17,10 @@ choose_monster_frames(g, pos)
 	int step;
 	register int pic;
 	register int i;
-	pic = (unsigned char)g019b[monster_groups[g]];
-	i = 0;
-	goto L504c;
+#asm
+	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09bh,001h,02ah
+	db 0e4h,08bh,0f0h,0bfh,000h,000h,0e9h,029h,001h
+#endasm
 L4f23:
 	if (((((unsigned)g3813[(314 * pic)] <= 0) || ((unsigned char)g3813[(314 * pic)] == 255)) || (pic_slot_monster[pic] == 46)) || (pic_slot_monster[pic] == 36)) goto L4f6d;
 	frame = ((unsigned char)g3813[(314 * pic)] / 25);

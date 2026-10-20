@@ -13,12 +13,16 @@ f8efc(p4, p6, p8, p10)
 	return;
 L8f11:
 	if ((p4) && (p4 != 6)) goto L8f5a;
-	rdi = (44 * g435c);
-	if (((char *)monster_groups[g435e] + rdi)[42] == -1) {
+	if (((rdi = (44 * g435c), (*(char **)((char *)monster_groups + (g435e << 1)))) + rdi)[42] != -1) goto L8f4b;
 	l2 = (g435e == 1 ? 0 : 1);
-	} else {
-	l2 = (((char *)monster_groups[g435e] + rdi)[42] / 10);
-	}
+	goto L8f58;
+L8f4b:
+	;
+#asm
+l8f4b:
+	db 08ah,041h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0feh
+#endasm
+L8f58:
 	goto L8f7c;
 L8f5a:
 	l2 = 1;

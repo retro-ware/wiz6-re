@@ -1,3 +1,6 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 extern int realm_colors[];
 /* Draw the scrolling spell list of a realm. */
 draw_spell_list(win, member, realm, sel, highlight, p14, p16)
@@ -6,8 +9,11 @@ char *p16;
 {
 	register int row;
 	draw_list_frame_dopt(win, 0);
-	defer_window_draw(win);
-	row = -2;
+#asm
+	db 0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0beh,0feh,0ffh
+#endasm
 L6b59:
 	if (((sel + row) < 0) || ((sel + row) >= p14)) goto L6be0;
 	set_cursor(win, 2, (row + 2));

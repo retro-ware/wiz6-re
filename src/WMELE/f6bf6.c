@@ -19,8 +19,7 @@ L6c04:
 	}
 	n = 0;
 L6c3d:
-	col = random(5);
-	if (used[col] == 1) goto L6c3d;
+	if (used[(col = random(5))] == 1) goto L6c3d;
 	if ((used[0]) || (g5010 != 1)) goto L6c65;
 	col = 0;
 L6c65:

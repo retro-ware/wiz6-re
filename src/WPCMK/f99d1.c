@@ -1,3 +1,6 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 extern int g5750[];
 extern int g5770[];
 extern int g5790[];
@@ -10,8 +13,11 @@ char *win;
 	int l20;
 	register int rsi;
 	draw_list_box(win, 0);
-	defer_window_draw(win);
-	rsi = -3;
+#asm
+	db 0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0beh,0fdh,0ffh
+#endasm
 L99ef:
 	if (((top + rsi) < 0) || ((top + rsi) >= count)) goto L9be8;
 	set_cursor(win, 1, (rsi + 3));

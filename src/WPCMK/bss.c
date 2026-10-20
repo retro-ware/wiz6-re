@@ -57,9 +57,7 @@
 	global g55af_:byte,1
 	global g55b0_:byte,3
 	global g55b3_:byte,1
-	global g55b4_:byte,1
-	global g55b5_:byte,5
-	global g55ba_:byte,3
+	global g55b4_:byte,9
 	global g55bd_:byte,1
 	global g55be_:byte,1
 	global g55bf_:byte,1

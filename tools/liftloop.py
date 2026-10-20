@@ -191,6 +191,12 @@ class Loop:
             # our regvar si needed a copy in di: si was cgen's index temp, reused across a label
             st['noscratch'], st['demote'] = 'lenient', []
             return True
+        if not st.get('noscratch') and 'push di' not in [k[2] for k in ku[:6]] and \
+                'push di' in [k[2] for k in ko[:6]] and 'si' in L.f.regs and 'si' not in L.f.scratch and \
+                L.f._is_scratch('si', True):
+            # we kept si alone as a regvar, the original saves both: si is the index temp after all
+            st['noscratch'], st['demote'] = 'lenient', []
+            return True
         sm = difflib.SequenceMatcher(None, [k[2] for k in ko], [k[2] for k in ku], autojunk=False)
         bad = set()
         for tag, i1, i2, j1, j2 in sm.get_opcodes():

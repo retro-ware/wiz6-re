@@ -1,12 +1,10 @@
-#asm
-	extrn window_newline_:near
-#endasm
 extern char *party_picture_win;
 /* Print text word-wrapped into the combat message window g4fb6. */
 print_wrapped(p4, p6)
 {
 	int l2;
-	char x2[80];
+	int l4;
+	char x4[78];
 	int l84;
 	char *l86;
 	strcpy(&l84, p4);
@@ -14,21 +12,10 @@ print_wrapped(p4, p6)
 L6c0b:
 	if (strlen(l86) <= 0) goto L6cbe;
 	l2 = char_index(l86, 32);
-#asm
-	db 050h,03dh,000h,000h,058h,07dh,007h
-#endasm
-	strlen(l86);
-L6c38:
-	;
-#asm
-l6c38:
-	db 089h,046h,0fch,08bh,01eh,0b6h,04fh,08ah,047h,006h,02ah,0e4h,08bh,0c8h,08bh,046h
-	db 0fch,003h,0c8h,08bh,0c1h,040h,050h,08ah,007h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h
-	db 07eh,005h,053h
-	call window_newline_
-	db 059h
-#endasm
-L6c5f:
+	l4 = (l2 < 0 ? strlen(l86) : l2);
+	if ((((unsigned char)party_picture_win[6] + l4) + 1) > (unsigned char)*party_picture_win) {
+	window_newline(party_picture_win);
+	}
 	if (!party_picture_win[6]) {
 	party_picture_win[6]++;
 	}

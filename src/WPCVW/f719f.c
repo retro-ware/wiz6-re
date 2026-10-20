@@ -1,12 +1,20 @@
+#asm
+	extrn put_glyph_at_:near
+#endasm
 draw_spell_list_frame(p4, p6)
 {
 	register int rsi;
 	fill_window(p4, 32, 3, 0);
 	defer_window_draw(p4);
-	put_glyph_at(p4, 0, 0, 69);
-	for (rsi = 1; rsi < 6; rsi++) {
+#asm
+	db 0b8h,045h,000h,050h,0b8h,000h,000h,050h,050h,0ffh,076h,004h
+	call put_glyph_at_
+	db 083h,0c4h,008h,0beh,001h,000h
+#endasm
+L71d4:
 	put_glyph_at(p4, 0, rsi, 71);
-	}
+	rsi++;
+	if (rsi < 6) goto L71d4;
 	put_glyph_at(p4, 0, 6, 70);
 	resume_window_draw(p4);
 	if (p6) {

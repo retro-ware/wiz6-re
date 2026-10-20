@@ -170,6 +170,12 @@ class Printer:
         self.T = Types([s for s in lifter.sts if s.kind != 'raw'], self.img, lifter.f.locals)
         self.T.ptr |= {('g', a) for a in getattr(lifter, 'gptr', ())}
         self.T.ptr |= getattr(lifter, 'vptr', set())
+        bp = getattr(lifter, 'bptr', [])
+        for st in lifter.sts:      # local = base + i straight from cgen's bx: a char * local
+            if st.kind == 'asg' and st.lv[0] == 'v' and st.lv[1] == 'l' and st.lv[3] == 2 and \
+                    st.rv[0] == 'b' and st.rv[1] == '+' and \
+                    (st.rv[2] in bp or st.rv[2][0] == 'b' and st.rv[2][1] == '+' and st.rv[2][2] in bp):
+                self.T.ptr.add(vkey(st.lv))
         for st in lifter.sts:      # a struct copy at global + index: that global is an array
             for e in (getattr(st, 'dst', None), getattr(st, 'src', None)) if st.kind == 'scopy' else ():
                 if e[0] == 'b' and e[1] == '+' and e[3][0] == 'c' and self.T.is_data(e[3][1]):
@@ -618,6 +624,11 @@ class Printer:
                         rv[2][0] == 'm' and rv[2][3] == 2 and rv[3][0] not in ('c', 'v', 'm'):
                     # pointer + computed int: cgen computes the (scaled) int first
                     out.append('\t%s = %s;' % (self.lvx(st.lv), self.ptr(rv)))
+                elif st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr and rv[0] == 'b' and rv[1] == '+' and \
+                        rv[3][0] == 'c' and self.T.is_data(rv[3][1]) and (rv[3][1] & 0xffff) >= 0x100 and \
+                        rv[2][0] not in ('c', 'v'):
+                    # pointer = &global[i]: cgen keeps the index in bx and adds the base there
+                    out.append('\t%s = (char *)%s + %s;' % (self.lvx(st.lv), self.global_name(rv[3][1]), self.ex(rv[2])))
                 elif size_of(st.lv) == 1 and rv[0] == 'lo' and rv[1][0] == 'b' and rv[1][1] in ('&', '|', '^') and \
                         rv[1][2][0] == 'x' and rv[1][2][1] and rv[1][2][2] == st.lv and st.lv[0] == 'm':
                     # byte x = x op y: the compound form keeps the address registers for the next statement

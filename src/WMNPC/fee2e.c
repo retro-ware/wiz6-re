@@ -1,3 +1,7 @@
+#asm
+	extrn drv_draw_text_:near
+	extrn drv_op_c6_:near
+#endasm
 extern char g6aa7[];
 extern char g6ad6[];
 extern char g6ade[];
@@ -41,7 +45,8 @@ fee2e()
 	int l10;
 	int l12;
 	char *l14;
-	char l16[2];
+	char l15;
+	char x15[1];
 	register int rsi;
 	l2 = party_x;
 	l4 = party_y;
@@ -148,17 +153,51 @@ Lf0b4:
 	g6aa4++;
 	goto Lefb7;
 Lf54b:
-	for (g6aa4 = g6c82; g6aa4 >= 0; g6aa4--) {
+	g6aa4 = g6c82;
+	goto Lf6ae;
+Lf554:
 	rsi = g6b32;
 	rsi--;
 	goto Lf640;
 Lf55c:
-	l14 = ((rsi * 11) + 27444);
-	g6c80 = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
-	if (((unsigned char)l14[10] != g6aa4) || ((unsigned char)l14[8] != 255)) goto Lf63f;
-	if (*(int *)l14 == -1) goto Lf5f0;
-	if (*(int *)(l14 + 4) == -1) goto Lf5db;
-	drv_op_c6((g6c80 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g6c80 != 0 ? *(int *)l14 : -1));
+	;
+#asm
+lf55c:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,034h
+	db 06bh,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,003h,006h,0a4h,04fh,003h
+	db 006h,0a2h,04fh,003h,006h,09ah,04fh,0b9h,002h,000h,099h,0f7h,0f9h,089h,016h,080h
+	db 06ch,08ah,047h,00ah,02ah,0e4h,03bh,006h,0a4h,06ah,074h,003h
+#endasm
+	goto Lf63f;
+Lf59b:
+	;
+#asm
+lf59b:
+	db 08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,003h
+#endasm
+	goto Lf63f;
+Lf5a8:
+	;
+#asm
+lf5a8:
+	db 083h,03fh,0ffh,074h,043h,083h,07fh,004h,0ffh,074h,028h,0b8h,0ffh,0ffh,083h,03eh
+	db 080h,06ch,000h,074h,002h,08bh,007h
+#endasm
+Lf5bf:
+	;
+#asm
+lf5bf:
+	db 050h,08ah,047h,009h,02ah,0e4h,050h,08bh,007h,083h,03eh,080h,06ch,000h,074h,003h
+	db 08bh,047h,004h
+#endasm
+Lf5d2:
+	;
+#asm
+lf5d2:
+	db 050h
+	call drv_op_c6_
+	db 083h,0c4h,006h
+#endasm
 	goto Lf5f0;
 Lf5db:
 	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
@@ -177,16 +216,28 @@ Lf640:
 	rsi--;
 	goto Lf6a5;
 Lf64f:
-	l14 = ((rsi * 11) + 27444);
-	if (((unsigned char)l14[10] != g6aa4) || ((unsigned char)l14[8] == 255)) goto Lf6a4;
-	l16[0] = l14[9];
-	l16[(0 + 1)] = 0;
-	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
+	;
+#asm
+lf64f:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,034h
+	db 06bh,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,03bh,006h,0a4h,06ah,075h
+	db 034h,08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,02ah,08ah,047h,009h,088h,046h
+	db 0f0h
+#endasm
+	l15 = 0;
+#asm
+	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,0ffh,077h,006h,0ffh,077h,004h,0ffh
+	db 077h,002h,0ffh,037h,08ah,047h,008h,02ah,0e4h,050h
+	call drv_draw_text_
+	db 083h,0c4h,010h
+#endasm
 Lf6a4:
 	rsi--;
 Lf6a5:
 	if (rsi >= 0) goto Lf64f;
-	}
+	g6aa4--;
+Lf6ae:
+	if (g6aa4 >= 0) goto Lf554;
 	fed6c();
 	return;
 #asm

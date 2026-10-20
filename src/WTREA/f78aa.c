@@ -1,3 +1,6 @@
+#asm
+	extrn defer_window_draw_:near
+#endasm
 extern int realm_colors[];
 draw_chest_spell_list(p4, p6, p8, p10, p12, p14, p16)
 char *p4;
@@ -5,8 +8,11 @@ char *p16;
 {
 	register int rsi;
 	draw_chest_list_box(p4, 0);
-	defer_window_draw(p4);
-	rsi = -2;
+#asm
+	db 0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0beh,0feh,0ffh
+#endasm
 L78c6:
 	if (((p10 + rsi) < 0) || ((p10 + rsi) >= p14)) goto L794d;
 	set_cursor(p4, 2, (rsi + 2));

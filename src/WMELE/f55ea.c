@@ -28,11 +28,11 @@ L55ff:
 	count++;
 	if (count == g) goto L5672;
 	rsi = monster_groups[g];
-	rdi = monster_groups[count];
 #asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,0d0h,000h,0f3h,0a5h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h
-	db 08bh,0b7h,0b6h,043h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0b6h,043h,08ch
-	db 0d9h,08eh,0c1h,0b9h,06fh,000h,0f3h,0a5h,0ffh,076h,0fah
+	db 0d1h,0e0h,08bh,0d8h,08bh,0bfh,0a8h,043h,08ch,0d9h,08eh,0c1h,0b9h,0d0h,000h,0f3h
+	db 0a5h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,0b7h,0b6h,043h,08bh,046h,0fah,0d1h
+	db 0e0h,08bh,0d8h,08bh,0bfh,0b6h,043h,08ch,0d9h,08eh,0c1h,0b9h,06fh,000h,0f3h,0a5h
+	db 0ffh,076h,0fah
 	call place_group_sprites_
 	db 059h
 #endasm
@@ -42,8 +42,7 @@ L5672:
 	i = 0;
 	goto L56f7;
 L567a:
-	rsi = (44 * i);
-	if ((((char *)monster_groups[count] + rsi)[42] != 11) || (g4368)) goto L56b7;
+	if ((((rsi = (44 * i), (*(char **)((char *)monster_groups + (count << 1)))) + rsi)[42] != 11) || (g4368)) goto L56b7;
 	g436e = 0;
 	g4368 = count;
 #asm
@@ -51,8 +50,7 @@ L567a:
 #endasm
 	choose_monster_frames(count, 3);
 L56b7:
-	rsi = (44 * i);
-	if ((((char *)monster_groups[count] + rsi)[42] != 12) || (g436a)) goto L56f4;
+	if ((((rsi = (44 * i), (*(char **)((char *)monster_groups + (count << 1)))) + rsi)[42] != 12) || (g436a)) goto L56f4;
 	g4370 = 0;
 	g436a = count;
 #asm

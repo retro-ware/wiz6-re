@@ -1,3 +1,7 @@
+#asm
+	extrn set_cursor_:near
+	extrn strlen_:near
+#endasm
 extern char g450a[];
 extern char g450c[];
 extern char g450d[];
@@ -27,16 +31,32 @@ draw_member_card(win, member)
 	l6 = (((member / 2) << 2) + 2);
 	set_cursor(win, l4, l6);
 	print_string_hi(win, ((432 * member) + 17384), 3);
-	for (i = strlen(((432 * member) + 17384)); i < 7; i++) {
+#asm
+	db 0b8h,0b0h,001h,0f7h,06eh,006h,005h,0e8h,043h,050h
+	call strlen_
+	db 059h,08bh,0f0h,0ebh,012h
+#endasm
+L4a31:
 	put_char_hi(win, 32, 3);
-	}
+	i++;
+L4a43:
+	if (i < 7) goto L4a31;
 	l88 = ((member_portrait[member] * 9) + 72);
-	for (i = 0; i < 3; i++) {
-	set_cursor(win, l4, ((l6 + i) + 1));
-	for (rdi = 0; rdi < 3; rdi++) {
+	i = 0;
+L4a64:
+	;
+#asm
+l4a64:
+	db 08bh,046h,0fah,003h,0c6h,040h,050h,0ffh,076h,0fch,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0bfh,000h,000h
+#endasm
+L4a7a:
 	put_char_hi(win, (unsigned char)((((i * 3) + l88) + rdi)), 2);
-	}
-	}
+	rdi++;
+	if (rdi < 3) goto L4a7a;
+	i++;
+	if (i < 3) goto L4a64;
 	l2 = g0526[(unsigned char)pc_condition[(432 * member)]];
 	l2 = ((!l2) && ((unsigned)g450c[(432 * member)] > 0) ? 1 : l2);
 	l2 = ((l2 < 2) && ((unsigned)g450d[(432 * member)] > 0) ? 2 : l2);
@@ -55,12 +75,21 @@ L4b53:
 	} else {
 	put_char_hi(win, 32, 3);
 	}
-	set_cursor(win, (l4 + 3), (l6 + 2));
-	for (i = 0; i < 2; i++) {
+#asm
+l4b88:
+	db 08bh,046h,0fah,040h,040h,050h,08bh,046h,0fch,040h,040h,040h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0beh,000h,000h
+#endasm
+L4ba1:
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * member)] << 1) + i) + 58)), 1);
-	}
-	set_cursor(win, (l4 + 3), (l6 + 1));
-	i = 0;
+	i++;
+	if (i < 2) goto L4ba1;
+#asm
+	db 08bh,046h,0fah,040h,050h,08bh,046h,0fch,040h,040h,040h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0beh,000h,000h
+#endasm
 L4be4:
 	if (((unsigned char)pc_equipped[((432 * member) + i)] == 255) || (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))) <= 0)) goto L4c35;
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))] + 1)), 4);

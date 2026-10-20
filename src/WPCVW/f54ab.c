@@ -1,3 +1,7 @@
+#asm
+	extrn print_long_:near
+	extrn set_cursor_:near
+#endasm
 extern char g450c[];
 extern char g450d[];
 extern char g450e[];
@@ -16,8 +20,6 @@ extern int g053a;
 extern int g053c;
 extern int g0544;
 extern int g43f6[];
-extern int g43f8[];
-extern int g43fa[];
 extern int g43fe[];
 extern int g440e[];
 extern int member_portrait[];
@@ -46,12 +48,21 @@ char *win;
 	register int rsi;
 	register int rdi;
 	l86 = ((member_portrait[member] * 9) + 72);
-	for (rsi = 0; rsi < 3; rsi++) {
-	set_cursor(win, 1, (rsi + 1));
-	for (rdi = 0; rdi < 3; rdi++) {
+	rsi = 0;
+L54cf:
+	;
+#asm
+l54cf:
+	db 08bh,0c6h,040h,050h,0b8h,001h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0bfh,000h,000h
+#endasm
+L54e3:
 	put_char_hi(win, (unsigned char)((((rsi * 3) + l86) + rdi)), 2);
-	}
-	}
+	rdi++;
+	if (rdi < 3) goto L54e3;
+	rsi++;
+	if (rsi < 3) goto L54cf;
 	print_at(win, 4, 1, ((432 * member) + 17384), 5);
 	set_cursor(win, 13, 1);
 	get_message(((unsigned char)pc_sex[(432 * member)] + 140), &l84);
@@ -81,12 +92,18 @@ L564a:
 	print_long(win, *(int *)((char *)pc_exp + (432 * member)), *(int *)((char *)g43f6 + (432 * member)), 10, 6);
 	print_msg_at(203, win, 25, 3, 14);
 	win[6]++;
-	print_long(win, *(int *)((char *)g43f8 + (432 * member)), *(int *)((char *)g43fa + (432 * member)), 10, 6);
-	for (rsi = 0; rsi < 8; rsi++) {
+#asm
+	db 0b8h,006h,000h,050h,0b8h,00ah,000h,050h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h
+	db 0ffh,0b7h,0fah,043h,0ffh,0b7h,0f8h,043h,0ffh,076h,004h
+	call print_long_
+	db 083h,0c4h,00ah,0beh,000h,000h
+#endasm
+L57e8:
 	print_msg_at((rsi + 204), win, 1, (rsi + 5), 5);
 	win[6]++;
 	print_int(win, (unsigned char)pc_stats[((432 * member) + rsi)], 2, 1);
-	}
+	rsi++;
+	if (rsi < 8) goto L57e8;
 	print_msg_at(212, win, 10, 5, 4);
 	win[6]++;
 	print_int(win, *(int *)((char *)pc_hp + (432 * member)), 4, 6);

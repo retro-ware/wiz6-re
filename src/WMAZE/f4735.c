@@ -1,3 +1,6 @@
+#asm
+	extrn test_bit_:near
+#endasm
 extern int maze_data;
 /* Recursively mark reachable maze cells in the cell bitset. */
 flood_mark_cells(p4, p6, p8, p10)
@@ -8,8 +11,12 @@ flood_mark_cells(p4, p6, p8, p10)
 	register int rdi;
 	p6 = ((p6 + 8) % 8);
 	p8 = ((p8 + 8) % 8);
-	rdi = (((p4 << 6) + (p8 << 3)) + p6);
-	if (test_bit(19976, rdi) != p10) goto L4787;
+#asm
+	db 08bh,046h,004h,0b9h,006h,000h,0d3h,0e0h,0d1h,0e2h,0d1h,0e2h,0d1h,0e2h,08bh,0cah
+	db 003h,0c1h,08bh,0f8h,003h,046h,006h,08bh,0f8h,057h,0b8h,008h,04eh,050h
+	call test_bit_
+	db 083h,0c4h,004h,03bh,046h,00ah,075h,006h
+#endasm
 	return;
 L4787:
 	set_bit(19976, rdi, p10);

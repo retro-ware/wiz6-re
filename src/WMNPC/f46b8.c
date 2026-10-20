@@ -1,8 +1,9 @@
+#asm
+	extrn random_:near
+#endasm
 extern char g3648[];
 extern char g3649[];
 extern char g364a[];
-extern char g3732[];
-extern char g373c[];
 extern char g3746[];
 extern char g3750[];
 extern char g375a[];
@@ -27,15 +28,25 @@ L46cb:
 	l2 = (unsigned char)g3649[((p6 * 30) + (rsi * 3))];
 	l4 = (unsigned char)g364a[((p6 * 30) + (rsi * 3))];
 	if (--l4 > 0) goto L4818;
-	rdi = (unsigned char)g3648[((p6 * 30) + (rsi * 3))];
-	l2++;
+#asm
+l4702:
+	db 08ah,087h,048h,036h,02ah,0e4h,08bh,0f8h,0ffh,046h,0feh
+#endasm
 	if ((((unsigned char)g3746[((314 * p4) + rdi)] + (unsigned char)g3750[((314 * p4) + rdi)]) - 1) >= l2) goto L47b6;
-	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) > 0) {
+	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) <= 0) goto L4755;
 	rdi = *(int *)((char *)g50de + ((p4 * 10) + (p6 << 1)));
-	} else {
-	rdi = random((unsigned char)g373c[((314 * p4) + rsi)]);
-	rdi = (rdi + (unsigned char)g3732[((314 * p4) + rsi)]);
-	}
+	goto L477e;
+L4755:
+	;
+#asm
+l4755:
+	db 0b8h,03ah,001h,0f7h,06eh,004h,003h,0c6h,08bh,0d8h,08ah,087h,03ch,037h,02ah,0e4h
+	db 050h
+	call random_
+	db 059h,08bh,0f8h,0b8h,03ah,001h,0f7h,06eh,004h,003h,0c6h,08bh,0d8h,08ah,087h,032h
+	db 037h,02ah,0e4h,003h,0f8h
+#endasm
+L477e:
 	g3648[((p6 * 30) + (rsi * 3))] = rdi;
 	l2 = (unsigned char)g3746[((314 * p4) + rdi)];
 L47b6:

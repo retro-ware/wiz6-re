@@ -1,3 +1,7 @@
+#asm
+	extrn drv_draw_text_:near
+	extrn drv_op_c6_:near
+#endasm
 extern char g511b[];
 extern char g514a[];
 extern char g5152[];
@@ -42,7 +46,8 @@ draw_maze_view()
 	int l10;
 	int l12;
 	char *entry;
-	char l16[2];
+	char l15;
+	char x15[1];
 	register int rsi;
 	l2 = party_x;
 	l4 = party_y;
@@ -149,17 +154,51 @@ L8cd2:
 	g5118++;
 	goto L8bd5;
 L9169:
-	for (g5118 = g52f6; g5118 >= 0; g5118--) {
+	g5118 = g52f6;
+	goto L92cc;
+L9172:
 	rsi = view_glyph_count;
 	rsi--;
 	goto L925e;
 L917a:
-	entry = ((rsi * 11) + 20904);
-	g52f4 = (((((unsigned char)entry[10] + party_x) + party_y) + party_facing) % 2);
-	if (((unsigned char)entry[10] != g5118) || ((unsigned char)entry[8] != 255)) goto L925d;
-	if (*(int *)entry == -1) goto L920e;
-	if (*(int *)(entry + 4) == -1) goto L91f9;
-	drv_op_c6((g52f4 != 0 ? *(int *)(entry + 4) : *(int *)entry), (unsigned char)entry[9], (g52f4 != 0 ? *(int *)entry : -1));
+	;
+#asm
+l917a:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0a8h
+	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,003h,006h,0a4h,04fh,003h
+	db 006h,0a2h,04fh,003h,006h,09ah,04fh,0b9h,002h,000h,099h,0f7h,0f9h,089h,016h,0f4h
+	db 052h,08ah,047h,00ah,02ah,0e4h,03bh,006h,018h,051h,074h,003h
+#endasm
+	goto L925d;
+L91b9:
+	;
+#asm
+l91b9:
+	db 08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,003h
+#endasm
+	goto L925d;
+L91c6:
+	;
+#asm
+l91c6:
+	db 083h,03fh,0ffh,074h,043h,083h,07fh,004h,0ffh,074h,028h,0b8h,0ffh,0ffh,083h,03eh
+	db 0f4h,052h,000h,074h,002h,08bh,007h
+#endasm
+L91dd:
+	;
+#asm
+l91dd:
+	db 050h,08ah,047h,009h,02ah,0e4h,050h,08bh,007h,083h,03eh,0f4h,052h,000h,074h,003h
+	db 08bh,047h,004h
+#endasm
+L91f0:
+	;
+#asm
+l91f0:
+	db 050h
+	call drv_op_c6_
+	db 083h,0c4h,006h
+#endasm
 	goto L920e;
 L91f9:
 	drv_op_c6(*(int *)entry, (unsigned char)entry[9], -1);
@@ -178,16 +217,28 @@ L925e:
 	rsi--;
 	goto L92c3;
 L926d:
-	entry = ((rsi * 11) + 20904);
-	if (((unsigned char)entry[10] != g5118) || ((unsigned char)entry[8] == 255)) goto L92c2;
-	l16[0] = entry[9];
-	l16[(0 + 1)] = 0;
-	drv_draw_text((unsigned char)entry[8], *(int *)entry, *(int *)(entry + 2), *(int *)(entry + 4), *(int *)(entry + 6), 0, 0, l16);
+	;
+#asm
+l926d:
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0a8h
+	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,03bh,006h,018h,051h,075h
+	db 034h,08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,02ah,08ah,047h,009h,088h,046h
+	db 0f0h
+#endasm
+	l15 = 0;
+#asm
+	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,0ffh,077h,006h,0ffh,077h,004h,0ffh
+	db 077h,002h,0ffh,037h,08ah,047h,008h,02ah,0e4h,050h
+	call drv_draw_text_
+	db 083h,0c4h,010h
+#endasm
 L92c2:
 	rsi--;
 L92c3:
 	if (rsi >= 0) goto L926d;
-	}
+	g5118--;
+L92cc:
+	if (g5118 >= 0) goto L9172;
 	draw_compass_icons();
 	return;
 #asm

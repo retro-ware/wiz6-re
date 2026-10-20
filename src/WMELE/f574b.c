@@ -33,8 +33,7 @@ L576b:
 	l4 = 0;
 	goto L5821;
 L5781:
-	rsi = (44 * l4);
-	if (((char *)monster_groups[l2] + rsi)[34]) goto L581e;
+	if (((rsi = (44 * l4), (*(char **)((char *)monster_groups + (l2 << 1)))) + rsi)[34]) goto L581e;
 #asm
 l579d:
 	db 080h,078h,010h,000h,074h,003h,0e9h,078h,000h
@@ -52,20 +51,16 @@ L57b6:
 #asm
 l57b6:
 	db 0b8h,02ch,000h,0f7h,06eh,0fch,003h,046h,0f6h,08bh,0f0h,08bh,046h,0feh,0d1h,0e0h
-	db 08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,00eh,000h,076h,014h
-#endasm
-	rsi = (44 * l4);
-#asm
-	db 08bh,040h,002h,0b9h,004h,000h,099h,0f7h,0f9h,001h,046h,0f4h
+	db 08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,00eh,000h,076h,014h,0b8h,02ch,000h,0f7h
+	db 06eh,0fch,08bh,0f0h,08bh,040h,002h,0b9h,004h,000h,099h,0f7h,0f9h,001h,046h,0f4h
 #endasm
 L57e6:
 	l10++;
 	if (l10 < 10) goto L57b6;
-	rsi = (44 * l4);
+	if (*(int *)(((rsi = (44 * l4), (*(char **)((char *)monster_groups + (l2 << 1)))) + rsi) + 2) <= l12) goto L581e;
 #asm
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,040h,002h,03bh,046h
-	db 0f4h,07eh,012h,08bh,040h,002h,02bh,046h,0f4h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h
-	db 003h,0ddh,001h,047h,0e6h
+	db 08bh,040h,002h,02bh,046h,0f4h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h,003h,0ddh,001h
+	db 047h,0e6h
 #endasm
 L581e:
 	l4++;
@@ -106,12 +101,13 @@ L597c:
 	l4 = 0;
 	goto L5ae2;
 L5a93:
-	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] != -1) {
-	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
-	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
+	if (((rsi = (44 * l4), (*(char **)((char *)g43a6 + (l2 << 1)))) + rsi)[42] == -1) goto L5adf;
+#asm
+	db 08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h,02ah
+	db 098h,099h,0f7h,0f9h,089h,056h,0f8h
+#endasm
 	*(int *)((char *)g50b4 + ((l6 * 10) + (l8 << 1))) = 1;
-	}
+L5adf:
 	l4++;
 L5ae2:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5a93;
@@ -119,13 +115,14 @@ L5ae2:
 	l4 = 0;
 	goto L5b65;
 L5b07:
-	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] != -1) {
-	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
-	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
+	if (((rsi = (44 * l4), (*(char **)((char *)g43a6 + (l2 << 1)))) + rsi)[42] == -1) goto L5b62;
+#asm
+	db 08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h,02ah
+	db 098h,099h,0f7h,0f9h,089h,056h,0f8h
+#endasm
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
 	((char *)g43a6[l2] + rsi)[42] = -1;
-	}
+L5b62:
 	l4++;
 L5b65:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5b07;

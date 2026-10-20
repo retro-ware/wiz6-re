@@ -74,8 +74,8 @@ L4a86:
 #asm
 l4a86:
 	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,087h,09ch,001h,001h
-	db 0c7h,046h,0feh,000h,000h
 #endasm
+	i = 0;
 L4a9b:
 	;
 #asm
@@ -111,37 +111,28 @@ l4af9:
 	db 08bh,0f8h,0a5h,0a5h
 	call roll_dice_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,006h,0d1h
-	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,004h
-#endasm
-	rsi = (44 * i);
-	*(int *)(((char *)monster_groups[n] + rsi) + 2) = *(int *)(((char *)monster_groups[n] + rsi) + 4);
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h,0c1h,07ch,083h,0ech
-	db 004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,004h,0b8h,02ch,000h,0f7h,06eh
+	db 0feh,08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,040h
+	db 004h,089h,040h,002h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h
+	db 0c1h,07ch,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h
+	db 0a5h
 	call roll_dice_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,006h,0d1h
-	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,008h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,008h,0b8h,02ch,000h,0f7h,06eh
+	db 0feh,08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,040h
+	db 008h,089h,040h,006h
 #endasm
-	rsi = (44 * i);
-	*(int *)(((char *)monster_groups[n] + rsi) + 6) = *(int *)(((char *)monster_groups[n] + rsi) + 8);
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[42] = -1;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[42] = -1;
 	switch ((unsigned char)cfg_level) {
 case 1:
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[38] = 2;
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[39] = 2;
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[41] = -5;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[38] = 2;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[39] = 2;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[41] = -5;
 	goto L4c82;
 case 2:
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[38] = -2;
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[39] = -2;
-	rsi = (44 * i);
-	((char *)monster_groups[n] + rsi)[41] = 5;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[38] = -2;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[39] = -2;
+	((rsi = (44 * i), (*(char **)((char *)monster_groups + (n << 1)))) + rsi)[41] = 5;
 	goto L4c82;
 	}
 L4c82:

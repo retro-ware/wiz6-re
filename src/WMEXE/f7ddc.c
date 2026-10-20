@@ -17,8 +17,11 @@ f7ddc(p4, p6, p8, p10, p12, p14, p16)
 	char x8[24];
 	register int rsi;
 	g500a = 4;
-	rsi = (44 * p6);
-	if (((unsigned)((char *)monster_groups[p4] + rsi)[34] < 3) && (!((char *)monster_groups[p4] + rsi)[43])) goto L7e10;
+	if ((unsigned)((rsi = (44 * p6), (*(char **)((char *)monster_groups + (p4 << 1)))) + rsi)[34] >= 3) goto L7e08;
+#asm
+	db 080h,078h,02bh,000h,074h,008h
+#endasm
+L7e08:
 	return 0;
 L7e10:
 	l2 = 0;
@@ -71,8 +74,7 @@ L7ea9:
 	db 083h,0c4h,00ch,08bh,046h,0feh,050h,0b8h,02ch,000h,0f7h,06eh,006h,08bh,0f0h,08bh
 	db 046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,029h,040h,002h
 #endasm
-	rsi = (44 * p6);
-	if (*(int *)(((char *)monster_groups[p4] + rsi) + 2) > 0) goto L7fe5;
+	if (*(int *)(((rsi = (44 * p6), (*(char **)((char *)monster_groups + (p4 << 1)))) + rsi) + 2) > 0) goto L7fe5;
 	combat_delay((g4fc8 / 4));
 	do_damage_effect(p4, p6, 3486, 0, 3, 0, 6, 6, 3408, 0);
 	goto L800e;

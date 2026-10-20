@@ -222,8 +222,8 @@ class Func:
                 if reg or not (live or lenient):
                     return False
             elif reg:
-                if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic == 'mov' and reg == [1]):
-                    continue        # the temp scaled in place (shl si, cl), or copied out (mov cx, si)
+                if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic in ('mov', 'add') and reg == [1]):
+                    continue        # the temp scaled in place (shl si, cl), copied out (mov cx, si) or added (add bx, si)
                 lea = i.mnemonic == 'lea' and reg == [0]        # a struct copy's source/dest address
                 if not lea and (i.mnemonic != 'mov' or reg != [0] or
                                 ops[1].type not in (X.X86_OP_REG, X.X86_OP_MEM, X.X86_OP_IMM) or
@@ -314,7 +314,7 @@ class Lifter:
                 raise Unlift('write ' + n)
             if n in self.regvars:
                 rv = ('v', 'r', n, 2)
-                if self.stack:         # pushes pending: si = x happens inside the expression
+                if self.stack or self.st_start < self.cur.address:   # si = x happens inside the open expression
                     if n in self.pend or any(rv in sub_exprs(x) for x in list(self.R.values()) + self.stack):
                         raise Unlift('regvar in expression')
                     self.pend[n] = v
@@ -454,6 +454,7 @@ class Lifter:
         self.gptr = set()       # globals used as a base pointer
         self.vptr = set()       # word vars loaded after a complex right operand: a char * base
         self.mptr = []          # word memory operands used the same way: printed with a (char *) cast (may hold lists)
+        self.bptr = []          # those kept in bx as base + si: a local assigned base + i is a char *
         self.st_start = f.body
         prev_end = f.body
         self.find_switches()
@@ -664,6 +665,11 @@ class Lifter:
                         s.reg == X.X86_REG_CX and x[0] == 'm' and x[3] == 2 and \
                         y and y[0] not in ('v', 'c', 'm', 'x'):
                     self.mptr.append(x)
+                if m == 'add' and d.reg == X.X86_REG_BX and s.type == X.X86_OP_REG and \
+                        s.reg in (X.X86_REG_SI, X.X86_REG_DI) and x[0] == 'm' and x[3] == 2 and \
+                        y and y[0] not in ('v', 'c', 'm', 'x'):
+                    self.mptr.append(x)     # &base[i + K] from cgen's kept bx+si: a char * base
+                    self.bptr.append(x)     # and a local it is stored to is a char * too
                 self.setreg(d, v)
                 self.flags = ('soft', v)     # usable by a jcc, but needn't be consumed
                 self.carry = (R16.get(d.reg), ALU[m], x, y, a + i.size)
@@ -1076,6 +1082,18 @@ class Lifter:
                     self.step(x1)
                     p = x2.address + x2.size
                     continue
+                if p == self.skip:          # the pop cx / add sp after an arm's call
+                    self.skip = None
+                    p += i.size
+                    continue
+                if reg == 'ax' and not save[1] and getattr(self, 'armcall', None) is not None and \
+                        (i.mnemonic == 'push' or i.mnemonic == 'call' and
+                                                    i.operands[0].type == X.X86_OP_IMM):
+                    self.armcall = True     # cond ? f(x) : K: the call's args are pushed in the arm
+                    self.cur = i
+                    self.step(i)
+                    p += i.size
+                    continue
                 if i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH or \
                         i.mnemonic in ('call', 'ret', 'push', 'pop'):
                     break
@@ -1085,7 +1103,8 @@ class Lifter:
             else:
                 if p == end and len(self.sts) == save[4] and len(self.stack) == len(save[1]) and \
                         self.pend == save[5] and \
-                        self.side is None:
+                        (self.side is None or self.side == 'ax' and reg == 'ax' and not self.stack and
+                         getattr(self, 'armcall', None)):
                     v = self.R.get(reg)
         except Unlift:
             v = None
@@ -1131,10 +1150,16 @@ class Lifter:
         if r in self.R:
             conds = [c]
             self.armvals = [self.R[r]]
+            self.armcall = False
             b = self.arm(nxt, t, t, conds, r)
+            ac, self.armcall = self.armcall, None
             g = self.got
             if r != 'ax' and len(conds) > 1:
                 return False
+            j = self.f.seen.get(t)
+            if ac and not (j is not None and (j.mnemonic == 'push' and j.op_str == 'ax' or
+                                              j.mnemonic == 'mov' and j.op_str.endswith(', ax'))):
+                return False        # a call arm is a value only if T uses ax (else: if (c) f(x);)
             if b is not None and self.tcount.get(t) == len(conds) + g['n'].get(t, 0) + self.pending(t):
                 # cgen loads the else value first and skips the then value when cond fails;
                 # ax reloaded between jumps is a nested ternary in the then arm
@@ -1151,7 +1176,7 @@ class Lifter:
                         b = ('?', negate(cs[0]), b, v, 'load')
                     else:
                         b = ('?', negate(('||',) + tuple(cs)), b, v)
-                self.R[r] = b
+                self.R = {r: b} if ac else dict(self.R, **{r: b})     # a call clobbered the rest
                 self.flags, self.skip_to = None, t
                 n = dict(g['n'])
                 n[t] = n.get(t, 0) + len(conds)

@@ -65,7 +65,7 @@ L86e4:
 	if (slot < 22) goto L86f7;
 	return -1;
 L86f7:
-	entry = (((432 * member) + (slot << 3)) + 17448);
+	entry = (char *)pc_item_id + ((432 * member) + (slot << 3));
 	if (l87 <= 0) goto L873a;
 	entry[6] = 0;
 	if (l87 != 1) goto L872e;

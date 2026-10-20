@@ -8,8 +8,12 @@ char *str;
 	j = (strlen(str) - 1);
 	goto L0448;
 L0426:
-	c = *(str + i);
-	*(str + i) = *(str + j);
+	;
+#asm
+l0426:
+	db 08bh,05eh,004h,08ah,001h,098h,08bh,0f0h,003h,05eh,0feh,08ah,007h,08bh,05eh,004h
+	db 088h,001h
+#endasm
 	*(str + j) = c;
 	j--;
 	i++;

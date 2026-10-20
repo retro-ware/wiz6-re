@@ -9,13 +9,16 @@ char *enabled;
 	count = 0;
 L706c:
 	if (i == n) goto L7095;
-	rsi = (i << 1);
-	if (*(int *)(enabled + rsi) != -1) goto L7088;
+	if (*(int *)((rsi = (i << 1), enabled) + rsi) != -1) goto L7088;
 	return 0;
 L7088:
-	if (*(int *)(enabled + rsi) == 1) {
+	;
+#asm
+l7088:
+	db 083h,038h,001h,075h,003h
+#endasm
 	count++;
-	}
+L7090:
 	i++;
 	goto L706c;
 L7095:

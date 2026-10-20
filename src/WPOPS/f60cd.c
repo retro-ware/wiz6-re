@@ -17,14 +17,28 @@ L60d8:
 	goto L6191;
 L6119:
 	if (l4) goto L6159;
-	for (rsi = (unsigned char)g02ca[(rdi << 2)]; rsi < l2; rsi++) {
+#asm
+	db 08bh,0c7h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,08ah,087h,0cah,002h,02ah,0e4h,08bh,0f0h
+	db 0ebh,021h
+#endasm
+L6131:
 	f60a7(p4, rsi, (unsigned char)g02cb[(rdi << 2)], (unsigned char)g02cc[(rdi << 2)]);
-	}
+	rsi++;
+L6152:
+	if (rsi < l2) goto L6131;
 	goto L6191;
 L6159:
-	for (rsi = (unsigned char)g02cb[(rdi << 2)]; rsi < l2; rsi++) {
+	;
+#asm
+l6159:
+	db 08bh,0c7h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,08ah,087h,0cbh,002h,02ah,0e4h,08bh,0f0h
+	db 0ebh,021h
+#endasm
+L616b:
 	f60a7(p4, (unsigned char)g02ca[(rdi << 2)], rsi, (unsigned char)g02cc[(rdi << 2)]);
-	}
+	rsi++;
+L618c:
+	if (rsi < l2) goto L616b;
 L6191:
 	rdi++;
 	if (rdi < 49) goto L60d8;
