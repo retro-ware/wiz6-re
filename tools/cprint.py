@@ -541,7 +541,7 @@ class Printer:
             if a.kind != 'asg' or a.lv != c[1] or a.s in self.L.nobool or \
                     inc.kind != 'inc' or inc.lv != c[1] or inc.s in labels or inc.s in cases or \
                     inc.s in default or (st.s in labels) != top or st.s in cases or st.s in default or \
-                    a.s in cases or a.s in default or g.s in cases or g.s in default or \
+                    top and (a.s in cases or a.s in default or g.s in cases or g.s in default) or \
                     top and g.s in labels or \
                     any(x.kind in ('raw', 'switch', 'endsw') for x in sts[k - 1:j + 1]):
                 continue

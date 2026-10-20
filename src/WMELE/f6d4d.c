@@ -21,13 +21,11 @@ case -2:
 	sprite_count = 0;
 	goto L6deb;
 case -1:
-	l2 = 0;
-L6da0:
+	for (l2 = 0; l2 < 2; l2++) {
 	for (l4 = 0; l4 < 5; l4++) {
 	queue_monster_sprite(l2, l4, 0);
 	}
-	l2++;
-	if (l2 < 2) goto L6da0;
+	}
 	goto L6deb;
 default:
 	draw_view_sprite(view_anim_state);

@@ -20,13 +20,11 @@ case -2:
 	sprite_count = 0;
 	goto L567a;
 case -1:
-	l2 = 0;
-L562f:
+	for (l2 = 0; l2 < 2; l2++) {
 	for (l4 = 0; l4 < 5; l4++) {
 	f49db(l2, l4, 0);
 	}
-	l2++;
-	if (l2 < 2) goto L562f;
+	}
 	goto L567a;
 default:
 	f4c09(view_anim_state);

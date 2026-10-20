@@ -22,13 +22,11 @@ case -2:
 	sprite_count = 0;
 	goto L51b2;
 case -1:
-	l2 = 0;
-L516e:
+	for (l2 = 0; l2 < 2; l2++) {
 	for (l4 = 0; l4 < 5; l4++) {
 	queue_monster_sprite(l2, l4);
 	}
-	l2++;
-	if (l2 < 2) goto L516e;
+	}
 	goto L51b2;
 default:
 	draw_sprite(view_anim_state);
