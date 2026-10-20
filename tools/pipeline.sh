@@ -14,5 +14,10 @@ grep -h ' functions, ' work/*.loop.log | awk '{ok += $4; gsub(/\(/, "", $6); fre
 tail -3 work/render.log
 tools/sbuild.sh $IMGS || exit 1
 echo ALLOK
+# no function may gain #asm against HEAD (a byte-identical build can still lose C); FORCE=1 overrides
+worse=$(git diff --name-only HEAD -- src | while read f; do
+	a=$(git show "HEAD:$f" 2>/dev/null | grep -c '^#asm'); b=$(grep -c '^#asm' "$f" 2>/dev/null); b=${b:-0}
+	[ "$b" -gt "$a" ] && echo "$f $a -> $b"; done)
+if [ -n "$worse" ] && [ -z "$FORCE" ]; then echo "REGRESSED"; echo "$worse"; exit 1; fi
 git add -A && git -c user.email=felix@1kloc.com commit -qm "$1" && echo COMMITTED
 git grep -c '^#asm' HEAD -- src | awk -F: '{s += $NF} END {print "asm blocks", s}'
