@@ -979,10 +979,13 @@ class Lifter:
                 return False
             last, p = x, p + x.size
         src = self.R['cx']
-        if src[0] != 'call':
-            return False
-        self.structs.add((src[1], s.imm))
-        self.stack += [('pad',)] * (s.imm // 2 - 1) + [('sv', src, s.imm)]
+        if src[0] == 'call':
+            self.structs.add((src[1], s.imm))
+            v = ('sv', src, s.imm)
+        else:                   # the struct at the address in cx
+            self.scopies.add(s.imm)
+            v = ('sp', src, s.imm)
+        self.stack += [('pad',)] * (s.imm // 2 - 1) + [v]
         del self.R['cx']
         self.skip_to = last.address + last.size
         return True
