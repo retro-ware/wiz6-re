@@ -1554,7 +1554,9 @@ class Lifter:
         default = None
         x = get(p)
         if x is not None and x.mnemonic == 'jmp' and x.operands[0].type == X.X86_OP_IMM and \
-                (x.operands[0].imm & 0xffff) < d:
+                (x.operands[0].imm & 0xffff) < d and \
+                not ((x.operands[0].imm & 0xffff) == self.f.epi and p + x.size == self.f.e):
+            # (the function's last instruction jumping to the epilogue is its end, not a default)
             default = x.operands[0].imm & 0xffff
             p += x.size
         return dict(cases=cases, default=default, start=d, end=p, kind='chain')
