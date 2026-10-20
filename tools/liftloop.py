@@ -7,7 +7,7 @@ mismatches to #asm, and repeats until nothing changes. State: work/lift/IMAGE/st
 ({addr: {status, demote, raw, stmts}}); status ok = matches (raw = #asm statements left),
 asm = keep the skeleton.
 """
-import difflib, json, os, re, subprocess, sys
+import copy, difflib, json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(__file__))
 os.environ['WIZ6_NAMES'] = '0'   # lift with address names; render.py applies names/*.json
 import capstone as cs
@@ -266,6 +266,27 @@ class Loop:
         t.append(mode)
         return True
 
+    @staticmethod
+    def prune(st):
+        """A matching function with demotions: some only followed a real mismatch (a shifted jump
+        table, case bodies after it). True to lift it again without the next one (see run)."""
+        if st['status'] != 'ok' or st.get('pruned') or not st.get('demote'):
+            return False
+        d = st['demote']
+        if 'untried' not in st:
+            # demotions in the order check added them: the first ones are the real mismatches
+            st['untried'] = [d[:k] for k in range(1, len(d))] + [[x for x in d if x != c] for c in d[::-1]]
+        while st['untried']:
+            t = st['untried'].pop(0)
+            if len(t) < len(d) and set(t) < set(d):
+                st['trial_snap'] = copy.deepcopy(st)
+                st['trial'] = 1
+                st['demote'] = t
+                return True
+        del st['untried']
+        st['pruned'] = True
+        return False
+
     def run(self, addrs):
         todo = [a for a in addrs if self.st(a)['status'] in ('new', 'pending')]
         rnd = 0
@@ -283,7 +304,22 @@ class Loop:
                 break
             errs = self.compile(sorted(lifted)) if lifted else {}
             for a, (P, L, lines) in lifted.items():
-                if self.check(a, P, L, lines, errs.get('f%04x' % a, [])) or self.settle(self.st(a)):
+                st = self.st(a)
+                if 'trial' in st:
+                    # a lift without one demotion: keep it only if it matches with fewer raw blocks
+                    snap = st.pop('trial_snap')
+                    st.pop('trial')
+                    if self.check(a, P, L, lines, errs.get('f%04x' % a, [])) or st['status'] != 'ok' or \
+                            st.get('raw', 0) >= snap.get('raw', 0):
+                        st.clear()
+                        st.update(snap)
+                    else:
+                        st.pop('untried', None)     # fewer demotions: try pruning those
+                    if self.prune(st):
+                        st['status'] = 'pending'
+                        nxt.append(a)
+                    continue
+                if self.check(a, P, L, lines, errs.get('f%04x' % a, [])) or self.settle(st) or self.prune(st):
                     self.st(a)['status'] = 'pending'
                     nxt.append(a)
             ok = sum(1 for a in addrs if self.st(a)['status'] == 'ok')

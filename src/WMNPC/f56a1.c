@@ -49,10 +49,5 @@ l575b:
 	f55dc();
 	} while (view_anim_state != -2);
 	l2++;
-#asm
-	db 08bh,046h,0feh,03dh,004h,000h,07dh,003h
-#endasm
-	goto L56fa;
-L5788:
-	;
+	if (l2 < 4) goto L56fa;
 }

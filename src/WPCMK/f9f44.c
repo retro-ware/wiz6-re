@@ -42,32 +42,31 @@ La020:
 	db 089h,046h,0deh,089h,046h,0e0h,089h,046h,0e2h
 #endasm
 	choice = menu_select(prompt_win, 1130, enabled, 4, 1, 12, 2, 5, count_enabled_options(enabled, 5));
-#asm
-	db 0e9h,0b1h,000h
-#endasm
+	switch (choice) {
+case 0:
 	do_create_character();
 	goto La131;
+case 1:
 	if ((sel = select_roster_character(prompt_win, menu_win, 1129)) != -1) {
 	view_character(g57b0[sel]);
 	}
 	goto La131;
+case 2:
 	if ((sel = select_roster_character(prompt_win, menu_win, 1121)) != -1) {
 	delete_character(g57b0[sel]);
 	}
 	goto La131;
+case 3:
 	if ((sel = select_roster_character(prompt_win, menu_win, 1122)) != -1) {
 	rename_character(g57b0[sel]);
 	}
 	goto La131;
+case 4:
 	if ((sel = select_roster_character(prompt_win, menu_win, 1123)) != -1) {
 	change_portrait(g57b0[sel]);
 	}
 	goto La131;
-#asm
-	db 073h,0a0h,079h,0a0h,0a2h,0a0h,0cah,0a0h,0f2h,0a0h
-la124:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,01ah,0a1h
-#endasm
+	}
 La131:
 	if (choice != 5) goto L9fc4;
 	destroy_window(menu_win, 0);

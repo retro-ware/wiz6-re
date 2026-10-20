@@ -133,9 +133,7 @@ L4c85:
 L4cb6:
 	i = (i < 5 ? i : 5);
 	l4 = (cfg_level != 1 ? (cfg_level == 2 ? 75 : 100) : 150);
-#asm
-	db 08bh,046h,006h,03bh,046h,0feh,07dh,06eh
-#endasm
+	if (n >= i) goto L4d55;
 	i = 0;
 	mon = -1;
 L4cf1:

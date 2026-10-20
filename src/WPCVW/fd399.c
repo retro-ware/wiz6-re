@@ -1,6 +1,3 @@
-#asm
-	extrn $ldv:near
-#endasm
 extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
@@ -14,7 +11,9 @@ extern char g4549[];
 extern char g458a[];
 extern char g458b[];
 extern char g4591[];
+extern char g4592[];
 extern char pc_class[];
+extern char pc_condition[];
 extern char pc_equipped[];
 extern char pc_item_count[];
 extern char pc_item_flags[];
@@ -266,24 +265,19 @@ Ldad5:
 Ldc43:
 	goto Ldd55;
 Ldc46:
-	;
-#asm
-ldc46:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0d0h,0e9h,0f0h,000h
-#endasm
+	switch (l48[l2]) {
+case 9:
 	if ((unsigned)g4591[(432 * p8)] >= 4) goto Ldc69;
 	g4591[(432 * p8)] = 4;
 Ldc69:
 	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,092h,045h,004h,073h,005h,0c6h
-	db 087h,092h,045h,004h
-#endasm
+case 10:
+	if ((unsigned)g4592[(432 * p8)] >= 4) goto Ldc80;
+	g4592[(432 * p8)] = 4;
 Ldc80:
 	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,089h,045h,000h
-#endasm
+case 11:
+	pc_condition[(432 * p8)] = 0;
 	l4 = 0;
 Ldc95:
 	g450a[((432 * p8) + l4)] = 0;
@@ -292,29 +286,20 @@ Ldc95:
 	*(int *)((char *)pc_hp + (432 * p8)) = *(int *)((char *)pc_hp_max + (432 * p8));
 	*(int *)((char *)pc_stamina + (432 * p8)) = *(int *)((char *)pc_stamina_max + (432 * p8));
 	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08bh,087h,0f0h,043h,08bh,097h,0f2h,043h
-	db 0b9h,06dh,001h,0bbh,000h,000h
-	call $ldv
-	db 083h,0fah,000h,07ch,007h,075h,007h,03dh,012h,000h,077h,002h
-#endasm
-Ldcf0:
-	goto Ldd05;
-Ldcf2:
+case 12:
+	if ((*(long *)((char *)pc_age_days + (432 * p8)) / 365L) <= 18L) goto Ldd05;
 	*(long *)((char *)pc_age_days + (432 * p8)) += -365L;
 Ldd05:
 	if ((unsigned)g4517[(432 * p8)] >= 18) goto Ldd18;
 	g4517[(432 * p8)]++;
 Ldd18:
 	goto Ldd55;
+case 13:
 	l4 = (random(5) + 2);
 	*(int *)((char *)pc_hp_max + (432 * p8)) += l4;
 	*(int *)((char *)pc_hp + (432 * p8)) += l4;
-#asm
-	db 0ebh,01ah,055h,0dch,06ch,0dch,083h,0dch,0cbh,0dch,01ah,0ddh
-ldd45:
-	db 02dh,009h,000h,03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,03bh,0ddh
-#endasm
+	goto Ldd55;
+	}
 Ldd55:
 	use_item_charge(p8, (unsigned char)pc_equipped[((432 * p8) + l2)]);
 	draw_sheet(p4, p6, p8);

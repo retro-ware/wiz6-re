@@ -1,15 +1,5 @@
 #asm
 	extrn $ldv:near
-	extrn clamp_toward_x_:near
-	extrn f5eea_:near
-	extrn f8149_:near
-	extrn f825f_:near
-	extrn f83f3_:near
-	extrn f861e_:near
-	extrn f87ae_:near
-	extrn f88b1_:near
-	extrn f8bdb_:near
-	extrn roll_dice_x_:near
 #endasm
 extern int g4352;
 extern int g435a;
@@ -58,53 +48,37 @@ L9452:
 	;
 #asm
 l9452:
-	db 089h,046h,0f6h,08bh,046h,006h,0e9h,0b9h,01bh
+	db 089h,046h,0f6h
 #endasm
+	switch (p6) {
+case 0:
 	f8efc(l6, l8, 2, 1);
 	f8149(l6, l8, 1, 7, p8, 1, l10);
 	goto Lb021;
+case 1:
 	f8efc(l6, l8, 3, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,002h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0ffh,076h,0f6h,0b8h,004h,000h,050h,0b8h,002h,000h,050h,0b8h,094h
-	db 00dh,050h,0b8h,000h,000h,08bh,04eh,008h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,045h,01bh
-#endasm
+	f825f(l6, (0 - (p8 + 1)), 3476, 2, 4, l10, 0, p8, 2, p8, 0, 0);
+	goto Lb021;
+case 2:
 	f8efc(l6, 0, 0, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h,005h,000h,050h,0b8h,002h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h
-	db 0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,009h,01bh
-#endasm
+	f8149(l6, (0 - (p8 + 3)), 2, 5, p8, 1, l10);
+	goto Lb021;
+case 3:
 	(*(char **)((char *)monster_groups + (g435e << 1)))[396] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[396], 0);
-#asm
-	db 0e9h,0ceh,01ah
-#endasm
+	goto Lb021;
+case 4:
 	f8efc(l6, 0, 0, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h,003h,000h,050h,050h,0b8h
-	db 000h,000h,08bh,04eh,008h,083h,0c1h,004h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,095h,01ah
-#endasm
+	f8149(l6, (0 - (p8 + 4)), 3, 3, p8, 1, l10);
+	goto Lb021;
+case 5:
 	f8efc(l6, 0, 2, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h,00ah,000h,050h,0b8h,001h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h
-	db 0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,056h,01ah
-#endasm
+	f8149(l6, (0 - (p8 + 3)), 1, 10, p8, 1, l10);
+	goto Lb021;
+case 6:
 	f8efc(l6, 0, 2, 1);
-#asm
-	db 0ffh,076h,0f6h,0ffh,076h,008h,0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh
-	db 0c1h,050h,0ffh,076h,0fah
-	call f8bdb_
-	db 083h,0c4h,008h,0e9h,023h,01ah
-#endasm
+	f8bdb(l6, (0 - (p8 + 3)), p8, l10);
+	goto Lb021;
+case 7:
 	f8efc(l6, 0, 0, 1);
 	f8149(l6, -10, 2, 4, p8, 1, l10);
 	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[402];
@@ -114,52 +88,29 @@ l9452:
 	(*(char **)((char *)monster_groups + (l6 << 1)))[402] = (char)(l2 + 1);
 	(*(char **)((char *)monster_groups + (l6 << 1)))[406] = (char)(g435a + 1);
 	goto Lb021;
+case 8:
 	f8efc((g435e == 0 ? 1 : 0), 0, 0, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h,005h,000h,050h,050h,083h
-	db 03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h,000h,075h,005h
-l96a4:
-	db 0b8h,001h,000h,0ebh,003h
-l96a9:
-	db 0b8h,000h,000h
-l96ac:
-	db 050h
-	call f861e_
-	db 083h,0c4h,00ch,0e9h,06bh,019h
-#endasm
+	f861e(((!g435e) || (g435e == 6) ? 1 : 0), 5, 5, p8, 1, l10);
+	goto Lb021;
+case 9:
 	f8efc(l6, l8, 1, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,003h,000h,050h,0ffh,076h,008h,0b8h,006h,000h,050h,0b8h,001h
-	db 000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,039h,019h
-#endasm
+	f8149(l6, l8, 1, 6, p8, 3, l10);
+	goto Lb021;
+case 11:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,003h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0ffh,076h,0f6h,0b8h,001h,000h,050h,0b8h,00ah,000h,050h,0b8h,091h
-	db 00dh,050h,0b8h,0f6h,0ffh,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0f2h,018h
-#endasm
+	f825f(l6, -10, 3473, 10, 1, l10, 0, p8, 3, p8, 0, 0);
+	goto Lb021;
+case 12:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,001h,000h,050h,0ffh,076h,008h,0ffh,076h,0f6h,0b8h,000h,000h,08bh,04eh,008h
-	db 041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f88b1_
-	db 083h,0c4h,00ah,0e9h,0bbh,018h
-#endasm
+	f88b1(l6, (0 - (p8 + 3)), l10, p8, 1);
+	goto Lb021;
+case 13:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,0ffh,076h,008h,0ffh,076h,0f6h,08bh,04eh,008h,041h,041h,041h
-	db 02bh,0c1h,050h,0ffh,076h,0fah
-	call f88b1_
-	db 083h,0c4h,00ah,0e9h,087h,018h
-#endasm
+	f88b1(l6, (0 - (p8 + 3)), l10, p8, 0);
+	goto Lb021;
+case 14:
 	l2 = 0;
-#asm
-	db 0ebh,049h
-#endasm
+	goto L97ea;
 L97a1:
 	if ((unsigned)((char *)monster_groups[g435e] + (44 * l2))[34] < 3) {
 	((char *)monster_groups[g435e] + (44 * l2))[41] = (char)clamp_toward_x((p8 << 1), ((char *)monster_groups[g435e] + (44 * l2))[41], 0);
@@ -168,71 +119,40 @@ L97a1:
 L97ea:
 	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > l2) goto L97a1;
 	goto Lb021;
-#asm
-	db 0b8h,000h,000h,050h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah
-	db 087h,08dh,001h,02ah,0e4h,050h,08bh,046h,008h,08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh
-	db 0c2h,050h
-	call clamp_toward_x_
-	db 083h,0c4h,006h,08bh,00eh,05eh,043h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h
-	db 087h,08dh,001h,0e9h,0e3h,017h
-#endasm
+case 16:
+	(*(char **)((char *)monster_groups + (g435e << 1)))[397] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[397], 0);
+	goto Lb021;
+case 17:
 	f8efc(l6, 0, 1, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,003h,000h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,0b8h,003h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,083h,0c1h,004h,02bh,0c1h,050h,0ffh,076h
-	db 0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0a7h,017h
-#endasm
+	f8149(l6, (0 - (p8 + 4)), 3, 4, p8, 3, l10);
+	goto Lb021;
+case 18:
 	f8efc(l6, l8, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,001h,000h,050h,08bh,046h,008h,0d1h
-	db 0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,004h,000h
-	db 050h,0b8h,093h,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,05fh,017h
-#endasm
+	f825f(l6, l8, 3475, 4, 3, l10, 0, (p8 << 1), 1, p8, 0, 0);
+	goto Lb021;
+case 19:
 	f8efc(l6, l8, 1, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,003h,000h,050h,0ffh,076h,008h,0b8h,00ah,000h,050h,0b8h,003h
-	db 000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,02dh,017h
-#endasm
+	f8149(l6, l8, 3, 10, p8, 3, l10);
+	goto Lb021;
+case 20:
 	f8efc(l6, l8, 3, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,002h,000h,050h,08bh,046h,008h,08bh
-	db 0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,050h,0b8h,000h,000h,050h,0b8h,005h
-	db 000h,050h,050h,0b8h,001h,000h,050h,0ffh,076h,0f6h,0ffh,076h,008h,0b8h,006h,000h
-	db 050h,0b8h,095h,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f83f3_
-	db 083h,0c4h,01eh,0e9h,0d5h,016h
-#endasm
+	f83f3(l6, l8, 3477, 6, p8, l10, 1, 5, 5, 0, (p8 * 10), 2, p8, 0, 0);
+	goto Lb021;
+case 21:
 	(*(char **)((char *)monster_groups + (g435e << 1)))[398] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[398], 0);
-#asm
-	db 0e9h,09ah,016h
-#endasm
+	goto Lb021;
+case 22:
 	f8efc(l6, 0, 3, 1);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0b8h,008h,000h,050h,0b8h,006h,000h,050h,0b8h,001h,000h,050h,0ffh
-	db 076h,0f6h,0ffh,076h,008h,0b8h,005h,000h,050h,0b8h,098h,00dh,050h,0b8h,0fdh,0ffh
-	db 050h,0ffh,076h,0fah
-	call f83f3_
-	db 083h,0c4h,01eh,0e9h,048h,016h
-#endasm
+	f83f3(l6, -3, 3480, 5, p8, l10, 1, 6, 8, 0, p8, 4, p8, 0, 0);
+	goto Lb021;
+case 23:
 	(*(char **)((char *)monster_groups + (g435e << 1)))[399] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[399], 0);
-#asm
-	db 0e9h,00dh,016h
-#endasm
+	goto Lb021;
+case 24:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,050h,0b8h,002h,000h,050h,0ffh,076h,008h,0b8h,000h,000h
-	db 050h,0ffh,076h,0f6h,050h,0b8h,00ch,000h,050h,0b8h,090h,00dh,050h,0b8h,000h,000h
-	db 08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0c3h,015h
-#endasm
+	f825f(l6, (0 - (p8 + 3)), 3472, 12, 0, l10, 0, p8, 2, 0, 0, 0);
+	goto Lb021;
+case 25:
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3477, 6, p8, l10, 1, 4, 5, 0, (p8 * 10), 2, p8, 0, 0);
 	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[403];
@@ -242,14 +162,11 @@ L97ea:
 	(*(char **)((char *)monster_groups + (l6 << 1)))[403] = (char)(l2 + 1);
 	(*(char **)((char *)monster_groups + (l6 << 1)))[407] = (char)(g435a + 1);
 	goto Lb021;
+case 27:
 	f8efc(l6, 0, 4, 0);
-#asm
-	db 0ffh,076h,0f6h,0b8h,005h,000h,050h,0ffh,076h,008h,0b8h,007h,000h,050h,0b8h,001h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h
-	db 0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0edh,014h
-#endasm
+	f8149(l6, (0 - (p8 + 3)), 1, 7, p8, 5, l10);
+	goto Lb021;
+case 28:
 	clear_msg_line(3);
 	print_msg_centered(3224, 3, 3);
 	combat_delay((g4fc8 / 2));
@@ -268,19 +185,16 @@ L9b82:
 	print_msg_centered((l4 == 0 ? 3225 : 3226), 3, 3);
 	}
 	goto Lb021;
+case 29:
 	f8efc(l6, l8, 3, 0);
 	if (random(100) >= (p8 * 5)) goto L9c52;
-#asm
-	db 0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0b8h,000h,000h,050h,050h,050h,0b8h,001h
-	db 000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,006h,000h,050h,0b8h,0a1h,00dh
-	db 050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0ebh,04ch
-#endasm
+	f825f(l6, l8, 3489, 6, 3, l10, 1, 0, 0, 0, 14, 6);
+	goto L9c9e;
 L9c52:
 	f83f3(l6, l8, 3477, 6, p8, l10, 3, 5, 5, 0, (p8 * 10), 4, (p8 * 10), 0, 0);
 L9c9e:
 	goto Lb021;
+case 31:
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3480, 5, p8, l10, 2, 3, 8, 0, p8, 4, p8, 0, 0);
 	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[404];
@@ -290,78 +204,38 @@ L9c9e:
 	(*(char **)((char *)monster_groups + (l6 << 1)))[404] = (char)(l2 + 1);
 	(*(char **)((char *)monster_groups + (l6 << 1)))[408] = (char)(g435a + 1);
 	goto Lb021;
+case 32:
 	f8efc(l6, 0, 3, 1);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0b8h,008h,000h,050h,0b8h,006h,000h,050h,0b8h,001h,000h,050h,0ffh
-	db 076h,0f6h,0ffh,076h,008h,0b8h,005h,000h,050h,0b8h,098h,00dh,050h,0b8h,000h,000h
-	db 08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f83f3_
-	db 083h,0c4h,01eh,0e9h,09ah,012h
-#endasm
+	f83f3(l6, (0 - (p8 + 3)), 3480, 5, p8, l10, 1, 6, 8, 0, p8, 4, p8, 0, 0);
+	goto Lb021;
+case 33:
 	f8efc(l6, 0, 4, 0);
-#asm
-	db 0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0ffh,076h,008h,0ffh,076h,008h,0ffh,076h
-	db 008h,0b8h,001h,000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,005h,000h,050h
-	db 0b8h,0a2h,00dh,050h,083h,03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h
-	db 000h,075h,005h
-l9dcf:
-	db 0b8h,001h,000h,0ebh,003h
-l9dd4:
-	db 0b8h,000h,000h
-l9dd7:
-	db 050h
-	call f87ae_
-	db 083h,0c4h,016h,0e9h,040h,012h
-#endasm
+	f87ae(((!g435e) || (g435e == 6) ? 1 : 0), 3490, 5, 3, l10, 1, p8, p8, p8, 14, 6);
+	goto Lb021;
+case 34:
 	f8efc((g435e == 0 ? 1 : 0), 0, 4, 0);
-#asm
-	db 0ffh,076h,0f6h,0b8h,005h,000h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,050h,083h
-	db 03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h,000h,075h,005h
-l9e1c:
-	db 0b8h,001h,000h,0ebh,003h
-l9e21:
-	db 0b8h,000h,000h
-l9e24:
-	db 050h
-	call f861e_
-	db 083h,0c4h,00ch,0e9h,0f3h,011h
-#endasm
+	f861e(((!g435e) || (g435e == 6) ? 1 : 0), 4, 4, p8, 5, l10);
+	goto Lb021;
+case 35:
 	f8efc(l6, l8, 3, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,008h,000h,050h,0ffh,076h,008h,0b8h,007h,000h,050h,0b8h,001h
-	db 000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0beh,011h
-#endasm
+	f8149(l6, l8, 1, 7, p8, 8, l10);
+	goto Lb021;
+case 36:
 	f8efc(l6, l8, 3, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,002h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0ffh,076h,0f6h,0b8h,009h,000h,050h,0b8h,008h,000h,050h,0b8h,09fh
-	db 00dh,050h,0b8h,0fdh,0ffh,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,078h,011h
-#endasm
+	f825f(l6, -3, 3487, 8, 9, l10, 0, p8, 2, p8, 0, 0);
+	goto Lb021;
+case 37:
 	((char *)monster_groups[l6] + (44 * l8))[38] = (char)clamp_toward_x(p8, ((char *)monster_groups[l6] + (44 * l8))[38], 1);
-#asm
-	db 0e9h,038h,011h
-#endasm
+	goto Lb021;
+case 40:
 	f8efc(l6, 0, 15, 0);
-#asm
-	db 0ffh,076h,0f6h,0b8h,007h,000h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,0b8h,002h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h
-	db 0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0f9h,010h
-#endasm
+	f8149(l6, (0 - (p8 + 3)), 2, 4, p8, 7, l10);
+	goto Lb021;
+case 42:
 	f8efc(l6, l8, 2, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,001h,000h,050h,08bh,046h,008h,0d1h
-	db 0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,004h,000h
-	db 050h,0b8h,0a0h,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0b1h,010h
-#endasm
+	f825f(l6, l8, 3488, 4, 3, l10, 0, (p8 << 1), 1, p8, 0, 0);
+	goto Lb021;
+case 43:
 	f8efc(l6, 0, 3, 1);
 	f8149(l6, -10, 1, 6, p8, 8, l10);
 	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[405];
@@ -371,18 +245,18 @@ l9e24:
 	(*(char **)((char *)monster_groups + (l6 << 1)))[405] = (char)(l2 + 1);
 	(*(char **)((char *)monster_groups + (l6 << 1)))[409] = (char)(g435a + 1);
 	goto Lb021;
+case 44:
 	f8efc(l6, l8, 4, 1);
 	l4 = f7af7(l6, p8, 0, l10);
 	l2 = 0;
-#asm
-	db 0ebh,040h
-#endasm
+	goto La052;
 La012:
 	((char *)monster_groups[l6] + (44 * l2))[38] = (char)clamp_toward_x(l4, ((char *)monster_groups[l6] + (44 * l2))[38], 0);
 	l2++;
 La052:
 	if ((unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[413] > l2) goto La012;
 	goto Lb021;
+case 45:
 	if ((g435e) && (g435e != 6)) goto La09d;
 	f8fa8(212, 213, 214, 215, 216, 217, p8);
 	goto La10d;
@@ -403,27 +277,18 @@ default:
 	}
 La10d:
 	goto Lb021;
+case 47:
 	f8efc(l6, l8, 16, 1);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,001h,000h,050h,0ffh,076h,008h,0b8h
-	db 000h,000h,050h,0b8h,007h,000h,050h,050h,0b8h,001h,000h,050h,0ffh,076h,0f6h,0ffh
-	db 076h,008h,0b8h,00ah,000h,050h,0b8h,097h,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f83f3_
-	db 083h,0c4h,01eh,0e9h,0c4h,00eh
-#endasm
+	f83f3(l6, l8, 3479, 10, p8, l10, 1, 7, 7, 0, p8, 1, p8, 0, 0);
+	goto Lb021;
+case 48:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,050h,0b8h,002h,000h,050h,0ffh,076h,008h,0b8h,000h,000h
-	db 050h,0ffh,076h,0f6h,0b8h,002h,000h,050h,0b8h,009h,000h,050h,0b8h,092h,00dh,050h
-	db 0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,077h,00eh
-#endasm
+	f825f(l6, (0 - (p8 + 3)), 3474, 9, 2, l10, 0, p8, 2, 0, 0, 0);
+	goto Lb021;
+case 49:
 	l4 = (((p8 - 1) / 2) + 1);
 	l2 = 0;
-#asm
-	db 0ebh,07dh
-#endasm
+	goto La23c;
 La1bf:
 	((char *)monster_groups[g435e] + (44 * l2))[38] = (char)clamp_toward_x(l4, ((char *)monster_groups[g435e] + (44 * l2))[38], 1);
 	((char *)monster_groups[g435e] + (44 * l2))[39] = (char)clamp_toward_x(l4, ((char *)monster_groups[g435e] + (44 * l2))[39], 1);
@@ -431,18 +296,13 @@ La1bf:
 La23c:
 	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > l2) goto La1bf;
 	goto Lb021;
+case 50:
 	f8efc(l6, l8, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,001h,000h,050h,08bh,046h,008h,0d1h
-	db 0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,009h,000h
-	db 050h,0b8h,0a8h,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,081h,00dh
-#endasm
+	f825f(l6, l8, 3496, 9, 3, l10, 0, (p8 << 1), 1, p8, 0, 0);
+	goto Lb021;
+case 54:
 	l2 = 1;
-#asm
-	db 0ebh,046h
-#endasm
+	goto La2ed;
 La2a7:
 	if (random(100) < (((p8 * 10) + 80) - (game_state_arg * 5))) {
 	(*(char **)((char *)monster_groups + (l2 << 1)))[412] = 0;
@@ -451,23 +311,15 @@ La2a7:
 La2ed:
 	if (l2 <= monster_group_count) goto La2a7;
 	goto Lb021;
+case 55:
 	f8efc(l6, l8, 16, 0);
-#asm
-	db 0b8h,000h,000h,050h,050h,050h,0b8h,002h,000h,050h,0ffh,076h,008h,0b8h,000h,000h
-	db 050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,009h,000h,050h,0b8h,0a4h,00dh,050h
-	db 0b8h,000h,000h,08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,0dch,00ch
-#endasm
+	f825f(l6, (0 - (p8 + 3)), 3492, 9, 3, l10, 0, p8, 2, 0, 0, 0);
+	goto Lb021;
+case 58:
 	f8efc(l6, 0, 16, 1);
-#asm
-	db 0b8h,000h,000h,050h,050h,0ffh,076h,008h,0b8h,002h,000h,050h,08bh,046h,008h,0d1h
-	db 0e0h,050h,0b8h,000h,000h,050h,0b8h,007h,000h,050h,050h,0b8h,001h,000h,050h,0ffh
-	db 076h,0f6h,0ffh,076h,008h,0b8h,00ah,000h,050h,0b8h,097h,00dh,050h,0b8h,000h,000h
-	db 08bh,04eh,008h,041h,041h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f83f3_
-	db 083h,0c4h,01eh,0e9h,082h,00ch
-#endasm
+	f83f3(l6, (0 - (p8 + 3)), 3479, 10, p8, l10, 1, 7, 7, 0, (p8 << 1), 2, p8, 0, 0);
+	goto Lb021;
+case 59:
 	if ((g435e) && (g435e != 6)) goto La3d2;
 	f8fa8(218, 219, 220, 221, 222, 223, p8);
 	goto La472;
@@ -491,57 +343,39 @@ default:
 	}
 La472:
 	goto Lb021;
+case 61:
 	f8efc(l6, l8, 16, 0);
-#asm
-	db 0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0b8h,000h,000h,050h,050h,050h,0b8h,001h
-	db 000h,050h,08bh,046h,0f6h,005h,0ddh,0ffh,050h,0b8h,003h,000h,050h,0b8h,00bh,000h
-	db 050h,0b8h,09ah,00dh,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f825f_
-	db 083h,0c4h,018h,0e9h,064h,00bh
-#endasm
+	f825f(l6, l8, 3482, 11, 3, (l10 + -35), 1, 0, 0, 0, 14, 6);
+	goto Lb021;
+case 63:
 	f8efc(l6, 0, 16, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,00ah,000h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,050h,083h
-	db 03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h,000h,075h,005h
-la4f0:
-	db 0b8h,001h,000h,0ebh,003h
-la4f5:
-	db 0b8h,000h,000h
-la4f8:
-	db 050h
-	call f861e_
-	db 083h,0c4h,00ch,0e9h,01fh,00bh
-#endasm
+	f861e(((!g435e) || (g435e == 6) ? 1 : 0), 4, 4, p8, 10, l10);
+	goto Lb021;
+case 65:
 	f8efc(l6, l8, 15, 0);
-#asm
-	db 0ffh,076h,0f6h,0b8h,00ch,000h,050h,0ffh,076h,008h,0b8h,008h,000h,050h,0b8h,001h
-	db 000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0eah,00ah
-#endasm
+	f8149(l6, l8, 1, 8, p8, 12, l10);
+	goto Lb021;
+case 66:
 	f8efc(l6, 0, 2, 1);
-#asm
-	db 0ffh,076h,0f6h,0b8h,00ch,000h,050h,0ffh,076h,008h,0b8h,007h,000h,050h,0b8h,001h
-	db 000h,050h,0b8h,000h,000h,08bh,04eh,008h,041h,02bh,0c1h,050h,0ffh,076h,0fah
-	call f8149_
-	db 083h,0c4h,00eh,0e9h,0adh,00ah
-#endasm
+	f8149(l6, (0 - (p8 + 1)), 1, 7, p8, 12, l10);
+	goto Lb021;
+case 67:
 	f8efc(l6, 0, 2, 1);
 	if ((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 20) goto La5a2;
 	l10 = -100;
-#asm
-	db 0ebh,025h
-#endasm
+	goto La5c7;
 La5a2:
 	l10 += ((*(int *)p4 - *(int *)((char *)monster_groups[l6] + (44 * l8))) * 3);
 La5c7:
 	f825f(l6, (0 - p8), 3493, 11, 3, l10, 1, 0, 0, 0, 14, 6);
 	goto Lb021;
+case 69:
 	if (!((char *)monster_groups[g435e] + (44 * g435c))[36]) {
 	((char *)monster_groups[g435e] + (44 * g435c))[37] = (char)(random((g435a / 2)) + (g435a / 2));
 	}
 	((char *)monster_groups[g435e] + (44 * g435c))[36] = (char)((unsigned char)((char *)monster_groups[g435e] + (44 * g435c))[36] + (p8 * 3));
 	goto Lb021;
+case 71:
 	if ((g435e) && (g435e != 6)) goto La6db;
 	if (!random(2)) {
 	f8fa8(200, 201, 202, 203, 204, 205, p8);
@@ -573,49 +407,28 @@ default:
 	}
 La7ae:
 	goto Lb021;
+case 72:
 	(*(char **)((char *)monster_groups + (l6 << 1)))[401] = (char)clamp_toward_x((p8 << 1), (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[401], 0);
-#asm
-	db 0e9h,03ch,008h
-#endasm
+	goto Lb021;
+case 75:
 	f8efc(l6, 0, 2, 1);
 	if ((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 21) goto La813;
 	l10 = -100;
-#asm
-	db 0ebh,025h
-#endasm
+	goto La838;
 La813:
 	l10 += ((*(int *)p4 - *(int *)((char *)monster_groups[l6] + (44 * l8))) * 3);
 La838:
 	f825f(l6, (0 - p8), 3497, 11, 3, l10, 1, 0, 0, 0, 14, 6);
 	goto Lb021;
+case 76:
 	f8efc(l6, 0, 4, 0);
-#asm
-	db 0ffh,076h,0f6h,0b8h,00bh,000h,050h,0ffh,076h,008h,0b8h,004h,000h,050h,050h,083h
-	db 03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h,000h,075h,005h
-la89f:
-	db 0b8h,001h,000h,0ebh,003h
-la8a4:
-	db 0b8h,000h,000h
-la8a7:
-	db 050h
-	call f861e_
-	db 083h,0c4h,00ch,0e9h,070h,007h
-#endasm
+	f861e(((!g435e) || (g435e == 6) ? 1 : 0), 4, 4, p8, 11, l10);
+	goto Lb021;
+case 78:
 	f8efc(l6, 0, 16, 0);
-#asm
-	db 0b8h,006h,000h,050h,0b8h,00eh,000h,050h,0ffh,076h,008h,0ffh,076h,008h,0ffh,076h
-	db 008h,0b8h,001h,000h,050h,0ffh,076h,0f6h,0b8h,003h,000h,050h,0b8h,00bh,000h,050h
-	db 0b8h,09eh,00dh,050h,083h,03eh,05eh,043h,000h,074h,008h,0a1h,05eh,043h,03dh,006h
-	db 000h,075h,005h
-la8f9:
-	db 0b8h,001h,000h,0ebh,003h
-la8fe:
-	db 0b8h,000h,000h
-la901:
-	db 050h
-	call f87ae_
-	db 083h,0c4h,016h,0e9h,016h,007h
-#endasm
+	f87ae(((!g435e) || (g435e == 6) ? 1 : 0), 3486, 11, 3, l10, 1, p8, p8, p8, 14, 6);
+	goto Lb021;
+case 79:
 	f8efc(l6, l8, 4, 0);
 	if ((((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 22) && (g4352)) || (((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 20) || ((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 21))) goto La946;
 	l10 = -100;
@@ -633,6 +446,7 @@ la946:
 La985:
 	f8149(l6, l8, 1, l4, p8, 0, l10);
 	goto Lb021;
+case 10:
 	l2 = roll_dice_x(f5eea((p8 << 1), 8, p8));
 	*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 6) += l2;
 	if (*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 6) > *(int *)(((char *)monster_groups[l6] + (44 * l8)) + 8)) {
@@ -642,6 +456,7 @@ La985:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 15:
 	if ((l2 = ((unsigned char)((char *)monster_groups[l6] + (44 * l8))[17] - (p8 * 25))) < 0) {
 	l2 = 0;
 	}
@@ -650,6 +465,7 @@ La985:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 26:
 	if ((l2 = ((unsigned char)((char *)monster_groups[l6] + (44 * l8))[35] - p8)) <= 0) {
 	l2 = 0;
 	((char *)monster_groups[l6] + (44 * l8))[19] = 0;
@@ -664,6 +480,7 @@ La985:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 57:
 	if ((l2 = ((unsigned char)((char *)monster_groups[l6] + (44 * l8))[21] - (p8 * 25))) < 0) {
 	l2 = 0;
 	}
@@ -672,6 +489,7 @@ La985:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 51:
 	l4 = 1;
 Lab86:
 	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto Labdb;
@@ -686,6 +504,7 @@ Labdb:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 74:
 	f8efc(l6, 0, 4, 0);
 	l2 = f7ddc(l6, l8, (p8 << 2), 4, (p8 << 2), 11, l10);
 	if (!l6) {
@@ -694,14 +513,8 @@ Labdb:
 	l6 = g435e;
 	l8 = g435c;
 	p8 = (l2 / 7);
-#asm
-	db 0ffh,076h,008h,0b8h,007h,000h,050h,0ffh,076h,008h
-	call f5eea_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_x_
-	db 083h,0c4h,004h,089h,046h,0feh
-#endasm
+case 64:
+	l2 = roll_dice_x(f5eea(p8, 7, p8));
 	*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 2) += l2;
 	if (*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 2) > *(int *)(((char *)monster_groups[l6] + (44 * l8)) + 4)) {
 	*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 2) = *(int *)(((char *)monster_groups[l6] + (44 * l8)) + 4);
@@ -710,6 +523,7 @@ Labdb:
 	draw_member_card_x(l8, 0);
 	}
 	goto Lb021;
+case 80:
 	l2 = roll_dice_x(f5eea(p8, 8, p8));
 	*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 6) += l2;
 	if (*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 6) > *(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 8)) {
@@ -724,6 +538,7 @@ Labdb:
 	draw_member_card_x(g435c, 0);
 	}
 	goto Lb021;
+case 81:
 	if (g435e) goto Lae36;
 	l2 = 0;
 Ladd4:
@@ -738,50 +553,32 @@ Lae2b:
 	if (l2 < 6) goto Ladd4;
 Lae36:
 	goto Lb021;
+case 53:
 	g4ed0 += (p8 * 50);
 	g4ed2 = clamp_toward_x(((p8 * 5) + 70), g4ed2, 0);
-#asm
-	db 0e9h,0b0h,001h
-#endasm
+	goto Lb021;
+case 68:
 	g4ed4 += (p8 * 35);
 	g4ed6 = clamp_toward_x((((p8 - 1) / 2) + 1), g4ed6, 0);
-#asm
-	db 0e9h,07dh,001h
-#endasm
+	goto Lb021;
+case 41:
 	g4ecc += (p8 * 50);
 	g4ece = clamp_toward_x((((p8 - 1) / 2) + 1), g4ece, 0);
-#asm
-	db 0e9h,048h,001h
-#endasm
+	goto Lb021;
+case 30:
 	g4edc += (p8 * 5);
-#asm
-	db 0e9h,036h,001h
-#endasm
+	goto Lb021;
+case 38:
 	g4ec8 += (100 * p8);
-#asm
-	db 0e9h,029h,001h
-#endasm
+	goto Lb021;
+case 70:
 	(*(char **)((char *)monster_groups + (g435e << 1)))[400] = (char)clamp_toward_x((p8 * 10), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[400], 0);
 	if (!g435e) {
 	g4ed8 += (p8 * 50);
 	g4eda = clamp_toward_x((p8 * 10), g4eda, 0);
 	}
 	goto Lb021;
-#asm
-	db 05bh,094h,090h,094h,0dch,094h,018h,095h,053h,095h,08ch,095h,0cbh,095h,0feh,095h
-	db 06ch,096h,0b6h,096h,0a5h,0a9h,0e8h,096h,02fh,097h,066h,097h,09ah,097h,023h,0aah
-	db 003h,098h,03eh,098h,07ah,098h,0c2h,098h,0f4h,098h,04ch,099h,087h,099h,0d9h,099h
-	db 014h,09ah,05eh,09ah,079h,0aah,0f5h,09ah,034h,09bh,0f4h,09bh,0d9h,0aeh,0a1h,09ch
-	db 02dh,09dh,087h,09dh,0e1h,09dh,02eh,09eh,063h,09eh,0a9h,09eh,0ebh,0aeh,021h,0b0h
-	db 0e9h,09eh,0a4h,0aeh,028h,09fh,070h,09fh,0e1h,09fh,06bh,0a0h,021h,0b0h,010h,0a1h
-	db 05dh,0a1h,0aah,0a1h,058h,0a2h,081h,0abh,021h,0b0h,039h,0aeh,0a0h,0a2h,0f9h,0a2h
-	db 021h,0b0h,02bh,0abh,045h,0a3h,09fh,0a3h,021h,0b0h,075h,0a4h,021h,0b0h,0bdh,0a4h
-	db 066h,0ach,002h,0a5h,037h,0a5h,074h,0a5h,071h,0aeh,0fbh,0a5h,0f8h,0aeh,079h,0a6h
-	db 0b1h,0a7h,021h,0b0h,0fch,0abh,0e5h,0a7h,06ch,0a8h,021h,0b0h,0b1h,0a8h,00bh,0a9h
-	db 0e1h,0ach,0c8h,0adh
-lb014:
-	db 03dh,052h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,070h,0afh
-#endasm
+	}
 Lb021:
 	if (!g5116) {
 	combat_delay((g4fc8 / 2));

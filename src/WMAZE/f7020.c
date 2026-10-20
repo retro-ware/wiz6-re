@@ -1,6 +1,5 @@
 #asm
 	extrn defer_window_draw_:near
-	extrn f6f30_:near
 	extrn maze_party_menu_:near
 #endasm
 extern char *g4f84;
@@ -206,12 +205,8 @@ L749c:
 	f6f30(g4fb0, 13, 1, 5, 6, 7, 8);
 	f6f30(g4fb0, 10, 3, 1, 13, 3, 14);
 	f6fa3(g4fb0, 12, 3, 17);
-#asm
-	db 0b8h,00ch,000h,050h,0b8h,010h,000h,050h,0b8h,00ah,000h,050h,0b8h,00fh,000h,050h
-	db 0b8h,003h,000h,050h,0b8h,010h,000h,050h,0ffh,036h,0b0h,04fh
-	call f6f30_
-	db 083h,0c4h,00eh,0ebh,07ch
-#endasm
+	f6f30(g4fb0, 16, 3, 15, 10, 16, 12);
+	goto L7596;
 L751a:
 	f6f30(g4fb0, 13, 1, 5, 6, 7, 8);
 	f6f30(g4fb0, 10, 3, 1, 2, 3, 4);

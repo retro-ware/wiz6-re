@@ -212,6 +212,10 @@ class Printer:
                 if k in self.T.sizes:
                     self.garr0[a] = es
                 self.ext_vars[n] = 'extern %s%s[];' % ('char ' if es == 1 else 'int ', n)
+            elif s and k in self.T.ptr and es == 2 and self.T.sizes.get(k, set()) <= {2}:
+                # a pointer table whose element 0 is also used as a base pointer: g[0]
+                self.garr0[a] = 2
+                self.ext_vars[n] = 'extern char *%s[];' % n
             else:
                 self.ext_vars[n] = 'extern %s%s;' % (self.T.ctype(k), n)
         return n
@@ -268,7 +272,7 @@ class Printer:
     def ptr(self, e):
         """e used as a base address (char *)."""
         if e[0] == 'v':
-            return self.name(e) if vkey(e) in self.T.ptr else '(char *)' + self.var(e)
+            return self.var(e) if vkey(e) in self.T.ptr else '(char *)' + self.var(e)
         if e[0] == 'm' and e[3] == 2:
             return '(*(char **)%s)' % self.addr(e)
         if e[0] == 'b' and e[1] == '+' and e[2][0] == 'm' and e[2][3] == 2 and not self.is_ptr_expr(e[2]):

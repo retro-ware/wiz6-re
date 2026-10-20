@@ -62,10 +62,7 @@ l8b2f:
 	l10 = 3;
 L8b42:
 	if (l10 <= 0) goto L8b6c;
-#asm
-	db 0b8h,02ch,000h,0f7h,06eh,0feh,0b9h,004h,000h,02bh,04eh,0f6h,003h,0c1h,08bh,0f0h
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,040h,018h,000h
-#endasm
+	((char *)monster_groups[p4] + ((44 * l2) + (4 - l10)))[24] = 0;
 	l10--;
 	goto L8b42;
 L8b6c:
