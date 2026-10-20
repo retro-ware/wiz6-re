@@ -1,284 +1,181 @@
+extern int bottom_line_win;
+extern int g5268[];
+extern int g5274[];
+extern int loot_count;
+extern int loot_item[];
+extern int main_window;
+extern int menu_clicked;
+extern int message_delay;
+extern int mouse_present;
 /* Let the player hand out the found items to party members. */
-#asm
-	public distribute_loot_
-	extrn choose_party_member_:near
-	extrn clear_window_area_:near
-	extrn create_window_:near
-	extrn defer_window_draw_:near
-	extrn destroy_window_:near
-	extrn draw_loot_line_:near
-	extrn f0a42_:near
-	extrn fill_window_:near
-	extrn get_chest_input_:near
-	extrn get_message_:near
-	extrn give_item_to_member_:near
-	extrn play_sound_:near
-	extrn print_chest_prompt_:near
-	extrn print_int_:near
-	extrn print_message_:near
-	extrn print_string_:near
-	extrn print_string_hi_:near
-	extrn put_char_:near
-	extrn put_glyph_c1_:near
-	extrn refresh_all_windows_:near
-	extrn refresh_window_:near
-	extrn remove_loot_entry_:near
-	extrn resume_window_draw_:near
-	extrn set_click_region_:near
-	extrn set_cursor_:near
-	extrn strlen_:near
-	extrn wait_animating_:near
-distribute_loot_:
-	db 055h,08bh,0ech,083h,0c4h,0e0h,0ffh,036h,042h,033h
-	call resume_window_draw_
-	db 059h,0ffh,036h,0b2h,04fh
-	call resume_window_draw_
-	db 059h,0b8h,000h,000h,050h,0ffh,036h,0b2h,04fh
-	call f0a42_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,050h,0b8h,0fch,0ffh,050h,0b8h,014h,000h,050h
-	db 0b8h,005h,000h,050h,0b8h,013h,000h,050h,050h,0b8h,000h,000h,050h
-	call create_window_
-	db 083h,0c4h,010h,089h,046h,0f4h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
-	db 000h,050h,0ffh,076h,0f4h
-	call fill_window_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0b8h,0fbh,0ffh,050h,0b8h,015h,000h,050h
-	db 0b8h,005h,000h,050h,0b8h,014h,000h,050h,0b8h,013h,000h,050h,0b8h,014h,000h,050h
-	call create_window_
-	db 083h,0c4h,010h,089h,046h,0f2h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
-	db 000h,050h,0ffh,076h,0f2h
-	call fill_window_
-	db 083h,0c4h,008h,0ffh,076h,0f4h
-	call defer_window_draw_
-	db 059h,0b8h,001h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,012h,000h,050h,0ffh,076h,0f4h,0b8h,0eeh,013h,050h
-	call print_message_
-	db 083h,0c4h,006h,08bh,05eh,0f4h,0feh,047h,006h,08bh,05eh,0f4h,08ah,047h,006h,02ah
-	db 0e4h,089h,046h,0f0h,08ah,047h,007h,02ah,0e4h,089h,046h,0eeh,08dh,046h,0e4h,050h
-	db 0b8h,0efh,013h,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,003h,000h,050h,08dh,046h,0e4h,050h,0ffh,076h,0f4h
-	call print_string_hi_
-	db 083h,0c4h,006h,0b8h,011h,000h,050h,0b8h,002h,000h,050h,0b8h,001h,000h,050h,0ffh
-	db 076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,013h,000h,050h,0b8h,002h,000h,050h,0b8h,012h,000h,050h,0ffh
-	db 076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,006h,000h,050h,0b8h,004h,000h,050h,0b8h,001h,000h,050h,0ffh
-	db 076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,008h,000h,050h,0b8h,004h,000h,050h,0b8h,012h,000h,050h,0ffh
-	db 076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0c7h,046h,0feh,002h,000h
-l8aa3:
-	db 0b8h,012h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,0feh,0ffh,076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,007h,000h,050h,0b8h,004h,000h,050h,0ffh,076h,0feh,0ffh,076h
-	db 0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0ffh,046h,0feh,08bh,046h,0feh,03dh,012h,000h,07ch,0cdh,0b8h,004h
-	db 000h,050h,0b8h,003h,000h,050h,0b8h,001h,000h,050h,0ffh,076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,005h,000h,050h,0b8h,003h,000h,050h,0b8h,012h,000h,050h,0ffh
-	db 076h,0f4h
-	call put_glyph_c1_
-	db 083h,0c4h,008h,0b8h,003h,000h,050h,0b8h,011h,000h,050h,0b8h,003h,000h,050h,0b8h
-	db 002h,000h,050h,0ffh,076h,0f4h
-	call clear_window_area_
-	db 083h,0c4h,00ah,0ffh,076h,0f4h
-	call resume_window_draw_
-	db 059h,0c7h,046h,0f6h,000h,000h
-l8b25:
-	db 08bh,046h,0f6h,03bh,006h,066h,052h,07ch,005h,0ffh,04eh,0f6h,0ebh,0f2h
-l8b33:
-	db 0b8h,002h,000h,050h,0b8h,0edh,013h,050h
-	call print_chest_prompt_
-	db 083h,0c4h,004h,0ffh,076h,0f2h
-	call defer_window_draw_
-	db 059h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,0f2h
-	call fill_window_
-	db 083h,0c4h,008h,0c7h,046h,0feh,000h,000h,0ebh,03dh
-l8b64:
-	db 0ffh,076h,0feh,0ffh,076h,0f2h
-	call draw_loot_line_
-	db 083h,0c4h,004h,08bh,05eh,0f2h,08ah,047h,003h,02ah,0e4h,003h,046h,0feh,050h,08ah
-	db 047h,002h,02ah,0e4h,005h,013h,000h,050h,08ah,047h,003h,02ah,0e4h,003h,046h,0feh
-	db 050h,08ah,047h,002h,02ah,0e4h,040h,050h,0ffh,076h,0feh
-	call set_click_region_
-	db 083h,0c4h,00ah,0ffh,046h,0feh
-l8ba1:
-	db 08bh,046h,0feh,03bh,006h,066h,052h,07ch,0bah,0ffh,076h,0f2h
-	call resume_window_draw_
-	db 059h,08bh,05eh,0f4h,08ah,047h,003h,02ah,0e4h,003h,046h,0eeh,050h,08dh,046h,0e4h
-	db 050h
-	call strlen_
-	db 059h,050h,08bh,05eh,0f4h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,003h
-	db 046h,0f0h,048h,050h,08ah,047h,003h,02ah,0e4h,003h,046h,0eeh,050h,003h,04eh,0f0h
-	db 08bh,0c1h,050h,0ffh,036h,066h,052h
-	call set_click_region_
-	db 083h,0c4h,00ah,0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0a1h,066h,052h
-	db 040h,050h
-	call set_click_region_
-	db 083h,0c4h,00ah
-	call refresh_all_windows_
-l8c09:
-	db 083h,07eh,0f6h,0ffh,075h,043h,083h,03eh,046h,008h,000h,075h,020h,0ffh,076h,0eeh
-	db 0ffh,076h,0f0h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,0fdh,0ffh,050h,08dh,046h,0e4h,050h,0ffh,076h,0f4h
-	call print_string_
-	db 083h,0c4h,006h
-l8c36:
-	db 0b8h,003h,000h,050h,0b8h,011h,000h,050h,0b8h,003h,000h,050h,0b8h,002h,000h,050h
-	db 0ffh,076h,0f4h
-	call clear_window_area_
-	db 083h,0c4h,00ah,0e9h,0bah,000h
-l8c52:
-	db 0ffh,076h,0f6h,0b8h,015h,000h,050h,0ffh,076h,0f2h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,0fdh,0ffh,050h,08bh,046h,0f6h,08bh,0d0h,0b1h,003h,0d3h,0e0h
-	db 003h,0c2h,0d1h,0e0h,005h,0eeh,051h,050h,0ffh,076h,0f2h
-	call print_string_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,00bh,000h,050h,0ffh,076h,0f4h,0b8h,0f0h,013h,050h
-	call print_message_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,00ch,000h,050h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,004h,000h,050h,08bh,046h,0f6h,0d1h,0e0h
-	db 08bh,0d8h,08bh,087h,068h,052h,0b9h,00ah,000h,099h,0f7h,0f9h,050h,0ffh,076h,0f4h
-	call print_int_
-	db 083h,0c4h,008h,0b8h,003h,000h,050h,0b8h,02eh,000h,050h,0ffh,076h,0f4h
-	call put_char_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,001h,000h,050h,08bh,046h,0f6h,0d1h,0e0h
-	db 08bh,0d8h,08bh,087h,068h,052h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c2h,050h,0ffh
-	db 076h,0f4h
-	call print_int_
-	db 083h,0c4h,008h
-l8d0c:
-	db 0b8h,098h,035h,050h,0b8h,0beh,050h,050h
-	call get_chest_input_
-	db 083h,0c4h,004h,089h,046h,0f8h,083h,03eh,0c4h,04fh,001h,075h,041h,03bh,046h,0f6h
-	db 075h,007h,0c7h,046h,0f8h,005h,000h,0ebh,032h
-l8d30:
-	db 083h,07eh,0f6h,0ffh,074h,00ch,0ffh,076h,0f6h,0ffh,076h,0f2h
-	call draw_loot_line_
-	db 083h,0c4h,004h
-l8d42:
-	db 0b8h,0ffh,0ffh,08bh,04eh,0f8h,03bh,00eh,066h,052h,07dh,002h,08bh,0c1h
-l8d50:
-	db 089h,046h,0f6h,0b8h,000h,000h,083h,07eh,0f6h,0ffh,075h,003h,0b8h,005h,000h
-l8d5f:
-	db 089h,046h,0f8h
-l8d62:
-	db 0e9h,005h,001h
-l8d65:
-	db 08bh,046h,0f8h,0e9h,0e2h,000h
-l8d6b:
-	db 083h,07eh,0f6h,0ffh,074h,011h,0ffh,076h,0f6h,0ffh,076h,0f2h
-	call draw_loot_line_
-	db 083h,0c4h,004h,0c7h,046h,0f6h,0ffh,0ffh
-l8d82:
-	db 0e9h,0e5h,000h
-l8d85:
-	db 083h,07eh,0f6h,0ffh,075h,027h,0ffh,076h,0eeh,0ffh,076h,0f0h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e4h,050h,0ffh,076h,0f4h
-	call print_string_hi_
-	db 083h,0c4h,006h,0c7h,046h,0f6h,000h,000h,0ebh,01ch
-l8db2:
-	db 0ffh,076h,0f6h,0ffh,076h,0f2h
-	call draw_loot_line_
-	db 083h,0c4h,004h,083h,07eh,0f6h,000h,07eh,005h,0ffh,04eh,0f6h,0ebh,005h
-l8dc9:
-	db 0c7h,046h,0f6h,0ffh,0ffh
-l8dce:
-	db 0e9h,099h,000h
-l8dd1:
-	db 083h,07eh,0f6h,0ffh,075h,025h,0ffh,076h,0eeh,0ffh,076h,0f0h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e4h,050h,0ffh,076h,0f4h
-	call print_string_hi_
-	db 083h,0c4h,006h,0c7h,046h,0f6h,000h,000h
-l8dfc:
-	db 0ebh,06ch
-l8dfe:
-	db 083h,07eh,0f6h,0ffh,075h,027h,0ffh,076h,0eeh,0ffh,076h,0f0h,0ffh,076h,0f4h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e4h,050h,0ffh,076h,0f4h
-	call print_string_hi_
-	db 083h,0c4h,006h,0c7h,046h,0f6h,000h,000h,0ebh,020h
-l8e2b:
-	db 0ffh,076h,0f6h,0ffh,076h,0f2h
-	call draw_loot_line_
-	db 083h,0c4h,004h,08bh,046h,0f6h,040h,03bh,006h,066h,052h,07dh,005h,0ffh,046h,0f6h
-	db 0ebh,005h
-l8e46:
-	db 0c7h,046h,0f6h,0ffh,0ffh
-l8e4b:
-	db 0ebh,01dh
-l8e4d:
-	db 03dh,001h,000h,075h,003h,0e9h,016h,0ffh
-l8e55:
-	db 03dh,002h,000h,075h,003h,0e9h,028h,0ffh
-l8e5d:
-	db 03dh,003h,000h,075h,003h,0e9h,06ch,0ffh
-l8e65:
-	db 03dh,004h,000h,074h,094h
-l8e6a:
-	db 083h,07eh,0f8h,005h,074h,003h,0e9h,096h,0fdh
-l8e73:
-	db 083h,07eh,0f6h,0ffh,074h,064h,0b8h,000h,000h,050h,0b8h,0f1h,013h,050h
-	call choose_party_member_
-	db 083h,0c4h,004h,089h,046h,0fah,03dh,0ffh,0ffh,074h,04eh,08bh,046h,0f6h,0d1h,0e0h
-	db 08bh,0d8h,083h,0bfh,0d6h,051h,000h,07eh,040h,0ffh,076h,0f6h,0ffh,076h,0fah
-	call give_item_to_member_
-	db 083h,0c4h,004h,03dh,0ffh,0ffh,074h,009h,0ffh,076h,0f6h
-	call remove_loot_entry_
-	db 059h,0ebh,026h
-l8eb7:
-	db 0b8h,006h,000h,050h,0b8h,0f4h,013h,050h
-	call print_chest_prompt_
-	db 083h,0c4h,004h,0ffh,036h,042h,033h
-	call refresh_window_
-	db 059h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ffh,036h,0cah,04fh
-	call wait_animating_
-	db 059h
-l8edd:
-	db 083h,07eh,0f6h,0ffh,075h,057h,0c7h,046h,0e0h,000h,000h,0c7h,046h,0feh,000h,000h
-	db 0ebh,016h
-l8eef:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,083h,0bfh,074h,052h,001h,075h,005h,0c7h,046h
-	db 0e0h,001h,000h
-l8f02:
-	db 0ffh,046h,0feh
-l8f05:
-	db 08bh,046h,0feh,03bh,006h,066h,052h,07ch,0e1h,083h,07eh,0e0h,001h,075h,026h,0b8h
-	db 001h,000h,050h,0b8h,0f5h,013h,050h
-	call print_chest_prompt_
-	db 083h,0c4h,004h,0ffh,036h,042h,033h
-	call refresh_window_
-	db 059h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ffh,036h,0cah,04fh
-	call wait_animating_
-	db 059h
-l8f3a:
-	db 083h,03eh,066h,052h,000h,07eh,012h,083h,07eh,0f6h,0ffh,074h,003h,0e9h,0dbh,0fbh
-l8f4a:
-	db 083h,07eh,0e0h,001h,075h,003h,0e9h,0d2h,0fbh
-l8f53:
-	db 0b8h,000h,000h,050h,0ffh,076h,0f2h
-	call destroy_window_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,076h,0f4h
-	call destroy_window_
-	db 083h,0c4h,004h,0ffh,036h,042h,033h
-	call defer_window_draw_
-	db 059h,0ffh,036h,0b2h,04fh
-	call defer_window_draw_
-	db 059h,08bh,0e5h,05dh,0c3h
-#endasm
+distribute_loot()
+{
+	int l2;
+	char x2[2];
+	int member;
+	int l8;
+	int sel;
+	char *win;
+	char *list_win;
+	int l16;
+	int l18;
+	char x18[8];
+	int l28;
+	char x28[2];
+	int l32;
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
+	f0a42(bottom_line_win, 0);
+	win = create_window(0, 19, 19, 5, 20, -4, 0, 0);
+	fill_window(win, 32, 3, 0);
+	list_win = create_window(20, 19, 20, 5, 21, -5, 0, 0);
+	fill_window(list_win, 32, 3, 0);
+	defer_window_draw(win);
+	set_cursor(win, 2, 1);
+	print_message(5102, win, 18);
+	win[6]++;
+	l16 = (unsigned char)win[6];
+	l18 = (unsigned char)win[7];
+	get_message(5103, &l28);
+	print_string_hi(win, &l28, 3);
+	put_glyph_c1(win, 1, 2, 17);
+	put_glyph_c1(win, 18, 2, 19);
+	put_glyph_c1(win, 1, 4, 6);
+	put_glyph_c1(win, 18, 4, 8);
+	for (l2 = 2; l2 < 18; l2++) {
+	put_glyph_c1(win, l2, 2, 18);
+	put_glyph_c1(win, l2, 4, 7);
+	}
+	put_glyph_c1(win, 1, 3, 4);
+	put_glyph_c1(win, 18, 3, 5);
+	clear_window_area(win, 2, 3, 17, 3);
+	resume_window_draw(win);
+	sel = 0;
+L8b25:
+	if (sel < loot_count) goto L8b33;
+	sel--;
+	goto L8b25;
+L8b33:
+	print_chest_prompt(5101, 2);
+	defer_window_draw(list_win);
+	fill_window(list_win, 32, 3, 0);
+	for (l2 = 0; l2 < loot_count; l2++) {
+	draw_loot_line(list_win, l2);
+	set_click_region(l2, ((unsigned char)list_win[2] + 1), ((unsigned char)list_win[3] + l2), ((unsigned char)list_win[2] + 19), ((unsigned char)list_win[3] + l2));
+	}
+	resume_window_draw(list_win);
+	set_click_region(loot_count, ((unsigned char)win[2] + l16), ((unsigned char)win[3] + l18), (((strlen(&l28) + (unsigned char)win[2]) + l16) - 1), ((unsigned char)win[3] + l18));
+	set_click_region((loot_count + 1), 255, 0, 0, 0);
+	refresh_all_windows();
+L8c09:
+	if (sel != -1) goto L8c52;
+	if (!mouse_present) {
+	set_cursor(win, l16, l18);
+	print_string(win, &l28, -3);
+	}
+	clear_window_area(win, 2, 3, 17, 3);
+	goto L8d0c;
+L8c52:
+	set_cursor(list_win, 21, sel);
+	print_string(list_win, ((sel * 18) + 20974), -3);
+	set_cursor(win, 2, 3);
+	print_message(5104, win, 11);
+	set_cursor(win, 12, 3);
+	print_int(win, (g5268[sel] / 10), 4, 3);
+	put_char(win, 46, 3);
+	print_int(win, (g5268[sel] % 10), 1, 3);
+L8d0c:
+	l8 = get_chest_input(20670, 13720);
+	if (menu_clicked != 1) goto L8d65;
+	if (l8 != sel) goto L8d30;
+	l8 = 5;
+	goto L8d62;
+L8d30:
+	if (sel != -1) {
+	draw_loot_line(list_win, sel);
+	}
+	sel = (l8 < loot_count ? l8 : -1);
+	l8 = (sel == -1 ? 5 : 0);
+L8d62:
+	goto L8e6a;
+L8d65:
+	switch (l8) {
+case 1:
+	if (sel != -1) {
+	draw_loot_line(list_win, sel);
+	sel = -1;
+	}
+	goto L8e6a;
+case 2:
+	if (sel != -1) goto L8db2;
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
+	goto L8dce;
+L8db2:
+	draw_loot_line(list_win, sel);
+	if (sel <= 0) goto L8dc9;
+	sel--;
+	goto L8dce;
+L8dc9:
+	sel = -1;
+L8dce:
+	goto L8e6a;
+case 3:
+	if (sel == -1) {
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
+	}
+	goto L8e6a;
+case 4:
+	if (sel != -1) goto L8e2b;
+	set_cursor(win, l16, l18);
+	print_string_hi(win, &l28, 3);
+	sel = 0;
+	goto L8e4b;
+L8e2b:
+	draw_loot_line(list_win, sel);
+	if ((sel + 1) >= loot_count) goto L8e46;
+	sel++;
+	goto L8e4b;
+L8e46:
+	sel = -1;
+L8e4b:
+	goto L8e6a;
+	}
+L8e6a:
+	if (l8 != 5) goto L8c09;
+	if (((sel == -1) || ((member = choose_party_member(5105, 0)) == -1)) || (loot_item[sel] <= 0)) goto L8edd;
+	if (give_item_to_member(member, sel) == -1) goto L8eb7;
+	remove_loot_entry(sel);
+	goto L8edd;
+L8eb7:
+	print_chest_prompt(5108, 6);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating(message_delay);
+L8edd:
+	if (sel != -1) goto L8f3a;
+	l32 = 0;
+	l2 = 0;
+	goto L8f05;
+L8eef:
+	if (g5274[l2] == 1) {
+	l32 = 1;
+	}
+	l2++;
+L8f05:
+	if (l2 < loot_count) goto L8eef;
+	if (l32 != 1) goto L8f3a;
+	print_chest_prompt(5109, 1);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating(message_delay);
+L8f3a:
+	if ((loot_count > 0) && ((sel != -1) || (l32 == 1))) goto L8b25;
+	destroy_window(list_win, 0);
+	destroy_window(win, 0);
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
+}

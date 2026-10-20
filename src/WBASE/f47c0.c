@@ -1,126 +1,78 @@
+extern int g4fac;
+extern int menu_clicked;
+extern int mouse_present;
+extern int picture_win;
 /* Draw a grid menu of messages from msgbase where enabled, let the player pick, return the item. */
-#asm
-	public run_menu_
-	extrn defer_window_draw_:near
-	extrn drv_op_c2_:near
-	extrn get_menu_choice_animated_:near
-	extrn get_message_:near
-	extrn print_string_:near
-	extrn print_string_hi_:near
-	extrn redraw_menu_item_:near
-	extrn refresh_all_windows_:near
-	extrn resume_window_draw_:near
-	extrn set_click_region_:near
-	extrn set_cursor_:near
-	extrn strlen_:near
-run_menu_:
-	db 055h,08bh,0ech,081h,0c4h,0aeh,0feh,056h,0ffh,076h,004h
-	call defer_window_draw_
-	db 059h,0c7h,046h,0fch,000h,000h,0c7h,046h,0feh,000h,000h
-l47d9:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh,05eh,008h,083h,038h,0ffh,075h,003h,0e9h
-	db 0eah,000h
-l47eb:
-	db 083h,038h,001h,074h,003h,0e9h,0dch,000h
-l47f3:
-	db 08bh,046h,0fch,099h,0f7h,07eh,010h,0f7h,06eh,00eh,003h,046h,00ah,089h,086h,0b0h
-	db 0feh,08bh,046h,0fch,099h,0f7h,07eh,010h,08bh,0c2h,003h,046h,00ch,089h,086h,0aeh
-	db 0feh,050h,0ffh,0b6h,0b0h,0feh,0ffh,076h,004h
-	call set_cursor_
-	db 083h,0c4h,006h,08bh,046h,0fch,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h
-	db 0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h,050h,08bh,046h,006h,003h,046h,0feh,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,003h,000h,050h,08bh,046h,0fch,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
-	db 003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h,050h,0ffh,076h,004h
-	call print_string_hi_
-	db 083h,0c4h,006h,08bh,046h,0feh,08bh,04eh,0fch,0d1h,0e1h,08bh,0d9h,003h,0ddh,089h
-	db 047h,0deh,08bh,05eh,004h,08ah,047h,003h,02ah,0e4h,003h,086h,0aeh,0feh,050h,08bh
-	db 046h,0fch,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh
-	db 0b2h,0feh,003h,0c1h,050h
-	call strlen_
-	db 059h,050h,08bh,05eh,004h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,003h
-	db 086h,0b0h,0feh,048h,050h,08ah,047h,003h,02ah,0e4h,003h,086h,0aeh,0feh,050h,003h
-	db 08eh,0b0h,0feh,08bh,0c1h,050h,0ffh,076h,0fch
-	call set_click_region_
-	db 083h,0c4h,00ah,0ffh,046h,0fch
-l48cf:
-	db 0ffh,046h,0feh,0e9h,004h,0ffh
-l48d5:
-	db 0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0ffh,076h,0fch
-	call set_click_region_
-	db 083h,0c4h,00ah,0ffh,076h,004h
-	call resume_window_draw_
-	db 059h
-	call refresh_all_windows_
-	db 0ffh,036h,0ach,04fh
-	call drv_op_c2_
-	db 059h,0ffh,036h,0bch,04fh
-	call drv_op_c2_
-	db 059h
-l4902:
-	db 083h,03eh,046h,008h,000h,075h,04ah,08bh,046h,014h,099h,0f7h,07eh,010h,08bh,0c2h
-	db 003h,046h,00ch,050h,08bh,046h,014h,099h,0f7h,07eh,010h,0f7h,06eh,00eh,003h,046h
-	db 00ah,050h,0ffh,076h,004h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,000h,000h,02bh,046h,012h,050h,08bh,046h,014h,08bh,0d0h,0d1h
-	db 0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h,050h
-	db 0ffh,076h,004h
-	call print_string_
-	db 083h,0c4h,006h
-l4953:
-	db 0b8h,098h,035h,050h,0b8h,066h,050h,050h
-	call get_menu_choice_animated_
-	db 083h,0c4h,004h,089h,046h,0feh,083h,03eh,0c4h,04fh,001h,075h,00bh,089h,046h,014h
-	db 0c7h,046h,0feh,005h,000h,0e9h,032h,001h
-l4976:
-	db 08bh,046h,0feh,0e9h,00fh,001h
-l497c:
-	db 08bh,046h,014h,02bh,046h,010h,07ch,034h,08bh,046h,014h,08bh,0d0h,0d1h,0e0h,0d1h
-	db 0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h,050h,0ffh,076h
-	db 00ch,0ffh,076h,00ah,0ffh,076h,010h,0ffh,076h,00eh,0ffh,076h,014h,0ffh,076h,004h
-	call redraw_menu_item_
-	db 083h,0c4h,00eh,08bh,046h,010h,029h,046h,014h
-l49b8:
-	db 0e9h,0edh,000h
-l49bb:
-	db 08bh,046h,014h,099h,0f7h,07eh,010h,08bh,0c2h,03dh,000h,000h,07eh,031h,08bh,046h
-	db 014h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h
-	db 0feh,003h,0c1h,050h,0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,010h,0ffh,076h,00eh
-	db 0ffh,076h,014h,0ffh,076h,004h
-	call redraw_menu_item_
-	db 083h,0c4h,00eh,0ffh,04eh,014h
-l49fa:
-	db 0e9h,0abh,000h
-l49fd:
-	db 08bh,046h,014h,003h,046h,010h,03bh,046h,0fch,07dh,034h,08bh,046h,014h,08bh,0d0h
-	db 0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h
-	db 050h,0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,010h,0ffh,076h,00eh,0ffh,076h,014h
-	db 0ffh,076h,004h
-	call redraw_menu_item_
-	db 083h,0c4h,00eh,08bh,046h,010h,001h,046h,014h
-l4a3c:
-	db 0ebh,06ah
-l4a3e:
-	db 08bh,046h,014h,099h,0f7h,07eh,010h,08bh,0c2h,08bh,04eh,010h,049h,03bh,0c1h,07dh
-	db 03ah,08bh,046h,014h,040h,03bh,046h,0fch,07dh,031h,08bh,046h,014h,08bh,0d0h,0d1h
-	db 0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,08dh,08eh,0b2h,0feh,003h,0c1h,050h
-	db 0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,010h,0ffh,076h,00eh,0ffh,076h,014h,0ffh
-	db 076h,004h
-	call redraw_menu_item_
-	db 083h,0c4h,00eh,0ffh,046h,014h
-l4a89:
-	db 0ebh,01dh
-l4a8b:
-	db 03dh,001h,000h,075h,003h,0e9h,0e9h,0feh
-l4a93:
-	db 03dh,002h,000h,075h,003h,0e9h,020h,0ffh
-l4a9b:
-	db 03dh,003h,000h,075h,003h,0e9h,05ah,0ffh
-l4aa3:
-	db 03dh,004h,000h,074h,096h
-l4aa8:
-	db 083h,07eh,0feh,005h,074h,003h,0e9h,051h,0feh
-l4ab1:
-	db 08bh,046h,014h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0deh,05eh,08bh,0e5h,05dh
-	db 0c3h
-#endasm
+run_menu(win, msgbase, enabled, x0, y0, row_step, cols, color, sel)
+char *win;
+char *enabled;
+{
+	int item;
+	int count;
+	char texts[330];
+	int x;
+	int y;
+	defer_window_draw(win);
+	count = 0;
+	item = 0;
+L47d9:
+	if (*(int *)(enabled + (item << 1)) == -1) goto L48d5;
+	if (*(int *)(enabled + (item << 1)) == 1) {
+	x = (((count / cols) * row_step) + x0);
+	y = ((count % cols) + y0);
+	set_cursor(win, x, y);
+	get_message((msgbase + item), ((count * 20) + texts));
+	print_string_hi(win, ((count * 20) + texts), 3);
+	*(int *)(texts + ((count << 1) + 300)) = item;
+	set_click_region(count, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((count * 20) + texts)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
+	count++;
+	}
+	item++;
+	goto L47d9;
+L48d5:
+	set_click_region(count, 255, 0, 0, 0);
+	resume_window_draw(win);
+	refresh_all_windows();
+	drv_op_c2(g4fac);
+	drv_op_c2(picture_win);
+L4902:
+	if (!mouse_present) {
+	set_cursor(win, (((sel / cols) * row_step) + x0), ((sel % cols) + y0));
+	print_string(win, ((sel * 20) + texts), (0 - color));
+	}
+	item = get_menu_choice_animated(20582, 13720);
+	if (menu_clicked != 1) goto L4976;
+	sel = item;
+	item = 5;
+	goto L4aa8;
+L4976:
+	switch (item) {
+case 1:
+	if ((sel - cols) >= 0) {
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel -= cols;
+	}
+	goto L4aa8;
+case 2:
+	if ((sel % cols) > 0) {
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel--;
+	}
+	goto L4aa8;
+case 3:
+	if ((sel + cols) < count) {
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel += cols;
+	}
+	goto L4aa8;
+case 4:
+	if (((sel % cols) >= (cols - 1)) || ((sel + 1) >= count)) goto L4a89;
+	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
+	sel++;
+L4a89:
+	goto L4aa8;
+	}
+L4aa8:
+	if (item != 5) goto L4902;
+	return *(int *)(texts + ((sel << 1) + 300));
+}

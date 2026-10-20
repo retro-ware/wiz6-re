@@ -1,105 +1,89 @@
-#asm
-	public f9f8c_
-	extrn erase_window_:near
-	extrn extract_bits_:near
-	extrn f9f54_:near
-	extrn kill_party_:near
-	extrn move_to_maze_cell_m_:near
-	extrn random_:near
-	extrn redraw_maze_view_:near
-	extrn show_maze_message_:near
-	extrn step_position_:near
-	extrn wait_animating_m_:near
-f9f8c_:
-	db 055h,08bh,0ech,083h,0c4h,0e2h,056h,0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh
-	db 0a8h,04fh,083h,038h,000h,07eh,01ch,0ffh,030h
-	call show_maze_message_
-	db 059h,0ffh,036h,0cah,04fh
-	call wait_animating_m_
-	db 059h,0b8h,001h,000h,050h,0ffh,036h,042h,033h
-	call erase_window_
-	db 083h,0c4h,004h
-l9fbf:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,020h,001h,089h
-	db 046h,0e2h,08bh,080h,040h,002h,089h,046h,0f2h,0c7h,046h,0feh,000h,000h
-l9fdd:
-	db 0b8h,001h,000h,050h,08bh,046h,0feh,005h,008h,000h,050h,0ffh,076h,0f2h
-	call extract_bits_
-	db 083h,0c4h,006h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h,003h,0ddh,089h,047h,0f4h,0ffh
-	db 046h,0feh,08bh,046h,0feh,03dh,004h,000h,07ch,0d5h,0b8h,008h,000h,050h,0b8h,000h
-	db 000h,050h,0ffh,076h,0f2h
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0f0h,08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h
-	db 030h,006h,02ah,0e4h,089h,046h,0eeh,0b8h,001h,000h,050h,0b8h,00ch,000h,050h,0ffh
-	db 076h,0f2h
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0e8h,0b8h,001h,000h,050h,0b8h,00dh,000h,050h,0ffh,076h
-	db 0f2h
-	call extract_bits_
-	db 083h,0c4h,006h,03dh,001h,000h,075h,005h,0b8h,001h,000h,0ebh,003h
-la05c:
-	db 0b8h,0ffh,0ffh
-la05f:
-	db 089h,046h,0e6h,0b8h,001h,000h,050h,0b8h,00eh,000h,050h,0ffh,076h,0f2h
-	call extract_bits_
-	db 083h,0c4h,006h,089h,046h,0e4h,0c7h,046h,0feh,000h,000h,0e9h,02ah,001h
-la07e:
-	db 08dh,046h,0f4h,050h
-	call f9f54_
-	db 059h,089h,046h,0eah,083h,07eh,0e8h,001h,075h,068h,03bh,006h,09ah,04fh,074h,062h
-	db 083h,07eh,0e6h,001h,075h,012h,02bh,006h,09ah,04fh,005h,004h,000h,0b9h,004h,000h
-	db 099h,0f7h,0f9h,089h,056h,0ech,0ebh,012h
-la0ad:
-	db 0a1h,09ah,04fh,02bh,046h,0eah,005h,004h,000h,0b9h,004h,000h,099h,0f7h,0f9h,089h
-	db 056h,0ech
-la0bf:
-	db 083h,07eh,0eeh,000h,075h,003h,0ffh,04eh,0ech
-la0c8:
-	db 0c7h,046h,0fch,000h,000h,0ebh,020h
-la0cf:
-	db 0ffh,076h,0e2h
-	call wait_animating_m_
-	db 059h,0a1h,09ah,04fh,003h,046h,0e6h,005h,004h,000h,0b9h,004h,000h,099h,0f7h,0f9h
-	db 089h,016h,09ah,04fh
-	call redraw_maze_view_
-	db 0ffh,046h,0fch
-la0ef:
-	db 08bh,046h,0fch,03bh,046h,0ech,07ch,0d8h
-la0f7:
-	db 0ffh,076h,0e2h
-	call wait_animating_m_
-	db 059h,08bh,046h,0eah,0a3h,09ah,04fh,083h,07eh,0eeh,000h,07fh,003h,0e9h,095h,000h
-la10d:
-	db 0a1h,0a4h,04fh,0a3h,096h,04fh,0a1h,0a2h,04fh,0a3h,094h,04fh,0a1h,0a0h,04fh,0a3h
-	db 092h,04fh,0a1h,09eh,04fh,0a3h,090h,04fh,0a1h,09ch,04fh,0a3h,08eh,04fh,0a1h,09ah
-	db 04fh,0a3h,08ch,04fh,083h,07eh,0e4h,001h,075h,015h,0ffh,076h,0eeh
-	call random_
-	db 059h,040h,050h,0ffh,036h,09ah,04fh
-	call step_position_
-	db 083h,0c4h,004h,0ebh,00dh
-la14c:
-	db 0ffh,076h,0eeh,0ffh,036h,09ah,04fh
-	call step_position_
-	db 083h,0c4h,004h
-la159:
-	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
-	db 0b8h,0a0h,04fh,050h
-	call move_to_maze_cell_m_
-	db 083h,0c4h,00ah,03dh,001h,000h,075h,013h,0b8h,004h,000h,050h,0b8h,0e6h,007h,050h
-	call kill_party_
-	db 083h,0c4h,004h
-la186:
-	db 05eh,08bh,0e5h,05dh,0c3h
-la18b:
-	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,0a3h,0e8h
-	db 04eh,0c7h,006h,032h,052h,000h,000h
-la1a2:
-	call redraw_maze_view_
-	db 0ffh,046h,0feh
-la1a8:
-	db 08bh,046h,0feh,03bh,046h,0f0h,07dh,003h,0e9h,0cbh,0feh
-la1b3:
-	db 0ffh,076h,0e2h
-	call wait_animating_m_
-	db 059h,0ebh,0cah
-#endasm
+extern char *g4fa8;
+extern int cell_event_index;
+extern int g4f8c;
+extern int g4f8e;
+extern int g4f90;
+extern int g4f92;
+extern int g4f94;
+extern int g4f96;
+extern int g5232;
+extern int main_window;
+extern int message_delay;
+extern int party_cell_x;
+extern int party_cell_y;
+extern int party_facing;
+extern int party_level;
+extern int party_x;
+extern int party_y;
+f9f8c()
+{
+	int l2;
+	int l4;
+	int l12[4];
+	int l14;
+	int l16;
+	int l18;
+	int l20;
+	int l22;
+	int l24;
+	int l26;
+	int l28;
+	int l30;
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) > 0) {
+	show_maze_message(*(int *)(g4fa8 + (cell_event_index << 1)));
+	wait_animating_m(message_delay);
+	erase_window(main_window, 1);
+	}
+	l30 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
+	l14 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
+	for (l2 = 0; l2 < 4; l2++) {
+	l12[l2] = extract_bits(l14, (l2 + 8), 1);
+	}
+	l16 = extract_bits(l14, 0, 8);
+	l18 = (unsigned char)(g4fa8 + cell_event_index)[1584];
+	l24 = extract_bits(l14, 12, 1);
+	l26 = (extract_bits(l14, 13, 1) == 1 ? 1 : -1);
+	l28 = extract_bits(l14, 14, 1);
+	for (l2 = 0; l2 < l16; l2++) {
+	l22 = f9f54(l12);
+	if ((l24 != 1) || (l22 == party_facing)) goto La0f7;
+	if (l26 == 1) {
+	l20 = (((l22 - party_facing) + 4) % 4);
+	} else {
+	l20 = (((party_facing - l22) + 4) % 4);
+	}
+	if (!l18) {
+	l20--;
+	}
+	for (l4 = 0; l4 < l20; l4++) {
+	wait_animating_m(l30);
+	party_facing = (((party_facing + l26) + 4) % 4);
+	redraw_maze_view();
+	}
+La0f7:
+	wait_animating_m(l30);
+	party_facing = l22;
+	if (l18 <= 0) goto La1a2;
+	g4f96 = party_x;
+	g4f94 = party_y;
+	g4f92 = party_cell_x;
+	g4f90 = party_cell_y;
+	g4f8e = party_level;
+	g4f8c = party_facing;
+	if (l28 == 1) {
+	step_position(party_facing, (random(l18) + 1));
+	} else {
+	step_position(party_facing, l18);
+	}
+	if (move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y) != 1) goto La18b;
+	kill_party(2022, 4);
+	return;
+La18b:
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
+	g5232 = 0;
+La1a2:
+	redraw_maze_view();
+	}
+	wait_animating_m(l30);
+	return;
+}

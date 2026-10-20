@@ -10,7 +10,8 @@
 	global char_hp_max_:byte,2
 	global char_stamina_:byte,2
 	global char_stamina_max_:byte,2
-	global char_load_:byte,4
+	global char_load_:byte,2
+	global char_carry_capacity_:byte,2
 	global g5494_:byte,2
 	global g5496_:byte,2
 	global char_spell_points_:byte,2
@@ -46,11 +47,23 @@
 	global g55a1_:byte,1
 	global g55a2_:byte,1
 	global g55a3_:byte,1
-	global char_skills_:byte,9
+	global char_skills_:byte,1
+	global g55a5_:byte,3
+	global g55a8_:byte,3
+	global g55ab_:byte,1
+	global g55ac_:byte,1
 	global g55ad_:byte,1
-	global g55ae_:byte,7
+	global g55ae_:byte,1
+	global g55af_:byte,1
+	global g55b0_:byte,3
+	global g55b3_:byte,1
+	global g55b4_:byte,1
 	global g55b5_:byte,5
-	global g55ba_:byte,7
+	global g55ba_:byte,3
+	global g55bd_:byte,1
+	global g55be_:byte,1
+	global g55bf_:byte,1
+	global g55c0_:byte,1
 	global g55c1_:byte,1
 	global g55c2_:byte,14
 	global g55d0_:byte,2
@@ -63,7 +76,9 @@
 	global g5612_:byte,1
 	global g5613_:byte,1
 	global g5614_:byte,1
-	global g5615_:byte,3
+	global g5615_:byte,1
+	global g5616_:byte,1
+	global g5617_:byte,1
 	global skill_points_left_:byte,1
 	global g5619_:byte,1
 	global g561a_:byte,1

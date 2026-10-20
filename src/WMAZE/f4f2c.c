@@ -1,178 +1,133 @@
 #asm
-	public choose_party_member_m_
-	extrn create_window_:near
-	extrn destroy_window_:near
-	extrn erase_window_:near
-	extrn f0a42_:near
-	extrn f4ee7_:near
-	extrn fill_window_:near
-	extrn get_maze_input_:near
-	extrn get_message_:near
-	extrn print_string_:near
-	extrn print_string_hi_:near
-	extrn refresh_all_windows_:near
-	extrn set_click_region_:near
 	extrn set_cursor_:near
 	extrn strlen_:near
-choose_party_member_m_:
-	db 055h,08bh,0ech,083h,0c4h,08eh,056h,083h,03eh,0ceh,043h,002h,07dh,008h,0b8h,000h
-	db 000h
-l4f3d:
-	db 05eh,08bh,0e5h,05dh,0c3h
-l4f42:
-	db 0b8h,000h,000h,050h,050h,0b8h,0fch,0ffh,050h,0b8h,019h,000h,050h,0b8h,005h,000h
-	db 050h,0b8h,013h,000h,050h,050h,0b8h,000h,000h,050h
-	call create_window_
-	db 083h,0c4h,010h,089h,046h,0fch,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
-	db 000h,050h,0ffh,076h,0fch
-	call fill_window_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call erase_window_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call f0a42_
-	db 083h,0c4h,004h
-	call refresh_all_windows_
-	db 08dh,046h,096h,050h,0ffh,076h,004h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,08dh,046h,096h,050h
+#endasm
+extern char *main_window;
+extern int menu_clicked;
+extern int mouse_present;
+extern int party_count;
+choose_party_member_m(p4, p6)
+{
+	int l2;
+	char *l4;
+	int l6;
+	char x6[8];
+	int l16;
+	char x16[8];
+	int l26;
+	char x26[78];
+	int l106;
+	int l108;
+	int l110;
+	int l112;
+	int l114;
+	register int rsi;
+	if (party_count >= 2) goto L4f42;
+	return 0;
+L4f42:
+	l4 = create_window(0, 19, 19, 5, 25, -4, 0, 0);
+	fill_window(l4, 32, 3, 0);
+	erase_window(main_window, 0);
+	f0a42(main_window, 0);
+	refresh_all_windows();
+	get_message(p4, &l106);
+#asm
+	db 0b8h,000h,000h,050h,08dh,046h,096h,050h
 	call strlen_
 	db 059h,0b9h,000h,000h,083h,07eh,006h,001h,075h,003h,0b9h,005h,000h
+#endasm
+L4fbe:
+	;
+#asm
 l4fbe:
 	db 003h,0c1h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h
 	db 050h,0ffh,036h,042h,033h
 	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,096h,050h,0ffh,036h,042h,033h
-	call print_string_hi_
-	db 083h,0c4h,006h,083h,07eh,006h,001h,075h,064h,08bh,01eh,042h,033h,0feh,047h,006h
-	db 08bh,01eh,042h,033h,08ah,047h,006h,02ah,0e4h,089h,046h,094h,08ah,047h,007h,02ah
-	db 0e4h,089h,046h,092h,08dh,046h,0f0h,050h,0b8h,0ebh,007h,050h
-	call get_message_
-	db 083h,0c4h,004h,08dh,046h,0e6h,050h,0b8h,0ech,007h,050h
-	call get_message_
-	db 083h,0c4h,004h,083h,03eh,046h,008h,001h,075h,014h,0b8h,003h,000h,050h,08dh,046h
-	db 0f0h,050h,0ffh,036h,042h,033h
-	call print_string_hi_
-	db 083h,0c4h,006h,0ebh,012h
-l5043:
-	db 0b8h,0fbh,0ffh,050h,08dh,046h,0e6h,050h,0ffh,036h,042h,033h
-	call print_string_
 	db 083h,0c4h,006h
-l5055:
-	db 0beh,000h,000h,0e9h,089h,000h
-l505b:
-	db 08bh,0c6h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h,08bh,0d0h,0b1h,003h,0d3h,0e0h
-	db 003h,0c2h,040h,040h,089h,046h,090h,08bh,0c6h,0b9h,002h,000h,099h,0f7h,0f9h,040h
-	db 089h,046h,08eh,050h,0ffh,076h,090h,0ffh,076h,0fch
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,0b0h,001h,0f7h,0eeh,005h,0e8h,043h,050h
-	db 0ffh,076h,0fch
-	call print_string_hi_
-	db 083h,0c4h,006h,08bh,05eh,0fch,08ah,047h,003h,02ah,0e4h,003h,046h,08eh,050h,0b8h
-	db 0b0h,001h,0f7h,0eeh,005h,0e8h,043h,050h
-	call strlen_
-	db 059h,050h,08bh,05eh,0fch,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,003h
-	db 046h,090h,048h,050h,08ah,047h,003h,02ah,0e4h,003h,046h,08eh,050h,003h,04eh,090h
-	db 08bh,0c1h,050h,056h
-	call set_click_region_
-	db 083h,0c4h,00ah,046h
-l50e4:
-	db 03bh,036h,0ceh,043h,07dh,003h,0e9h,06eh,0ffh
-l50ed:
-	db 0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0ffh,036h,0ceh,043h
-	call set_click_region_
-	db 083h,0c4h,00ah,083h,07eh,006h,001h,075h,057h,08bh,01eh,042h,033h,08ah,047h,003h
-	db 02ah,0e4h,003h,046h,092h,050h,08dh,046h,0e6h,050h
-	call strlen_
-	db 059h,050h,08bh,01eh,042h,033h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
-	db 003h,046h,094h,048h,050h,08ah,047h,003h,02ah,0e4h,003h,046h,092h,050h,003h,04eh
-	db 094h,08bh,0c1h,050h,0ffh,036h,0ceh,043h
-	call set_click_region_
-	db 083h,0c4h,00ah,0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0a1h,0ceh,043h
-	db 040h,050h
-	call set_click_region_
-	db 083h,0c4h,00ah
-l515e:
-	db 0b8h,000h,000h,083h,07eh,006h,001h,075h,003h,0b8h,0ffh,0ffh
-l516a:
-	db 089h,046h,0fah
-l516d:
-	db 083h,03eh,046h,008h,000h,075h,068h,083h,07eh,0fah,0ffh,075h,024h,0ffh,076h,092h
-	db 0ffh,076h,094h,0ffh,036h,042h,033h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,08dh,046h,0e6h,050h,0ffh,036h,042h,033h
-	call print_string_
-	db 083h,0c4h,006h,0ebh,03eh
-l519e:
-	db 08bh,046h,0fah,0b9h,002h,000h,099h,0f7h,0f9h,040h,050h,08bh,046h,0fah,099h,0f7h
-	db 0f9h,08bh,0c2h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h,040h,040h,050h,0ffh,076h
-	db 0fch
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,005h,0e8h,043h
-	db 050h,0ffh,076h,0fch
-	call print_string_
-	db 083h,0c4h,006h
-l51dc:
-	db 0b8h,098h,035h,050h,0b8h,028h,050h,050h
-	call get_maze_input_
-	db 083h,0c4h,004h,089h,046h,0feh,083h,03eh,0c4h,04fh,001h,075h,019h,0b8h,0ffh,0ffh
-	db 08bh,04eh,0feh,03bh,00eh,0ceh,043h,07dh,002h,08bh,0c1h
-l5202:
-	db 089h,046h,0fah,0c7h,046h,0feh,005h,000h,0e9h,004h,001h
-l520d:
-	db 08bh,046h,0feh,0e9h,0e1h,000h
-l5213:
-	db 083h,07eh,0fah,0ffh,074h,01fh,08bh,046h,0fah,0b9h,002h,000h,099h,0f7h,0f9h,08bh
-	db 0c2h,03dh,000h,000h,07eh,00fh,0ffh,076h,0fah,0ffh,076h,0fch
-	call f4ee7_
-	db 083h,0c4h,004h,0ffh,04eh,0fah
-l5238:
-	db 0e9h,0d6h,000h
-l523b:
-	db 083h,07eh,0fah,0ffh,074h,032h,08bh,046h,0fah,048h,048h,07ch,014h,0ffh,076h,0fah
-	db 0ffh,076h,0fch
-	call f4ee7_
-	db 083h,0c4h,004h,0ffh,04eh,0fah,0ffh,04eh,0fah,0ebh,017h
-l525c:
-	db 083h,07eh,006h,001h,075h,011h,0ffh,076h,0fah,0ffh,076h,0fch
-	call f4ee7_
-	db 083h,0c4h,004h,0c7h,046h,0fah,0ffh,0ffh
-l5273:
-	db 0e9h,09bh,000h
-l5276:
-	db 08bh,046h,0fah,03dh,0ffh,0ffh,074h,026h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
-	db 03dh,001h,000h,07dh,019h,08bh,046h,0fah,040h,03bh,006h,0ceh,043h,07dh,00fh,0ffh
-	db 076h,0fah,0ffh,076h,0fch
-	call f4ee7_
-	db 083h,0c4h,004h,0ffh,046h,0fah
-l52a4:
-	db 0ebh,06bh
-l52a6:
-	db 083h,07eh,0fah,0ffh,075h,029h,0ffh,076h,092h,0ffh,076h,094h,0ffh,036h,042h,033h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0f0h,050h,0ffh,036h,042h,033h
-	call print_string_hi_
-	db 083h,0c4h,006h,0c7h,046h,0fah,000h,000h,0ebh,01dh
-l52d5:
-	db 08bh,046h,0fah,040h,040h,03bh,006h,0ceh,043h,07dh,012h,0ffh,076h,0fah,0ffh,076h
-	db 0fch
-	call f4ee7_
-	db 083h,0c4h,004h,0ffh,046h,0fah,0ffh,046h,0fah
-l52f2:
-	db 0ebh,01dh
-l52f4:
-	db 03dh,001h,000h,075h,003h,0e9h,017h,0ffh
-l52fc:
-	db 03dh,002h,000h,075h,003h,0e9h,037h,0ffh
-l5304:
-	db 03dh,003h,000h,075h,003h,0e9h,06ah,0ffh
-l530c:
-	db 03dh,004h,000h,074h,095h
-l5311:
-	db 083h,07eh,0feh,005h,074h,003h,0e9h,053h,0feh
-l531a:
-	db 0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call erase_window_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,076h,0fch
-	call destroy_window_
-	db 083h,0c4h,004h,08bh,046h,0fah,0e9h,002h,0fch
 #endasm
+	print_string_hi(main_window, &l106, 3);
+	if (p6 != 1) goto L5055;
+	main_window[6]++;
+	l108 = (unsigned char)main_window[6];
+	l110 = (unsigned char)main_window[7];
+	get_message(2027, &l16);
+	get_message(2028, &l26);
+	if (mouse_present != 1) goto L5043;
+	print_string_hi(main_window, &l16, 3);
+	goto L5055;
+L5043:
+	print_string(main_window, &l26, -5);
+L5055:
+	for (rsi = 0; rsi < party_count; rsi++) {
+	l112 = (((rsi % 2) * 9) + 2);
+	l114 = ((rsi / 2) + 1);
+	set_cursor(l4, l112, l114);
+	print_string_hi(l4, ((432 * rsi) + 17384), 3);
+	set_click_region(rsi, ((unsigned char)l4[2] + l112), ((unsigned char)l4[3] + l114), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l112) - 1), ((unsigned char)l4[3] + l114));
+	}
+	set_click_region(party_count, 255, 0, 0, 0);
+	if (p6 == 1) {
+	set_click_region(party_count, ((unsigned char)main_window[2] + l108), ((unsigned char)main_window[3] + l110), (((strlen(&l26) + (unsigned char)main_window[2]) + l108) - 1), ((unsigned char)main_window[3] + l110));
+	set_click_region((party_count + 1), 255, 0, 0, 0);
+	}
+	l6 = (p6 == 1 ? -1 : 0);
+L516d:
+	if (mouse_present) goto L51dc;
+	if (l6 != -1) goto L519e;
+	set_cursor(main_window, l108, l110);
+	print_string(main_window, &l26, -5);
+	goto L51dc;
+L519e:
+	set_cursor(l4, (((l6 % 2) * 9) + 2), ((l6 / 2) + 1));
+	print_string(l4, ((432 * l6) + 17384), -5);
+L51dc:
+	l2 = get_maze_input(20520, 13720);
+	if (menu_clicked != 1) goto L520d;
+	l6 = (l2 < party_count ? l2 : -1);
+	l2 = 5;
+	goto L5311;
+L520d:
+	switch (l2) {
+case 1:
+	if ((l6 == -1) || ((l6 % 2) <= 0)) goto L5238;
+	f4ee7(l4, l6);
+	l6--;
+L5238:
+	goto L5311;
+case 2:
+	if (l6 == -1) goto L5273;
+	if ((l6 - 2) < 0) goto L525c;
+	f4ee7(l4, l6);
+	l6 -= 2;
+	goto L5273;
+L525c:
+	if (p6 != 1) goto L5273;
+	f4ee7(l4, l6);
+	l6 = -1;
+L5273:
+	goto L5311;
+case 3:
+	if (((l6 == -1) || ((l6 % 2) >= 1)) || ((l6 + 1) >= party_count)) goto L52a4;
+	f4ee7(l4, l6);
+	l6++;
+L52a4:
+	goto L5311;
+case 4:
+	if (l6 != -1) goto L52d5;
+	set_cursor(main_window, l108, l110);
+	print_string_hi(main_window, &l16, 3);
+	l6 = 0;
+	goto L52f2;
+L52d5:
+	if ((l6 + 2) >= party_count) goto L52f2;
+	f4ee7(l4, l6);
+	l6 += 2;
+L52f2:
+	goto L5311;
+	}
+L5311:
+	if (l2 != 5) goto L516d;
+	erase_window(main_window, 0);
+	destroy_window(l4, 0);
+	return l6;
+}

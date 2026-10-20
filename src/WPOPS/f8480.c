@@ -1,208 +1,180 @@
+extern char g00df[];
+extern char g00e2[];
+extern char g019d[];
+extern int group_monster_rec[];
+extern int monster_group_count;
+extern int monster_groups[];
 /* Choose an action and target for each monster of a group (attack, spell, breath). */
-#asm
-	public choose_group_actions_
-	extrn find_most_wounded_:near
-	extrn pick_random_row_:near
-	extrn pick_random_set_bit_:near
-	extrn random_:near
-choose_group_actions_:
-	db 055h,08bh,0ech,083h,0c4h,0e6h,056h,0c7h,046h,0feh,000h,000h,0e9h,098h,005h
-l848f:
-	db 0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0c8h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
-	db 087h,0a8h,043h,003h,0c1h,089h,046h,0f8h,0b8h,00ah,000h,050h
-	call random_
-	db 059h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,004h,0d1h,0e0h,08bh
-	db 0d8h,08bh,09fh,0a8h,043h,08ah,040h,029h,098h,08bh,0c8h,058h,003h,0c1h,050h,08bh
-	db 046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d3h,000h,02ah,0e4h
-	db 08bh,0c8h,058h,003h,0c1h,089h,046h,0f6h,03dh,001h,000h,07dh,005h,0c7h,046h,0f6h
-	db 001h,000h
-l84f0:
-	db 08bh,046h,0f6h,050h,08ah,087h,0d5h,000h,02ah,0e4h,08bh,0c8h,058h,099h,0f7h,0f9h
-	db 089h,046h,0f4h,08ah,087h,0dch,000h,02ah,0e4h,0a9h,002h,000h,074h,007h,08bh,05eh
-	db 0f8h,0c6h,047h,024h,001h
-l8515:
-	db 08bh,05eh,0f8h,080h,07fh,024h,000h,076h,031h,08bh,046h,0f6h,0b9h,002h,000h,099h
-	db 0f7h,0f9h,050h
-	call random_
-	db 059h,050h,0b8h,014h,000h,050h
-	call random_
-	db 059h,08bh,0c8h,058h,003h,0c1h,050h,08bh,046h,0f6h,0b9h,002h,000h,099h,0f7h,0f9h
-	db 08bh,0c8h,058h,003h,0c1h,08bh,05eh,0f8h,088h,047h,025h
-l854f:
-	db 08bh,05eh,0f8h,0c6h,047h,021h,000h,0ffh,076h,004h
-	call pick_random_row_
-	db 059h,08bh,05eh,0f8h,088h,047h,01ch,0c7h,046h,0eah,000h,000h
-l8568:
-	db 0ffh,076h,004h
-	call pick_random_row_
-	db 059h,08bh,05eh,0f8h,088h,047h,01dh,0ffh,046h,0eah,08bh,05eh,0f8h,08ah,047h,01dh
-	db 08ah,04fh,01ch,03ah,0c1h,075h,006h,083h,07eh,0eah,003h,07ch,0ddh
-l858b:
-	db 0c7h,046h,0f2h,000h,000h
-l8590:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d5h,000h,02ah
-	db 0e4h,03bh,046h,0f2h,07eh,015h,08bh,05eh,0f8h,080h,07fh,022h,002h,073h,00ch,080h
-	db 07fh,011h,000h,077h,006h,080h,07fh,010h,000h,076h,00ch
-l85bb:
-	db 08bh,05eh,0f8h,08bh,076h,0f2h,0c6h,040h,018h,000h,0ebh,012h
-l85c7:
-	db 08ah,046h,0f6h,08bh,05eh,0f8h,08bh,076h,0f2h,088h,040h,018h,08bh,046h,0f4h,029h
-	db 046h,0f6h
-l85d9:
-	db 0ffh,046h,0f2h,08bh,046h,0f2h,03dh,004h,000h,07ch,0ach,0c7h,046h,0e8h,0ffh,0ffh
-	db 08ah,046h,006h,08bh,05eh,0f8h,088h,047h,01fh
-l85f2:
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09dh,001h,02ah
-	db 0e4h,050h
-	call random_
-	db 059h,08bh,05eh,0f8h,088h,047h,020h,08bh,05eh,0f8h,08ah,047h,020h,02ah,0e4h,0b9h
-	db 02ch,000h,0f7h,0e9h,08bh,0f0h,08ah,047h,01fh,02ah,0e4h,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0a8h,043h,080h,078h,022h,003h,073h,0c2h,0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0a8h
-	db 000h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h,07ch,003h,0e9h,037h,001h
-l8654:
-	db 0c7h,046h,0e8h,003h,000h,08bh,05eh,0f8h,0c6h,047h,01eh,003h,0b8h,064h,000h,050h
-	call random_
-	db 059h,089h,046h,0eeh,0c7h,046h,0eah,005h,000h,0c7h,046h,0f0h,000h,000h,0c7h,046h
-	db 0e6h,0ffh,0ffh
-l867a:
-	db 08bh,046h,0eeh,03bh,046h,0eah,07dh,017h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0b6h,043h,08bh,076h,0f0h,08ah,080h,08ah,000h,02ah,0e4h,089h,046h,0e6h
-l8699:
-	db 0ffh,046h,0f0h,083h,07eh,0eah,00fh,07dh,006h,083h,046h,0eah,005h,0ebh,010h
-l86a8:
-	db 083h,07eh,0eah,037h,07dh,006h,083h,046h,0eah,00ah,0ebh,004h
-l86b4:
-	db 083h,046h,0eah,00fh
-l86b8:
-	db 083h,07eh,0e6h,0ffh,074h,0bch,08bh,046h,0e6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h
-	db 0e0h,08bh,0d8h,080h,0bfh,0e2h,000h,001h,075h,05bh,083h,07eh,004h,006h,075h,029h
-	db 0b8h,000h,000h,050h,0ffh,076h,0f8h
-	call find_most_wounded_
-	db 083h,0c4h,004h,085h,0c0h,075h,016h,0b8h,006h,000h,050h,0ffh,076h,0f8h
-	call find_most_wounded_
-	db 083h,0c4h,004h,085h,0c0h,075h,005h,0c7h,046h,0e8h,0ffh,0ffh
-l86ff:
-	db 0ebh,02ch
-l8701:
-	db 0ffh,076h,004h,0ffh,076h,0f8h
-	call find_most_wounded_
-	db 083h,0c4h,004h,085h,0c0h,075h,01ch,0ffh,036h,060h,043h
-	call random_
-	db 059h,040h,050h,0ffh,076h,0f8h
-	call find_most_wounded_
-	db 083h,0c4h,004h,085h,0c0h,075h,005h,0c7h,046h,0e8h,0ffh,0ffh
-l872d:
-	db 08bh,046h,0e6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,0d8h,08ah,087h,0dfh
-	db 000h,02ah,0e4h,08bh,0c8h,08bh,05eh,0f8h,08bh,007h,02bh,0c1h,040h,089h,046h,0eeh
-	db 0b8h,001h,000h,08bh,04eh,0eeh,083h,0f9h,001h,07ch,00ch,08bh,0c1h,050h,03dh,006h
-	db 000h,058h,07eh,003h,0b8h,006h,000h
-l8764:
-	db 089h,046h,0eeh
-l8767:
-	db 08bh,05eh,0f8h,0ffh,037h
-	call random_
-	db 059h,040h,03bh,046h,0eeh,07dh,005h,0ffh,04eh,0eeh,0ebh,0ech
-l877b:
-	db 08bh,046h,0eeh,086h,0e0h,02ah,0c0h,003h,046h,0e6h,08bh,05eh,0f8h,089h,047h,00ah
-l878b:
-	db 083h,07eh,0e8h,0ffh,075h,044h,0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0aah
-	db 000h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h,07dh,023h,0c7h,046h,0e8h,008h,000h,08bh
-	db 05eh,0f8h,0c6h,047h,01eh,008h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h
-	db 043h,08ah,087h,0d8h,000h,02ah,0e4h,08bh,05eh,0f8h,089h,047h,00ah
-l87d5:
-	db 083h,07eh,0e8h,0ffh,074h,003h,0e9h,07ah,001h
-l87de:
-	db 0c7h,046h,0eeh,000h,000h,08bh,05eh,0f8h,080h,07fh,022h,002h,072h,003h,0e9h,080h
-	db 000h
-l87ef:
-	db 080h,07fh,011h,000h,074h,003h,0e9h,077h,000h
-l87f8:
-	db 080h,07fh,010h,000h,074h,003h,0e9h,06eh,000h
-l8801:
-	db 08ah,047h,01ch,02ah,0e4h,089h,046h,0ech,083h,07eh,004h,006h,075h,007h,0c7h,046h
-	db 0eeh,009h,000h,0ebh,059h
-l8816:
-	db 083h,07eh,004h,003h,07ch,01bh,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h
-	db 043h,08bh,046h,0ech,0b9h,004h,000h,0d3h,0e0h,08bh,0f0h,080h,078h,051h,001h,076h
-	db 038h
-l8837:
-	db 0c7h,046h,0eeh,003h,000h,0b8h,002h,000h,083h,07eh,004h,003h,07dh,003h,0b8h,000h
-	db 000h
-l8848:
-	db 050h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,046h,0ech,0b9h
-	db 004h,000h,0d3h,0e0h,08bh,0f0h,08ah,040h,051h,02ah,0e4h,08bh,0c8h,058h,03bh,0c1h
-	db 07dh,005h,0c7h,046h,0eeh,006h,000h
-l886f:
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09dh,001h,02ah
-	db 0e4h,03bh,046h,0eeh,07dh,003h,089h,046h,0eeh
-l8888:
-	db 0c7h,046h,0f0h,000h,000h,0c7h,046h,0eah,000h,000h,0ebh,01fh
-l8894:
-	db 0b8h,02ch,000h,0f7h,06eh,0eah,08bh,0f0h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0a8h,043h,080h,078h,022h,003h,073h,003h,0ffh,046h,0f0h
-l88b0:
-	db 0ffh,046h,0eah
-l88b3:
-	db 08bh,046h,0eah,03bh,046h,0eeh,07ch,0d9h,083h,07eh,0f0h,000h,07fh,003h,0e9h,08dh
-	db 000h
-l88c4:
-	db 08bh,05eh,0f8h,0c6h,047h,01eh,000h,08ah,046h,006h,08bh,05eh,0f8h,088h,047h,01fh
-	db 0ffh,076h,0f0h
-	call random_
-	db 059h,08bh,05eh,0f8h,088h,047h,020h,08bh,05eh,0f8h,08ah,047h,01ch,02ah,0e4h,089h
-	db 046h,0ech,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0ech
-	db 080h,0b8h,080h,000h,002h,075h,00ah,08bh,05eh,0f8h,0c7h,047h,00ah,004h,000h,0ebh
-	db 044h
-l890b:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0ech,080h,0b8h
-	db 080h,000h,003h,075h,00ah,08bh,05eh,0f8h,0c7h,047h,00ah,008h,000h,0ebh,025h
-l892a:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h,043h,08bh,056h,0ech,0b9h,004h
-	db 000h,0d3h,0e2h,08bh,0cah,003h,0c1h,005h,053h,000h,050h
-	call pick_random_set_bit_
-	db 059h,08bh,05eh,0f8h,089h,047h,00ah
-l894f:
-	db 0ebh,007h
-l8951:
-	db 08bh,05eh,0f8h,0c6h,047h,018h,000h
-l8958:
-	db 08bh,05eh,0f8h,0c7h,047h,00ch,0ffh,0ffh,08bh,05eh,0f8h,080h,07fh,01eh,000h,074h
-	db 003h,0e9h,09eh,000h
-l896c:
-	db 08ah,047h,01dh,02ah,0e4h,089h,046h,0ech,083h,07eh,004h,003h,07ch,01bh,08bh,046h
-	db 004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,046h,0ech,0b9h,004h,000h,0d3h
-	db 0e0h,08bh,0f0h,080h,078h,051h,001h,076h,065h
-l8995:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0ech,080h,0b8h
-	db 080h,000h,002h,075h,00ah,08bh,05eh,0f8h,0c7h,047h,00ch,004h,000h,0ebh,044h
-l89b4:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,076h,0ech,080h,0b8h
-	db 080h,000h,003h,075h,00ah,08bh,05eh,0f8h,0c7h,047h,00ch,008h,000h,0ebh,025h
-l89d3:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h,043h,08bh,056h,0ech,0b9h,004h
-	db 000h,0d3h,0e2h,08bh,0cah,003h,0c1h,005h,053h,000h,050h
-	call pick_random_set_bit_
-	db 059h,08bh,05eh,0f8h,089h,047h,00ch
-l89f8:
-	db 0ebh,00eh
-l89fa:
-	db 08bh,05eh,0f8h,0c6h,047h,019h,000h,08bh,05eh,0f8h,0c6h,047h,01bh,000h
-l8a08:
-	db 0ebh,01ah
-l8a0a:
-	db 0c7h,046h,0fch,001h,000h
-l8a0f:
-	db 08bh,05eh,0f8h,08bh,076h,0fch,0c6h,040h,018h,000h,0ffh,046h,0fch,08bh,046h,0fch
-	db 03dh,004h,000h,07ch,0ebh
-l8a24:
-	db 0ffh,046h,0feh
-l8a27:
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09dh,001h,02ah
-	db 0e4h,03bh,046h,0feh,07eh,003h,0e9h,04fh,0fah
-l8a40:
-	db 05eh,08bh,0e5h,05dh,0c3h
-#endasm
+choose_group_actions(group, target_group)
+{
+	int i;
+	int l4;
+	char x4[2];
+	char *monster;
+	int l10;
+	int l12;
+	int l14;
+	int l16;
+	int l18;
+	int l20;
+	int l22;
+	int l24;
+	int l26;
+	i = 0;
+	goto L8a27;
+L848f:
+	monster = ((char *)monster_groups[group] + (44 * i));
+	if ((l10 = ((random(10) + ((char *)monster_groups[group] + (44 * i))[41]) + (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[211])) < 1) {
+	l10 = 1;
+	}
+	l12 = (l10 / (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213]);
+	if (((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[220] & 2)) {
+	monster[36] = 1;
+	}
+	if ((unsigned)monster[36] > 0) {
+	monster[37] = (char)((random((l10 / 2)) + random(20)) + (l10 / 2));
+	}
+	monster[33] = 0;
+	monster[28] = (char)pick_random_row(group);
+	l22 = 0;
+L8568:
+	monster[29] = (char)pick_random_row(group);
+	l22++;
+	if ((monster[29] == monster[28]) && (l22 < 3)) goto L8568;
+	l14 = 0;
+L8590:
+	if (((((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] > l14) && ((unsigned)monster[34] < 2)) && ((unsigned)monster[17] <= 0)) && ((unsigned)monster[16] <= 0)) goto L85c7;
+	(monster + l14)[24] = 0;
+	goto L85d9;
+L85c7:
+	(monster + l14)[24] = *(char *)&l10;
+	l10 -= l12;
+L85d9:
+	l14++;
+	if (l14 < 4) goto L8590;
+	l24 = -1;
+	monster[31] = *(char *)&target_group;
+L85f2:
+	monster[32] = (char)random((unsigned char)g019d[monster_groups[target_group]]);
+	if ((unsigned)((char *)monster_groups[(unsigned char)monster[31]] + ((unsigned char)monster[32] * 44))[34] >= 3) goto L85f2;
+	if (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[168]) goto L878b;
+	l24 = 3;
+	monster[30] = 3;
+	l18 = random(100);
+	l22 = 5;
+	l16 = 0;
+	l26 = -1;
+L867a:
+	if (l18 < l22) {
+	l26 = (unsigned char)((char *)group_monster_rec[group] + l16)[138];
+	}
+	l16++;
+	if (l22 >= 15) goto L86a8;
+	l22 += 5;
+	goto L86b8;
+L86a8:
+	if (l22 >= 55) goto L86b4;
+	l22 += 10;
+	goto L86b8;
+L86b4:
+	l22 += 15;
+L86b8:
+	if (l26 == -1) goto L867a;
+	if (g00e2[(l26 * 6)] != 1) goto L872d;
+	if (group != 6) goto L8701;
+	if ((find_most_wounded(monster, 0)) || (find_most_wounded(monster, 6))) goto L86ff;
+	l24 = -1;
+L86ff:
+	goto L872d;
+L8701:
+	if ((find_most_wounded(monster, group)) || (find_most_wounded(monster, (random(monster_group_count) + 1)))) goto L872d;
+	l24 = -1;
+L872d:
+	l18 = ((*(int *)monster - (unsigned char)g00df[(l26 * 6)]) + 1);
+	l18 = (l18 >= 1 ? (l18 > 6 ? 6 : l18) : 1);
+L8767:
+	if ((random(*(int *)monster) + 1) >= l18) goto L877b;
+	l18--;
+	goto L8767;
+L877b:
+	*(int *)(monster + 10) = ((l18 << 8) + l26);
+L878b:
+	if ((l24 != -1) || (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[170])) goto L87d5;
+	l24 = 8;
+	monster[30] = 8;
+	*(int *)(monster + 10) = (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[216];
+L87d5:
+	if (l24 != -1) goto L8958;
+	l18 = 0;
+	if ((((unsigned)monster[34] >= 2) || (monster[17])) || (monster[16])) goto L886f;
+	l20 = (unsigned char)monster[28];
+	if (group != 6) goto L8816;
+	l18 = 9;
+	goto L886f;
+L8816:
+	if ((group >= 3) && ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1)) goto L886f;
+	l18 = 3;
+	if ((group < 3 ? 0 : 2) >= (unsigned char)((char *)group_monster_rec[group] + (l20 << 4))[81]) goto L886f;
+	l18 = 6;
+L886f:
+	if ((unsigned char)g019d[monster_groups[target_group]] < l18) {
+	l18 = (unsigned char)g019d[monster_groups[target_group]];
+	}
+	l16 = 0;
+	l22 = 0;
+	goto L88b3;
+L8894:
+	if ((unsigned)((char *)monster_groups[target_group] + (44 * l22))[34] < 3) {
+	l16++;
+	}
+	l22++;
+L88b3:
+	if (l22 < l18) goto L8894;
+	if (l16 <= 0) goto L8951;
+	monster[30] = 0;
+	monster[31] = *(char *)&target_group;
+	monster[32] = (char)random(l16);
+	l20 = (unsigned char)monster[28];
+	if (((char *)group_monster_rec[group] + l20)[128] != 2) goto L890b;
+	*(int *)(monster + 10) = 4;
+	goto L894f;
+L890b:
+	if (((char *)group_monster_rec[group] + l20)[128] != 3) goto L892a;
+	*(int *)(monster + 10) = 8;
+	goto L894f;
+L892a:
+	*(int *)(monster + 10) = pick_random_set_bit((((char *)group_monster_rec[group] + (l20 << 4)) + 83));
+L894f:
+	goto L8958;
+L8951:
+	monster[24] = 0;
+L8958:
+	*(int *)(monster + 12) = -1;
+	if (monster[30]) goto L8a0a;
+	l20 = (unsigned char)monster[29];
+	if ((group >= 3) && ((unsigned)((char *)group_monster_rec[group] + (l20 << 4))[81] <= 1)) goto L89fa;
+	if (((char *)group_monster_rec[group] + l20)[128] != 2) goto L89b4;
+	*(int *)(monster + 12) = 4;
+	goto L89f8;
+L89b4:
+	if (((char *)group_monster_rec[group] + l20)[128] != 3) goto L89d3;
+	*(int *)(monster + 12) = 8;
+	goto L89f8;
+L89d3:
+	*(int *)(monster + 12) = pick_random_set_bit((((char *)group_monster_rec[group] + (l20 << 4)) + 83));
+L89f8:
+	goto L8a08;
+L89fa:
+	monster[25] = 0;
+	monster[27] = 0;
+L8a08:
+	goto L8a24;
+L8a0a:
+	for (l4 = 1; l4 < 4; l4++) {
+	(monster + l4)[24] = 0;
+	}
+L8a24:
+	i++;
+L8a27:
+	if ((unsigned char)g019d[monster_groups[group]] > i) goto L848f;
+}

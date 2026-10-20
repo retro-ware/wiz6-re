@@ -2,7 +2,8 @@
 	global g552a_:byte,16
 	global g553a_:byte,2
 	global g553c_:byte,82
-	global g558e_:byte,18
+	global g558e_:byte,1
+	global g558f_:byte,17
 	global g55a0_:byte,220
 	global g567c_:byte,2
 	global item_row_color_:byte,2

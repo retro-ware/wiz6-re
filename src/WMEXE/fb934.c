@@ -1,215 +1,114 @@
-#asm
-	public fb934_
-	extrn $ldv:near
-	extrn combat_delay_:near
-	extrn f8149_:near
-	extrn f825f_:near
-	extrn f83f3_:near
-	extrn f8efc_:near
-	extrn fb85f_:near
-	extrn random_:near
-fb934_:
-	db 055h,08bh,0ech,083h,0c4h,0f2h,0c7h,006h,016h,051h,000h,000h,08bh,05eh,004h,08ah
-	db 047h,01fh,02ah,0e4h,089h,046h,0feh,08ah,047h,020h,02ah,0e4h,089h,046h,0fch,0c7h
-	db 046h,0f4h,019h,000h,0c7h,046h,0fah,001h,000h,0c7h,046h,0f6h,000h,000h
-lb962:
-	db 08bh,05eh,004h,08bh,047h,002h,03bh,046h,0f4h,07eh,003h,0ffh,046h,0fah
-lb970:
-	db 08bh,046h,0f4h,0d1h,0e0h,089h,046h,0f4h,0ffh,046h,0f6h,08bh,046h,0f6h,03dh,006h
-	db 000h,07ch,0dfh,08bh,046h,0fah,08bh,05eh,004h,08bh,04fh,006h,08bh,0d9h,0f7h,0ebh
-	db 050h,052h,08bh,05eh,004h,08bh,047h,008h,099h,08bh,0c8h,08bh,0dah,05ah,058h
-	call $ldv
-	db 040h,089h,046h,0fah,03dh,001h,000h,07dh,005h,0c7h,046h,0fah,001h,000h
-lb9b0:
-	db 083h,07eh,0fah,006h,07eh,005h,0c7h,046h,0fah,006h,000h
-lb9bb:
-	db 08bh,046h,0fah,0d1h,0e0h,0d1h,0e0h,089h,046h,0f8h,0c7h,046h,0f2h,000h,000h,08bh
-	db 05eh,004h,08bh,047h,00ah,0e9h,016h,006h,0b8h,000h,000h,050h,0b8h,00ch,000h,050h
-	db 0b8h,074h,00eh,050h,0b8h,00ch,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,001h,000h,050h,0b8h,000h,000h,050h,050h,0ffh,076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0ffh,076h,0f8h,0b8h,001h,000h,050h,0ffh,076h,0fah,0b8h,005h,000h
-	db 050h,0b8h,002h,000h,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh,076h,0feh
-	call f8149_
-	db 083h,0c4h,00eh,0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,006h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0b9h,005h,0b8h,000h,000h,050h,0b8h,009h,000h
-	db 050h,0b8h,079h,00eh,050h,0b8h,00dh,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,009h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0ffh,076h,0f8h,0b8h,007h,000h,050h,0ffh,076h,0fah,0b8h,005h,000h
-	db 050h,0b8h,002h,000h,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh,076h,0feh
-	call f8149_
-	db 083h,0c4h,00eh,0b8h,002h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,014h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,04ch,005h,0b8h,000h,000h,050h,0b8h,002h,000h
-	db 050h,0b8h,075h,00eh,050h,0b8h,00ch,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,001h,000h,050h,050h,0b8h,000h,000h,050h,0ffh,076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0ffh,076h,0f8h,0b8h,003h,000h,050h,0ffh,076h,0fah,0b8h,004h,000h
-	db 050h,0b8h,003h,000h,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh,076h,0feh
-	call f8149_
-	db 083h,0c4h,00eh,0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,006h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0e2h,004h,0b8h,000h,000h,050h,0b8h,006h,000h
-	db 050h,0b8h,07ah,00eh,050h,0b8h,00ch,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,001h,000h,050h,0b8h,003h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0ffh,076h,0f8h,0b8h,008h,000h,050h,0ffh,076h,0fah,0b8h,007h,000h
-	db 050h,0b8h,001h,000h,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh,076h,0feh
-	call f8149_
-	db 083h,0c4h,00eh,0b8h,006h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,004h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,075h,004h,08bh,05eh,004h,080h,07fh,00eh,000h
-	db 076h,005h,0b8h,001h,000h,0ebh,003h
-lbb8f:
-	db 0b8h,000h,000h
-lbb92:
-	db 050h,0b8h,006h,000h,050h,0b8h,0ffh,0ffh,050h,0b8h,011h,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,085h,0c0h,075h,03ah,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h
-	db 000h,000h,050h,0ffh,076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0ffh,076h,0f8h,0b8h,00ah,000h,050h,0ffh,076h,0fah,0b8h,004h,000h
-	db 050h,0b8h,002h,000h,050h,0b8h,000h,000h,08bh,04eh,0fah,041h,02bh,0c1h,050h,0ffh
-	db 076h,0feh
-	call f8149_
-	db 083h,0c4h,00eh
-lbbe3:
-	db 0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0f3h,003h,08bh,05eh,004h,080h,07fh,00eh,000h
-	db 076h,005h,0b8h,001h,000h,0ebh,003h
-lbc11:
-	db 0b8h,000h,000h
-lbc14:
-	db 050h,0b8h,005h,000h,050h,0b8h,0ffh,0ffh,050h,0b8h,012h,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,085h,0c0h,075h,06bh,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h
-	db 000h,000h,050h,0ffh,076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,08bh,046h,0fah,08bh,0d0h,0d1h,0e0h,0d1h
-	db 0e0h,003h,0c2h,0d1h,0e0h,050h,0b8h,002h,000h,050h,08bh,046h,0fah,08bh,0d0h,0d1h
-	db 0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,050h,0b8h,000h,000h,050h,0b8h,007h,000h,050h
-	db 0b8h,004h,000h,050h,0b8h,001h,000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah,0b8h,00ah
-	db 000h,050h,0b8h,097h,00dh,050h,0b8h,000h,000h,08bh,04eh,0fah,041h,02bh,0c1h,050h
-	db 0ffh,076h,0feh
-	call f83f3_
-	db 083h,0c4h,01eh
-lbc96:
-	db 0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,040h,003h,0b8h,000h,000h,050h,0b8h,00fh,000h
-	db 050h,0b8h,076h,00eh,050h,0b8h,00dh,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah,0b8h,001h,000h,050h,08bh
-	db 046h,0fah,0d1h,0e0h,050h,0b8h,000h,000h,050h,0ffh,076h,0f8h,0b8h,003h,000h,050h
-	db 0b8h,004h,000h,050h,0b8h,093h,00dh,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh
-	db 076h,0feh
-	call f825f_
-	db 083h,0c4h,018h,0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0c0h,002h,0b8h,000h,000h,050h,0b8h,00eh,000h
-	db 050h,0b8h,077h,00eh,050h,0b8h,00eh,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah,0b8h,004h,000h,050h,0ffh
-	db 076h,0fah,0b8h,000h,000h,050h,0b8h,008h,000h,050h,0b8h,006h,000h,050h,0b8h,001h
-	db 000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah,0b8h,005h,000h,050h,0b8h,098h,00dh,050h
-	db 0b8h,000h,000h,08bh,04eh,0fah,041h,02bh,0c1h,050h,0ffh,076h,0feh
-	call f83f3_
-	db 083h,0c4h,01eh,0b8h,004h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,006h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,035h,002h,0b8h,000h,000h,050h,0b8h,00bh,000h
-	db 050h,0b8h,078h,00eh,050h,0b8h,00ch,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah,0b8h,002h,000h,050h,08bh
-	db 046h,0fah,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,050h,0b8h,000h,000h
-	db 050h,0b8h,005h,000h,050h,050h,0b8h,001h,000h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	db 0b8h,006h,000h,050h,0b8h,095h,00dh,050h,0b8h,000h,000h,02bh,046h,0fah,050h,0ffh
-	db 076h,0feh
-	call f83f3_
-	db 083h,0c4h,01eh,0b8h,003h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,008h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0a5h,001h,0b8h,000h,000h,050h,0b8h,005h,000h
-	db 050h,0b8h,0ffh,0ffh,050h,0b8h,00fh,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,005h,000h,050h,050h,050h,050h,050h,0b8h,000h,000h,050h,0b8h
-	db 00fh,000h,050h,0b8h,006h,000h,050h,0b8h,00dh,000h,050h,0b8h,0aah,00dh,050h,0ffh
-	db 076h,0fch,0ffh,076h,0feh
-	call f825f_
-	db 083h,0c4h,018h,0b8h,002h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,014h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,032h,001h,0b8h,000h,000h,050h,0b8h,007h,000h
-	db 050h,0b8h,07bh,00eh,050h,0b8h,010h,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h,000h,000h,050h,0ffh
-	db 076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah,0b8h,002h,000h,050h,0ffh
-	db 076h,0fah,0b8h,000h,000h,050h,0ffh,076h,0f8h,0b8h,002h,000h,050h,0b8h,009h,000h
-	db 050h,0b8h,092h,00dh,050h,0b8h,000h,000h,08bh,04eh,0fah,041h,02bh,0c1h,050h,0ffh
-	db 076h,0feh
-	call f825f_
-	db 083h,0c4h,018h,0b8h,003h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0e9h,0b2h,000h,08bh,05eh,004h,080h,07fh,00eh,000h
-	db 076h,005h,0b8h,001h,000h,0ebh,003h
-lbf52:
-	db 0b8h,000h,000h
-lbf55:
-	db 050h,0b8h,003h,000h,050h,0b8h,0ffh,0ffh,050h,0b8h,013h,00dh,050h
-	call fb85f_
-	db 083h,0c4h,008h,085h,0c0h,075h,044h,0b8h,000h,000h,050h,0b8h,010h,000h,050h,0b8h
-	db 000h,000h,050h,0ffh,076h,0feh
-	call f8efc_
-	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah,0b8h,001h,000h,050h,0ffh
-	db 076h,0fah,0b8h,000h,000h,050h,0ffh,076h,0f8h,0b8h,001h,000h,050h,0b8h,00ah,000h
-	db 050h,0b8h,091h,00dh,050h,0b8h,0f6h,0ffh,050h,0ffh,076h,0feh
-	call f825f_
-	db 083h,0c4h,018h
-lbfb0:
-	db 0b8h,003h,000h,050h
-	call random_
-	db 059h,050h,08bh,05eh,004h,08bh,047h,008h,0b9h,008h,000h,099h,0f7h,0f9h,08bh,0c8h
-	db 058h,003h,0c1h,089h,046h,0f2h,0ebh,027h,0f6h,0bfh,0d3h,0b9h,03dh,0bah,0aah,0bah
-	db 0b6h,0bch,036h,0bdh,0c1h,0bdh,051h,0beh,014h,0bbh,0c4h,0beh,081h,0bbh,044h,0bfh
-	db 003h,0bch
-lbfe9:
-	db 03dh,00dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0cfh,0bfh
-lbff6:
-	db 083h,03eh,016h,051h,000h,075h,00eh,0a1h,0c8h,04fh,0b9h,002h,000h,099h,0f7h,0f9h
-	db 050h
-	call combat_delay_
-	db 059h
-lc00b:
-	db 08bh,046h,0f2h,08bh,0e5h,05dh,0c3h
-#endasm
+extern int g4fc8;
+extern int g5116;
+fb934(p4)
+char *p4;
+{
+	int l2;
+	int l4;
+	int l6;
+	int l8;
+	int l10;
+	int l12;
+	int l14;
+	g5116 = 0;
+	l2 = (unsigned char)p4[31];
+	l4 = (unsigned char)p4[32];
+	l12 = 25;
+	l6 = 1;
+	for (l10 = 0; l10 < 6; l10++) {
+	if (*(int *)(p4 + 2) > l12) {
+	l6++;
+	}
+	l12 = (l12 << 1);
+	}
+	if ((l6 = ((int)(((long)l6 * *(int *)(p4 + 6)) / (long)*(int *)(p4 + 8)) + 1)) < 1) {
+	l6 = 1;
+	}
+	if (l6 > 6) {
+	l6 = 6;
+	}
+	l8 = (l6 << 2);
+	l14 = 0;
+	switch (*(int *)(p4 + 10)) {
+case 1:
+	fb85f(3340, 3700, 12, 0);
+	f8efc(l2, 0, 0, 1);
+	f8149(l2, (0 - l6), 2, 5, l6, 1, l8);
+	l14 = (random(4) + (*(int *)(p4 + 8) / 6));
+	goto Lbff6;
+case 2:
+	fb85f(3341, 3705, 9, 0);
+	f8efc(l2, 0, 9, 0);
+	f8149(l2, (0 - l6), 2, 5, l6, 7, l8);
+	l14 = (random(2) + (*(int *)(p4 + 8) / 20));
+	goto Lbff6;
+case 3:
+	fb85f(3340, 3701, 2, 0);
+	f8efc(l2, 0, 1, 1);
+	f8149(l2, (0 - l6), 3, 4, l6, 3, l8);
+	l14 = (random(4) + (*(int *)(p4 + 8) / 6));
+	goto Lbff6;
+case 8:
+	fb85f(3340, 3706, 6, 0);
+	f8efc(l2, 0, 3, 1);
+	f8149(l2, (0 - l6), 1, 7, l6, 8, l8);
+	l14 = (random(6) + (*(int *)(p4 + 8) / 4));
+	goto Lbff6;
+case 10:
+	if (!fb85f(3345, -1, 6, ((unsigned)p4[14] > 0 ? 1 : 0))) {
+	f8efc(l2, 0, 16, 0);
+	f8149(l2, (0 - (l6 + 1)), 2, 4, l6, 10, l8);
+	}
+	l14 = (random(4) + (*(int *)(p4 + 8) / 10));
+	goto Lbff6;
+case 12:
+	if (!fb85f(3346, -1, 5, ((unsigned)p4[14] > 0 ? 1 : 0))) {
+	f8efc(l2, 0, 16, 0);
+	f83f3(l2, (0 - (l6 + 1)), 3479, 10, l6, l8, 1, 4, 7, 0, (l6 * 10), 2, (l6 * 10), 0, 0);
+	}
+	l14 = (random(4) + (*(int *)(p4 + 8) / 10));
+	goto Lbff6;
+case 4:
+	fb85f(3341, 3702, 15, 0);
+	f8efc(l2, 0, 16, 0);
+	f825f(l2, (0 - l6), 3475, 4, 3, l8, 0, (l6 << 1), 1, l6, 0, 0);
+	l14 = (random(4) + (*(int *)(p4 + 8) / 10));
+	goto Lbff6;
+case 5:
+	fb85f(3342, 3703, 14, 0);
+	f8efc(l2, 0, 3, 0);
+	f83f3(l2, (0 - (l6 + 1)), 3480, 5, l6, l8, 1, 6, 8, 0, l6, 4, l6, 0, 0);
+	l14 = (random(4) + (*(int *)(p4 + 8) / 6));
+	goto Lbff6;
+case 6:
+	fb85f(3340, 3704, 11, 0);
+	f8efc(l2, 0, 3, 0);
+	f83f3(l2, (0 - l6), 3477, 6, l6, l8, 1, 5, 5, 0, (l6 * 10), 2, l6, 0, 0);
+	l14 = (random(3) + (*(int *)(p4 + 8) / 8));
+	goto Lbff6;
+case 7:
+	fb85f(3343, -1, 5, 0);
+	f8efc(l2, 0, 16, 0);
+	f825f(l2, l4, 3498, 13, 6, 15, 0, 5, 5, 5, 5, 5);
+	l14 = (random(2) + (*(int *)(p4 + 8) / 20));
+	goto Lbff6;
+case 9:
+	fb85f(3344, 3707, 7, 0);
+	f8efc(l2, 0, 16, 0);
+	f825f(l2, (0 - (l6 + 1)), 3474, 9, 2, l8, 0, l6, 2, l6, 0, 0);
+	l14 = (random(3) + (*(int *)(p4 + 8) / 10));
+	goto Lbff6;
+case 11:
+	if (!fb85f(3347, -1, 3, ((unsigned)p4[14] > 0 ? 1 : 0))) {
+	f8efc(l2, 0, 16, 0);
+	f825f(l2, -10, 3473, 10, 1, l8, 0, l6, 1, l6, 0, 0);
+	}
+	l14 = (random(3) + (*(int *)(p4 + 8) / 8));
+	goto Lbff6;
+	}
+Lbff6:
+	if (!g5116) {
+	combat_delay((g4fc8 / 2));
+	}
+	return l14;
+}

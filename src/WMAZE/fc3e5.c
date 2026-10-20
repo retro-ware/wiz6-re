@@ -1,39 +1,17 @@
-#asm
-	public show_centered_notice_
-	extrn defer_window_draw_:near
-	extrn erase_window_:near
-	extrn f0a42_:near
-	extrn get_message_:near
-	extrn play_sound_:near
-	extrn print_string_hi_:near
-	extrn refresh_window_:near
-	extrn resume_window_draw_:near
-	extrn set_cursor_:near
-	extrn strlen_:near
-	extrn wait_animating_m_:near
-show_centered_notice_:
-	db 055h,08bh,0ech,083h,0c4h,0b0h,0ffh,036h,042h,033h
-	call defer_window_draw_
-	db 059h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call erase_window_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call f0a42_
-	db 083h,0c4h,004h,08dh,046h,0b0h,050h,0ffh,076h,004h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,08dh,046h,0b0h,050h
-	call strlen_
-	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
-	db 0ffh,036h,042h,033h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0b0h,050h,0ffh,036h,042h,033h
-	call print_string_hi_
-	db 083h,0c4h,006h,0ffh,036h,042h,033h
-	call resume_window_draw_
-	db 059h,0ffh,036h,042h,033h
-	call refresh_window_
-	db 059h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ffh,036h,0cah,04fh
-	call wait_animating_m_
-	db 059h,08bh,0e5h,05dh,0c3h
-#endasm
+extern int main_window;
+extern int message_delay;
+show_centered_notice(msg)
+{
+	char x0[78];
+	int l80;
+	defer_window_draw(main_window);
+	erase_window(main_window, 0);
+	f0a42(main_window, 0);
+	get_message(msg, &l80);
+	set_cursor(main_window, (10 - ((strlen(&l80) + 1) / 2)), 0);
+	print_string_hi(main_window, &l80, 3);
+	resume_window_draw(main_window);
+	refresh_window(main_window);
+	play_sound(0);
+	wait_animating_m(message_delay);
+}

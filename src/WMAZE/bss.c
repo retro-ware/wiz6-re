@@ -56,7 +56,8 @@
 	global g5226_:byte,2
 	global g5228_:byte,2
 	global g522a_:byte,2
-	global g522c_:byte,4
+	global g522c_:byte,2
+	global g522e_:byte,2
 	global event_screen_dirty_:byte,2
 	global g5232_:byte,2
 	global lock_tumblers_:byte,12

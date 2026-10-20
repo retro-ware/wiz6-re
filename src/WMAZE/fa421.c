@@ -1,48 +1,24 @@
-#asm
-	public show_member_notice_
-	extrn create_window_:near
-	extrn defer_window_draw_:near
-	extrn destroy_window_:near
-	extrn get_message_:near
-	extrn play_sound_:near
-	extrn print_string_:near
-	extrn refresh_all_windows_:near
-	extrn replace_char_with_string_:near
-	extrn resume_window_draw_:near
-	extrn set_cursor_:near
-	extrn strlen_:near
-	extrn wait_animating_m_:near
-show_member_notice_:
-	db 055h,08bh,0ech,083h,0c4h,0b0h,0c7h,006h,030h,052h,001h,000h,0ffh,036h,042h,033h
-	call defer_window_draw_
-	db 059h,0ffh,036h,0b2h,04fh
-	call defer_window_draw_
-	db 059h,0b8h,000h,000h,050h,050h,0b8h,0ffh,0ffh,050h,0b8h,014h,000h,050h,0b8h,005h
-	db 000h,050h,0b8h,028h,000h,050h,0b8h,013h,000h,050h,0b8h,000h,000h,050h
-	call create_window_
-	db 083h,0c4h,010h,0a3h,02ah,052h
-	call refresh_all_windows_
-	db 08dh,046h,0b0h,050h,0b8h,0f8h,007h,050h
-	call get_message_
-	db 083h,0c4h,004h,0b8h,05eh,000h,050h,0b8h,0b0h,001h,0f7h,06eh,004h,005h,0e8h,043h
-	db 050h,08dh,046h,0b0h,050h
-	call replace_char_with_string_
-	db 083h,0c4h,006h,0b8h,001h,000h,050h,08dh,046h,0b0h,050h
-	call strlen_
-	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,014h,000h,02bh,0c1h,050h
-	db 0ffh,036h,02ah,052h
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,005h,000h,050h,08dh,046h,0b0h,050h,0ffh,036h,02ah,052h
-	call print_string_
-	db 083h,0c4h,006h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ffh,036h,0cah,04fh
-	call wait_animating_m_
-	db 059h,0b8h,000h,000h,050h,0ffh,036h,02ah,052h
-	call destroy_window_
-	db 083h,0c4h,004h,0ffh,036h,042h,033h
-	call resume_window_draw_
-	db 059h,0ffh,036h,0b2h,04fh
-	call resume_window_draw_
-	db 059h,08bh,0e5h,05dh,0c3h
-#endasm
+extern int bottom_line_win;
+extern int event_screen_dirty;
+extern int g522a;
+extern int main_window;
+extern int message_delay;
+show_member_notice(p4)
+{
+	char x0[78];
+	int l80;
+	event_screen_dirty = 1;
+	defer_window_draw(main_window);
+	defer_window_draw(bottom_line_win);
+	g522a = create_window(0, 19, 40, 5, 20, -1, 0, 0);
+	refresh_all_windows();
+	get_message(2040, &l80);
+	replace_char_with_string(&l80, ((432 * p4) + 17384), 94);
+	set_cursor(g522a, (20 - ((strlen(&l80) + 1) / 2)), 1);
+	print_string(g522a, &l80, 5);
+	play_sound(0);
+	wait_animating_m(message_delay);
+	destroy_window(g522a, 0);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
+}
