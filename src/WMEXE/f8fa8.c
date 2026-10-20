@@ -65,7 +65,7 @@ L90d0:
 	(*(char **)((char *)monster_groups + (l4 << 1)))[410] = *(char *)&l422;
 	(*(char **)((char *)group_monster_rec + (l4 << 1)))[118] = *(char *)&l424;
 	*(int *)((*(char **)((char *)group_monster_rec + (l4 << 1))) + 116) = (l424 - 1);
-	(*(char **)((char *)monster_groups + (l4 << 1)))[413] = (char)roll_dice_x(*(struct s4 *)(((char *)group_monster_rec[l4] + 116)));
+	(*(char **)((char *)monster_groups + (l4 << 1)))[413] = (char)roll_dice_x(*(struct s4 *)((char *)group_monster_rec[l4] + 116));
 	if ((unsigned)(*(char **)((char *)monster_groups + (l4 << 1)))[413] < 1) {
 	(*(char **)((char *)monster_groups + (l4 << 1)))[413] = 1;
 	}
@@ -81,9 +81,9 @@ L90d0:
 	(*(char **)((char *)monster_groups + (l4 << 1)))[412] = 0;
 	for (l2 = 0; (unsigned char)(*(char **)((char *)monster_groups + (l4 << 1)))[413] > l2; l2++) {
 	*(int *)((char *)monster_groups[l4] + (44 * l2)) = (unsigned char)(*(char **)((char *)group_monster_rec + (l4 << 1)))[122];
-	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 4) = roll_dice_x(*(struct s4 *)(((char *)group_monster_rec[l4] + 120)));
+	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 4) = roll_dice_x(*(struct s4 *)((char *)group_monster_rec[l4] + 120));
 	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 2) = *(int *)(((char *)monster_groups[l4] + (44 * l2)) + 4);
-	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 8) = roll_dice_x(*(struct s4 *)(((char *)group_monster_rec[l4] + 124)));
+	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 8) = roll_dice_x(*(struct s4 *)((char *)group_monster_rec[l4] + 124));
 	*(int *)(((char *)monster_groups[l4] + (44 * l2)) + 6) = *(int *)(((char *)monster_groups[l4] + (44 * l2)) + 8);
 	((char *)monster_groups[l4] + (44 * l2))[42] = -1;
 	((char *)monster_groups[l4] + (44 * l2))[30] = 10;

@@ -396,7 +396,7 @@ class Printer:
         if k == 'sv':           # a struct a call returned, passed by value
             return self.ex(e[1])
         if k == 'sp':           # the struct at an address, passed by value
-            return '*(struct s%d *)%s' % (e[2], self.ex(e[1]) if e[1][0] == 'v' else '(%s)' % self.ex(e[1]))
+            return '*(struct s%d *)%s' % (e[2], self.ptr(e[1]))
         if k == '=':
             return '(%s = %s)' % (self.lvx(e[1]), self.ex(e[2]))
         if k == '?':
