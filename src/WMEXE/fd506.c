@@ -8,15 +8,11 @@ char *p8;
 	register int rsi;
 	register int rdi;
 	if (((rdi = fd4c9(*(int *)p8, p10, p12)) != -1) || ((rdi = fd4c9(g4fa6, p10, p12)) != -1)) goto Ld57f;
-#asm
-	db 08bh,05eh,008h,08bh,007h,040h,0b9h,00ch,000h,099h,0f7h,0f9h,08bh,0f2h
-#endasm
+	rsi = ((*(int *)p8 + 1) % 12);
 Ld54c:
 	if ((rdi = fd4c9(rsi, p10, p12)) != -1) goto Ld57f;
-#asm
-	db 08bh,0c6h,040h,0b9h,00ch,000h,099h,0f7h,0f9h,08bh,0f2h,08bh,05eh,008h,03bh,037h
-	db 075h,009h
-#endasm
+	rsi = ((rsi + 1) % 12);
+	if (rsi != *(int *)p8) goto Ld57d;
 	return 1;
 Ld57d:
 	goto Ld54c;

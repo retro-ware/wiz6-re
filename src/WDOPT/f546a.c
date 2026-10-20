@@ -1,6 +1,3 @@
-#asm
-	extrn get_bitfield_:near
-#endasm
 extern int g50c6[];
 extern int g50f8;
 extern int g50fc;
@@ -51,18 +48,11 @@ L54d8:
 	*(int *)((char *)g5132 + ((col * 10) + (row << 1))) = g5130;
 	return;
 L5509:
-	;
-#asm
-l5509:
-	db 08bh,046h,0f4h,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,0f6h,0d1h,0e1h,0d1h,0e1h,0d1h
-	db 0e1h,003h,0c1h,08bh,0f0h,003h,046h,0f8h,08bh,0f0h,0b8h,004h,000h,050h,056h,0a1h
-	db 0aah,04fh,005h,0f8h,001h,050h
-	call get_bitfield_
-	db 083h,0c4h,006h,03dh,001h,000h,075h,026h
-#endasm
+	rsi = (((l12 << 6) + (l10 << 3)) + l8);
+	if (get_bitfield((maze_data + 504), rsi, 4) == 1) {
 	l20 = get_bitfield((maze_data + 888), rsi, 2);
 	mark_map_neighbor(l20, g5164, col, row);
-L5560:
+	}
 	if (get_bitfield((maze_data + 504), rsi, 4) == 2) {
 	l20 = get_bitfield((maze_data + 888), rsi, 2);
 	mark_map_neighbor(l20, g5166, col, row);

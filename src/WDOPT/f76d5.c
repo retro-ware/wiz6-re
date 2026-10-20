@@ -1,6 +1,3 @@
-#asm
-	extrn defer_window_draw_:near
-#endasm
 extern char pc_item_icon[];
 extern int g51b8;
 extern int g51ba[];
@@ -12,11 +9,8 @@ char *win;
 	int slot;
 	register int row;
 	draw_list_frame_dopt(win, 0);
-#asm
-	db 0ffh,076h,004h
-	call defer_window_draw_
-	db 059h,0beh,0feh,0ffh
-#endasm
+	defer_window_draw(win);
+	row = -2;
 L76f3:
 	if (((sel + row) < 0) || ((sel + row) >= g51b8)) goto L7844;
 	set_cursor(win, 2, (row + 2));

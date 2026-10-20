@@ -11,10 +11,10 @@ find_message_index()
 	lo = 0;
 L064c:
 	if (hi < lo) goto L06a5;
+	mid = (((hi - lo) / 2) + lo);
 #asm
-	db 08bh,0c7h,02bh,046h,0feh,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0f0h,003h,046h,0feh
-	db 08bh,0f0h,08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,04ah,008h,089h
-	db 046h,0fch,08bh,0d8h,08bh,007h,03bh,046h,004h,07eh,005h
+	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,04ah,008h,089h,046h,0fch
+	db 08bh,0d8h,08bh,007h,03bh,046h,004h,07eh,005h
 #endasm
 	hi = mid;
 	hi--;

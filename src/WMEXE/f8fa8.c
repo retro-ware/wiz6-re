@@ -144,21 +144,27 @@ l91e3:
 	db 08bh,0f8h,0a5h,0a5h
 	call roll_dice_x_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,0fch,0d1h
-	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,004h,0b8h,02ch,000h,0f7h,06eh
-	db 0feh,08bh,0f0h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,040h
-	db 004h,089h,040h,002h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h
-	db 0c1h,07ch,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h
-	db 0a5h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,004h
+#endasm
+	rsi = (44 * l2);
+	*(int *)(((char *)monster_groups[l4] + rsi) + 2) = *(int *)(((char *)monster_groups[l4] + rsi) + 4);
+#asm
+	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h,0c1h,07ch,083h,0ech
+	db 004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h,08bh,0f8h,0a5h,0a5h
 	call roll_dice_x_
 	db 083h,0c4h,004h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,0fch,0d1h
-	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,008h,0b8h,02ch,000h,0f7h,06eh
-	db 0feh,08bh,0f0h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,040h
-	db 008h,089h,040h,006h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,089h,040h,008h
 #endasm
-	((rsi = (44 * l2), (*(char **)((char *)monster_groups + (l4 << 1)))) + rsi)[42] = -1;
-	((rsi = (44 * l2), (*(char **)((char *)monster_groups + (l4 << 1)))) + rsi)[30] = 10;
-	((rsi = (44 * l2), (*(char **)((char *)monster_groups + (l4 << 1)))) + rsi)[33] = 0;
-	((rsi = (44 * l2), (*(char **)((char *)monster_groups + (l4 << 1)))) + rsi)[24] = 0;
+	rsi = (44 * l2);
+	*(int *)(((char *)monster_groups[l4] + rsi) + 6) = *(int *)(((char *)monster_groups[l4] + rsi) + 8);
+	rsi = (44 * l2);
+	((char *)monster_groups[l4] + rsi)[42] = -1;
+	rsi = (44 * l2);
+	((char *)monster_groups[l4] + rsi)[30] = 10;
+	rsi = (44 * l2);
+	((char *)monster_groups[l4] + rsi)[33] = 0;
+	rsi = (44 * l2);
+	((char *)monster_groups[l4] + rsi)[24] = 0;
 	l2++;
 L9311:
 	if ((unsigned char)g019d[monster_groups[l4]] > l2) goto L91e3;

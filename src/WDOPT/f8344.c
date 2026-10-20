@@ -1,6 +1,3 @@
-#asm
-	extrn test_bit_:near
-#endasm
 extern char g5415[];
 extern char g5439[];
 extern char g5444[];
@@ -33,17 +30,8 @@ L838d:
 L83d1:
 	return 2;
 L83d6:
-	;
-#asm
-l83d6:
-	db 08bh,046h,00ch,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,00ah,0d1h,0e1h,0d1h,0e1h,0d1h
-	db 0e1h,003h,0c1h,08bh,0f0h,003h,046h,008h,08bh,0f0h,056h,0a1h,0aah,04fh,005h,03ah
-	db 004h,050h
-	call test_bit_
-	db 083h,0c4h,004h,03dh,001h,000h,074h,003h
-#endasm
-	goto L850d;
-L8406:
+	rsi = (((p12 << 6) + (p10 << 3)) + p8);
+	if (test_bit((maze_data + 1082), rsi) != 1) goto L850d;
 	switch (game_state_arg) {
 case 0:
 case 4:

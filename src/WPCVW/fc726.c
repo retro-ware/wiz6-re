@@ -26,13 +26,8 @@ fc726(p4)
 	l14 = 0;
 Lc738:
 	if (l10 >= 8) goto Lc8bc;
-#asm
-lc741:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,003h,046h,0f6h,08bh,0d8h,08ah,087h,0f8h,044h,02ah
-	db 0e4h,08bh,0f0h,081h,0feh,0ffh,000h,075h,003h
-#endasm
-	goto Lc8b6;
-Lc75d:
+	rsi = (unsigned char)pc_equipped[((432 * p4) + l10)];
+	if (rsi == 255) goto Lc8b6;
 	l8 = *(int *)((char *)pc_item_id + ((432 * p4) + (rsi << 3)));
 	l6 = *(int *)((char *)pc_item_weight + ((432 * p4) + (rsi << 3)));
 	l4 = *(int *)((char *)pc_item_type + ((432 * p4) + (rsi << 3)));

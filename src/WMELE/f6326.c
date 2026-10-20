@@ -1,3 +1,4 @@
+extern char g019b[];
 extern char g019d[];
 extern char g3648[];
 extern char g3649[];
@@ -24,10 +25,8 @@ char *out;
 	int len;
 	register int pic;
 	register int i;
-#asm
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09bh,001h,02ah
-	db 0e4h,08bh,0f0h,0c7h,046h,0f6h,000h,000h
-#endasm
+	pic = (unsigned char)g019b[monster_groups[g]];
+	member = 0;
 	l8 = 0;
 	goto L6376;
 L634d:

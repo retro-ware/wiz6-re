@@ -124,7 +124,8 @@
 	global pc_age_days_:byte,4
 	global pc_exp_:byte,2
 	global g43f6_:byte,2
-	global g43f8_:byte,4
+	global g43f8_:byte,2
+	global g43fa_:byte,2
 	global pc_gold_:byte,2
 	global g43fe_:byte,2
 	global pc_hp_:byte,2
@@ -189,7 +190,9 @@
 	global g4529_:byte,1
 	global g452a_:byte,1
 	global g452b_:byte,1
-	global g452c_:byte,7
+	global g452c_:byte,1
+	global g452d_:byte,5
+	global g4532_:byte,1
 	global g4533_:byte,1
 	global g4534_:byte,1
 	global g4535_:byte,1

@@ -11,6 +11,7 @@ extern char g451a[];
 extern char g452c[];
 extern char g4592[];
 extern char g4593[];
+extern char g504c[];
 extern char pc_class[];
 extern char pc_condition[];
 extern char pc_equipped[];
@@ -66,22 +67,22 @@ choose_party_actions(win)
 	goto L7864;
 L76f9:
 	l180 = (monster_groups + (44 * member));
-	if ((l174 = ((random(10) + (unsigned char)g4593[(432 * member)]) + ((rsi = (44 * member), monster_groups) + rsi)[41])) < 1) {
+	if ((l174 = ((random(10) + (unsigned char)g4593[(432 * member)]) + ((rsi = (44 * member), monster_groups) + rsi)[41])) >= 1) goto L774b;
 	l174 = 1;
-	}
+L774b:
 	l176 = (l174 / (unsigned char)g4592[(432 * member)]);
-	if ((unsigned)l180[36] > 0) {
+	if ((unsigned)l180[36] <= 0) goto L77a4;
 	l180[37] = (char)((random((l174 / 2)) + random(20)) + (l174 / 2));
-	}
+L77a4:
 	l180[33] = 0;
 	l180[28] = 0;
 	l180[29] = 1;
-	if ((l178 = ((unsigned char)g4592[(432 * member)] + (((rsi = (44 * member), monster_groups) + rsi)[41] / 10))) < 1) {
+	if ((l178 = ((unsigned char)g4592[(432 * member)] + (((rsi = (44 * member), monster_groups) + rsi)[41] / 10))) >= 1) goto L77f5;
 	l178 = 1;
-	}
-	if (l178 > 4) {
+L77f5:
+	if (l178 <= 4) goto L7802;
 	l178 = 4;
-	}
+L7802:
 	l172 = 0;
 L7808:
 	if ((((l172 < l178) && ((unsigned)pc_condition[(432 * member)] < 2)) && ((unsigned)g450d[(432 * member)] <= 0)) && ((unsigned)g450c[(432 * member)] <= 0)) goto L783d;
@@ -112,22 +113,25 @@ L788d:
 	done_members[done_count] = member;
 	done_count++;
 	l180 = (monster_groups + (member * 44));
-	for (l2 = 0; l2 < 11; l2++) {
+	l2 = 0;
+L78e8:
 	enabled[l2] = 1;
-	}
-	if (pc_race[(432 * member)] != 7) {
+	l2++;
+	if (l2 < 11) goto L78e8;
+	if (pc_race[(432 * member)] == 7) goto L7915;
 	l24 = 0;
-	}
-	if ((!((rsi = (44 * member), monster_groups) + rsi)[43]) && ((((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) || (g452c[(432 * member)]))) goto L7953;
+L7915:
+	rsi = (44 * member);
+	if ((!(monster_groups + rsi)[43]) && ((((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) || (g452c[(432 * member)]))) goto L7953;
 	l28 = 0;
 L7953:
-	if (!pc_item_count[(432 * member)]) {
+	if (pc_item_count[(432 * member)]) goto L7967;
 	enabled[4] = 0;
-	}
-	if (done_count < 2) {
+L7967:
+	if (done_count >= 2) goto L7978;
 	l22 = 0;
 	l20 = 0;
-	}
+L7978:
 	l182 = (unsigned char)pc_equipped[(432 * member)];
 	if ((l182 == 255) || (pc_item_type[((432 * member) + (l182 << 3))] != 3)) goto L7a84;
 	l184 = (unsigned char)g44f9[(432 * member)];
@@ -165,16 +169,18 @@ L7ac3:
 	l4 = 0;
 L7b25:
 	if (enabled[l4] == -1) goto L7b42;
-	if (enabled[l4] == 1) {
+	if (enabled[l4] != 1) goto L7b3d;
 	l72++;
-	}
+L7b3d:
 	l4++;
 	goto L7b25;
 L7b42:
 	action = combat_menu_select(win, 3000, enabled, 1, 1, 6, (l72 > 9 ? 4 : 3), 5, 0);
 	choice = -1;
-	((rsi = (44 * member), monster_groups) + rsi)[31] = -1;
-	((rsi = (44 * member), monster_groups) + rsi)[32] = 0;
+	rsi = (44 * member);
+	(monster_groups + rsi)[31] = -1;
+	rsi = (44 * member);
+	(monster_groups + rsi)[32] = 0;
 	l168 = 0;
 	l170 = 0;
 #asm
@@ -196,23 +202,32 @@ L7c3a:
 	if ((((l2 == 4) || (member < 3)) || (l182 == 255)) || (pc_item_type[((432 * member) + (l182 << 3))] != 2)) goto L7c98;
 	l70[l2] = 0;
 L7c98:
-	if (l70[l2] == 1) {
+	if (l70[l2] != 1) goto L7cb2;
 	l186++;
 	choice = l2;
-	}
+L7cb2:
 	l2++;
 	if (l2 < 8) goto L7c3a;
 	l54 = -1;
 L7cc5:
-	if (l186 > 1) {
+	if (l186 <= 1) goto L7cfc;
 	refresh_all_windows();
 	choice = combat_menu_select(win, 3050, l70, 3, 1, 8, 3, 5, 0);
-	}
-	if (choice == -1) goto L7d73;
+L7cfc:
+	;
+#asm
+l7cfc:
+	db 083h,0beh,05eh,0ffh,0ffh,075h,003h,0e9h,06dh,000h
+#endasm
+L7d06:
 	if (((l188 = (unsigned char)g44e5[(432 * member)]) != 2) || (choice == 4)) goto L7d2a;
 	l188 = 0;
 L7d2a:
-	if (((l188) || (member < 3)) || (((rsi = (member * 44), monster_groups) + rsi)[43] == 1)) goto L7d5a;
+	if (l188) goto L7d5a;
+#asm
+	db 08bh,046h,0fah,03dh,003h,000h,07ch,021h,0b9h,02ch,000h,0f7h,0e9h,08bh,0f0h,08bh
+	db 01eh,0a8h,043h,080h,078h,02bh,001h,074h,010h
+#endasm
 	play_sound(0);
 	l164 = -1;
 	goto L7d73;
@@ -236,33 +251,35 @@ L7d9e:
 	replace_char_with_string(&l152, &l160, 36);
 	print_combat_prompt(&l152, 0);
 	refresh_all_windows();
-	for (l2 = 0; l2 < 4; l2++) {
+	l2 = 0;
+L7df0:
 	enabled[l2] = 1;
-	}
-	if (pc_item_type[((432 * member) + ((unsigned char)g44f9[(432 * member)] << 3))] != 11) {
+	l2++;
+	if (l2 < 4) goto L7df0;
+	if (pc_item_type[((432 * member) + ((unsigned char)g44f9[(432 * member)] << 3))] == 11) goto L7e39;
 	enabled[0] = 0;
-	}
+L7e39:
 	enabled[4] = -1;
-	if ((choice = combat_menu_select(win, 3100, enabled, 3, 1, 9, 2, 5, 0)) == -1) {
+	if ((choice = combat_menu_select(win, 3100, enabled, 3, 1, 9, 2, 5, 0)) != -1) goto L7e76;
 	l168 = 1;
-	}
+L7e76:
 	goto L7fe6;
 #asm
 	db 0e9h,06ah,001h
 #endasm
 	choice = choose_combat_spell(win, member);
 	blink_state = -1;
-	if (choice == -1) {
+	if (choice != -1) goto L7e9d;
 	l168 = 1;
-	}
+L7e9d:
 	goto L7fe6;
-	if ((choice = choose_combat_item(win, member)) == -1) {
+	if ((choice = choose_combat_item(win, member)) != -1) goto L7ebb;
 	l168 = 1;
-	}
+L7ebb:
 	goto L7fe6;
-	if ((choice = select_party_member(3611)) == -1) {
+	if ((choice = select_party_member(3611)) != -1) goto L7ed5;
 	l168 = 1;
-	}
+L7ed5:
 	goto L7fe6;
 #asm
 	db 0e9h,00bh,001h
@@ -294,11 +311,9 @@ l7f1c:
 	db 0ebh,036h
 #endasm
 L7f3c:
-	if ((unsigned)((rsi = (44 * l164), monster_groups) + rsi)[31] <= 0) goto L7f6e;
-#asm
-	db 08ah,040h,01fh,02ah,0e4h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h,050h,08ah,040h
-	db 020h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,0c6h,087h,04ch,050h,001h
-#endasm
+	rsi = (44 * l164);
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L7f6e;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
 L7f6e:
 	l164++;
 L7f72:
@@ -325,12 +340,14 @@ l7ffa:
 	db 08bh,086h,05eh,0ffh,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h
 	db 043h,058h,089h,040h,00ah
 #endasm
-	*(int *)(((rsi = (44 * member), monster_groups) + rsi) + 12) = -1;
+	rsi = (44 * member);
+	*(int *)((monster_groups + rsi) + 12) = -1;
 #asm
 	db 08ah,046h,0f8h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h
 	db 058h,088h,040h,01eh
 #endasm
-	if (((l164 = (unsigned char)((rsi = (44 * member), monster_groups) + rsi)[31]) < 1) || (l164 > 5)) goto L8074;
+	rsi = (44 * member);
+	if (((l164 = (unsigned char)(monster_groups + rsi)[31]) < 1) || (l164 > 5)) goto L8074;
 #asm
 	db 08ah,086h,05ch,0ffh,02ah,0e4h,050h,0ffh,076h,0fah
 	call pick_target_monster_
@@ -351,7 +368,8 @@ L80c6:
 L80c9:
 	if (l182 == 255) goto L818d;
 	if (((pc_item_type[((432 * member) + (l182 << 3))] != 2) && (pc_item_type[((432 * member) + (l182 << 3))] != 12)) && (pc_item_type[((432 * member) + (l182 << 3))] != 16)) goto L810c;
-	*(int *)(((rsi = (44 * member), monster_groups) + rsi) + 12) = 4;
+	rsi = (44 * member);
+	*(int *)((monster_groups + rsi) + 12) = 4;
 	goto L818d;
 L810c:
 	if (((unsigned)pc_item_type[((432 * member) + (l182 << 3))] >= 2) || ((g44f5[(432 * member)] != 1) && ((member >= 3) || (l164 >= 3)))) goto L818d;
@@ -384,13 +402,15 @@ L818d:
 	get_message(3506, &l152);
 	print_combat_prompt(&l152, 0);
 	refresh_all_windows();
-	for (l2 = 0; l2 < 3; l2++) {
+	l2 = 0;
+L81e5:
 	enabled[l2] = 1;
-	}
-	if (!done_count) {
+	l2++;
+	if (l2 < 3) goto L81e5;
+	if (done_count) goto L820f;
 	enabled[2] = 0;
 	enabled[1] = 0;
-	}
+L820f:
 	enabled[3] = -1;
 	if ((l2 = combat_menu_select(win, 3507, enabled, 3, 1, 14, 4, 5, 0)) != 2) goto L8265;
 	setmem(20556, 45, 0);
@@ -403,11 +423,9 @@ L8265:
 	l164 = 0;
 	goto L82bb;
 L8285:
-	if ((unsigned)((rsi = (44 * l164), monster_groups) + rsi)[31] <= 0) goto L82b7;
-#asm
-	db 08ah,040h,01fh,02ah,0e4h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h,0c2h,050h,08ah,040h
-	db 020h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,0c6h,087h,04ch,050h,001h
-#endasm
+	rsi = (44 * l164);
+	if ((unsigned)(monster_groups + rsi)[31] <= 0) goto L82b7;
+	g504c[(((unsigned char)(monster_groups + rsi)[31] * 9) + (unsigned char)(monster_groups + rsi)[32])] = 1;
 L82b7:
 	l164++;
 L82bb:
@@ -420,25 +438,21 @@ L82dd:
 	member = 0;
 	goto L839a;
 L82e5:
-	if (((unsigned)((rsi = (44 * member), monster_groups) + rsi)[15] <= 0) || (random(100) <= ((unsigned char)g451a[(432 * member)] + 80))) goto L832a;
-	((rsi = (44 * member), monster_groups) + rsi)[30] = 7;
+	rsi = (44 * member);
+	if (((unsigned)(monster_groups + rsi)[15] <= 0) || (random(100) <= ((unsigned char)g451a[(432 * member)] + 80))) goto L832a;
+	rsi = (44 * member);
+	(monster_groups + rsi)[30] = 7;
 L832a:
-	if (((rsi = (44 * member), monster_groups) + rsi)[30] == 1) goto L8342;
-#asm
-	db 080h,078h,01eh,005h,075h,004h
-#endasm
-L8342:
-	;
-#asm
-l8342:
-	db 0c6h,040h,018h,001h
-#endasm
+	rsi = (44 * member);
+	if (((monster_groups + rsi)[30] != 1) && ((monster_groups + rsi)[30] != 5)) goto L8346;
+	(monster_groups + rsi)[24] = 1;
 L8346:
-	if (((rsi = (44 * member), monster_groups) + rsi)[30]) goto L8374;
-#asm
-	db 083h,078h,00ch,0ffh,075h,014h,0c6h,040h,019h,000h
-#endasm
-	((rsi = (44 * member), monster_groups) + rsi)[27] = 0;
+	rsi = (44 * member);
+	if ((monster_groups + rsi)[30]) goto L8374;
+	if (*(int *)((monster_groups + rsi) + 12) != -1) goto L8372;
+	(monster_groups + rsi)[25] = 0;
+	rsi = (44 * member);
+	(monster_groups + rsi)[27] = 0;
 L8372:
 	goto L8397;
 L8374:

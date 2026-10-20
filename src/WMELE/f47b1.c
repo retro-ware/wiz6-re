@@ -1,6 +1,3 @@
-#asm
-	extrn setmem_:near
-#endasm
 extern char g019d[];
 extern int combat_over;
 extern int monster_group_count;
@@ -12,15 +9,10 @@ clear_combat_groups()
 	char x0[416];
 	register int rsi;
 	get_message(3900, 17270);
-#asm
-	db 0b8h,000h,000h,050h,0b8h,014h,000h,050h,0b8h,062h,043h,050h
-	call setmem_
-	db 083h,0c4h,006h,0beh,000h,000h
-#endasm
-L47dc:
+	setmem(17250, 20, 0);
+	for (rsi = 0; rsi < 7; rsi++) {
 	setmem(monster_groups[rsi], 416, 0);
-	rsi++;
-	if (rsi < 7) goto L47dc;
+	}
 	for (rsi = 0; rsi < 7; rsi++) {
 	g019d[monster_groups[rsi]] = 0;
 	}

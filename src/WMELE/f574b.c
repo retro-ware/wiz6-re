@@ -33,17 +33,8 @@ L576b:
 	l4 = 0;
 	goto L5821;
 L5781:
-	if (((rsi = (44 * l4), (*(char **)((char *)monster_groups + (l2 << 1)))) + rsi)[34]) goto L581e;
-#asm
-l579d:
-	db 080h,078h,010h,000h,074h,003h,0e9h,078h,000h
-#endasm
-L57a6:
-	;
-#asm
-l57a6:
-	db 080h,078h,011h,000h,075h,072h
-#endasm
+	rsi = (44 * l4);
+	if (((((char *)monster_groups[l2] + rsi)[34]) || (((char *)monster_groups[l2] + rsi)[16])) || (((char *)monster_groups[l2] + rsi)[17])) goto L581e;
 	l12 = 0;
 	l10 = 0;
 L57b6:
@@ -57,11 +48,9 @@ l57b6:
 L57e6:
 	l10++;
 	if (l10 < 10) goto L57b6;
-	if (*(int *)(((rsi = (44 * l4), (*(char **)((char *)monster_groups + (l2 << 1)))) + rsi) + 2) <= l12) goto L581e;
-#asm
-	db 08bh,040h,002h,02bh,046h,0f4h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h,003h,0ddh,001h
-	db 047h,0e6h
-#endasm
+	rsi = (44 * l4);
+	if (*(int *)(((char *)monster_groups[l2] + rsi) + 2) <= l12) goto L581e;
+	l28[(l2 + 1)] += (*(int *)(((char *)monster_groups[l2] + rsi) + 2) - l12);
 L581e:
 	l4++;
 L5821:
@@ -101,13 +90,12 @@ L597c:
 	l4 = 0;
 	goto L5ae2;
 L5a93:
-	if (((rsi = (44 * l4), (*(char **)((char *)g43a6 + (l2 << 1)))) + rsi)[42] == -1) goto L5adf;
-#asm
-	db 08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h,02ah
-	db 098h,099h,0f7h,0f9h,089h,056h,0f8h
-#endasm
+	rsi = (44 * l4);
+	if (((char *)g43a6[l2] + rsi)[42] != -1) {
+	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
+	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)g50b4 + ((l6 * 10) + (l8 << 1))) = 1;
-L5adf:
+	}
 	l4++;
 L5ae2:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5a93;
@@ -115,14 +103,13 @@ L5ae2:
 	l4 = 0;
 	goto L5b65;
 L5b07:
-	if (((rsi = (44 * l4), (*(char **)((char *)g43a6 + (l2 << 1)))) + rsi)[42] == -1) goto L5b62;
-#asm
-	db 08ah,040h,02ah,098h,0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0fah,08ah,040h,02ah
-	db 098h,099h,0f7h,0f9h,089h,056h,0f8h
-#endasm
+	rsi = (44 * l4);
+	if (((char *)g43a6[l2] + rsi)[42] != -1) {
+	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
+	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
 	((char *)g43a6[l2] + rsi)[42] = -1;
-L5b62:
+	}
 	l4++;
 L5b65:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5b07;

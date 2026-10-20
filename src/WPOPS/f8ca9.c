@@ -8,15 +8,11 @@ char *pos;
 	register int rsi;
 	register int rdi;
 	if (((rdi = find_sprite_slot(*(int *)pos, p10, p12)) != -1) || ((rdi = find_sprite_slot(g4fa6, p10, p12)) != -1)) goto L8d22;
-#asm
-	db 08bh,05eh,008h,08bh,007h,040h,0b9h,00ch,000h,099h,0f7h,0f9h,08bh,0f2h
-#endasm
+	rsi = ((*(int *)pos + 1) % 12);
 L8cef:
 	if ((rdi = find_sprite_slot(rsi, p10, p12)) != -1) goto L8d22;
-#asm
-	db 08bh,0c6h,040h,0b9h,00ch,000h,099h,0f7h,0f9h,08bh,0f2h,08bh,05eh,008h,03bh,037h
-	db 075h,009h
-#endasm
+	rsi = ((rsi + 1) % 12);
+	if (rsi != *(int *)pos) goto L8d20;
 	return 1;
 L8d20:
 	goto L8cef;

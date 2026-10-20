@@ -1,6 +1,3 @@
-#asm
-	extrn defer_window_draw_:near
-#endasm
 extern char g00cc[];
 extern char pc_item_icon[];
 extern char pc_item_qty[];
@@ -12,11 +9,8 @@ f9827(p4, p6, p8, p10)
 	int l2;
 	register int rsi;
 	f88c7(p4, 0);
-#asm
-	db 0ffh,076h,004h
-	call defer_window_draw_
-	db 059h,0beh,0feh,0ffh
-#endasm
+	defer_window_draw(p4);
+	rsi = -2;
 L9845:
 	if (((p8 + rsi) < 0) || ((p8 + rsi) >= g5324)) goto L99ca;
 	set_cursor(p4, 2, (rsi + 2));

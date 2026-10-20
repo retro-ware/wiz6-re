@@ -1,6 +1,5 @@
 #asm
 	extrn move_to_maze_cell_m_:near
-	extrn test_bit_:near
 #endasm
 extern char *g4fa8;
 extern char *maze_data;
@@ -20,11 +19,8 @@ try_move(p4)
 	int l6;
 	register int rsi;
 	save_position();
-#asm
-	db 0a1h,09ch,04fh,0b9h,006h,000h,0d3h,0e0h,08bh,00eh,09eh,04fh,0d1h,0e1h,0d1h,0e1h
-	db 0d1h,0e1h,003h,0c1h,08bh,0f0h,003h,006h,0a0h,04fh,08bh,0f0h,0c7h,006h,032h,050h
-	db 001h,000h
-#endasm
+	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
+	g5032 = 1;
 	if ((((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) || (get_bitfield((maze_data + 888), rsi, 2) != p4)) goto L575d;
 	g5032 = 0;
 L575d:
@@ -37,15 +33,8 @@ L57a2:
 	kill_party(2022, 4);
 	return 1;
 L57b5:
-	;
-#asm
-l57b5:
-	db 0a1h,09ch,04fh,0b9h,006h,000h,0d3h,0e0h,08bh,00eh,09eh,04fh,0d1h,0e1h,0d1h,0e1h
-	db 0d1h,0e1h,003h,0c1h,08bh,0f0h,003h,006h,0a0h,04fh,08bh,0f0h,056h,0a1h,0aah,04fh
-	db 005h,03ah,004h,050h
-	call test_bit_
-	db 083h,0c4h,004h,089h,046h,0feh
-#endasm
+	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
+	l2 = test_bit((maze_data + 1082), rsi);
 	l4 = test_bit((maze_data + 1178), rsi);
 	if ((g4eca != 1) || (l2)) goto L5806;
 	g4eca = 0;

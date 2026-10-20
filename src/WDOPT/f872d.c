@@ -1,9 +1,3 @@
-#asm
-	extrn f81f9_:near
-	extrn f825e_:near
-	extrn get_bitfield_:near
-	extrn test_bit_:near
-#endasm
 extern int game_state_arg;
 extern int maze_data;
 extern int party_facing;
@@ -19,15 +13,8 @@ f872d(p4, p6, p8, p10, p12, p14)
 L8777:
 	return 2;
 L877c:
-	;
-#asm
-l877c:
-	db 08bh,046h,00ch,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,00ah,0d1h,0e1h,0d1h,0e1h,0d1h
-	db 0e1h,003h,0c1h,08bh,0f0h,003h,046h,008h,08bh,0f0h,056h,0a1h,0aah,04fh,005h,03ah
-	db 004h,050h
-	call test_bit_
-	db 083h,0c4h,004h,03dh,001h,000h,075h,02dh
-#endasm
+	rsi = (((p12 << 6) + (p10 << 3)) + p8);
+	if (test_bit((maze_data + 1082), rsi) != 1) goto L87d6;
 	switch (game_state_arg) {
 case 0:
 case 4:
@@ -40,88 +27,56 @@ L87c0:
 	}
 L87d6:
 	rdi = 0;
-#asm
-	db 0a1h,09ah,04fh,0ebh,05eh
-#endasm
-#asm
-l87de:
-	db 0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,008h,0ffh,076h,006h,0ffh,076h,004h
-	call f825e_
-	db 083h,0c4h,00ah,08bh,0f8h,0ebh,059h
-#endasm
-#asm
-l87f7:
-	db 0b8h,002h,000h,050h,056h,0a1h,0aah,04fh,005h,060h,000h,050h
-	call get_bitfield_
-	db 083h,0c4h,006h,08bh,0f8h,0ebh,043h
-#endasm
-#asm
-l880d:
-	db 0b8h,002h,000h,050h,056h,0a1h,0aah,04fh,005h,020h,001h,050h
-	call get_bitfield_
-	db 083h,0c4h,006h,08bh,0f8h,0ebh,02dh
-#endasm
-#asm
-l8823:
-	db 0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,008h,0ffh,076h,006h,0ffh,076h,004h
-	call f81f9_
-	db 083h,0c4h,00ah,08bh,0f8h,0ebh,014h
-#endasm
-L883c:
-	;
-#asm
-l883c:
-	db 03dh,000h,000h,074h,09dh,03dh,001h,000h,074h,0b1h,03dh,002h,000h,074h,0c2h,03dh
-	db 003h,000h,074h,0d3h
-#endasm
+	switch (party_facing) {
+case 0:
+	rdi = f825e(p4, p6, p8, p10, p12);
+	goto L8850;
+case 1:
+	rdi = get_bitfield((maze_data + 96), rsi, 2);
+	goto L8850;
+case 2:
+	rdi = get_bitfield((maze_data + 288), rsi, 2);
+	goto L8850;
+case 3:
+	rdi = f81f9(p4, p6, p8, p10, p12);
+	goto L8850;
+	}
 L8850:
 	l2 = get_bitfield((maze_data + 504), rsi, 4);
 	l4 = ((get_bitfield((maze_data + 888), rsi, 2) + 1) % 4);
 	if (l4 != party_facing) goto L88e5;
-#asm
-	db 08bh,046h,0feh,0ebh,04ch
-#endasm
+	switch (l2) {
+case 1:
 	rdi = 5;
 	goto L88e5;
+case 2:
 	rdi = 6;
-#asm
-	db 0ebh,04fh
-#endasm
+	goto L88e5;
+case 3:
 	rdi = 8;
-#asm
-	db 0ebh,04ah
-#endasm
+	goto L88e5;
+case 4:
 	rdi = 9;
-#asm
-	db 0ebh,045h
-#endasm
+	goto L88e5;
+case 7:
 	rdi = 4;
-#asm
-	db 0ebh,040h
-#endasm
+	goto L88e5;
+case 8:
 	rdi = 7;
-#asm
-	db 0ebh,03bh
-#endasm
+	goto L88e5;
+case 9:
 	rdi = 10;
-#asm
-	db 0ebh,036h
-#endasm
+	goto L88e5;
+case 10:
 	rdi = 11;
-#asm
-	db 0ebh,031h
-#endasm
+	goto L88e5;
+case 11:
 	rdi = 12;
-#asm
-	db 0ebh,02ch
-#endasm
+	goto L88e5;
+case 12:
 	rdi = 13;
-#asm
-	db 0ebh,027h,0e5h,088h,08ch,088h,091h,088h,096h,088h,09bh,088h,0e5h,088h,0e5h,088h
-	db 0a0h,088h,0a5h,088h,0aah,088h,0afh,088h,0b4h,088h,0b9h,088h
-l88d8:
-	db 03dh,00dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0beh,088h
-#endasm
+	goto L88e5;
+	}
 L88e5:
 	return rdi;
 }

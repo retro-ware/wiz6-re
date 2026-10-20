@@ -1,6 +1,3 @@
-#asm
-	extrn defer_window_draw_:near
-#endasm
 extern int realm_colors[];
 draw_spell_list(p4, p6, p8, p10, p12, p14)
 char *p4;
@@ -8,11 +5,8 @@ char *p14;
 {
 	register int rsi;
 	draw_list_box(p4, 0);
-#asm
-	db 0ffh,076h,004h
-	call defer_window_draw_
-	db 059h,0beh,0fdh,0ffh
-#endasm
+	defer_window_draw(p4);
+	rsi = -3;
 L675b:
 	if (((p8 + rsi) < 0) || ((p8 + rsi) >= p12)) goto L67e3;
 	set_cursor(p4, 1, (rsi + 3));

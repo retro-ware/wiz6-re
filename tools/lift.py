@@ -306,6 +306,13 @@ class Lifter:
             raise Unlift('reg')
         return self.memop(op)
 
+    def bx_index_next(self, r):
+        """The next instruction indexes [bx + r]: r = x is an assignment inside that expression."""
+        i = self.f.seen.get(self.cur.address + self.cur.size)
+        X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
+        return i is not None and any(o.type == X.X86_OP_MEM and o.mem.base == X.X86_REG_BX and o.mem.index == X86
+                                     for o in i.operands)
+
     def setreg(self, op, v):
         r = op.reg
         if r in R16:
@@ -314,7 +321,7 @@ class Lifter:
                 raise Unlift('write ' + n)
             if n in self.regvars:
                 rv = ('v', 'r', n, 2)
-                if self.stack or self.st_start < self.cur.address:   # si = x happens inside the open expression
+                if self.stack or self.st_start < self.cur.address and self.bx_index_next(n):
                     if n in self.pend or any(rv in sub_exprs(x) for x in list(self.R.values()) + self.stack):
                         raise Unlift('regvar in expression')
                     self.pend[n] = v

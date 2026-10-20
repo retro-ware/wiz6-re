@@ -19,20 +19,15 @@ f88b1(p4, p6, p8, p10, p12)
 	register int rsi;
 	l10 = (unsigned char)g019d[monster_groups[p4]];
 	l12 = (p6 < 0 ? -p6 : p6);
-	if (l12 <= l10) goto L88e6;
+	if (l12 > l10) {
 	l12 = l10;
-L88e6:
+	}
 	l14 = random((l10 - l12));
 	l2 = l14;
 	goto L8bc8;
 L88fa:
-	if ((unsigned)((rsi = (44 * l2), (*(char **)((char *)monster_groups + (p4 << 1)))) + rsi)[34] >= 3) goto L8bc5;
-#asm
-l8916:
-	db 080h,078h,02bh,000h,074h,003h
-#endasm
-	goto L8bc5;
-L891f:
+	rsi = (44 * l2);
+	if (((unsigned)((char *)monster_groups[p4] + rsi)[34] >= 3) || (((char *)monster_groups[p4] + rsi)[43])) goto L8bc5;
 	clear_window_area(party_picture_win, 0, 2, 39, 4);
 	set_cursor(party_picture_win, 1, 2);
 	combat_delay(1);
@@ -56,14 +51,11 @@ l89ce:
 	db 083h,0c4h,006h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0f0h,08bh,046h,004h,0d1h
 	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,088h,040h,027h
 #endasm
-	if ((l4 = (*(int *)((rsi = (44 * l2), (*(char **)((char *)monster_groups + (p4 << 1)))) + rsi) - l6)) >= 1) goto L8a7f;
+	rsi = (44 * l2);
+	if ((l4 = (*(int *)((char *)monster_groups[p4] + rsi) - l6)) < 1) {
 	l4 = 1;
-L8a7f:
-	;
-#asm
-l8a7f:
-	db 08bh,046h,0fch,089h,000h
-#endasm
+	}
+	*(int *)((char *)monster_groups[p4] + rsi) = l4;
 	l16 = 3491;
 	goto L8b71;
 L8a8c:
@@ -88,7 +80,8 @@ l8ad5:
 #endasm
 	l10++;
 	if (l10 < 4) goto L8ad5;
-	if (((rsi = (44 * l2), (*(char **)((char *)monster_groups + (p4 << 1)))) + rsi)[41] >= 0) goto L8b6c;
+	rsi = (44 * l2);
+	if (((char *)monster_groups[p4] + rsi)[41] >= 0) goto L8b6c;
 #asm
 	db 080h,078h,029h,000h,07dh,008h,08ah,040h,029h,098h,0f7h,0d8h,0ebh,004h
 #endasm
@@ -117,9 +110,9 @@ L8b6c:
 	l16 = 3494;
 L8b71:
 	print_msg_centered(l16, 5, 3);
-	if (p4) goto L8b95;
+	if (!p4) {
 	draw_member_card_x(l2, 0);
-L8b95:
+	}
 	combat_delay((g4fc8 / 2));
 	goto L8bc5;
 L8ba5:

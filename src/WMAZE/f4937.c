@@ -1,6 +1,3 @@
-#asm
-	extrn setmem_:near
-#endasm
 extern char *g4fa8;
 extern char g4eea;
 extern char g4eeb;
@@ -35,11 +32,7 @@ L4963:
 	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	rsi = 0;
 L49cf:
-	;
-#asm
-l49cf:
-	db 08bh,01eh,0a8h,04fh,08ah,080h,0c0h,006h,02ah,0e4h,08bh,0f8h
-#endasm
+	rdi = (unsigned char)(g4fa8 + rsi)[1728];
 L49db:
 	if ((rdi >= 144) || ((unsigned char)(g4fa8 + rdi)[1296] != rsi)) goto L4a2f;
 	if ((unsigned)(g4fa8 + rdi)[864] > 0) {
@@ -50,12 +43,8 @@ L49db:
 L4a2f:
 	rsi++;
 	if (rsi < 12) goto L49cf;
-#asm
-	db 0b8h,000h,000h,050h,0b8h,060h,000h,050h,0b8h,008h,04eh,050h
-	call setmem_
-	db 083h,0c4h,006h,0bfh,000h,000h
-#endasm
-L4a4a:
+	setmem(19976, 96, 0);
+	for (rdi = 0; rdi < 5; rdi++) {
 	rsi = 0;
 L4a4d:
 	l2 = get_bitfield((maze_data + 1274), ((rsi * 5) + rdi), 3);
@@ -65,8 +54,7 @@ L4a4d:
 	}
 	rsi++;
 	if (rsi < 12) goto L4a4d;
-	rdi++;
-	if (rdi < 5) goto L4a4a;
+	}
 	if (game_state_arg != 8) {
 	g4eca = 0;
 	}

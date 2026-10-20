@@ -10,7 +10,8 @@
 	global g5034_:byte,1
 	global g5035_:byte,1
 	global g5036_:byte,13
-	global g5043_:byte,55
+	global g5043_:byte,9
+	global g504c_:byte,46
 	global view_depth_:byte,2
 	global g507c_:byte,1
 	global g507d_:byte,11

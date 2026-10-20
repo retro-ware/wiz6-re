@@ -1,6 +1,3 @@
-#asm
-	extrn defer_window_draw_:near
-#endasm
 extern int pclist_class[];
 extern int pclist_race[];
 extern int pclist_sex[];
@@ -14,11 +11,8 @@ char *win;
 	int text;
 	register int row;
 	draw_list_frame(win, 0);
-#asm
-	db 0ffh,076h,004h
-	call defer_window_draw_
-	db 059h,0beh,0feh,0ffh
-#endasm
+	defer_window_draw(win);
+	row = -2;
 L6493:
 	if (((top + row) < 0) || ((top + row) >= count)) goto L668b;
 	set_cursor(win, 2, (row + 2));

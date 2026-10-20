@@ -1,21 +1,12 @@
-#asm
-	extrn $ldv:near
-#endasm
 f4fac(p4, p6, p8, p10, p12, p14)
 {
 	char l3[3];
 	char x3[1];
 	register int rsi;
-#asm
-	db 08bh,046h,00ah,0bbh,064h,000h,0f7h,0ebh,050h,052h,08bh,046h,00ch,099h,08bh,0c8h
-	db 08bh,0dah,05ah,058h
-	call $ldv
-	db 0b9h,00ah,000h,0bbh,000h,000h
-	call $ldv
-	db 08bh,0f0h,040h,08bh,0f0h,083h,0feh,00ah,07eh,003h
-#endasm
+	rsi = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1);
+	if (rsi > 10) {
 	rsi = 10;
-L4fe0:
+	}
 	if (!p10) {
 	rsi = 0;
 	}
