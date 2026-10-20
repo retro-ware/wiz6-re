@@ -187,7 +187,4 @@ Lba6a:
 	}
 	draw_view_frame_t();
 	return;
-#asm
-	db 0e8h,06dh,0f7h,0ffh,036h,0bch,04fh,0e8h,013h,07ch,059h,0c3h
-#endasm
 }

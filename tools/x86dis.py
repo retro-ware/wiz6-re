@@ -12,7 +12,7 @@ _md.detail = True
 BRANCH = ('loop', 'loope', 'loopne', 'jcxz')
 # functions no prologue or direct call reveals (reached through pointers only)
 # functions nothing calls directly; the frameless last ones (call the main loop, then exit) follow a ret
-EXTRA_FUNCS = {'WPOPS': (0x51c8,), 'WMELE': (0x92dc,), 'WMEXE': (0xf2b6,), 'WMNPC': (0xf6be,)}
+EXTRA_FUNCS = {'WPOPS': (0x51c8, 0xaa59), 'WTREA': (0xba83,), 'WMELE': (0x92dc,), 'WMEXE': (0xf2b6,), 'WMNPC': (0xf6be,)}
 
 
 class Image:
