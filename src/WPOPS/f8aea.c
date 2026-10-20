@@ -35,9 +35,9 @@ start_combat_round()
 	destroy_window(picture_win, 0);
 	picture_win = create_window(9, 4, 22, 14, 2, -1, 2, 0);
 	view_anim_state = -2;
-L8c0b:
+	do {
 	animate_combat_step();
-	if (view_anim_state != -3) goto L8c0b;
+	} while (view_anim_state != -3);
 L8c15:
 	defer_window_draw(g438a);
 	defer_window_draw(g438c);

@@ -43,14 +43,14 @@ pick_lock(member, event)
 	fceb2(win, l2, 4, 7);
 	}
 	l2 = 3;
-Ld518:
+	do {
 	fceb2(win, l2, 0, 34);
 	fceb2(win, l2, 1, 13);
 	fceb2(win, l2, 2, 16);
 	fceb2(win, l2, 3, 13);
 	fceb2(win, l2, 4, 11);
 	l2 += 3;
-	if (l2 < 18) goto Ld518;
+	} while (l2 < 18);
 	defer_window_draw(win);
 	for (l2 = 0; l2 < 5; l2++) {
 	set_cursor(win, 19, l2);

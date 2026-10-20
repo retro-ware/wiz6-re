@@ -45,9 +45,9 @@ l575b:
 	db 083h,0c4h,006h
 #endasm
 	view_anim_state = 0;
-L5770:
+	do {
 	f55dc();
-	if (view_anim_state != -2) goto L5770;
+	} while (view_anim_state != -2);
 	l2++;
 #asm
 	db 08bh,046h,0feh,03dh,004h,000h,07dh,003h

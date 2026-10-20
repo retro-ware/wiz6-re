@@ -3,7 +3,7 @@ extern int view_anim_state;
 redraw_view_background()
 {
 	view_anim_state = -2;
-L6e07:
+	do {
 	animate_view_step();
-	if (view_anim_state != -2) goto L6e07;
+	} while (view_anim_state != -2);
 }

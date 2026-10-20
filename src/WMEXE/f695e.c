@@ -59,9 +59,9 @@ L6a98:
 	view_anim_state = -2;
 	animate_step();
 	add_sprite(l22, l18[8], (unsigned char)g038e[((((p8 * 24) + (l26 * 12)) + (l24 * 6)) + (l18[6] << 1))], (unsigned char)g038f[((((p8 * 24) + (l26 * 12)) + (l24 * 6)) + (l18[6] << 1))], 72, 248, l18[5], l38);
-L6b5c:
+	do {
 	animate_step();
-	if (view_anim_state != -2) goto L6b5c;
+	} while (view_anim_state != -2);
 	}
 	if (p16 == 1) {
 	g50fe[(p10 * 5)] = l18[4];

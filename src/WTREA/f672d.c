@@ -43,11 +43,12 @@ L67d7:
 	if (strlen(20702) > l2) goto L67c7;
 	if (random(100) >= accuracy) goto L683d;
 	if ((l10 <= 0) || (trap_guess_len >= 18)) goto L683b;
+	do {
 	l4 = random(strlen(20702));
+	} while (g50de[l4] == 36);
+	trap_guess_letters[trap_guess_len] = g50de[l4];
 #asm
-	db 08bh,05eh,0fch,080h,0bfh,0deh,050h,024h,074h,0e6h,08bh,05eh,0fch,08ah,087h,0deh
-	db 050h,08bh,01eh,0d0h,051h,088h,087h,0bch,051h,0d1h,0e3h,0c7h,087h,094h,051h,001h
-	db 000h
+	db 0d1h,0e3h,0c7h,087h,094h,051h,001h,000h
 #endasm
 	trap_guess_len++;
 	g50de[l4] = 36;

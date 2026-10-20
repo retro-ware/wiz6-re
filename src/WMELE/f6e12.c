@@ -56,9 +56,9 @@ L6f27:
 	row++;
 	if (row < 2) goto L6e9c;
 	view_anim_state = 0;
-L6f58:
+	do {
 	animate_view_step();
-	if (view_anim_state != -2) goto L6f58;
+	} while (view_anim_state != -2);
 	flash++;
 	if (flash < 4) goto L6e67;
 	for (row = 0; row < 2; row++) {

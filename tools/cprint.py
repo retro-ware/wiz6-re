@@ -574,6 +574,22 @@ class Printer:
             return a < b and all(sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') and x not in used and
                                  (sts[x].s not in labels or sts[x].s in ok) and sts[x].s not in cases and
                                  sts[x].s not in default for x in range(a, b))
+        # L: A..; if (c) goto L: do { A } while (c); cgen forgets its registers before the test
+        dos = {}
+        for j, st in enumerate(sts):
+            k = idx.get(st.target) if st.kind == 'if' else None
+            if k is None or k >= j or refs.get(st.target) != 1 or \
+                    st.target in asm_t or st.s in labels or st.s in cases or \
+                    st.s in default or sts[k].s in self.L.nobool or \
+                    sts[k].kind not in ('asg', 'cas', 'inc', 'expr', 'scopy') or \
+                    k + 1 < j and not plain(k + 1, j, ()) or \
+                    any(x in used or getattr(sts[x], 'forhead', None) is not None for x in range(k, j + 1)):
+                continue
+            dos[k], dos[j] = None, st.cond
+            used |= set(range(k, j + 1))
+            labels.discard(st.target)
+            for x in range(k, j + 1):
+                sts[x].forhead = sts[k].s
         for k, st in enumerate(sts):
             c = getattr(st, 'cond', None)
             if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
@@ -614,6 +630,8 @@ class Printer:
                 if st.kind in ('raw', 'endsw'):
                     out.append('\t;')
             kd = st.kind
+            if dos.get(k, 0) is None:
+                out.append('\tdo {')
             if k in opens:
                 out.append('\tif (%s) {' % self.cond(opens[k]))
             elif k in elses:
@@ -663,6 +681,8 @@ class Printer:
                 out.append('\t%s%s;' % ('(%s)' % lv if lv.startswith('*') else lv, '++' if st.op == '+' else '--'))
             elif kd == 'expr':
                 out.append('\t%s;' % self.ex(st.x))
+            elif kd == 'if' and k in dos:
+                out.append('\t} while (%s);' % self.cond(st.cond))
             elif kd == 'if':
                 out.append('\tif (%s) goto L%04x;' % (self.cond(st.cond), st.target))
             elif kd == 'goto':

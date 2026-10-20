@@ -2,7 +2,7 @@ extern int view_anim_state;
 f5690()
 {
 	view_anim_state = -2;
-L5696:
+	do {
 	f55dc();
-	if (view_anim_state != -2) goto L5696;
+	} while (view_anim_state != -2);
 }

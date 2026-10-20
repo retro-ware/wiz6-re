@@ -36,10 +36,10 @@ L848f:
 	monster[33] = 0;
 	monster[28] = (char)pick_random_row(group);
 	l22 = 0;
-L8568:
+	do {
 	monster[29] = (char)pick_random_row(group);
 	l22++;
-	if ((monster[29] == monster[28]) && (l22 < 3)) goto L8568;
+	} while ((monster[29] == monster[28]) && (l22 < 3));
 	l14 = 0;
 L8590:
 	if (((((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] > l14) && ((unsigned)monster[34] < 2)) && ((unsigned)monster[17] <= 0)) && ((unsigned)monster[16] <= 0)) goto L85c7;
@@ -53,9 +53,9 @@ L85d9:
 	if (l14 < 4) goto L8590;
 	l24 = -1;
 	monster[31] = *(char *)&target_group;
-L85f2:
+	do {
 	monster[32] = (char)random((unsigned char)(*(char **)((char *)monster_groups + (target_group << 1)))[413]);
-	if ((unsigned)((char *)monster_groups[(unsigned char)monster[31]] + ((unsigned char)monster[32] * 44))[34] >= 3) goto L85f2;
+	} while ((unsigned)((char *)monster_groups[(unsigned char)monster[31]] + ((unsigned char)monster[32] * 44))[34] >= 3);
 	if (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[168]) goto L878b;
 	l24 = 3;
 	monster[30] = 3;

@@ -20,10 +20,10 @@ fill_party_group()
 	rdi = 0;
 	(*(char **)((char *)monster_groups + (rdi << 1)))[413] = *(char *)&party_count;
 	rsi = rdi;
-L4d73:
+	do {
 	((char *)monster_groups[rdi] + rsi)[396] = 0;
 	rsi++;
-	if (rsi < 6) goto L4d73;
+	} while (rsi < 6);
 	if (g4ed8 > 0) {
 	(*(char **)((char *)monster_groups + (rdi << 1)))[400] = g4eda;
 	}

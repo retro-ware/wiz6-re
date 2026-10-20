@@ -10,30 +10,13 @@ char *p4;
 	}
 Lf58c:
 	l4 = 0;
-Lf591:
+	do {
 	l2 = random(7);
 	l4++;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,080h,0bfh,014h,045h,012h
-	db 073h,00fh,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0ech,000h,074h
-	db 006h
-#endasm
-Lf5c0:
-	if (l4 < 3) goto Lf591;
-Lf5c6:
-	;
-#asm
-lf5c6:
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,080h,0bfh,014h,045h,012h
-	db 072h,003h
-#endasm
-	goto Lf6d3;
-Lf5db:
-	if (l20[l2]) goto Lf6d3;
+	} while ((((unsigned)pc_stats[((432 * p8) + l2)] >= 18) || (l20[l2])) && (l4 < 3));
+	if (((unsigned)pc_stats[((432 * p8) + l2)] >= 18) || (l20[l2])) goto Lf6d3;
 	l20[l2] = 1;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,0feh,087h,014h,045h
-#endasm
+	pc_stats[((432 * p8) + l2)]++;
 	get_message(5014, 21902);
 	get_message((l2 + 5050), 22416);
 	replace_char_with_string(21902, 22416, 36);
