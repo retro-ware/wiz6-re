@@ -5,6 +5,7 @@ extern char pc_item_qty[];
 extern char pc_item_type[];
 extern char pc_swag_count[];
 extern int g43ca;
+extern int pc_gold[];
 extern int pc_item_id[];
 struct s8 { int w[4]; };
 /* Give items from member p8 to another member, splitting stacks by quantity. */
@@ -24,14 +25,7 @@ do_trade_items(p4, p6, p8)
 L96cb:
 	return;
 L96d1:
-	;
-#asm
-l96d1:
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,083h,0bfh,0feh,043h,000h,07ch,009h,075h
-	db 00ah,083h,0bfh,0fch,043h,000h,077h,003h
-#endasm
-L96e9:
-	goto L978a;
+	if (*(long *)((char *)pc_gold + (432 * p8)) <= 0L) goto L978a;
 L96ec:
 	input_number(p6, 404, 8);
 #asm

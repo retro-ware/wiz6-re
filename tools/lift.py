@@ -854,13 +854,13 @@ class Lifter:
         self.flags = None
         jm = get(f) if n == 2 else None
         if jm is not None and jm.mnemonic == 'jmp' and jm.operands[0].type == X.X86_OP_IMM and \
-                t == jm.address + jm.size and self.tcount.get(t) == 2:
+                t == jm.address + jm.size and self.tcount.get(t, 0) >= 2:
             # the false path is 'jmp J' and the true one falls past it: if (!c) goto J
             j = tg(jm)
             self.cur = jm
             self.emit('if', cond=negate((op, a, b)), target=j)
             self.out.setdefault(j, []).append(dict(self.R))
-            self.nolabel |= {f, t}
+            self.nolabel |= {f, t} if self.tcount.get(t) == 2 else {f}     # t: other gotos keep its label
             self.skip_to = t
             return True
         self.emit('if', cond=(op, a, b), target=t)
