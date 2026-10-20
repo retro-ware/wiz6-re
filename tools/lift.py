@@ -1064,11 +1064,18 @@ class Lifter:
             # all jumps go to T: T is taken when any holds; print it as the && of the negations
             return negate(('||', c) + tuple(conds[1:]))
         # mov ax,A; cmp; jcc T [; cmp; jcc T]...; <ax = B>; T:
-        if 'ax' in self.R:
+        # (the value in cx/dx when ax holds the left operand: x - (c ? 4 : 3))
+        ni = self.f.seen.get(nxt)
+        r = R16.get(ni.operands[0].reg) if ni is not None and ni.mnemonic == 'mov' and \
+            ni.operands[0].type == X.X86_OP_REG else None
+        r = r if r in ('cx', 'dx') and r in self.R and 'ax' in self.R else 'ax'
+        if r in self.R:
             conds = [c]
-            self.armvals = [self.R['ax']]
-            b = self.arm(nxt, t, t, conds)
+            self.armvals = [self.R[r]]
+            b = self.arm(nxt, t, t, conds, r)
             g = self.got
+            if r != 'ax' and len(conds) > 1:
+                return False
             if b is not None and self.tcount.get(t) == len(conds) + g['n'].get(t, 0) + self.pending(t):
                 # cgen loads the else value first and skips the then value when cond fails;
                 # ax reloaded between jumps is a nested ternary in the then arm
@@ -1085,7 +1092,7 @@ class Lifter:
                         b = ('?', negate(cs[0]), b, v, 'load')
                     else:
                         b = ('?', negate(('||',) + tuple(cs)), b, v)
-                self.R['ax'] = b
+                self.R[r] = b
                 self.flags, self.skip_to = None, t
                 n = dict(g['n'])
                 n[t] = n.get(t, 0) + len(conds)

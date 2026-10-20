@@ -28,9 +28,15 @@ g004a_ label byte
 	public g0052_
 g0052_ label byte
 	db 000h,000h,000h,000h,000h,000h,0c0h,0ffh,000h,000h,040h,000h,0e0h,0ffh,000h,000h
-	db 020h,000h,0f0h,0ffh,000h,000h,010h,000h,000h,000h,0e0h,0ffh,020h,000h,0f0h,0ffh
-	db 010h,000h,000h,000h,0ech,0ffh,014h,000h,0f6h,0ffh,00ah,000h,0fdh,0ffh,000h,000h
-	db 000h,000h,0fah,0ffh,0fah,0ffh,0feh,0ffh,000h,000h,000h,000h,0fch,0ffh,0fch,0ffh
+	db 020h,000h,0f0h,0ffh,000h,000h,010h,000h
+	public g006a_
+g006a_ label byte
+	db 000h,000h,0e0h,0ffh,020h,000h,0f0h,0ffh,010h,000h,000h,000h,0ech,0ffh,014h,000h
+	db 0f6h,0ffh,00ah,000h
+	public g007e_
+g007e_ label byte
+	db 0fdh,0ffh,000h,000h,000h,000h,0fah,0ffh,0fah,0ffh,0feh,0ffh,000h,000h,000h,000h
+	db 0fch,0ffh,0fch,0ffh
 	public g0092_
 g0092_ label byte
 	db 001h,000h,003h,002h,004h,002h,000h,004h,001h,003h,000h,001h,002h,003h,004h,004h

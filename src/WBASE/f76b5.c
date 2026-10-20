@@ -1,8 +1,3 @@
-#asm
-	extrn draw_setting_value_:near
-	extrn input_text_:near
-	extrn play_sound_:near
-#endasm
 extern char *main_window;
 extern char cfg_delay;
 extern char cfg_input;
@@ -96,20 +91,7 @@ L7a83:
 	draw_setting_value(win, sel, sel, -5);
 	goto L7abf;
 L7a9e:
-	;
-#asm
-l7a9e:
-	db 0b8h,0fbh,0ffh,050h,0b9h,003h,000h,08bh,046h,0f8h,03dh,005h,000h,075h,003h,0b9h
-	db 004h,000h
-#endasm
-L7ab0:
-	;
-#asm
-l7ab0:
-	db 02bh,0c1h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
-	call draw_setting_value_
-	db 083h,0c4h,008h
-#endasm
+	draw_setting_value(win, sel, (sel - (sel == 5 ? 4 : 3)), -5);
 L7abf:
 	goto L7b39;
 L7ac2:
@@ -165,46 +147,40 @@ case 1:
 case 3:
 	changed = 1;
 	i = (choice == 1 ? -1 : 1);
-#asm
-	db 08bh,046h,0f8h,0e9h,0edh,000h
-#endasm
+	switch (sel) {
+case 0:
 	sound_mode = (char)((((unsigned char)sound_mode + i) + 6) % 6);
 	goto L7cee;
+case 1:
 	if (((l4 = ((unsigned char)cfg_delay + i)) < 0) || (l4 > 255)) goto L7c2a;
 	cfg_delay = *(char *)&l4;
-#asm
-	db 0ebh,008h
-#endasm
+	goto L7c32;
 L7c2a:
 	play_sound(0);
 L7c32:
 	g4fc8 = (unsigned char)cfg_delay;
 	goto L7cee;
+case 2:
 	cfg_level = (char)((((unsigned char)cfg_level + i) + 3) % 3);
-#asm
-	db 0e9h,098h,000h
-#endasm
+	goto L7cee;
+case 3:
 	cfg_input = (char)((((unsigned char)cfg_input + i) + 2) % 2);
-#asm
-	db 0e9h,080h,000h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ebh,076h
-#endasm
+	goto L7cee;
+case 4:
+	play_sound(0);
+	goto L7cee;
+case 5:
 	clear_window_area(win, 19, 1, 38, 1);
 	set_cursor(win, 19, 1);
-#asm
-	db 0b8h,000h,000h,050h,0b8h,007h,000h,050h,0b8h,013h,000h,050h,0b8h,07ch,035h,050h
-	db 0ffh,076h,0fah
-	call input_text_
-	db 083h,0c4h,00ah,0ebh,031h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ebh,027h,0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0ebh,01dh,0f4h,07bh,00dh,07ch,03dh,07ch,056h,07ch,06eh,07ch,078h,07ch,0bdh
-	db 07ch,0c7h,07ch
-l7ce1:
-	db 03dh,008h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0d1h,07ch
-#endasm
+	input_text(win, 13692, 19, 7, 0);
+	goto L7cee;
+case 6:
+	play_sound(0);
+	goto L7cee;
+case 7:
+	play_sound(0);
+	goto L7cee;
+	}
 L7cee:
 	goto L7d10;
 	}
