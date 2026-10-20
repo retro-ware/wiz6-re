@@ -115,14 +115,13 @@ Ld2f4:
 	if (l60) {
 	result = 2;
 	}
-	if (!result) goto Ld33b;
+	if (result) {
 	if (!random(3)) {
 	fce13(event);
 	}
-	goto Ld342;
-Ld33b:
+	} else {
 	fce81(event);
-Ld342:
+	}
 	erase_window(main_window, 1);
 	get_message((result + 2113), &l52);
 	set_cursor(main_window, (20 - ((strlen(&l52) + 1) / 2)), 0);

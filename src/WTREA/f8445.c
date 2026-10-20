@@ -12,7 +12,7 @@ cast_spell_on_chest(win, win2, member)
 	int level;
 	spell = choose_chest_spell(win2, member);
 	g501c = -1;
-	if (spell == -1) goto L8520;
+	if (spell != -1) {
 	level = (spell / 256);
 	spell = (spell % 256);
 	*(int *)((char *)pc_spell_pts + ((432 * member) + ((unsigned char)spell_table[(spell * 6)] << 2))) -= ((unsigned char)g00e0[(spell * 6)] * level);
@@ -23,6 +23,5 @@ cast_spell_on_chest(win, win2, member)
 	g450c[(432 * member)] = (char)(random(6) + 6);
 	}
 	draw_member_status(member);
-L8520:
-	;
+	}
 }

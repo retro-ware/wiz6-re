@@ -88,16 +88,16 @@ case 3:
 L5d32:
 	goto L5d9f;
 case 4:
-	if (sel != -1) goto L5d63;
+	if (sel == -1) {
 	set_cursor(main_window, l108, l110);
 	print_string_hi(main_window, &l96, 3);
 	sel = 0;
-	goto L5d80;
-L5d63:
-	if ((sel + 2) >= party_count) goto L5d80;
+	} else {
+	if ((sel + 2) < party_count) {
 	draw_member_name(win, sel);
 	sel += 2;
-L5d80:
+	}
+	}
 	goto L5d9f;
 	}
 L5d9f:

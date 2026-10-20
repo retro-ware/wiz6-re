@@ -91,16 +91,16 @@ case 3:
 L5960:
 	goto L59cd;
 case 4:
-	if (sel != -1) goto L5991;
+	if (sel == -1) {
 	set_cursor(main_window, l108, l110);
 	print_string_hi(main_window, &l16, 3);
 	sel = 0;
-	goto L59ae;
-L5991:
-	if ((sel + 2) >= party_count) goto L59ae;
+	} else {
+	if ((sel + 2) < party_count) {
 	draw_member_name_cell(win, sel);
 	sel += 2;
-L59ae:
+	}
+	}
 	goto L59cd;
 	}
 L59cd:

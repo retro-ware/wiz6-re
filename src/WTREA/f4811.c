@@ -12,13 +12,13 @@ animate_treasure_view()
 {
 	int l2;
 	char l12[10];
-	if (g5024) goto L482e;
+	if (!g5024) {
 	g5026 = ((g5026 + 1) % 3);
-	goto L4843;
-L482e:
-	if (g5024 != 1) goto L4843;
+	} else {
+	if (g5024 == 1) {
 	g5026 = ((g5026 + 1) % 2);
-L4843:
+	}
+	}
 	render_maze_view();
 	if (g501e == 1) {
 	l2 = (((g5024 * 3) + g5026) + 1);

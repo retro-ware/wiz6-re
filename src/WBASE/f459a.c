@@ -7,12 +7,12 @@ pcfile_record_io(buf, index, mode)
 	stop_sound();
 	fd = open(make_data_path(20462, 0), 2);
 	lseek(fd, ((long)(index * pcfile_rec_size) + pcfile_offset), 0);
-	if (mode) goto L45f6;
+	if (!mode) {
 	read(fd, buf, pcfile_rec_size);
-	goto L460c;
-L45f6:
-	if (mode != 1) goto L460c;
+	} else {
+	if (mode == 1) {
 	write(fd, buf, pcfile_rec_size);
-L460c:
+	}
+	}
 	close(fd);
 }

@@ -105,13 +105,13 @@ case 1:
 	}
 	goto L6a4d;
 case 2:
-	if (on_cancel != 1) goto L6a05;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L6a0e;
-L6a05:
-	if (top <= 0) goto L6a0e;
+	} else {
+	if (top > 0) {
 	top--;
-L6a0e:
+	}
+	}
 	goto L6a4d;
 case 3:
 	if (on_cancel == 1) {
@@ -119,13 +119,13 @@ case 3:
 	}
 	goto L6a4d;
 case 4:
-	if (on_cancel != 1) goto L6a2a;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L6a37;
-L6a2a:
-	if ((top + 1) >= n) goto L6a37;
+	} else {
+	if ((top + 1) < n) {
 	top++;
-L6a37:
+	}
+	}
 	goto L6a4d;
 	}
 L6a4d:

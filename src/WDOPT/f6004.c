@@ -2,13 +2,13 @@
 reduce_toward_zero(amount, value, mode)
 {
 	if (mode != 1) goto L602b;
-	if (value <= 0) goto L601b;
+	if (value > 0) {
 	value -= amount;
-	goto L6029;
-L601b:
-	if ((0 - amount) >= value) goto L6029;
+	} else {
+	if ((0 - amount) < value) {
 	value = (0 - amount);
-L6029:
+	}
+	}
 	goto L604d;
 L602b:
 	if (mode) goto L604d;

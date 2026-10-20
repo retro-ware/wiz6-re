@@ -74,13 +74,13 @@ case 1:
 	}
 	goto La62a;
 case 2:
-	if (l4 != 1) goto La5e2;
+	if (l4 == 1) {
 	l4 = 0;
-	goto La5eb;
-La5e2:
-	if (p8 <= 0) goto La5eb;
+	} else {
+	if (p8 > 0) {
 	p8--;
-La5eb:
+	}
+	}
 	goto La62a;
 case 3:
 	if (l4 == 1) {
@@ -88,13 +88,13 @@ case 3:
 	}
 	goto La62a;
 case 4:
-	if (l4 != 1) goto La607;
+	if (l4 == 1) {
 	l4 = 0;
-	goto La614;
-La607:
-	if ((p8 + 1) >= g54b2) goto La614;
+	} else {
+	if ((p8 + 1) < g54b2) {
 	p8++;
-La614:
+	}
+	}
 	goto La62a;
 	}
 La62a:

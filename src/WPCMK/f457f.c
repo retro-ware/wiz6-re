@@ -7,12 +7,12 @@ access_roster_record(rec, slot, mode)
 	stop_sound();
 	fd = open(make_data_path(20462, 0), 2);
 	lseek(fd, ((long)(slot * pcfile_rec_size) + pcfile_offset), 0);
-	if (mode) goto L45db;
+	if (!mode) {
 	read(fd, rec, pcfile_rec_size);
-	goto L45f1;
-L45db:
-	if (mode != 1) goto L45f1;
+	} else {
+	if (mode == 1) {
 	write(fd, rec, pcfile_rec_size);
-L45f1:
+	}
+	}
 	close(fd);
 }

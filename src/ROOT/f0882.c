@@ -35,13 +35,13 @@ L08f2:
 	stop_sound();
 	lseek(scenario_fd, (((long)index * record_sizes[type]) + *(long *)((char *)g3048 + (type << 2))), 0);
 	if (record_packed[type]) goto L0971;
-	if (mode) goto L0951;
+	if (!mode) {
 	read(scenario_fd, buf, record_sizes[type]);
-	goto L096f;
-L0951:
-	if (mode != 1) goto L096f;
+	} else {
+	if (mode == 1) {
 	write(scenario_fd, buf, record_sizes[type]);
-L096f:
+	}
+	}
 	goto L099f;
 L0971:
 	if (mode) goto L099f;

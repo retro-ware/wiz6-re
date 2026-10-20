@@ -37,16 +37,16 @@ Lc1d1:
 	get_message(l8, accepted);
 Lc2ac:
 	if (msg_not_found) goto Lc312;
-	if (accepted[0] != 36) goto Lc2e6;
+	if (accepted[0] == 36) {
 	strcpy(accepted, ((char *)accepted + 1));
 	if (string_index(&reply, accepted) != -1) {
 	wrong = 0;
 	}
-	goto Lc2ff;
-Lc2e6:
-	if (strcmp(&reply, accepted)) goto Lc2ff;
+	} else {
+	if (!strcmp(&reply, accepted)) {
 	wrong = 0;
-Lc2ff:
+	}
+	}
 	l8++;
 	get_message(l8, accepted);
 	goto Lc2ac;

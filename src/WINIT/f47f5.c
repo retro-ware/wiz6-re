@@ -16,7 +16,7 @@ load_sounds(count)
 	goto L48df;
 L4806:
 	access_scenario_record(9, ((i * 12) + 13124), i, 0);
-	if (*(long *)((char *)sound_table + (i * 12)) <= 0L) goto L48dc;
+	if (*(long *)((char *)sound_table + (i * 12)) > 0L) {
 	strcpy(&fname, 20472);
 	l15 = (char)((i / 10) + 48);
 	l14 = (char)((i % 10) + 48);
@@ -28,7 +28,7 @@ L4806:
 	exit_game(11);
 	}
 	close(fd);
-L48dc:
+	}
 	i++;
 L48df:
 	if (i < count) goto L4806;

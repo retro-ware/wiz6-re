@@ -12,7 +12,7 @@ L5a77:
 	return;
 L5a8e:
 	f55dc();
-	if (view_anim_state != -2) goto L5ae3;
+	if (view_anim_state == -2) {
 	set_cursor(g5264, 39, g5262);
 	if (l2 < 2) {
 	put_char(g5264, 32, 1);
@@ -20,7 +20,7 @@ L5a8e:
 	put_char_hi(g5264, 126, 1);
 	}
 	l2 = ((l2 + 1) % 4);
-L5ae3:
+	}
 	goto L5a77;
 L5ae5:
 	if ((char)get_key(1) != 13) goto L5a77;

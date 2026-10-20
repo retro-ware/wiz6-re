@@ -537,22 +537,22 @@ L5bf7:
 	l160 = 255;
 	}
 	((char *)monster_groups[l78] + (44 * l80))[17] = *(char *)&l160;
-	if (*(int *)(((char *)monster_groups[l78] + (44 * l80)) + 2) > 0) goto L5dba;
+	if (*(int *)(((char *)monster_groups[l78] + (44 * l80)) + 2) <= 0) {
 	combat_delay((g4fc8 / 4));
 	do_damage_effect(l78, l80, 3486, 0, 3, 0, 6, 6, 3408, 0);
 	if (p4[43] == -1) {
 	p4[43] = 1;
 	}
-	goto L5e07;
-L5dba:
+	} else {
 	if (!l78) {
 	play_sound(2);
 	draw_member_card_x(l80, 1);
 	}
 	combat_delay((g4fc8 / 4));
-	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] == 22) goto L5e07;
+	if ((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 22) {
 	apply_hit_effects(p4, l82, l78, l80);
-L5e07:
+	}
+	}
 	goto L5e4c;
 L5e09:
 	get_message(3303, 20652);

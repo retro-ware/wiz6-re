@@ -14,7 +14,7 @@ f9edb(p4, p6)
 	fill_window(p4, 32, 3, 0);
 	l2 = npc_choose_spell(p4, p6);
 	g522c = -1;
-	if (l2 == -1) goto L9fcb;
+	if (l2 != -1) {
 	l4 = (l2 / 256);
 	l2 = (l2 % 256);
 	*(int *)((char *)pc_spell_pts + ((432 * p6) + ((unsigned char)spell_table[(l2 * 6)] << 2))) -= ((unsigned char)g00e0[(l2 * 6)] * l4);
@@ -25,6 +25,5 @@ f9edb(p4, p6)
 	g450c[(432 * p6)] = (char)(random(6) + 6);
 	}
 	f5078(p6, g527a);
-L9fcb:
-	;
+	}
 }

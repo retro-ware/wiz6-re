@@ -52,7 +52,7 @@ L7a64:
 	l72 = 1;
 	g5038 = l2;
 L7a83:
-	if (l72 != 1) goto L7be5;
+	if (l72 == 1) {
 	g501c = 1;
 	if (realm == -1) {
 	g5036 = 13;
@@ -80,7 +80,7 @@ L7a83:
 	g503f = 0;
 	g503a = 17;
 	l72 = 0;
-L7be5:
+	}
 	l6 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L7c3f;
 	if (l6 != realm) goto L7c09;
@@ -102,17 +102,17 @@ L7c37:
 L7c3f:
 	switch (l6) {
 case 1:
-	if (realm != -1) goto L7c63;
+	if (realm == -1) {
 	unhighlight_realm_slot(l2, realm);
 	realm = 4;
 	l72 = 1;
-	goto L7c80;
-L7c63:
-	if ((realm - 3) < 0) goto L7c80;
+	} else {
+	if ((realm - 3) >= 0) {
 	unhighlight_realm_slot(l2, realm);
 	realm += -3;
 	l72 = 1;
-L7c80:
+	}
+	}
 	goto L7d25;
 case 2:
 	if ((realm == -1) || ((realm % 3) <= 0)) goto L7cad;
@@ -293,21 +293,21 @@ case 1:
 	}
 	goto L83b6;
 case 3:
-	if (level) goto L836a;
+	if (!level) {
 	unhighlight_realm_slot(l2, -1);
 	clear_window_area(l2, 13, 1, 20, 1);
 	set_cursor(l2, 13, 1);
 	print_message((realm + 3950), l2, realm_colors[realm]);
 	level = 1;
 	l72 = 1;
-	goto L83a4;
-L836a:
-	if (level >= max_level) goto L83a4;
+	} else {
+	if (level < max_level) {
 	set_cursor(l2, (level + 14), 3);
 	put_char(l2, (unsigned char)((level + 23)), 5);
 	level++;
 	l72 = 1;
-L83a4:
+	}
+	}
 	goto L83b6;
 	}
 L83b6:

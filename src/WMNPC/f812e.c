@@ -1,13 +1,13 @@
 f812e(p4, p6, p8)
 {
 	if (p8 != 1) goto L8155;
-	if (p6 <= 0) goto L8145;
+	if (p6 > 0) {
 	p6 -= p4;
-	goto L8153;
-L8145:
-	if ((0 - p4) >= p6) goto L8153;
+	} else {
+	if ((0 - p4) < p6) {
 	p6 = (0 - p4);
-L8153:
+	}
+	}
 	goto L8177;
 L8155:
 	if (p8) goto L8177;

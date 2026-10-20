@@ -196,7 +196,7 @@ L7d70:
 L7d9b:
 	if ((choice != 5) || (sel != -1)) goto L7a52;
 	stop_sound();
-	if (changed != 1) goto L7e36;
+	if (changed == 1) {
 	get_message(2258, &l110);
 	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) == -1) {
 	exit_game(19);
@@ -206,7 +206,7 @@ L7d9b:
 	show_error_text(&l110, 0);
 	}
 	close(scenario_hdr_fd);
-L7e36:
+	}
 	g4fc8 = (unsigned char)cfg_delay;
 	if ((!(video_flags & 4096)) || (cfg_input != 1)) goto L7e5f;
 	if (!mouse_present) {

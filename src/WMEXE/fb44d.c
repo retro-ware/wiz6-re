@@ -131,12 +131,11 @@ Lb7a4:
 	if ((g5118 != 1) || (((unsigned char)g00e1[(l6 * 6)] & 1))) goto Lb7c9;
 	g5118 = 0;
 Lb7c9:
-	if (g5118 != 1) goto Lb7fa;
+	if (g5118 == 1) {
 	combat_delay(2);
 	print_msg_centered(3201, 5, 2);
 	combat_delay((g4fc8 / 2));
-	goto Lb84a;
-Lb7fa:
+	} else {
 	if (g50fc == 1) {
 	combat_delay(2);
 	print_msg_centered(3202, 4, 2);
@@ -145,7 +144,7 @@ Lb7fa:
 	p4[32] = *(char *)&g435c;
 	}
 	do_cast_spell(p4, l6, l4);
-Lb84a:
+	}
 	goto Lb85a;
 Lb84c:
 	combat_delay((g4fc8 / 2));

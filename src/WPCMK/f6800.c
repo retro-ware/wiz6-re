@@ -39,7 +39,7 @@ L6914:
 	set_click_region(7, 255, 0, 0, 0);
 	l72 = 1;
 L692d:
-	if (l72 != 1) goto L6a78;
+	if (l72 == 1) {
 	if (l64 == -1) {
 	put_char_at(l2, 1, 12, 99);
 	clear_window_area(l2, 11, 12, 18, 12);
@@ -58,7 +58,7 @@ L692d:
 	draw_spell_list(l4, l64, 0, 0, l10, l50);
 	}
 	l72 = 0;
-L6a78:
+	}
 	l6 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L6ad5;
 	if (l6 != l64) goto L6a9c;
@@ -80,17 +80,17 @@ L6acd:
 L6ad5:
 	switch (l6) {
 case 1:
-	if (l64 != -1) goto L6afc;
+	if (l64 == -1) {
 	unhighlight_realm(p4, l2, l64);
 	l64 = 4;
 	l72 = 1;
-	goto L6b1c;
-L6afc:
-	if ((l64 - 3) < 0) goto L6b1c;
+	} else {
+	if ((l64 - 3) >= 0) {
 	unhighlight_realm(p4, l2, l64);
 	l64 += -3;
 	l72 = 1;
-L6b1c:
+	}
+	}
 	goto L6bca;
 case 2:
 	if ((l64 == -1) || ((l64 % 3) <= 0)) goto L6b4c;

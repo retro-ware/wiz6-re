@@ -26,10 +26,10 @@ char *p8;
 L46cb:
 	l2 = (unsigned char)g3649[((p6 * 30) + (rsi * 3))];
 	l4 = (unsigned char)g364a[((p6 * 30) + (rsi * 3))];
-	if (--l4 > 0) goto L4818;
+	if (--l4 <= 0) {
 	rdi = (unsigned char)g3648[((p6 * 30) + (rsi * 3))];
 	l2++;
-	if ((((unsigned char)g3746[((314 * p4) + rdi)] + (unsigned char)g3750[((314 * p4) + rdi)]) - 1) >= l2) goto L47b6;
+	if ((((unsigned char)g3746[((314 * p4) + rdi)] + (unsigned char)g3750[((314 * p4) + rdi)]) - 1) < l2) {
 	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) > 0) {
 	rdi = *(int *)((char *)g50de + ((p4 * 10) + (p6 << 1)));
 	} else {
@@ -38,10 +38,10 @@ L46cb:
 	}
 	g3648[((p6 * 30) + (rsi * 3))] = rdi;
 	l2 = (unsigned char)g3746[((314 * p4) + rdi)];
-L47b6:
+	}
 	g3649[((p6 * 30) + (rsi * 3))] = *(char *)&l2;
 	l4 = (random((unsigned char)g375c[((314 * p4) + (l2 << 2))]) + (unsigned char)g375b[((314 * p4) + (l2 << 2))]);
-L4818:
+	}
 	g364a[((p6 * 30) + (rsi * 3))] = *(char *)&l4;
 	*(p8 + l6) = g375a[((314 * p4) + (l2 << 2))];
 	switch ((unsigned char)pic_slot_monster[p4]) {

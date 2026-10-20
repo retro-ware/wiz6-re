@@ -55,7 +55,7 @@ L7923:
 	set_click_region(7, 255, 0, 0, 0);
 	l72 = 1;
 L793c:
-	if (l72 != 1) goto L7ab1;
+	if (l72 == 1) {
 	g553c = 1;
 	if (realm == -1) {
 	g5754 = l2;
@@ -85,7 +85,7 @@ L793c:
 	g575b = 0;
 	g578a = 17;
 	l72 = 0;
-L7ab1:
+	}
 	l6 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto L7b0e;
 	if (l6 != realm) goto L7ad5;
@@ -107,17 +107,17 @@ L7b06:
 L7b0e:
 	switch (l6) {
 case 1:
-	if (realm != -1) goto L7b35;
+	if (realm == -1) {
 	unhighlight_realm(p4, l2, realm);
 	realm = 4;
 	l72 = 1;
-	goto L7b55;
-L7b35:
-	if ((realm - 3) < 0) goto L7b55;
+	} else {
+	if ((realm - 3) >= 0) {
 	unhighlight_realm(p4, l2, realm);
 	realm += -3;
 	l72 = 1;
-L7b55:
+	}
+	}
 	goto L7c03;
 case 2:
 	if ((realm == -1) || ((realm % 3) <= 0)) goto L7b85;
@@ -304,21 +304,21 @@ case 1:
 	}
 	goto L82be;
 case 3:
-	if (power) goto L8273;
+	if (!power) {
 	unhighlight_realm(p4, l2, -1);
 	clear_window_area(l2, 11, 12, 18, 12);
 	set_cursor(l2, 11, 12);
 	print_message((realm + 3950), l2, realm_colors[realm]);
 	power = 1;
 	l72 = 1;
-	goto L82ac;
-L8273:
-	if (power >= l56) goto L82ac;
+	} else {
+	if (power < l56) {
 	set_cursor(l2, (power + 2), 12);
 	put_char(l2, (unsigned char)((power + 23)), 5);
 	power++;
 	l72 = 1;
-L82ac:
+	}
+	}
 	goto L82be;
 	}
 L82be:

@@ -89,16 +89,16 @@ case 3:
 L6f3d:
 	goto L6faa;
 case 4:
-	if (sel != -1) goto L6f6e;
+	if (sel == -1) {
 	set_cursor(main_window, cancel_x, cancel_y);
 	print_string_hi(main_window, &cancel_text, 3);
 	sel = 0;
-	goto L6f8b;
-L6f6e:
-	if ((sel + 2) >= party_count) goto L6f8b;
+	} else {
+	if ((sel + 2) < party_count) {
 	draw_member_name(win, sel);
 	sel += 2;
-L6f8b:
+	}
+	}
 	goto L6faa;
 	}
 L6faa:

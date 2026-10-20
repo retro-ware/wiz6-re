@@ -11,7 +11,7 @@ L495e:
 	if (!check_screen_click()) goto L4978;
 	return;
 L4978:
-	if (g502c) goto L49dd;
+	if (!g502c) {
 	anim_phase = ((anim_phase + 1) % 2);
 	animate_treasure_view();
 	set_cursor(g502e, 39, 4);
@@ -21,10 +21,9 @@ L4978:
 	put_char_hi(g502e, 126, 1);
 	}
 	l2 = ((l2 + 1) % 4);
-	goto L49e0;
-L49dd:
+	} else {
 	play_ambient_sound();
-L49e0:
+	}
 	g502c = ((g502c + 1) % 10);
 	goto L495e;
 L49f1:

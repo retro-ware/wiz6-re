@@ -11,7 +11,7 @@ L9c27:
 	if (!check_screen_click()) goto L9c41;
 	return;
 L9c41:
-	if (g5036) goto L9cb8;
+	if (!g5036) {
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
 	if (l2 < 2) {
@@ -22,10 +22,9 @@ L9c41:
 	put_char_hi(g522a, 126, 1);
 	}
 	l2 = ((l2 + 1) % 4);
-	goto L9cbb;
-L9cb8:
+	} else {
 	f4655();
-L9cbb:
+	}
 	g5036 = ((g5036 + 1) % 10);
 	goto L9c27;
 L9ccc:

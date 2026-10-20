@@ -86,16 +86,16 @@ case 3:
 L4bed:
 	goto L4c5a;
 case 4:
-	if (sel != -1) goto L4c1e;
+	if (sel == -1) {
 	set_cursor(main_window, cancel_x, cancel_y);
 	print_string_hi(main_window, &cancel_text, 3);
 	sel = 0;
-	goto L4c3b;
-L4c1e:
-	if ((sel + 2) >= party_count) goto L4c3b;
+	} else {
+	if ((sel + 2) < party_count) {
 	draw_member_name_dopt(win, sel);
 	sel += 2;
-L4c3b:
+	}
+	}
 	goto L4c5a;
 	}
 L4c5a:

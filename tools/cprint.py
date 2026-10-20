@@ -570,8 +570,11 @@ class Printer:
         asm_t |= {self.tail_goto[1]} if self.tail_goto else set()
         asm_t |= {sts[epi_k].s} if fwd else set()
 
+        ends = {}       # a structured if (or its else goto) -> where its block closes
+
         def plain(a, b, ok):
-            return a < b and all(sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') and x not in used and
+            return a < b and all((sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') or ends.get(x, b + 1) <= b) and
+                                 x not in used and
                                  (sts[x].s not in labels or sts[x].s in ok) and sts[x].s not in cases and
                                  sts[x].s not in default for x in range(a, b))
         # L: A..; if (c) goto L: do { A } while (c); cgen forgets its registers before the test
@@ -590,32 +593,35 @@ class Printer:
             labels.discard(st.target)
             for x in range(k, j + 1):
                 sts[x].forhead = sts[k].s
-        for k, st in enumerate(sts):
-            c = getattr(st, 'cond', None)
-            if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
-                    refs.get(st.target) != 1 or st.target in cases or st.target in default or st.target in asm_t:
-                continue
-            kt = idx.get(st.target)
-            if kt is None or kt <= k + 1:
-                continue
-            g = sts[kt - 1]
-            kj = idx.get(g.target) if g.kind == 'goto' and kt - 1 not in used else None
-            if kj is not None and kj > kt and refs.get(g.target) == 1 and g.s not in labels and \
-                    g.target not in cases and g.target not in default and g.target not in asm_t and \
-                    plain(k + 1, kt - 1, ()) and plain(kt, kj, {st.target}):
-                elses.add(kt - 1)
-                closes[kj] = closes.get(kj, 0) + 1
-                labels.discard(g.target)
-                end = kj
-            elif g.kind != 'goto' and plain(k + 1, kt, ()):
-                closes[kt] = closes.get(kt, 0) + 1
-                end = kt
-            else:
-                continue
-            opens[k] = negate(c)
-            labels.discard(st.target)
-            for x in range(k, end):
-                sts[x].forhead = st.s       # a mismatch inside: print it with gotos next round
+        # inner blocks first: an if/else may hold structured ifs (cgen keeps its registers there too)
+        # A join two jumps reach (if (c) goto J inside the else of an if whose then ends in goto J)
+        # is tried speculatively; when not all its jumps end up absorbed, everything is redone
+        # without that speculation.
+        fh0 = {id(x): x.forhead for x in sts if hasattr(x, 'forhead')}
+        labels0, self._nospec = set(labels), set()
+        while True:
+            for d in (opens, closes, ends):
+                d.clear()
+            elses.clear()
+            labels.clear()
+            labels |= labels0
+            for x in sts:
+                if id(x) in fh0:
+                    x.forhead = fh0[id(x)]
+                elif hasattr(x, 'forhead'):
+                    del x.forhead
+            self._abs, self._spec = {}, set()
+            grown = True
+            while grown:
+                grown = False
+                for k, st in enumerate(sts):
+                    if k not in opens and self.structure_if(k, st, sts, idx, refs, used, labels, cases, default,
+                                                            asm_t, plain, opens, elses, closes, ends):
+                        grown = True
+            bad = {t for t in self._spec if self._abs.get(t, 0) != refs[t]}
+            if not bad:
+                break
+            self._nospec |= bad
         for k, st in enumerate(sts):
             out += ['\t}'] * closes.get(k, 0)
             lab = []
@@ -710,6 +716,51 @@ class Printer:
             out.append('\t;')
         self.owners = owners
         return out, needed - starts
+
+    def structure_if(self, k, st, sts, idx, refs, used, labels, cases, default, asm_t, plain, opens, elses,
+                     closes, ends):
+        """if (c) goto T; A..; [goto J; T: B..;] T/J: is if (!c) { A } [else { B }]: True if structured."""
+        c = getattr(st, 'cond', None)
+        left = lambda t: refs.get(t, 0) - self._abs.get(t, 0)       # jumps to t not yet absorbed
+        if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
+                st.target in cases or st.target in default or st.target in asm_t:
+            return False
+        spec = False
+        if left(st.target) != 1:
+            # the other jumps may be else-gotos before us that an enclosing if/else absorbs
+            before = sum(1 for x in sts[:k] if x.kind == 'goto' and x.target == st.target)
+            if st.target in self._nospec or left(st.target) < 2 or before < left(st.target) - 1:
+                return False
+            spec = True
+        kt = idx.get(st.target)
+        if kt is None or kt <= k + 1:
+            return False
+        g = sts[kt - 1]
+        kj = idx.get(g.target) if g.kind == 'goto' and kt - 1 not in used else None
+        if kj is not None and kj > kt and left(g.target) == 1 and g.s not in labels and \
+                g.target not in cases and g.target not in default and g.target not in asm_t and \
+                plain(k + 1, kt - 1, ()) and plain(kt, kj, {st.target}):
+            elses.add(kt - 1)
+            closes[kj] = closes.get(kj, 0) + 1
+            self._abs[g.target] = self._abs.get(g.target, 0) + 1
+            if not left(g.target):
+                labels.discard(g.target)
+            end = ends[kt - 1] = kj
+        elif g.kind != 'goto' and plain(k + 1, kt, ()):
+            closes[kt] = closes.get(kt, 0) + 1
+            end = kt
+        else:
+            return False
+        opens[k], ends[k] = negate(c), end
+        self._abs[st.target] = self._abs.get(st.target, 0) + 1
+        if spec:
+            self._spec.add(st.target)
+        if not left(st.target):
+            labels.discard(st.target)
+        for x in range(k, end):         # a mismatch inside: print it with gotos next round
+            if getattr(sts[x], 'forhead', None) is None or x == k:
+                sts[x].forhead = st.s   # (an inner block keeps its own: it is undone first)
+        return True
 
     def raw(self, st):
         e = self.tail_goto[0] if self.tail_goto and st is self.L.sts[-1] else st.e

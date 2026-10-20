@@ -90,13 +90,13 @@ case 1:
 	}
 	goto L7565;
 case 2:
-	if (on_cancel != 1) goto L7511;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L751a;
-L7511:
-	if (pos <= 0) goto L751a;
+	} else {
+	if (pos > 0) {
 	pos--;
-L751a:
+	}
+	}
 	goto L7565;
 case 3:
 	if (on_cancel == 1) {
@@ -104,13 +104,13 @@ case 3:
 	}
 	goto L7565;
 case 4:
-	if (on_cancel != 1) goto L7536;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L754f;
-L7536:
-	if ((unsigned char)pc_item_count[(432 * member)] <= (pos + 1)) goto L754f;
+	} else {
+	if ((unsigned char)pc_item_count[(432 * member)] > (pos + 1)) {
 	pos++;
-L754f:
+	}
+	}
 	goto L7565;
 	}
 L7565:

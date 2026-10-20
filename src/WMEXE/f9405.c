@@ -259,14 +259,14 @@ L97ea:
 L9b82:
 	((char *)monster_groups[g435e] + l2)[402] = *(char *)&l4;
 	}
-	if ((unsigned)(*(char **)((char *)monster_groups + (g435e << 1)))[399] <= 0) goto L9bf1;
+	if ((unsigned)(*(char **)((char *)monster_groups + (g435e << 1)))[399] > 0) {
 	if ((l4 = ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[399] - (p8 * 10))) < 0) {
 	l4 = 0;
 	}
 	(*(char **)((char *)monster_groups + (g435e << 1)))[399] = *(char *)&l4;
 	clear_msg_line(3);
 	print_msg_centered((l4 == 0 ? 3225 : 3226), 3, 3);
-L9bf1:
+	}
 	goto Lb021;
 	f8efc(l6, l8, 3, 0);
 	if (random(100) >= (p8 * 5)) goto L9c52;

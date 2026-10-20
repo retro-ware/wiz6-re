@@ -91,13 +91,13 @@ case 1:
 	}
 	goto L9f29;
 case 2:
-	if (on_cancel != 1) goto L9ee2;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L9eeb;
-L9ee2:
-	if (sel <= 0) goto L9eeb;
+	} else {
+	if (sel > 0) {
 	sel--;
-L9eeb:
+	}
+	}
 	goto L9f29;
 case 3:
 	if (on_cancel == 1) {
@@ -105,13 +105,13 @@ case 3:
 	}
 	goto L9f29;
 case 4:
-	if (on_cancel != 1) goto L9f07;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L9f13;
-L9f07:
-	if ((sel + 1) >= n) goto L9f13;
+	} else {
+	if ((sel + 1) < n) {
 	sel++;
-L9f13:
+	}
+	}
 	goto L9f29;
 	}
 L9f29:

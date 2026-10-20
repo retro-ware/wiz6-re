@@ -11,13 +11,13 @@ case 1:
 case 3:
 case 4:
 	drv_op_c6((g5254 ? (p18 + p4) : (p16 + p4)), 1, (g5254 != 0 ? (p16 + p4) : -1));
-	if (p6 != 3) goto L9d59;
+	if (p6 == 3) {
 	drv_op_c6((p20 + p4), (p4 < 3 ? 0 : 1), -1);
-	goto L9d7d;
-L9d59:
-	if (p6 != 4) goto L9d7d;
+	} else {
+	if (p6 == 4) {
 	drv_op_c6((p22 + p4), (p4 < 3 ? 0 : 1), -1);
-L9d7d:
+	}
+	}
 	break;
 case 5:
 case 6:

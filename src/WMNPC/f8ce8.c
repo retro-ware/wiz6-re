@@ -52,7 +52,7 @@ L8de2:
 	l72 = 1;
 	g522a = l2;
 L8e01:
-	if (l72 != 1) goto L8f63;
+	if (l72 == 1) {
 	g522c = 1;
 	if (l64 == -1) {
 	g5228 = 13;
@@ -80,7 +80,7 @@ L8e01:
 	g5233 = 0;
 	g522e = 17;
 	l72 = 0;
-L8f63:
+	}
 	l6 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto L8fbd;
 	if (l6 != l64) goto L8f87;
@@ -102,17 +102,17 @@ L8fb5:
 L8fbd:
 	switch (l6) {
 case 1:
-	if (l64 != -1) goto L8fe1;
+	if (l64 == -1) {
 	f8874(l2, l64);
 	l64 = 4;
 	l72 = 1;
-	goto L8ffe;
-L8fe1:
-	if ((l64 - 3) < 0) goto L8ffe;
+	} else {
+	if ((l64 - 3) >= 0) {
 	f8874(l2, l64);
 	l64 += -3;
 	l72 = 1;
-L8ffe:
+	}
+	}
 	goto L90a3;
 case 2:
 	if ((l64 == -1) || ((l64 % 3) <= 0)) goto L902b;
@@ -293,21 +293,21 @@ case 1:
 	}
 	goto L9734;
 case 3:
-	if (l54) goto L96e8;
+	if (!l54) {
 	f8874(l2, -1);
 	clear_window_area(l2, 13, 1, 20, 1);
 	set_cursor(l2, 13, 1);
 	print_message((l64 + 3950), l2, realm_colors[l64]);
 	l54 = 1;
 	l72 = 1;
-	goto L9722;
-L96e8:
-	if (l54 >= l56) goto L9722;
+	} else {
+	if (l54 < l56) {
 	set_cursor(l2, (l54 + 14), 3);
 	put_char(l2, (unsigned char)((l54 + 23)), 5);
 	l54++;
 	l72 = 1;
-L9722:
+	}
+	}
 	goto L9734;
 	}
 L9734:

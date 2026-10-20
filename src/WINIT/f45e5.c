@@ -6,16 +6,16 @@ f45e5(p4)
 	int l22;
 	int l24;
 	l24 = 0;
-	if (g3592 != 3) goto L4623;
+	if (g3592 == 3) {
 	copy_through_char(&l22, 13632, 58);
 	prompt_insert_disk(&l22, 1, 0, 0);
 	l24 = 1;
-	goto L464f;
-L4623:
-	if (g3592 != 5) goto L464f;
+	} else {
+	if (g3592 == 5) {
 	copy_through_char(&l22, 13652, 58);
 	prompt_insert_disk(&l22, 1, 0, 0);
-L464f:
+	}
+	}
 	if ((l2 = open(make_data_path(p4, 1), 0)) == -1) {
 	exit_game(4);
 	}

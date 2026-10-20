@@ -113,16 +113,16 @@ case 3:
 L52a4:
 	goto L5311;
 case 4:
-	if (l6 != -1) goto L52d5;
+	if (l6 == -1) {
 	set_cursor(main_window, l108, l110);
 	print_string_hi(main_window, &l16, 3);
 	l6 = 0;
-	goto L52f2;
-L52d5:
-	if ((l6 + 2) >= party_count) goto L52f2;
+	} else {
+	if ((l6 + 2) < party_count) {
 	f4ee7(l4, l6);
 	l6 += 2;
-L52f2:
+	}
+	}
 	goto L5311;
 	}
 L5311:

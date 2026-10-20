@@ -97,7 +97,7 @@ L9a44:
 L9a47:
 	if (l2 >= 0) goto L99bf;
 L9a50:
-	if (l20 <= 0) goto L9ad4;
+	if (l20 > 0) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * l4) + (l6 << 3))) = *(struct s8 *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)));
 	pc_item_qty[((432 * l4) + (l6 << 3))] = *(char *)&l8;
 	pc_item_flags[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_flags[((432 * l4) + (l6 << 3))] & -2);
@@ -106,10 +106,9 @@ L9a50:
 	} else {
 	pc_swag_count[(432 * l4)]++;
 	}
-	goto L9af4;
-L9ad4:
+	} else {
 	pc_item_qty[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_qty[((432 * l4) + (l6 << 3))] + l8);
-L9af4:
+	}
 	if (l18) {
 	remove_item(p8, g43ca);
 	} else {

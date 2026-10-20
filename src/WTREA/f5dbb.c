@@ -20,15 +20,14 @@ inflict_status(p4, p6, p8, p10, p12, p14, p16)
 L5dd9:
 	l6 = roll_dice(format_dice(p12, p14, p16));
 	if ((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) goto L5edc;
-	if (p16 != 255) goto L5e45;
+	if (p16 == 255) {
 	g450a[((432 * p4) + p10)] = -1;
-	goto L5e7b;
-L5e45:
+	} else {
 	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) > 250) {
 	l6 = (250 - (unsigned char)g450a[((432 * p4) + p10)]);
 	}
 	g450a[((432 * p4) + p10)] = (char)((unsigned char)g450a[((432 * p4) + p10)] + l6);
-L5e7b:
+	}
 	if (p10 == 5) {
 	g458c[(432 * p4)] = *(char *)&p12;
 	}

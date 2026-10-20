@@ -286,17 +286,17 @@ Lbef4:
 	int_to_string((0 - l10), 21902);
 	print_string(l6, 21902, l122[9]);
 Lbf4a:
-	if (!l122[16]) goto Lbf91;
+	if (l122[16]) {
 	get_message((((unsigned char)l22[(0 + 1)] & 4) ? 458 : 457), 21902);
 	set_cursor(l6, 8, 10);
 	print_string(l6, 21902, 4);
-	goto Lbfcc;
-Lbf91:
-	if (!l122[15]) goto Lbfcc;
+	} else {
+	if (l122[15]) {
 	get_message(((unsigned char)l22[2] + 454), 21902);
 	set_cursor(l6, 8, 10);
 	print_string(l6, 21902, 4);
-Lbfcc:
+	}
+	}
 	set_cursor(l6, 14, 10);
 	print_int(l6, (l50 / 10), 3, 9);
 	put_char(l6, 46, 9);
@@ -305,7 +305,7 @@ Lbfcc:
 Lc029:
 	if ((p10 * 3) <= (unsigned char)l22[4]) goto Lc61e;
 	l168 = 3;
-	if (!l122[8]) goto Lc1d5;
+	if (l122[8]) {
 	set_cursor(l6, 1, 3);
 	get_message(466, 21902);
 	print_string(l6, 21902, 14);
@@ -319,7 +319,7 @@ Lc029:
 	print_string(l6, 22416, 5);
 	put_char(l6, 43, 5);
 	print_string(l6, &l166, 5);
-	if (!l9) goto Lc1cf;
+	if (l9) {
 	set_cursor(l6, 1, 4);
 	get_message(467, 21902);
 	print_string(l6, 21902, 14);
@@ -329,9 +329,9 @@ Lc029:
 	put_char(l6, 43, 5);
 	}
 	print_string(l6, 21902, 5);
-Lc1cf:
+	}
 	l168 = 5;
-Lc1d5:
+	}
 	if ((!l122[7]) || (!((unsigned char)l14 - (unsigned char)l13))) goto Lc296;
 	l168 = (l122[8] != 0 ? 4 : 3);
 	set_cursor(l6, 11, l168);
@@ -353,7 +353,7 @@ Lc296:
 	fb659(l6, (unsigned char)l22[5], 1);
 	l168++;
 	}
-	if (!l52) goto Lc3b7;
+	if (l52) {
 	l126 = (l52 % 256);
 	get_message((l126 + 4000), 21902);
 	set_cursor(l6, 1, l168);
@@ -366,7 +366,7 @@ Lc296:
 	print_int(l6, (unsigned char)pc_item_qty[((432 * p6) + (p8 << 3))], 3, 1);
 	}
 	l168++;
-Lc3b7:
+	}
 	if ((l168 <= 3) || (l168 >= 8)) goto Lc3c9;
 	l168++;
 Lc3c9:

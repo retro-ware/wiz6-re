@@ -30,19 +30,19 @@ do_use_item(p4, p6, p8, p10)
 	switch ((unsigned char)l5) {
 case 1:
 	l80 = choose_item(p4, p6, 408, p8, 0);
-	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) != 395) goto L9043;
+	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) == 395) {
 	show_text_pages(p6, 11350);
-	goto L906b;
-L9043:
-	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) != 403) goto L906b;
+	} else {
+	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) == 403) {
 	show_text_pages(p6, 12200);
-L906b:
+	}
+	}
 	goto L9229;
 case 2:
 	show_text_pages(p6, l58);
 	goto L9229;
 case 3:
-	if (test_bit(&l20, (unsigned char)pc_class[(432 * p8)]) != 1) goto L910e;
+	if (test_bit(&l20, (unsigned char)pc_class[(432 * p8)]) == 1) {
 	l76 = (l46 % 256);
 	if (((unsigned char)g00df[(l76 * 6)] << 1) > *(int *)((char *)pc_level + (432 * p8))) {
 	show_text_pages(p6, 725);
@@ -51,10 +51,9 @@ case 3:
 	show_text_pages(p6, 720);
 	remove_item(p8, p10);
 	}
-	goto L911b;
-L910e:
+	} else {
 	show_text_pages(p6, 730);
-L911b:
+	}
 	goto L9229;
 case 4:
 	if (game_state_arg == l50) {

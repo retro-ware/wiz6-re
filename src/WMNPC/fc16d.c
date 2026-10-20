@@ -24,16 +24,15 @@ Lc19f:
 	goto Lc19f;
 Lc1d5:
 	l126[l84] = l86;
-	if (p6) goto Lc207;
+	if (!p6) {
 	if (l84 > l132) {
 	l84 = l132;
 	}
 	l130 = random(l84);
-	goto Lc221;
-Lc207:
+	} else {
 	l84 -= l134;
 	l130 = (random(l84) + l134);
-Lc221:
+	}
 	*(int *)(l82 + 0) = (l126[(l130 + 1)] - l126[l130]);
 	strncpy(p4, (l126[l130] + ((char *)l82 + 2)), *(int *)(l82 + 0));
 	(p4 + *(int *)(l82 + 0))[-65537] = 0;

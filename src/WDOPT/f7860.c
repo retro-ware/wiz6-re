@@ -127,13 +127,13 @@ case 1:
 	}
 	goto L7d3a;
 case 2:
-	if (on_cancel != 1) goto L7cf2;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L7cfb;
-L7cf2:
-	if (sel <= 0) goto L7cfb;
+	} else {
+	if (sel > 0) {
 	sel--;
-L7cfb:
+	}
+	}
 	goto L7d3a;
 case 3:
 	if (on_cancel == 1) {
@@ -141,13 +141,13 @@ case 3:
 	}
 	goto L7d3a;
 case 4:
-	if (on_cancel != 1) goto L7d17;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-	goto L7d24;
-L7d17:
-	if ((sel + 1) >= g51b8) goto L7d24;
+	} else {
+	if ((sel + 1) < g51b8) {
 	sel++;
-L7d24:
+	}
+	}
 	goto L7d3a;
 	}
 L7d3a:

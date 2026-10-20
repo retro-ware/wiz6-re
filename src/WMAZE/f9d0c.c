@@ -38,15 +38,14 @@ case 5:
 	goto L9dcf;
 case 6:
 	p4++;
-	if (*(unsigned char *)p4 < 14) goto L9da3;
+	if (*(unsigned char *)p4 >= 14) {
 	if ((unsigned char)*p4 != cur_sound) {
 	load_sound_bank((unsigned char)*p4);
 	}
 	play_sound(14);
-	goto L9daf;
-L9da3:
+	} else {
 	play_sound((unsigned char)*p4);
-L9daf:
+	}
 	p4++;
 	goto L9dcf;
 	}

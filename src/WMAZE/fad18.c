@@ -20,15 +20,14 @@ inflict_status(p4, p6, p8, p10, p12, p14, p16)
 Lad36:
 	l6 = roll_dice(format_dice(p12, p14, p16));
 	if ((p8) && (random(100) <= ((unsigned char)g453a[((432 * p4) + p8)] - (p12 * 3)))) goto Lae46;
-	if (p16 != 255) goto Ladaf;
+	if (p16 == 255) {
 	g450a[((432 * p4) + p10)] = -1;
-	goto Lade5;
-Ladaf:
+	} else {
 	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) > 250) {
 	l6 = (250 - (unsigned char)g450a[((432 * p4) + p10)]);
 	}
 	g450a[((432 * p4) + p10)] = (char)((unsigned char)g450a[((432 * p4) + p10)] + l6);
-Lade5:
+	}
 	if (p10 == 5) {
 	g458c[(432 * p4)] = *(char *)&p12;
 	}

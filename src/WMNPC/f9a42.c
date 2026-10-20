@@ -101,13 +101,13 @@ case 1:
 	}
 	goto L9dee;
 case 2:
-	if (l24 != 1) goto L9da6;
+	if (l24 == 1) {
 	l24 = 0;
-	goto L9daf;
-L9da6:
-	if (p10 <= 0) goto L9daf;
+	} else {
+	if (p10 > 0) {
 	p10--;
-L9daf:
+	}
+	}
 	goto L9dee;
 case 3:
 	if (l24 == 1) {
@@ -115,13 +115,13 @@ case 3:
 	}
 	goto L9dee;
 case 4:
-	if (l24 != 1) goto L9dcb;
+	if (l24 == 1) {
 	l24 = 0;
-	goto L9dd8;
-L9dcb:
-	if ((p10 + 1) >= g5324) goto L9dd8;
+	} else {
+	if ((p10 + 1) < g5324) {
 	p10++;
-L9dd8:
+	}
+	}
 	goto L9dee;
 	}
 L9dee:

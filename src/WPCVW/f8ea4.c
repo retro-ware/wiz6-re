@@ -15,7 +15,7 @@ show_text_pages(p4, p6)
 	l6 = 1;
 L8ee4:
 	get_message(p6, 21902);
-	if (msg_not_found) goto L8f9d;
+	if (!msg_not_found) {
 	l10 = 21902;
 	if (*l10 == 33) {
 	l10++;
@@ -32,20 +32,20 @@ L8ee4:
 	}
 	l2++;
 	l4 = (20 - ((strlen(l10) + 1) / 2));
-	if (*l10 != 36) goto L8f64;
+	if (*l10 == 36) {
 	l10++;
 	l4 = 1;
-	goto L8f75;
-L8f64:
-	if (*l10 != 94) goto L8f75;
+	} else {
+	if (*l10 == 94) {
 	l10++;
 	l4 = l6;
-L8f75:
+	}
+	}
 	set_cursor(l8, l4, l2);
 	print_string(l8, l10, g0002);
 	l6 = l4;
 	p6++;
-L8f9d:
+	}
 	if (!msg_not_found) goto L8ee4;
 	wait_key_or_click(p4);
 	destroy_window(l8, 0);

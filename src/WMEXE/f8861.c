@@ -1,13 +1,13 @@
 clamp_toward_x(p4, p6, p8)
 {
 	if (p8 != 1) goto L8888;
-	if (p6 <= 0) goto L8878;
+	if (p6 > 0) {
 	p6 -= p4;
-	goto L8886;
-L8878:
-	if ((0 - p4) >= p6) goto L8886;
+	} else {
+	if ((0 - p4) < p6) {
 	p6 = (0 - p4);
-L8886:
+	}
+	}
 	goto L88aa;
 L8888:
 	if (p8) goto L88aa;

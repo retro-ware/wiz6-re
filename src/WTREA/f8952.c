@@ -68,14 +68,13 @@ L8b33:
 	set_click_region((loot_count + 1), 255, 0, 0, 0);
 	refresh_all_windows();
 L8c09:
-	if (sel != -1) goto L8c52;
+	if (sel == -1) {
 	if (!mouse_present) {
 	set_cursor(win, l16, l18);
 	print_string(win, &l28, -3);
 	}
 	clear_window_area(win, 2, 3, 17, 3);
-	goto L8d0c;
-L8c52:
+	} else {
 	set_cursor(list_win, 21, sel);
 	print_string(list_win, ((sel * 18) + 20974), -3);
 	set_cursor(win, 2, 3);
@@ -84,19 +83,18 @@ L8c52:
 	print_int(win, (g5268[sel] / 10), 4, 3);
 	put_char(win, 46, 3);
 	print_int(win, (g5268[sel] % 10), 1, 3);
-L8d0c:
+	}
 	l8 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L8d65;
-	if (l8 != sel) goto L8d30;
+	if (l8 == sel) {
 	l8 = 5;
-	goto L8d62;
-L8d30:
+	} else {
 	if (sel != -1) {
 	draw_loot_line(list_win, sel);
 	}
 	sel = (l8 < loot_count ? l8 : -1);
 	l8 = (sel == -1 ? 5 : 0);
-L8d62:
+	}
 	goto L8e6a;
 L8d65:
 	switch (l8) {

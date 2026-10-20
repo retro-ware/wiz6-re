@@ -57,12 +57,12 @@ L5710:
 L5713:
 	if (g <= monster_group_count) goto L55ff;
 	monster_group_count = count;
-	if (monster_group_count) goto L573f;
+	if (!monster_group_count) {
 	if (return_cmd != 8) {
 	return_cmd = 15;
 	}
 	combat_over = 1;
-L573f:
+	}
 	load_group_pics();
 	check_group_surprise();
 }

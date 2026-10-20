@@ -93,16 +93,16 @@ case 3:
 L6638:
 	goto L66a5;
 case 4:
-	if (l6 != -1) goto L6669;
+	if (l6 == -1) {
 	set_cursor(main_window, l28, l30);
 	print_string_hi(main_window, &l16, 3);
 	l6 = 0;
-	goto L6686;
-L6669:
-	if ((l6 + 2) >= party_count) goto L6686;
+	} else {
+	if ((l6 + 2) < party_count) {
 	f62a9(l4, l6);
 	l6 += 2;
-L6686:
+	}
+	}
 	goto L66a5;
 	}
 L66a5:

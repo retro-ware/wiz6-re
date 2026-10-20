@@ -55,7 +55,7 @@ L7067:
 case 0:
 	return 0;
 case 1:
-	if (l36[((l2 << 2) + 2)]) goto L70d1;
+	if (!l36[((l2 << 2) + 2)]) {
 	if (!g5264) {
 	f6d9d();
 	fc999(*(int *)(l36 + (l2 << 2)));
@@ -63,10 +63,9 @@ case 1:
 	} else {
 	fc999(*(int *)(l36 + (l2 << 2)));
 	}
-	goto L70ec;
-L70d1:
+	} else {
 	f5c61(*(int *)(l36 + (l2 << 2)), ((unsigned char)l36[((l2 << 2) + 2)] - 1));
-L70ec:
+	}
 	goto L7f6d;
 case 2:
 	f5d9b(1541, 1);
@@ -394,18 +393,18 @@ case 33:
 	for (l38 = 0; *(int *)(l36 + (l2 << 2)) > l38; l38++) {
 	l42 += random(8);
 	}
-	if ((unsigned)l36[((l2 << 2) + 2)] <= 0) goto L7c72;
+	if ((unsigned)l36[((l2 << 2) + 2)] > 0) {
 	*(int *)((char *)pc_stamina + (432 * p4)) -= l42;
 	if (*(int *)((char *)pc_stamina + (432 * p4)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
 	g450c[(432 * p4)] = *(char *)&l42;
 	}
-	goto L7c95;
-L7c72:
+	} else {
 	*(int *)((char *)pc_stamina + (432 * p4)) += l42;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L7c95;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) > *(int *)((char *)pc_stamina_max + (432 * p4))) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
-L7c95:
+	}
+	}
 	f5078(p4, g527a);
 	goto L7f6d;
 case 34:

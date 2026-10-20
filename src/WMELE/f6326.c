@@ -45,7 +45,7 @@ L6397:
 L6400:
 	l4 = (unsigned char)g3649[((pos * 30) + (i * 3))];
 	l6 = (unsigned char)g364a[((pos * 30) + (i * 3))];
-	if (--l6 > 0) goto L652e;
+	if (--l6 <= 0) {
 	l2 = (unsigned char)g3648[((pos * 30) + (i * 3))];
 	l4++;
 	if ((((unsigned char)g3746[((314 * pic) + l2)] + (unsigned char)g3750[((314 * pic) + l2)]) - 1) < l4) {
@@ -55,7 +55,7 @@ L6400:
 	}
 	g3649[((pos * 30) + (i * 3))] = *(char *)&l4;
 	l6 = (random((unsigned char)g375c[((314 * pic) + (l4 << 2))]) + (unsigned char)g375b[((314 * pic) + (l4 << 2))]);
-L652e:
+	}
 	g364a[((pos * 30) + (i * 3))] = *(char *)&l6;
 L6554:
 	*(out + len) = g375a[((314 * pic) + (l4 << 2))];

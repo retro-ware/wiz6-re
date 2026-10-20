@@ -54,7 +54,7 @@ L6545:
 	l72 = 1;
 	g5014 = l2;
 L6564:
-	if (l72 != 1) goto L66c6;
+	if (l72 == 1) {
 	blink_state = 1;
 	if (realm == -1) {
 	g5012 = 13;
@@ -82,7 +82,7 @@ L6564:
 	g501d = 0;
 	g5018 = 17;
 	l72 = 0;
-L66c6:
+	}
 	l6 = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L6720;
 	if (l6 != realm) goto L66ea;
@@ -104,17 +104,17 @@ L6718:
 L6720:
 	switch (l6) {
 case 1:
-	if (realm != -1) goto L6744;
+	if (realm == -1) {
 	unhighlight_combat_realm(l2, realm);
 	realm = 4;
 	l72 = 1;
-	goto L6761;
-L6744:
-	if ((realm - 3) < 0) goto L6761;
+	} else {
+	if ((realm - 3) >= 0) {
 	unhighlight_combat_realm(l2, realm);
 	realm += -3;
 	l72 = 1;
-L6761:
+	}
+	}
 	goto L6806;
 case 2:
 	if ((realm == -1) || ((realm % 3) <= 0)) goto L678e;
@@ -295,21 +295,21 @@ case 1:
 	}
 	goto L6e98;
 case 3:
-	if (level) goto L6e4c;
+	if (!level) {
 	unhighlight_combat_realm(l2, -1);
 	clear_window_area(l2, 13, 1, 20, 1);
 	set_cursor(l2, 13, 1);
 	print_message((realm + 3950), l2, realm_colors[realm]);
 	level = 1;
 	l72 = 1;
-	goto L6e86;
-L6e4c:
-	if (level >= max_level) goto L6e86;
+	} else {
+	if (level < max_level) {
 	set_cursor(l2, (level + 14), 3);
 	put_char(l2, (unsigned char)((level + 23)), 5);
 	level++;
 	l72 = 1;
-L6e86:
+	}
+	}
 	goto L6e98;
 	}
 L6e98:

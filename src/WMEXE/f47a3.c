@@ -49,7 +49,7 @@ case 3:
 	l10 = 3751;
 	goto L4a5e;
 case 11:
-	if (random(100) <= (unsigned char)(*(char **)((char *)group_monster_rec + (p8 << 1)))[161]) goto L4a4c;
+	if (random(100) > (unsigned char)(*(char **)((char *)group_monster_rec + (p8 << 1)))[161]) {
 	l8 = roll_dice_x(f5eea(1, 4, 0));
 	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) -= l8;
 	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2) -= l8;
@@ -61,7 +61,7 @@ case 11:
 	*(int *)((char *)pc_hp_max + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4);
 	}
 	l10 = 3752;
-L4a4c:
+	}
 	goto L4a5e;
 	}
 L4a5e:
