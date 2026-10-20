@@ -24,5 +24,6 @@ worse=$(git diff --name-only HEAD -- src | while read f; do
 	c=$(git show "HEAD:$f" 2>/dev/null | grep -c '^{'); d=$(grep -c '^{' "$f" 2>/dev/null); d=${d:-0}
 	[ "$d" -lt "$c" ] && echo "$f lost its C body"; done)
 if [ -n "$worse" ] && [ -z "$FORCE" ]; then echo "REGRESSED"; echo "$worse"; exit 1; fi
-git add -A && git -c user.email=felix@1kloc.com commit -qm "$1" && echo COMMITTED
+git add -A && git -c user.email=felix@1kloc.com commit -qm "$1" \
+	-m "Claude-Session: https://claude.ai/code/session_01HyK6uYWNzMXj2iihpndVuo" && echo COMMITTED
 git grep -c '^#asm' HEAD -- src | awk -F: '{s += $NF} END {print "asm blocks", s}'
