@@ -13,6 +13,7 @@ from skel import Names, skeleton, write
 from lift import Lifter
 from cprint import Printer
 import promote
+import structret
 
 R = os.path.join(os.path.dirname(__file__), '..')
 
@@ -26,6 +27,10 @@ def render(iname):
     for s, e in img.ranges():
         st = state.get('%04x' % s)
         path = R + '/src/%s/f%04x.c' % (iname, s)
+        if st and st['status'] == 'ok' and st.get('structret'):
+            write(path, structret.source(img.fname(s)))
+            n += 1
+            continue
         if st and st['status'] == 'ok':
             L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))

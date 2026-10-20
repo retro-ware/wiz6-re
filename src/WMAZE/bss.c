@@ -1,6 +1,5 @@
 #asm
-	global g501a_:byte,2
-	global g501c_:byte,22
+	global g501e_:byte,20
 	global g5032_:byte,2
 	global g5034_:byte,2
 	global g5036_:byte,2

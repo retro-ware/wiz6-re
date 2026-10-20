@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from x86dis import Image
 from skel import db, write, skeleton
 import symnames
+import structret
 
 R = os.path.join(os.path.dirname(__file__), '..')
 ALL = ['ROOT', 'WINIT', 'WBASE', 'WMELE', 'WDOPT', 'WPCMK', 'WPOPS', 'WTREA', 'WMAZE', 'WMEXE',
@@ -70,8 +71,13 @@ def labels(img, addrs):
         p = a
     out += db(img.data[p - d0:]) + ['dataseg ends', '#endasm']
     write(R + '/src/%s/data.c' % img.name, out)
-    if img.bss[1] > img.bss[0]:
-        cuts = sorted({img.bss[0]} | set(bl)) + [img.bss[1]]
+    sp = R + '/work/lift/%s/state.json' % img.name
+    st = json.load(open(sp)) if os.path.exists(sp) else {}
+    # a struct-returning function's own static buffer sits at the bss start (structret.py)
+    b0 = img.bss[0] + sum(structret.SIZE for v in st.values()
+                          if v['status'] == 'ok' and v.get('structret') == img.bss[0])
+    if img.bss[1] > b0:
+        cuts = sorted({b0} | {a for a in bl if a >= b0}) + [img.bss[1]]
         # asm 'global' keeps source order; cc's own symtab order is hashed
         # ln word-aligns even-sized commons: at an odd address, split off one byte
         decl = []

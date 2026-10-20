@@ -13,6 +13,7 @@ os.environ['WIZ6_NAMES'] = '0'   # lift with address names; render.py applies na
 import capstone as cs
 from x86dis import Image
 from lift import Lifter
+import structret
 from cprint import Printer, st_targets
 from aztobj import Obj
 import cmpobj
@@ -56,6 +57,12 @@ class Loop:
         head = keys(self.img.code[s - self.img.cbase:min(e, s + 16) - self.img.cbase], s)[:6]
         if any(k[2] in ('push ds', 'push es') for k in head):
             st['status'], st['why'] = 'asm', 'handwritten'
+            return None
+        b = structret.buffer(self.img, s, e)
+        if b is not None:       # returns a struct through the module's own bss: fixed C
+            open('%s/f%04x.c' % (self.dir, s), 'wb').write(
+                ('\r\n'.join(structret.source(self.img.fname(s))) + '\r\n').encode('latin1'))
+            st.update(status='ok', raw=0, stmts=1, structret=b)
             return None
         for _ in range(50):
             L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
