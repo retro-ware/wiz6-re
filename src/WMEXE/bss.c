@@ -2,7 +2,8 @@
 	global g4ff8_:byte,16
 	global g5008_:byte,2
 	global g500a_:byte,82
-	global g505c_:byte,160
+	global g505c_:byte,80
+	global g50ac_:byte,80
 	global g50fc_:byte,2
 	global g50fe_:byte,20
 	global g5112_:byte,2

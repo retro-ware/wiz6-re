@@ -512,6 +512,11 @@ class Printer:
         idx = {st.s: k for k, st in enumerate(sts)}
         used = set(fors) | set(forend)
         opens, elses, closes = {}, set(), {}
+        # labels an asm block (or the final jmp, or a return) jumps to must stay
+        asm_t = {i.operands[0].imm & 0xffff for st in sts if st.kind == 'raw' for a, i in self.f.seen.items()
+                 if st.s <= a < st.e and i.group(1) and i.operands[0].type == 2}
+        asm_t |= {self.tail_goto[1]} if self.tail_goto else set()
+        asm_t |= {sts[epi_k].s} if fwd else set()
 
         def plain(a, b, ok):
             return a < b and all(sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') and x not in used and
@@ -520,7 +525,7 @@ class Printer:
         for k, st in enumerate(sts):
             c = getattr(st, 'cond', None)
             if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
-                    refs.get(st.target) != 1 or st.target in cases or st.target in default:
+                    refs.get(st.target) != 1 or st.target in cases or st.target in default or st.target in asm_t:
                 continue
             kt = idx.get(st.target)
             if kt is None or kt <= k + 1:
@@ -528,7 +533,7 @@ class Printer:
             g = sts[kt - 1]
             kj = idx.get(g.target) if g.kind == 'goto' and kt - 1 not in used else None
             if kj is not None and kj > kt and refs.get(g.target) == 1 and g.s not in labels and \
-                    g.target not in cases and g.target not in default and \
+                    g.target not in cases and g.target not in default and g.target not in asm_t and \
                     plain(k + 1, kt - 1, ()) and plain(kt, kj, {st.target}):
                 elses.add(kt - 1)
                 closes[kj] = closes.get(kj, 0) + 1

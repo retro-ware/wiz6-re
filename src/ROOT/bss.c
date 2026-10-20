@@ -12,13 +12,23 @@
 	global msg_block_num_:byte,2
 	global msg_cache_next_:byte,2
 	global msg_not_found_:byte,2
-	global disk_header_:byte,704
+	global disk_header_:byte,4
+	global g3048_:byte,40
+	global g3070_:byte,16
+	global g3080_:byte,64
+	global g30c0_:byte,256
+	global g31c0_:byte,256
+	global g32c0_:byte,64
+	global record_sizes_:byte,4
 	global g3304_:byte,2
 	global g3306_:byte,18
-	global g3318_:byte,42
-	global main_window_:byte,6
+	global g3318_:byte,32
+	global record_packed_:byte,10
+	global main_window_:byte,2
+	global g3344_:byte,4
 	global sound_table_:byte,2
-	global g334a_:byte,162
+	global g334a_:byte,4
+	global g334e_:byte,158
 	global g33ec_:byte,4
 	global cur_sound_size_:byte,2
 	global g33f2_:byte,414
@@ -143,8 +153,13 @@
 	global g44e4_:byte,1
 	global g44e5_:byte,1
 	global g44e6_:byte,1
-	global g44e7_:byte,17
-	global pc_equipped_:byte,2
+	global g44e7_:byte,1
+	global g44e8_:byte,2
+	global g44ea_:byte,11
+	global g44f5_:byte,1
+	global g44f6_:byte,2
+	global pc_equipped_:byte,1
+	global g44f9_:byte,1
 	global g44fa_:byte,6
 	global g4500_:byte,4
 	global g4504_:byte,6
@@ -165,7 +180,8 @@
 	global g4519_:byte,1
 	global g451a_:byte,1
 	global g451b_:byte,1
-	global pc_skills_:byte,9
+	global pc_skills_:byte,8
+	global g4524_:byte,1
 	global g4525_:byte,1
 	global g4526_:byte,1
 	global g4527_:byte,1

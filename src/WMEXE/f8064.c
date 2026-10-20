@@ -22,8 +22,8 @@ L80a3:
 	l4--;
 	goto L80a3;
 L80b9:
-	if (p8 < 1) {
+	if (p8 >= 1) goto L80c4;
 	p8 = 1;
-	}
+L80c4:
 	return p8;
 }

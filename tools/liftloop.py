@@ -124,6 +124,13 @@ class Loop:
         st.setdefault('nobool', []).extend(sorted(nb))
         return bool(nb)
 
+    @staticmethod
+    def unstruct(st, L):
+        """A mismatch no statement explains: print every structured if/else and for loop with gotos."""
+        nb = {x.forhead for x in L.sts if getattr(x, 'forhead', None) is not None} - set(st.get('nobool', []))
+        st.setdefault('nobool', []).extend(sorted(nb))
+        return bool(nb)
+
     def check(self, s, P, L, lines, errs):
         """Returns True if the function changed (needs another round)."""
         st = self.st(s)
@@ -145,6 +152,8 @@ class Loop:
             if self.unmerge(st, L, dem):
                 return True
             dem -= set(st['demote'])
+            if not dem and self.unstruct(st, L):
+                return True
             if not dem:      # nothing new to demote: no progress possible
                 st['status'], st['why'] = 'asm', 'compile: ' + errs[0][:80]
                 return False
@@ -188,6 +197,8 @@ class Loop:
         if self.unmerge(st, L, dem):
             return True
         dem -= set(st['demote'])
+        if not dem and self.unstruct(st, L):
+            return True
         if not dem and L.f.scratch and not st.get('noscratch'):
             # prologue/epilogue differ: si/di were register variables, not cgen's index temps
             st['noscratch'], st['demote'] = True, []

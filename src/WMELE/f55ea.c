@@ -69,9 +69,9 @@ L5713:
 	if (g <= monster_group_count) goto L55ff;
 	monster_group_count = count;
 	if (monster_group_count) goto L573f;
-	if (return_cmd != 8) {
+	if (return_cmd == 8) goto L5739;
 	return_cmd = 15;
-	}
+L5739:
 	combat_over = 1;
 L573f:
 	load_group_pics();
