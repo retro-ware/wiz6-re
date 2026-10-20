@@ -187,7 +187,4 @@ Lf29d:
 	}
 	fe964();
 	return;
-#asm
-	db 0e8h,06dh,0f7h,0ffh,036h,0bch,04fh,0e8h,0e0h,043h,059h,0c3h
-#endasm
 }

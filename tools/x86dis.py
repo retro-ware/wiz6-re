@@ -11,7 +11,8 @@ _md = cs.Cs(cs.CS_ARCH_X86, cs.CS_MODE_16)
 _md.detail = True
 BRANCH = ('loop', 'loope', 'loopne', 'jcxz')
 # functions no prologue or direct call reveals (reached through pointers only)
-EXTRA_FUNCS = {'WPOPS': (0x51c8,)}
+# functions nothing calls directly; the frameless last ones (call the main loop, then exit) follow a ret
+EXTRA_FUNCS = {'WPOPS': (0x51c8,), 'WMELE': (0x92dc,), 'WMEXE': (0xf2b6,), 'WMNPC': (0xf6be,)}
 
 
 class Image:
