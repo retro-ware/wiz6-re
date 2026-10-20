@@ -79,13 +79,12 @@ choose_party_actions(win)
 	}
 	l172 = 0;
 L7808:
-	if ((((l172 < l178) && ((unsigned)pc_condition[(432 * member)] < 2)) && ((unsigned)g450d[(432 * member)] <= 0)) && ((unsigned)g450c[(432 * member)] <= 0)) goto L783d;
+	if ((((l172 >= l178) || ((unsigned)pc_condition[(432 * member)] >= 2)) || ((unsigned)g450d[(432 * member)] > 0)) || ((unsigned)g450c[(432 * member)] > 0)) {
 	(l180 + l172)[24] = 0;
-	goto L7854;
-L783d:
+	} else {
 	(l180 + l172)[24] = *(char *)&l174;
 	l174 -= l176;
-L7854:
+	}
 	l172++;
 	if (l172 < 4) goto L7808;
 	}
@@ -104,9 +103,9 @@ L788d:
 	if (pc_race[(432 * member)] != 7) {
 	l24 = 0;
 	}
-	if ((!(monster_groups + (44 * member))[43]) && ((((((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 13)) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 12)) || (g452c[(432 * member)]))) goto L7953;
+	if (((monster_groups + (44 * member))[43]) || ((((((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 13)) && (pc_class[(432 * member)] != 4)) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 12)) && (!g452c[(432 * member)]))) {
 	l28 = 0;
-L7953:
+	}
 	if (!pc_item_count[(432 * member)]) {
 	enabled[4] = 0;
 	}
@@ -118,25 +117,20 @@ L7953:
 	if ((l182 == 255) || (pc_item_type[((432 * member) + (l182 << 3))] != 3)) goto L7a84;
 	l184 = (unsigned char)g44f9[(432 * member)];
 	if (l184 == 255) goto L7a7f;
-	if (pc_item_type[((432 * member) + (l184 << 3))] == 4) goto L79cd;
+	if (pc_item_type[((432 * member) + (l184 << 3))] != 4) {
 	enabled[0] = 0;
-	goto L7a7d;
-L79cd:
-	if ((((pc_item_icon[((432 * member) + (l182 << 3))] != 11) || (pc_item_icon[((432 * member) + (l184 << 3))] == 22)) && ((pc_item_icon[((432 * member) + (l182 << 3))] != 13) || (pc_item_icon[((432 * member) + (l184 << 3))] == 23))) && ((pc_item_icon[((432 * member) + (l182 << 3))] != 12) || (pc_item_icon[((432 * member) + (l184 << 3))] == 83))) goto L7a7d;
+	} else {
+	if ((((pc_item_icon[((432 * member) + (l182 << 3))] == 11) && (pc_item_icon[((432 * member) + (l184 << 3))] != 22)) || ((pc_item_icon[((432 * member) + (l182 << 3))] == 13) && (pc_item_icon[((432 * member) + (l184 << 3))] != 23))) || ((pc_item_icon[((432 * member) + (l182 << 3))] == 12) && (pc_item_icon[((432 * member) + (l184 << 3))] != 83))) {
 	enabled[0] = 0;
-L7a7d:
+	}
+	}
 	goto L7a84;
 L7a7f:
 	enabled[0] = 0;
 L7a84:
-	;
-#asm
-l7a84:
-	db 08bh,046h,0fah,03dh,003h,000h,07ch,01dh,0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,080h
-	db 0bfh,0e5h,044h,000h,075h,00fh,08bh,01eh,0a8h,043h,080h,078h,02bh,001h,074h,005h
-#endasm
+	if (((member >= 3) && (!g44e5[(member * 432)])) && ((monster_groups + (44 * member))[43] != 1)) {
 	enabled[0] = 0;
-L7aa9:
+	}
 	l18 = -1;
 	copy_name(((432 * member) + 17384), &l160);
 L7ac3:
@@ -162,25 +156,24 @@ L7b42:
 	(monster_groups + (44 * member))[32] = 0;
 	l168 = 0;
 	l170 = 0;
-#asm
-	db 08bh,046h,0f8h,0e9h,02dh,004h
-#endasm
+	switch (action) {
+case 0:
 	fill_window(win, 32, 3, 0);
 	get_message(3501, &l152);
 	replace_char_with_string(&l152, &l160, 36);
 	print_combat_prompt(&l152, 0);
-	if (((l182 = (unsigned char)pc_equipped[(432 * member)]) == 255) || (pc_item_type[((432 * member) + (l182 << 3))] != 3)) goto L7c25;
+	if (((l182 = (unsigned char)pc_equipped[(432 * member)]) != 255) && (pc_item_type[((432 * member) + (l182 << 3))] == 3)) {
 	l186 = 1;
 	choice = 8;
-L7c25:
+	}
 	if (choice != -1) goto L7cc5;
 	l186 = 0;
 	l2 = 0;
 L7c3a:
 	l70[l2] = test_bit(((432 * member) + 17639), l2);
-	if ((((l2 == 4) || (member < 3)) || (l182 == 255)) || (pc_item_type[((432 * member) + (l182 << 3))] != 2)) goto L7c98;
+	if ((((l2 != 4) && (member >= 3)) && (l182 != 255)) && (pc_item_type[((432 * member) + (l182 << 3))] == 2)) {
 	l70[l2] = 0;
-L7c98:
+	}
 	if (l70[l2] == 1) {
 	l186++;
 	choice = l2;
@@ -194,9 +187,9 @@ L7cc5:
 	choice = combat_menu_select(win, 3050, l70, 3, 1, 8, 3, 5, 0);
 	}
 	if (choice == -1) goto L7d73;
-	if (((l188 = (unsigned char)g44e5[(432 * member)]) != 2) || (choice == 4)) goto L7d2a;
+	if (((l188 = (unsigned char)g44e5[(432 * member)]) == 2) && (choice != 4)) {
 	l188 = 0;
-L7d2a:
+	}
 	if (((l188) || (member < 3)) || ((monster_groups + (member * 44))[43] == 1)) goto L7d5a;
 	play_sound(0);
 	l164 = -1;
@@ -204,13 +197,13 @@ L7d2a:
 L7d5a:
 	l164 = select_monster_group(win, 3602, l188, 0);
 L7d73:
-	if ((choice != -1) && (l164 != -1)) goto L7d89;
+	if ((choice == -1) || (l164 == -1)) {
 	l168 = 1;
-	goto L7d9e;
-L7d89:
+	} else {
 	(monster_groups + (44 * member))[31] = *(char *)&l164;
-L7d9e:
+	}
 	goto L7fe6;
+case 1:
 	fill_window(win, 32, 3, 0);
 	get_message(3502, &l152);
 	replace_char_with_string(&l152, &l160, 36);
@@ -227,47 +220,42 @@ L7d9e:
 	l168 = 1;
 	}
 	goto L7fe6;
-#asm
-	db 0e9h,06ah,001h
-#endasm
+case 2:
+	goto L7fe6;
+case 3:
 	choice = choose_combat_spell(win, member);
 	blink_state = -1;
 	if (choice == -1) {
 	l168 = 1;
 	}
 	goto L7fe6;
+case 4:
 	if ((choice = choose_combat_item(win, member)) == -1) {
 	l168 = 1;
 	}
 	goto L7fe6;
+case 5:
 	if ((choice = select_party_member(3611)) == -1) {
 	l168 = 1;
 	}
 	goto L7fe6;
-#asm
-	db 0e9h,00bh,001h
-#endasm
+case 6:
+	goto L7fe6;
+case 8:
 	l164 = select_monster_group(win, 3605, 1, 0);
 	choice = 8;
-	if (l164 != -1) goto L7f07;
+	if (l164 == -1) {
 	l168 = 1;
-#asm
-	db 0ebh,015h
-#endasm
-L7f07:
+	} else {
 	(monster_groups + (44 * member))[31] = *(char *)&l164;
-L7f1c:
-	;
-#asm
-l7f1c:
-	db 0e9h,0c7h,000h
-#endasm
+	}
 	goto L7fe6;
+case 7:
+	goto L7fe6;
+case 9:
 	setmem(20556, 45, 0);
 	l164 = 0;
-#asm
-	db 0ebh,036h
-#endasm
+	goto L7f72;
 L7f3c:
 	if ((unsigned)(monster_groups + (44 * l164))[31] > 0) {
 	g504c[(((unsigned char)(monster_groups + (44 * l164))[31] * 9) + (unsigned char)(monster_groups + (44 * l164))[32])] = 1;
@@ -279,25 +267,22 @@ L7f72:
 	done_count -= 2;
 	l170 = 1;
 	goto L7fe6;
+case 10:
 	setmem(20556, 45, 0);
 	member = -1;
 	l170 = 1;
 	done_count = 0;
-#asm
-	db 0ebh,023h,0ach,07bh,0a1h,07dh,079h,07eh,07ch,07eh,0a0h,07eh,0beh,07eh,0d8h,07eh
-	db 01fh,07fh,0dbh,07eh,022h,07fh,09eh,07fh
-l7fd9:
-	db 03dh,00bh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0c3h,07fh
-#endasm
+	goto L7fe6;
+	}
 L7fe6:
 	if (l168 == 1) goto L7ac3;
 	if (l170) goto L818d;
 	*(int *)((monster_groups + (44 * member)) + 10) = choice;
 	*(int *)((monster_groups + (44 * member)) + 12) = -1;
 	(monster_groups + (44 * member))[30] = *(char *)&action;
-	if (((l164 = (unsigned char)(monster_groups + (44 * member))[31]) < 1) || (l164 > 5)) goto L8074;
+	if (((l164 = (unsigned char)(monster_groups + (44 * member))[31]) >= 1) && (l164 <= 5)) {
 	(monster_groups + (44 * member))[32] = (char)pick_target_monster(member, (unsigned char)*(char *)&l164);
-L8074:
+	}
 	l182 = (unsigned char)g44f9[(432 * member)];
 	if (action) goto L818d;
 	if ((l182 != 255) || ((unsigned char)pc_equipped[(432 * member)] != 255)) goto L80c9;
@@ -363,12 +348,12 @@ L82dd:
 	member = 0;
 	goto L839a;
 L82e5:
-	if (((unsigned)(monster_groups + (44 * member))[15] <= 0) || (random(100) <= ((unsigned char)g451a[(432 * member)] + 80))) goto L832a;
+	if (((unsigned)(monster_groups + (44 * member))[15] > 0) && (random(100) > ((unsigned char)g451a[(432 * member)] + 80))) {
 	(monster_groups + (44 * member))[30] = 7;
-L832a:
-	if (((monster_groups + (44 * member))[30] != 1) && ((monster_groups + (44 * member))[30] != 5)) goto L8346;
+	}
+	if (((monster_groups + (44 * member))[30] == 1) || ((monster_groups + (44 * member))[30] == 5)) {
 	(monster_groups + (44 * member))[24] = 1;
-L8346:
+	}
 	if ((monster_groups + (44 * member))[30]) goto L8374;
 	if (*(int *)((monster_groups + (44 * member)) + 12) == -1) {
 	(monster_groups + (44 * member))[25] = 0;

@@ -260,7 +260,7 @@ class Loop:
             if st['lenient_score'] >= score:
                 return False
             mode = 'lenient'
-        for k in ('demote', 'nobool', 'nomerge', 'why', 'structret', 'sretsize'):
+        for k in ('demote', 'nobool', 'nomerge', 'noandif', 'why', 'structret', 'sretsize'):
             st.pop(k, None)
         st['demote'], st['noscratch'] = [], mode
         t.append(mode)
