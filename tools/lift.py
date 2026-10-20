@@ -1104,6 +1104,16 @@ class Lifter:
                 if i.group(X.X86_GRP_JUMP) or i.mnemonic in BRANCH or \
                         i.mnemonic in ('call', 'ret', 'push', 'pop'):
                     break
+                o = i.operands
+                if i.mnemonic == 'mov' and len(o) == 2 and o[0].type == X.X86_OP_MEM and o[0].size == 2 and \
+                        o[1].type == X.X86_OP_IMM and self.R.get(reg) == ('c', o[1].imm & 0xffff):
+                    # mov ax, K; mov x, K: the arm is (x = K)
+                    lv = self.memop(o[0])
+                    if lv[0] == 'v' and lv[1] == 'r':
+                        break
+                    self.R[reg] = ('=', lv, self.R[reg])
+                    p += i.size
+                    continue
                 self.cur = i
                 self.step(i)
                 p += i.size
