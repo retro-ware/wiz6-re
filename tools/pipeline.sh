@@ -14,10 +14,15 @@ grep -h ' functions, ' work/*.loop.log | awk '{ok += $4; gsub(/\(/, "", $6); fre
 tail -3 work/render.log
 tools/sbuild.sh $IMGS || exit 1
 echo ALLOK
-# no function may gain #asm against HEAD (a byte-identical build can still lose C); FORCE=1 overrides
+# no function may gain #asm or lose its C body against HEAD (a byte-identical build can still
+# lose C); FORCE=1 overrides
+# (#asm blocks holding code: a header of extrn lines alone does not count)
+code='/^#asm/ {i = 1; c = 0; next} /^#endasm/ {i = 0; n += c} i && !/^\textrn / {c = 1} END {print n + 0}'
 worse=$(git diff --name-only HEAD -- src | while read f; do
-	a=$(git show "HEAD:$f" 2>/dev/null | grep -c '^#asm'); b=$(grep -c '^#asm' "$f" 2>/dev/null); b=${b:-0}
-	[ "$b" -gt "$a" ] && echo "$f $a -> $b"; done)
+	a=$(git show "HEAD:$f" 2>/dev/null | awk "$code"); b=$(awk "$code" "$f" 2>/dev/null); a=${a:-0}; b=${b:-0}
+	[ "$b" -gt "$a" ] && echo "$f $a -> $b"
+	c=$(git show "HEAD:$f" 2>/dev/null | grep -c '^{'); d=$(grep -c '^{' "$f" 2>/dev/null); d=${d:-0}
+	[ "$d" -lt "$c" ] && echo "$f lost its C body"; done)
 if [ -n "$worse" ] && [ -z "$FORCE" ]; then echo "REGRESSED"; echo "$worse"; exit 1; fi
 git add -A && git -c user.email=felix@1kloc.com commit -qm "$1" && echo COMMITTED
 git grep -c '^#asm' HEAD -- src | awk -F: '{s += $NF} END {print "asm blocks", s}'

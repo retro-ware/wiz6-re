@@ -197,9 +197,11 @@ class Loop:
             # we kept si alone as a regvar, the original saves both: si is the index temp after all
             st['noscratch'], st['demote'] = 'lenient', []
             return True
-        if not st.get('noscratch') and any(r not in L.f.scratch and L.f._is_scratch(r, True) for r in L.f.regs):
-            # a regvar that is an index temp kept across a label (a ternary's join): try it as the temp
-            st['noscratch'], st['demote'] = 'lenient', []
+        if not st.get('noscratch') and not st.get('tries') and \
+                any(r not in L.f.scratch and L.f._is_scratch(r, True) for r in L.f.regs):
+            # a regvar that may be an index temp kept across a label (a ternary's join): lift it both
+            # ways and keep the better one (see settle)
+            st['noscratch'], st['demote'], st['tries'] = 'lenient', [], ['lenient']
             return True
         sm = difflib.SequenceMatcher(None, [k[2] for k in ko], [k[2] for k in ku], autojunk=False)
         bad = set()
@@ -238,22 +240,45 @@ class Loop:
         st['demote'] += sorted(dem)
         return True
 
+    @staticmethod
+    def settle(st):
+        """A finished function lifted both with and without lenient index temps: True to lift it
+        again in the other (or the better) mode."""
+        t = st.get('tries')
+        if not t or len(t) == 3:
+            return False
+        score = st.get('raw', 0) if st['status'] == 'ok' else 1 << 20
+        if len(t) == 1:
+            st['lenient_score'] = score
+            mode = False
+        else:
+            if st['lenient_score'] >= score:
+                return False
+            mode = 'lenient'
+        for k in ('demote', 'nobool', 'nomerge', 'why', 'structret', 'sretsize'):
+            st.pop(k, None)
+        st['demote'], st['noscratch'] = [], mode
+        t.append(mode)
+        return True
+
     def run(self, addrs):
         todo = [a for a in addrs if self.st(a)['status'] in ('new', 'pending')]
         rnd = 0
         while todo:
             rnd += 1
-            lifted = {}
+            lifted, nxt = {}, []
             for a in todo:
                 r = self.lift(a)
                 if r:
                     lifted[a] = r
-            if not lifted:
+                elif self.settle(self.st(a)):       # gave up in this mode: the other one is left
+                    self.st(a)['status'] = 'pending'
+                    nxt.append(a)
+            if not lifted and not nxt:
                 break
-            errs = self.compile(sorted(lifted))
-            nxt = []
+            errs = self.compile(sorted(lifted)) if lifted else {}
             for a, (P, L, lines) in lifted.items():
-                if self.check(a, P, L, lines, errs.get('f%04x' % a, [])):
+                if self.check(a, P, L, lines, errs.get('f%04x' % a, [])) or self.settle(self.st(a)):
                     self.st(a)['status'] = 'pending'
                     nxt.append(a)
             ok = sum(1 for a in addrs if self.st(a)['status'] == 'ok')
