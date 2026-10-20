@@ -290,6 +290,12 @@ class Printer:
             return self.addr(('m', e[2], e[3][1], 1))
         return self.ptr(e)
 
+    def stores_bx(self, st):
+        """The statement's last instruction stores bx (cgen kept the address it built there)."""
+        last = max((a for a in self.f.seen if st.s <= a < st.e), default=None)
+        i = self.f.seen.get(last)
+        return i is not None and i.mnemonic == 'mov' and i.op_str.endswith(', bx')
+
     def reg_used(self, r):
         """Some lifted statement names the register variable r."""
         v = ('v', 'r', r, 2)
@@ -626,7 +632,7 @@ class Printer:
                     out.append('\t%s = %s;' % (self.lvx(st.lv), self.ptr(rv)))
                 elif st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr and rv[0] == 'b' and rv[1] == '+' and \
                         rv[3][0] == 'c' and self.T.is_data(rv[3][1]) and (rv[3][1] & 0xffff) >= 0x100 and \
-                        rv[2][0] not in ('c', 'v'):
+                        rv[2][0] not in ('c', 'v') and self.stores_bx(st):
                     # pointer = &global[i]: cgen keeps the index in bx and adds the base there
                     out.append('\t%s = (char *)%s + %s;' % (self.lvx(st.lv), self.global_name(rv[3][1]), self.ex(rv[2])))
                 elif size_of(st.lv) == 1 and rv[0] == 'lo' and rv[1][0] == 'b' and rv[1][1] in ('&', '|', '^') and \

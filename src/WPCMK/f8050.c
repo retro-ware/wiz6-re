@@ -1,6 +1,3 @@
-#asm
-	extrn access_scenario_record_:near
-#endasm
 extern char char_item_count;
 extern char g54b6[];
 extern int char_load;
@@ -18,15 +15,12 @@ add_starting_item(item_id)
 	char l53;
 	char l54;
 	int l56;
-	char x56[20];
+	char x56[18];
+	int l76;
 	char *slot;
 	int l80;
-#asm
-	db 0b8h,000h,000h,050h,0ffh,076h,004h,08dh,046h,0b4h,050h,0b8h,001h,000h,050h
-	call access_scenario_record_
-	db 083h,0c4h,008h,0a0h,01ch,056h,02ah,0e4h,0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,005h,0b0h
-	db 054h,089h,046h,0b2h
-#endasm
+	access_scenario_record(1, &l76, item_id, 0);
+	slot = (((unsigned char)char_item_count << 3) + 21680);
 	char_item_count++;
 	slot[6] = (char)(((unsigned char)l54 * (unsigned char)l53) + l56);
 	*(int *)slot = item_id;

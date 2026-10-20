@@ -1,7 +1,3 @@
-#asm
-	extrn drv_draw_text_:near
-	extrn drv_op_c6_:near
-#endasm
 extern char g507d[];
 extern char g50ac[];
 extern char g50b4[];
@@ -46,8 +42,7 @@ draw_maze_view()
 	int l10;
 	int l12;
 	char *obj;
-	char l15;
-	char x15[1];
+	char l16[2];
 	register int rsi;
 	l2 = party_x;
 	l4 = party_y;
@@ -154,51 +149,17 @@ La44f:
 	view_depth++;
 	goto La352;
 La8e6:
-	view_depth = g5258;
-	goto Laa49;
-La8ef:
+	for (view_depth = g5258; view_depth >= 0; view_depth--) {
 	rsi = view_object_count;
 	rsi--;
 	goto La9db;
 La8f7:
-	;
-#asm
-la8f7:
-	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,00ah
-	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,003h,006h,0a4h,04fh,003h
-	db 006h,0a2h,04fh,003h,006h,09ah,04fh,0b9h,002h,000h,099h,0f7h,0f9h,089h,016h,056h
-	db 052h,08ah,047h,00ah,02ah,0e4h,03bh,006h,07ah,050h,074h,003h
-#endasm
-	goto La9da;
-La936:
-	;
-#asm
-la936:
-	db 08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,003h
-#endasm
-	goto La9da;
-La943:
-	;
-#asm
-la943:
-	db 083h,03fh,0ffh,074h,043h,083h,07fh,004h,0ffh,074h,028h,0b8h,0ffh,0ffh,083h,03eh
-	db 056h,052h,000h,074h,002h,08bh,007h
-#endasm
-La95a:
-	;
-#asm
-la95a:
-	db 050h,08ah,047h,009h,02ah,0e4h,050h,08bh,007h,083h,03eh,056h,052h,000h,074h,003h
-	db 08bh,047h,004h
-#endasm
-La96d:
-	;
-#asm
-la96d:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h
-#endasm
+	obj = ((rsi * 11) + 20746);
+	g5256 = (((((unsigned char)obj[10] + party_x) + party_y) + party_facing) % 2);
+	if (((unsigned char)obj[10] != view_depth) || ((unsigned char)obj[8] != 255)) goto La9da;
+	if (*(int *)obj == -1) goto La98b;
+	if (*(int *)(obj + 4) == -1) goto La976;
+	drv_op_c6((g5256 != 0 ? *(int *)(obj + 4) : *(int *)obj), (unsigned char)obj[9], (g5256 != 0 ? *(int *)obj : -1));
 	goto La98b;
 La976:
 	drv_op_c6(*(int *)obj, (unsigned char)obj[9], -1);
@@ -217,28 +178,16 @@ La9db:
 	rsi--;
 	goto Laa40;
 La9ea:
-	;
-#asm
-la9ea:
-	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,00ah
-	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,03bh,006h,07ah,050h,075h
-	db 034h,08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,02ah,08ah,047h,009h,088h,046h
-	db 0f0h
-#endasm
-	l15 = 0;
-#asm
-	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,0ffh,077h,006h,0ffh,077h,004h,0ffh
-	db 077h,002h,0ffh,037h,08ah,047h,008h,02ah,0e4h,050h
-	call drv_draw_text_
-	db 083h,0c4h,010h
-#endasm
+	obj = ((rsi * 11) + 20746);
+	if (((unsigned char)obj[10] != view_depth) || ((unsigned char)obj[8] == 255)) goto Laa3f;
+	l16[0] = obj[9];
+	l16[(0 + 1)] = 0;
+	drv_draw_text((unsigned char)obj[8], *(int *)obj, *(int *)(obj + 2), *(int *)(obj + 4), *(int *)(obj + 6), 0, 0, l16);
 Laa3f:
 	rsi--;
 Laa40:
 	if (rsi >= 0) goto La9ea;
-	view_depth--;
-Laa49:
-	if (view_depth >= 0) goto La8ef;
+	}
 	draw_view_frame();
 	return;
 #asm

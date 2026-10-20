@@ -56,7 +56,7 @@ L6bab:
 	if (l80 < 22) goto L6bbe;
 	return -1;
 L6bbe:
-	l78 = (char *)pc_item_id + ((432 * p4) + (l80 << 3));
+	l78 = (((432 * p4) + (l80 << 3)) + 17448);
 	if (l84 <= 0) goto L6c01;
 	l78[6] = 0;
 	if (l84 != 1) goto L6bf5;

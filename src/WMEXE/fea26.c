@@ -1,7 +1,3 @@
-#asm
-	extrn drv_draw_text_:near
-	extrn drv_op_c6_:near
-#endasm
 extern char g511d[];
 extern char g514c[];
 extern char g5154[];
@@ -45,8 +41,7 @@ fea26()
 	int l10;
 	int l12;
 	char *l14;
-	char l15;
-	char x15[1];
+	char l16[2];
 	register int rsi;
 	l2 = party_x;
 	l4 = party_y;
@@ -153,51 +148,17 @@ Lecac:
 	pclist_race++;
 	goto Lebaf;
 Lf143:
-	pclist_race = g52f8;
-	goto Lf2a6;
-Lf14c:
+	for (pclist_race = g52f8; pclist_race >= 0; pclist_race--) {
 	rsi = g51a8;
 	rsi--;
 	goto Lf238;
 Lf154:
-	;
-#asm
-lf154:
-	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0aah
-	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,003h,006h,0a4h,04fh,003h
-	db 006h,0a2h,04fh,003h,006h,09ah,04fh,0b9h,002h,000h,099h,0f7h,0f9h,089h,016h,0f6h
-	db 052h,08ah,047h,00ah,02ah,0e4h,03bh,006h,01ah,051h,074h,003h
-#endasm
-	goto Lf237;
-Lf193:
-	;
-#asm
-lf193:
-	db 08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,003h
-#endasm
-	goto Lf237;
-Lf1a0:
-	;
-#asm
-lf1a0:
-	db 083h,03fh,0ffh,074h,043h,083h,07fh,004h,0ffh,074h,028h,0b8h,0ffh,0ffh,083h,03eh
-	db 0f6h,052h,000h,074h,002h,08bh,007h
-#endasm
-Lf1b7:
-	;
-#asm
-lf1b7:
-	db 050h,08ah,047h,009h,02ah,0e4h,050h,08bh,007h,083h,03eh,0f6h,052h,000h,074h,003h
-	db 08bh,047h,004h
-#endasm
-Lf1ca:
-	;
-#asm
-lf1ca:
-	db 050h
-	call drv_op_c6_
-	db 083h,0c4h,006h
-#endasm
+	l14 = ((rsi * 11) + 20906);
+	g52f6 = (((((unsigned char)l14[10] + party_x) + party_y) + party_facing) % 2);
+	if (((unsigned char)l14[10] != pclist_race) || ((unsigned char)l14[8] != 255)) goto Lf237;
+	if (*(int *)l14 == -1) goto Lf1e8;
+	if (*(int *)(l14 + 4) == -1) goto Lf1d3;
+	drv_op_c6((g52f6 != 0 ? *(int *)(l14 + 4) : *(int *)l14), (unsigned char)l14[9], (g52f6 != 0 ? *(int *)l14 : -1));
 	goto Lf1e8;
 Lf1d3:
 	drv_op_c6(*(int *)l14, (unsigned char)l14[9], -1);
@@ -216,28 +177,16 @@ Lf238:
 	rsi--;
 	goto Lf29d;
 Lf247:
-	;
-#asm
-lf247:
-	db 08bh,0c6h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,0d1h,0e0h,02bh,0c2h,005h,0aah
-	db 051h,089h,046h,0f2h,08bh,0d8h,08ah,047h,00ah,02ah,0e4h,03bh,006h,01ah,051h,075h
-	db 034h,08ah,047h,008h,02ah,0e4h,03dh,0ffh,000h,074h,02ah,08ah,047h,009h,088h,046h
-	db 0f0h
-#endasm
-	l15 = 0;
-#asm
-	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,0ffh,077h,006h,0ffh,077h,004h,0ffh
-	db 077h,002h,0ffh,037h,08ah,047h,008h,02ah,0e4h,050h
-	call drv_draw_text_
-	db 083h,0c4h,010h
-#endasm
+	l14 = ((rsi * 11) + 20906);
+	if (((unsigned char)l14[10] != pclist_race) || ((unsigned char)l14[8] == 255)) goto Lf29c;
+	l16[0] = l14[9];
+	l16[(0 + 1)] = 0;
+	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
 Lf29c:
 	rsi--;
 Lf29d:
 	if (rsi >= 0) goto Lf247;
-	pclist_race--;
-Lf2a6:
-	if (pclist_race >= 0) goto Lf14c;
+	}
 	fe964();
 	return;
 #asm
