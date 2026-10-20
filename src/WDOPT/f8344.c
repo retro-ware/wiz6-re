@@ -1,8 +1,12 @@
 extern char g5415[];
 extern char g5439[];
 extern char g5444[];
+extern char g544c[];
+extern char g5454[];
 extern char g545c[];
 extern char g5464[];
+extern char g546c[];
+extern char g5474[];
 extern char g547d[];
 extern int char_hp_max[];
 extern int g5412;
@@ -45,18 +49,16 @@ L8435:
 	switch (p14) {
 case -1:
 	g5444[g5412] = 0;
-#asm
-	db 0c6h,087h,04ch,054h,000h,0c6h,087h,054h,054h,000h
-#endasm
+	g544c[g5412] = 0;
+	g5454[g5412] = 0;
 	goto L8491;
 case 0:
 	g545c[g5412] = 0;
 	goto L8491;
 case 1:
 	g5464[g5412] = 0;
-#asm
-	db 0c6h,087h,06ch,054h,000h,0c6h,087h,074h,054h,000h
-#endasm
+	g546c[g5412] = 0;
+	g5474[g5412] = 0;
 	goto L8491;
 	}
 L8491:
@@ -65,9 +67,7 @@ L8497:
 	goto L850d;
 case 1:
 	g547d[((g5412 * 3) + p14)] = 1;
-#asm
-	db 0c6h,087h,015h,054h,001h
-#endasm
+	g5415[((g5412 * 3) + p14)] = 1;
 	goto L850d;
 case 2:
 case 3:

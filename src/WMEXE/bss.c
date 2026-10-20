@@ -44,9 +44,12 @@
 	global chest_trap_:byte,22
 	global g51a8_:byte,2
 	global g51aa_:byte,2
-	global g51ac_:byte,6
+	global g51ac_:byte,2
+	global g51ae_:byte,2
+	global g51b0_:byte,2
 	global g51b2_:byte,1
-	global g51b3_:byte,321
+	global g51b3_:byte,1
+	global g51b4_:byte,320
 	global g52f4_:byte,2
 	global g52f6_:byte,2
 	global g52f8_:byte,2

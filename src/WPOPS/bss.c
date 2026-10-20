@@ -48,9 +48,12 @@
 	global g50f2_:byte,22
 	global view_object_count_:byte,2
 	global g510a_:byte,2
-	global g510c_:byte,6
+	global g510c_:byte,2
+	global g510e_:byte,2
+	global g5110_:byte,2
 	global g5112_:byte,1
-	global g5113_:byte,321
+	global g5113_:byte,1
+	global g5114_:byte,320
 	global g5254_:byte,2
 	global g5256_:byte,2
 	global g5258_:byte,2

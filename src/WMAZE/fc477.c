@@ -1,6 +1,5 @@
 #asm
 	extrn random_:near
-	extrn show_message_text_m_:near
 #endasm
 extern char *g4fa8;
 extern char g450a[];
@@ -36,13 +35,8 @@ apply_member_effects()
 	if (g4f8a == party_facing) goto Lc49c;
 	return;
 Lc49c:
-	;
-#asm
-lc49c:
-	db 0d1h,0e6h,083h,038h,000h,07eh,00ch,0b8h,000h,000h,050h,0ffh,030h
-	call show_message_text_m_
-	db 083h,0c4h,004h
-#endasm
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto Lc4af;
+	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);
 Lc4af:
 	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	l10 = (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) / 16);

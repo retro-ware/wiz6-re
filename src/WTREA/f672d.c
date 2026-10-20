@@ -47,9 +47,7 @@ L67d7:
 	l4 = random(strlen(20702));
 	} while (g50de[l4] == 36);
 	trap_guess_letters[trap_guess_len] = g50de[l4];
-#asm
-	db 0d1h,0e3h,0c7h,087h,094h,051h,001h,000h
-#endasm
+	g5194[trap_guess_len] = 1;
 	trap_guess_len++;
 	g50de[l4] = 36;
 L683b:
@@ -57,9 +55,7 @@ L683b:
 L683d:
 	if (((l10 <= 0) || (random(100) <= 50)) || (trap_guess_len >= 18)) goto L6876;
 	trap_guess_letters[trap_guess_len] = (char)(random(26) + 65);
-#asm
-	db 0d1h,0e3h,0c7h,087h,094h,051h,000h,000h
-#endasm
+	g5194[trap_guess_len] = 0;
 	trap_guess_len++;
 L6876:
 	letters--;

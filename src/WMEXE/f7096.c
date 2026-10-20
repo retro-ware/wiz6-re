@@ -17,13 +17,7 @@ use_item_charge_x(p4)
 	char l8;
 	char x8[8];
 	int l18;
-	if ((unsigned)pc_item_qty[((432 * g435c) + (p4 << 3))] <= 0) goto L722a;
-	pc_item_qty[((432 * g435c) + (p4 << 3))]--;
-#asm
-	db 074h,003h
-#endasm
-	goto L722a;
-L70c5:
+	if (((unsigned)pc_item_qty[((432 * g435c) + (p4 << 3))] <= 0) || (--pc_item_qty[((432 * g435c) + (p4 << 3))])) goto L722a;
 	l4 = 0;
 L70ca:
 	if ((unsigned char)pc_equipped[((432 * g435c) + l4)] != p4) goto L7143;

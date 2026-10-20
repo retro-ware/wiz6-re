@@ -8,6 +8,7 @@ extern int party_cell_x;
 extern int party_cell_y;
 extern int party_level;
 extern int party_x;
+extern int party_y;
 teleport_party()
 {
 	int l2;
@@ -21,10 +22,8 @@ teleport_party()
 	l4 = -1;
 	}
 	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);
-#asm
-	db 08ah,080h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h,0a2h,04fh,08bh,01eh,0a8h
-	db 04fh,08ah,080h,0c0h,006h,02ah,0e4h,0a3h,0e8h,04eh
-#endasm
+	party_y = ((unsigned char)(maze_data + party_level)[492] + party_cell_y);
+	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 	g5232 = 0;
 	if (l4 != game_state_arg) goto La2f2;
 	redraw_maze_view();

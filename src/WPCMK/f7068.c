@@ -26,10 +26,7 @@ draw_stats()
 	set_cursor(sheet_win, 14, 6);
 	print_int(sheet_win, char_hp_max, 4, 6);
 	print_msg_at(213, sheet_win, 10, 8, 4);
-	sheet_win[6]++;
-#asm
-	db 0feh,047h,006h
-#endasm
+	sheet_win[6] += 2;
 	print_int(sheet_win, char_stamina, 3, 6);
 	put_char(sheet_win, 47, 8);
 	set_cursor(sheet_win, 15, 9);

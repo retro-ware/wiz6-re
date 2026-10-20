@@ -415,6 +415,9 @@ class Lifter:
         """After lv = rv: registers holding rv now hold lv; values that read lv are stale."""
         mem = lv[0] in ('m', 'la') or lv[0] == 'v' and lv[1] == 'g'
         key = (lv[1], lv[2]) if lv[0] == 'v' else None
+        if lv[0] == 'm' and lv[1][0] != 'c' and 2 <= (lv[2] & 0xffff) < self.img.bss[1]:
+            key = ('g', lv[2] & 0xffff)     # g[i]: an element of the global array g
+        named = key is not None and key[0] == 'g'
         for r, v in list(self.R.items()):
             if rv is not None and v == rv and lv[0] in ('v', 'm'):
                 self.R[r] = lv
@@ -423,8 +426,9 @@ class Lifter:
                 self.R[r] = lv          # mov [x], al: al now holds the byte x (ah is not known)
                 continue
             for x in sub_exprs(v):
+                # a store to a named global (or an element of one) leaves the other globals alone
                 if x[0] == 'v' and (x[1], x[2]) == key or \
-                        mem and (x[0] in ('m', 'la') or x[0] == 'v' and x[1] == 'g'):
+                        mem and (x[0] in ('m', 'la') or x[0] == 'v' and x[1] == 'g' and not named):
                     del self.R[r]
                     break
 

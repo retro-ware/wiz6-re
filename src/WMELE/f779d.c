@@ -1,9 +1,13 @@
 extern char g511b[];
 extern char g513f[];
 extern char g514a[];
+extern char g5152[];
 extern char g5162[];
 extern char g516a[];
+extern char g5172[];
+extern char g517a[];
 extern char g5183[];
+extern char pclist_pcindex[];
 extern int g5118;
 extern int g5128[];
 extern int g5190[];
@@ -46,18 +50,16 @@ L788e:
 	switch (side) {
 case -1:
 	g514a[g5118] = 0;
-#asm
-	db 0c6h,087h,052h,051h,000h,0c6h,087h,05ah,051h,000h
-#endasm
+	g5152[g5118] = 0;
+	pclist_pcindex[g5118] = 0;
 	goto L78ea;
 case 0:
 	g5162[g5118] = 0;
 	goto L78ea;
 case 1:
 	g516a[g5118] = 0;
-#asm
-	db 0c6h,087h,072h,051h,000h,0c6h,087h,07ah,051h,000h
-#endasm
+	g5172[g5118] = 0;
+	g517a[g5118] = 0;
 	goto L78ea;
 	}
 L78ea:
@@ -66,9 +68,7 @@ L78f0:
 	goto L7966;
 case 1:
 	g5183[((g5118 * 3) + side)] = 1;
-#asm
-	db 0c6h,087h,01bh,051h,001h
-#endasm
+	g511b[((g5118 * 3) + side)] = 1;
 	goto L7966;
 case 2:
 case 3:

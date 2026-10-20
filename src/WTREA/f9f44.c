@@ -1,8 +1,12 @@
 extern char g5285[];
 extern char g52a9[];
 extern char g52b4[];
+extern char g52bc[];
+extern char g52c4[];
 extern char g52cc[];
 extern char g52d4[];
+extern char g52dc[];
+extern char g52e4[];
 extern char g52ed[];
 extern int g5282;
 extern int g5292[];
@@ -45,18 +49,16 @@ La035:
 	switch (p14) {
 case -1:
 	g52b4[g5282] = 0;
-#asm
-	db 0c6h,087h,0bch,052h,000h,0c6h,087h,0c4h,052h,000h
-#endasm
+	g52bc[g5282] = 0;
+	g52c4[g5282] = 0;
 	goto La091;
 case 0:
 	g52cc[g5282] = 0;
 	goto La091;
 case 1:
 	g52d4[g5282] = 0;
-#asm
-	db 0c6h,087h,0dch,052h,000h,0c6h,087h,0e4h,052h,000h
-#endasm
+	g52dc[g5282] = 0;
+	g52e4[g5282] = 0;
 	goto La091;
 	}
 La091:
@@ -65,9 +67,7 @@ La097:
 	goto La10d;
 case 1:
 	g52ed[((g5282 * 3) + p14)] = 1;
-#asm
-	db 0c6h,087h,085h,052h,001h
-#endasm
+	g5285[((g5282 * 3) + p14)] = 1;
 	goto La10d;
 case 2:
 case 3:

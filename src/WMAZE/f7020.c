@@ -9,6 +9,7 @@ extern int g4338;
 extern int g4354;
 extern int g4eca;
 extern int g4f88;
+extern int g4f8a;
 extern int g4fb0;
 extern int g5032;
 extern int g5034;
@@ -156,19 +157,16 @@ case 0:
 case 1:
 case 3:
 	g5036 = 0;
-	if (g4f88) goto L7460;
+	if (!g4f88) {
 	party_facing = ((party_facing + l2) % 4);
 	g5032 = 1;
-#asm
-	db 03bh,016h,08ah,04fh,075h,017h
-#endasm
+	if (party_facing == g4f8a) {
 	g5034 = 1;
 	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
-L745e:
-	goto L7471;
-L7460:
+	}
+	} else {
 	move_party((l2 == 3 ? -1 : 1));
-L7471:
+	}
 	tick_effect_timers(1);
 	goto L75ca;
 case 2:

@@ -1,8 +1,12 @@
 extern char g507d[];
 extern char g50a1[];
 extern char g50ac[];
+extern char g50b4[];
+extern char g50bc[];
 extern char g50c4[];
 extern char g50cc[];
+extern char g50d4[];
+extern char g50dc[];
 extern char g50e5[];
 extern int g508a[];
 extern int g50f2[];
@@ -46,18 +50,16 @@ L900b:
 	switch (side) {
 case -1:
 	g50ac[view_depth] = 0;
-#asm
-	db 0c6h,087h,0b4h,050h,000h,0c6h,087h,0bch,050h,000h
-#endasm
+	g50b4[view_depth] = 0;
+	g50bc[view_depth] = 0;
 	goto L9067;
 case 0:
 	g50c4[view_depth] = 0;
 	goto L9067;
 case 1:
 	g50cc[view_depth] = 0;
-#asm
-	db 0c6h,087h,0d4h,050h,000h,0c6h,087h,0dch,050h,000h
-#endasm
+	g50d4[view_depth] = 0;
+	g50dc[view_depth] = 0;
 	goto L9067;
 	}
 L9067:
@@ -66,9 +68,7 @@ L906d:
 	goto L90e3;
 case 1:
 	g50e5[((view_depth * 3) + side)] = 1;
-#asm
-	db 0c6h,087h,07dh,050h,001h
-#endasm
+	g507d[((view_depth * 3) + side)] = 1;
 	goto L90e3;
 case 2:
 case 3:

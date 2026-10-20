@@ -8,8 +8,10 @@ extern int g3304;
 extern int g3306;
 extern int g4fa8;
 extern int party_cell_x;
+extern int party_cell_y;
 extern int party_level;
 extern int party_x;
+extern int party_y;
 alloc_maze_buffers()
 {
 	if (!maze_data) {
@@ -39,7 +41,5 @@ L4627:
 	g4eeb = 0;
 	g4eea = 0;
 	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);
-#asm
-	db 08ah,080h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h,0a2h,04fh
-#endasm
+	party_y = ((unsigned char)(maze_data + party_level)[492] + party_cell_y);
 }

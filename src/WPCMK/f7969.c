@@ -15,10 +15,7 @@ distribute_bonus_points()
 	print_message(1120, prompt_win, 18);
 	set_cursor(prompt_win, 1, 2);
 	print_message(1108, prompt_win, 18);
-	prompt_win[6]++;
-#asm
-	db 0feh,047h,006h
-#endasm
+	prompt_win[6] += 2;
 	print_message(1109, prompt_win, 18);
 	setmem(l20, 16, 0);
 	l4 = 0;

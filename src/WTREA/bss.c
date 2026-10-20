@@ -80,9 +80,12 @@
 	global g52fa_:byte,22
 	global g5310_:byte,2
 	global g5312_:byte,2
-	global g5314_:byte,6
+	global g5314_:byte,2
+	global g5316_:byte,2
+	global g5318_:byte,2
 	global g531a_:byte,1
-	global g531b_:byte,321
+	global g531b_:byte,1
+	global g531c_:byte,320
 	global g545c_:byte,2
 	global g545e_:byte,2
 	global g5460_:byte,2

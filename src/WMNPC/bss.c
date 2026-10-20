@@ -144,9 +144,12 @@
 	global g6b1c_:byte,22
 	global g6b32_:byte,2
 	global g6b34_:byte,2
-	global g6b36_:byte,6
+	global g6b36_:byte,2
+	global g6b38_:byte,2
+	global g6b3a_:byte,2
 	global g6b3c_:byte,1
-	global g6b3d_:byte,321
+	global g6b3d_:byte,1
+	global g6b3e_:byte,320
 	global g6c7e_:byte,2
 	global g6c80_:byte,2
 	global g6c82_:byte,2

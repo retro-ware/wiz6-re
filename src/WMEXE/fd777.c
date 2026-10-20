@@ -1,8 +1,12 @@
 extern char g511d[];
 extern char g5141[];
 extern char g514c[];
+extern char g5154[];
+extern char g515c[];
 extern char g5164[];
 extern char g516c[];
+extern char g5174[];
+extern char g517c[];
 extern char g5185[];
 extern int chest_trap[];
 extern int g512a[];
@@ -45,18 +49,16 @@ Ld868:
 	switch (p14) {
 case -1:
 	g514c[pclist_race] = 0;
-#asm
-	db 0c6h,087h,054h,051h,000h,0c6h,087h,05ch,051h,000h
-#endasm
+	g5154[pclist_race] = 0;
+	g515c[pclist_race] = 0;
 	goto Ld8c4;
 case 0:
 	g5164[pclist_race] = 0;
 	goto Ld8c4;
 case 1:
 	g516c[pclist_race] = 0;
-#asm
-	db 0c6h,087h,074h,051h,000h,0c6h,087h,07ch,051h,000h
-#endasm
+	g5174[pclist_race] = 0;
+	g517c[pclist_race] = 0;
 	goto Ld8c4;
 	}
 Ld8c4:
@@ -65,9 +67,7 @@ Ld8ca:
 	goto Ld940;
 case 1:
 	g5185[((pclist_race * 3) + p14)] = 1;
-#asm
-	db 0c6h,087h,01dh,051h,001h
-#endasm
+	g511d[((pclist_race * 3) + p14)] = 1;
 	goto Ld940;
 case 2:
 case 3:

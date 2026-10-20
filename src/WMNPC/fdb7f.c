@@ -1,8 +1,12 @@
 extern char g6aa7[];
 extern char g6acb[];
 extern char g6ad6[];
+extern char g6ade[];
+extern char g6ae6[];
 extern char g6aee[];
 extern char g6af6[];
+extern char g6afe[];
+extern char g6b06[];
 extern char g6b0f[];
 extern int g6aa4;
 extern int g6ab4[];
@@ -45,18 +49,16 @@ Ldc70:
 	switch (p14) {
 case -1:
 	g6ad6[g6aa4] = 0;
-#asm
-	db 0c6h,087h,0deh,06ah,000h,0c6h,087h,0e6h,06ah,000h
-#endasm
+	g6ade[g6aa4] = 0;
+	g6ae6[g6aa4] = 0;
 	goto Ldccc;
 case 0:
 	g6aee[g6aa4] = 0;
 	goto Ldccc;
 case 1:
 	g6af6[g6aa4] = 0;
-#asm
-	db 0c6h,087h,0feh,06ah,000h,0c6h,087h,006h,06bh,000h
-#endasm
+	g6afe[g6aa4] = 0;
+	g6b06[g6aa4] = 0;
 	goto Ldccc;
 	}
 Ldccc:
@@ -65,9 +67,7 @@ Ldcd2:
 	goto Ldd48;
 case 1:
 	g6b0f[((g6aa4 * 3) + p14)] = 1;
-#asm
-	db 0c6h,087h,0a7h,06ah,001h
-#endasm
+	g6aa7[((g6aa4 * 3) + p14)] = 1;
 	goto Ldd48;
 case 2:
 case 3:

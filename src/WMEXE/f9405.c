@@ -22,6 +22,7 @@ extern int group_monster_rec[];
 extern int monster_group_count;
 extern int monster_groups[];
 extern int pc_spell_pts[];
+extern int pc_spell_pts_max[];
 struct s4 { int w[2]; };
 struct s4 f5eea();
 do_cast_spell(p4, p6, p8)
@@ -544,11 +545,9 @@ case 81:
 Ladd4:
 	l4 = roll_dice_x(f5eea(p8, 10, 0));
 	*(int *)((char *)pc_spell_pts + ((432 * g435c) + (l2 << 2))) += l4;
-#asm
-	db 08bh,087h,010h,044h,03bh,087h,012h,044h,07eh,008h,08bh,087h,012h,044h,089h,087h
-	db 010h,044h
-#endasm
-Lae2b:
+	if (*(int *)((char *)pc_spell_pts + ((432 * g435c) + (l2 << 2))) > *(int *)((char *)pc_spell_pts_max + ((432 * g435c) + (l2 << 2)))) {
+	*(int *)((char *)pc_spell_pts + ((432 * g435c) + (l2 << 2))) = *(int *)((char *)pc_spell_pts_max + ((432 * g435c) + (l2 << 2)));
+	}
 	l2++;
 	if (l2 < 6) goto Ladd4;
 Lae36:

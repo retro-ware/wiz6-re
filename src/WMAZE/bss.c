@@ -43,9 +43,12 @@
 	global g50b8_:byte,22
 	global g50ce_:byte,2
 	global g50d0_:byte,2
-	global g50d2_:byte,6
+	global g50d2_:byte,2
+	global g50d4_:byte,2
+	global g50d6_:byte,2
 	global g50d8_:byte,1
-	global g50d9_:byte,321
+	global g50d9_:byte,1
+	global g50da_:byte,320
 	global g521a_:byte,2
 	global g521c_:byte,2
 	global g521e_:byte,2

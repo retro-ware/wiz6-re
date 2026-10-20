@@ -76,9 +76,12 @@
 	global char_hp_max_:byte,22
 	global g54a0_:byte,2
 	global g54a2_:byte,2
-	global g54a4_:byte,6
+	global g54a4_:byte,2
+	global g54a6_:byte,2
+	global g54a8_:byte,2
 	global g54aa_:byte,1
-	global g54ab_:byte,321
+	global g54ab_:byte,1
+	global g54ac_:byte,320
 	global g55ec_:byte,2
 	global g55ee_:byte,2
 	global g55f0_:byte,2

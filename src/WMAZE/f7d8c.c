@@ -1,9 +1,13 @@
 extern char g5043[];
 extern char g5067[];
 extern char g5072[];
+extern char g5082[];
 extern char g508a[];
 extern char g5092[];
+extern char g509a[];
+extern char g50a2[];
 extern char g50ab[];
+extern char view_depth[];
 extern int g5040;
 extern int g5050[];
 extern int g50b8[];
@@ -45,18 +49,16 @@ L7e7d:
 	switch (p14) {
 case -1:
 	g5072[g5040] = 0;
-#asm
-	db 0c6h,087h,07ah,050h,000h,0c6h,087h,082h,050h,000h
-#endasm
+	view_depth[g5040] = 0;
+	g5082[g5040] = 0;
 	goto L7ed9;
 case 0:
 	g508a[g5040] = 0;
 	goto L7ed9;
 case 1:
 	g5092[g5040] = 0;
-#asm
-	db 0c6h,087h,09ah,050h,000h,0c6h,087h,0a2h,050h,000h
-#endasm
+	g509a[g5040] = 0;
+	g50a2[g5040] = 0;
 	goto L7ed9;
 	}
 L7ed9:
@@ -65,9 +67,7 @@ L7edf:
 	goto L7f55;
 case 1:
 	g50ab[((g5040 * 3) + p14)] = 1;
-#asm
-	db 0c6h,087h,043h,050h,001h
-#endasm
+	g5043[((g5040 * 3) + p14)] = 1;
 	goto L7f55;
 case 2:
 case 3:

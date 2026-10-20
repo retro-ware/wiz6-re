@@ -1,6 +1,3 @@
-#asm
-	extrn move_to_maze_cell_m_:near
-#endasm
 extern char *g4fa8;
 extern char *maze_data;
 extern int cell_event_index;
@@ -63,12 +60,8 @@ case 1:
 	party_cell_y += 3;
 	}
 	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);
-#asm
-	db 08ah,081h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h,0a2h,04fh,050h,0ffh,036h
-	db 0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h,0b8h,0a0h,04fh,050h
-	call move_to_maze_cell_m_
-	db 083h,0c4h,00ah
-#endasm
+	party_y = ((unsigned char)(maze_data + party_level)[492] + party_cell_y);
+	move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y);
 	l2 = 0;
 	l4 = 0;
 	save_position();
