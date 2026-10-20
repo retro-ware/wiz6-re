@@ -197,6 +197,10 @@ class Loop:
             # we kept si alone as a regvar, the original saves both: si is the index temp after all
             st['noscratch'], st['demote'] = 'lenient', []
             return True
+        if not st.get('noscratch') and any(r not in L.f.scratch and L.f._is_scratch(r, True) for r in L.f.regs):
+            # a regvar that is an index temp kept across a label (a ternary's join): try it as the temp
+            st['noscratch'], st['demote'] = 'lenient', []
+            return True
         sm = difflib.SequenceMatcher(None, [k[2] for k in ko], [k[2] for k in ku], autojunk=False)
         bad = set()
         for tag, i1, i2, j1, j2 in sm.get_opcodes():

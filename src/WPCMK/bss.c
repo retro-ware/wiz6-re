@@ -86,7 +86,10 @@
 	global char_item_count_:byte,2
 	global g561e_:byte,20
 	global g5632_:byte,62
-	global g5670_:byte,60
+	global g5670_:byte,20
+	global g5684_:byte,14
+	global g5692_:byte,10
+	global g569c_:byte,16
 	global bonus_points_:byte,2
 	global class_eligible_:byte,28
 	global prompt_win_:byte,2

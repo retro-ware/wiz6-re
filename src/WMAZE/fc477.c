@@ -1,19 +1,23 @@
 #asm
 	extrn clamp_value_:near
-	extrn format_dice_:near
+	extrn play_sound_:near
 	extrn random_:near
-	extrn roll_dice_:near
 	extrn show_message_text_m_:near
 #endasm
+extern char *g4fa8;
 extern char g450a[];
 extern char g450f[];
 extern char g458c[];
 extern char pc_condition[];
-extern char pc_sex[];
-extern int pc_hp[];
-extern int pc_hp_max[];
+extern int cell_event_index;
+extern int g4f8a;
+extern int party_facing;
+extern int pc_spell_pts[];
+extern int pc_spell_pts_max[];
 extern int pc_stamina[];
 extern int pc_stamina_max[];
+struct s4 { int w[2]; };
+struct s4 format_dice();
 apply_member_effects()
 {
 	int l2;
@@ -21,16 +25,12 @@ apply_member_effects()
 	int l6;
 	int l8;
 	int l10;
-	char x10[2];
+	int l12;
 	int l14;
 	int l16;
 	int l18;
-	register int rsi;
-	register int rdi;
-#asm
-	db 08bh,01eh,0a8h,04fh,08bh,036h,0e8h,04eh,08ah,080h,030h,006h,02ah,0e4h,0a3h,08ah
-	db 04fh,03bh,006h,09ah,04fh,074h,006h
-#endasm
+	g4f8a = (unsigned char)(g4fa8 + cell_event_index)[1584];
+	if (g4f8a == party_facing) goto Lc49c;
 	return;
 Lc49c:
 	;
@@ -41,28 +41,16 @@ lc49c:
 	db 083h,0c4h,004h
 #endasm
 Lc4af:
-	;
-#asm
-lc4af:
-	db 0a1h,0e8h,04eh,0d1h,0e0h,08bh,0f0h,08bh,01eh,0a8h,04fh,08bh,080h,040h,002h,089h
-	db 046h,0f8h,08bh,080h,020h,001h,0b9h,010h,000h,099h,0f7h,0f9h,089h,046h,0f6h,08bh
-	db 080h,020h,001h,099h,0f7h,0f9h,089h,056h,0f4h
-#endasm
+	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
+	l10 = (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) / 16);
+	l12 = (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) % 16);
 Lc4d8:
 	l6 = choose_party_member_m(2047, 1);
 	if (l6 == -1) goto Lc8e5;
 	l16 = 0;
 	l18 = 0;
 	if ((unsigned)pc_condition[(l6 * 432)] >= 3) goto Lc8cd;
-#asm
-lc50c:
-	db 0ffh,076h,0f6h,0ffh,076h,0f4h,0ffh,076h,0f6h
-	call format_dice_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_
-	db 083h,0c4h,004h,089h,046h,0f2h
-#endasm
+	l14 = roll_dice(format_dice(l10, l12, l10));
 	l2 = 0;
 Lc53a:
 	if (extract_bits(l8, l2, 1) != 1) goto Lc8bf;
@@ -81,31 +69,19 @@ lc56f:
 	goto Lc8bf;
 	l4 = 0;
 Lc5a6:
-	;
-#asm
-lc5a6:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh
-	db 0d8h,0ffh,0b7h,012h,044h,0b8h,000h,000h,050h,0ffh,076h,0f6h,0ffh,076h,0f4h,0ffh
-	db 076h,0f6h
-	call format_dice_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_
-	db 083h,0c4h,004h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0c8h,08bh,056h,0fch,0d1h
-	db 0e2h,0d1h,0e2h,003h,0c2h,08bh,0d8h,058h,003h,087h,010h,044h,050h
-	call clamp_value_
-	db 083h,0c4h,006h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0c8h,08bh,056h,0fch,0d1h
-	db 0e2h,0d1h,0e2h,003h,0c2h,08bh,0d8h,058h,089h,087h,010h,044h
-#endasm
+	*(int *)((char *)pc_spell_pts + ((432 * l6) + (l4 << 2))) = clamp_value((roll_dice(format_dice(l10, l12, l10)) + *(int *)((char *)pc_spell_pts + ((432 * l6) + (l4 << 2)))), 0, *(int *)((char *)pc_spell_pts_max + ((432 * l6) + (l4 << 2))));
 	l4++;
 	if (l4 < 6) goto Lc5a6;
 	goto Lc8bf;
-	*(int *)((char *)pc_hp + (432 * l6)) = clamp_value((*(int *)((char *)pc_hp + (432 * l6)) + l14), 0, *(int *)((char *)pc_hp_max + (432 * l6)));
 #asm
-	db 0e9h,061h,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,0c6h,087h,08ch,045h,000h
-	db 0c6h,087h,00fh,045h,000h,0e9h,04ch,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h
-	db 0c6h,087h,00dh,045h,000h,0e9h,03ch,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h
-	db 080h,0bfh,089h,045h,002h,075h,005h,0c6h,087h,089h,045h,000h
+	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,0ffh,0b7h,002h,044h,0b8h,000h,000h,050h
+	db 08bh,087h,000h,044h,003h,046h,0f2h,050h
+	call clamp_value_
+	db 083h,0c4h,006h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,058h,089h,087h,000h
+	db 044h,0e9h,061h,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,0c6h,087h,08ch,045h
+	db 000h,0c6h,087h,00fh,045h,000h,0e9h,04ch,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh
+	db 0d8h,0c6h,087h,00dh,045h,000h,0e9h,03ch,002h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh
+	db 0d8h,080h,0bfh,089h,045h,002h,075h,005h,0c6h,087h,089h,045h,000h
 #endasm
 Lc697:
 	goto Lc8bf;
@@ -128,30 +104,21 @@ Lc733:
 	goto Lc8bf;
 	l4 = 0;
 Lc73b:
-	;
-#asm
-lc73b:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh
-	db 0d8h,0ffh,0b7h,012h,044h,0b8h,000h,000h,050h,0ffh,076h,0f6h,0ffh,076h,0f4h,0ffh
-	db 076h,0f6h
-	call format_dice_
-	db 083h,0c4h,006h,08bh,0c8h,083h,0ech,004h,08bh,0c4h,08ch,0d2h,08eh,0c2h,08bh,0f1h
-	db 08bh,0f8h,0a5h,0a5h
-	call roll_dice_
-	db 083h,0c4h,004h,08bh,0c8h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,056h,0fch,0d1h,0e2h
-	db 0d1h,0e2h,003h,0c2h,08bh,0d8h,08bh,087h,010h,044h,02bh,0c1h,050h
-	call clamp_value_
-	db 083h,0c4h,006h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0c8h,08bh,056h,0fch,0d1h
-	db 0e2h,0d1h,0e2h,003h,0c2h,08bh,0d8h,058h,089h,087h,010h,044h
-#endasm
+	*(int *)((char *)pc_spell_pts + ((432 * l6) + (l4 << 2))) = clamp_value((*(int *)((char *)pc_spell_pts + ((432 * l6) + (l4 << 2))) - roll_dice(format_dice(l10, l12, l10))), 0, *(int *)((char *)pc_spell_pts_max + ((432 * l6) + (l4 << 2))));
 	l4++;
 	if (l4 < 6) goto Lc73b;
 	goto Lc8bf;
-	if ((*(int *)((char *)pc_hp + (432 * l6)) = clamp_value((*(int *)((char *)pc_hp + (432 * l6)) - l14), 0, *(int *)((char *)pc_hp_max + (432 * l6)))) > 0) goto Lc814;
-	pc_condition[(432 * l6)] = 3;
-	*(int *)((char *)pc_hp + (432 * l6)) = 0;
-	*(int *)((char *)pc_stamina + (432 * l6)) = 0;
-	play_sound(((unsigned char)pc_sex[(432 * l6)] + 8));
+#asm
+	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,0ffh,0b7h,002h,044h,0b8h,000h,000h,050h
+	db 08bh,087h,000h,044h,02bh,046h,0f2h,050h
+	call clamp_value_
+	db 083h,0c4h,006h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,058h,089h,087h,000h
+	db 044h,03dh,000h,000h,07fh,01fh,0c6h,087h,089h,045h,003h,0c7h,087h,000h,044h,000h
+	db 000h,0c7h,087h,004h,044h,000h,000h,08ah,087h,086h,045h,02ah,0e4h,005h,008h,000h
+	db 050h
+	call play_sound_
+	db 059h
+#endasm
 Lc814:
 	goto Lc8bf;
 	if ((unsigned char)g458c[(432 * l6)] >= l10) goto Lc831;

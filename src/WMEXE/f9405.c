@@ -254,9 +254,9 @@ L97ea:
 	print_msg_centered(3224, 3, 3);
 	combat_delay((g4fc8 / 2));
 	for (l2 = 0; l2 < 4; l2++) {
-	if ((l4 = ((unsigned char)((char *)monster_groups[g435e] + l2)[402] - p8)) >= 0) goto L9b82;
+	if ((l4 = ((unsigned char)((char *)monster_groups[g435e] + l2)[402] - p8)) < 0) {
 	l4 = 0;
-L9b82:
+	}
 	((char *)monster_groups[g435e] + l2)[402] = *(char *)&l4;
 	}
 	if ((unsigned)(*(char **)((char *)monster_groups + (g435e << 1)))[399] <= 0) goto L9bf1;

@@ -5,8 +5,7 @@
 	global g080c_:byte,54
 	global scenario_fd_:byte,2
 	global msg_fd_:byte,2
-	global mouse_present_:byte,2
-	global msg_index_count_:byte,5102
+	global mouse_present_:byte,5104
 	global msg_cache_ids_:byte,8
 	global msg_block_:byte,5120
 	global msg_block_num_:byte,2

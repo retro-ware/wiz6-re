@@ -222,7 +222,7 @@ class Func:
                 if reg or not (live or lenient):
                     return False
             elif reg:
-                if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic in ('mov', 'add') and reg == [1]):
+                if (live or lenient) and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic in ('mov', 'add') and reg == [1]):
                     continue        # the temp scaled in place (shl si, cl), copied out (mov cx, si) or added (add bx, si)
                 lea = i.mnemonic == 'lea' and reg == [0]        # a struct copy's source/dest address
                 if not lea and (i.mnemonic != 'mov' or reg != [0] or

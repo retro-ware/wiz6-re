@@ -19,5 +19,8 @@
 	global g578e_:byte,82
 	global class_allowed_:byte,28
 	global g57fc_:byte,2
-	global g57fe_:byte,60
+	global g57fe_:byte,20
+	global g5812_:byte,14
+	global g5820_:byte,10
+	global g582a_:byte,16
 #endasm
