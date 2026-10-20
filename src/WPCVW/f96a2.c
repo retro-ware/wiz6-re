@@ -97,15 +97,30 @@ L9a44:
 L9a47:
 	if (l2 >= 0) goto L99bf;
 L9a50:
-	if (l20 <= 0) goto L9ad4;
+	;
+#asm
+l9a50:
+	db 083h,07eh,0ech,000h,07fh,003h
+#endasm
+	goto L9ad4;
+L9a59:
 	*(struct s8 *)((char *)pc_item_id + ((432 * l4) + (l6 << 3))) = *(struct s8 *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)));
 	pc_item_qty[((432 * l4) + (l6 << 3))] = *(char *)&l8;
-	pc_item_flags[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_flags[((432 * l4) + (l6 << 3))] & -2);
-	if (l20 == 1) {
-	pc_item_count[(432 * l4)]++;
-	} else {
-	pc_swag_count[(432 * l4)]++;
-	}
+#asm
+	db 08ah,087h,02fh,044h,02ah,0e4h,025h,0feh,0ffh,088h,087h,02fh,044h
+#endasm
+	if (l20 != 1) goto L9acc;
+#asm
+	db 08bh,0d9h,0feh,087h,094h,045h
+#endasm
+	goto L9ad2;
+L9acc:
+	;
+#asm
+l9acc:
+	db 08bh,0d9h,0feh,087h,095h,045h
+#endasm
+L9ad2:
 	goto L9af4;
 L9ad4:
 	pc_item_qty[((432 * l4) + (l6 << 3))] = (char)((unsigned char)pc_item_qty[((432 * l4) + (l6 << 3))] + l8);

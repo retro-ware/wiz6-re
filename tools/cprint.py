@@ -587,6 +587,10 @@ class Printer:
                         rv[2][0] == 'm' and rv[2][3] == 2 and rv[3][0] not in ('c', 'v', 'm'):
                     # pointer + computed int: cgen computes the (scaled) int first
                     out.append('\t%s = %s;' % (self.ex(st.lv), self.ptr(rv)))
+                elif size_of(st.lv) == 1 and rv[0] == 'lo' and rv[1][0] == 'b' and rv[1][1] in ('&', '|', '^') and \
+                        rv[1][2][0] == 'x' and rv[1][2][2] == st.lv and st.lv[0] == 'm':
+                    # byte x = x op y: the compound form keeps the address registers for the next statement
+                    out.append('\t%s %s= %s;' % (self.ex(st.lv), rv[1][1], self.ex(rv[1][3])))
                 else:
                     out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(self.byte_k(rv) if size_of(st.lv) == 1 else rv)))
             elif kd == 'cas':

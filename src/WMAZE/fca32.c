@@ -5,7 +5,7 @@ char *p4;
 	rsi = p6;
 	goto Lca63;
 Lca3c:
-	*(p4 + (rsi / 8)) = (char)(*(p4 + (rsi / 8)) & ~(1 << (rsi % 8)));
+	*(p4 + (rsi / 8)) &= ~(1 << (rsi % 8));
 	rsi++;
 Lca63:
 	if ((p6 + 2) > rsi) goto Lca3c;

@@ -78,7 +78,12 @@ Ld3a7:
 	l2 = 0;
 	goto Ld3fa;
 Ld3d7:
-	pc_item_flags[((432 * p8) + (l2 << 3))] = (char)((unsigned char)pc_item_flags[((432 * p8) + (l2 << 3))] & -2);
+	;
+#asm
+ld3d7:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h
+	db 0c1h,08bh,0d8h,08ah,087h,02fh,044h,02ah,0e4h,025h,0feh,0ffh,088h,087h,02fh,044h
+#endasm
 	l2++;
 Ld3fa:
 	if ((unsigned char)pc_item_count[(432 * p8)] > l2) goto Ld3d7;
