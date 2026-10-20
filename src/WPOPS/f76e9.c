@@ -1,6 +1,5 @@
 #asm
 	extrn pick_target_monster_:near
-	extrn random_:near
 #endasm
 extern char *monster_groups;
 extern char g44e5[];
@@ -11,6 +10,7 @@ extern char g450d[];
 extern char g451a[];
 extern char g452c[];
 extern char g4592[];
+extern char g4593[];
 extern char g504c[];
 extern char pc_class[];
 extern char pc_condition[];
@@ -67,14 +67,7 @@ choose_party_actions(win)
 	goto L7864;
 L76f9:
 	l180 = (monster_groups + (44 * member));
-#asm
-	db 0b8h,00ah,000h,050h
-	call random_
-	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,093h,045h,02ah,0e4h
-	db 08bh,0c8h,058h,003h,0c1h,050h,0b8h,02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh
-	db 0a8h,043h,08ah,040h,029h,098h,08bh,0c8h,058h,003h,0c1h,089h,086h,052h,0ffh,03dh
-	db 001h,000h,07dh,006h
-#endasm
+	if ((l174 = ((random(10) + (unsigned char)g4593[(432 * member)]) + ((rsi = (44 * member), monster_groups) + rsi)[41])) >= 1) goto L774b;
 	l174 = 1;
 L774b:
 	l176 = (l174 / (unsigned char)g4592[(432 * member)]);
@@ -84,12 +77,7 @@ L77a4:
 	l180[33] = 0;
 	l180[28] = 0;
 	l180[29] = 1;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h,08ah,087h,092h,045h,02ah,0e4h,050h,0b8h
-	db 02ch,000h,0f7h,06eh,0fah,08bh,0f0h,08bh,01eh,0a8h,043h,08ah,040h,029h,098h,0b9h
-	db 00ah,000h,099h,0f7h,0f9h,08bh,0c8h,058h,003h,0c1h,089h,086h,04eh,0ffh,03dh,001h
-	db 000h,07dh,006h
-#endasm
+	if ((l178 = ((unsigned char)g4592[(432 * member)] + (((rsi = (44 * member), monster_groups) + rsi)[41] / 10))) >= 1) goto L77f5;
 	l178 = 1;
 L77f5:
 	if (l178 <= 4) goto L7802;

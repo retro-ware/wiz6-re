@@ -281,8 +281,27 @@ class Printer:
             return self.addr(('m', e[2], e[3][1], 1))
         return self.ptr(e)
 
+    def lvx(self, e):
+        """e printed as an assignment target: no comma forms (not an lvalue in C)."""
+        self._lv = True
+        try:
+            return self.ex(e)
+        finally:
+            self._lv = False
+
     def mem(self, m):
         b, d, size = m[1], m[2], m[3]
+        if b[0] == 'b' and b[1] == '+' and b[3][0] == '=' and b[3][1][0] == 'v' and b[3][1][1] == 'r':
+            # p[(rsi = E) ...]: cgen copies an assigned register out first (push di); the comma form
+            # (rsi = E, p)[rsi + K] indexes with it directly and is still an lvalue
+            r = self.ex(b[3][1])
+            if not (self.T.is_data(d) and not self.is_ptr_expr(b) and not self.loaded_base(b, d)):
+                p, sd = '((%s = %s, %s) + %s)' % (r, self.ex(b[3][2]), self.ptr(b[2]), r), self.sdisp(d)
+                if size == 1:
+                    return '%s[%d]' % (p, sd) if sd else '*%s' % p
+                return '*(%s *)(%s + %d)' % (CTYPE[size], p, sd) if sd else '*(%s *)%s' % (CTYPE[size], p)
+            if not getattr(self, '_lv', False):
+                return '(%s = %s, %s)' % (r, self.ex(b[3][2]), self.mem(('m', ('b', '+', b[2], b[3][1]), d, size)))
         if self.T.is_data(d) and not self.is_ptr_expr(b) and not self.loaded_base(b, d):
             g = self.global_name(d)
             if size == 1:
@@ -347,7 +366,7 @@ class Printer:
         if k == 'sv':           # a struct a call returned, passed by value
             return self.ex(e[1])
         if k == '=':
-            return '(%s = %s)' % (self.ex(e[1]), self.ex(e[2]))
+            return '(%s = %s)' % (self.lvx(e[1]), self.ex(e[2]))
         if k == '?':
             c = e[1]
             if len(e) > 4 and c[0] in ('==', '!=') and c[2] == ('c', 0):
@@ -579,7 +598,7 @@ class Printer:
                     out.append('\treturn;' if self.tail_goto[1] == self.f.epi else '\tgoto L%04x;' % self.tail_goto[1])
             elif k in fors:
                 c, op = fors[k][0].cond, '++' if fors[k][1].op == '+' else '--'
-                out.append('\tfor (%s = %s; %s; %s%s) {' % (self.ex(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1]), op))
+                out.append('\tfor (%s = %s; %s; %s%s) {' % (self.lvx(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1]), op))
             elif k in forend:
                 if forend[k]:
                     out.append('\t}')
@@ -588,15 +607,15 @@ class Printer:
                 if st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr and rv[0] == 'b' and rv[1] == '+' and \
                         rv[2][0] == 'm' and rv[2][3] == 2 and rv[3][0] not in ('c', 'v', 'm'):
                     # pointer + computed int: cgen computes the (scaled) int first
-                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ptr(rv)))
+                    out.append('\t%s = %s;' % (self.lvx(st.lv), self.ptr(rv)))
                 elif size_of(st.lv) == 1 and rv[0] == 'lo' and rv[1][0] == 'b' and rv[1][1] in ('&', '|', '^') and \
                         rv[1][2][0] == 'x' and rv[1][2][1] and rv[1][2][2] == st.lv and st.lv[0] == 'm':
                     # byte x = x op y: the compound form keeps the address registers for the next statement
-                    out.append('\t%s %s= %s;' % (self.ex(st.lv), rv[1][1], self.ex(rv[1][3])))
+                    out.append('\t%s %s= %s;' % (self.lvx(st.lv), rv[1][1], self.ex(rv[1][3])))
                 else:
-                    out.append('\t%s = %s;' % (self.ex(st.lv), self.ex(self.byte_k(rv) if size_of(st.lv) == 1 else rv)))
+                    out.append('\t%s = %s;' % (self.lvx(st.lv), self.ex(self.byte_k(rv) if size_of(st.lv) == 1 else rv)))
             elif kd == 'cas':
-                lv = self.ex(st.lv)
+                lv = self.lvx(st.lv)
                 if getattr(st, 'incs', False) and st.lv[0] == 'v' and vkey(st.lv) in self.T.ptr:
                     lv = '*(int *)&' + lv       # inc; inc: cgen adds to a pointer with add, an int with incs
                 rv = self.byte_k(st.rv) if size_of(st.lv) == 1 else st.rv
@@ -605,7 +624,7 @@ class Printer:
                 out.append('\t*(struct s%d *)%s = *(struct s%d *)%s;' % (st.size, self.saddr(st.dst), st.size,
                                                                        self.saddr(st.src)))
             elif kd == 'inc':
-                lv = self.ex(st.lv)
+                lv = self.lvx(st.lv)
                 out.append('\t%s%s;' % ('(%s)' % lv if lv.startswith('*') else lv, '++' if st.op == '+' else '--'))
             elif kd == 'expr':
                 out.append('\t%s;' % self.ex(st.x))
