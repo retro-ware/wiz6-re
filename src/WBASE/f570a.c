@@ -1,12 +1,12 @@
 #asm
 	extrn copy_far_:near
-	extrn lseek_:near
 #endasm
 extern char cfg_delay;
 extern char cfg_gmode;
 extern char cfg_input;
 extern char cfg_level;
 extern char g3592;
+extern char party[];
 extern char pc_portrait[];
 extern char sound_mode;
 extern int disk_header;
@@ -36,6 +36,8 @@ extern int party_y;
 extern long g4f78;
 extern long g4f7c;
 extern long g4f80;
+struct s414 { int w[207]; };
+struct s432 { int w[216]; };
 /* Load NEWGAME.DBS (resume 0) or SAVEGAME.DBS: header, settings, maze state and party; -1 on error. */
 load_game(resume)
 {
@@ -94,8 +96,6 @@ load_game(resume)
 	char x4296[38];
 	int title_text;
 	int l4338;
-	register int rsi;
-	register int rdi;
 	l4134 = 0;
 	l4136 = disk_header;
 	l4136 = ((g3592 == 5) && (l4136 > 0) ? (l4136 + 2) : l4136);
@@ -135,40 +135,31 @@ L58a1:
 L58b0:
 	if ((fd = open(&path, 0)) != -1) goto L58fd;
 	show_error_text(&disk_error_text, 1);
-	if (!l4134) goto L58f4;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L58f4:
+	}
 	return -1;
 L58fd:
 	erase_window(main_window, 0);
 	refresh_all_windows();
-	if (resume) goto L5926;
+	if (!resume) {
 	animate_and_show_two_lines(&entering_text, &title_text);
-	goto L592f;
-L5926:
+	} else {
 	show_status_text(&loading_text);
-L592f:
-	rsi = 13304;
-	rdi = &l4132;
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,0cfh,000h,0f3h,0a5h,0b8h,000h,000h,050h,0b8h,000h,000h
-	db 0bah,000h,000h,052h,050h,0ffh,076h,0fah
-	call lseek_
-	db 083h,0c4h,008h
-#endasm
+	}
+	*(struct s414 *)(char *)(&l4132) = *(struct s414 *)(char *)(13304);
+	lseek(fd, 0L, 0);
 	if ((l506 = read(fd, 13304, 414)) > 0) goto L59a8;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L59a2;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L59a2:
+	}
 	return -1;
 L59a8:
-	l4 = 0;
-L59ad:
+	for (l4 = 0; l4 < 4; l4++) {
 	strcpy(((l4 * 20) + 13632), ((l4 * 20) + l3804));
-	l4++;
-	if (l4 < 4) goto L59ad;
+	}
 	sound_mode = l3724;
 	cfg_delay = l3723;
 	g3592 = l3722;
@@ -182,17 +173,17 @@ L5a21:
 	if ((l506 = read(fd, &l1978, g3304)) > 0) goto L5a76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5a70;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5a70:
+	}
 	return -1;
 L5a76:
 	if ((l506 = read(fd, &l3718, g3306)) > 0) goto L5acb;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5ac5;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5ac5:
+	}
 	return -1;
 L5acb:
 	if (l4 >= 14) goto L5b13;
@@ -212,9 +203,9 @@ L5b16:
 	if ((l506 = read(fd, &l72, 66)) > 0) goto L5b76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5b70;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5b70:
+	}
 	return -1;
 L5b76:
 	party_x = l70;
@@ -231,49 +222,36 @@ L5b76:
 	g4f8e = l48;
 	g4f8c = l46;
 	g4f98 = l58;
-	l2 = 0;
-L5bcf:
+	for (l2 = 0; l2 < 6; l2++) {
 	*(int *)((char *)g4ec8 + (l2 << 2)) = *(int *)(l32 + (l2 << 2));
 	*(int *)((char *)g4eca + (l2 << 2)) = *(int *)(l32 + ((l2 << 2) + 2));
-	l2++;
-	if (l2 < 6) goto L5bcf;
+	}
 	g4f80 = l44;
 	g4f7c = l40;
 	g4f78 = l36;
 	if (resume != 1) goto L5cd4;
 	party_count = 0;
-	l2 = 0;
-	goto L5cc9;
-L5c3e:
+	for (l2 = 0; l2 < l8; l2++) {
 	if ((l506 = read(fd, &l504, 432)) > 0) goto L5c93;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5c8d;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5c8d:
+	}
 	return -1;
 L5c93:
 	member_portrait[party_count] = find_free_portrait_slot(party_count);
-	rsi = &l504;
-	rdi = ((432 * party_count) + 17384);
-#asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,0d8h,000h,0f3h,0a5h,0ffh,006h,0ceh,043h
-#endasm
-	l2++;
-L5cc9:
-	if (l2 < l8) goto L5c3e;
+	*(struct s432 *)((char *)party + (432 * party_count)) = *(struct s432 *)(char *)(&l504);
+	party_count++;
+	}
 L5cd4:
 	close(fd);
-	if (!l4134) goto L5cf9;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5cf9:
-	l2 = 0;
-	goto L5d2a;
-L5d00:
+	}
+	for (l2 = 0; l2 < party_count; l2++) {
 	load_portrait((unsigned char)pc_portrait[(432 * l2)], member_portrait[l2]);
 	draw_member_panel(l2);
-	l2++;
-L5d2a:
-	if (l2 < party_count) goto L5d00;
+	}
 	return 0;
 }
