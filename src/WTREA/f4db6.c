@@ -48,9 +48,9 @@ draw_member_status(member)
 	l2 = -1;
 	rsi = 0;
 L4f1f:
-	if (((unsigned)g450a[((432 * member) + rsi)] <= 0) || (g0532[rsi] <= l2)) goto L4f42;
+	if (((unsigned)g450a[((432 * member) + rsi)] > 0) && (g0532[rsi] > l2)) {
 	l2 = g0532[rsi];
-L4f42:
+	}
 	rsi++;
 	if (rsi < 10) goto L4f1f;
 	if (l2 != -1) {
@@ -65,12 +65,11 @@ L4f42:
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
 L4fd3:
-	if (((unsigned char)pc_equipped[((432 * member) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))) <= 0)) goto L5024;
+	if (((unsigned char)pc_equipped[((432 * member) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))] + 1)), 4);
-	goto L5039;
-L5024:
+	} else {
 	put_char_hi(win, (unsigned char)((rsi + 37)), 4);
-L5039:
+	}
 	rsi++;
 	if (rsi < 2) goto L4fd3;
 	draw_vital_bar(win, (x + 5), (y + 1), *(int *)((char *)pc_hp + (432 * member)), *(int *)((char *)pc_hp_max + (432 * member)), 86);

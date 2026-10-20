@@ -123,19 +123,19 @@ L85d8:
 	}
 	l2 = ((unsigned char)g55ad / 5);
 	l4 = ((unsigned char)g55c1 / 5);
-	if ((char_class != 13) && (char_class != 12)) goto L86e2;
+	if ((char_class == 13) || (char_class == 12)) {
 	g5563[0] = (char)((l2 / 3) + 2);
 	g556f[0] |= 64;
 	g556a = (char)(l4 + 5);
-	goto L8706;
-L86e2:
+	} else {
 	if (l2 > 0) {
 	g5563[0] = (char)((l2 / 4) + 1);
 	g556f[0] |= 64;
 	}
-	if (l4 <= 0) goto L8706;
+	if (l4 > 0) {
 	g556a = *(char *)&l4;
-L8706:
+	}
+	}
 	if ((unsigned)char_stats > 15) {
 	g5560[0]++;
 	}

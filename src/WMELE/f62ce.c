@@ -11,9 +11,9 @@ start_encounter()
 	char x0[4];
 	g43c8 = 0;
 	combat_gold = 0;
-	if (((g433a != 128) && (g433a != 151)) && (g433a != 153)) goto L62f9;
+	if (((g433a == 128) || (g433a == 151)) || (g433a == 153)) {
 	g4354 = 1;
-L62f9:
+	}
 	clear_combat_groups();
 	generate_monster_group(g433a, 1);
 	treasure_id = (unsigned char)(g43b8 + g4338)[162];

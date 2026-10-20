@@ -241,14 +241,13 @@ case 21:
 	goto Lbd0a;
 	}
 Lbd0a:
-	if (((test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) == 1) && (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) == 1)) && (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) == 1)) goto Lbd79;
+	if (((test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) != 1) || (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) != 1)) || (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) != 1)) {
 	get_message(1567, 21902);
 	l2 = 9;
-	goto Lbd8f;
-Lbd79:
+	} else {
 	get_message((l124 + 5500), 21902);
 	l2 = 2;
-Lbd8f:
+	}
 	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 6);
 	print_string(l6, 21902, l2);
 Lbdc3:
@@ -272,20 +271,20 @@ Lbe0e:
 	if (l2 < 8) goto Lbe0e;
 Lbe78:
 	set_cursor(l6, 1, 10);
-	if ((!l122[19]) && (!l122[18])) goto Lbef4;
+	if ((l122[19]) || (l122[18])) {
 	get_message(451, 21902);
 	put_char(l6, (unsigned char)g558e[0], (l122[19] != 0 ? 6 : 14));
 	put_char(l6, 47, 14);
 	put_char(l6, (unsigned char)g558f, (((unsigned char)l22[(0 + 1)] & 8) ? 6 : 14));
-	goto Lbf4a;
-Lbef4:
-	if (!l122[17]) goto Lbf4a;
+	} else {
+	if (l122[17]) {
 	get_message(452, 21902);
 	print_string(l6, 21902, (l122[9] + 8));
 	l6[6]++;
 	int_to_string((0 - l10), 21902);
 	print_string(l6, 21902, l122[9]);
-Lbf4a:
+	}
+	}
 	if (l122[16]) {
 	get_message((((unsigned char)l22[(0 + 1)] & 4) ? 458 : 457), 21902);
 	set_cursor(l6, 8, 10);
@@ -332,7 +331,7 @@ Lc029:
 	}
 	l168 = 5;
 	}
-	if ((!l122[7]) || (!((unsigned char)l14 - (unsigned char)l13))) goto Lc296;
+	if ((l122[7]) && (((unsigned char)l14 - (unsigned char)l13))) {
 	l168 = (l122[8] != 0 ? 4 : 3);
 	set_cursor(l6, 11, l168);
 	get_message(468, 21902);
@@ -344,7 +343,7 @@ Lc029:
 	}
 	print_string(l6, 21902, 5);
 	l168 = 5;
-Lc296:
+	}
 	if (l22[5]) {
 	set_cursor(l6, 1, l168);
 	get_message(465, 21902);
@@ -367,9 +366,9 @@ Lc296:
 	}
 	l168++;
 	}
-	if ((l168 <= 3) || (l168 >= 8)) goto Lc3c9;
+	if ((l168 > 3) && (l168 < 8)) {
 	l168++;
-Lc3c9:
+	}
 	if (l12) {
 	get_message(469, 21902);
 	set_cursor(l6, 1, l168);
@@ -429,9 +428,9 @@ Lc6e2:
 	if (check_screen_click()) {
 	l170 = 0;
 	}
-	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto Lc70e;
+	if ((key_available(1) == 1) && ((char)get_key(1) == 13)) {
 	l170 = 0;
-Lc70e:
+	}
 	if (l170) goto Lc6e2;
 	destroy_window(l6, 0);
 }

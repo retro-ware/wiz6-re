@@ -120,11 +120,11 @@ case 1:
 	}
 	goto L7c03;
 case 2:
-	if ((realm == -1) || ((realm % 3) <= 0)) goto L7b85;
+	if ((realm != -1) && ((realm % 3) > 0)) {
 	unhighlight_realm(p4, l2, realm);
 	realm--;
 	l72 = 1;
-L7b85:
+	}
 	goto L7c03;
 case 3:
 	if (realm == -1) goto L7bb7;
@@ -138,11 +138,11 @@ L7bb2:
 L7bb7:
 	goto L7c03;
 case 4:
-	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L7be7;
+	if ((realm != -1) && (((realm % 3) + 1) < 3)) {
 	unhighlight_realm(p4, l2, realm);
 	realm++;
 	l72 = 1;
-L7be7:
+	}
 	goto L7c03;
 	}
 L7c03:

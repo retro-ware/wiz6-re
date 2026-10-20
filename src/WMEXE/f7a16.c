@@ -16,11 +16,11 @@ f7a16(p4, p6, p8, p10, p12)
 	clear_msg_line(4);
 	print_combat_line(20492, 20652, 20572, (p4 == 0 ? 1 : 6), 6, 0);
 	}
-	if ((p10 != 1) || (p4)) goto L7ae5;
+	if ((p10 == 1) && (!p4)) {
 	if (p12 > 0) {
 	play_sound(p12);
 	}
 	draw_member_card_x(p6, 1);
-L7ae5:
+	}
 	combat_delay((g4fc8 / 2));
 }

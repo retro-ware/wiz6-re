@@ -23,16 +23,15 @@ L88b2:
 L88d6:
 	;
 L88da:
-	if (l6) goto L88ff;
+	if (!l6) {
 	anim_phase = ((anim_phase + 1) % 2);
-	if ((g553c == -1) || (anim_phase != l4)) goto L88fd;
+	if ((g553c != -1) && (anim_phase == l4)) {
 	blink_cursor();
-L88fd:
-	goto L8905;
-L88ff:
+	}
+	} else {
 	delay_tick();
 	delay_tick();
-L8905:
+	}
 	l6 = ((l6 + 1) % 10);
 	goto L88b2;
 L8914:

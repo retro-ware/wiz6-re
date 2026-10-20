@@ -64,9 +64,9 @@ puzzle_event()
 	if (l20 != 1) goto Lbf2d;
 	get_message(l10, &l188);
 	l6 = maze_menu_select(g522a, l10, enabled, (20 - ((strlen(&l188) + 1) / 2)), 1, 20, 4, 5, 0);
-	if (((l222 = ((((unsigned char)answer[(l6 << 1)] * 10) + (unsigned char)answer[((l6 << 1) + 1)]) + -528)) <= 0) || (l222 >= 80)) goto Lbf2a;
+	if (((l222 = ((((unsigned char)answer[(l6 << 1)] * 10) + (unsigned char)answer[((l6 << 1) + 1)]) + -528)) > 0) && (l222 < 80)) {
 	set_bit(((game_state_arg * 10) + 20204), l222, 0);
-Lbf2a:
+	}
 	goto Lc090;
 Lbf2d:
 	failed = 0;

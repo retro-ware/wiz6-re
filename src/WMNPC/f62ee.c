@@ -69,10 +69,10 @@ L6570:
 L65a1:
 	switch (l2) {
 case 1:
-	if ((l6 == -1) || ((l6 % 2) <= 0)) goto L65cc;
+	if ((l6 != -1) && ((l6 % 2) > 0)) {
 	f62a9(l4, l6);
 	l6--;
-L65cc:
+	}
 	goto L66a5;
 case 2:
 	if (l6 == -1) goto L6607;
@@ -87,10 +87,10 @@ L65f0:
 L6607:
 	goto L66a5;
 case 3:
-	if (((l6 == -1) || ((l6 % 2) >= 1)) || ((l6 + 1) >= party_count)) goto L6638;
+	if (((l6 != -1) && ((l6 % 2) < 1)) && ((l6 + 1) < party_count)) {
 	f62a9(l4, l6);
 	l6++;
-L6638:
+	}
 	goto L66a5;
 case 4:
 	if (l6 == -1) {

@@ -21,9 +21,9 @@ get_center_wall(x, y, cx, cy, level, side)
 	register int cell;
 	register int rdi;
 	if ((!side) || (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0))) goto L782f;
-	if ((g5118) || (side)) goto L77e6;
+	if ((!g5118) && (!side)) {
 	view_rows_open = 0;
-L77e6:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L782a;
 	g511b[((g5118 * 3) + side)] = 1;
 	*(int *)((char *)g5128 + ((g5118 * 6) + (side << 1))) = 1;
@@ -166,8 +166,8 @@ case 15:
 	goto L7b67;
 	}
 L7b67:
-	if (((!wall) || (g5118)) || (side)) goto L7b80;
+	if (((wall) && (!g5118)) && (!side)) {
 	view_rows_open = 0;
-L7b80:
+	}
 	return wall;
 }

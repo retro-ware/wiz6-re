@@ -93,11 +93,11 @@ case 1:
 	}
 	goto L6bca;
 case 2:
-	if ((l64 == -1) || ((l64 % 3) <= 0)) goto L6b4c;
+	if ((l64 != -1) && ((l64 % 3) > 0)) {
 	unhighlight_realm(p4, l2, l64);
 	l64--;
 	l72 = 1;
-L6b4c:
+	}
 	goto L6bca;
 case 3:
 	if (l64 == -1) goto L6b7e;
@@ -111,11 +111,11 @@ L6b79:
 L6b7e:
 	goto L6bca;
 case 4:
-	if ((l64 == -1) || (((l64 % 3) + 1) >= 3)) goto L6bae;
+	if ((l64 != -1) && (((l64 % 3) + 1) < 3)) {
 	unhighlight_realm(p4, l2, l64);
 	l64++;
 	l72 = 1;
-L6bae:
+	}
 	goto L6bca;
 	}
 L6bca:

@@ -18,10 +18,10 @@ char *p4;
 	defer_window_draw(p4);
 	l2 = -2;
 L9fee:
-	if (((p8 + l2) < 0) || ((p8 + l2) >= g54b2)) goto La1e6;
+	if (((p8 + l2) >= 0) && ((p8 + l2) < g54b2)) {
 	set_cursor(p4, 2, (l2 + 2));
 	l4 = g54b4[(p8 + l2)];
-	if ((p10 != 1) || (l2)) goto La09f;
+	if ((p10 == 1) && (!l2)) {
 	print_string(p4, ((l4 << 4) + 21744), 3);
 	if (g00cc[(unsigned char)g56d0[l4]] == 1) {
 	pad_to_column(p4, 15, 3);
@@ -29,25 +29,24 @@ L9fee:
 	} else {
 	pad_to_column(p4, 18, 3);
 	}
-	goto La0f9;
-La09f:
+	} else {
 	print_string_hi(p4, ((l4 << 4) + 21744), 3);
-	if (g00cc[(unsigned char)g56d0[l4]] != 1) goto La0f9;
+	if (g00cc[(unsigned char)g56d0[l4]] == 1) {
 	set_cursor(p4, 15, (l2 + 2));
 	print_int(p4, g56ee[l4], 3, 18);
-La0f9:
+	}
+	}
 	set_cursor(p4, 19, (l2 + 2));
 	put_char_hi(p4, (unsigned char)(((unsigned char)g572a[l4] + 1)), 4);
 	p4[6]++;
-	if (((test_bit(((l4 << 1) + 22344), (unsigned char)pc_class[(432 * p6)])) && (test_bit(((l4 << 1) + 22404), (unsigned char)pc_race[(432 * p6)]))) && (test_bit((l4 + 22464), (unsigned char)pc_sex[(432 * p6)]))) goto La1a3;
+	if (((!test_bit(((l4 << 1) + 22344), (unsigned char)pc_class[(432 * p6)])) || (!test_bit(((l4 << 1) + 22404), (unsigned char)pc_race[(432 * p6)]))) || (!test_bit((l4 + 22464), (unsigned char)pc_sex[(432 * p6)]))) {
 	print_message(1567, p4, 18);
-	goto La1bd;
-La1a3:
+	} else {
 	print_message(((unsigned char)g56d0[l4] + 1550), p4, 18);
-La1bd:
+	}
 	p4[6] = 32;
 	print_long(p4, *(int *)((char *)g57de + (l4 << 2)), *(int *)((char *)class_allowed + (l4 << 2)), 7, 18);
-La1e6:
+	}
 	l2++;
 	if (l2 <= 2) goto L9fee;
 	resume_window_draw(p4);

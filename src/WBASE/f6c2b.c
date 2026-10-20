@@ -67,10 +67,10 @@ L6e8a:
 L6ebb:
 	switch (choice) {
 case 1:
-	if ((sel == -1) || ((sel % 2) <= 0)) goto L6ee6;
+	if ((sel != -1) && ((sel % 2) > 0)) {
 	draw_member_name(win, sel);
 	sel--;
-L6ee6:
+	}
 	goto L6faa;
 case 2:
 	if (sel == -1) goto L6f0c;
@@ -83,10 +83,10 @@ L6f07:
 L6f0c:
 	goto L6faa;
 case 3:
-	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L6f3d;
+	if (((sel != -1) && ((sel % 2) < 1)) && ((sel + 1) < party_count)) {
 	draw_member_name(win, sel);
 	sel++;
-L6f3d:
+	}
 	goto L6faa;
 case 4:
 	if (sel == -1) {

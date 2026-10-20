@@ -22,16 +22,15 @@ L4744:
 L4768:
 	;
 L476c:
-	if (g506a) goto L4798;
+	if (!g506a) {
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
-	if ((g502e == -1) || (anim_phase != frame0)) goto L4796;
+	if ((g502e != -1) && (anim_phase == frame0)) {
 	blink_cursor_text();
-L4796:
-	goto L479b;
-L4798:
+	}
+	} else {
 	play_random_drip();
-L479b:
+	}
 	g506a = ((g506a + 1) % 10);
 	goto L4744;
 L47ab:

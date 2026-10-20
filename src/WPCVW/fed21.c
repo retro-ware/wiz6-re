@@ -71,9 +71,9 @@ Lede3:
 	*(int *)((char *)pc_stamina_max + (432 * p8)) += l6;
 	get_message(5013, 21902);
 	set_cursor(p4, 15, 8);
-	if (((l12 = ((*(int *)((char *)pc_stamina + (432 * p8)) * 100) / *(int *)((char *)pc_stamina_max + (432 * p8)))) >= 1) || (*(int *)((char *)pc_stamina + (432 * p8)) <= 0)) goto Leeab;
+	if (((l12 = ((*(int *)((char *)pc_stamina + (432 * p8)) * 100) / *(int *)((char *)pc_stamina_max + (432 * p8)))) < 1) && (*(int *)((char *)pc_stamina + (432 * p8)) > 0)) {
 	l12 = 1;
-Leeab:
+	}
 	print_int(p4, l12, 3, -6);
 	show_centered_msg(p6, 21902, 1);
 	set_cursor(p4, 15, 8);

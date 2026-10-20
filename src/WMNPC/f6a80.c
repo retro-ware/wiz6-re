@@ -32,10 +32,10 @@ npc_give_item_to_member(p4, p6, p8)
 	l2 = (l80 - 1);
 	goto L6b1d;
 L6acc:
-	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) != p6) || (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l2 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * p4) + (l2 << 3))] + p8) > 250)) goto L6b1a;
+	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) == p6) && (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l2 << 3))]] == 1)) && (((unsigned char)pc_item_qty[((432 * p4) + (l2 << 3))] + p8) <= 250)) {
 	l80 = l2;
 	l84 = 0;
-L6b1a:
+	}
 	l2--;
 L6b1d:
 	if (l2 >= 0) goto L6acc;
@@ -46,10 +46,10 @@ L6b1d:
 	goto L6bab;
 L6b51:
 	l82 = (l2 + 10);
-	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l82 << 3))) != p6) || (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l82 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * p4) + (l82 << 3))] + p8) > 250)) goto L6ba8;
+	if (((*(int *)((char *)pc_item_id + ((432 * p4) + (l82 << 3))) == p6) && (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l82 << 3))]] == 1)) && (((unsigned char)pc_item_qty[((432 * p4) + (l82 << 3))] + p8) <= 250)) {
 	l80 = l82;
 	l84 = 0;
-L6ba8:
+	}
 	l2--;
 L6bab:
 	if (l2 >= 0) goto L6b51;

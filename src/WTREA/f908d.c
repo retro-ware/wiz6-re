@@ -8,9 +8,9 @@ is_member_able(member)
 	if (pc_condition[(432 * member)]) {
 	ok = 0;
 	}
-	if (((unsigned)g450c[(432 * member)] <= 0) && ((unsigned)g450d[(432 * member)] <= 0)) goto L90bf;
+	if (((unsigned)g450c[(432 * member)] > 0) || ((unsigned)g450d[(432 * member)] > 0)) {
 	ok = 0;
-L90bf:
+	}
 	if (!ok) {
 	play_sound(0);
 	}

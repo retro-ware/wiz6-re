@@ -7,10 +7,10 @@ char *p8;
 	l2 = 0;
 	rsi = 0;
 L785f:
-	if (((unsigned char)spell_table[(rsi * 6)] != p6) || (test_bit(((432 * p4) + 17776), rsi) != 1)) goto L789b;
+	if (((unsigned char)spell_table[(rsi * 6)] == p6) && (test_bit(((432 * p4) + 17776), rsi) == 1)) {
 	*(int *)(p8 + (l2 << 1)) = rsi;
 	l2++;
-L789b:
+	}
 	rsi++;
 	if (rsi < 82) goto L785f;
 	return l2;

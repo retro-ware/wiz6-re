@@ -24,12 +24,12 @@ update_party_after_round()
 	i = 0;
 	goto L5d43;
 L5c8a:
-	if (((unsigned)(monster_groups + (44 * i))[34] >= 3) || (update_combatant(0, i, (unsigned char)g458a[(432 * i)], (unsigned char)g458b[(432 * i)]) != 1)) goto L5d40;
+	if (((unsigned)(monster_groups + (44 * i))[34] < 3) && (update_combatant(0, i, (unsigned char)g458a[(432 * i)], (unsigned char)g458b[(432 * i)]) == 1)) {
 	draw_member_panel_mele(i);
 	play_sound(((unsigned char)pc_sex[(432 * i)] + 8));
 	set_cursor((!(i % 2) ? g4fba : g4fb8), 0, ((i / 2) << 2));
 	print_string((!(i % 2) ? g4fba : g4fb8), ((432 * i) + 17384), -4);
-L5d40:
+	}
 	i++;
 L5d43:
 	if (i < party_count) goto L5c8a;

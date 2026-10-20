@@ -50,9 +50,9 @@ draw_member_panel_mele(i)
 	state = -1;
 	rsi = 0;
 L6156:
-	if (((unsigned)g450a[((432 * i) + rsi)] <= 0) || (g0532[rsi] <= state)) goto L6179;
+	if (((unsigned)g450a[((432 * i) + rsi)] > 0) && (g0532[rsi] > state)) {
 	state = g0532[rsi];
-L6179:
+	}
 	rsi++;
 	if (rsi < 10) goto L6156;
 	if (state != -1) {
@@ -67,12 +67,11 @@ L6179:
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
 L620a:
-	if (((unsigned char)pc_equipped[((432 * i) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * i) + ((unsigned char)pc_equipped[((432 * i) + rsi)] << 3))) <= 0)) goto L625b;
+	if (((unsigned char)pc_equipped[((432 * i) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * i) + ((unsigned char)pc_equipped[((432 * i) + rsi)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * i) + ((unsigned char)pc_equipped[((432 * i) + rsi)] << 3))] + 1)), 4);
-	goto L6270;
-L625b:
+	} else {
 	put_char_hi(win, (unsigned char)((rsi + 37)), 4);
-L6270:
+	}
 	rsi++;
 	if (rsi < 2) goto L620a;
 	draw_gauge_mele(win, (x + 5), (y + 1), *(int *)((char *)pc_hp + (432 * i)), *(int *)((char *)pc_hp_max + (432 * i)), 86);

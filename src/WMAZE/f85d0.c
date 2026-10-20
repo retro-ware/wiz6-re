@@ -13,37 +13,37 @@ f85d0(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p3
 	drv_op_c6((g521a ? (p16 + p4) : (p14 + p4)), 1, (g521a != 0 ? (p14 + p4) : -1));
 	}
 	if (p4 >= 3) goto L8a2d;
-	if ((p6 != 2) && (p6 < 7)) goto L865f;
+	if ((p6 == 2) || (p6 >= 7)) {
 	drv_op_c6((g521c ? (p20 + p4) : (p18 + p4)), 1, (g521c != 0 ? (p18 + p4) : -1));
-L865f:
+	}
 	switch (p6) {
 case 1:
 case 3:
 case 4:
-	if (p6 != 3) goto L86fb;
-	if (p8 != 1) goto L86d2;
-	if ((p4) || (g363e <= 0)) goto L86a2;
+	if (p6 == 3) {
+	if (p8 == 1) {
+	if ((!p4) && (g363e > 0)) {
 	add_view_object_m(2, 0, 0, (g363e + 15), p10, p12, p4);
-	goto L86d0;
-L86a2:
-	if ((p4 <= 0) && (g363e)) goto L86d0;
+	} else {
+	if ((p4 > 0) || (!g363e)) {
 	add_view_object_m(255, (p22 + p4), -1, 0, -1, -1, p4);
-L86d0:
-	goto L86f9;
-L86d2:
-	if (p4 <= 0) goto L86f9;
+	}
+	}
+	} else {
+	if (p4 > 0) {
 	add_view_object_m(255, (p22 + p4), -1, 0, -1, -1, p4);
-L86f9:
-	goto L8743;
-L86fb:
-	if ((p6 != 4) || ((p4 <= 0) && (p8 != 1))) goto L8743;
+	}
+	}
+	} else {
+	if ((p6 == 4) && ((p4 > 0) || (p8 == 1))) {
 	add_view_object_m(2, *(int *)((char *)g0052 + ((p4 * 6) + (p8 << 1))), 0, (p4 + 10), p10, p12, p4);
-L8743:
+	}
+	}
 	add_view_object_m(255, (p24 + p4), (p28 + p4), 0, (p26 + p4), (p30 + p4), p4);
 	add_view_object_m(255, (p32 + p4), (p36 + p4), 0, (p34 + p4), (p38 + p4), p4);
-	if ((p4 <= 0) && (p8 != 1)) goto L87e1;
+	if ((p4 > 0) || (p8 == 1)) {
 	add_view_object_m(2, *(int *)((char *)g0052 + ((p4 * 6) + (p8 << 1))), 0, (p4 + 13), p10, p12, (p4 + 1));
-L87e1:
+	}
 	goto L8a2d;
 case 5:
 	drv_op_c6((g521c ? (p42 + p4) : (p40 + p4)), 1, (g521c != 0 ? (p40 + p4) : -1));
@@ -55,14 +55,14 @@ case 7:
 	drv_op_c6((g521c ? (p50 + p4) : (p48 + p4)), 0, -1);
 	goto L8a2d;
 case 8:
-	if ((p4 <= 0) && (p8 != 1)) goto L88d2;
+	if ((p4 > 0) || (p8 == 1)) {
 	add_view_object_m(1, *(int *)((char *)g0052 + ((p4 * 6) + (p8 << 1))), 0, (((((g521c) && (p4 < 2) ? 18 : 0) + (p4 << 1)) + anim_phase) + 1), p10, p12, p4);
-L88d2:
+	}
 	goto L8a2d;
 case 9:
-	if ((p4 <= 0) && (p8 != 1)) goto L8915;
+	if ((p4 > 0) || (p8 == 1)) {
 	add_view_object_m(2, *(int *)((char *)g0052 + ((p4 * 6) + (p8 << 1))), 0, (p4 + 1), p10, p12, p4);
-L8915:
+	}
 	goto L8a2d;
 case 10:
 case 11:
@@ -82,18 +82,18 @@ L89bb:
 L89d6:
 	goto L8a2d;
 case 14:
-	if ((p4) || (p8 != 1)) goto L8a00;
+	if ((!p4) && (p8 == 1)) {
 	drv_op_c6(344, 0, (g521c != 0 ? 344 : -1));
-L8a00:
+	}
 	goto L8a2d;
 	}
 L8a2d:
 	if (g50aa[((p4 * 3) + p8)]) goto L8b14;
 	if (*(int *)((char *)g504e + ((p4 * 6) + (p8 << 1)))) goto L8ad8;
 	drv_op_c6((g521a ? (p68 + p4) : (p66 + p4)), 1, (g521a != 0 ? (p66 + p4) : -1));
-	if (((p4 != 1) || (p8 != 1)) || (*(int *)((char *)g50b6 + ((p4 * 6) + (p8 << 1))) != 1)) goto L8ad6;
+	if (((p4 == 1) && (p8 == 1)) && (*(int *)((char *)g50b6 + ((p4 * 6) + (p8 << 1))) == 1)) {
 	drv_op_c6(345, 0, (g521a != 0 ? 345 : -1));
-L8ad6:
+	}
 	goto L8b14;
 L8ad8:
 	drv_op_c6((((g521a + anim_phase) % 2) ? (p72 + p4) : (p70 + p4)), 1, (((g521a + anim_phase) % 2) ? (p70 + p4) : -1));

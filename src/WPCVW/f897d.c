@@ -31,22 +31,20 @@ L8993:
 	l16 = 3;
 	get_message(503, &l12);
 	set_cursor(win, l14, l16);
-	if ((mouse_present) || (sel != -1)) goto L8a5b;
+	if ((!mouse_present) && (sel == -1)) {
 	print_string(win, &l12, -5);
-	goto L8a6c;
-L8a5b:
+	} else {
 	print_string_hi(win, &l12, 3);
-L8a6c:
+	}
 	for (rsi = 0; rsi < party_count; rsi++) {
 	l18 = (((rsi % 2) * 9) + 22);
 	l20 = ((rsi / 2) + 1);
 	set_cursor(win, l18, l20);
-	if ((mouse_present) || (rsi != sel)) goto L8ac7;
+	if ((!mouse_present) && (rsi == sel)) {
 	print_string(win, ((432 * rsi) + 17384), -5);
-	goto L8add;
-L8ac7:
+	} else {
 	print_string_hi(win, ((432 * rsi) + 17384), 3);
-L8add:
+	}
 	set_click_region(rsi, ((unsigned char)win[2] + l18), ((unsigned char)win[3] + l20), (((strlen(((432 * rsi) + 17384)) + (unsigned char)win[2]) + l18) - 1), ((unsigned char)win[3] + l20));
 	}
 	set_click_region(party_count, ((unsigned char)win[2] + l14), ((unsigned char)win[3] + l16), (((strlen(&l12) + (unsigned char)win[2]) + l14) - 1), ((unsigned char)win[3] + l16));
@@ -79,28 +77,28 @@ L8c4a:
 L8c4f:
 	goto L8d0e;
 case 2:
-	if ((sel == -1) || ((sel - 2) < 0)) goto L8c71;
+	if ((sel != -1) && ((sel - 2) >= 0)) {
 	draw_member_name(win, sel);
 	sel -= 2;
-L8c71:
+	}
 	goto L8d0e;
 case 3:
-	if (sel != -1) goto L8ca1;
+	if (sel == -1) {
 	set_cursor(win, l14, l16);
 	print_string_hi(win, &l12, 3);
 	sel = 0;
-	goto L8cca;
-L8ca1:
-	if (((sel % 2) >= 1) || ((sel + 1) >= party_count)) goto L8cca;
+	} else {
+	if (((sel % 2) < 1) && ((sel + 1) < party_count)) {
 	draw_member_name(win, sel);
 	sel++;
-L8cca:
+	}
+	}
 	goto L8d0e;
 case 4:
-	if ((sel == -1) || ((sel + 2) >= party_count)) goto L8cef;
+	if ((sel != -1) && ((sel + 2) < party_count)) {
 	draw_member_name(win, sel);
 	sel += 2;
-L8cef:
+	}
 	goto L8d0e;
 	}
 L8d0e:

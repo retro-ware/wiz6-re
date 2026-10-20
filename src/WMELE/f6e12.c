@@ -21,9 +21,9 @@ show_encounter_view()
 	l8 = random(4);
 	flash = 0;
 L6e67:
-	if (((random(8)) && (flash != l8)) || ((unsigned)g43b8[210] <= 0)) goto L6e8e;
+	if (((!random(8)) || (flash == l8)) && ((unsigned)g43b8[210] > 0)) {
 	play_sound(14);
-L6e8e:
+	}
 	view_anim_state = -2;
 	animate_view_step();
 	row = 0;
@@ -47,9 +47,9 @@ l6ee4:
 	db 089h,046h,0f6h
 #endasm
 	l10 = (*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) == 1 ? l10 : 0);
-	if (((row) || (col)) || (g5010 != 1)) goto L6f27;
+	if (((!row) && (!col)) && (g5010 == 1)) {
 	l10 = 0;
-L6f27:
+	}
 	queue_monster_sprite(row, col, l10);
 	col++;
 	if (col < 5) goto L6ea1;

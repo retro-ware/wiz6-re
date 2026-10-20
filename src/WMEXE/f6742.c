@@ -15,9 +15,9 @@ queue_effect_sprite(p4, p6)
 	if (*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))) != -1) goto L6769;
 	return;
 L6769:
-	if ((anim_cycle != 1) || (*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))) != 1)) goto L677d;
+	if ((anim_cycle == 1) && (*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))) == 1)) {
 	g5112 = 1;
-L677d:
+	}
 	l2 = 0;
 	l18 = 1;
 	l4 = 0;

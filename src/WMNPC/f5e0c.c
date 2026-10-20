@@ -32,21 +32,20 @@ L5e80:
 	l2 = 0;
 L5e8a:
 	if (*(int *)(p8 + (l2 << 1)) == -1) goto L5fb3;
-	if (*(int *)(p8 + (l2 << 1)) != 1) goto L5fad;
+	if (*(int *)(p8 + (l2 << 1)) == 1) {
 	l285 = (((l4 / p16) * p14) + p10);
 	l287 = ((l4 % p16) + p12);
 	set_cursor(p4, l285, l287);
 	get_message((p6 + l2), ((l4 * 15) + l259));
-	if (((mouse_present) || (p20)) || (l4 != p22)) goto L5f2b;
+	if (((!mouse_present) && (!p20)) && (l4 == p22)) {
 	print_string(p4, ((l4 * 15) + l259), (0 - p18));
-	goto L5f4a;
-L5f2b:
+	} else {
 	print_string_hi(p4, ((l4 * 15) + l259), 3);
-L5f4a:
+	}
 	*(int *)(l259 + ((l4 << 1) + 225)) = l2;
 	set_click_region(l4, ((unsigned char)p4[2] + l285), ((unsigned char)p4[3] + l287), (((strlen(((l4 * 15) + l259)) + (unsigned char)p4[2]) + l285) - 1), ((unsigned char)p4[3] + l287));
 	l4++;
-L5fad:
+	}
 	l2++;
 	goto L5e8a;
 L5fb3:
@@ -74,10 +73,10 @@ L60b3:
 L60e3:
 	switch (l2) {
 case 1:
-	if ((p22 == -1) || ((p22 - p16) < 0)) goto L6127;
+	if ((p22 != -1) && ((p22 - p16) >= 0)) {
 	f5dd1(p4, p22, p14, p16, p10, p12, ((p22 * 15) + l259));
 	p22 -= p16;
-L6127:
+	}
 	goto L6284;
 case 2:
 	if (p22 == -1) goto L61a2;
@@ -92,22 +91,22 @@ L616d:
 L61a2:
 	goto L6284;
 case 3:
-	if ((p22 == -1) || ((p22 + p16) >= l4)) goto L61e6;
+	if ((p22 != -1) && ((p22 + p16) < l4)) {
 	f5dd1(p4, p22, p14, p16, p10, p12, ((p22 * 15) + l259));
 	p22 += p16;
-L61e6:
+	}
 	goto L6284;
 case 4:
-	if (p22 != -1) goto L621b;
+	if (p22 == -1) {
 	set_cursor(main_window, l281, l283);
 	print_string_hi(main_window, &l269, 3);
 	p22 = 0;
-	goto L6262;
-L621b:
-	if (((p22 % p16) >= (p16 - 1)) || ((p22 + 1) >= l4)) goto L6262;
+	} else {
+	if (((p22 % p16) < (p16 - 1)) && ((p22 + 1) < l4)) {
 	f5dd1(p4, p22, p14, p16, p10, p12, ((p22 * 15) + l259));
 	p22++;
-L6262:
+	}
+	}
 	goto L6284;
 	}
 L6284:

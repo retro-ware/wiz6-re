@@ -2,9 +2,9 @@ extern int anim_phase;
 extern int g6c7e;
 fe90b(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p34)
 {
-	if (((p4 != 3) || (!p6)) && ((p6 != 2) && (p6 < 7))) goto Le958;
+	if (((p4 == 3) && (p6)) || ((p6 == 2) || (p6 >= 7))) {
 	drv_op_c6((g6c7e ? (p14 + p4) : (p12 + p4)), 1, (g6c7e != 0 ? (p12 + p4) : -1));
-Le958:
+	}
 	if (p4 >= 3) goto Leaf6;
 	switch (p6) {
 case 1:

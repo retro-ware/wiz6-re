@@ -108,12 +108,12 @@ case 57:
 case 51:
 	l4 = 1;
 L844f:
-	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L849b;
+	if (((((l4 == 1) || (l4 == 2)) || (l4 == 4)) || (l4 == 8)) || (l4 == 9)) {
 	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) < 0) {
 	l2 = 0;
 	}
 	g450a[((432 * p10) + l4)] = *(char *)&l2;
-L849b:
+	}
 	l4++;
 	if (l4 <= 9) goto L844f;
 	f5078(p10, g527a);
@@ -127,13 +127,13 @@ case 64:
 	f5078(p10, g527a);
 	break;
 case 77:
-	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L855c;
+	if ((pc_condition[(432 * p10)] == 3) && ((p8 * 3) > (18 - (unsigned char)g4517[(432 * p10)]))) {
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;
 	*(int *)((char *)pc_stamina + (432 * p10)) = (*(int *)((char *)pc_stamina_max + (432 * p10)) / 10);
 	(*(int *)((char *)g440e + (432 * p10)))++;
-L855c:
+	}
 	f5078(p10, g527a);
 	break;
 case 80:
@@ -163,23 +163,21 @@ L8616:
 	break;
 case 50:
 	l2 = (((p8 * 10) + ((*(int *)((char *)pc_level + (432 * p4)) - (unsigned char)g51cf) * 5)) + 25);
-	if ((!((unsigned char)g51d3 & 4)) && (random(100) <= l2)) goto L86e6;
+	if ((((unsigned char)g51d3 & 4)) || (random(100) > l2)) {
 	f5d9b(1544, 0);
-	goto L8725;
-L86e6:
+	} else {
 	f5d9b(1543, 0);
 	g52d0 += f66cf(f80ff((p8 << 1), 6, (p8 << 1)));
-L8725:
+	}
 	break;
 case 56:
-	if ((!((unsigned char)g51d3 & 8)) && (random(((*(int *)((char *)pc_level + (432 * p4)) / 2) + (p8 * 3))) >= (unsigned char)g51cf)) goto L8775;
+	if ((((unsigned char)g51d3 & 8)) || (random(((*(int *)((char *)pc_level + (432 * p4)) / 2) + (p8 * 3))) < (unsigned char)g51cf)) {
 	get_message(1545, 21116);
-	goto L87a3;
-L8775:
+	} else {
 	fc16d(21202, 1);
 	get_message(1546, 21116);
 	replace_char_with_string(21116, 21202, 94);
-L87a3:
+	}
 	f5d0c(21116, 0);
 	f5a1e(message_delay);
 	break;

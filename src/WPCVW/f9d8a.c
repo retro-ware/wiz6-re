@@ -32,7 +32,7 @@ L9df5:
 	play_sound(0);
 	return;
 L9e4e:
-	if ((*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1)) goto L9f4e;
+	if ((*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) == *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) && (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] == 1)) {
 	if ((l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))])) <= 250) {
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = *(char *)&l6;
 	remove_item(p8, l4);
@@ -40,11 +40,11 @@ L9e4e:
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = -6;
 	pc_item_qty[((432 * p8) + (l4 << 3))] = (char)(l6 + -250);
 	}
-	goto L9f6d;
-L9f4e:
-	if (try_combine_recipe(p4, p8, g43ca, l4)) goto L9f6d;
+	} else {
+	if (!try_combine_recipe(p4, p8, g43ca, l4)) {
 	play_sound(0);
-L9f6d:
+	}
+	}
 	draw_sheet(p4, p6, p8);
 	return;
 }

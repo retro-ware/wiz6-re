@@ -97,12 +97,12 @@ case 57:
 case 51:
 	l4 = 1;
 L62e4:
-	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L6330;
+	if (((((l4 == 1) || (l4 == 2)) || (l4 == 4)) || (l4 == 8)) || (l4 == 9)) {
 	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) < 0) {
 	l2 = 0;
 	}
 	g450a[((432 * p10) + l4)] = *(char *)&l2;
-L6330:
+	}
 	l4++;
 	if (l4 <= 9) goto L62e4;
 	break;
@@ -114,13 +114,13 @@ case 64:
 	}
 	break;
 case 77:
-	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L63d7;
+	if ((pc_condition[(432 * p10)] == 3) && ((p8 * 3) > (18 - (unsigned char)g4517[(432 * p10)]))) {
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;
 	*(int *)((char *)pc_stamina + (432 * p10)) = (*(int *)((char *)pc_stamina_max + (432 * p10)) / 10);
 	(*(int *)((char *)g440e + (432 * p10)))++;
-L63d7:
+	}
 	break;
 case 39:
 	if (try_open_lock(p8) != -1) goto L63e6;

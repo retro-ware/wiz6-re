@@ -88,9 +88,9 @@ save_game()
 	l3840 = 1;
 	strcpy(&l3632, &l3738);
 	if (strlen(&l3758) <= 0) goto L6750;
-	if ((strcmp(&l3738, &l3758)) && (g3592 != 5)) goto L6717;
+	if ((!strcmp(&l3738, &l3758)) || (g3592 == 5)) {
 	l3716 = 1;
-L6717:
+	}
 	prompt_insert_disk(&l3758, -1, l3716, 0);
 	l3840 = (l3716 != 0 ? 0 : 1);
 	strcpy(&l3632, 13692);

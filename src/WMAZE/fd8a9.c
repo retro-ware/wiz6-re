@@ -39,14 +39,14 @@ Ld95b:
 	choice = maze_menu_select(win, 2100, enabled, 1, 1, 7, 1, 5, 0);
 	switch (choice) {
 case 0:
-	if ((((member = choose_party_member_m(2110, 1)) == -1) || (!is_member_able(member))) || (force_lock(member, event))) goto Lda23;
+	if ((((member = choose_party_member_m(2110, 1)) != -1) && (is_member_able(member))) && (!force_lock(member, event))) {
 	choice = 2;
-Lda23:
+	}
 	goto Lda65;
 case 1:
-	if ((((member = choose_party_member_m(2110, 1)) == -1) || (!is_member_able(member))) || (pick_lock(member, event))) goto Lda59;
+	if ((((member = choose_party_member_m(2110, 1)) != -1) && (is_member_able(member))) && (!pick_lock(member, event))) {
 	choice = 2;
-Lda59:
+	}
 	goto Lda65;
 	}
 Lda65:

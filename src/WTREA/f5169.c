@@ -33,21 +33,20 @@ L51dd:
 	key = 0;
 L51e7:
 	if (*(int *)(enabled + (key << 1)) == -1) goto L530e;
-	if (*(int *)(enabled + (key << 1)) != 1) goto L5308;
+	if (*(int *)(enabled + (key << 1)) == 1) {
 	l287 = (((n / rows) * col_width) + x0);
 	l289 = ((n % rows) + y0);
 	set_cursor(win, l287, l289);
 	get_message((first_msg + key), ((n * 15) + labels));
-	if (((mouse_present) || (with_cancel)) || (n)) goto L5286;
+	if (((!mouse_present) && (!with_cancel)) && (!n)) {
 	print_string(win, ((n * 15) + labels), (0 - color));
-	goto L52a5;
-L5286:
+	} else {
 	print_string_hi(win, ((n * 15) + labels), 3);
-L52a5:
+	}
 	*(int *)(labels + ((n << 1) + 225)) = key;
 	set_click_region(n, ((unsigned char)win[2] + l287), ((unsigned char)win[3] + l289), (((strlen(((n * 15) + labels)) + (unsigned char)win[2]) + l287) - 1), ((unsigned char)win[3] + l289));
 	n++;
-L5308:
+	}
 	key++;
 	goto L51e7;
 L530e:
@@ -75,10 +74,10 @@ L540e:
 L543e:
 	switch (key) {
 case 1:
-	if ((sel == -1) || ((sel - rows) < 0)) goto L5482;
+	if ((sel != -1) && ((sel - rows) >= 0)) {
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel -= rows;
-L5482:
+	}
 	goto L55df;
 case 2:
 	if (sel == -1) goto L54fd;
@@ -93,22 +92,22 @@ L54c8:
 L54fd:
 	goto L55df;
 case 3:
-	if ((sel == -1) || ((sel + rows) >= n)) goto L5541;
+	if ((sel != -1) && ((sel + rows) < n)) {
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel += rows;
-L5541:
+	}
 	goto L55df;
 case 4:
-	if (sel != -1) goto L5576;
+	if (sel == -1) {
 	set_cursor(main_window, l283, l285);
 	print_string_hi(main_window, &l271, 3);
 	sel = 0;
-	goto L55bd;
-L5576:
-	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L55bd;
+	} else {
+	if (((sel % rows) < (rows - 1)) && ((sel + 1) < n)) {
 	print_option_cell(win, sel, col_width, rows, x0, y0, ((sel * 15) + labels));
 	sel++;
-L55bd:
+	}
+	}
 	goto L55df;
 	}
 L55df:

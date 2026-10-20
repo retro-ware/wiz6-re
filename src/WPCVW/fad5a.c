@@ -76,9 +76,9 @@ Laecf:
 	if ((unsigned)pc_item_count[(432 * member)] < 2) {
 	enabled[5] = 0;
 	}
-	if ((*(long *)((char *)pc_gold + (432 * member)) != 0L) || (pc_item_count[(432 * member)])) goto Laf24;
+	if ((*(long *)((char *)pc_gold + (432 * member)) == 0L) && (!pc_item_count[(432 * member)])) {
 	enabled[2] = 0;
-Laf24:
+	}
 	if (!is_member_able(member)) {
 	enabled[1] = 0;
 	enabled[6] = 0;

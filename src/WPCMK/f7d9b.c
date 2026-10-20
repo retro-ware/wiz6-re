@@ -20,9 +20,9 @@ L7de8:
 	if (check_screen_click()) {
 	l2 = 0;
 	}
-	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L7e52;
+	if ((key_available(1) == 1) && ((char)get_key(1) == 13)) {
 	l2 = 0;
-L7e52:
+	}
 	if (l2) goto L7de8;
 	draw_stats();
 }

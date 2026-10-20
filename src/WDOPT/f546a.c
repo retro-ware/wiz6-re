@@ -75,12 +75,11 @@ case 0:
 case 4:
 case 5:
 case 12:
-	if ((game_state_arg != 12) || (l12 >= 9)) goto L562f;
+	if ((game_state_arg == 12) && (l12 < 9)) {
 	l14 = g50f8;
-	goto L5635;
-L562f:
+	} else {
 	l14 = g516a;
-L5635:
+	}
 	goto L5676;
 case 1:
 	l14 = g5168;
@@ -128,9 +127,9 @@ case 3:
 	goto L571b;
 	}
 L571b:
-	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2))) goto L574e;
+	if ((get_bitfield((maze_data + 504), rsi, 4) == 7) && (!get_bitfield((maze_data + 888), rsi, 2))) {
 	l16 = g5170;
-L574e:
+	}
 	if (l16 != -1) {
 	*(int *)((char *)g50fe + ((col * 10) + (row << 1))) = l16;
 	}
@@ -148,9 +147,9 @@ case 3:
 	goto L57bf;
 	}
 L57bf:
-	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2) != 3)) goto L57f3;
+	if ((get_bitfield((maze_data + 504), rsi, 4) == 7) && (get_bitfield((maze_data + 888), rsi, 2) == 3)) {
 	l16 = g5176;
-L57f3:
+	}
 	if (l16 != -1) {
 	*(int *)((char *)g5132 + ((col * 10) + (row << 1))) = l16;
 	}

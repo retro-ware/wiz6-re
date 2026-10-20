@@ -15,8 +15,7 @@ load_group_pics()
 	for (g = 1; g <= monster_group_count; g++) {
 	(*(char **)((char *)monster_groups + (g << 1)))[411] = (char)f4858((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[209]);
 	}
-	if (((unsigned)g43b8[210] <= 0) || ((unsigned char)g43b8[210] == cur_sound)) goto L55e6;
+	if (((unsigned)g43b8[210] > 0) && ((unsigned char)g43b8[210] != cur_sound)) {
 	load_sound_mele((unsigned char)g43b8[210]);
-L55e6:
-	;
+	}
 }

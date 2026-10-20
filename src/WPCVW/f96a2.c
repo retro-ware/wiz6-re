@@ -29,15 +29,14 @@ L96d1:
 	if (*(long *)((char *)pc_gold + (432 * p8)) <= 0L) goto L978a;
 L96ec:
 	*(long *)(l14 + 0) = input_number(p6, 404, 8);
-	if ((*(long *)(l14 + 0) < 0L) || (*(long *)((char *)pc_gold + (432 * p8)) < *(long *)(l14 + 0))) goto L9769;
+	if ((*(long *)(l14 + 0) >= 0L) && (*(long *)((char *)pc_gold + (432 * p8)) >= *(long *)(l14 + 0))) {
 	*(long *)((char *)pc_gold + (432 * p8)) -= *(long *)(l14 + 0);
 	*(long *)((char *)pc_gold + (432 * l4)) += *(long *)(l14 + 0);
-	goto L977b;
-L9769:
+	} else {
 	*(int *)(l14 + (0 + 2)) = -1;
 	*(int *)(l14 + 0) = -1;
 	play_sound(0);
-L977b:
+	}
 	if (*(long *)(l14 + 0) != -1L) goto L978a;
 	goto L96ec;
 L978a:
@@ -75,10 +74,10 @@ L98e2:
 	l2 = (l6 - 1);
 	goto L9987;
 L9908:
-	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l2 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l2 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * l4) + (l2 << 3))] + l8) > 250)) goto L9984;
+	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l2 << 3))) == *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) && (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l2 << 3))]] == 1)) && (((unsigned char)pc_item_qty[((432 * l4) + (l2 << 3))] + l8) <= 250)) {
 	l6 = l2;
 	l20 = 0;
-L9984:
+	}
 	l2--;
 L9987:
 	if (l2 >= 0) goto L9908;
@@ -89,10 +88,10 @@ L9987:
 	goto L9a47;
 L99bf:
 	l10 = (l2 + 10);
-	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l10 << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l10 << 3))]] != 1)) || (((unsigned char)pc_item_qty[((432 * l4) + (l10 << 3))] + l8) > 250)) goto L9a44;
+	if (((*(int *)((char *)pc_item_id + ((432 * l4) + (l10 << 3))) == *(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)))) && (g00cc[(unsigned char)pc_item_type[((432 * l4) + (l10 << 3))]] == 1)) && (((unsigned char)pc_item_qty[((432 * l4) + (l10 << 3))] + l8) <= 250)) {
 	l6 = l10;
 	l20 = 0;
-L9a44:
+	}
 	l2--;
 L9a47:
 	if (l2 >= 0) goto L99bf;

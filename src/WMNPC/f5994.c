@@ -23,9 +23,9 @@ L59da:
 	;
 L59de:
 	f55dc();
-	if (((view_anim_state != -2) || (g522c == -1)) || (anim_phase != l4)) goto L59fa;
+	if (((view_anim_state == -2) && (g522c != -1)) && (anim_phase == l4)) {
 	f591a();
-L59fa:
+	}
 	goto L59b3;
 L59fc:
 	if ((l2 = char_index(p4, (unsigned char)(get_key(1)))) < 0) goto L5a1a;

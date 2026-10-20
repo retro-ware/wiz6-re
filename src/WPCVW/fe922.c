@@ -27,9 +27,9 @@ Le9ba:
 	l6 = draw_skills_page(l4, p4, p6, l28, &l26);
 	fdeca(p4, l4, p6, l28, &l26, l6);
 	l28 = ((l28 + 1) % 4);
-	if ((l28 != 2) || (l30)) goto Lea05;
+	if ((l28 == 2) && (!l30)) {
 	l28++;
-Lea05:
+	}
 	if ((unsigned)pc_skill_points[(432 * p6)] > 0) goto Le9ba;
 	destroy_window(l4, 0);
 }

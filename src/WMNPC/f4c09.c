@@ -24,10 +24,10 @@ L4c2f:
 	goto L4d9f;
 L4c75:
 	l8[0] = ((char *)sprite_list[p4] + rsi)[8];
-	if ((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] != 54) || (l8[0] != 8)) goto L4caa;
+	if ((pic_slot_monster[(unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[21]] == 54) && (l8[0] == 8)) {
 	((char *)sprite_list[p4] + rsi)[8] = 9;
 	rsi--;
-L4caa:
+	}
 	l2 = ((*(int *)(*(char **)((char *)sprite_list + (p4 << 1))) - (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[22] % 2)) + ((unsigned char)l9 << 1))]) + (unsigned char)g36e4[(((314 * rdi) + ((unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[22] % 2)) + ((unsigned char)l8[0] << 1))]);
 	l4 = ((*(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 2) - (unsigned char)g3717[((314 * rdi) + (unsigned char)l9)]) + (unsigned char)g3717[((314 * rdi) + (unsigned char)l8[0])]);
 	drv_draw_text(rdi, l2, l4, *(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 4), *(int *)((*(char **)((char *)sprite_list + (p4 << 1))) + 6), (unsigned char)(*(char **)((char *)sprite_list + (p4 << 1)))[22], 0, l8);

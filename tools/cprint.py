@@ -722,7 +722,8 @@ class Printer:
         """if (c) goto T; A..; [goto J; T: B..;] T/J: is if (!c) { A } [else { B }]: True if structured."""
         c = getattr(st, 'cond', None)
         left = lambda t: refs.get(t, 0) - self._abs.get(t, 0)       # jumps to t not yet absorbed
-        if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
+        if st.kind != 'if' or k in used or st.s in self.L.nobool or \
+                c[0] in ('&&', '||') and getattr(self.L, 'noandif', True) or \
                 st.target in cases or st.target in default or st.target in asm_t:
             return False
         spec = False
@@ -752,6 +753,8 @@ class Printer:
         else:
             return False
         opens[k], ends[k] = negate(c), end
+        if c[0] in ('&&', '||'):
+            self.andif = True
         self._abs[st.target] = self._abs.get(st.target, 0) + 1
         if spec:
             self._spec.add(st.target)

@@ -66,10 +66,10 @@ L5c7f:
 L5cb0:
 	switch (key) {
 case 1:
-	if ((sel == -1) || ((sel % 2) <= 0)) goto L5cdb;
+	if ((sel != -1) && ((sel % 2) > 0)) {
 	draw_member_name(win, sel);
 	sel--;
-L5cdb:
+	}
 	goto L5d9f;
 case 2:
 	if (sel == -1) goto L5d01;
@@ -82,10 +82,10 @@ L5cfc:
 L5d01:
 	goto L5d9f;
 case 3:
-	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L5d32;
+	if (((sel != -1) && ((sel % 2) < 1)) && ((sel + 1) < party_count)) {
 	draw_member_name(win, sel);
 	sel++;
-L5d32:
+	}
 	goto L5d9f;
 case 4:
 	if (sel == -1) {

@@ -45,14 +45,14 @@ Ld1dc:
 	combat_delay((g4fc8 / 2));
 Ld226:
 	if ((unsigned char)(l2 + (unsigned char)l2[33])[24] != g435a) goto Ld29f;
-	if (((unsigned)l2[36] <= 0) || (l2[43] != 3)) goto Ld288;
+	if (((unsigned)l2[36] > 0) && (l2[43] == 3)) {
 	l2[43] = 0;
 	l2[37] = 0;
 	clear_window(party_picture_win, 1);
 	combat_delay(2);
 	fb85f(3519, -1, 6);
 	combat_delay((g4fc8 / 2));
-Ld288:
+	}
 	fc66e();
 	l2[33]++;
 	if (game_state == 13) goto Ld29d;

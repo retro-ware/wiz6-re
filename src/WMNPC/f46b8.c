@@ -55,9 +55,9 @@ L4885:
 L4890:
 	goto L48b4;
 case 54:
-	if ((rsi) || (g5142 != 1)) goto L48a8;
+	if ((!rsi) && (g5142 == 1)) {
 	*(p8 + l6) = 0;
-L48a8:
+	}
 	goto L48b4;
 	}
 L48b4:

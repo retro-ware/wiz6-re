@@ -45,9 +45,9 @@ draw_member_card(win, member)
 	l2 = -1;
 	i = 0;
 L4b30:
-	if (((unsigned)g450a[((432 * member) + i)] <= 0) || (g0532[i] <= l2)) goto L4b53;
+	if (((unsigned)g450a[((432 * member) + i)] > 0) && (g0532[i] > l2)) {
 	l2 = g0532[i];
-L4b53:
+	}
 	i++;
 	if (i < 10) goto L4b30;
 	if (l2 != -1) {
@@ -62,12 +62,11 @@ L4b53:
 	set_cursor(win, (l4 + 3), (l6 + 1));
 	i = 0;
 L4be4:
-	if (((unsigned char)pc_equipped[((432 * member) + i)] == 255) || (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))) <= 0)) goto L4c35;
+	if (((unsigned char)pc_equipped[((432 * member) + i)] != 255) && (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))] + 1)), 4);
-	goto L4c4a;
-L4c35:
+	} else {
 	put_char_hi(win, (unsigned char)((i + 37)), 4);
-L4c4a:
+	}
 	i++;
 	if (i < 2) goto L4be4;
 	draw_gauge(win, (l4 + 5), (l6 + 1), *(int *)((char *)pc_hp + (432 * member)), *(int *)((char *)pc_hp_max + (432 * member)), 86);

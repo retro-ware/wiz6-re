@@ -36,10 +36,10 @@ Lce59:
 Lce67:
 	return;
 Lce6b:
-	if ((g58b4) || (g58b6)) goto Lce85;
+	if ((!g58b4) && (!g58b6)) {
 	g58b4 = 1;
 	g58a6 = 1;
-Lce85:
+	}
 	if ((g58b4 != 1) || ((g58b0 != 1) && (g58a6 != 1))) goto Lcead;
 	fcd43((l4 + 3), 1625);
 	return;
@@ -48,9 +48,9 @@ case 1:
 case 2:
 case 3:
 	if (g58b4 != 1) goto Lcff2;
-	if (((((((g58a4) || (g58a6)) || (g58a8)) || (g58aa)) || (g58ac)) || (g58ae)) || (g58b0)) goto Lceee;
+	if (((((((!g58a4) && (!g58a6)) && (!g58a8)) && (!g58aa)) && (!g58ac)) && (!g58ae)) && (!g58b0)) {
 	g58a6 = 1;
-Lceee:
+	}
 	if (g58a4 != 1) goto Lcf42;
 	if (!*(int *)((char *)g58d8 + (l2 * 20))) goto Lcf30;
 	fbe7a(g5894, g5896, &l84);

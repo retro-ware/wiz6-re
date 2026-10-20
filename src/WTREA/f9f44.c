@@ -20,9 +20,9 @@ get_front_wall_t(p4, p6, p8, p10, p12, p14)
 	register int rsi;
 	register int rdi;
 	if ((!p14) || (!step_relative_t(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L9fd6;
-	if ((g5282) || (p14)) goto L9f8d;
+	if ((!g5282) && (!p14)) {
 	view_rows_open = 0;
-L9f8d:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L9fd1;
 	g5285[((g5282 * 3) + p14)] = 1;
 	*(int *)((char *)g5292 + ((g5282 * 6) + (p14 << 1))) = 1;
@@ -165,8 +165,8 @@ case 15:
 	goto La30e;
 	}
 La30e:
-	if (((!l4) || (g5282)) || (p14)) goto La327;
+	if (((l4) && (!g5282)) && (!p14)) {
 	view_rows_open = 0;
-La327:
+	}
 	return l4;
 }

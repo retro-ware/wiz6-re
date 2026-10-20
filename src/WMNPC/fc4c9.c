@@ -68,10 +68,10 @@ Lc565:
 	return 8;
 Lc59e:
 	if ((l2 = fbf7f(p4, 4, 7)) == -1) goto Lc5e3;
-	if ((g6a82 != 7) && (g6a82)) goto Lc5d1;
+	if ((g6a82 == 7) || (!g6a82)) {
 	g58b6 = 1;
 	g58ca = g58ce;
-Lc5d1:
+	}
 	if (!l2) {
 	g58b2 = 1;
 	}
@@ -102,15 +102,15 @@ Lc664:
 	return 6;
 Lc67f:
 	if ((l2 = fbf7f(p4, 9, 11)) == -1) goto Lc6d3;
-	if ((g5894 != -1) && (g5894)) goto Lc6b4;
+	if ((g5894 == -1) || (!g5894)) {
 	g5894 = g589c;
 	g5896 = g589e;
-	goto Lc6cd;
-Lc6b4:
-	if ((g589c == g5894) || (!g589c)) goto Lc6cd;
+	} else {
+	if ((g589c != g5894) && (g589c)) {
 	g58d0 = g589c;
 	g58d2 = g589e;
-Lc6cd:
+	}
+	}
 	return 0;
 Lc6d3:
 	l2 = fbea1(p4, &l4);
@@ -136,15 +136,15 @@ Lc72e:
 	db 0a3h,0ceh,058h
 #endasm
 Lc737:
-	if ((g5894 != -1) && (g5894)) goto Lc753;
+	if ((g5894 == -1) || (!g5894)) {
 	g5894 = l2;
 	g5896 = l4;
-	goto Lc76d;
-Lc753:
-	if ((g5894 == l2) || (!l2)) goto Lc76d;
+	} else {
+	if ((g5894 != l2) && (l2)) {
 	g58d0 = l2;
 	g58d2 = l4;
-Lc76d:
+	}
+	}
 	return 0;
 Lc773:
 	if ((l2 = fbf7f(p4, 7, 5)) == -1) goto Lc7c6;

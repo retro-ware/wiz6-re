@@ -12,9 +12,9 @@ check_secret_detect()
 	int l2;
 	int l4;
 	int l16[6];
-	if ((g4ed0 <= 0) || (random(100) >= g4ed2)) goto La516;
+	if ((g4ed0 > 0) && (random(100) < g4ed2)) {
 	g4f86 = 1;
-La516:
+	}
 	for (l2 = 0; l2 < party_count; l2++) {
 	l16[l2] = 0;
 	}

@@ -64,10 +64,10 @@ L4b3a:
 L4b6b:
 	switch (choice) {
 case 1:
-	if ((sel == -1) || ((sel % 2) <= 0)) goto L4b96;
+	if ((sel != -1) && ((sel % 2) > 0)) {
 	draw_member_name_dopt(win, sel);
 	sel--;
-L4b96:
+	}
 	goto L4c5a;
 case 2:
 	if (sel == -1) goto L4bbc;
@@ -80,10 +80,10 @@ L4bb7:
 L4bbc:
 	goto L4c5a;
 case 3:
-	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L4bed;
+	if (((sel != -1) && ((sel % 2) < 1)) && ((sel + 1) < party_count)) {
 	draw_member_name_dopt(win, sel);
 	sel++;
-L4bed:
+	}
 	goto L4c5a;
 case 4:
 	if (sel == -1) {

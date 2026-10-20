@@ -96,17 +96,17 @@ char *p4;
 	if (p8 == 8) {
 	l76 = (unsigned char)g44f9[(432 * g435c)];
 	}
-	if (((!p4[43]) || (p8 == 4)) || (p8 == 8)) goto L4d0a;
+	if (((p4[43]) && (p8 != 4)) && (p8 != 8)) {
 	get_message((random(2) + 3385), 20652);
-L4d0a:
+	}
 	if (l76 == 255) goto L4e22;
 	access_scenario_record(1, &l74, *(int *)((char *)pc_item_id + ((432 * g435c) + (l76 << 3))), 0);
 	strcpy(20572, &l74);
 	if ((p8 != 4) && (p8 != 8)) goto L4e22;
-	if ((p8 != 4) || (!l46)) goto L4d7c;
+	if ((p8 == 4) && (l46)) {
 	l150 = l46;
 	get_message(3384, 20652);
-L4d7c:
+	}
 	switch ((unsigned char)pc_item_icon[((432 * g435c) + (l76 << 3))]) {
 case 0:
 	l118 = 5;
@@ -144,9 +144,9 @@ L4e22:
 L4e25:
 	if ((unsigned)((char *)group_monster_rec[g435e] + p6)[128] > 3) goto L4f79;
 	get_message((p8 + 3350), 20652);
-	if ((!p4[43]) || ((p8 == 4) || (p8 == 8))) goto L4e7a;
+	if ((p4[43]) && ((p8 != 4) && (p8 != 8))) {
 	get_message((random(2) + 3385), 20652);
-L4e7a:
+	}
 	if ((p8 != 4) && (p8 != 8)) goto L4f4e;
 	l112 = *(int *)(((char *)group_monster_rec[g435e] + (p6 << 4)) + 68);
 	*(int *)(l110 + 0) = *(int *)(((char *)group_monster_rec[g435e] + (p6 << 4)) + 70);
@@ -264,9 +264,9 @@ L51ca:
 L51cc:
 	l124 = 9;
 L51d1:
-	if ((((l124 == 9) && ((unsigned)g4525[(432 * g435c)] <= 0)) && (pc_class[(432 * g435c)] != 12)) && (pc_class[(432 * g435c)] != 13)) goto L5206;
+	if ((((l124 != 9) || ((unsigned)g4525[(432 * g435c)] > 0)) || (pc_class[(432 * g435c)] == 12)) || (pc_class[(432 * g435c)] == 13)) {
 	try_raise_skill(g435c, l124, 2);
-L5206:
+	}
 	*(struct s14 *)(char *)(&l142) = *(struct s14 *)(char *)(get_load_category_x(g435c));
 	l144 = (p6 == 0 ? l140 : l138);
 	l86 = ((((((f4572(0, *(int *)(p4 + 6), *(int *)(p4 + 8)) + g4596[(432 * g435c)]) + g44e6[((432 * g435c) + (p6 << 4))]) + (p4[39] * 5)) + l84) + l144) - ((unsigned char)pc_skills[((432 * g435c) + l124)] / 3));
@@ -274,24 +274,24 @@ L5206:
 	*(int *)(l110 + 0) = *(int *)((char *)g44da + ((432 * g435c) + (p6 << 4)));
 	l82 = (char *)g44d8 + ((432 * g435c) + (p6 << 4));
 	l114 = (unsigned char)pc_equipped[((432 * g435c) + p6)];
-	if (p8 != 8) goto L5356;
-	if (((l116 = (unsigned char)g44f9[(432 * g435c)]) == 255) || (pc_item_type[((432 * g435c) + (l116 << 3))] != 4)) goto L5354;
+	if (p8 == 8) {
+	if (((l116 = (unsigned char)g44f9[(432 * g435c)]) != 255) && (pc_item_type[((432 * g435c) + (l116 << 3))] == 4)) {
 	l112 = *(int *)((char *)g44e8 + (432 * g435c));
 	*(int *)(l110 + 0) = *(int *)((char *)g44ea + (432 * g435c));
 	l82 = (char *)g44e8 + (432 * g435c);
 	l86 += g44f6[(432 * g435c)];
 	l126 = 0;
 	use_item_charge_x(l116);
-L5354:
-	goto L5391;
-L5356:
-	if (p8 != 4) goto L5391;
-	if ((pc_item_type[((432 * g435c) + (l114 << 3))] != 14) && (((unsigned)pc_item_type[((432 * g435c) + (l114 << 3))] >= 12) || (pc_item_type[((432 * g435c) + (l114 << 3))] == 2))) goto L5385;
+	}
+	} else {
+	if (p8 == 4) {
+	if ((pc_item_type[((432 * g435c) + (l114 << 3))] == 14) || (((unsigned)pc_item_type[((432 * g435c) + (l114 << 3))] < 12) && (pc_item_type[((432 * g435c) + (l114 << 3))] != 2))) {
 	pc_item_qty[((432 * g435c) + (l114 << 3))] = 1;
-L5385:
+	}
 	l126 = 0;
 	use_item_charge_x(l114);
-L5391:
+	}
+	}
 	l88 = (f4572(1, *(int *)(((char *)monster_groups[l78] + (44 * l80)) + 6), *(int *)(((char *)monster_groups[l78] + (44 * l80)) + 8)) + ((char *)monster_groups[l78] + (44 * l80))[38]);
 	if (g4ed4 > 0) {
 	l88 += g4ed6;
@@ -304,9 +304,9 @@ L5408:
 	l112 = *(int *)(((char *)group_monster_rec[g435e] + (p6 << 4)) + 68);
 	*(int *)(l110 + 0) = *(int *)(((char *)group_monster_rec[g435e] + (p6 << 4)) + 70);
 	l82 = (((char *)group_monster_rec[g435e] + (p6 << 4)) + 68);
-	if ((p8 != 4) && (p8 != 8)) goto L547a;
+	if ((p8 == 4) || (p8 == 8)) {
 	l126 = 0;
-L547a:
+	}
 	if (!l78) {
 	*(struct s14 *)(char *)(&l142) = *(struct s14 *)(char *)(get_load_category_x(l80));
 	l146 = l142;
@@ -314,9 +314,9 @@ L547a:
 	l146 = 0;
 	}
 	l88 = (f4572(1, *(int *)(((char *)monster_groups[l78] + (44 * l80)) + 6), *(int *)(((char *)monster_groups[l78] + (44 * l80)) + 8)) + ((char *)monster_groups[l78] + (44 * l80))[38]);
-	if ((l78) || (g4ecc <= 0)) goto L54fc;
+	if ((!l78) && (g4ecc > 0)) {
 	l88 -= g4ece;
-L54fc:
+	}
 	l90 = (((*(char **)((char *)group_monster_rec + (l78 << 1)))[190] + l88) + l146);
 	l92 = (l88 + l146);
 	if (!l78) goto L5531;
@@ -331,16 +331,16 @@ L5531:
 	l86 = (l86 < 90 ? 90 : l86);
 	l90 = (l90 > 0 ? 0 : l90);
 	}
-	if ((((unsigned)p4[22] <= 0) && ((unsigned)p4[15] <= 0)) && ((unsigned)p4[23] <= 0)) goto L5591;
+	if ((((unsigned)p4[22] > 0) || ((unsigned)p4[15] > 0)) || ((unsigned)p4[23] > 0)) {
 	l86 += 25;
-L5591:
-	if (((((unsigned)((char *)monster_groups[l78] + (44 * l80))[18] <= 0) && ((unsigned)((char *)monster_groups[l78] + (44 * l80))[16] <= 0)) && ((unsigned)((char *)monster_groups[l78] + (44 * l80))[17] <= 0)) && (((char *)monster_groups[l78] + (44 * l80))[34] != 2)) goto L55c7;
+	}
+	if (((((unsigned)((char *)monster_groups[l78] + (44 * l80))[18] > 0) || ((unsigned)((char *)monster_groups[l78] + (44 * l80))[16] > 0)) || ((unsigned)((char *)monster_groups[l78] + (44 * l80))[17] > 0)) || (((char *)monster_groups[l78] + (44 * l80))[34] == 2)) {
 	l90 = 15;
 	l156 = 2;
-L55c7:
-	if (((unsigned)((char *)monster_groups[l78] + (44 * l80))[22] <= 0) && ((unsigned)((char *)monster_groups[l78] + (44 * l80))[15] <= 0)) goto L55d7;
+	}
+	if (((unsigned)((char *)monster_groups[l78] + (44 * l80))[22] > 0) || ((unsigned)((char *)monster_groups[l78] + (44 * l80))[15] > 0)) {
 	l90 += 4;
-L55d7:
+	}
 	l128 = 0;
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (g435e << 1)))[134] > 15) {
 	l128++;
@@ -459,9 +459,9 @@ L5971:
 	if (((l78) || ((unsigned char)g44f9[(432 * l80)] == 255)) || (pc_item_type[((432 * l80) + ((unsigned char)g44f9[(432 * l80)] << 3))] != 11)) goto L59aa;
 	try_raise_skill(l80, 8, 0);
 L59aa:
-	if ((((!g435e) || (l158)) || (((unsigned)g43b8[210] <= 0) || (g43b8[210] == 6))) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] != g43b8[210])) goto L59eb;
+	if ((((g435e) && (!l158)) && (((unsigned)g43b8[210] > 0) && (g43b8[210] != 6))) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] == g43b8[210])) {
 	play_sound(14);
-L59eb:
+	}
 	combat_delay((g4fc8 / 4));
 	l98 = 0;
 	goto L5e71;
@@ -483,17 +483,15 @@ L5a01:
 	}
 	if (((*(char **)((char *)group_monster_rec + (l78 << 1)))[208] != 22) || (l150 != -1)) goto L5b4f;
 	if (g435e) goto L5b4a;
-	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] == 255) goto L5b43;
-	if ((*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) == 458) && (g4352)) goto L5b3b;
+	if ((unsigned char)pc_equipped[((432 * g435c) + p6)] != 255) {
+	if ((*(int *)((char *)pc_item_id + ((432 * g435c) + ((unsigned char)pc_equipped[((432 * g435c) + p6)] << 3))) != 458) || (!g4352)) {
 	l96 = 0;
-	goto L5b41;
-L5b3b:
+	} else {
 	l156 = 1;
-L5b41:
-	goto L5b48;
-L5b43:
+	}
+	} else {
 	l96 = 0;
-L5b48:
+	}
 	goto L5b4f;
 L5b4a:
 	l96 = 0;

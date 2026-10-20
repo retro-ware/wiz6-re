@@ -21,9 +21,9 @@ get_front_wall(x, y, cx, cy, level, side)
 	register int cell;
 	register int rdi;
 	if ((!side) || (!step_relative(&x, &y, &cx, &cy, &level, side, 0))) goto L8fac;
-	if ((view_depth) || (side)) goto L8f63;
+	if ((!view_depth) && (!side)) {
 	view_rows_open = 0;
-L8f63:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8fa7;
 	g507d[((view_depth * 3) + side)] = 1;
 	*(int *)((char *)g508a + ((view_depth * 6) + (side << 1))) = 1;
@@ -166,8 +166,8 @@ case 15:
 	goto L92e4;
 	}
 L92e4:
-	if (((!wall) || (view_depth)) || (side)) goto L92fd;
+	if (((wall) && (!view_depth)) && (!side)) {
 	view_rows_open = 0;
-L92fd:
+	}
 	return wall;
 }

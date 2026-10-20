@@ -84,23 +84,23 @@ case 6:
 	goto L62b0;
 L618c:
 	inflict_status(i, 5265, 11, 9, 10, 10, 50);
-	if (((random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) || ((unsigned)pc_stats[(432 * i)] <= 3)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L622d;
+	if (((random(100) > ((unsigned char)g4545[(432 * i)] + 75)) && ((unsigned)pc_stats[(432 * i)] > 3)) && ((unsigned)pc_condition[(432 * i)] < 3)) {
 	pc_stats[(432 * i)]--;
 	get_message(5266, &l80);
 	get_message(5267, 20722);
 	g5142 = 0;
 	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
 	wait_animating(message_delay);
-	goto L62ad;
-L622d:
-	if (((random(100) <= ((unsigned char)g4545[(432 * i)] + 75)) || ((unsigned)g4517[(432 * i)] <= 3)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L62ad;
+	} else {
+	if (((random(100) > ((unsigned char)g4545[(432 * i)] + 75)) && ((unsigned)g4517[(432 * i)] > 3)) && ((unsigned)pc_condition[(432 * i)] < 3)) {
 	g4517[(432 * i)]--;
 	get_message(5266, &l80);
 	get_message(5268, 20722);
 	g5142 = 0;
 	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
 	wait_animating(message_delay);
-L62ad:
+	}
+	}
 	i++;
 L62b0:
 	if (i < party_count) goto L618c;
@@ -113,7 +113,7 @@ case 8:
 	i = 0;
 	goto L639a;
 L62e6:
-	if ((random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L6397;
+	if ((random(100) > ((unsigned char)g4545[(432 * i)] + 50)) && ((unsigned)pc_condition[(432 * i)] < 3)) {
 	*(int *)((char *)pc_hp_max + (432 * i)) -= (random(4) + 1);
 	if (*(int *)((char *)pc_hp_max + (432 * i)) < 1) {
 	*(int *)((char *)pc_hp_max + (432 * i)) = 1;
@@ -126,7 +126,7 @@ L62e6:
 	g5142 = 0;
 	print_member_message(i, &l80, 20722, 20802, 1, 5, 5, 0);
 	wait_animating(message_delay);
-L6397:
+	}
 	i++;
 L639a:
 	if (i < party_count) goto L62e6;

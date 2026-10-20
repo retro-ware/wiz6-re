@@ -20,9 +20,9 @@ f8344(p4, p6, p8, p10, p12, p14)
 	register int rsi;
 	register int rdi;
 	if ((!p14) || (!f82c3(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto L83d6;
-	if ((g5412) || (p14)) goto L838d;
+	if ((!g5412) && (!p14)) {
 	view_rows_open = 0;
-L838d:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L83d1;
 	g5415[((g5412 * 3) + p14)] = 1;
 	*(int *)((char *)g5422 + ((g5412 * 6) + (p14 << 1))) = 1;
@@ -165,8 +165,8 @@ case 15:
 	goto L870e;
 	}
 L870e:
-	if (((!l4) || (g5412)) || (p14)) goto L8727;
+	if (((l4) && (!g5412)) && (!p14)) {
 	view_rows_open = 0;
-L8727:
+	}
 	return l4;
 }

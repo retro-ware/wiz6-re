@@ -21,8 +21,8 @@ fb85f(p4, p6, p8, p10)
 	combat_delay((g4fc8 / 2));
 	return 1;
 Lb8f7:
-	if (((!g435e) || (((unsigned)g43b8[210] <= 0) || (g43b8[210] == 6))) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] != g43b8[210])) goto Lb92f;
+	if (((g435e) && (((unsigned)g43b8[210] > 0) && (g43b8[210] != 6))) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[210] == g43b8[210])) {
 	g5114 = 14;
-Lb92f:
+	}
 	return 0;
 }

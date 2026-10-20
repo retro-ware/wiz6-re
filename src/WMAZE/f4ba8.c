@@ -48,9 +48,9 @@ draw_member_status_m(p4)
 	l2 = -1;
 	rsi = 0;
 L4d11:
-	if (((unsigned)g450a[((432 * p4) + rsi)] <= 0) || (g0532[rsi] <= l2)) goto L4d34;
+	if (((unsigned)g450a[((432 * p4) + rsi)] > 0) && (g0532[rsi] > l2)) {
 	l2 = g0532[rsi];
-L4d34:
+	}
 	rsi++;
 	if (rsi < 10) goto L4d11;
 	if (l2 != -1) {
@@ -65,12 +65,11 @@ L4d34:
 	set_cursor(l88, (l4 + 3), (l6 + 1));
 	rsi = 0;
 L4dc5:
-	if (((unsigned char)pc_equipped[((432 * p4) + rsi)] == 255) || (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) <= 0)) goto L4e16;
+	if (((unsigned char)pc_equipped[((432 * p4) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) > 0)) {
 	put_char_hi(l88, (unsigned char)(((unsigned char)pc_item_icon[((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))] + 1)), 4);
-	goto L4e2b;
-L4e16:
+	} else {
 	put_char_hi(l88, (unsigned char)((rsi + 37)), 4);
-L4e2b:
+	}
 	rsi++;
 	if (rsi < 2) goto L4dc5;
 	draw_vital_bar_m(l88, (l4 + 5), (l6 + 1), *(int *)((char *)pc_hp + (432 * p4)), *(int *)((char *)pc_hp_max + (432 * p4)), 86);

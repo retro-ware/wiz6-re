@@ -19,9 +19,9 @@ f56a1(p4)
 	l4 = random(4);
 	l2 = 0;
 L56fa:
-	if (((random(8)) && (l2 != l4)) || (g5224 <= 0)) goto L571d;
+	if (((!random(8)) || (l2 == l4)) && (g5224 > 0)) {
 	play_sound(g5224);
-L571d:
+	}
 	view_anim_state = -2;
 	f55dc();
 	if (l8) goto L5749;

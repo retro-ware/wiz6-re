@@ -149,12 +149,11 @@ case 0:
 	sound_mode = (char)((((unsigned char)sound_mode + i) + 6) % 6);
 	goto L7cee;
 case 1:
-	if (((l4 = ((unsigned char)cfg_delay + i)) < 0) || (l4 > 255)) goto L7c2a;
+	if (((l4 = ((unsigned char)cfg_delay + i)) >= 0) && (l4 <= 255)) {
 	cfg_delay = *(char *)&l4;
-	goto L7c32;
-L7c2a:
+	} else {
 	play_sound(0);
-L7c32:
+	}
 	g4fc8 = (unsigned char)cfg_delay;
 	goto L7cee;
 case 2:
@@ -208,18 +207,17 @@ L7d9b:
 	close(scenario_hdr_fd);
 	}
 	g4fc8 = (unsigned char)cfg_delay;
-	if ((!(video_flags & 4096)) || (cfg_input != 1)) goto L7e5f;
+	if (((video_flags & 4096)) && (cfg_input == 1)) {
 	if (!mouse_present) {
 	drv_op_96();
 	}
 	mouse_present = 1;
-	goto L7e6f;
-L7e5f:
+	} else {
 	if (mouse_present == 1) {
 	drv_mouse_shutdown();
 	}
 	mouse_present = 0;
-L7e6f:
+	}
 	clear_click_flag();
 	destroy_window(win, 0);
 	erase_window(main_window, 0);

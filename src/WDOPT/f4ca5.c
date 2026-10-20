@@ -5,9 +5,9 @@ char *dst;
 {
 L4ca8:
 	if (!(*dst = *src)) goto L4cce;
-	if ((*(unsigned char *)dst < 65) || (*(unsigned char *)dst > 90)) goto L4cc6;
+	if ((*(unsigned char *)dst >= 65) && (*(unsigned char *)dst <= 90)) {
 	*dst += 32;
-L4cc6:
+	}
 	src++;
 	dst++;
 	goto L4ca8;

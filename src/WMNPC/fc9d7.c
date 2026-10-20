@@ -18,9 +18,9 @@ npc_answer_topic()
 	int l82;
 	char x82[78];
 	int l162;
-	if ((g5898 != -1) || (g58b2 != 1)) goto Lc9f2;
+	if ((g5898 == -1) && (g58b2 == 1)) {
 	g5898 = 1;
-Lc9f2:
+	}
 	if (g58d0 == -1) goto Lca73;
 	fbe7a(g5894, g5896, &l82);
 	fc115(&l82);

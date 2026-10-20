@@ -17,9 +17,9 @@ f8149(p4, p6, p8, p10, p12, p14, p16)
 	} else {
 	l12 = p10;
 	}
-	if ((l10 == p8) && (l12 == p10)) goto L81a7;
+	if ((l10 != p8) || (l12 != p10)) {
 	show_combat_msg(3213);
-L81a7:
+	}
 	if (p6 < 0) goto L81de;
 	f7ddc(p4, p6, l10, l12, p12, p14, p16);
 	if (!p4) {

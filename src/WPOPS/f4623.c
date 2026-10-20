@@ -15,9 +15,9 @@ char *win;
 	i = 0;
 	goto L468c;
 L4660:
-	if ((((unsigned)((char *)monster_groups[group] + (44 * i))[34] >= 2) || (((char *)monster_groups[group] + (44 * i))[17])) || (((char *)monster_groups[group] + (44 * i))[16])) goto L4689;
+	if ((((unsigned)((char *)monster_groups[group] + (44 * i))[34] < 2) && (!((char *)monster_groups[group] + (44 * i))[17])) && (!((char *)monster_groups[group] + (44 * i))[16])) {
 	(*(char **)((char *)monster_groups + (group << 1)))[414]++;
-L4689:
+	}
 	i++;
 L468c:
 	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > i) goto L4660;

@@ -21,9 +21,9 @@ try_move(p4)
 	save_position();
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
 	g5032 = 1;
-	if ((((l6 = get_bitfield((maze_data + 504), rsi, 4)) != 1) && (l6 != 2)) || (get_bitfield((maze_data + 888), rsi, 2) != p4)) goto L575d;
+	if ((((l6 = get_bitfield((maze_data + 504), rsi, 4)) == 1) || (l6 == 2)) && (get_bitfield((maze_data + 888), rsi, 2) == p4)) {
 	g5032 = 0;
-L575d:
+	}
 	step_position(p4, 1);
 	if (!move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y)) goto L57b5;
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L57a2;
@@ -36,9 +36,9 @@ L57b5:
 	rsi = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
 	l2 = test_bit((maze_data + 1082), rsi);
 	l4 = test_bit((maze_data + 1178), rsi);
-	if ((g4eca != 1) || (l2)) goto L5806;
+	if ((g4eca == 1) && (!l2)) {
 	g4eca = 0;
-L5806:
+	}
 	if (l2 != 1) goto L590e;
 	switch (game_state_arg) {
 case 0:

@@ -2,9 +2,9 @@ extern int anim_phase;
 extern int g55ec;
 f90d0(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p34)
 {
-	if (((p4 != 3) || (!p6)) && ((p6 != 2) && (p6 < 7))) goto L911d;
+	if (((p4 == 3) && (p6)) || ((p6 == 2) || (p6 >= 7))) {
 	drv_op_c6((g55ec ? (p14 + p4) : (p12 + p4)), 1, (g55ec != 0 ? (p12 + p4) : -1));
-L911d:
+	}
 	if (p4 >= 3) goto L92bb;
 	switch (p6) {
 case 1:

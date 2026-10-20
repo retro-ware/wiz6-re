@@ -36,13 +36,13 @@ case 2:
 case 3:
 case 12:
 case 16:
-	if (p6) goto Lc922;
+	if (!p6) {
 	l6 = 0;
-	goto Lc94b;
-Lc922:
-	if ((p6 != 1) || (!((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4))) goto Lc94b;
+	} else {
+	if ((p6 == 1) && (((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4))) {
 	l6 = 1;
-Lc94b:
+	}
+	}
 	goto Lc9dd;
 case 4:
 	l6 = 1;
@@ -80,19 +80,19 @@ Lc9dd:
 	if (p6 != 1) goto Lcb08;
 	l4 = (unsigned char)pc_equipped[(432 * p4)];
 	if (l4 == 255) goto Lcae9;
-	if (pc_item_type[((432 * p4) + (l4 << 3))] != 3) goto Lcac8;
-	if ((((pc_item_icon[((432 * p4) + (l4 << 3))] != 11) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 22)) && ((pc_item_icon[((432 * p4) + (l4 << 3))] != 13) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 23))) && ((pc_item_icon[((432 * p4) + (l4 << 3))] != 12) || (pc_item_icon[((432 * p4) + (l2 << 3))] == 83))) goto Lcaa7;
+	if (pc_item_type[((432 * p4) + (l4 << 3))] == 3) {
+	if ((((pc_item_icon[((432 * p4) + (l4 << 3))] == 11) && (pc_item_icon[((432 * p4) + (l2 << 3))] != 22)) || ((pc_item_icon[((432 * p4) + (l4 << 3))] == 13) && (pc_item_icon[((432 * p4) + (l2 << 3))] != 23))) || ((pc_item_icon[((432 * p4) + (l4 << 3))] == 12) && (pc_item_icon[((432 * p4) + (l2 << 3))] != 83))) {
 	l6 = -1;
-	goto Lcac6;
-Lcaa7:
-	if (pc_item_type[((432 * p4) + (l2 << 3))] == 4) goto Lcac6;
+	} else {
+	if (pc_item_type[((432 * p4) + (l2 << 3))] != 4) {
 	l6 = -1;
-Lcac6:
-	goto Lcae7;
-Lcac8:
-	if (pc_item_type[((432 * p4) + (l2 << 3))] != 4) goto Lcae7;
+	}
+	}
+	} else {
+	if (pc_item_type[((432 * p4) + (l2 << 3))] == 4) {
 	l6 = -1;
-Lcae7:
+	}
+	}
 	goto Lcb08;
 Lcae9:
 	if (pc_item_type[((432 * p4) + (l2 << 3))] != 4) goto Lcb08;

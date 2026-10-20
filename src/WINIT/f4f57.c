@@ -123,9 +123,9 @@ L5201:
 L520e:
 	if (start[i] > frame) goto L5280;
 	y = (glyph_y[i] - (frame - start[i]));
-	if (((i >= 3) && (i != 8)) || (min_y[i] <= y)) goto L5253;
+	if (((i < 3) || (i == 8)) && (min_y[i] > y)) {
 	y = min_y[i];
-L5253:
+	}
 	if (min_y[i] > y) goto L5280;
 	draw_big_char(glyph[i], glyph_x[i], y);
 L5280:

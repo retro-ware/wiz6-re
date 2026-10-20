@@ -19,7 +19,7 @@ inflict_status(p4, p6, p8, p10, p12, p14, p16)
 	return;
 L5dd9:
 	l6 = roll_dice(format_dice(p12, p14, p16));
-	if ((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) goto L5edc;
+	if ((!p8) || (random(100) > (unsigned char)g453a[((432 * p4) + p8)])) {
 	if (p16 == 255) {
 	g450a[((432 * p4) + p10)] = -1;
 	} else {
@@ -37,6 +37,6 @@ L5dd9:
 	print_member_message(p4, &l86, &l166, &l246, 1, 6, 0, 0);
 	draw_member_status(p4);
 	wait_animating(message_delay);
-L5edc:
+	}
 	return;
 }

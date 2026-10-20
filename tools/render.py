@@ -34,6 +34,7 @@ def render(iname):
         if st and st['status'] == 'ok' and (not st.get('structret') or '%04x' % s in ok):
             L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))
+            L.noandif = st.get('noandif', False)     # as liftloop lifted it
             L.run()
             src, missing = Printer(L, names).source()
             if missing:

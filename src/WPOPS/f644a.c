@@ -117,11 +117,11 @@ case 1:
 	}
 	goto L6806;
 case 2:
-	if ((realm == -1) || ((realm % 3) <= 0)) goto L678e;
+	if ((realm != -1) && ((realm % 3) > 0)) {
 	unhighlight_combat_realm(l2, realm);
 	realm--;
 	l72 = 1;
-L678e:
+	}
 	goto L6806;
 case 3:
 	if (realm == -1) goto L67bd;
@@ -135,11 +135,11 @@ L67b8:
 L67bd:
 	goto L6806;
 case 4:
-	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L67ea;
+	if ((realm != -1) && (((realm % 3) + 1) < 3)) {
 	unhighlight_combat_realm(l2, realm);
 	realm++;
 	l72 = 1;
-L67ea:
+	}
 	goto L6806;
 	}
 L6806:

@@ -50,9 +50,9 @@ L524f:
 L5353:
 	l8 = 0;
 L5358:
-	if (((unsigned)(c + l8)[14] <= 0) || ((unsigned char)(c + l8)[14] == 255)) goto L5371;
+	if (((unsigned)(c + l8)[14] > 0) && ((unsigned char)(c + l8)[14] != 255)) {
 	(c + l8)[14]--;
-L5371:
+	}
 	l8++;
 	if (l8 < 10) goto L5358;
 	if (!c[19]) {

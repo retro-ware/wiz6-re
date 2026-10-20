@@ -21,9 +21,9 @@ L6c04:
 L6c3d:
 	col = random(5);
 	if (used[col] == 1) goto L6c3d;
-	if ((used[0]) || (g5010 != 1)) goto L6c65;
+	if ((!used[0]) && (g5010 == 1)) {
 	col = 0;
-L6c65:
+	}
 	used[col] = 1;
 	if (*(int *)((char *)view_pos_group + ((row * 10) + (col << 1)))) goto L6d2f;
 	switch (row) {

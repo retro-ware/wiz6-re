@@ -20,9 +20,9 @@ fdb7f(p4, p6, p8, p10, p12, p14)
 	register int rsi;
 	register int rdi;
 	if ((!p14) || (!fdafe(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ldc11;
-	if ((g6aa4) || (p14)) goto Ldbc8;
+	if ((!g6aa4) && (!p14)) {
 	view_rows_open = 0;
-Ldbc8:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ldc0c;
 	g6aa7[((g6aa4 * 3) + p14)] = 1;
 	*(int *)((char *)g6ab4 + ((g6aa4 * 6) + (p14 << 1))) = 1;
@@ -165,8 +165,8 @@ case 15:
 	goto Ldf49;
 	}
 Ldf49:
-	if (((!l4) || (g6aa4)) || (p14)) goto Ldf62;
+	if (((l4) && (!g6aa4)) && (!p14)) {
 	view_rows_open = 0;
-Ldf62:
+	}
 	return l4;
 }

@@ -21,16 +21,15 @@ L4c4b:
 L4c6f:
 	;
 L4c73:
-	if (g502c) goto L4c9f;
+	if (!g502c) {
 	anim_phase = ((anim_phase + 1) % 2);
 	animate_treasure_view();
-	if ((g501c == -1) || (anim_phase != l4)) goto L4c9d;
+	if ((g501c != -1) && (anim_phase == l4)) {
 	blink_selection();
-L4c9d:
-	goto L4ca2;
-L4c9f:
+	}
+	} else {
 	play_ambient_sound();
-L4ca2:
+	}
 	g502c = ((g502c + 1) % 10);
 	goto L4c4b;
 L4cb2:

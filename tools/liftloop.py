@@ -67,6 +67,7 @@ class Loop:
         for _ in range(50):
             L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))
+            L.noandif = st.get('noandif', False)     # && / || conditions structured as if/else
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -224,6 +225,10 @@ class Loop:
         if self.unmerge(st, L, dem):
             return True
         dem -= set(st['demote'])
+        if not dem and getattr(P, 'andif', False) and not st.get('noandif'):
+            # an unexplained mismatch: first drop the && / || if/else blocks
+            st['noandif'], st['demote'] = True, []
+            return True
         if not dem and self.unstruct(st, L):
             return True
         if not dem and L.f.scratch and not st.get('noscratch'):

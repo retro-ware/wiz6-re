@@ -41,10 +41,10 @@ L6e87:
 	l4 = 0;
 	l2 = 0;
 L6eba:
-	if (((!(class_bit & (unsigned char)g00e3[(l2 * 6)])) || ((unsigned char)g00df[(l2 * 6)] > l8)) || (test_bit(&saved_known, l2))) goto L6f02;
+	if ((((class_bit & (unsigned char)g00e3[(l2 * 6)])) && ((unsigned char)g00df[(l2 * 6)] <= l8)) && (!test_bit(&saved_known, l2))) {
 	set_bit(22008, l2, 1);
 	l4++;
-L6f02:
+	}
 	l2++;
 	if (l2 < 82) goto L6eba;
 	if (l4) goto L6f29;

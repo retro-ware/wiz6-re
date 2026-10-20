@@ -107,9 +107,9 @@ Ld227:
 	clear_window_area(win, (unsigned char)win[6], 1, 18, 1);
 	resume_window_draw(win);
 	refresh_window(win);
-	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld2f4;
+	if ((key_available(1)) && ((char)get_key(1) == 13)) {
 	l62 = 0;
-Ld2f4:
+	}
 	if ((l62 == 1) && (!check_screen_click())) goto Ld157;
 	result = (strength >= target ? 0 : 1);
 	if (l60) {

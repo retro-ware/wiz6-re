@@ -32,9 +32,9 @@ L48bd:
 	l4 = 0;
 	goto L48eb;
 L48c9:
-	if (((unsigned char)pic_slot_monster[(l2 + l4)] == p4) && (pic_slot_loaded[(l2 + l4)] == 1)) goto L48e8;
+	if (((unsigned char)pic_slot_monster[(l2 + l4)] != p4) || (pic_slot_loaded[(l2 + l4)] != 1)) {
 	l10 = 0;
-L48e8:
+	}
 	l4++;
 L48eb:
 	if (l4 <= l8) goto L48c9;

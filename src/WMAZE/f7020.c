@@ -42,9 +42,9 @@ maze_main_loop()
 	int l10;
 	int l12;
 	int l14;
-	if ((cell_event_index < 0) || ((unsigned char)(g4fa8 + party_level)[1728] <= cell_event_index)) goto L7045;
+	if ((cell_event_index >= 0) && ((unsigned char)(g4fa8 + party_level)[1728] > cell_event_index)) {
 	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
-L7045:
+	}
 	if (return_cmd != 23) {
 	flood_mark_cells(party_level, party_cell_x, party_cell_y, 0);
 	}
@@ -118,9 +118,9 @@ L71e8:
 	if (!pc_condition[(432 * l4)]) {
 	l12++;
 	}
-	if (((unsigned)g450c[(432 * l4)] <= 0) && ((unsigned)g450d[(432 * l4)] <= 0)) goto L720b;
+	if (((unsigned)g450c[(432 * l4)] > 0) || ((unsigned)g450d[(432 * l4)] > 0)) {
 	l14++;
-L720b:
+	}
 	l4++;
 L720e:
 	if (l4 < party_count) goto L71e8;

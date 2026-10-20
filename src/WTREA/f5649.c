@@ -69,10 +69,10 @@ L58ad:
 L58de:
 	switch (key) {
 case 1:
-	if ((sel == -1) || ((sel % 2) <= 0)) goto L5909;
+	if ((sel != -1) && ((sel % 2) > 0)) {
 	draw_member_name_cell(win, sel);
 	sel--;
-L5909:
+	}
 	goto L59cd;
 case 2:
 	if (sel == -1) goto L592f;
@@ -85,10 +85,10 @@ L592a:
 L592f:
 	goto L59cd;
 case 3:
-	if (((sel == -1) || ((sel % 2) >= 1)) || ((sel + 1) >= party_count)) goto L5960;
+	if (((sel != -1) && ((sel % 2) < 1)) && ((sel + 1) < party_count)) {
 	draw_member_name_cell(win, sel);
 	sel++;
-L5960:
+	}
 	goto L59cd;
 case 4:
 	if (sel == -1) {

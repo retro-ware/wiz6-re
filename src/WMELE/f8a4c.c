@@ -91,25 +91,23 @@ L8ad0:
 L8bd5:
 	if (g5118 >= g52f6) goto L9169;
 	g52f4 = ((((party_x + party_y) + party_facing) + g5118) % 2);
-	if (!step_in_facing(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L8c7e;
-	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L8c6a;
+	if (step_in_facing(&l2, &l4, &l6, &l8, &l10, 0, 1)) {
+	if ((game_state_arg == 10) || (game_state_arg == 12)) {
 	g511b[(g5118 * 3)] = 1;
 	g5128[(g5118 * 3)] = 1;
 	g52f8 = 0;
 	g52fa = 0;
 	g52fc = 0;
-	goto L8c7c;
-L8c6a:
+	} else {
 	g52f8 = 2;
 	g52fa = 2;
 	g52fc = 2;
-L8c7c:
-	goto L8cd2;
-L8c7e:
+	}
+	} else {
 	g52f8 = get_center_wall(l2, l4, l6, l8, l10, 0);
 	g52fa = get_left_wall(l2, l4, l6, l8, l10, 0);
 	g52fc = get_right_wall(l2, l4, l6, l8, l10, 0);
-L8cd2:
+	}
 	g52fe = get_center_wall(l2, l4, l6, l8, l10, -1);
 	g5300 = get_center_wall(l2, l4, l6, l8, l10, 1);
 	if (g5162[g5118] == 1) {
@@ -179,11 +177,11 @@ L925e:
 	goto L92c3;
 L926d:
 	entry = ((rsi * 11) + 20904);
-	if (((unsigned char)entry[10] != g5118) || ((unsigned char)entry[8] == 255)) goto L92c2;
+	if (((unsigned char)entry[10] == g5118) && ((unsigned char)entry[8] != 255)) {
 	l16[0] = entry[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)entry[8], *(int *)entry, *(int *)(entry + 2), *(int *)(entry + 4), *(int *)(entry + 6), 0, 0, l16);
-L92c2:
+	}
 	rsi--;
 L92c3:
 	if (rsi >= 0) goto L926d;

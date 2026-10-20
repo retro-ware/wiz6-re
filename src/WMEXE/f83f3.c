@@ -31,9 +31,9 @@ f83f3(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32)
 	} else {
 	l16 = p26;
 	}
-	if ((((l10 == p16) && (l12 == p18)) && (l14 == p24)) && (l16 == p26)) goto L84a7;
+	if ((((l10 != p16) || (l12 != p18)) || (l14 != p24)) || (l16 != p26)) {
 	show_combat_msg(3213);
-L84a7:
+	}
 	if (p6 < 0) goto L853d;
 	if (f7ddc(p4, p6, l10, l12, p12, p10, p14) <= 0) goto L8527;
 	if (p22 != 1) goto L84fe;

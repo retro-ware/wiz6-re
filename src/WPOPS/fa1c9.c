@@ -91,25 +91,23 @@ La24d:
 La352:
 	if (view_depth >= g5258) goto La8e6;
 	g5256 = ((((party_x + party_y) + party_facing) + view_depth) % 2);
-	if (!step_relative(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto La3fb;
-	if ((game_state_arg != 10) && (game_state_arg != 12)) goto La3e7;
+	if (step_relative(&l2, &l4, &l6, &l8, &l10, 0, 1)) {
+	if ((game_state_arg == 10) || (game_state_arg == 12)) {
 	g507d[(view_depth * 3)] = 1;
 	g508a[(view_depth * 3)] = 1;
 	g525a = 0;
 	g525c = 0;
 	g525e = 0;
-	goto La3f9;
-La3e7:
+	} else {
 	g525a = 2;
 	g525c = 2;
 	g525e = 2;
-La3f9:
-	goto La44f;
-La3fb:
+	}
+	} else {
 	g525a = get_front_wall(l2, l4, l6, l8, l10, 0);
 	g525c = get_left_wall(l2, l4, l6, l8, l10, 0);
 	g525e = get_right_wall(l2, l4, l6, l8, l10, 0);
-La44f:
+	}
 	g5260 = get_front_wall(l2, l4, l6, l8, l10, -1);
 	g5262 = get_front_wall(l2, l4, l6, l8, l10, 1);
 	if (g50c4[view_depth] == 1) {
@@ -179,11 +177,11 @@ La9db:
 	goto Laa40;
 La9ea:
 	obj = ((rsi * 11) + 20746);
-	if (((unsigned char)obj[10] != view_depth) || ((unsigned char)obj[8] == 255)) goto Laa3f;
+	if (((unsigned char)obj[10] == view_depth) && ((unsigned char)obj[8] != 255)) {
 	l16[0] = obj[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)obj[8], *(int *)obj, *(int *)(obj + 2), *(int *)(obj + 4), *(int *)(obj + 6), 0, 0, l16);
-Laa3f:
+	}
 	rsi--;
 Laa40:
 	if (rsi >= 0) goto La9ea;

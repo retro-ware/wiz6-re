@@ -79,9 +79,9 @@ L0f30:
 	if (check_screen_click()) {
 	waiting = 0;
 	}
-	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L0f5a;
+	if ((key_available(1) == 1) && ((char)get_key(1) == 13)) {
 	waiting = 0;
-L0f5a:
+	}
 	if (waiting) goto L0f30;
 	fill_window(win, 32, 3, 0);
 	refresh_window(win);
@@ -115,9 +115,9 @@ L1031:
 	if (fd == -1) goto L1083;
 	nread = read(fd, 12356, 700);
 	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
-	if ((nread <= 0) || (want != disk_header)) goto L107b;
+	if ((nread > 0) && (want == disk_header)) {
 	ok = 1;
-L107b:
+	}
 	close(fd);
 L1083:
 	if (!ok) goto L0df7;

@@ -15,18 +15,16 @@ search_cell()
 	int l6;
 	register int rsi;
 	l2 = (((party_level << 6) + (party_cell_y << 3)) + party_cell_x);
-	if ((get_bitfield((maze_data + 504), l2, 4) != 5) || (get_bitfield((maze_data + 888), l2, 2) != party_facing)) goto Lcd46;
+	if ((get_bitfield((maze_data + 504), l2, 4) == 5) && (get_bitfield((maze_data + 888), l2, 2) == party_facing)) {
 	show_maze_message(2044);
 	play_sound(4);
 	wait_animating_m(2);
 	l6 = 0;
-	goto Lcd5b;
-Lcd46:
+	} else {
 	show_maze_message(2043);
 	wait_animating_m(message_delay);
 	l6 = 1;
-Lcd5b:
-	;
+	}
 #asm
 lcd5b:
 	db 08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah,0e4h,089h,046h

@@ -12,7 +12,7 @@ inflict_condition(member, msg, resist, condition)
 	int l85;
 	char x85[3];
 	int l90;
-	if (((resist) && (random(100) <= (unsigned char)g453a[((432 * member) + resist)])) || ((unsigned char)pc_condition[(432 * member)] >= condition)) goto L5cbf;
+	if (((!resist) || (random(100) > (unsigned char)g453a[((432 * member) + resist)])) && ((unsigned char)pc_condition[(432 * member)] < condition)) {
 	pc_condition[(432 * member)] = *(char *)&condition;
 	if (condition >= 3) {
 	*(int *)((char *)pc_hp + (432 * member)) = 0;
@@ -25,6 +25,5 @@ inflict_condition(member, msg, resist, condition)
 	print_member_message(member, &l80, &l85, &l90, 1, 6, 0, 0);
 	draw_member_status(member);
 	wait_animating(message_delay);
-L5cbf:
-	;
+	}
 }

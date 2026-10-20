@@ -15,21 +15,20 @@ char *enabled;
 	item = 0;
 L4812:
 	if (*(int *)(enabled + (item << 1)) == -1) goto L4945;
-	if (*(int *)(enabled + (item << 1)) != 1) goto L493f;
+	if (*(int *)(enabled + (item << 1)) == 1) {
 	x = (((n / rows) * col_width) + x0);
 	y = ((n % rows) + y0);
 	set_cursor(win, x, y);
 	get_message((first_msg + item), ((n * 25) + labels));
-	if ((mouse_present) || (sel != n)) goto L48b5;
+	if ((!mouse_present) && (sel == n)) {
 	print_string(win, ((n * 25) + labels), (0 - color));
-	goto L48d8;
-L48b5:
+	} else {
 	print_string_hi(win, ((n * 25) + labels), 3);
-L48d8:
+	}
 	*(int *)(labels + ((n << 1) + 375)) = item;
 	set_click_region(n, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((n * 25) + labels)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
 	n++;
-L493f:
+	}
 	item++;
 	goto L4812;
 L4945:
@@ -68,11 +67,11 @@ case 3:
 	}
 	goto L4b53;
 case 4:
-	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L4b34;
+	if (((sel % rows) < (rows - 1)) && ((sel + 1) < n)) {
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 25) + labels), 3);
 	sel++;
-L4b34:
+	}
 	goto L4b53;
 	}
 L4b53:

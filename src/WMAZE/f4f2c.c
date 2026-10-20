@@ -89,10 +89,10 @@ L51dc:
 L520d:
 	switch (l2) {
 case 1:
-	if ((l6 == -1) || ((l6 % 2) <= 0)) goto L5238;
+	if ((l6 != -1) && ((l6 % 2) > 0)) {
 	f4ee7(l4, l6);
 	l6--;
-L5238:
+	}
 	goto L5311;
 case 2:
 	if (l6 == -1) goto L5273;
@@ -107,10 +107,10 @@ L525c:
 L5273:
 	goto L5311;
 case 3:
-	if (((l6 == -1) || ((l6 % 2) >= 1)) || ((l6 + 1) >= party_count)) goto L52a4;
+	if (((l6 != -1) && ((l6 % 2) < 1)) && ((l6 + 1) < party_count)) {
 	f4ee7(l4, l6);
 	l6++;
-L52a4:
+	}
 	goto L5311;
 case 4:
 	if (l6 == -1) {

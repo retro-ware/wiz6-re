@@ -90,25 +90,23 @@ Leaaa:
 Lebaf:
 	if (pclist_race >= g52f8) goto Lf143;
 	g52f6 = ((((party_x + party_y) + party_facing) + pclist_race) % 2);
-	if (!fd6f6(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto Lec58;
-	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Lec44;
+	if (fd6f6(&l2, &l4, &l6, &l8, &l10, 0, 1)) {
+	if ((game_state_arg == 10) || (game_state_arg == 12)) {
 	g511d[(pclist_race * 3)] = 1;
 	g512a[(pclist_race * 3)] = 1;
 	g52fa = 0;
 	g52fc = 0;
 	g52fe = 0;
-	goto Lec56;
-Lec44:
+	} else {
 	g52fa = 2;
 	g52fc = 2;
 	g52fe = 2;
-Lec56:
-	goto Lecac;
-Lec58:
+	}
+	} else {
 	g52fa = fd777(l2, l4, l6, l8, l10, 0);
 	g52fc = fdb60(l2, l4, l6, l8, l10, 0);
 	g52fe = fdd1d(l2, l4, l6, l8, l10, 0);
-Lecac:
+	}
 	g5300 = fd777(l2, l4, l6, l8, l10, -1);
 	g5302 = fd777(l2, l4, l6, l8, l10, 1);
 	if (g5164[pclist_race] == 1) {
@@ -178,11 +176,11 @@ Lf238:
 	goto Lf29d;
 Lf247:
 	l14 = ((rsi * 11) + 20906);
-	if (((unsigned char)l14[10] != pclist_race) || ((unsigned char)l14[8] == 255)) goto Lf29c;
+	if (((unsigned char)l14[10] == pclist_race) && ((unsigned char)l14[8] != 255)) {
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
-Lf29c:
+	}
 	rsi--;
 Lf29d:
 	if (rsi >= 0) goto Lf247;

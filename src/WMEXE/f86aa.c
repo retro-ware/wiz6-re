@@ -23,9 +23,9 @@ L8717:
 L872d:
 	for (l2 = 0; (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413] > l2; l2++) {
 	l6 = p12;
-	if ((l4 <= 0) || (*(int *)((char *)monster_groups[p4] + (44 * l2)) <= (p16 * l4))) goto L8768;
+	if ((l4 > 0) && (*(int *)((char *)monster_groups[p4] + (44 * l2)) > (p16 * l4))) {
 	l6 = -100;
-L8768:
+	}
 	f825f(p4, l2, p6, p8, p10, l6, p14, p16, p18, p20, p22, p24);
 	}
 	return;

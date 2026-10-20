@@ -66,10 +66,10 @@ case 3:
 	}
 	goto L4aa8;
 case 4:
-	if (((sel % cols) >= (cols - 1)) || ((sel + 1) >= count)) goto L4a89;
+	if (((sel % cols) < (cols - 1)) && ((sel + 1) < count)) {
 	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
 	sel++;
-L4a89:
+	}
 	goto L4aa8;
 	}
 L4aa8:

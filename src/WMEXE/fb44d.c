@@ -124,13 +124,13 @@ Lb733:
 Lb773:
 	g5118 = 1;
 Lb779:
-	if ((g50fc != 1) || (((unsigned char)g00e1[(l6 * 6)] & 2))) goto Lb7a4;
+	if ((g50fc == 1) && (!((unsigned char)g00e1[(l6 * 6)] & 2))) {
 	g50fc = 0;
 	g5118 = 1;
-Lb7a4:
-	if ((g5118 != 1) || (((unsigned char)g00e1[(l6 * 6)] & 1))) goto Lb7c9;
+	}
+	if ((g5118 == 1) && (!((unsigned char)g00e1[(l6 * 6)] & 1))) {
 	g5118 = 0;
-Lb7c9:
+	}
 	if (g5118 == 1) {
 	combat_delay(2);
 	print_msg_centered(3201, 5, 2);

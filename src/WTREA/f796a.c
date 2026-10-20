@@ -115,11 +115,11 @@ case 1:
 	}
 	goto L7d25;
 case 2:
-	if ((realm == -1) || ((realm % 3) <= 0)) goto L7cad;
+	if ((realm != -1) && ((realm % 3) > 0)) {
 	unhighlight_realm_slot(l2, realm);
 	realm--;
 	l72 = 1;
-L7cad:
+	}
 	goto L7d25;
 case 3:
 	if (realm == -1) goto L7cdc;
@@ -133,11 +133,11 @@ L7cd7:
 L7cdc:
 	goto L7d25;
 case 4:
-	if ((realm == -1) || (((realm % 3) + 1) >= 3)) goto L7d09;
+	if ((realm != -1) && (((realm % 3) + 1) < 3)) {
 	unhighlight_realm_slot(l2, realm);
 	realm++;
 	l72 = 1;
-L7d09:
+	}
 	goto L7d25;
 	}
 L7d25:

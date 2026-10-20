@@ -24,9 +24,9 @@ L521c:
 	;
 L5220:
 	animate_combat_step();
-	if (((view_anim_state != -2) || (blink_state == -1)) || (anim_phase != l4)) goto L523c;
+	if (((view_anim_state == -2) && (blink_state != -1)) && (anim_phase == l4)) {
 	blink_cursor_text();
-L523c:
+	}
 	goto L51f8;
 L523e:
 	if ((key = char_index(keys, (unsigned char)(get_key(1)))) < 0) goto L525c;

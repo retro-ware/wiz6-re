@@ -8,9 +8,9 @@ fb2fd(p4)
 	if (pc_condition[(432 * p4)]) {
 	l2 = 0;
 	}
-	if (((unsigned)g450c[(432 * p4)] <= 0) && ((unsigned)g450d[(432 * p4)] <= 0)) goto Lb32f;
+	if (((unsigned)g450c[(432 * p4)] > 0) || ((unsigned)g450d[(432 * p4)] > 0)) {
 	l2 = 0;
-Lb32f:
+	}
 	if (!l2) {
 	play_sound(0);
 	}

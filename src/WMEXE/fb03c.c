@@ -43,13 +43,12 @@ char *p4;
 	g5118 = 1;
 	}
 	if (g435e) goto Lb21a;
-	if (((pc_class[(432 * g435c)] != 5) && (pc_class[(432 * g435c)] != 4)) && (pc_class[(432 * g435c)] != 13)) goto Lb182;
+	if (((pc_class[(432 * g435c)] == 5) || (pc_class[(432 * g435c)] == 4)) || (pc_class[(432 * g435c)] == 13)) {
 	l14 = ((((unsigned char)g4535[(432 * g435c)] / 3) + 90) - ((unsigned char)g00df[(l6 * 6)] * l4));
-	goto Lb1cb;
-Lb182:
+	} else {
 	l14 = ((((unsigned char)g4529[(432 * g435c)] / 3) + 90) - ((unsigned char)g00df[(l6 * 6)] * l4));
 	try_raise_skill(g435c, 13, 2);
-Lb1cb:
+	}
 	if (random(100) <= l14) goto Lb217;
 	if ((cfg_level == 1) || (random(36) <= ((unsigned char)g451b[(432 * g435c)] + 18))) goto Lb211;
 	g5118 = 0;
@@ -70,22 +69,22 @@ Lb28a:
 	g5118 = 1;
 Lb290:
 	l12 = 1;
-	if (g435e) goto Lb2bc;
-	if (((pc_class[(432 * g435c)] != 5) && (pc_class[(432 * g435c)] != 4)) && (pc_class[(432 * g435c)] != 13)) goto Lb2ba;
+	if (!g435e) {
+	if (((pc_class[(432 * g435c)] == 5) || (pc_class[(432 * g435c)] == 4)) || (pc_class[(432 * g435c)] == 13)) {
 	l12 = 0;
-Lb2ba:
-	goto Lb2dc;
-Lb2bc:
-	if ((((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 5) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 4)) && ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] != 13)) goto Lb2dc;
+	}
+	} else {
+	if ((((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] == 5) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] == 4)) || ((*(char **)((char *)group_monster_rec + (g435e << 1)))[208] == 13)) {
 	l12 = 0;
-Lb2dc:
-	if ((g50fc != 1) || (((unsigned char)g00e1[(l6 * 6)] & 2))) goto Lb307;
+	}
+	}
+	if ((g50fc == 1) && (!((unsigned char)g00e1[(l6 * 6)] & 2))) {
 	g50fc = 0;
 	g5118 = 1;
-Lb307:
-	if ((g5118 != 1) || (((unsigned char)g00e1[(l6 * 6)] & 1))) goto Lb32c;
+	}
+	if ((g5118 == 1) && (!((unsigned char)g00e1[(l6 * 6)] & 1))) {
 	g5118 = 0;
-Lb32c:
+	}
 	if ((l12 != 1) || ((unsigned)p4[14] <= 0)) goto Lb366;
 	combat_delay(2);
 	print_msg_centered(3200, 3, 2);

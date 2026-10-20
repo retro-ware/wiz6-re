@@ -48,10 +48,10 @@ L83a2:
 	l4 = 0;
 	l2 = 0;
 L8403:
-	if (((!(l10 & (unsigned char)g00e3[(l2 * 6)])) || ((unsigned char)g00df[(l2 * 6)] > l8)) || (test_bit(&l28, l2))) goto L8451;
+	if ((((l10 & (unsigned char)g00e3[(l2 * 6)])) && ((unsigned char)g00df[(l2 * 6)] <= l8)) && (!test_bit(&l28, l2))) {
 	set_bit(((432 * p8) + 17776), l2, 1);
 	l4++;
-L8451:
+	}
 	l2++;
 	if (l2 < 82) goto L8403;
 	if (l4) goto L848e;

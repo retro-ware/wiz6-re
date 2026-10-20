@@ -206,26 +206,26 @@ L7544:
 case 13:
 	goto L7f6d;
 case 14:
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L75ad;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) > 0) && (l42 < 79)) {
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L75ad:
+	}
 	goto L7f6d;
 case 15:
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L7616;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) > 0) && (l42 < 79)) {
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((game_state_arg * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L7616:
+	}
 	goto L7f6d;
 case 16:
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L7647;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) > 0) && (l42 < 15)) {
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L7647:
+	}
 	goto L7f6d;
 case 17:
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L769b;
+	if (((l42 = *(int *)(l36 + (l2 << 2))) > 0) && (l42 < 15)) {
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L769b:
+	}
 	goto L7f6d;
 case 18:
 	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L76ce;

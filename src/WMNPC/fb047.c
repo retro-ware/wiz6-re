@@ -1,10 +1,12 @@
 extern char g4518[];
+extern char g451a[];
 extern char g452a[];
 extern char g4550[];
 extern char g51cf;
 extern char pc_class[];
 extern char pc_sex[];
 extern int g5274;
+extern int g52d0;
 extern int g54b2;
 extern int g54b4[];
 extern int g56ee[];
@@ -23,22 +25,16 @@ do_npc_pilfer(member)
 	int l10;
 	int l12;
 	chance = (((*(int *)((char *)pc_level + (432 * member)) - (unsigned char)g51cf) * 5) + ((unsigned char)g452a[(432 * member)] / 2));
-	if (pc_class[(432 * member)] != 3) goto Lb095;
+	if (pc_class[(432 * member)] == 3) {
 	chance += ((unsigned char)g4518[(432 * member)] << 1);
-	goto Lb0ae;
-Lb095:
-	if (((pc_class[(432 * member)] != 4) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13)) goto Lb0ae;
+	} else {
+	if (((pc_class[(432 * member)] == 4) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 13)) {
 	chance += (unsigned char)g4518[(432 * member)];
-Lb0ae:
-	;
-#asm
-lb0ae:
-	db 08ah,087h,01ah,045h,02ah,0e4h,050h,003h,01eh,074h,052h,08ah,087h,050h,045h,098h
-	db 003h,006h,0d0h,052h,0b9h,004h,000h,099h,0f7h,0f9h,08bh,0c8h,058h,003h,0c1h,003h
-	db 046h,0feh,005h,0f6h,0ffh,089h,046h,0feh,03dh,000h,000h,07dh,005h
-#endasm
+	}
+	}
+	if ((chance = ((((unsigned char)g451a[(432 * member)] + ((g4550[((432 * member) + g5274)] + g52d0) / 4)) + chance) + -10)) < 0) {
 	chance = 0;
-Lb0e0:
+	}
 	if (chance > 95) {
 	chance = 95;
 	}

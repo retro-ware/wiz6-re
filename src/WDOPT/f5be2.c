@@ -105,9 +105,9 @@ L5e5c:
 	if (check_screen_click()) {
 	waiting = 0;
 	}
-	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L5fd7;
+	if ((key_available(1)) && ((char)get_key(1) == 13)) {
 	waiting = 0;
-L5fd7:
+	}
 	if (waiting) goto L5e5c;
 	destroy_window(win, 0);
 	redraw_maze_view();

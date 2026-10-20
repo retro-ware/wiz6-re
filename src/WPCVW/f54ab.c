@@ -62,9 +62,9 @@ char *win;
 	put_char(win, 30, 5);
 	print_int(win, (int)(*(long *)((char *)pc_age_days + (432 * member)) / 365L), 3, 14);
 	win[6]++;
-	if (((test_bit(((432 * member) + 17792), 0) != 1) && (test_bit(((432 * member) + 17792), 1) != 1)) && (test_bit(((432 * member) + 17792), 2) != 1)) goto L564a;
+	if (((test_bit(((432 * member) + 17792), 0) == 1) || (test_bit(((432 * member) + 17792), 1) == 1)) || (test_bit(((432 * member) + 17792), 2) == 1)) {
 	put_char(win, 10, 5);
-L564a:
+	}
 	print_msg_at(((unsigned char)pc_class[(432 * member)] + 120), win, 13, 2, 1);
 	set_cursor(win, 4, 3);
 	put_char(win, 31, 5);
@@ -95,9 +95,9 @@ L564a:
 	print_int(win, *(int *)((char *)pc_hp_max + (432 * member)), 4, 6);
 	print_msg_at(213, win, 10, 8, 4);
 	win[6] += 2;
-	if (((l4 = ((*(int *)((char *)pc_stamina + (432 * member)) * 100) / *(int *)((char *)pc_stamina_max + (432 * member)))) >= 1) || (*(int *)((char *)pc_stamina + (432 * member)) <= 0)) goto L58fc;
+	if (((l4 = ((*(int *)((char *)pc_stamina + (432 * member)) * 100) / *(int *)((char *)pc_stamina_max + (432 * member)))) < 1) && (*(int *)((char *)pc_stamina + (432 * member)) > 0)) {
 	l4 = 1;
-L58fc:
+	}
 	print_int(win, l4, 3, 6);
 	put_char(win, 37, 4);
 	print_msg_at(214, win, 10, 9, 4);
@@ -115,9 +115,9 @@ L58fc:
 	if ((unsigned)g450e[(432 * member)] > 0) {
 	put_char_hi(win, (unsigned char)((g053a + 47)), 1);
 	}
-	if ((((unsigned)g450f[(432 * member)] <= 0) && ((unsigned)g4510[(432 * member)] <= 0)) && ((unsigned)g4512[(432 * member)] <= 0)) goto L5a3c;
+	if ((((unsigned)g450f[(432 * member)] > 0) || ((unsigned)g4510[(432 * member)] > 0)) || ((unsigned)g4512[(432 * member)] > 0)) {
 	put_char_hi(win, (unsigned char)((g053c + 47)), 1);
-L5a3c:
+	}
 	if ((unsigned char)win[6] == l4) {
 	put_char_hi(win, (unsigned char)((g0526[0] + 47)), 1);
 	}

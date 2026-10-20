@@ -20,9 +20,9 @@ L5195:
 	lock_level = extract_bits(l2, 0, 5);
 	jammed = 0;
 	l2 = *(int *)((g4fa8 + (ev << 1)) + 576);
-	if ((extract_bits(l2, (party_facing << 1), 2) != 2) || (lock_level)) goto L5201;
+	if ((extract_bits(l2, (party_facing << 1), 2) == 2) && (!lock_level)) {
 	jammed = 1;
-L5201:
+	}
 	result = 0;
 	roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2);
 	if (roll < lock_level) {

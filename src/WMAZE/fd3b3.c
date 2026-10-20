@@ -97,23 +97,23 @@ Ld6c1:
 	}
 	resume_window_draw(win);
 	refresh_window(win);
-	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto Ld7ac;
+	if ((key_available(1)) && ((char)get_key(1) == 13)) {
 	l74 = 0;
-Ld7ac:
+	}
 	if ((l74 == 1) && (!check_screen_click())) goto Ld6c1;
-	if (!result) goto Ld806;
-	if ((result != 1) || (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13))) goto Ld7f1;
+	if (result) {
+	if ((result == 1) && (((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 13))) {
 	try_skill_gain(member, 15, 1);
-Ld7f1:
+	}
 	if (!random(3)) {
 	fce13(event);
 	}
-	goto Ld836;
-Ld806:
+	} else {
 	fce81(event);
-	if (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13)) goto Ld836;
+	if (((pc_class[(432 * member)] == 3) || (pc_class[(432 * member)] == 6)) || (pc_class[(432 * member)] == 13)) {
 	try_skill_gain(member, 15, 4);
-Ld836:
+	}
+	}
 	erase_window(main_window, 1);
 	get_message((result + 2113), l52);
 	set_cursor(main_window, (20 - ((strlen(l52) + 1) / 2)), 0);

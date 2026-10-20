@@ -12,7 +12,7 @@ inflict_condition(p4, p6, p8, p10)
 	int l85;
 	char x85[3];
 	int l90;
-	if (((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) || ((unsigned char)pc_condition[(432 * p4)] >= p10)) goto Lac1c;
+	if (((!p8) || (random(100) > (unsigned char)g453a[((432 * p4) + p8)])) && ((unsigned char)pc_condition[(432 * p4)] < p10)) {
 	pc_condition[(432 * p4)] = *(char *)&p10;
 	if (p10 >= 3) {
 	*(int *)((char *)pc_hp + (432 * p4)) = 0;
@@ -25,6 +25,5 @@ inflict_condition(p4, p6, p8, p10)
 	print_member_message(p4, &l80, &l85, &l90, 1, 6, 0, 0);
 	draw_member_status_m(p4);
 	wait_animating_m(message_delay);
-Lac1c:
-	;
+	}
 }

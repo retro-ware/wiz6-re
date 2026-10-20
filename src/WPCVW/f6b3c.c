@@ -84,7 +84,7 @@ case 26:
 	refresh_member_card(g5752, p10);
 	break;
 case 46:
-	if ((pc_condition[(432 * p10)] != 2) || ((p8 * 3) <= (21 - (unsigned char)g4517[(432 * p10)]))) goto L6dbe;
+	if ((pc_condition[(432 * p10)] == 2) && ((p8 * 3) > (21 - (unsigned char)g4517[(432 * p10)]))) {
 	g4517[(432 * p10)]--;
 	if (random(21) > (unsigned char)g4517[(432 * p10)]) {
 	pc_condition[(432 * p10)] = 3;
@@ -94,7 +94,7 @@ case 46:
 	pc_condition[(432 * p10)] = 0;
 	}
 	refresh_member_card(g5752, p10);
-L6dbe:
+	}
 	break;
 case 57:
 	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) < 0) {
@@ -106,12 +106,12 @@ case 57:
 case 51:
 	l4 = 1;
 L6e0d:
-	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L6e59;
+	if (((((l4 == 1) || (l4 == 2)) || (l4 == 4)) || (l4 == 8)) || (l4 == 9)) {
 	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) < 0) {
 	l2 = 0;
 	}
 	g450a[((432 * p10) + l4)] = *(char *)&l2;
-L6e59:
+	}
 	l4++;
 	if (l4 <= 9) goto L6e0d;
 	refresh_member_card(g5752, p10);
@@ -125,14 +125,14 @@ case 64:
 	refresh_member_card(g5752, p10);
 	break;
 case 77:
-	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L6f27;
+	if ((pc_condition[(432 * p10)] == 3) && ((p8 * 3) > (18 - (unsigned char)g4517[(432 * p10)]))) {
 	g4517[(432 * p10)]--;
 	pc_condition[(432 * p10)] = 0;
 	*(int *)((char *)pc_hp + (432 * p10)) = 1;
 	*(int *)((char *)pc_stamina + (432 * p10)) = (*(int *)((char *)pc_stamina_max + (432 * p10)) / 10);
 	(*(int *)((char *)g440e + (432 * p10)))++;
 	refresh_member_card(g5752, p10);
-L6f27:
+	}
 	break;
 case 80:
 	l2 = roll_dice(f6a94(p8, 8, p8));

@@ -89,11 +89,11 @@ Lf153:
 	if (pc_race[(432 * p4)] == 5) {
 	l8 -= 2;
 	}
-	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto Lf1bb;
+	if ((pc_class[(432 * p4)] == 13) || (pc_class[(432 * p4)] == 12)) {
 	l2 = (*(int *)((char *)pc_level + (432 * p4)) <= 20 ? (*(int *)((char *)pc_level + (432 * p4)) / 2) : 20);
 	l2 += ((unsigned char)g452c[(432 * p4)] / 10);
 	l8 -= l2;
-Lf1bb:
+	}
 	l10 = (l8 - g4548[(432 * p4)]);
 	if (!l10) goto Lf1fe;
 	g4548[(432 * p4)] = *(char *)&l8;

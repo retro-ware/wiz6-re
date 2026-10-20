@@ -14,7 +14,7 @@ Lf58c:
 	l2 = random(7);
 	l4++;
 	} while ((((unsigned)pc_stats[((432 * p8) + l2)] >= 18) || (l20[l2])) && (l4 < 3));
-	if (((unsigned)pc_stats[((432 * p8) + l2)] >= 18) || (l20[l2])) goto Lf6d3;
+	if (((unsigned)pc_stats[((432 * p8) + l2)] < 18) && (!l20[l2])) {
 	l20[l2] = 1;
 	pc_stats[((432 * p8) + l2)]++;
 	get_message(5014, 21902);
@@ -27,6 +27,6 @@ Lf58c:
 	print_msg_at2((l2 + 204), p4, 1, (l2 + 5), 5);
 	p4[6]++;
 	print_int(p4, (unsigned char)pc_stats[((432 * p8) + l2)], 2, 1);
-Lf6d3:
+	}
 	if (random(2)) goto Lf58c;
 }

@@ -34,12 +34,11 @@ L92f7:
 	if (!l52) {
 	l20 = 0;
 	}
-	if (((l26 + 1) != 2) || (l52)) goto L9370;
+	if (((l26 + 1) == 2) && (!l52)) {
 	l50 = count_enabled_before(l24, (l26 + 2));
-	goto L9382;
-L9370:
+	} else {
 	l50 = count_enabled_before(l24, (l26 + 1));
-L9382:
+	}
 	fill_window(p4, 32, 3, 0);
 	refresh_window(p4);
 	l26 = run_menu(p4, 600, l24, 2, 1, 10, 2, 5, l50);

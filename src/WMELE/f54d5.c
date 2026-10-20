@@ -15,10 +15,10 @@ check_group_surprise()
 	goto L5558;
 L54ea:
 	roll = random(100);
-	if (((*(char **)((char *)monster_groups + (g << 1)))[412] != 1) || ((((unsigned char)g4533[(432 * member)] - (game_state_arg * 3)) <= roll) && ((unsigned char)g4515[(432 * member)] <= roll))) goto L5555;
+	if (((*(char **)((char *)monster_groups + (g << 1)))[412] == 1) && ((((unsigned char)g4533[(432 * member)] - (game_state_arg * 3)) > roll) || ((unsigned char)g4515[(432 * member)] > roll))) {
 	(*(char **)((char *)monster_groups + (g << 1)))[412] = 0;
 	maybe_raise_skill(member, 23, 0);
-L5555:
+	}
 	member++;
 L5558:
 	if (member < party_count) goto L54ea;

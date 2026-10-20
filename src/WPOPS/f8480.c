@@ -42,13 +42,12 @@ L848f:
 	} while ((monster[29] == monster[28]) && (l22 < 3));
 	l14 = 0;
 L8590:
-	if (((((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] > l14) && ((unsigned)monster[34] < 2)) && ((unsigned)monster[17] <= 0)) && ((unsigned)monster[16] <= 0)) goto L85c7;
+	if (((((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213] <= l14) || ((unsigned)monster[34] >= 2)) || ((unsigned)monster[17] > 0)) || ((unsigned)monster[16] > 0)) {
 	(monster + l14)[24] = 0;
-	goto L85d9;
-L85c7:
+	} else {
 	(monster + l14)[24] = *(char *)&l10;
 	l10 -= l12;
-L85d9:
+	}
 	l14++;
 	if (l14 < 4) goto L8590;
 	l24 = -1;
@@ -81,9 +80,9 @@ L86b8:
 	if (l26 == -1) goto L867a;
 	if (g00e2[(l26 * 6)] != 1) goto L872d;
 	if (group != 6) goto L8701;
-	if ((find_most_wounded(monster, 0)) || (find_most_wounded(monster, 6))) goto L86ff;
+	if ((!find_most_wounded(monster, 0)) && (!find_most_wounded(monster, 6))) {
 	l24 = -1;
-L86ff:
+	}
 	goto L872d;
 L8701:
 	if ((find_most_wounded(monster, group)) || (find_most_wounded(monster, (random(monster_group_count) + 1)))) goto L872d;
@@ -98,11 +97,11 @@ L8767:
 L877b:
 	*(int *)(monster + 10) = ((l18 << 8) + l26);
 L878b:
-	if ((l24 != -1) || (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[170])) goto L87d5;
+	if ((l24 == -1) && (random(100) < (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[170])) {
 	l24 = 8;
 	monster[30] = 8;
 	*(int *)(monster + 10) = (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[216];
-L87d5:
+	}
 	if (l24 != -1) goto L8958;
 	l18 = 0;
 	if ((((unsigned)monster[34] >= 2) || (monster[17])) || (monster[16])) goto L886f;

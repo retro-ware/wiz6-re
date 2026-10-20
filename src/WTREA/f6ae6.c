@@ -68,15 +68,15 @@ L6c74:
 	return -1;
 L6ca2:
 	chance = (((((unsigned char)g452b[(432 * member)] / 2) + ((unsigned char)g4518[(432 * member)] / 2)) + *(int *)((char *)pc_level + (432 * member))) - (game_state_arg << 1));
-	if (pc_class[(432 * member)] != 3) goto L6cff;
+	if (pc_class[(432 * member)] == 3) {
 	chance += ((unsigned char)g4518[(432 * member)] * 3);
 	try_skill_gain(member, 15, 3);
-	goto L6d33;
-L6cff:
-	if (((pc_class[(432 * member)] != 13) && (pc_class[(432 * member)] != 4)) && (pc_class[(432 * member)] != 6)) goto L6d33;
+	} else {
+	if (((pc_class[(432 * member)] == 13) || (pc_class[(432 * member)] == 4)) || (pc_class[(432 * member)] == 6)) {
 	chance += ((unsigned char)g4518[(432 * member)] << 1);
 	try_skill_gain(member, 15, 2);
-L6d33:
+	}
+	}
 	if (chance > 95) {
 	chance = 95;
 	}

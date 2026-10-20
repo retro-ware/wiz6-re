@@ -21,9 +21,9 @@ fb9a2()
 	if (extract_bits(l2, 8, 1) == 1) {
 	set_bit(((game_state_arg * 10) + 13304), l10, 0);
 	}
-	if ((game_state_arg != 7) || (l10 != 24)) goto Lbac6;
+	if ((game_state_arg == 7) && (l10 == 24)) {
 	set_bit(((game_state_arg * 10) + 20204), 18, 1);
 	set_bit(((game_state_arg * 10) + 13304), 18, 1);
-Lbac6:
+	}
 	set_event_flags(extract_bits(*(int *)((g4fa8 + (cell_event_index << 1)) + 576), 9, 2));
 }

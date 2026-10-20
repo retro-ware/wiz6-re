@@ -90,25 +90,23 @@ L90bf:
 L91c4:
 	if (g5040 >= g521e) goto L9758;
 	g521c = ((((party_x + party_y) + party_facing) + g5040) % 2);
-	if (!step_relative_m(&l2, &l4, &l6, &l8, &l10, 0, 1)) goto L926d;
-	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L9259;
+	if (step_relative_m(&l2, &l4, &l6, &l8, &l10, 0, 1)) {
+	if ((game_state_arg == 10) || (game_state_arg == 12)) {
 	g5043[(g5040 * 3)] = 1;
 	g5050[(g5040 * 3)] = 1;
 	g5220 = 0;
 	g5222 = 0;
 	g5224 = 0;
-	goto L926b;
-L9259:
+	} else {
 	g5220 = 2;
 	g5222 = 2;
 	g5224 = 2;
-L926b:
-	goto L92c1;
-L926d:
+	}
+	} else {
 	g5220 = get_front_wall_m(l2, l4, l6, l8, l10, 0);
 	g5222 = get_left_wall_m(l2, l4, l6, l8, l10, 0);
 	g5224 = get_right_wall_m(l2, l4, l6, l8, l10, 0);
-L92c1:
+	}
 	g5226 = get_front_wall_m(l2, l4, l6, l8, l10, -1);
 	g5228 = get_front_wall_m(l2, l4, l6, l8, l10, 1);
 	if (g508a[g5040] == 1) {
@@ -178,11 +176,11 @@ L984d:
 	goto L98b2;
 L985c:
 	l14 = ((rsi * 11) + 20688);
-	if (((unsigned char)l14[10] != g5040) || ((unsigned char)l14[8] == 255)) goto L98b1;
+	if (((unsigned char)l14[10] == g5040) && ((unsigned char)l14[8] != 255)) {
 	l16[0] = l14[9];
 	l16[(0 + 1)] = 0;
 	drv_draw_text((unsigned char)l14[8], *(int *)l14, *(int *)(l14 + 2), *(int *)(l14 + 4), *(int *)(l14 + 6), 0, 0, l16);
-L98b1:
+	}
 	rsi--;
 L98b2:
 	if (rsi >= 0) goto L985c;

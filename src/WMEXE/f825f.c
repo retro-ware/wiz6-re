@@ -19,9 +19,9 @@ f825f(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26)
 	} else {
 	l12 = p20;
 	}
-	if ((l10 == p18) && (l12 == p20)) goto L82c3;
+	if ((l10 != p18) || (l12 != p20)) {
 	show_combat_msg(3213);
-L82c3:
+	}
 	if (p6 < 0) goto L8336;
 	if (p16 == 1) {
 	do_damage_effect(p4, p6, p8, p10, p12, p14, p24, p26, 3402, 1);

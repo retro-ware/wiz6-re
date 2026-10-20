@@ -20,9 +20,9 @@ fd777(p4, p6, p8, p10, p12, p14)
 	register int rsi;
 	register int rdi;
 	if ((!p14) || (!fd6f6(&p4, &p6, &p8, &p10, &p12, p14, 0))) goto Ld809;
-	if ((pclist_race) || (p14)) goto Ld7c0;
+	if ((!pclist_race) && (!p14)) {
 	view_rows_open = 0;
-Ld7c0:
+	}
 	if ((game_state_arg != 10) && (game_state_arg != 12)) goto Ld804;
 	g511d[((pclist_race * 3) + p14)] = 1;
 	*(int *)((char *)g512a + ((pclist_race * 6) + (p14 << 1))) = 1;
@@ -165,8 +165,8 @@ case 15:
 	goto Ldb41;
 	}
 Ldb41:
-	if (((!l4) || (pclist_race)) || (p14)) goto Ldb5a;
+	if (((l4) && (!pclist_race)) && (!p14)) {
 	view_rows_open = 0;
-Ldb5a:
+	}
 	return l4;
 }

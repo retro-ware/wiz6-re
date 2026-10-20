@@ -30,9 +30,9 @@ Lb3ec:
 	l6 = (p8 + 10);
 	l16[0] = *(char *)&l6;
 	l16[(0 + 1)] = 0;
-	if ((p8 <= 0) && (p6 != 1)) goto Lb4d9;
+	if ((p8 > 0) || (p6 == 1)) {
 	drv_draw_text(l4, (((*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + (unsigned char)g36e4[((314 * l4) + (l6 << 1))]) + (l2 * l20)) - l18), (unsigned char)g3717[((314 * l4) + l6)], (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0032 + (p8 << 2))), (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0034 + (p8 << 2))), 0, 0, l16);
-Lb4d9:
+	}
 	drv_op_c2(picture_win);
 	if (p10 > 0) {
 	play_sound(p10);
