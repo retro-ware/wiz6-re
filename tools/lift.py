@@ -597,6 +597,8 @@ class Lifter:
             lc = ('L1', ('lc', self.R[self.side]))
             if self.side in reads or sw or any(self.R.get(x) in (('sx', self.R[self.side]), lc) for x in reads):
                 self.side = None
+            elif self.stack and m in JCC and self.side not in writes:
+                pass        # f(g(..) + (c ? 5 : 0)): a ternary in the other register (else branch() gives up)
             elif self.side in writes or i.group(X.X86_GRP_JUMP) or m in BRANCH or m == 'call' or \
                     m == 'push' and not self.stack or \
                     any(o.type == X.X86_OP_MEM for o in ops[:1]) and m not in ('cmp', 'test', 'push'):
@@ -1188,7 +1190,7 @@ class Lifter:
                 if p == end and len(self.sts) == save[4] and len(self.stack) == len(save[1]) and \
                         self.pend == save[5] and \
                         (self.side is None or self.side == 'ax' and reg == 'ax' and not self.stack and
-                         getattr(self, 'armcall', None)):
+                         getattr(self, 'armcall', None) or self.side == save[3] != reg):
                     v = self.R.get(reg)
         except Unlift:
             v = None
@@ -1216,7 +1218,7 @@ class Lifter:
         """ax = c ? A : B, the two shapes cgen uses (c may be a chain of jcc to the same T);
         True if absorbed."""
         nxt = i.address + i.size
-        if t <= nxt or self.side is not None:
+        if t <= nxt:
             return False
         cur = self.cur
 
@@ -1231,7 +1233,8 @@ class Lifter:
         r = R16.get(ni.operands[0].reg) if ni is not None and ni.mnemonic == 'mov' and \
             ni.operands[0].type == X.X86_OP_REG else None
         r = r if r in ('cx', 'dx') and r in self.R and 'ax' in self.R else 'ax'
-        if r in self.R:
+        if r in self.R and self.side in (None, 'ax') and (self.side is None or r != 'ax'):
+            # (a call's result still pending in ax: a value in cx may be built next to it)
             conds = [c]
             self.armvals = [self.R[r]]
             self.armcall = False
@@ -1291,6 +1294,8 @@ class Lifter:
         if r not in ('cx', 'dx') and px is not None and px.mnemonic == 'mov' and px.op_str in ('cx, ax', 'dx, ax'):
             r = px.op_str[:2]       # both arms end 'mov cx, ax': (x < 0 ? -x : y) << 2
         r = r if r in ('cx', 'dx') and 'ax' in self.R else 'ax'
+        if self.side is not None and (self.side != 'ax' or r == 'ax'):
+            return False
         conds = [c]
         self.armvals = [self.R.get('ax')]
         b = self.arm(nxt, p, t, conds, r)

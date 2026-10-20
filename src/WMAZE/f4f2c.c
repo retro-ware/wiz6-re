@@ -1,7 +1,3 @@
-#asm
-	extrn set_cursor_:near
-	extrn strlen_:near
-#endasm
 extern char *main_window;
 extern int menu_clicked;
 extern int mouse_present;
@@ -31,20 +27,7 @@ L4f42:
 	f0a42(main_window, 0);
 	refresh_all_windows();
 	get_message(p4, &l106);
-#asm
-	db 0b8h,000h,000h,050h,08dh,046h,096h,050h
-	call strlen_
-	db 059h,0b9h,000h,000h,083h,07eh,006h,001h,075h,003h,0b9h,005h,000h
-#endasm
-L4fbe:
-	;
-#asm
-l4fbe:
-	db 003h,0c1h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h
-	db 050h,0ffh,036h,042h,033h
-	call set_cursor_
-	db 083h,0c4h,006h
-#endasm
+	set_cursor(main_window, (10 - (((strlen(&l106) + (p6 == 1 ? 5 : 0)) + 1) / 2)), 0);
 	print_string_hi(main_window, &l106, 3);
 	if (p6 != 1) goto L5055;
 	main_window[6]++;
