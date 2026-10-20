@@ -67,7 +67,8 @@
 	global g55c1_:byte,1
 	global g55c2_:byte,14
 	global g55d0_:byte,2
-	global g55d2_:byte,58
+	global g55d2_:byte,6
+	global g55d8_:byte,52
 	global char_portrait_:byte,1
 	global char_race_:byte,1
 	global char_sex_:byte,1

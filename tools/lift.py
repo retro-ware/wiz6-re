@@ -1208,14 +1208,14 @@ class Lifter:
                 self.note(n, g['nl'] | {t})
                 return True
         # jcc T [; cmp; jcc T]...; <ax = B>; jmp J; T: <ax = A>; J:
-        p = nxt
+        p, px = nxt, None
         while p < t:
             x = self.f.seen.get(p)
             if x is None:
                 return False
             if p + x.size == t:
                 break
-            p += x.size
+            p, px = p + x.size, x
         else:
             return False
         if x.mnemonic != 'jmp' or x.operands[0].type != X.X86_OP_IMM:
@@ -1227,6 +1227,8 @@ class Lifter:
         ti = self.f.seen.get(t)
         r = R16.get(ti.operands[0].reg) if ti is not None and ti.mnemonic == 'mov' and \
             ti.operands[0].type == X.X86_OP_REG else None
+        if r not in ('cx', 'dx') and px is not None and px.mnemonic == 'mov' and px.op_str in ('cx, ax', 'dx, ax'):
+            r = px.op_str[:2]       # both arms end 'mov cx, ax': (x < 0 ? -x : y) << 2
         r = r if r in ('cx', 'dx') and 'ax' in self.R else 'ax'
         conds = [c]
         self.armvals = [self.R.get('ax')]

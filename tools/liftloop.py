@@ -84,7 +84,7 @@ class Loop:
             st['status'], st['why'] = 'asm', 'labels'
             return None
         real = [x for x in L.sts if x.kind != 'raw' and not getattr(x, 'epi', False)]
-        if not real:
+        if not real and bytes(self.img.code[s - self.img.cbase:e - self.img.cbase]) != b'\xc3':     # f() {}
             st['status'], st['why'] = 'asm', 'all raw'
             return None
         lines = P.line_map(src)
