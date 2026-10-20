@@ -28,7 +28,7 @@ puzzle_event()
 	int enabled[16];
 	int l222;
 	if ((unsigned)(g4fa8 + cell_event_index)[1584] > 0) {
-	show_message_text_m(((char *)*(int *)(g4fa8 + (cell_event_index << 1)) + (unsigned char)(g4fa8 + cell_event_index)[1584]), 0);
+	show_message_text_m((*(int *)(g4fa8 + (cell_event_index << 1)) + (unsigned char)(g4fa8 + cell_event_index)[1584]), 0);
 	}
 	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	choices = extract_bits(l8, 0, 4);

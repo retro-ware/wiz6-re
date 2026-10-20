@@ -1,4 +1,5 @@
 extern char g019d[];
+extern char g4515[];
 extern char g452c[];
 extern char g505c;
 extern int g435c;
@@ -16,7 +17,7 @@ char *p4;
 	int l4;
 	int l6;
 	if (g435e) goto Lc0db;
-	l6 = (((char *)*(int *)((char *)pc_level + (432 * g435c)) + (unsigned char)g452c[(432 * g435c)]) + 50);
+	l6 = ((*(int *)((char *)pc_level + (432 * g435c)) + (unsigned char)g452c[(432 * g435c)]) + 50);
 	for (l2 = 1; l2 <= monster_group_count; l2++) {
 	l6 -= (((unsigned char)g019d[monster_groups[l2]] + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[122]) + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[135]);
 	}
@@ -24,18 +25,9 @@ char *p4;
 Lc0db:
 	l6 = ((*(int *)p4 * 5) + 50);
 	l4 = (party_count > 3 ? 3 : party_count);
-	l2 = 0;
-	goto Lc123;
-Lc105:
-	;
-#asm
-lc105:
-	db 0b8h,0b0h,001h,0f7h,06eh,0feh,08bh,0d8h,08bh,087h,00ch,044h,050h,08ah,087h,015h
-	db 045h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,029h,046h,0fah
-#endasm
-	l2++;
-Lc123:
-	if (l2 < l4) goto Lc105;
+	for (l2 = 0; l2 < l4; l2++) {
+	l6 -= (*(int *)((char *)pc_level + (432 * l2)) + (unsigned char)g4515[(432 * l2)]);
+	}
 Lc12b:
 	get_combatant_name(20492, g435e, g435c);
 	get_message(3515, 20652);

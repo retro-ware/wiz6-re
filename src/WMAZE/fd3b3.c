@@ -60,7 +60,7 @@ Ld518:
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
-	if ((l6 = ((char *)*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) > 95) {
+	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) > 95) {
 	l6 = 95;
 	}
 	if ((tumblers = ((l8 / 3) + 1)) > 6) {

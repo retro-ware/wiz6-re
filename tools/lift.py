@@ -651,11 +651,11 @@ class Lifter:
                 v = ('b', ALU[m], x, y)
                 if m == 'add' and d.reg == X.X86_REG_AX and s.type == X.X86_OP_REG and \
                         s.reg == X.X86_REG_CX and x[0] == 'v' and x[3] == 2 and x[1] in ('p', 'g') and \
-                        y and y[0] not in ('v', 'c'):
+                        y and y[0] not in ('v', 'c', 'x'):
                     self.vptr.add((x[1], x[2]))
                 if m == 'add' and d.reg == X.X86_REG_AX and s.type == X.X86_OP_REG and \
                         s.reg == X.X86_REG_CX and x[0] == 'm' and x[3] == 2 and \
-                        y and y[0] not in ('v', 'c', 'm'):
+                        y and y[0] not in ('v', 'c', 'm', 'x'):
                     self.mptr.append(x)
                 self.setreg(d, v)
                 self.flags = ('soft', v)     # usable by a jcc, but needn't be consumed

@@ -12,8 +12,13 @@ g0022_ label byte
 	db 008h,000h,005h,000h,003h,000h,000h,000h
 	public g002a_
 g002a_ label byte
-	db 030h,000h,01eh,000h,012h,000h,000h,000h,088h,000h,0b8h,000h,092h,000h,0aeh,000h
-	db 099h,000h,0a7h,000h,000h,000h,000h,000h
+	db 030h,000h,01eh,000h,012h,000h,000h,000h
+	public g0032_
+g0032_ label byte
+	db 088h,000h
+	public g0034_
+g0034_ label byte
+	db 0b8h,000h,092h,000h,0aeh,000h,099h,000h,0a7h,000h,000h,000h,000h,000h
 	public g0042_
 g0042_ label byte
 	db 000h,000h,068h,000h,080h,000h,090h,000h

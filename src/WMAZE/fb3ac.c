@@ -1,18 +1,18 @@
-#asm
-	extrn drv_draw_text_:near
-#endasm
+extern char g36e4[];
+extern char g3717[];
 extern int anim_phase;
 extern int g0022[];
 extern int g002a[];
+extern int g0032[];
+extern int g0034[];
+extern int g0052[];
 extern int picture_win;
 animate_door(p4, p6, p8, p10)
 {
 	int l2;
 	int l4;
 	int l6;
-	char x6[8];
-	char l15;
-	char l16;
+	char l16[10];
 	int l18;
 	int l20;
 	if (p4 == 1) {
@@ -28,25 +28,10 @@ Lb3ec:
 	draw_maze_view_m();
 	l4 = 2;
 	l6 = (p8 + 10);
-	l16 = *(char *)&l6;
-	l15 = 0;
+	l16[0] = *(char *)&l6;
+	l16[(0 + 1)] = 0;
 	if ((p8 <= 0) && (p6 != 1)) goto Lb4d9;
-#asm
-lb424:
-	db 08dh,046h,0f0h,050h,0b8h,000h,000h,050h,050h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h
-	db 003h,0c2h,0d1h,0e0h,08bh,04eh,006h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08bh,087h,052h
-	db 000h,08bh,04eh,008h,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,08bh,08fh,034h,000h,003h,0c1h
-	db 050h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,04eh,006h,0d1h
-	db 0e1h,003h,0c1h,08bh,0d8h,08bh,087h,052h,000h,08bh,04eh,008h,0d1h,0e1h,0d1h,0e1h
-	db 08bh,0d9h,003h,087h,032h,000h,050h,0b8h,03ah,001h,0f7h,06eh,0fch,003h,046h,0fah
-	db 08bh,0d8h,08ah,087h,017h,037h,02ah,0e4h,050h,08bh,046h,008h,08bh,0d0h,0d1h,0e0h
-	db 003h,0c2h,0d1h,0e0h,08bh,04eh,006h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08bh,087h,052h
-	db 000h,050h,0b8h,03ah,001h,0f7h,06eh,0fch,08bh,04eh,0fah,0d1h,0e1h,003h,0c1h,08bh
-	db 0d8h,08ah,087h,0e4h,036h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,050h,08bh,046h,0feh
-	db 0f7h,06eh,0ech,08bh,0c8h,058h,003h,0c1h,02bh,046h,0eeh,050h,0ffh,076h,0fch
-	call drv_draw_text_
-	db 083h,0c4h,010h
-#endasm
+	drv_draw_text(l4, (((*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + (unsigned char)g36e4[((314 * l4) + (l6 << 1))]) + (l2 * l20)) - l18), (unsigned char)g3717[((314 * l4) + l6)], (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0032 + (p8 << 2))), (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0034 + (p8 << 2))), 0, 0, l16);
 Lb4d9:
 	drv_op_c2(picture_win);
 	if (p10 > 0) {
