@@ -7,7 +7,7 @@ get_combatant_name(p4, p6, p8)
 	strcpy(p4, ((432 * p8) + 17384));
 	goto L6bed;
 L6bc1:
-	strcpy(p4, (group_monster_rec[p6] + ((unsigned char)g019c[monster_groups[p6]] << 5)));
+	strcpy(p4, ((char *)group_monster_rec[p6] + ((unsigned char)g019c[monster_groups[p6]] << 5)));
 L6bed:
 	;
 }

@@ -1,227 +1,350 @@
-extern char *main_window;
-extern char cfg_delay;
-extern char cfg_input;
-extern char cfg_level;
-extern char sound_mode;
-extern int bottom_line_win;
-extern int g4fc8;
-extern int menu_clicked;
-extern int mouse_present;
-extern int return_cmd;
-extern int scenario_hdr_fd;
-extern int video_flags;
 /* Game configuration menu (sound, delay, level, input, gmode, drives); saves to SCENARIO.HDR. */
-do_game_configuration()
-{
-	int i;
-	int l4;
-	char *win;
-	int sel;
-	int prev_sel;
-	int choice;
-	int written;
-	char x14[8];
-	int done_text;
-	char x24[8];
-	int done_hilite;
-	int done_x;
-	int done_y;
-	int x;
-	char x40[2];
-	int width;
-	char x44[4];
-	int changed;
-	char x50[58];
-	int l110;
-	get_message(1000, 20582);
-	changed = 0;
-	win = create_window(0, 19, 40, 5, 22, -1, 0, 0);
-	fill_window(win, 32, 3, 0);
-	erase_window(main_window, 0);
-	erase_window(bottom_line_win, 0);
-	get_message(2308, &done_text);
-	get_message(2309, &done_hilite);
-	show_message_line(2307);
-	done_x = (unsigned char)main_window[6];
-	done_y = (unsigned char)main_window[7];
-	defer_window_draw(win);
-	for (i = 0; i < 5; i++) {
-	set_cursor(win, 1, i);
-	print_message((i + 2300), win, 18);
-	draw_setting_value(win, i, i, (i < 2 ? 5 : 6));
-	x = (i != 1 ? (i < 5 ? 7 : 19) : 9);
-	width = (i != 1 ? (i < 5 ? 10 : 20) : 1);
-	set_click_region(i, ((unsigned char)win[2] + x), ((unsigned char)win[3] + i), ((((unsigned char)win[2] + x) + width) - 1), ((unsigned char)win[3] + i));
-	}
-	set_cursor(win, 22, 0);
-	print_message(2305, win, 18);
-	clear_window_area(win, 19, 1, 38, 1);
-	draw_setting_value(win, 5, 1, 7);
-	set_click_region(5, ((unsigned char)win[2] + 19), ((unsigned char)win[3] + 1), ((unsigned char)win[2] + 38), ((unsigned char)win[3] + 1));
-	set_cursor(win, 22, 2);
-	print_message(2306, win, 18);
-	clear_window_area(win, 19, 3, 38, 3);
-	draw_setting_value(win, 6, 3, 4);
-	set_click_region(6, ((unsigned char)win[2] + 19), ((unsigned char)win[3] + 3), ((unsigned char)win[2] + 38), ((unsigned char)win[3] + 3));
-	clear_window_area(win, 19, 4, 38, 4);
-	draw_setting_value(win, 7, 4, 4);
-	set_click_region(7, ((unsigned char)win[2] + 19), ((unsigned char)win[3] + 4), ((unsigned char)win[2] + 38), ((unsigned char)win[3] + 4));
-	set_click_region(8, ((unsigned char)win[2] + 7), ((unsigned char)win[3] + 1), ((unsigned char)win[2] + 8), ((unsigned char)win[3] + 1));
-	set_click_region(9, ((unsigned char)main_window[2] + done_x), ((unsigned char)main_window[3] + done_y), (((strlen(&done_hilite) + (unsigned char)main_window[2]) + done_x) - 1), ((unsigned char)main_window[3] + done_y));
-	set_click_region(10, 255, 0, 0, 0);
-	resume_window_draw(win);
-	refresh_all_windows();
-	if (!mouse_present) {
-	set_cursor(main_window, done_x, done_y);
-	print_string(main_window, &done_hilite, -5);
-	} else {
-	set_cursor(main_window, done_x, done_y);
-	print_string_hi(main_window, &done_text, 3);
-	}
-	sel = -1;
-L7a52:
-	if (mouse_present) goto L7ac2;
-	if (sel != -1) goto L7a83;
-	set_cursor(main_window, done_x, done_y);
-	print_string(main_window, &done_hilite, -5);
-	goto L7abf;
-L7a83:
-	if (sel >= 5) goto L7a9e;
-	draw_setting_value(win, sel, sel, -5);
-	goto L7abf;
-L7a9e:
-	draw_setting_value(win, sel, (sel - (sel == 5 ? 4 : 3)), -5);
-L7abf:
-	goto L7b39;
-L7ac2:
-	if (sel != -1) goto L7aec;
-	set_cursor(main_window, done_x, done_y);
-	print_string_hi(main_window, &done_text, 3);
-	goto L7b39;
-L7aec:
-	if (sel >= 5) goto L7b0e;
-	draw_setting_value(win, sel, sel, (sel < 2 ? 5 : 6));
-	goto L7b39;
-L7b0e:
-	draw_setting_value(win, sel, (sel - (sel == 5 ? 4 : 3)), (sel == 5 ? 7 : 4));
-L7b39:
-	prev_sel = sel;
-	if (return_cmd == 25) {
-	choice = get_menu_choice(20582, 13720);
-	} else {
-	choice = get_menu_choice_animated(20582, 13720);
-	}
-	if (menu_clicked != 1) goto L7ba1;
-	if (choice != 8) goto L7b83;
-	sel = 1;
-	choice = 1;
-	goto L7ba1;
-L7b83:
-	sel = (choice < 8 ? choice : -1);
-	choice = (sel == -1 ? 5 : 3);
-L7ba1:
-	switch (choice) {
-case 2:
-	if (sel == -1) {
-	sel = 7;
-	} else {
-	sel--;
-	}
-	goto L7d10;
-case 4:
-	if (sel != -1) goto L7bc7;
-	sel = 0;
-	goto L7bd7;
-L7bc7:
-	if (sel >= 7) goto L7bd2;
-	sel++;
-	goto L7bd7;
-L7bd2:
-	sel = -1;
-L7bd7:
-	goto L7d10;
-case 1:
-case 3:
-	changed = 1;
-	i = (choice == 1 ? -1 : 1);
-	switch (sel) {
-case 0:
-	sound_mode = (char)((((unsigned char)sound_mode + i) + 6) % 6);
-	goto L7cee;
-case 1:
-	if (((l4 = ((unsigned char)cfg_delay + i)) < 0) || (l4 > 255)) goto L7c2a;
-	cfg_delay = *(char *)&l4;
-	goto L7c32;
-L7c2a:
-	play_sound(0);
-L7c32:
-	g4fc8 = (unsigned char)cfg_delay;
-	goto L7cee;
-case 2:
-	cfg_level = (char)((((unsigned char)cfg_level + i) + 3) % 3);
-	goto L7cee;
-case 3:
-	cfg_input = (char)((((unsigned char)cfg_input + i) + 2) % 2);
-	goto L7cee;
-case 4:
-	play_sound(0);
-	goto L7cee;
-case 5:
-	clear_window_area(win, 19, 1, 38, 1);
-	set_cursor(win, 19, 1);
-	input_text(win, 13692, 19, 7, 0);
-	goto L7cee;
-case 6:
-	play_sound(0);
-	goto L7cee;
-case 7:
-	play_sound(0);
-	goto L7cee;
-	}
-L7cee:
-	goto L7d10;
-	}
-L7d10:
-	if ((mouse_present) || (prev_sel == sel)) goto L7d9b;
-	if (prev_sel != -1) goto L7d4e;
-	set_cursor(main_window, done_x, done_y);
-	print_string_hi(main_window, &done_text, 3);
-	goto L7d9b;
-L7d4e:
-	if (prev_sel >= 5) goto L7d70;
-	draw_setting_value(win, prev_sel, prev_sel, (prev_sel < 2 ? 5 : 6));
-	goto L7d9b;
-L7d70:
-	draw_setting_value(win, prev_sel, (prev_sel - (prev_sel == 5 ? 4 : 3)), (prev_sel == 5 ? 7 : 4));
-L7d9b:
-	if ((choice != 5) || (sel != -1)) goto L7a52;
-	stop_sound();
-	if (changed != 1) goto L7e36;
-	get_message(2258, &l110);
-	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) == -1) {
-	exit_game(19);
-	}
-	lseek(scenario_hdr_fd, 0L, 0);
-	if ((written = write(scenario_hdr_fd, 13304, 414)) == -1) {
-	show_error_text(&l110, 0);
-	}
-	close(scenario_hdr_fd);
-L7e36:
-	g4fc8 = (unsigned char)cfg_delay;
-	if ((!(video_flags & 4096)) || (cfg_input != 1)) goto L7e5f;
-	if (!mouse_present) {
-	drv_op_96();
-	}
-	mouse_present = 1;
-	goto L7e6f;
-L7e5f:
-	if (mouse_present == 1) {
-	drv_mouse_shutdown();
-	}
-	mouse_present = 0;
-L7e6f:
-	clear_click_flag();
-	destroy_window(win, 0);
-	erase_window(main_window, 0);
-	f0a42(bottom_line_win, 0);
-}
+#asm
+	public do_game_configuration_
+	extrn clear_click_flag_:near
+	extrn clear_window_area_:near
+	extrn close_:near
+	extrn create_window_:near
+	extrn defer_window_draw_:near
+	extrn destroy_window_:near
+	extrn draw_setting_value_:near
+	extrn drv_mouse_shutdown_:near
+	extrn drv_op_96_:near
+	extrn erase_window_:near
+	extrn exit_game_:near
+	extrn f0a42_:near
+	extrn fill_window_:near
+	extrn get_menu_choice_:near
+	extrn get_menu_choice_animated_:near
+	extrn get_message_:near
+	extrn input_text_:near
+	extrn lseek_:near
+	extrn make_data_path_:near
+	extrn open_:near
+	extrn play_sound_:near
+	extrn print_message_:near
+	extrn print_string_:near
+	extrn print_string_hi_:near
+	extrn refresh_all_windows_:near
+	extrn resume_window_draw_:near
+	extrn set_click_region_:near
+	extrn set_cursor_:near
+	extrn show_error_text_:near
+	extrn show_message_line_:near
+	extrn stop_sound_:near
+	extrn strlen_:near
+	extrn write_:near
+do_game_configuration_:
+	db 055h,08bh,0ech,083h,0c4h,092h,0b8h,066h,050h,050h,0b8h,0e8h,003h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0ceh,000h,000h,0b8h,000h,000h,050h,050h,0b8h,0ffh,0ffh
+	db 050h,0b8h,016h,000h,050h,0b8h,005h,000h,050h,0b8h,028h,000h,050h,0b8h,013h,000h
+	db 050h,0b8h,000h,000h,050h
+	call create_window_
+	db 083h,0c4h,010h,089h,046h,0fah,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
+	db 000h,050h,0ffh,076h,0fah
+	call fill_window_
+	db 083h,0c4h,008h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
+	call erase_window_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,0b2h,04fh
+	call erase_window_
+	db 083h,0c4h,004h,08dh,046h,0e8h,050h,0b8h,004h,009h,050h
+	call get_message_
+	db 083h,0c4h,004h,08dh,046h,0deh,050h,0b8h,005h,009h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,003h,009h,050h
+	call show_message_line_
+	db 059h,08bh,01eh,042h,033h,08ah,047h,006h,02ah,0e4h,089h,046h,0dch,08ah,047h,007h
+	db 02ah,0e4h,089h,046h,0dah,0ffh,076h,0fah
+	call defer_window_draw_
+	db 059h,0c7h,046h,0feh,000h,000h
+l7769:
+	db 0ffh,076h,0feh,0b8h,001h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,012h,000h,050h,0ffh,076h,0fah,08bh,046h,0feh,005h,0fch,008h
+	db 050h
+	call print_message_
+	db 083h,0c4h,006h,0b8h,006h,000h,08bh,04eh,0feh,083h,0f9h,002h,07dh,003h,0b8h,005h
+	db 000h
+l779b:
+	db 050h,051h,051h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,0b8h,009h,000h,083h,07eh,0feh,001h,074h,00ch,0b8h,013h,000h,083h
+	db 07eh,0feh,005h,07dh,003h,0b8h,007h,000h
+l77bc:
+	db 089h,046h,0d8h,0b8h,001h,000h,083h,07eh,0feh,001h,074h,00ch,0b8h,014h,000h,083h
+	db 07eh,0feh,005h,07dh,003h,0b8h,00ah,000h
+l77d4:
+	db 089h,046h,0d4h,08bh,05eh,0fah,08ah,047h,003h,02ah,0e4h,003h,046h,0feh,050h,08ah
+	db 047h,002h,02ah,0e4h,003h,046h,0d8h,003h,046h,0d4h,048h,050h,08ah,047h,003h,02ah
+	db 0e4h,003h,046h,0feh,050h,08ah,047h,002h,02ah,0e4h,003h,046h,0d8h,050h,0ffh,076h
+	db 0feh
+	call set_click_region_
+	db 083h,0c4h,00ah,0ffh,046h,0feh,08bh,046h,0feh,03dh,005h,000h,07dh,003h,0e9h,050h
+	db 0ffh
+l7819:
+	db 0b8h,000h,000h,050h,0b8h,016h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,012h,000h,050h,0ffh,076h,0fah,0b8h,001h,009h,050h
+	call print_message_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,026h,000h,050h,0b8h,001h,000h,050h,0b8h
+	db 013h,000h,050h,0ffh,076h,0fah
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,007h,000h,050h,0b8h,001h,000h,050h,0b8h,005h,000h,050h,0ffh
+	db 076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,08bh,05eh,0fah,08ah,047h,003h,02ah,0e4h,040h,050h,08ah,047h,002h
+	db 02ah,0e4h,005h,026h,000h,050h,08ah,047h,003h,02ah,0e4h,040h,050h,08ah,047h,002h
+	db 02ah,0e4h,005h,013h,000h,050h,0b8h,005h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0b8h,002h,000h,050h,0b8h,016h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,012h,000h,050h,0ffh,076h,0fah,0b8h,002h,009h,050h
+	call print_message_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,026h,000h,050h,0b8h,003h,000h,050h,0b8h
+	db 013h,000h,050h,0ffh,076h,0fah
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,004h,000h,050h,0b8h,003h,000h,050h,0b8h,006h,000h,050h,0ffh
+	db 076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,08bh,05eh,0fah,08ah,047h,003h,02ah,0e4h,040h,040h,040h,050h,08ah
+	db 047h,002h,02ah,0e4h,005h,026h,000h,050h,08ah,047h,003h,02ah,0e4h,040h,040h,040h
+	db 050h,08ah,047h,002h,02ah,0e4h,005h,013h,000h,050h,0b8h,006h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0b8h,004h,000h,050h,0b8h,026h,000h,050h,0b8h,004h,000h,050h,0b8h
+	db 013h,000h,050h,0ffh,076h,0fah
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,004h,000h,050h,050h,0b8h,007h,000h,050h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,08bh,05eh,0fah,08ah,047h,003h,02ah,0e4h,005h,004h,000h,050h,08ah
+	db 047h,002h,02ah,0e4h,005h,026h,000h,050h,08ah,047h,003h,02ah,0e4h,005h,004h,000h
+	db 050h,08ah,047h,002h,02ah,0e4h,005h,013h,000h,050h,0b8h,007h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,08bh,05eh,0fah,08ah,047h,003h,02ah,0e4h,040h,050h,08ah,047h,002h
+	db 02ah,0e4h,005h,008h,000h,050h,08ah,047h,003h,02ah,0e4h,040h,050h,08ah,047h,002h
+	db 02ah,0e4h,005h,007h,000h,050h,0b8h,008h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,08bh,01eh,042h,033h,08ah,047h,003h,02ah,0e4h,003h,046h,0dah,050h
+	db 08dh,046h,0deh,050h
+	call strlen_
+	db 059h,050h,08bh,01eh,042h,033h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
+	db 003h,046h,0dch,048h,050h,08ah,047h,003h,02ah,0e4h,003h,046h,0dah,050h,003h,04eh
+	db 0dch,08bh,0c1h,050h,0b8h,009h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0b8h,00ah,000h
+	db 050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0ffh,076h,0fah
+	call resume_window_draw_
+	db 059h
+	call refresh_all_windows_
+	db 083h,03eh,046h,008h,000h,075h,024h,0ffh,076h,0dah,0ffh,076h,0dch,0ffh,036h,042h
+	db 033h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,08dh,046h,0deh,050h,0ffh,036h,042h,033h
+	call print_string_
+	db 083h,0c4h,006h,0ebh,022h
+l7a2b:
+	db 0ffh,076h,0dah,0ffh,076h,0dch,0ffh,036h,042h,033h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e8h,050h,0ffh,036h,042h,033h
+	call print_string_hi_
+	db 083h,0c4h,006h
+l7a4d:
+	db 0c7h,046h,0f8h,0ffh,0ffh
+l7a52:
+	db 083h,03eh,046h,008h,000h,075h,069h,083h,07eh,0f8h,0ffh,075h,024h,0ffh,076h,0dah
+	db 0ffh,076h,0dch,0ffh,036h,042h,033h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,08dh,046h,0deh,050h,0ffh,036h,042h,033h
+	call print_string_
+	db 083h,0c4h,006h,0ebh,03ch
+l7a83:
+	db 083h,07eh,0f8h,005h,07dh,015h,0b8h,0fbh,0ffh,050h,0ffh,076h,0f8h,0ffh,076h,0f8h
+	db 0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,0ebh,021h
+l7a9e:
+	db 0b8h,0fbh,0ffh,050h,0b9h,003h,000h,08bh,046h,0f8h,03dh,005h,000h,075h,003h,0b9h
+	db 004h,000h
+l7ab0:
+	db 02bh,0c1h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h
+l7abf:
+	db 0e9h,077h,000h
+l7ac2:
+	db 083h,07eh,0f8h,0ffh,075h,024h,0ffh,076h,0dah,0ffh,076h,0dch,0ffh,036h,042h,033h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e8h,050h,0ffh,036h,042h,033h
+	call print_string_hi_
+	db 083h,0c4h,006h,0ebh,04dh
+l7aec:
+	db 083h,07eh,0f8h,005h,07dh,01ch,0b8h,006h,000h,08bh,04eh,0f8h,083h,0f9h,002h,07dh
+	db 003h,0b8h,005h,000h
+l7b00:
+	db 050h,051h,051h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,0ebh,02bh
+l7b0e:
+	db 0b8h,004h,000h,08bh,04eh,0f8h,083h,0f9h,005h,075h,003h,0b8h,007h,000h
+l7b1c:
+	db 050h,0b8h,003h,000h,083h,0f9h,005h,075h,003h,0b8h,004h,000h
+l7b28:
+	db 02bh,0c8h,08bh,0c1h,050h,0ffh,076h,0f8h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h
+l7b39:
+	db 08bh,046h,0f8h,089h,046h,0f6h,083h,03eh,0ceh,04fh,019h,075h,013h,0b8h,098h,035h
+	db 050h,0b8h,066h,050h,050h
+	call get_menu_choice_
+	db 083h,0c4h,004h,089h,046h,0f4h,0ebh,011h
+l7b59:
+	db 0b8h,098h,035h,050h,0b8h,066h,050h,050h
+	call get_menu_choice_animated_
+	db 083h,0c4h,004h,089h,046h,0f4h
+l7b6a:
+	db 083h,03eh,0c4h,04fh,001h,075h,030h,083h,07eh,0f4h,008h,075h,00ch,0c7h,046h,0f8h
+	db 001h,000h,0c7h,046h,0f4h,001h,000h,0ebh,01eh
+l7b83:
+	db 0b8h,0ffh,0ffh,083h,07eh,0f4h,008h,07dh,003h,08bh,046h,0f4h
+l7b8f:
+	db 089h,046h,0f8h,0b8h,003h,000h,083h,07eh,0f8h,0ffh,075h,003h,0b8h,005h,000h
+l7b9e:
+	db 089h,046h,0f4h
+l7ba1:
+	db 08bh,046h,0f4h,0e9h,049h,001h
+l7ba7:
+	db 083h,07eh,0f8h,0ffh,075h,007h,0c7h,046h,0f8h,007h,000h,0ebh,003h
+l7bb4:
+	db 0ffh,04eh,0f8h
+l7bb7:
+	db 0e9h,056h,001h
+l7bba:
+	db 083h,07eh,0f8h,0ffh,075h,007h,0c7h,046h,0f8h,000h,000h,0ebh,010h
+l7bc7:
+	db 083h,07eh,0f8h,007h,07dh,005h,0ffh,046h,0f8h,0ebh,005h
+l7bd2:
+	db 0c7h,046h,0f8h,0ffh,0ffh
+l7bd7:
+	db 0e9h,036h,001h
+l7bda:
+	db 0c7h,046h,0ceh,001h,000h,0b8h,001h,000h,083h,07eh,0f4h,001h,075h,003h,0b8h,0ffh
+	db 0ffh
+l7beb:
+	db 089h,046h,0feh,08bh,046h,0f8h,0e9h,0edh,000h,0a0h,090h,035h,02ah,0e4h,003h,046h
+	db 0feh,005h,006h,000h,0b9h,006h,000h,099h,0f7h,0f9h,08bh,0c2h,0a2h,090h,035h,0e9h
+	db 0e1h,000h,0a0h,091h,035h,02ah,0e4h,003h,046h,0feh,089h,046h,0fch,03dh,000h,000h
+	db 07ch,00dh,03dh,0ffh,000h,07fh,008h,08ah,046h,0fch,0a2h,091h,035h,0ebh,008h
+l7c2a:
+	db 0b8h,000h,000h,050h
+	call play_sound_
+	db 059h
+l7c32:
+	db 0a0h,091h,035h,02ah,0e4h,0a3h,0c8h,04fh,0e9h,0b1h,000h,0a0h,093h,035h,02ah,0e4h
+	db 003h,046h,0feh,040h,040h,040h,0b9h,003h,000h,099h,0f7h,0f9h,08bh,0c2h,0a2h,093h
+	db 035h,0e9h,098h,000h,0a0h,094h,035h,02ah,0e4h,003h,046h,0feh,040h,040h,0b9h,002h
+	db 000h,099h,0f7h,0f9h,08bh,0c2h,0a2h,094h,035h,0e9h,080h,000h,0b8h,000h,000h,050h
+	call play_sound_
+	db 059h,0ebh,076h,0b8h,001h,000h,050h,0b8h,026h,000h,050h,0b8h,001h,000h,050h,0b8h
+	db 013h,000h,050h,0ffh,076h,0fah
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,001h,000h,050h,0b8h,013h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,000h,000h,050h,0b8h,007h,000h,050h,0b8h,013h,000h,050h,0b8h
+	db 07ch,035h,050h,0ffh,076h,0fah
+	call input_text_
+	db 083h,0c4h,00ah,0ebh,031h,0b8h,000h,000h,050h
+	call play_sound_
+	db 059h,0ebh,027h,0b8h,000h,000h,050h
+	call play_sound_
+	db 059h,0ebh,01dh,0f4h,07bh,00dh,07ch,03dh,07ch,056h,07ch,06eh,07ch,078h,07ch,0bdh
+	db 07ch,0c7h,07ch
+l7ce1:
+	db 03dh,008h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0d1h,07ch
+l7cee:
+	db 0ebh,020h
+l7cf0:
+	db 03dh,001h,000h,075h,003h,0e9h,0e2h,0feh
+l7cf8:
+	db 03dh,002h,000h,075h,003h,0e9h,0a7h,0feh
+l7d00:
+	db 03dh,003h,000h,075h,003h,0e9h,0d2h,0feh
+l7d08:
+	db 03dh,004h,000h,075h,003h,0e9h,0aah,0feh
+l7d10:
+	db 083h,03eh,046h,008h,000h,074h,003h,0e9h,081h,000h
+l7d1a:
+	db 08bh,046h,0f6h,03bh,046h,0f8h,075h,003h,0e9h,076h,000h
+l7d25:
+	db 03dh,0ffh,0ffh,075h,024h,0ffh,076h,0dah,0ffh,076h,0dch,0ffh,036h,042h,033h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0e8h,050h,0ffh,036h,042h,033h
+	call print_string_hi_
+	db 083h,0c4h,006h,0ebh,04dh
+l7d4e:
+	db 083h,07eh,0f6h,005h,07dh,01ch,0b8h,006h,000h,08bh,04eh,0f6h,083h,0f9h,002h,07dh
+	db 003h,0b8h,005h,000h
+l7d62:
+	db 050h,051h,051h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h,0ebh,02bh
+l7d70:
+	db 0b8h,004h,000h,08bh,04eh,0f6h,083h,0f9h,005h,075h,003h,0b8h,007h,000h
+l7d7e:
+	db 050h,0b8h,003h,000h,083h,0f9h,005h,075h,003h,0b8h,004h,000h
+l7d8a:
+	db 02bh,0c8h,08bh,0c1h,050h,0ffh,076h,0f6h,0ffh,076h,0fah
+	call draw_setting_value_
+	db 083h,0c4h,008h
+l7d9b:
+	db 083h,07eh,0f4h,005h,074h,003h,0e9h,0aeh,0fch
+l7da4:
+	db 083h,07eh,0f8h,0ffh,074h,003h,0e9h,0a5h,0fch
+l7dad:
+	call stop_sound_
+	db 083h,07eh,0ceh,001h,074h,003h,0e9h,07dh,000h
+l7db9:
+	db 08dh,046h,092h,050h,0b8h,0d2h,008h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,002h,000h,050h,0b8h,000h,000h,050h,0b8h,048h,050h,050h
+	call make_data_path_
+	db 083h,0c4h,004h,050h
+	call open_
+	db 083h,0c4h,004h,0a3h,0eah,04fh,03dh,0ffh,0ffh,075h,008h,0b8h,013h,000h,050h
+	call exit_game_
+	db 059h
+l7df0:
+	db 0b8h,000h,000h,050h,0b8h,000h,000h,0bah,000h,000h,052h,050h,0ffh,036h,0eah,04fh
+	call lseek_
+	db 083h,0c4h,008h,0b8h,09eh,001h,050h,0b8h,0f8h,033h,050h,0ffh,036h,0eah,04fh
+	call write_
+	db 083h,0c4h,006h,089h,046h,0f2h,03dh,0ffh,0ffh,075h,00eh,0b8h,000h,000h,050h,08dh
+	db 046h,092h,050h
+	call show_error_text_
+	db 083h,0c4h,004h
+l7e2e:
+	db 0ffh,036h,0eah,04fh
+	call close_
+	db 059h
+l7e36:
+	db 0a0h,091h,035h,02ah,0e4h,0a3h,0c8h,04fh,0f7h,006h,0c6h,04fh,000h,010h,074h,019h
+	db 080h,03eh,094h,035h,001h,075h,012h,083h,03eh,046h,008h,000h,075h,003h
+	call drv_op_96_
+l7e57:
+	db 0c7h,006h,046h,008h,001h,000h,0ebh,010h
+l7e5f:
+	db 083h,03eh,046h,008h,001h,075h,003h
+	call drv_mouse_shutdown_
+l7e69:
+	db 0c7h,006h,046h,008h,000h,000h
+l7e6f:
+	call clear_click_flag_
+	db 0b8h,000h,000h,050h,0ffh,076h,0fah
+	call destroy_window_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
+	call erase_window_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,0b2h,04fh
+	call f0a42_
+	db 083h,0c4h,004h,08bh,0e5h,05dh,0c3h
+#endasm

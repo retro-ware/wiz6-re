@@ -1,73 +1,72 @@
-extern char g019b[];
-extern char g019d[];
-extern char g3648[];
-extern char g3649[];
-extern char g364a[];
-extern char g3732[];
-extern char g373c[];
-extern char g3746[];
-extern char g3750[];
-extern char g375a[];
-extern char g375b[];
-extern char g375c[];
-extern char g3816[];
-extern char pic_slot_monster[];
-extern int monster_groups[];
-build_monster_anim_frames(p4, p6, p8)
-char *p8;
-{
-	int l2;
-	int l4;
-	int l6;
-	int l8;
-	int l10;
-	int l12;
-	register int rsi;
-	register int rdi;
-	rsi = (unsigned char)g019b[monster_groups[p4]];
-	l10 = 0;
-	l8 = 0;
-	goto L4934;
-L490b:
-	if (((char *)monster_groups[p4] + (44 * l8))[42] == p6) {
-	l10 = l8;
-	}
-	l8++;
-L4934:
-	if ((unsigned char)g019d[monster_groups[p4]] > l8) goto L490b;
-	l12 = 0;
-	rdi = 0;
-	goto L4b58;
-L4955:
-	if (((((char *)monster_groups[p4] + (44 * l10))[34] != 2) && ((unsigned)((char *)monster_groups[p4] + (44 * l10))[17] <= 0)) && ((unsigned)((char *)monster_groups[p4] + (44 * l10))[16] <= 0)) goto L49be;
-	l2 = (unsigned char)g3648[((p6 * 30) + (rdi * 3))];
-	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
-	goto L4b12;
-L49be:
-	l4 = (unsigned char)g3649[((p6 * 30) + (rdi * 3))];
-	l6 = (unsigned char)g364a[((p6 * 30) + (rdi * 3))];
-	if (--l6 > 0) goto L4aec;
-	l2 = (unsigned char)g3648[((p6 * 30) + (rdi * 3))];
-	l4++;
-	if ((((unsigned char)g3746[((314 * rsi) + l2)] + (unsigned char)g3750[((314 * rsi) + l2)]) - 1) < l4) {
-	l2 = (random((unsigned char)g373c[((314 * rsi) + rdi)]) + (unsigned char)g3732[((314 * rsi) + rdi)]);
-	g3648[((p6 * 30) + (rdi * 3))] = *(char *)&l2;
-	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
-	}
-	g3649[((p6 * 30) + (rdi * 3))] = *(char *)&l4;
-	l6 = (random((unsigned char)g375c[((314 * rsi) + (l4 << 2))]) + (unsigned char)g375b[((314 * rsi) + (l4 << 2))]);
-L4aec:
-	g364a[((p6 * 30) + (rdi * 3))] = *(char *)&l6;
-L4b12:
-	*(p8 + l12) = g375a[((314 * rsi) + (l4 << 2))];
-	if ((pic_slot_monster[rsi] != 40) || (rdi != 4)) goto L4b47;
-	*(p8 + l12) = 0;
-L4b47:
-	if (*(p8 + l12)) {
-	l12++;
-	}
-	rdi++;
-L4b58:
-	if ((unsigned char)g3816[(314 * rsi)] > rdi) goto L4955;
-	*(p8 + l12) = 0;
-}
+#asm
+	public build_monster_anim_frames_
+	extrn random_:near
+build_monster_anim_frames_:
+	db 055h,08bh,0ech,083h,0c4h,0f4h,057h,056h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
+	db 09fh,0a8h,043h,08ah,087h,09bh,001h,02ah,0e4h,08bh,0f0h,0c7h,046h,0f6h,000h,000h
+	db 0c7h,046h,0f8h,000h,000h,0ebh,029h
+l490b:
+	db 0b8h,02ch,000h,0f7h,06eh,0f8h,08bh,0c8h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
+	db 087h,0a8h,043h,003h,0c1h,08bh,0d8h,08ah,047h,02ah,098h,03bh,046h,006h,075h,006h
+	db 08bh,046h,0f8h,089h,046h,0f6h
+l4931:
+	db 0ffh,046h,0f8h
+l4934:
+	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09dh,001h,02ah
+	db 0e4h,03bh,046h,0f8h,07fh,0c1h,0c7h,046h,0f4h,000h,000h,0bfh,000h,000h,0e9h,003h
+	db 002h
+l4955:
+	db 0b8h,02ch,000h,0f7h,06eh,0f6h,08bh,0c8h,08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh
+	db 087h,0a8h,043h,003h,0c1h,08bh,0d8h,080h,07fh,022h,002h,074h,00ch,080h,07fh,011h
+	db 000h,077h,006h,080h,07fh,010h,000h,076h,040h
+l497e:
+	db 08bh,046h,006h,08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh,0c2h,0d1h,0e0h,050h,08bh,0c7h
+	db 08bh,0d0h,0d1h,0e0h,003h,0c2h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,08ah,087h,048h
+	db 036h,02ah,0e4h,089h,046h,0feh,0b8h,03ah,001h,0f7h,0eeh,08bh,0c8h,08bh,046h,0feh
+	db 003h,0c8h,08bh,0d9h,08ah,087h,046h,037h,02ah,0e4h,089h,046h,0fch,0e9h,054h,001h
+l49be:
+	db 08bh,046h,006h,08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh,0c2h,0d1h,0e0h,050h,08bh,0c7h
+	db 08bh,0d0h,0d1h,0e0h,003h,0c2h,08bh,0c8h,058h,003h,0c1h,08bh,0d8h,08ah,087h,049h
+	db 036h,02ah,0e4h,089h,046h,0fch,08ah,087h,04ah,036h,02ah,0e4h,089h,046h,0fah,0ffh
+	db 04eh,0fah,07eh,003h,0e9h,0f7h,000h
+l49f5:
+	db 08ah,087h,048h,036h,02ah,0e4h,089h,046h,0feh,0ffh,046h,0fch,0b8h,03ah,001h,0f7h
+	db 0eeh,08bh,0c8h,08bh,046h,0feh,003h,0c8h,08bh,0d9h,08ah,087h,046h,037h,02ah,0e4h
+	db 050h,08ah,087h,050h,037h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,048h,03bh,046h,0fch
+	db 07dh,065h,0b8h,03ah,001h,0f7h,0eeh,003h,0c7h,08bh,0d8h,08ah,087h,03ch,037h,02ah
+	db 0e4h,050h
+	call random_
+	db 059h,050h,0b8h,03ah,001h,0f7h,0eeh,003h,0c7h,08bh,0d8h,08ah,087h,032h,037h,02ah
+	db 0e4h,08bh,0c8h,058h,003h,0c1h,089h,046h,0feh,08ah,046h,0feh,050h,08bh,046h,006h
+	db 08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh,0c2h,0d1h,0e0h,08bh,0c8h,08bh,0c7h,08bh,0d0h
+	db 0d1h,0e0h,003h,0c2h,08bh,0d0h,003h,0c8h,08bh,0d9h,058h,088h,087h,048h,036h,0b8h
+	db 03ah,001h,0f7h,0eeh,003h,046h,0feh,08bh,0d8h,08ah,087h,046h,037h,02ah,0e4h,089h
+	db 046h,0fch
+l4a8c:
+	db 08ah,046h,0fch,050h,08bh,046h,006h,08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh,0c2h,0d1h
+	db 0e0h,08bh,0c8h,08bh,0c7h,08bh,0d0h,0d1h,0e0h,003h,0c2h,08bh,0d0h,003h,0c8h,08bh
+	db 0d9h,058h,088h,087h,049h,036h,0b8h,03ah,001h,0f7h,0eeh,08bh,04eh,0fch,0d1h,0e1h
+	db 0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h,05ch,037h,02ah,0e4h,050h
+	call random_
+	db 059h,050h,0b8h,03ah,001h,0f7h,0eeh,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,003h,0c1h
+	db 08bh,0d8h,08ah,087h,05bh,037h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,089h,046h,0fah
+l4aec:
+	db 08ah,046h,0fah,050h,08bh,046h,006h,08bh,0d0h,0b1h,004h,0d3h,0e0h,02bh,0c2h,0d1h
+	db 0e0h,08bh,0c8h,08bh,0c7h,08bh,0d0h,0d1h,0e0h,003h,0c2h,08bh,0d0h,003h,0c8h,08bh
+	db 0d9h,058h,088h,087h,04ah,036h
+l4b12:
+	db 0b8h,03ah,001h,0f7h,0eeh,08bh,04eh,0fch,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h
+	db 08ah,087h,05ah,037h,08bh,04eh,008h,003h,04eh,0f4h,08bh,0d9h,088h,007h,080h,0bch
+	db 02ch,043h,028h,075h,010h,083h,0ffh,004h,075h,00bh,08bh,046h,008h,003h,046h,0f4h
+	db 08bh,0d8h,0c6h,007h,000h
+l4b47:
+	db 08bh,046h,008h,003h,046h,0f4h,08bh,0d8h,080h,03fh,000h,074h,003h,0ffh,046h,0f4h
+l4b57:
+	db 047h
+l4b58:
+	db 0b8h,03ah,001h,0f7h,0eeh,08bh,0d8h,08ah,087h,016h,038h,02ah,0e4h,03bh,0c7h,07eh
+	db 003h,0e9h,0e9h,0fdh
+l4b6c:
+	db 08bh,046h,008h,003h,046h,0f4h,08bh,0d8h,0c6h,007h,000h,05eh,05fh,08bh,0e5h,05dh
+	db 0c3h
+#endasm

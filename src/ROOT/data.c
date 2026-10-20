@@ -1,7 +1,5 @@
 #asm
 dataseg segment word public 'data'
-	public g0002_
-g0002_ label byte
 	db 005h,000h
 	public realm_colors_
 realm_colors_ label byte
@@ -12,13 +10,8 @@ g0022_ label byte
 	db 008h,000h,005h,000h,003h,000h,000h,000h
 	public g002a_
 g002a_ label byte
-	db 030h,000h,01eh,000h,012h,000h,000h,000h
-	public g0032_
-g0032_ label byte
-	db 088h,000h
-	public g0034_
-g0034_ label byte
-	db 0b8h,000h,092h,000h,0aeh,000h,099h,000h,0a7h,000h,000h,000h,000h,000h
+	db 030h,000h,01eh,000h,012h,000h,000h,000h,088h,000h,0b8h,000h,092h,000h,0aeh,000h
+	db 099h,000h,0a7h,000h,000h,000h,000h,000h
 	public g0042_
 g0042_ label byte
 	db 000h,000h,068h,000h,080h,000h,090h,000h
@@ -43,11 +36,8 @@ g0092_ label byte
 	db 000h,002h,003h,001h,003h,000h,001h,004h,002h,000h,002h,001h,004h,003h
 	public g00b0_
 g00b0_ label byte
-	db 019h,01eh,01eh,014h,014h,00ah,00fh,00fh,005h,005h
-	public g00ba_
-g00ba_ label byte
-	db 000h,001h,002h,001h,002h,00ch,001h,002h,003h,004h,058h,02ch,016h,00bh,00bh,016h
-	db 02ch,058h
+	db 019h,01eh,01eh,014h,014h,00ah,00fh,00fh,005h,005h,000h,001h,002h,001h,002h,00ch
+	db 001h,002h,003h,004h,058h,02ch,016h,00bh,00bh,016h,02ch,058h
 	public g00cc_
 g00cc_ label byte
 	db 000h,000h,001h,000h,001h,000h,000h,000h,000h,000h,000h,000h,001h,000h,000h,001h
@@ -60,10 +50,7 @@ g00df_ label byte
 	db 001h
 	public g00e0_
 g00e0_ label byte
-	db 002h
-	public g00e1_
-g00e1_ label byte
-	db 003h
+	db 002h,003h
 	public g00e2_
 g00e2_ label byte
 	db 002h
@@ -79,34 +66,13 @@ g00e3_ label byte
 	db 003h,002h,008h,002h,001h,002h,003h,002h,001h,002h,002h,005h,001h,000h,008h,002h
 	db 003h,004h,003h,002h,009h,002h,003h,008h,001h,003h,009h,002h,003h,004h,003h,002h
 	db 006h,002h,004h,007h,003h,002h,001h,002h,004h,008h,001h,001h,005h,002h,004h,008h
-	db 003h,002h,004h,002h,005h,00ah,001h,000h,005h
-	public g018c_
-g018c_ label byte
-	db 002h,005h
-	public g018e_
-g018e_ label byte
-	db 008h
+	db 003h,002h,004h,002h,005h,00ah,001h,000h,005h,002h,005h,008h
 	public g018f_
 g018f_ label byte
 	db 003h
 	public g0190_
 g0190_ label byte
-	db 002h
-	public g0191_
-g0191_ label byte
-	db 001h
-	public g0192_
-g0192_ label byte
-	db 002h
-	public g0193_
-g0193_ label byte
-	db 005h
-	public g0194_
-g0194_ label byte
-	db 00ch
-	public g0195_
-g0195_ label byte
-	db 001h,000h,008h,002h,006h
+	db 002h,001h,002h,005h,00ch,001h,000h,008h,002h,006h
 	public g019a_
 g019a_ label byte
 	db 008h

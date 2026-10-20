@@ -1,308 +1,335 @@
 #asm
+	public fc66e_
+	extrn $ldv:near
+	extrn clear_window_:near
+	extrn combat_delay_:near
+	extrn do_advance_retreat_:near
 	extrn do_cast_action_:near
+	extrn do_change_equipment_:near
+	extrn do_hide_:near
+	extrn do_run_away_:near
+	extrn do_use_item_action_:near
+	extrn draw_member_card_x_:near
+	extrn f723e_:near
 	extrn fb934_:near
+	extrn fc4e7_:near
+	extrn fc546_:near
+	extrn get_combatant_name_:near
+	extrn get_message_:near
+	extrn movmem_:near
+	extrn play_sound_:near
+	extrn print_combat_line_:near
 	extrn random_:near
 	extrn reduce_field6_:near
+	extrn reset_animation_:near
 	extrn test_bit_:near
-#endasm
-extern char *group_monster_rec;
-extern char g019a[];
-extern char g019d[];
-extern char g433e[];
-extern char g4348[];
-extern char g4515[];
-extern char g4518[];
-extern char g4519[];
-extern char g4591[];
-extern char g4592[];
-extern char g4593[];
-extern char g505c;
-extern char pc_class[];
-extern char pc_equipped[];
-extern char pc_sex[];
-extern char pc_stats[];
-extern int anim_cycle;
-extern int cur_member;
-extern int g435c;
-extern int g435e;
-extern int g4fc8;
-extern int g50fc;
-extern int g50fe[];
-extern int g5114;
-extern int g5118;
-extern int game_state;
-extern int monster_groups[];
-extern int party_picture_win;
-extern int return_cmd;
-extern int view_pos_group[];
-fc66e()
-{
-	char *l2;
-	int l4;
-	int l6;
-	int l8;
-	int l10;
-	int l12;
-	int l14;
-	int l16;
-	group_monster_rec[220] = 0;
-	g5114 = 6;
-	g50fc = 0;
-	g5118 = 0;
-	l2 = ((char *)monster_groups[g435e] + (44 * g435c));
-	if (((unsigned)l2[34] >= 2) || ((unsigned)l2[17] > 0)) goto Lc6bd;
-	if ((unsigned)l2[16] <= 0) goto Lc6c2;
-Lc6bd:
-	return;
-Lc6c2:
-	clear_window(party_picture_win, 1);
-	l4 = 0;
-	l6 = 0;
-	l8 = 0;
-	if ((((l4) || ((unsigned)l2[15] <= 0)) || (random(100) <= 80)) || (l2[30] == 7)) goto Lc709;
-	l4 = 3209;
-Lc709:
-	if (((l4) || ((unsigned)l2[21] <= 0)) || (random(100) <= 40)) goto Lc74a;
-	l4 = (random(3) + 3205);
-	if (random(100) <= 80) goto Lc74a;
-	l4 = 3208;
-	l6 = 1;
-Lc74a:
-	if ((l4) || ((unsigned)l2[20] <= 0)) goto Lc770;
-	l4 = 3210;
-	if (random(100) <= 25) goto Lc770;
-	l6 = 1;
-Lc770:
-	if (((l4) || ((unsigned)l2[18] <= 0)) || (random(100) <= 80)) goto Lc796;
-	l4 = 3204;
-	l6 = 0;
-Lc796:
-	if (((l4) || ((unsigned)l2[22] <= 0)) || (random(100) <= 75)) goto Lc7bc;
-	l4 = 3203;
-	l6 = 0;
-Lc7bc:
-	;
-#asm
+fc66e_:
+	db 055h,08bh,0ech,083h,0c4h,0f0h,056h,08bh,01eh,0b6h,043h,0c6h,087h,0dch,000h,000h
+	db 0c7h,006h,014h,051h,006h,000h,0c7h,006h,0fch,050h,000h,000h,0c7h,006h,018h,051h
+	db 000h,000h,0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0c8h,0a1h,05eh,043h,0d1h,0e0h
+	db 08bh,0d8h,08bh,087h,0a8h,043h,003h,0c1h,089h,046h,0feh,08bh,0d8h,080h,07fh,022h
+	db 002h,073h,00ch,080h,07fh,011h,000h,077h,006h,080h,07fh,010h,000h,076h,005h
+lc6bd:
+	db 05eh,08bh,0e5h,05dh,0c3h
+lc6c2:
+	db 0b8h,001h,000h,050h,0ffh,036h,0b6h,04fh
+	call clear_window_
+	db 083h,0c4h,004h,0c7h,046h,0fch,000h,000h,0c7h,046h,0fah,000h,000h,0c7h,046h,0f8h
+	db 000h,000h,083h,07eh,0fch,000h,075h,024h,08bh,05eh,0feh,080h,07fh,00fh,000h,076h
+	db 01bh,0b8h,064h,000h,050h
+	call random_
+	db 059h,03dh,050h,000h,07eh,00eh,08bh,05eh,0feh,080h,07fh,01eh,007h,074h,005h,0c7h
+	db 046h,0fch,089h,00ch
+lc709:
+	db 083h,07eh,0fch,000h,075h,03bh,08bh,05eh,0feh,080h,07fh,015h,000h,076h,032h,0b8h
+	db 064h,000h,050h
+	call random_
+	db 059h,03dh,028h,000h,07eh,025h,0b8h,003h,000h,050h
+	call random_
+	db 059h,005h,085h,00ch,089h,046h,0fch,0b8h,064h,000h,050h
+	call random_
+	db 059h,03dh,050h,000h,07eh,00ah,0c7h,046h,0fch,088h,00ch,0c7h,046h,0fah,001h,000h
+lc74a:
+	db 083h,07eh,0fch,000h,075h,020h,08bh,05eh,0feh,080h,07fh,014h,000h,076h,017h,0c7h
+	db 046h,0fch,08ah,00ch,0b8h,064h,000h,050h
+	call random_
+	db 059h,03dh,019h,000h,07eh,005h,0c7h,046h,0fah,001h,000h
+lc770:
+	db 083h,07eh,0fch,000h,075h,020h,08bh,05eh,0feh,080h,07fh,012h,000h,076h,017h,0b8h
+	db 064h,000h,050h
+	call random_
+	db 059h,03dh,050h,000h,07eh,00ah,0c7h,046h,0fch,084h,00ch,0c7h,046h,0fah,000h,000h
+lc796:
+	db 083h,07eh,0fch,000h,075h,020h,08bh,05eh,0feh,080h,07fh,016h,000h,076h,017h,0b8h
+	db 064h,000h,050h
+	call random_
+	db 059h,03dh,04bh,000h,07eh,00ah,0c7h,046h,0fch,083h,00ch,0c7h,046h,0fah,000h,000h
 lc7bc:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0dch,000h,02ah
-	db 0e4h,0a9h,004h,000h,074h,057h
-#endasm
-	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[20] <= 0) goto Lc829;
-	l4 = 3218;
-	if ((unsigned char)g019a[monster_groups[g435e]] != 151) goto Lc824;
-	l2[43] = 3;
-	l2[36] = 1;
-	l8 = 2;
-	goto Lc829;
-Lc824:
-	l8 = 1;
-Lc829:
-	if (l4 <= 0) goto Lcb02;
-	combat_delay(2);
-	get_combatant_name(20492, g435e, g435c);
-	get_message(l4, 20652);
-	g505c = 0;
-	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
-	if (l8 <= 0) goto Lc9a0;
-	if (((char *)monster_groups[g435e] + (44 * g435c))[42] != -1) {
-	l14 = (((char *)monster_groups[g435e] + (44 * g435c))[42] / 10);
-	l16 = (((char *)monster_groups[g435e] + (44 * g435c))[42] % 10);
-	anim_cycle = 0;
-	*(int *)((char *)g50fe + ((l14 * 10) + (l16 << 1))) = 1;
-	reset_animation();
-	*(int *)((char *)view_pos_group + ((l14 * 10) + (l16 << 1))) = 0;
-	g4348[((l14 * 5) + l16)] = 0;
-	g433e[((l14 * 5) + l16)] = 0;
-	}
-	((char *)monster_groups[g435e] + (44 * g435c))[42] = -1;
-	if (l8 == 1) {
-	((char *)monster_groups[g435e] + (44 * g435c))[34] = 3;
-	*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 2) = 0;
-	}
-	for (l14 = 0; l14 < 4; l14++) {
-	((char *)monster_groups[g435e] + ((44 * g435c) + l14))[24] = 0;
-	}
-	combat_delay(g4fc8);
-	return;
-Lc9a0:
-	combat_delay((g4fc8 / 2));
-	if (l6) goto Lc9bd;
-	l2[16]++;
-	return;
-Lc9bd:
-	l2[30] = 0;
-	l2[33] = 0;
-	*(int *)(l2 + 12) = -1;
-	*(int *)(l2 + 10) = 255;
-	if (g435e) goto Lca10;
-	l4 = 7;
-Lc9e7:
-	if (test_bit(((432 * g435c) + 17639), l4) == 1) {
-	*(int *)(l2 + 10) = l4;
-	}
-	if (--l4 >= 0) goto Lc9e7;
-	goto Lca40;
-Lca10:
-	l4 = 7;
-Lca15:
-	;
-#asm
+	db 0e4h,0a9h,004h,000h,074h,057h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,0b9h,02ch
+	db 000h,0f7h,0e9h,08bh,0f0h,08ah,047h,01fh,02ah,0e4h,0d1h,0e0h,08bh,0d8h,08bh,09fh
+	db 0a8h,043h,080h,078h,014h,000h,076h,035h,0c7h,046h,0fch,092h,00ch,0a1h,05eh,043h
+	db 0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09ah,001h,02ah,0e4h,03dh,097h
+	db 000h,075h,015h,08bh,05eh,0feh,0c6h,047h,02bh,003h,08bh,05eh,0feh,0c6h,047h,024h
+	db 001h,0c7h,046h,0f8h,002h,000h,0ebh,005h
+lc824:
+	db 0c7h,046h,0f8h,001h,000h
+lc829:
+	db 083h,07eh,0fch,000h,07fh,003h,0e9h,0d0h,002h
+lc832:
+	db 0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,036h,05ch,043h,0ffh,036h,05eh,043h,0b8h,00ch,050h,050h
+	call get_combatant_name_
+	db 083h,0c4h,006h,0b8h,0ach,050h,050h,0ffh,076h,0fch
+	call get_message_
+	db 083h,0c4h,004h,0c6h,006h,05ch,050h,000h,0b8h,000h,000h,050h,0b8h,00eh,000h,050h
+	db 0b8h,006h,000h,083h,03eh,05eh,043h,000h,075h,003h,0b8h,001h,000h
+lc873:
+	db 050h,0b8h,05ch,050h,050h,0b8h,0ach,050h,050h,0b8h,00ch,050h,050h
+	call print_combat_line_
+	db 083h,0c4h,00ch,083h,07eh,0f8h,000h,07fh,003h,0e9h,011h,001h
+lc88f:
+	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0f0h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h
+	db 08bh,09fh,0a8h,043h,080h,078h,02ah,0ffh,074h,072h,08ah,040h,02ah,098h,0b9h,00ah
+	db 000h,099h,0f7h,0f9h,089h,046h,0f2h,08ah,040h,02ah,098h,099h,0f7h,0f9h,089h,056h
+	db 0f0h,0c7h,006h,044h,036h,000h,000h,08bh,046h,0f2h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
+	db 003h,0c2h,0d1h,0e0h,08bh,04eh,0f0h,0d1h,0e1h,003h,0c1h,08bh,0d8h,0c7h,087h,0feh
+	db 050h,001h,000h
+	call reset_animation_
+	db 08bh,046h,0f2h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,08bh,04eh,0f0h
+	db 0d1h,0e1h,003h,0c1h,08bh,0d8h,0c7h,087h,062h,043h,000h,000h,08bh,046h,0f2h,08bh
+	db 0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,003h,046h,0f0h,08bh,0d8h,0c6h,087h,048h,043h
+	db 000h,0c6h,087h,03eh,043h,000h
+lc91b:
+	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0f0h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h
+	db 08bh,09fh,0a8h,043h,0c6h,040h,02ah,0ffh,083h,07eh,0f8h,001h,075h,031h,0b8h,02ch
+	db 000h,0f7h,02eh,05ch,043h,08bh,0f0h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh
+	db 0a8h,043h,0c6h,040h,022h,003h,0b8h,02ch,000h,0f7h,02eh,05ch,043h,08bh,0f0h,0a1h
+	db 05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c7h,040h,002h,000h,000h
+lc96a:
+	db 0c7h,046h,0f2h,000h,000h
+lc96f:
+	db 0b8h,02ch,000h,0f7h,02eh,05ch,043h,003h,046h,0f2h,08bh,0f0h,0a1h,05eh,043h,0d1h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,040h,018h,000h,0ffh,046h,0f2h,08bh,046h
+	db 0f2h,03dh,004h,000h,07ch,0dah,0ffh,036h,0c8h,04fh
+	call combat_delay_
+	db 059h,0e9h,01dh,0fdh
+lc9a0:
+	db 0a1h,0c8h,04fh,0b9h,002h,000h,099h,0f7h,0f9h,050h
+	call combat_delay_
+	db 059h,083h,07eh,0fah,000h,075h,009h,08bh,05eh,0feh,0feh,047h,010h,0e9h,000h,0fdh
+lc9bd:
+	db 08bh,05eh,0feh,0c6h,047h,01eh,000h,08bh,05eh,0feh,0c6h,047h,021h,000h,08bh,05eh
+	db 0feh,0c7h,047h,00ch,0ffh,0ffh,08bh,05eh,0feh,0c7h,047h,00ah,0ffh,000h,083h,03eh
+	db 05eh,043h,000h,075h,02eh,0c7h,046h,0fch,007h,000h
+lc9e7:
+	db 0ffh,076h,0fch,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,005h,0e7h,044h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,009h,08bh,046h,0fch,08bh,05eh,0feh,089h,047h
+	db 00ah
+lca09:
+	db 0ffh,04eh,0fch,07dh,0d9h,0ebh,030h
+lca10:
+	db 0c7h,046h,0fch,007h,000h
 lca15:
 	db 0ffh,076h,0fch,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h,043h,005h,053h
 	db 000h,050h
 	call test_bit_
-	db 083h,0c4h,004h,03dh,001h,000h,075h,009h
-#endasm
-	*(int *)(l2 + 10) = l4;
-Lca3b:
-	if (--l4 >= 0) goto Lca15;
-Lca40:
-	if (*(int *)(l2 + 10) == 255) {
-	*(int *)(l2 + 10) = 8;
-	}
-	l2[28] = 0;
-	l2[31] = *(char *)&g435e;
-	l2[32] = (char)random((unsigned char)g019d[monster_groups[g435e]]);
-	clear_window(party_picture_win, 1);
-	combat_delay(2);
-	get_combatant_name(20492, g435e, g435c);
-	get_message(3211, 20652);
-	g505c = 0;
-	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
-	play_sound(0);
-	combat_delay((g4fc8 / 2));
-	clear_window(party_picture_win, 1);
-Lcb02:
-	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[34] < 3) && (!((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[43])) goto Lcb60;
-	if (l2[31]) goto Lcb45;
-	l2[32] = (char)fc4e7((unsigned char)l2[32]);
-	goto Lcb60;
-Lcb45:
-	l2[32] = (char)fc546((unsigned char)l2[31], (unsigned char)l2[32]);
-Lcb60:
-	if ((l6 != 1) || ((unsigned char)l2[32] != g435c)) goto Lcb7a;
-	l2[16]++;
-	return;
-Lcb7a:
-	if (g435e) goto Lcc9f;
-	group_monster_rec[134] = pc_stats[(432 * g435c)];
-	group_monster_rec[135] = g4515[(432 * g435c)];
-	group_monster_rec[136] = g4518[(432 * g435c)];
-	group_monster_rec[137] = g4519[(432 * g435c)];
-	movmem(((432 * g435c) + 17722), (group_monster_rec + 148), 14);
-	movmem(((432 * g435c) + 17736), (group_monster_rec + 190), 8);
-	group_monster_rec[190] = (char)((group_monster_rec[190] + group_monster_rec[191]) + group_monster_rec[192]);
-	group_monster_rec[211] = g4593[(432 * g435c)];
-	group_monster_rec[213] = g4592[(432 * g435c)];
-	group_monster_rec[212] = g4591[(432 * g435c)];
-	group_monster_rec[214] = pc_sex[(432 * g435c)];
-	group_monster_rec[208] = pc_class[(432 * g435c)];
-	goto Lce09;
-Lcc9f:
-	if (l2[31]) goto Lce09;
-	group_monster_rec[134] = pc_stats[((unsigned char)l2[32] * 432)];
-	group_monster_rec[135] = g4515[((unsigned char)l2[32] * 432)];
-	group_monster_rec[136] = g4518[((unsigned char)l2[32] * 432)];
-	group_monster_rec[137] = g4519[((unsigned char)l2[32] * 432)];
-	movmem((((unsigned char)l2[32] * 432) + 17722), (group_monster_rec + 148), 14);
-	movmem((((unsigned char)l2[32] * 432) + 17736), (group_monster_rec + 190), 8);
-	l4 = 0;
-Lcd51:
-	if ((l4 == 1) || (l4 == 2)) goto Lcd83;
-	(group_monster_rec + l4)[190] = (char)(((group_monster_rec + l4)[190] + group_monster_rec[191]) + group_monster_rec[192]);
-Lcd83:
-	l4++;
-	if (l4 < 8) goto Lcd51;
-	group_monster_rec[211] = g4593[((unsigned char)l2[32] * 432)];
-	group_monster_rec[213] = g4592[((unsigned char)l2[32] * 432)];
-	group_monster_rec[212] = g4591[((unsigned char)l2[32] * 432)];
-	group_monster_rec[214] = pc_sex[((unsigned char)l2[32] * 432)];
-	group_monster_rec[208] = pc_class[((unsigned char)l2[32] * 432)];
-Lce09:
-	;
-#asm
-lce09:
-	db 08bh,05eh,0feh,08ah,047h,01eh,02ah,0e4h,0e9h,043h,002h
-#endasm
-	if (((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[34] >= 3) || (((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[43])) goto Lcee7;
-	l10 = (unsigned char)(l2 + ((unsigned char)l2[33] % 2))[28];
-	if ((g435e) || ((unsigned char)pc_equipped[((432 * g435c) + l10)] != 255)) goto Lce81;
-	l10 = 0;
-Lce81:
-	l12 = *(int *)((l2 + (((unsigned char)l2[33] % 2) << 1)) + 10);
-	combat_delay(2);
-	f723e(l2, l10, l12);
-	if ((l12 != 3) && (l12 != 6)) goto Lced3;
-	reduce_field6(l2, (random(4) + 3));
-	goto Lcee7;
-Lced3:
-	reduce_field6(l2, (random(3) + 2));
-Lcee7:
-	goto Ld064;
-	combat_delay(2);
-#asm
-	db 0ffh,076h,0feh
-	call do_cast_action_
-	db 059h,050h,0ffh,076h,0feh
-	call reduce_field6_
-	db 083h,0c4h,004h,0e9h,05eh,001h
-#endasm
-	combat_delay(2);
-#asm
-	db 0ffh,076h,0feh
-	call fb934_
-	db 059h,050h,0ffh,076h,0feh
-	call reduce_field6_
-	db 083h,0c4h,004h,0e9h,042h,001h
-#endasm
-	if (*(int *)(l2 + 10) != 3) goto Lcf5e;
-	l4 = (int)(((long)*(int *)(l2 + 8) * 5) / 100L);
-	*(int *)(l2 + 6) = ((random(l4) + *(int *)(l2 + 6)) + 1);
-#asm
-	db 08bh,047h,006h,03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
-#endasm
-Lcf5e:
-	goto Ld064;
-	combat_delay(2);
-	do_change_equipment();
-	reduce_field6(l2, (random(4) + 3));
-	reset_animation();
-	clear_window(party_picture_win, 0);
-	game_state = 17;
-	return_cmd = 13;
-	cur_member = g435c;
-	return;
-	combat_delay(2);
-	do_use_item_action(l2);
-#asm
-	db 0b8h,003h,000h,050h
+	db 083h,0c4h,004h,03dh,001h,000h,075h,009h,08bh,046h,0fch,08bh,05eh,0feh,089h,047h
+	db 00ah
+lca3b:
+	db 0ffh,04eh,0fch,07dh,0d5h
+lca40:
+	db 08bh,05eh,0feh,081h,07fh,00ah,0ffh,000h,075h,005h,0c7h,047h,00ah,008h,000h
+lca4f:
+	db 08bh,05eh,0feh,0c6h,047h,01ch,000h,0a0h,05eh,043h,08bh,05eh,0feh,088h,047h,01fh
+	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah,087h,09dh,001h,02ah
+	db 0e4h,050h
 	call random_
-	db 059h,040h,050h,0ffh,076h,0feh
-	call reduce_field6_
-	db 083h,0c4h,004h,0e9h,098h,000h
-#endasm
-	combat_delay(2);
-	do_advance_retreat(g435c, *(int *)(l2 + 10));
-#asm
+	db 059h,08bh,05eh,0feh,088h,047h,020h,0b8h,001h,000h,050h,0ffh,036h,0b6h,04fh
+	call clear_window_
+	db 083h,0c4h,004h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,036h,05ch,043h,0ffh,036h,05eh,043h,0b8h,00ch,050h,050h
+	call get_combatant_name_
+	db 083h,0c4h,006h,0b8h,0ach,050h,050h,0b8h,08bh,00ch,050h
+	call get_message_
+	db 083h,0c4h,004h,0c6h,006h,05ch,050h,000h,0b8h,000h,000h,050h,0b8h,00eh,000h,050h
+	db 0b8h,006h,000h,083h,03eh,05eh,043h,000h,075h,003h,0b8h,001h,000h
+lcacb:
+	db 050h,0b8h,05ch,050h,050h,0b8h,0ach,050h,050h,0b8h,00ch,050h,050h
+	call print_combat_line_
+	db 083h,0c4h,00ch,0b8h,000h,000h,050h
+	call play_sound_
+	db 059h,0a1h,0c8h,04fh,0b9h,002h,000h,099h,0f7h,0f9h,050h
+	call combat_delay_
+	db 059h,0b8h,001h,000h,050h,0ffh,036h,0b6h,04fh
+	call clear_window_
+	db 083h,0c4h,004h
+lcb02:
+	db 08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,0b9h,02ch,000h,0f7h,0e9h,08bh,0f0h,08ah
+	db 047h,01fh,02ah,0e4h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,022h,003h
+	db 073h,006h,080h,078h,02bh,000h,074h,036h
+lcb2a:
+	db 08bh,05eh,0feh,080h,07fh,01fh,000h,075h,012h,08ah,047h,020h,02ah,0e4h,050h
+	call fc4e7_
+	db 059h,08bh,05eh,0feh,088h,047h,020h,0ebh,01bh
+lcb45:
+	db 08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,050h,08ah,047h,01fh,02ah,0e4h,050h
+	call fc546_
+	db 083h,0c4h,004h,08bh,05eh,0feh,088h,047h,020h
+lcb60:
+	db 083h,07eh,0fah,001h,075h,014h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,03bh,006h
+	db 05ch,043h,075h,006h,0feh,047h,010h,0e9h,043h,0fbh
+lcb7a:
+	db 083h,03eh,05eh,043h,000h,074h,003h,0e9h,01bh,001h
+lcb84:
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,014h,045h,08bh,01eh,0b6h
+	db 043h,088h,087h,086h,000h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h
+	db 015h,045h,08bh,01eh,0b6h,043h,088h,087h,087h,000h,0b8h,0b0h,001h,0f7h,02eh,05ch
+	db 043h,08bh,0d8h,08ah,087h,018h,045h,08bh,01eh,0b6h,043h,088h,087h,088h,000h,0b8h
+	db 0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,019h,045h,08bh,01eh,0b6h,043h
+	db 088h,087h,089h,000h,0b8h,00eh,000h,050h,0a1h,0b6h,043h,005h,094h,000h,050h,0b8h
+	db 0b0h,001h,0f7h,02eh,05ch,043h,005h,03ah,045h,050h
+	call movmem_
+	db 083h,0c4h,006h,0b8h,008h,000h,050h,0a1h,0b6h,043h,005h,0beh,000h,050h,0b8h,0b0h
+	db 001h,0f7h,02eh,05ch,043h,005h,048h,045h,050h
+	call movmem_
+	db 083h,0c4h,006h,08bh,01eh,0b6h,043h,08ah,087h,0beh,000h,098h,050h,08ah,087h,0bfh
+	db 000h,098h,08bh,0c8h,058h,003h,0c1h,050h,08ah,087h,0c0h,000h,098h,08bh,0c8h,058h
+	db 003h,0c1h,088h,087h,0beh,000h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah
+	db 087h,093h,045h,08bh,01eh,0b6h,043h,088h,087h,0d3h,000h,0b8h,0b0h,001h,0f7h,02eh
+	db 05ch,043h,08bh,0d8h,08ah,087h,092h,045h,08bh,01eh,0b6h,043h,088h,087h,0d5h,000h
+	db 0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h,091h,045h,08bh,01eh,0b6h
+	db 043h,088h,087h,0d4h,000h,0b8h,0b0h,001h,0f7h,02eh,05ch,043h,08bh,0d8h,08ah,087h
+	db 086h,045h,08bh,01eh,0b6h,043h,088h,087h,0d6h,000h,0b8h,0b0h,001h,0f7h,02eh,05ch
+	db 043h,08bh,0d8h,08ah,087h,087h,045h,08bh,01eh,0b6h,043h,088h,087h,0d0h,000h,0e9h
+	db 06ah,001h
+lcc9f:
+	db 08bh,05eh,0feh,080h,07fh,01fh,000h,074h,003h,0e9h,05eh,001h
+lccab:
+	db 08ah,047h,020h,02ah,0e4h,0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,08ah,087h,014h,045h
+	db 08bh,01eh,0b6h,043h,088h,087h,086h,000h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h
+	db 0f7h,0e9h,08bh,0d8h,08ah,087h,015h,045h,08bh,01eh,0b6h,043h,088h,087h,087h,000h
+	db 08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,0f7h,0e9h,08bh,0d8h,08ah,087h,018h,045h
+	db 08bh,01eh,0b6h,043h,088h,087h,088h,000h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h
+	db 0f7h,0e9h,08bh,0d8h,08ah,087h,019h,045h,08bh,01eh,0b6h,043h,088h,087h,089h,000h
+	db 0b8h,00eh,000h,050h,0a1h,0b6h,043h,005h,094h,000h,050h,08bh,05eh,0feh,08ah,047h
+	db 020h,02ah,0e4h,0f7h,0e9h,005h,03ah,045h,050h
+	call movmem_
+	db 083h,0c4h,006h,0b8h,008h,000h,050h,0a1h,0b6h,043h,005h,0beh,000h,050h,08bh,05eh
+	db 0feh,08ah,047h,020h,02ah,0e4h,0b9h,0b0h,001h,0f7h,0e9h,005h,048h,045h,050h
+	call movmem_
+	db 083h,0c4h,006h,0c7h,046h,0fch,000h,000h
+lcd51:
+	db 083h,07eh,0fch,001h,074h,02ch,083h,07eh,0fch,002h,074h,026h,08bh,076h,0fch,08bh
+	db 01eh,0b6h,043h,08ah,080h,0beh,000h,098h,050h,08ah,087h,0bfh,000h,098h,08bh,0c8h
+	db 058h,003h,0c1h,050h,08ah,087h,0c0h,000h,098h,08bh,0c8h,058h,003h,0c1h,088h,080h
+	db 0beh,000h
+lcd83:
+	db 0ffh,046h,0fch,08bh,046h,0fch,03dh,008h,000h,07ch,0c3h,08bh,05eh,0feh,08ah,047h
+	db 020h,02ah,0e4h,0b9h,0b0h,001h,0f7h,0e9h,08bh,0d8h,08ah,087h,093h,045h,08bh,01eh
+	db 0b6h,043h,088h,087h,0d3h,000h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,0f7h,0e9h
+	db 08bh,0d8h,08ah,087h,092h,045h,08bh,01eh,0b6h,043h,088h,087h,0d5h,000h,08bh,05eh
+	db 0feh,08ah,047h,020h,02ah,0e4h,0f7h,0e9h,08bh,0d8h,08ah,087h,091h,045h,08bh,01eh
+	db 0b6h,043h,088h,087h,0d4h,000h,08bh,05eh,0feh,08ah,047h,020h,02ah,0e4h,0f7h,0e9h
+	db 08bh,0d8h,08ah,087h,086h,045h,08bh,01eh,0b6h,043h,088h,087h,0d6h,000h,08bh,05eh
+	db 0feh,08ah,047h,020h,02ah,0e4h,0f7h,0e9h,08bh,0d8h,08ah,087h,087h,045h,08bh,01eh
+	db 0b6h,043h,088h,087h,0d0h,000h
+lce09:
+	db 08bh,05eh,0feh,08ah,047h,01eh,02ah,0e4h,0e9h,043h,002h,08bh,05eh,0feh,08ah,047h
+	db 020h,02ah,0e4h,0b9h,02ch,000h,0f7h,0e9h,08bh,0f0h,08ah,047h,01fh,02ah,0e4h,0d1h
+	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,022h,003h,072h,003h,0e9h,0aeh,000h
+lce39:
+	db 080h,078h,02bh,000h,074h,003h,0e9h,0a5h,000h
+lce42:
+	db 08bh,05eh,0feh,08ah,047h,021h,02ah,0e4h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0f2h
+	db 08ah,040h,01ch,02ah,0e4h,089h,046h,0f6h,083h,03eh,05eh,043h,000h,075h,020h,0b8h
+	db 0b0h,001h,0f7h,02eh,05ch,043h,08bh,0c8h,08bh,046h,0f6h,003h,0c8h,08bh,0d9h,08ah
+	db 087h,0f8h,044h,02ah,0e4h,03dh,0ffh,000h,075h,005h,0c7h,046h,0f6h,000h,000h
+lce81:
+	db 08bh,05eh,0feh,08ah,047h,021h,02ah,0e4h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c2h
+	db 0d1h,0e0h,08bh,0f0h,08bh,040h,00ah,089h,046h,0f4h,051h
+	call combat_delay_
+	db 059h,0ffh,076h,0f4h,0ffh,076h,0f6h,0ffh,076h,0feh
+	call f723e_
+	db 083h,0c4h,006h,08bh,046h,0f4h,03dh,003h,000h,074h,005h,03dh,006h,000h,075h,017h
+lcebc:
 	db 0b8h,004h,000h,050h
 	call random_
 	db 059h,040h,040h,040h,050h,0ffh,076h,0feh
 	call reduce_field6_
-	db 083h,0c4h,004h,0ebh,069h
-#endasm
-	combat_delay(2);
-	do_hide(l2);
-#asm
+	db 083h,0c4h,004h,0ebh,014h
+lced3:
 	db 0b8h,003h,000h,050h
+	call random_
+	db 059h,040h,040h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h
+lcee7:
+	db 0e9h,07ah,001h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,076h,0feh
+	call do_cast_action_
+	db 059h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h,0e9h,05eh,001h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,076h,0feh
+	call fb934_
+	db 059h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h,0e9h,042h,001h,08bh,05eh,0feh,083h,07fh,00ah,003h,075h,033h,08bh
+	db 047h,008h,0bbh,005h,000h,0f7h,0ebh,0b9h,064h,000h,0bbh,000h,000h
+	call $ldv
+	db 089h,046h,0fch,050h
+	call random_
+	db 059h,08bh,05eh,0feh,08bh,04fh,006h,003h,0c1h,040h,089h,047h,006h,08bh,047h,006h
+	db 03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
+lcf5e:
+	db 0e9h,003h,001h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h
+	call do_change_equipment_
+	db 0b8h,004h,000h,050h
+	call random_
+	db 059h,040h,040h,040h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h
+	call reset_animation_
+	db 0b8h,000h,000h,050h,0ffh,036h,0b6h,04fh
+	call clear_window_
+	db 083h,0c4h,004h,0c7h,006h,03ah,036h,011h,000h,0c7h,006h,0ceh,04fh,00dh,000h,0a1h
+	db 05ch,043h,0a3h,0cch,043h,0e9h,016h,0f7h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,076h,0feh
+	call do_use_item_action_
+	db 059h,0b8h,003h,000h,050h
 	call random_
 	db 059h,040h,050h,0ffh,076h,0feh
 	call reduce_field6_
-	db 083h,0c4h,004h,0ebh,045h
-#endasm
-	combat_delay(2);
-	do_run_away(l2);
-#asm
-	db 0b8h,005h,000h,050h
+	db 083h,0c4h,004h,0e9h,098h,000h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,08bh,05eh,0feh,0ffh,077h,00ah,0ffh,036h,05ch,043h
+	call do_advance_retreat_
+	db 083h,0c4h,004h,0b8h,004h,000h,050h
+	call random_
+	db 059h,040h,040h,040h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h,0ebh,069h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,076h,0feh
+	call do_hide_
+	db 059h,0b8h,003h,000h,050h
+	call random_
+	db 059h,040h,050h,0ffh,076h,0feh
+	call reduce_field6_
+	db 083h,0c4h,004h,0ebh,045h,0b8h,002h,000h,050h
+	call combat_delay_
+	db 059h,0ffh,076h,0feh
+	call do_run_away_
+	db 059h,0b8h,005h,000h,050h
 	call random_
 	db 059h,005h,005h,000h,050h,0ffh,076h,0feh
 	call reduce_field6_
@@ -310,10 +337,10 @@ Lcf5e:
 	db 0cfh,0fbh,0cfh,01fh,0d0h,006h,0cfh
 ld057:
 	db 03dh,009h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,045h,0d0h
+ld064:
+	db 083h,03eh,05eh,043h,000h,075h,00eh,0b8h,000h,000h,050h,0ffh,036h,05ch,043h
+	call draw_member_card_x_
+	db 083h,0c4h,004h
+ld079:
+	db 0e9h,041h,0f6h
 #endasm
-Ld064:
-	if (!g435e) {
-	draw_member_card_x(g435c, 0);
-	}
-	return;
-}

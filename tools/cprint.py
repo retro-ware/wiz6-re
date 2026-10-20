@@ -309,6 +309,8 @@ class Printer:
                 return '(%s * %d)' % (self.ex(lin[0]), lin[1])
             if e[1][0] == 'u':
                 return '((%s)%s %s %s)' % (self.unsigned(e), self.ex(e[2]), e[1][1:], self.ex(e[3]))
+            if e[1] == '+' and e[2] in getattr(self.L, 'mptr', ()):
+                return '((char *)%s + %s)' % (self.ex(e[2]), self.ex(e[3]))
             return '(%s %s %s)' % (self.ex(e[2]), e[1], self.ex(e[3]))
         if k == 'lc':           # a call returning a long (dx:ax)
             self.lcalls.add(e[1][1])

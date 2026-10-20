@@ -11,8 +11,7 @@
 	global g502a_:byte,2
 	global g502c_:byte,2
 	global g502e_:byte,2
-	global g5030_:byte,2
-	global g5032_:byte,2
+	global g5030_:byte,4
 	global g5034_:byte,2
 	global g5036_:byte,2
 	global g5038_:byte,2
@@ -21,14 +20,9 @@
 	global g503e_:byte,1
 	global g503f_:byte,23
 	global g5056_:byte,1
-	global g5057_:byte,1
-	global g5058_:byte,21
-	global g506d_:byte,21
+	global g5057_:byte,43
 	global g5082_:byte,70
-	global g50c8_:byte,22
-	global g50de_:byte,20
-	global g50f2_:byte,80
-	global g5142_:byte,80
+	global g50c8_:byte,202
 	global chest_trap_:byte,2
 	global g5194_:byte,40
 	global trap_guess_letters_:byte,20

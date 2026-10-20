@@ -1,437 +1,583 @@
-extern char g558e[];
-extern char g558f;
-extern char pc_class[];
-extern char pc_item_qty[];
-extern char pc_race[];
-extern char pc_sex[];
-extern int pc_item_id[];
-extern int realm_colors[];
 /* Show an item's description window: type, damage, classes, spells. */
-show_item_info(p4, p6, p8, p10)
-{
-	int l2;
-	int l4;
-	char *l6;
-	int l8;
-	char l9;
-	char l10;
-	char x10[1];
-	char l12;
-	char l13;
-	char l14;
-	char l22[8];
-	int l24;
-	int l26;
-	char l34[8];
-	char x34[1];
-	char l36;
-	char l37;
-	char l38;
-	char l39;
-	char l40;
-	char l41;
-	char l42;
-	char l43;
-	char l44;
-	char l45;
-	char l46;
-	char l47;
-	char x47[1];
-	int l50;
-	int l52;
-	char l53;
-	char l54;
-	int l56;
-	char x56[22];
-	int l80;
-	int l122[21];
-	int l124;
-	int l126;
-	char x126[38];
-	int l166;
-	int l168;
-	int l170;
-	access_scenario_record(1, &l80, *(int *)((char *)pc_item_id + ((432 * p6) + (p8 << 3))), 0);
-	l6 = create_window(20, 8, 20, 12, 25, -1, 0, 0);
-	fill_window(l6, 0, 1, 0);
-	fb139(l6, 0, 0, 21);
-	fb139(l6, 19, 0, 8);
-	fb139(l6, 0, 11, 11);
-	fb139(l6, 19, 11, 8);
-	for (l2 = 1; l2 < 19; l2++) {
-	fb139(l6, l2, 0, 7);
-	fb139(l6, l2, 2, 18);
-	fb139(l6, l2, 11, 7);
-	}
-	for (l2 = 2; l2 < 11; l2++) {
-	fb139(l6, 0, l2, 13);
-	fb139(l6, 19, l2, 5);
-	}
-	fb139(l6, 0, 2, 36);
-	fb139(l6, 19, 2, 19);
-	fb139(l6, 0, 5, 15);
-	fb139(l6, 0, 7, 15);
-	fb139(l6, 0, 9, 15);
-	fb139(l6, 0, 1, 5);
-	defer_window_draw(l6);
-	set_cursor(l6, 1, 1);
-	for (l2 = 1; l2 < 20; l2++) {
-	put_char_hi(l6, 32, 3);
-	}
-	put_icon_at2(l6, 1, 1, ((unsigned char)l22[3] + 1));
-	put_icon_at2(l6, 18, 1, ((unsigned char)l22[3] + 1));
-	set_cursor(l6, (10 - ((strlen(&l80) + 1) / 2)), 1);
-	print_string_hi(l6, &l80, 3);
-	l122[19] = 0;
-	l122[18] = 0;
-	l122[17] = 0;
-	l122[16] = 0;
-	l122[15] = 0;
-	l122[14] = 0;
-	l122[13] = 0;
-	l122[12] = 0;
-	l122[11] = 0;
-	l122[8] = 0;
-	l122[6] = 0;
-	l122[7] = 0;
-	l122[10] = 1;
-	l122[9] = 7;
-	switch ((unsigned char)l22[2]) {
-case 0:
-case 1:
-case 2:
-case 3:
-	l122[19] = 1;
-	l122[16] = 1;
-	l122[14] = 1;
-	l122[13] = 1;
-	l122[8] = 1;
-	l122[6] = 1;
-	l122[7] = 1;
-	goto Lba42;
-case 4:
-	l122[18] = 1;
-	l122[8] = 1;
-	l122[6] = 1;
-	goto Lba42;
-case 5:
-	l122[17] = 1;
-	l122[9] = 3;
-	l122[12] = 1;
-	l122[7] = 1;
-	goto Lba42;
-case 6:
-case 7:
-case 8:
-case 9:
-case 10:
-	l122[17] = 1;
-	l122[15] = 1;
-	l122[12] = 1;
-	l122[7] = 1;
-	goto Lba42;
-case 11:
-	l122[17] = 1;
-	l122[12] = 1;
-	l122[7] = 1;
-	goto Lba42;
-case 12:
-case 16:
-	l122[10] = 0;
-	l122[19] = 1;
-	l122[11] = 1;
-	l122[13] = 1;
-	goto Lba42;
-case 13:
-	l122[10] = 0;
-	l122[18] = 1;
-	l122[11] = 1;
-	goto Lba42;
-case 14:
-case 15:
-	l122[18] = 1;
-	l122[13] = 1;
-	l122[7] = 1;
-	goto Lba42;
-	}
-Lba42:
-	if (p10) goto Lc029;
-	get_message(((unsigned char)l22[2] + 1550), 21902);
-	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 3);
-	print_string(l6, 21902, 1);
-	if (!l122[10]) goto Lbbaa;
-	set_cursor(l6, 3, 4);
-	get_message(454, 21902);
-	for (l2 = 0; l2 < 11; l2++) {
-	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l24, l2) == 1 ? 6 : 11));
-	}
-	l6[6]++;
-	get_message(455, 21902);
-	for (l2 = 0; l2 < 2; l2++) {
-	put_char(l6, (unsigned char)g558e[l2], (test_bit(l22, l2) == 1 ? 6 : 11));
-	}
-	set_cursor(l6, 3, 5);
-	get_message(456, 21902);
-	for (l2 = 0; l2 < 14; l2++) {
-	put_char(l6, (unsigned char)g558e[l2], (test_bit(&l26, l2) == 1 ? 6 : 11));
-	}
-	goto Lbc08;
-Lbbaa:
-	if ((!l122[11]) || (!l52)) goto Lbc08;
-	l126 = (l52 % 256);
-	get_message((l126 + 4000), 21902);
-	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 5);
-	print_string(l6, 21902, 4);
-Lbc08:
-	if (!l122[14]) goto Lbdc3;
-	switch ((unsigned char)l22[3]) {
-case 0:
-case 18:
-case 89:
-	l124 = 0;
-	goto Lbd0a;
-case 1:
-case 14:
-case 15:
-case 16:
-case 51:
-case 53:
-case 55:
-case 58:
-case 59:
-	l124 = 1;
-	goto Lbd0a;
-case 2:
-case 3:
-	l124 = 2;
-	goto Lbd0a;
-case 4:
-case 5:
-case 6:
-case 52:
-case 54:
-case 56:
-case 98:
-	l124 = 3;
-	goto Lbd0a;
-case 7:
-case 8:
-case 9:
-case 10:
-case 17:
-case 19:
-case 57:
-case 90:
-	l124 = 4;
-	goto Lbd0a;
-case 11:
-case 12:
-	l124 = 7;
-	goto Lbd0a;
-case 13:
-	l124 = 6;
-	goto Lbd0a;
-case 24:
-case 38:
-	l124 = 8;
-	goto Lbd0a;
-case 20:
-case 21:
-	l124 = 5;
-	goto Lbd0a;
-	}
-Lbd0a:
-	if (((test_bit(&l24, (unsigned char)pc_race[(432 * p6)]) == 1) && (test_bit(&l26, (unsigned char)pc_class[(432 * p6)]) == 1)) && (test_bit(l22, (unsigned char)pc_sex[(432 * p6)]) == 1)) goto Lbd79;
-	get_message(1567, 21902);
-	l2 = 9;
-	goto Lbd8f;
-Lbd79:
-	get_message((l124 + 5500), 21902);
-	l2 = 2;
-Lbd8f:
-	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 6);
-	print_string(l6, 21902, l2);
-Lbdc3:
-	if (!l122[13]) goto Lbe78;
-	if (l22[2] != 3) goto Lbe04;
-	get_message(3058, 21902);
-	set_cursor(l6, 3, 7);
-	print_string(l6, 21902, 5);
-	goto Lbe78;
-Lbe04:
-	l4 = 0;
-	l2 = 0;
-Lbe0e:
-	if (test_bit(&l8, l2) == 1) {
-	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + 7));
-	get_message((l2 + 3050), 21902);
-	print_string(l6, 21902, 5);
-	l4++;
-	}
-	l2++;
-	if (l2 < 8) goto Lbe0e;
-Lbe78:
-	set_cursor(l6, 1, 10);
-	if ((!l122[19]) && (!l122[18])) goto Lbef4;
-	get_message(451, 21902);
-	put_char(l6, (unsigned char)g558e[0], (l122[19] != 0 ? 6 : 14));
-	put_char(l6, 47, 14);
-	put_char(l6, (unsigned char)g558f, (((unsigned char)l22[(0 + 1)] & 8) ? 6 : 14));
-	goto Lbf4a;
-Lbef4:
-	if (!l122[17]) goto Lbf4a;
-	get_message(452, 21902);
-	print_string(l6, 21902, (l122[9] + 8));
-	l6[6]++;
-	int_to_string((0 - l10), 21902);
-	print_string(l6, 21902, l122[9]);
-Lbf4a:
-	if (!l122[16]) goto Lbf91;
-	get_message((((unsigned char)l22[(0 + 1)] & 4) ? 458 : 457), 21902);
-	set_cursor(l6, 8, 10);
-	print_string(l6, 21902, 4);
-	goto Lbfcc;
-Lbf91:
-	if (!l122[15]) goto Lbfcc;
-	get_message(((unsigned char)l22[2] + 454), 21902);
-	set_cursor(l6, 8, 10);
-	print_string(l6, 21902, 4);
-Lbfcc:
-	set_cursor(l6, 14, 10);
-	print_int(l6, (l50 / 10), 3, 9);
-	put_char(l6, 46, 9);
-	print_int(l6, (l50 % 10), 1, 9);
-	goto Lc661;
-Lc029:
-	if ((p10 * 3) <= (unsigned char)l22[4]) goto Lc61e;
-	l168 = 3;
-	if (!l122[8]) goto Lc1d5;
-	set_cursor(l6, 1, 3);
-	get_message(466, 21902);
-	print_string(l6, 21902, 14);
-	int_to_string((unsigned char)l54, 21902);
-	int_to_string((unsigned char)l53, 22416);
-	int_to_string(l56, &l166);
-	set_cursor(l6, (19 - (((strlen(21902) + strlen(22416)) + strlen(&l166)) + 2)), 3);
-	print_string(l6, 21902, 5);
-	get_message(478, 21902);
-	print_string(l6, 21902, 5);
-	print_string(l6, 22416, 5);
-	put_char(l6, 43, 5);
-	print_string(l6, &l166, 5);
-	if (!l9) goto Lc1cf;
-	set_cursor(l6, 1, 4);
-	get_message(467, 21902);
-	print_string(l6, 21902, 14);
-	set_cursor(l6, 7, 4);
-	int_to_string(l9, 21902);
-	if (l9 >= 0) {
-	put_char(l6, 43, 5);
-	}
-	print_string(l6, 21902, 5);
-Lc1cf:
-	l168 = 5;
-Lc1d5:
-	if ((!l122[7]) || (!((unsigned char)l14 - (unsigned char)l13))) goto Lc296;
-	l168 = (l122[8] != 0 ? 4 : 3);
-	set_cursor(l6, 11, l168);
-	get_message(468, 21902);
-	print_string(l6, 21902, 14);
-	set_cursor(l6, 17, l168);
-	int_to_string(((unsigned char)l14 - (unsigned char)l13), 21902);
-	if (((unsigned char)l14 - (unsigned char)l13) >= 0) {
-	put_char(l6, 43, 5);
-	}
-	print_string(l6, 21902, 5);
-	l168 = 5;
-Lc296:
-	if (l22[5]) {
-	set_cursor(l6, 1, l168);
-	get_message(465, 21902);
-	print_string(l6, 21902, 3);
-	set_cursor(l6, 15, l168);
-	fb659(l6, (unsigned char)l22[5], 1);
-	l168++;
-	}
-	if (!l52) goto Lc3b7;
-	l126 = (l52 % 256);
-	get_message((l126 + 4000), 21902);
-	set_cursor(l6, 1, l168);
-	print_string(l6, 21902, 4);
-	set_cursor(l6, 16, l168);
-	if (!pc_item_qty[((432 * p6) + (p8 << 3))]) {
-	get_message(480, 21902);
-	print_string(l6, 21902, 1);
-	} else {
-	print_int(l6, (unsigned char)pc_item_qty[((432 * p6) + (p8 << 3))], 3, 1);
-	}
-	l168++;
-Lc3b7:
-	if ((l168 <= 3) || (l168 >= 8)) goto Lc3c9;
-	l168++;
-Lc3c9:
-	if (l12) {
-	get_message(469, 21902);
-	set_cursor(l6, 1, l168);
-	print_string(l6, 21902, 7);
-	set_cursor(l6, 15, l168);
-	fb659(l6, (unsigned char)l12, 1);
-	l168++;
-	}
-	if (!l122[6]) goto Lc49e;
-	l4 = 0;
-	l2 = 0;
-Lc437:
-	if ((unsigned)l34[l2] > 0) {
-	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + l168));
-	get_message((l2 + 470), 21902);
-	print_string(l6, 21902, 5);
-	l4++;
-	}
-	l2++;
-	if (l2 < 8) goto Lc437;
-	goto Lc61c;
-Lc49e:
-	if (!l122[12]) goto Lc61c;
-	l122[0] = (((unsigned char)l47 + (unsigned char)l46) / 2);
-	l122[1] = (((unsigned char)l45 + (unsigned char)l44) / 2);
-	l122[2] = (((unsigned char)l43 + (unsigned char)l42) / 2);
-	l122[3] = (((unsigned char)l41 + (unsigned char)l40) / 2);
-	l122[4] = (((unsigned char)l39 + (unsigned char)l38) / 2);
-	l122[5] = (((unsigned char)l37 + (unsigned char)l36) / 2);
-	for (l2 = 0; l2 < 6; l2++) {
-	l122[l2] = (l122[l2] > 99 ? 99 : l122[l2]);
-	set_cursor(l6, (((l2 / 3) * 9) + 1), ((l2 % 3) + l168));
-	get_message((l2 + 3950), 21902);
-	print_string(l6, 21902, realm_colors[l2]);
-	set_cursor(l6, (((l2 / 3) * 9) + 7), ((l2 % 3) + l168));
-	print_int(l6, l122[l2], 2, 1);
-	put_char(l6, 37, realm_colors[l2]);
-	}
-Lc61c:
-	goto Lc661;
-Lc61e:
-	get_message(482, 21902);
-	set_cursor(l6, (10 - ((strlen(21902) + 1) / 2)), 4);
-	print_string(l6, 21902, 1);
-Lc661:
-	resume_window_draw(l6);
-	fill_window(p4, 32, 3, 0);
-	defer_window_draw(p4);
-	get_message(609, 21902);
-	set_cursor(p4, (20 - ((strlen(21902) + 1) / 2)), 1);
-	print_string_hi(p4, 21902, 3);
-	resume_window_draw(p4);
-	refresh_window(l6);
-	refresh_window(p4);
-	l170 = 1;
-Lc6e2:
-	if (check_screen_click()) {
-	l170 = 0;
-	}
-	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto Lc70e;
-	l170 = 0;
-Lc70e:
-	if (l170) goto Lc6e2;
-	destroy_window(l6, 0);
-}
+#asm
+	public show_item_info_
+	extrn access_scenario_record_:near
+	extrn check_screen_click_:near
+	extrn create_window_:near
+	extrn defer_window_draw_:near
+	extrn destroy_window_:near
+	extrn fb139_:near
+	extrn fb659_:near
+	extrn fill_window_:near
+	extrn get_key_:near
+	extrn get_message_:near
+	extrn int_to_string_:near
+	extrn key_available_:near
+	extrn print_int_:near
+	extrn print_string_:near
+	extrn print_string_hi_:near
+	extrn put_char_:near
+	extrn put_char_hi_:near
+	extrn put_icon_at2_:near
+	extrn refresh_window_:near
+	extrn resume_window_draw_:near
+	extrn set_cursor_:near
+	extrn strlen_:near
+	extrn test_bit_:near
+show_item_info_:
+	db 055h,08bh,0ech,081h,0c4h,056h,0ffh,0b8h,000h,000h,050h,0b8h,0b0h,001h,0f7h,06eh
+	db 006h,08bh,04eh,008h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,0ffh,0b7h
+	db 028h,044h,08dh,046h,0b0h,050h,0b8h,001h,000h,050h
+	call access_scenario_record_
+	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0b8h,0ffh,0ffh,050h,0b8h,019h,000h,050h
+	db 0b8h,00ch,000h,050h,0b8h,014h,000h,050h,0b8h,008h,000h,050h,0b8h,014h,000h,050h
+	call create_window_
+	db 083h,0c4h,010h,089h,046h,0fah,0b8h,000h,000h,050h,0b8h,001h,000h,050h,0b8h,000h
+	db 000h,050h,0ffh,076h,0fah
+	call fill_window_
+	db 083h,0c4h,008h,0b8h,015h,000h,050h,0b8h,000h,000h,050h,050h,0ffh,076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,008h,000h,050h,0b8h,000h,000h,050h,0b8h,013h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,00bh,000h,050h,050h,0b8h,000h,000h,050h,0ffh,076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,008h,000h,050h,0b8h,00bh,000h,050h,0b8h,013h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0c7h,046h,0feh,001h,000h
+lb782:
+	db 0b8h,007h,000h,050h,0b8h,000h,000h,050h,0ffh,076h,0feh,0ffh,076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,012h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,0feh,0ffh,076h
+	db 0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,007h,000h,050h,0b8h,00bh,000h,050h,0ffh,076h,0feh,0ffh,076h
+	db 0fah
+	call fb139_
+	db 083h,0c4h,008h,0ffh,046h,0feh,08bh,046h,0feh,03dh,013h,000h,07ch,0b9h,0c7h,046h
+	db 0feh,002h,000h
+lb7ce:
+	db 0b8h,00dh,000h,050h,0ffh,076h,0feh,0b8h,000h,000h,050h,0ffh,076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,005h,000h,050h,0ffh,076h,0feh,0b8h,013h,000h,050h,0ffh,076h
+	db 0fah
+	call fb139_
+	db 083h,0c4h,008h,0ffh,046h,0feh,08bh,046h,0feh,03dh,00bh,000h,07ch,0cdh,0b8h,024h
+	db 000h,050h,0b8h,002h,000h,050h,0b8h,000h,000h,050h,0ffh,076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,013h,000h,050h,0b8h,002h,000h,050h,0b8h,013h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,00fh,000h,050h,0b8h,005h,000h,050h,0b8h,000h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,00fh,000h,050h,0b8h,007h,000h,050h,0b8h,000h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,00fh,000h,050h,0b8h,009h,000h,050h,0b8h,000h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0b8h,005h,000h,050h,0b8h,001h,000h,050h,0b8h,000h,000h,050h,0ffh
+	db 076h,0fah
+	call fb139_
+	db 083h,0c4h,008h,0ffh,076h,0fah
+	call defer_window_draw_
+	db 059h,0b8h,001h,000h,050h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0c7h,046h,0feh,001h,000h
+lb899:
+	db 0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,0fah
+	call put_char_hi_
+	db 083h,0c4h,006h,0ffh,046h,0feh,08bh,046h,0feh,03dh,014h,000h,07ch,0e4h,08ah,046h
+	db 0edh,02ah,0e4h,040h,050h,0b8h,001h,000h,050h,050h,0ffh,076h,0fah
+	call put_icon_at2_
+	db 083h,0c4h,008h,08ah,046h,0edh,02ah,0e4h,040h,050h,0b8h,001h,000h,050h,0b8h,012h
+	db 000h,050h,0ffh,076h,0fah
+	call put_icon_at2_
+	db 083h,0c4h,008h,0b8h,001h,000h,050h,08dh,046h,0b0h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
+	db 0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0b0h,050h,0ffh,076h,0fah
+	call print_string_hi_
+	db 083h,0c4h,006h,0c7h,046h,0ach,000h,000h,0c7h,046h,0aah,000h,000h,0c7h,046h,0a8h
+	db 000h,000h,0c7h,046h,0a6h,000h,000h,0c7h,046h,0a4h,000h,000h,0c7h,046h,0a2h,000h
+	db 000h,0c7h,046h,0a0h,000h,000h,0c7h,046h,09eh,000h,000h,0c7h,046h,09ch,000h,000h
+	db 0c7h,046h,096h,000h,000h,0c7h,046h,092h,000h,000h,0c7h,046h,094h,000h,000h,0c7h
+	db 046h,09ah,001h,000h,0c7h,046h,098h,007h,000h,08ah,046h,0ech,02ah,0e4h,0e9h,0d0h
+	db 000h,0c7h,046h,0ach,001h,000h,0c7h,046h,0a6h,001h,000h,0c7h,046h,0a2h,001h,000h
+	db 0c7h,046h,0a0h,001h,000h,0c7h,046h,096h,001h,000h,0c7h,046h,092h,001h,000h,0c7h
+	db 046h,094h,001h,000h,0e9h,0b7h,000h,0c7h,046h,0aah,001h,000h,0c7h,046h,096h,001h
+	db 000h,0c7h,046h,092h,001h,000h,0e9h,0a5h,000h,0c7h,046h,0a8h,001h,000h,0c7h,046h
+	db 098h,003h,000h,0c7h,046h,09eh,001h,000h,0c7h,046h,094h,001h,000h,0e9h,08eh,000h
+	db 0c7h,046h,0a8h,001h,000h,0c7h,046h,0a4h,001h,000h,0c7h,046h,09eh,001h,000h,0c7h
+	db 046h,094h,001h,000h,0ebh,078h,0c7h,046h,0a8h,001h,000h,0c7h,046h,09eh,001h,000h
+	db 0c7h,046h,094h,001h,000h,0ebh,067h,0c7h,046h,09ah,000h,000h,0c7h,046h,0ach,001h
+	db 000h,0c7h,046h,09ch,001h,000h,0c7h,046h,0a0h,001h,000h,0ebh,051h,0c7h,046h,09ah
+	db 000h,000h,0c7h,046h,0aah,001h,000h,0c7h,046h,09ch,001h,000h,0ebh,040h,0c7h,046h
+	db 0aah,001h,000h,0c7h,046h,0a0h,001h,000h,0c7h,046h,094h,001h,000h,0ebh,02fh,065h
+	db 0b9h,065h,0b9h,065h,0b9h,065h,0b9h,08bh,0b9h,09dh,0b9h,0b4h,0b9h,0b4h,0b9h,0b4h
+	db 0b9h,0b4h,0b9h,0b4h,0b9h,0cah,0b9h,0dbh,0b9h,0f1h,0b9h,002h,0bah,002h,0bah,0dbh
+	db 0b9h
+lba35:
+	db 03dh,011h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,013h,0bah
+lba42:
+	db 083h,07eh,00ah,000h,074h,003h,0e9h,0deh,005h
+lba4b:
+	db 0b8h,08eh,055h,050h,08ah,046h,0ech,02ah,0e4h,005h,00eh,006h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,003h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
+	db 0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,083h,07eh,09ah,000h,075h,003h,0e9h,00eh,001h
+lba9c:
+	db 0b8h,004h,000h,050h,0b8h,003h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0c6h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,000h,000h
+lbac0:
+	db 0ffh,076h,0feh,08dh,046h,0e8h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,005h,0b8h,006h,000h,0ebh,003h
+lbad7:
+	db 0b8h,00bh,000h
+lbada:
+	db 050h,08bh,05eh,0feh,08ah,087h,08eh,055h,02ah,0e4h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0ffh,046h,0feh,08bh,046h,0feh,03dh,00bh,000h,07ch,0c7h,08bh,05eh
+	db 0fah,0feh,047h,006h,0b8h,08eh,055h,050h,0b8h,0c7h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,000h,000h
+lbb12:
+	db 0ffh,076h,0feh,08dh,046h,0eah,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,005h,0b8h,006h,000h,0ebh,003h
+lbb29:
+	db 0b8h,00bh,000h
+lbb2c:
+	db 050h,08bh,05eh,0feh,08ah,087h,08eh,055h,02ah,0e4h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0ffh,046h,0feh,08bh,046h,0feh,03dh,002h,000h,07ch,0c7h,0b8h,005h
+	db 000h,050h,0b8h,003h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0c8h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,000h,000h
+lbb6f:
+	db 0ffh,076h,0feh,08dh,046h,0e6h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,005h,0b8h,006h,000h,0ebh,003h
+lbb86:
+	db 0b8h,00bh,000h
+lbb89:
+	db 050h,08bh,05eh,0feh,08ah,087h,08eh,055h,02ah,0e4h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0ffh,046h,0feh,08bh,046h,0feh,03dh,00eh,000h,07ch,0c7h,0ebh,05eh
+lbbaa:
+	db 083h,07eh,09ch,000h,074h,058h,083h,07eh,0cch,000h,074h,052h,08bh,046h,0cch,0b9h
+	db 000h,001h,099h,0f7h,0f9h,089h,056h,082h,0b8h,08eh,055h,050h,081h,0c2h,0a0h,00fh
+	db 08bh,0c2h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
+	db 0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lbc08:
+	db 083h,07eh,0a2h,000h,075h,003h,0e9h,0b2h,001h
+lbc11:
+	db 08ah,046h,0edh,02ah,0e4h,0e9h,0dah,000h,0c7h,046h,084h,000h,000h,0e9h,0e9h,000h
+	db 0c7h,046h,084h,001h,000h,0e9h,0e1h,000h,0c7h,046h,084h,002h,000h,0e9h,0d9h,000h
+	db 0c7h,046h,084h,003h,000h,0e9h,0d1h,000h,0c7h,046h,084h,004h,000h,0e9h,0c9h,000h
+	db 0c7h,046h,084h,007h,000h,0e9h,0c1h,000h,0c7h,046h,084h,006h,000h,0e9h,0b9h,000h
+	db 0c7h,046h,084h,008h,000h,0e9h,0b1h,000h,0c7h,046h,084h,005h,000h,0e9h,0a9h,000h
+	db 000h,000h,001h,000h,002h,000h,003h,000h,004h,000h,005h,000h,006h,000h,007h,000h
+	db 008h,000h,009h,000h,00ah,000h,00bh,000h,00ch,000h,00dh,000h,00eh,000h,00fh,000h
+	db 010h,000h,011h,000h,012h,000h,013h,000h,014h,000h,015h,000h,018h,000h,026h,000h
+	db 033h,000h,034h,000h,035h,000h,036h,000h,037h,000h,038h,000h,039h,000h,03ah,000h
+	db 03bh,000h,059h,000h,05ah,000h,062h,000h,019h,0bch,021h,0bch,029h,0bch,029h,0bch
+	db 031h,0bch,031h,0bch,031h,0bch,039h,0bch,039h,0bch,039h,0bch,039h,0bch,041h,0bch
+	db 041h,0bch,049h,0bch,021h,0bch,021h,0bch,021h,0bch,039h,0bch,019h,0bch,039h,0bch
+	db 059h,0bch,059h,0bch,051h,0bch,051h,0bch,021h,0bch,031h,0bch,021h,0bch,031h,0bch
+	db 021h,0bch,031h,0bch,039h,0bch,021h,0bch,021h,0bch,019h,0bch,039h,0bch,031h,0bch
+	db 00ah,0bdh
+lbcf3:
+	db 006h,08ch,0c9h,08eh,0c1h,057h,0bfh,061h,0bch,0b9h,025h,000h,0fch,0f2h,0afh,026h
+	db 08bh,04dh,046h,05fh,007h,0ffh,0e1h
+lbd0a:
+	db 0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah,087h,085h,045h,02ah,0e4h,050h,08dh
+	db 046h,0e8h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,03ch,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h
+	db 08ah,087h,087h,045h,02ah,0e4h,050h,08dh,046h,0e6h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,01eh,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h
+	db 08ah,087h,086h,045h,02ah,0e4h,050h,08dh,046h,0eah,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,074h,015h
+lbd64:
+	db 0b8h,08eh,055h,050h,0b8h,01fh,006h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,009h,000h,0ebh,016h
+lbd79:
+	db 0b8h,08eh,055h,050h,08bh,046h,084h,005h,07ch,015h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,002h,000h
+lbd8f:
+	db 0b8h,006h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
+	db 0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0ffh,076h,0feh,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lbdc3:
+	db 083h,07eh,0a0h,000h,075h,003h,0e9h,0ach,000h
+lbdcc:
+	db 080h,07eh,0ech,003h,075h,032h,0b8h,08eh,055h,050h,0b8h,0f2h,00bh,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,007h,000h,050h,0b8h,003h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ebh,074h
+lbe04:
+	db 0c7h,046h,0fch,000h,000h,0c7h,046h,0feh,000h,000h
+lbe0e:
+	db 0ffh,076h,0feh,08dh,046h,0f8h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,04dh,08bh,046h,0fch,0b9h,003h,000h,099h,0f7h
+	db 0f9h,08bh,0c2h,005h,007h,000h,050h,08bh,046h,0fch,099h,0f7h,0f9h,0d1h,0e0h,0d1h
+	db 0e0h,0d1h,0e0h,040h,040h,040h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08bh,046h,0feh,005h,0eah,00bh,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,046h,0fch
+lbe6d:
+	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07ch,096h
+lbe78:
+	db 0b8h,00ah,000h,050h,0b8h,001h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,083h,07eh,0ach,000h,075h,006h,083h,07eh,0aah,000h,074h,05fh
+lbe95:
+	db 0b8h,08eh,055h,050h,0b8h,0c3h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00eh,000h,083h,07eh,0ach,000h,074h,003h,0b8h,006h,000h
+lbeaf:
+	db 050h,0a0h,08eh,055h,02ah,0e4h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0b8h,00eh,000h,050h,0b8h,02fh,000h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,08ah,046h,0ebh,02ah,0e4h,0a9h,008h,000h,074h,005h,0b8h,006h,000h
+	db 0ebh,003h
+lbedf:
+	db 0b8h,00eh,000h
+lbee2:
+	db 050h,0a0h,08fh,055h,02ah,0e4h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0ebh,056h
+lbef4:
+	db 083h,07eh,0a8h,000h,074h,050h,0b8h,08eh,055h,050h,0b8h,0c4h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,08bh,046h,098h,005h,008h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h
+	db 0fah
+	call print_string_
+	db 083h,0c4h,006h,08bh,05eh,0fah,0feh,047h,006h,0b8h,08eh,055h,050h,0b8h,000h,000h
+	db 050h,08ah,046h,0f6h,098h,08bh,0c8h,058h,02bh,0c1h,050h
+	call int_to_string_
+	db 083h,0c4h,004h,0ffh,076h,098h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lbf4a:
+	db 083h,07eh,0a6h,000h,074h,041h,0b8h,08eh,055h,050h,08ah,046h,0ebh,02ah,0e4h,0a9h
+	db 004h,000h,074h,005h,0b8h,0cah,001h,0ebh,003h
+lbf63:
+	db 0b8h,0c9h,001h
+lbf66:
+	db 050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00ah,000h,050h,0b8h,008h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ebh,03bh
+lbf91:
+	db 083h,07eh,0a4h,000h,074h,035h,0b8h,08eh,055h,050h,08ah,046h,0ech,02ah,0e4h,005h
+	db 0c6h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00ah,000h,050h,0b8h,008h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lbfcc:
+	db 0b8h,00ah,000h,050h,0b8h,00eh,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,009h,000h,050h,0b8h,003h,000h,050h,08bh,046h,0ceh,0b9h,00ah
+	db 000h,099h,0f7h,0f9h,050h,0ffh,076h,0fah
+	call print_int_
+	db 083h,0c4h,008h,0b8h,009h,000h,050h,0b8h,02eh,000h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0b8h,009h,000h,050h,0b8h,001h,000h,050h,08bh,046h,0ceh,0b9h,00ah
+	db 000h,099h,0f7h,0f9h,08bh,0c2h,050h,0ffh,076h,0fah
+	call print_int_
+	db 083h,0c4h,008h,0e9h,038h,006h
+lc029:
+	db 08bh,046h,00ah,08bh,0d0h,0d1h,0e0h,003h,0c2h,050h,08ah,046h,0eeh,02ah,0e4h,08bh
+	db 0c8h,058h,03bh,0c1h,07fh,003h,0e9h,0dch,005h
+lc042:
+	db 0c7h,086h,058h,0ffh,003h,000h,083h,07eh,096h,000h,075h,003h,0e9h,084h,001h
+lc051:
+	db 0b8h,003h,000h,050h,0b8h,001h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0d2h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00eh,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08ah,046h,0cah,02ah,0e4h,050h
+	call int_to_string_
+	db 083h,0c4h,004h,0b8h,090h,057h,050h,08ah,046h,0cbh,02ah,0e4h,050h
+	call int_to_string_
+	db 083h,0c4h,004h,08dh,086h,05ah,0ffh,050h,0ffh,076h,0c8h
+	call int_to_string_
+	db 083h,0c4h,004h,0b8h,003h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,050h,0b8h,090h,057h,050h
+	call strlen_
+	db 059h,08bh,0c8h,058h,003h,0c1h,050h,08dh,086h,05ah,0ffh,050h
+	call strlen_
+	db 059h,08bh,0c8h,058h,003h,0c1h,08bh,0c8h,040h,040h,08bh,0c8h,0b8h,013h,000h,02bh
+	db 0c1h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0deh,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,0b8h,090h,057h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,0b8h,02bh,000h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,08dh,086h,05ah,0ffh,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,080h,07eh,0f7h,000h,074h,078h,0b8h,004h,000h,050h,0b8h,001h,000h
+	db 050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0d3h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00eh,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,007h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08ah,046h,0f7h,098h,050h
+	call int_to_string_
+	db 083h,0c4h,004h,080h,07eh,0f7h,000h,07ch,011h,0b8h,005h,000h,050h,0b8h,02bh,000h
+	db 050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h
+lc1be:
+	db 0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lc1cf:
+	db 0c7h,086h,058h,0ffh,005h,000h
+lc1d5:
+	db 083h,07eh,094h,000h,075h,003h,0e9h,0b8h,000h
+lc1de:
+	db 08ah,046h,0f2h,02ah,0e4h,050h,08ah,046h,0f3h,02ah,0e4h,08bh,0c8h,058h,02bh,0c1h
+	db 075h,003h,0e9h,0a3h,000h
+lc1f3:
+	db 0b8h,003h,000h,083h,07eh,096h,000h,074h,003h,0b8h,004h,000h
+lc1ff:
+	db 089h,086h,058h,0ffh,050h,0b8h,00bh,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0d4h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,00eh,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,0b6h,058h,0ffh,0b8h,011h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08ah,046h,0f2h,02ah,0e4h,050h,08ah,046h,0f3h
+	db 02ah,0e4h,08bh,0c8h,058h,02bh,0c1h,050h
+	call int_to_string_
+	db 083h,0c4h,004h,08ah,046h,0f2h,02ah,0e4h,050h,08ah,046h,0f3h,02ah,0e4h,08bh,0c8h
+	db 058h,02bh,0c1h,07ch,011h,0b8h,005h,000h,050h,0b8h,02bh,000h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h
+lc27f:
+	db 0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0c7h,086h,058h,0ffh,005h,000h
+lc296:
+	db 080h,07eh,0efh,000h,074h,058h,0ffh,0b6h,058h,0ffh,0b8h,001h,000h,050h,0ffh,076h
+	db 0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,0b8h,0d1h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,003h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,0b6h,058h,0ffh,0b8h,00fh,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,08ah,046h,0efh,02ah,0e4h,050h,0ffh,076h,0fah
+	call fb659_
+	db 083h,0c4h,006h,0ffh,086h,058h,0ffh
+lc2f4:
+	db 083h,07eh,0cch,000h,075h,003h,0e9h,0bah,000h
+lc2fd:
+	db 08bh,046h,0cch,0b9h,000h,001h,099h,0f7h,0f9h,089h,056h,082h,0b8h,08eh,055h,050h
+	db 081h,0c2h,0a0h,00fh,08bh,0c2h,050h
+	call get_message_
+	db 083h,0c4h,004h,0ffh,0b6h,058h,0ffh,0b8h,001h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,0b6h,058h,0ffh,0b8h,010h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,04eh,008h,0d1h,0e1h,0d1h,0e1h
+	db 0d1h,0e1h,003h,0c1h,08bh,0d8h,080h,0bfh,02eh,044h,000h,075h,021h,0b8h,08eh,055h
+	db 050h,0b8h,0e0h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,001h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ebh,02bh
+lc388:
+	db 0b8h,001h,000h,050h,0b8h,003h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,04eh
+	db 008h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h,02eh,044h,02ah
+	db 0e4h,050h,0ffh,076h,0fah
+	call print_int_
+	db 083h,0c4h,008h
+lc3b3:
+	db 0ffh,086h,058h,0ffh
+lc3b7:
+	db 083h,0beh,058h,0ffh,003h,07eh,00bh,083h,0beh,058h,0ffh,008h,07dh,004h,0ffh,086h
+	db 058h,0ffh
+lc3c9:
+	db 080h,07eh,0f4h,000h,074h,058h,0b8h,08eh,055h,050h,0b8h,0d5h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0ffh,0b6h,058h,0ffh,0b8h,001h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,007h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,0b6h,058h,0ffh,0b8h,00fh,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,08ah,046h,0f4h,02ah,0e4h,050h,0ffh,076h,0fah
+	call fb659_
+	db 083h,0c4h,006h,0ffh,086h,058h,0ffh
+lc427:
+	db 083h,07eh,092h,000h,074h,071h,0c7h,046h,0fch,000h,000h,0c7h,046h,0feh,000h,000h
+lc437:
+	db 08bh,05eh,0feh,003h,0ddh,080h,07fh,0deh,000h,076h,04eh,08bh,046h,0fch,0b9h,003h
+	db 000h,099h,0f7h,0f9h,08bh,0c2h,003h,086h,058h,0ffh,050h,08bh,046h,0fch,099h,0f7h
+	db 0f9h,0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,040h,040h,040h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08bh,046h,0feh,005h,0d6h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,005h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,0ffh,046h,0fch
+lc490:
+	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07ch,09ch,0e9h,07eh,001h
+lc49e:
+	db 083h,07eh,09eh,000h,075h,003h,0e9h,075h,001h
+lc4a7:
+	db 08ah,046h,0d1h,02ah,0e4h,050h,08ah,046h,0d2h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
+	db 0b9h,002h,000h,099h,0f7h,0f9h,089h,046h,086h,08ah,046h,0d3h,02ah,0e4h,050h,08ah
+	db 046h,0d4h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,0b9h,002h,000h,099h,0f7h,0f9h,089h
+	db 046h,088h,08ah,046h,0d5h,02ah,0e4h,050h,08ah,046h,0d6h,02ah,0e4h,08bh,0c8h,058h
+	db 003h,0c1h,0b9h,002h,000h,099h,0f7h,0f9h,089h,046h,08ah,08ah,046h,0d7h,02ah,0e4h
+	db 050h,08ah,046h,0d8h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,0b9h,002h,000h,099h,0f7h
+	db 0f9h,089h,046h,08ch,08ah,046h,0d9h,02ah,0e4h,050h,08ah,046h,0dah,02ah,0e4h,08bh
+	db 0c8h,058h,003h,0c1h,0b9h,002h,000h,099h,0f7h,0f9h,089h,046h,08eh,08ah,046h,0dbh
+	db 02ah,0e4h,050h,08ah,046h,0dch,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,0b9h,002h,000h
+	db 099h,0f7h,0f9h,089h,046h,090h,0c7h,046h,0feh,000h,000h
+lc542:
+	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,086h,063h,07eh,005h,0b8h
+	db 063h,000h,0ebh,003h
+lc556:
+	db 08bh,047h,086h
+lc559:
+	db 089h,047h,086h,08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,08bh,0c2h,003h,086h
+	db 058h,0ffh,050h,08bh,046h,0feh,099h,0f7h,0f9h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h
+	db 0c2h,040h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,08eh,055h,050h,08bh,046h,0feh,005h,06eh,00fh,050h
+	call get_message_
+	db 083h,0c4h,004h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,004h,000h,0b8h,08eh
+	db 055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h,08bh,046h,0feh,0b9h,003h,000h,099h,0f7h,0f9h,08bh,0c2h,003h,086h
+	db 058h,0ffh,050h,08bh,046h,0feh,099h,0f7h,0f9h,08bh,0d0h,0b1h,003h,0d3h,0e0h,003h
+	db 0c2h,005h,007h,000h,050h,0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,002h,000h,050h,08bh,046h,0feh,0d1h,0e0h
+	db 08bh,0d8h,003h,0ddh,0ffh,077h,086h,0ffh,076h,0fah
+	call print_int_
+	db 083h,0c4h,008h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,004h,000h,0b8h,025h
+	db 000h,050h,0ffh,076h,0fah
+	call put_char_
+	db 083h,0c4h,006h,0ffh,046h,0feh,08bh,046h,0feh,03dh,006h,000h,07dh,003h,0e9h,026h
+	db 0ffh
+lc61c:
+	db 0ebh,043h
+lc61e:
+	db 0b8h,08eh,055h,050h,0b8h,0e2h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,004h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,00ah,000h,02bh,0c1h,050h
+	db 0ffh,076h,0fah
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,0fah
+	call print_string_
+	db 083h,0c4h,006h
+lc661:
+	db 0ffh,076h,0fah
+	call resume_window_draw_
+	db 059h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,004h
+	call fill_window_
+	db 083h,0c4h,008h,0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0b8h,08eh,055h,050h,0b8h,061h,002h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,001h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,014h,000h,02bh,0c1h,050h
+	db 0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,004h
+	call print_string_hi_
+	db 083h,0c4h,006h,0ffh,076h,004h
+	call resume_window_draw_
+	db 059h,0ffh,076h,0fah
+	call refresh_window_
+	db 059h,0ffh,076h,004h
+	call refresh_window_
+	db 059h,0c7h,086h,056h,0ffh,001h,000h
+lc6e2:
+	call check_screen_click_
+	db 085h,0c0h,074h,006h,0c7h,086h,056h,0ffh,000h,000h
+lc6ef:
+	db 0b8h,001h,000h,050h
+	call key_available_
+	db 059h,03dh,001h,000h,075h,012h,0b8h,001h,000h,050h
+	call get_key_
+	db 059h,03ch,00dh,075h,006h,0c7h,086h,056h,0ffh,000h,000h
+lc70e:
+	db 083h,0beh,056h,0ffh,000h,075h,0cdh,0b8h,000h,000h,050h,0ffh,076h,0fah
+	call destroy_window_
+	db 083h,0c4h,004h,08bh,0e5h,05dh,0c3h
+#endasm

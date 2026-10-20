@@ -1,134 +1,177 @@
-extern char pc_item_count[];
-extern char pc_swag_count[];
-extern int bottom_line_win;
-extern int g5324;
-extern int g5326[];
-extern int menu_clicked;
 /* List the inventory and swag of member p6 and let the player pick an item. */
-npc_choose_member_item(p4, p6, p8, p10)
-char *p4;
-{
-	int l2;
-	char x2[6];
-	int l10;
-	char *l12;
-	char x12[8];
-	int l22;
-	int l24;
-	char x24[2];
-	int l28;
-	fill_window(p4, 32, 3, 0);
-	l12 = create_window(20, 19, 20, 5, 20, -5, 0, 0);
-	fill_window(l12, 32, 3, 0);
-	f80d2(((432 * p6) + 17384), &l10);
-	get_message(1508, 20948);
-	replace_char_with_string(20948, &l10, 36);
-	f541a(20948, 0);
-	f0a42(bottom_line_win, 0);
-	defer_window_draw(p4);
-	set_cursor(p4, 2, 1);
-	print_message(p8, p4, 18);
-	get_message(2035, &l22);
-	set_cursor(p4, 7, 3);
-	print_string_hi(p4, &l22, 3);
-	resume_window_draw(p4);
-	f88c7(l12, 0);
-	l28 = 0;
-	g5324 = 0;
-	l2 = 0;
-	goto L9b84;
-L9b66:
-	f99e6(p6, l2);
-	if (p10 == l2) {
-	l28 = (g5324 - 1);
-	}
-	l2++;
-L9b84:
-	if ((unsigned char)pc_item_count[(432 * p6)] > l2) goto L9b66;
-	l2 = 0;
-	goto L9bc3;
-L9b9e:
-	f99e6(p6, (l2 + 10));
-	if ((l2 + 10) == p10) {
-	l28 = (g5324 - 1);
-	}
-	l2++;
-L9bc3:
-	if ((unsigned char)pc_swag_count[(432 * p6)] > l2) goto L9b9e;
-	p10 = l28;
-	if (p10 >= g5324) {
-	p10 = (g5324 - 1);
-	}
-	refresh_all_windows();
-	l24 = 0;
-	set_click_region(0, ((unsigned char)l12[2] + 2), ((unsigned char)l12[3] + 2), ((unsigned char)l12[2] + 16), ((unsigned char)l12[3] + 2));
-	set_click_region(1, ((unsigned char)l12[2] + 1), (unsigned char)l12[3], ((unsigned char)l12[2] + 1), (unsigned char)l12[3]);
-	set_click_region(2, ((unsigned char)l12[2] + 1), ((unsigned char)l12[3] + 4), ((unsigned char)l12[2] + 1), ((unsigned char)l12[3] + 4));
-	set_click_region(3, ((unsigned char)p4[2] + 7), ((unsigned char)p4[3] + 3), ((strlen(&l22) + (unsigned char)p4[2]) + 6), ((unsigned char)p4[3] + 3));
-	set_click_region(4, 255, 0, 0, 0);
-L9cc6:
-	if (l24 == 1) {
-	set_cursor(p4, 7, 3);
-	print_string(p4, &l22, -3);
-	f9827(l12, p6, p10, 0);
-	} else {
-	set_cursor(p4, 7, 3);
-	print_string_hi(p4, &l22, 3);
-	f9827(l12, p6, p10, 1);
-	}
-	l2 = f5994(21098, 13720);
-	if (menu_clicked != 1) goto L9d87;
-	switch (l2) {
-case 0:
-	l2 = 5;
-	goto L9d87;
-case 1:
-	l2 = 2;
-	goto L9d87;
-case 2:
-	l2 = 4;
-	goto L9d87;
-case 3:
-	l24 = 1;
-	l2 = 5;
-	goto L9d87;
-	}
-L9d87:
-	switch (l2) {
-case 1:
-	if (l24 != 1) {
-	l24 = 1;
-	}
-	goto L9dee;
-case 2:
-	if (l24 != 1) goto L9da6;
-	l24 = 0;
-	goto L9daf;
-L9da6:
-	if (p10 <= 0) goto L9daf;
-	p10--;
-L9daf:
-	goto L9dee;
-case 3:
-	if (l24 == 1) {
-	l24 = 0;
-	}
-	goto L9dee;
-case 4:
-	if (l24 != 1) goto L9dcb;
-	l24 = 0;
-	goto L9dd8;
-L9dcb:
-	if ((p10 + 1) >= g5324) goto L9dd8;
-	p10++;
-L9dd8:
-	goto L9dee;
-	}
-L9dee:
-	if (l2 != 5) goto L9cc6;
-	destroy_window(l12, 0);
-	if (l24 != 1) goto L9e11;
-	return -1;
-L9e11:
-	return g5326[p10];
-}
+#asm
+	public npc_choose_member_item_
+	extrn create_window_:near
+	extrn defer_window_draw_:near
+	extrn destroy_window_:near
+	extrn f0a42_:near
+	extrn f541a_:near
+	extrn f5994_:near
+	extrn f80d2_:near
+	extrn f88c7_:near
+	extrn f9827_:near
+	extrn f99e6_:near
+	extrn fill_window_:near
+	extrn get_message_:near
+	extrn print_message_:near
+	extrn print_string_:near
+	extrn print_string_hi_:near
+	extrn refresh_all_windows_:near
+	extrn replace_char_with_string_:near
+	extrn resume_window_draw_:near
+	extrn set_click_region_:near
+	extrn set_cursor_:near
+	extrn strlen_:near
+npc_choose_member_item_:
+	db 055h,08bh,0ech,083h,0c4h,0e4h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
+	db 000h,050h,0ffh,076h,004h
+	call fill_window_
+	db 083h,0c4h,008h,0b8h,000h,000h,050h,050h,0b8h,0fbh,0ffh,050h,0b8h,014h,000h,050h
+	db 0b8h,005h,000h,050h,0b8h,014h,000h,050h,0b8h,013h,000h,050h,0b8h,014h,000h,050h
+	call create_window_
+	db 083h,0c4h,010h,089h,046h,0f4h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
+	db 000h,050h,0ffh,076h,0f4h
+	call fill_window_
+	db 083h,0c4h,008h,08dh,046h,0f6h,050h,0b8h,0b0h,001h,0f7h,06eh,006h,005h,0e8h,043h
+	db 050h
+	call f80d2_
+	db 083h,0c4h,004h,0b8h,0d4h,051h,050h,0b8h,0e4h,005h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,024h,000h,050h,08dh,046h,0f6h,050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,000h,000h,050h,0b8h,0d4h,051h,050h
+	call f541a_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,0ffh,036h,0b2h,04fh
+	call f0a42_
+	db 083h,0c4h,004h,0ffh,076h,004h
+	call defer_window_draw_
+	db 059h,0b8h,001h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,012h,000h,050h,0ffh,076h,004h,0ffh,076h,008h
+	call print_message_
+	db 083h,0c4h,006h,08dh,046h,0eah,050h,0b8h,0f3h,007h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,003h,000h,050h,0b8h,007h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0eah,050h,0ffh,076h,004h
+	call print_string_hi_
+	db 083h,0c4h,006h,0ffh,076h,004h
+	call resume_window_draw_
+	db 059h,0b8h,000h,000h,050h,0ffh,076h,0f4h
+	call f88c7_
+	db 083h,0c4h,004h,0c7h,046h,0e4h,000h,000h,0c7h,006h,024h,053h,000h,000h,0c7h,046h
+	db 0feh,000h,000h,0ebh,01eh
+l9b66:
+	db 0ffh,076h,0feh,0ffh,076h,006h
+	call f99e6_
+	db 083h,0c4h,004h,08bh,046h,00ah,03bh,046h,0feh,075h,007h,0a1h,024h,053h,048h,089h
+	db 046h,0e4h
+l9b81:
+	db 0ffh,046h,0feh
+l9b84:
+	db 0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah,087h,094h,045h,02ah,0e4h,03bh,046h
+	db 0feh,07fh,0cfh,0c7h,046h,0feh,000h,000h,0ebh,025h
+l9b9e:
+	db 08bh,046h,0feh,005h,00ah,000h,050h,0ffh,076h,006h
+	call f99e6_
+	db 083h,0c4h,004h,08bh,046h,0feh,005h,00ah,000h,03bh,046h,00ah,075h,007h,0a1h,024h
+	db 053h,048h,089h,046h,0e4h
+l9bc0:
+	db 0ffh,046h,0feh
+l9bc3:
+	db 0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,08ah,087h,095h,045h,02ah,0e4h,03bh,046h
+	db 0feh,07fh,0c8h,08bh,046h,0e4h,089h,046h,00ah,03bh,006h,024h,053h,07ch,007h,0a1h
+	db 024h,053h,048h,089h,046h,00ah
+l9be9:
+	call refresh_all_windows_
+	db 0c7h,046h,0e8h,000h,000h,08bh,05eh,0f4h,08ah,047h,003h,02ah,0e4h,040h,040h,050h
+	db 08ah,047h,002h,02ah,0e4h,005h,010h,000h,050h,08ah,047h,003h,02ah,0e4h,040h,040h
+	db 050h,08ah,047h,002h,02ah,0e4h,040h,040h,050h,0b8h,000h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,08bh,05eh,0f4h,08ah,047h,003h,02ah,0e4h,050h,08ah,047h,002h,02ah
+	db 0e4h,040h,050h,08ah,047h,003h,02ah,0e4h,050h,08ah,047h,002h,02ah,0e4h,040h,050h
+	db 0b8h,001h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,08bh,05eh,0f4h,08ah,047h,003h,02ah,0e4h,005h,004h,000h,050h,08ah
+	db 047h,002h,02ah,0e4h,040h,050h,08ah,047h,003h,02ah,0e4h,005h,004h,000h,050h,08ah
+	db 047h,002h,02ah,0e4h,040h,050h,0b8h,002h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,08bh,05eh,004h,08ah,047h,003h,02ah,0e4h,040h,040h,040h,050h,08dh
+	db 046h,0eah,050h
+	call strlen_
+	db 059h,050h,08bh,05eh,004h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,005h
+	db 006h,000h,050h,08ah,047h,003h,02ah,0e4h,040h,040h,040h,050h,083h,0c1h,007h,08bh
+	db 0c1h,050h,0b8h,003h,000h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,0b8h,004h,000h
+	db 050h
+	call set_click_region_
+	db 083h,0c4h,00ah
+l9cc6:
+	db 083h,07eh,0e8h,001h,075h,037h,0b8h,003h,000h,050h,0b8h,007h,000h,050h,0ffh,076h
+	db 004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0fdh,0ffh,050h,08dh,046h,0eah,050h,0ffh,076h,004h
+	call print_string_
+	db 083h,0c4h,006h,0b8h,000h,000h,050h,0ffh,076h,00ah,0ffh,076h,006h,0ffh,076h,0f4h
+	call f9827_
+	db 083h,0c4h,008h,0ebh,035h
+l9d03:
+	db 0b8h,003h,000h,050h,0b8h,007h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,0eah,050h,0ffh,076h,004h
+	call print_string_hi_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0ffh,076h,00ah,0ffh,076h,006h,0ffh,076h,0f4h
+	call f9827_
+	db 083h,0c4h,008h
+l9d38:
+	db 0b8h,098h,035h,050h,0b8h,06ah,052h,050h
+	call f5994_
+	db 083h,0c4h,004h,089h,046h,0feh,083h,03eh,0c4h,04fh,001h,075h,037h,0ebh,021h
+l9d52:
+	db 0c7h,046h,0feh,005h,000h,0ebh,02eh
+l9d59:
+	db 0c7h,046h,0feh,002h,000h,0ebh,027h
+l9d60:
+	db 0c7h,046h,0feh,004h,000h,0ebh,020h
+l9d67:
+	db 0c7h,046h,0e8h,001h,000h,0c7h,046h,0feh,005h,000h,0ebh,014h
+l9d73:
+	db 03dh,000h,000h,074h,0dah,03dh,001h,000h,074h,0dch,03dh,002h,000h,074h,0deh,03dh
+	db 003h,000h,074h,0e0h
+l9d87:
+	db 08bh,046h,0feh,0ebh,04eh
+l9d8c:
+	db 083h,07eh,0e8h,001h,074h,005h,0c7h,046h,0e8h,001h,000h
+l9d97:
+	db 0ebh,055h
+l9d99:
+	db 083h,07eh,0e8h,001h,075h,007h,0c7h,046h,0e8h,000h,000h,0ebh,009h
+l9da6:
+	db 083h,07eh,00ah,000h,07eh,003h,0ffh,04eh,00ah
+l9daf:
+	db 0ebh,03dh
+l9db1:
+	db 083h,07eh,0e8h,001h,075h,005h,0c7h,046h,0e8h,000h,000h
+l9dbc:
+	db 0ebh,030h
+l9dbe:
+	db 083h,07eh,0e8h,001h,075h,007h,0c7h,046h,0e8h,000h,000h,0ebh,00dh
+l9dcb:
+	db 08bh,046h,00ah,040h,03bh,006h,024h,053h,07dh,003h,0ffh,046h,00ah
+l9dd8:
+	db 0ebh,014h
+l9dda:
+	db 03dh,001h,000h,074h,0adh,03dh,002h,000h,074h,0b5h,03dh,003h,000h,074h,0c8h,03dh
+	db 004h,000h,074h,0d0h
+l9dee:
+	db 083h,07eh,0feh,005h,074h,003h,0e9h,0cfh,0feh
+l9df7:
+	db 0b8h,000h,000h,050h,0ffh,076h,0f4h
+	call destroy_window_
+	db 083h,0c4h,004h,083h,07eh,0e8h,001h,075h,007h,0b8h,0ffh,0ffh
+l9e0d:
+	db 08bh,0e5h,05dh,0c3h
+l9e11:
+	db 08bh,046h,00ah,0d1h,0e0h,08bh,0d8h,08bh,087h,026h,053h,0ebh,0efh
+#endasm

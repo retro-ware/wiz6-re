@@ -8,17 +8,14 @@
 	global g5158_:byte,1
 	global g5159_:byte,1
 	global pclist_pcindex_:byte,1
-	global g515b_:byte,43
-	global g5186_:byte,40
+	global g515b_:byte,83
 	global g51ae_:byte,4
 	global g51b2_:byte,2
 	global g51b4_:byte,2
 	global g51b6_:byte,6
 	global trap_guess_letters_:byte,2
 	global g51be_:byte,2
-	global g51c0_:byte,2
-	global g51c2_:byte,10
-	global g51cc_:byte,1
+	global g51c0_:byte,13
 	global g51cd_:byte,1
 	global g51ce_:byte,1
 	global g51cf_:byte,1
@@ -41,8 +38,7 @@
 	global g5264_:byte,2
 	global loot_count_:byte,2
 	global g5268_:byte,12
-	global g5274_:byte,2
-	global g5276_:byte,4
+	global g5274_:byte,6
 	global g527a_:byte,82
 	global g52cc_:byte,2
 	global g52ce_:byte,2
@@ -60,8 +56,7 @@
 	global g57c0_:byte,30
 	global g57de_:byte,2
 	global class_allowed_:byte,118
-	global g5856_:byte,60
-	global g5892_:byte,2
+	global g5856_:byte,62
 	global g5894_:byte,2
 	global g5896_:byte,2
 	global g5898_:byte,2

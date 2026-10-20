@@ -47,29 +47,20 @@
 	global game_state_arg_:byte,2
 	global g363e_:byte,6
 	global anim_cycle_:byte,2
-	global anim_phase_:byte,2
-	global g3648_:byte,1
-	global g3649_:byte,1
-	global g364a_:byte,152
+	global anim_phase_:byte,156
 	global g36e2_:byte,2
 	global g36e4_:byte,51
-	global g3717_:byte,27
-	global g3732_:byte,10
-	global g373c_:byte,10
-	global g3746_:byte,10
-	global g3750_:byte,9
+	global g3717_:byte,47
+	global g3746_:byte,19
 	global g3759_:byte,1
-	global g375a_:byte,1
-	global g375b_:byte,1
-	global g375c_:byte,158
+	global g375a_:byte,160
 	global g37fa_:byte,1
 	global g37fb_:byte,21
 	global g3810_:byte,2
 	global g3812_:byte,1
 	global g3813_:byte,1
 	global g3814_:byte,1
-	global g3815_:byte,1
-	global g3816_:byte,322
+	global g3815_:byte,323
 	global g3958_:byte,51
 	global g398b_:byte,263
 	global g3a92_:byte,51
@@ -85,12 +76,10 @@
 	global g433a_:byte,2
 	global view_rows_open_:byte,2
 	global g433e_:byte,10
-	global g4348_:byte,10
-	global g4352_:byte,2
+	global g4348_:byte,12
 	global g4354_:byte,2
 	global combat_over_:byte,2
-	global view_anim_state_:byte,2
-	global g435a_:byte,2
+	global view_anim_state_:byte,4
 	global g435c_:byte,2
 	global g435e_:byte,2
 	global monster_group_count_:byte,2
@@ -102,10 +91,8 @@
 	global g438a_:byte,2
 	global g438c_:byte,2
 	global sprite_count_:byte,2
-	global sprite_list_:byte,22
-	global g43a6_:byte,2
-	global monster_groups_:byte,2
-	global g43aa_:byte,10
+	global sprite_list_:byte,24
+	global monster_groups_:byte,12
 	global g43b4_:byte,2
 	global group_monster_rec_:byte,2
 	global g43b8_:byte,10
@@ -154,16 +141,10 @@
 	global g44e4_:byte,1
 	global g44e5_:byte,1
 	global g44e6_:byte,1
-	global g44e7_:byte,1
-	global g44e8_:byte,2
-	global g44ea_:byte,11
-	global g44f5_:byte,1
-	global g44f6_:byte,2
-	global pc_equipped_:byte,1
-	global g44f9_:byte,1
+	global g44e7_:byte,17
+	global pc_equipped_:byte,2
 	global g44fa_:byte,6
-	global g4500_:byte,4
-	global g4504_:byte,6
+	global g4500_:byte,10
 	global g450a_:byte,2
 	global g450c_:byte,1
 	global g450d_:byte,1
@@ -178,29 +159,20 @@
 	global g4516_:byte,1
 	global g4517_:byte,1
 	global g4518_:byte,1
-	global g4519_:byte,1
-	global g451a_:byte,1
-	global g451b_:byte,1
-	global pc_skills_:byte,8
-	global g4524_:byte,1
+	global g4519_:byte,3
+	global pc_skills_:byte,9
 	global g4525_:byte,1
 	global g4526_:byte,1
 	global g4527_:byte,1
-	global g4528_:byte,1
-	global g4529_:byte,1
-	global g452a_:byte,1
+	global g4528_:byte,3
 	global g452b_:byte,1
 	global g452c_:byte,1
 	global g452d_:byte,5
 	global g4532_:byte,1
 	global g4533_:byte,1
-	global g4534_:byte,1
-	global g4535_:byte,1
-	global g4536_:byte,3
+	global g4534_:byte,5
 	global g4539_:byte,1
-	global g453a_:byte,2
-	global g453c_:byte,9
-	global g4545_:byte,3
+	global g453a_:byte,14
 	global g4548_:byte,1
 	global g4549_:byte,1
 	global g454a_:byte,6
@@ -219,8 +191,7 @@
 	global g458f_:byte,1
 	global pc_skill_points_:byte,1
 	global g4591_:byte,1
-	global g4592_:byte,1
-	global g4593_:byte,1
+	global g4592_:byte,2
 	global pc_item_count_:byte,1
 	global pc_swag_count_:byte,1
 	global g4596_:byte,1
@@ -272,8 +243,7 @@
 	global g4fb8_:byte,2
 	global g4fba_:byte,2
 	global picture_win_:byte,2
-	global fullscreen_win_:byte,2
-	global copy_protection_ok_:byte,4
+	global fullscreen_win_:byte,6
 	global menu_clicked_:byte,2
 	global video_flags_:byte,2
 	global g4fc8_:byte,2
@@ -283,6 +253,5 @@
 	global roster_slot_count_:byte,2
 	global pcfile_offset_:byte,4
 	global roster_slot_used_:byte,16
-	global pic_fd_:byte,2
-	global scenario_hdr_fd_:byte,2
+	global pic_fd_:byte,4
 #endasm

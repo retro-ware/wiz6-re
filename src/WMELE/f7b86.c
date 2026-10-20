@@ -1,83 +1,75 @@
-extern int game_state_arg;
-extern int maze_data;
-extern int party_facing;
 /* Return the wall type on the left of the cell. */
-get_left_wall(x, y, cx, cy, level, side)
-{
-	int l2;
-	int l4;
-	register int cell;
-	register int wall;
-	if ((!side) || (!step_in_facing(&x, &y, &cx, &cy, &level, side, 0))) goto L7bd5;
-	if ((game_state_arg != 10) && (game_state_arg != 12)) goto L7bd0;
-	return 0;
-L7bd0:
-	return 2;
-L7bd5:
-	cell = (((level << 6) + (cy << 3)) + cx);
-	if (test_bit((maze_data + 1082), cell) != 1) goto L7c2f;
-	switch (game_state_arg) {
-case 0:
-case 4:
-case 5:
-case 12:
-	if ((game_state_arg == 12) && (level <= 8)) goto L7c19;
-	return 0;
-L7c19:
-	goto L7c2f;
-	}
-L7c2f:
-	wall = 0;
-	switch (party_facing) {
-case 0:
-	wall = f76b7(x, y, cx, cy, level);
-	goto L7ca9;
-case 1:
-	wall = get_bitfield((maze_data + 96), cell, 2);
-	goto L7ca9;
-case 2:
-	wall = get_bitfield((maze_data + 288), cell, 2);
-	goto L7ca9;
-case 3:
-	wall = f7652(x, y, cx, cy, level);
-	goto L7ca9;
-	}
-L7ca9:
-	l2 = get_bitfield((maze_data + 504), cell, 4);
-	l4 = ((get_bitfield((maze_data + 888), cell, 2) + 1) % 4);
-	if (l4 != party_facing) goto L7d3e;
-	switch (l2) {
-case 1:
-	wall = 5;
-	goto L7d3e;
-case 2:
-	wall = 6;
-	goto L7d3e;
-case 3:
-	wall = 8;
-	goto L7d3e;
-case 4:
-	wall = 9;
-	goto L7d3e;
-case 7:
-	wall = 4;
-	goto L7d3e;
-case 8:
-	wall = 7;
-	goto L7d3e;
-case 9:
-	wall = 10;
-	goto L7d3e;
-case 10:
-	wall = 11;
-	goto L7d3e;
-case 11:
-	wall = 12;
-	goto L7d3e;
-case 12:
-	wall = 13;
-	goto L7d3e;
-	}
-L7d3e:
-	return wall;
-}
+#asm
+	public get_left_wall_
+	extrn f7652_:near
+	extrn f76b7_:near
+	extrn get_bitfield_:near
+	extrn step_in_facing_:near
+	extrn test_bit_:near
+get_left_wall_:
+	db 055h,08bh,0ech,083h,0c4h,0fch,057h,056h,083h,07eh,00eh,000h,074h,041h,0b8h,000h
+	db 000h,050h,0ffh,076h,00eh,08dh,046h,00ch,050h,08dh,046h,00ah,050h,08dh,046h,008h
+	db 050h,08dh,046h,006h,050h,08dh,046h,004h,050h
+	call step_in_facing_
+	db 083h,0c4h,00eh,085h,0c0h,074h,01ch,083h,03eh,03ch,036h,00ah,074h,007h,083h,03eh
+	db 03ch,036h,00ch,075h,009h
+l7bc7:
+	db 0b8h,000h,000h
+l7bca:
+	db 05eh,05fh,08bh,0e5h,05dh,0c3h
+l7bd0:
+	db 0b8h,002h,000h,0ebh,0f5h
+l7bd5:
+	db 08bh,046h,00ch,0b9h,006h,000h,0d3h,0e0h,08bh,04eh,00ah,0d1h,0e1h,0d1h,0e1h,0d1h
+	db 0e1h,003h,0c1h,08bh,0f0h,003h,046h,008h,08bh,0f0h,056h,0a1h,0aah,04fh,005h,03ah
+	db 004h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,02dh,0a1h,03ch,036h,0ebh,014h
+l7c07:
+	db 083h,03eh,03ch,036h,00ch,075h,006h,083h,07eh,00ch,008h,07eh,005h
+l7c14:
+	db 0b8h,000h,000h,0ebh,0b1h
+l7c19:
+	db 0ebh,014h
+l7c1b:
+	db 03dh,000h,000h,074h,0e7h,03dh,004h,000h,074h,0e2h,03dh,005h,000h,074h,0ddh,03dh
+	db 00ch,000h,074h,0d8h
+l7c2f:
+	db 0bfh,000h,000h,0a1h,09ah,04fh,0ebh,05eh
+l7c37:
+	db 0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,008h,0ffh,076h,006h,0ffh,076h,004h
+	call f76b7_
+	db 083h,0c4h,00ah,08bh,0f8h,0ebh,059h
+l7c50:
+	db 0b8h,002h,000h,050h,056h,0a1h,0aah,04fh,005h,060h,000h,050h
+	call get_bitfield_
+	db 083h,0c4h,006h,08bh,0f8h,0ebh,043h
+l7c66:
+	db 0b8h,002h,000h,050h,056h,0a1h,0aah,04fh,005h,020h,001h,050h
+	call get_bitfield_
+	db 083h,0c4h,006h,08bh,0f8h,0ebh,02dh
+l7c7c:
+	db 0ffh,076h,00ch,0ffh,076h,00ah,0ffh,076h,008h,0ffh,076h,006h,0ffh,076h,004h
+	call f7652_
+	db 083h,0c4h,00ah,08bh,0f8h,0ebh,014h
+l7c95:
+	db 03dh,000h,000h,074h,09dh,03dh,001h,000h,074h,0b1h,03dh,002h,000h,074h,0c2h,03dh
+	db 003h,000h,074h,0d3h
+l7ca9:
+	db 0b8h,004h,000h,050h,056h,0a1h,0aah,04fh,005h,0f8h,001h,050h
+	call get_bitfield_
+	db 083h,0c4h,006h,089h,046h,0feh,0b8h,002h,000h,050h,056h,0a1h,0aah,04fh,005h,078h
+	db 003h,050h
+	call get_bitfield_
+	db 083h,0c4h,006h,040h,0b9h,004h,000h,099h,0f7h,0f9h,089h,056h,0fch,03bh,016h,09ah
+	db 04fh,075h,05eh,08bh,046h,0feh,0ebh,04ch,0bfh,005h,000h,0ebh,054h,0bfh,006h,000h
+	db 0ebh,04fh,0bfh,008h,000h,0ebh,04ah,0bfh,009h,000h,0ebh,045h,0bfh,004h,000h,0ebh
+	db 040h,0bfh,007h,000h,0ebh,03bh,0bfh,00ah,000h,0ebh,036h,0bfh,00bh,000h,0ebh,031h
+	db 0bfh,00ch,000h,0ebh,02ch,0bfh,00dh,000h,0ebh,027h,03eh,07dh,0e5h,07ch,0eah,07ch
+	db 0efh,07ch,0f4h,07ch,03eh,07dh,03eh,07dh,0f9h,07ch,0feh,07ch,003h,07dh,008h,07dh
+	db 00dh,07dh,012h,07dh
+l7d31:
+	db 03dh,00dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,017h,07dh
+l7d3e:
+	db 08bh,0c7h,0e9h,087h,0feh
+#endasm

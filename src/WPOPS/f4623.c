@@ -1,8 +1,7 @@
-#asm
-	extrn print_string_:near
-#endasm
+extern char g019c[];
 extern char g019d[];
 extern char g019e[];
+extern int group_monster_rec[];
 extern int main_window;
 extern int monster_group_count;
 extern int monster_groups[];
@@ -32,26 +31,7 @@ L468c:
 	set_cursor(win, 0, (group - 1));
 	put_char(win, (unsigned char)(((unsigned char)g019d[monster_groups[group]] + 48)), 6);
 	win[6]++;
-#asm
-	db 0b8h,00eh,000h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h
-	db 0bfh,09dh,001h,001h,075h,005h,0b8h,000h,000h,0ebh,003h
-#endasm
-L46f9:
-	;
-#asm
-l46f9:
-	db 0b8h,001h,000h
-#endasm
-L46fc:
-	;
-#asm
-l46fc:
-	db 0b9h,004h,000h,0d3h,0e0h,08bh,0c8h,051h,08ah,087h,09ch,001h,02ah,0e4h,0b9h,005h
-	db 000h,0d3h,0e0h,059h,003h,0c8h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,087h,0b6h
-	db 043h,003h,0c1h,050h,0ffh,076h,004h
-	call print_string_
-	db 083h,0c4h,006h
-#endasm
+	print_string(win, ((char *)group_monster_rec[group] + (((g019d[monster_groups[group]] == 1 ? 0 : 1) << 4) + ((unsigned char)g019c[monster_groups[group]] << 5))), 14);
 	set_cursor(win, 19, (group - 1));
 	put_char(win, (unsigned char)(((unsigned char)g019e[monster_groups[group]] + 48)), 9);
 	group++;

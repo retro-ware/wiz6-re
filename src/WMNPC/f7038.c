@@ -1,541 +1,555 @@
 #asm
+	public f7038_
+	extrn access_scenario_record_:near
+	extrn f4572_:near
+	extrn f4f73_:near
+	extrn f5078_:near
+	extrn f5382_:near
+	extrn f5508_:near
+	extrn f5690_:near
 	extrn f5a1e_:near
 	extrn f5a69_:near
 	extrn f5c61_:near
+	extrn f5d0c_:near
+	extrn f5d9b_:near
+	extrn f6835_:near
 	extrn f69db_:near
+	extrn f6d11_:near
+	extrn f6d9d_:near
 	extrn f6de9_:near
+	extrn f6e7e_:near
+	extrn fb2fd_:near
+	extrn fc7d9_:near
+	extrn fc999_:near
+	extrn fd90e_:near
+	extrn get_message_:near
+	extrn npc_give_item_to_member_:near
+	extrn npc_input_word_:near
 	extrn random_:near
+	extrn replace_char_with_string_:near
+	extrn set_bit_:near
+	extrn strlen_:near
 	extrn test_bit_:near
-#endasm
-extern char *g4fa8;
-extern char g00cc[];
-extern char g450c[];
-extern char g4511[];
-extern char g51cc;
-extern char pc_condition[];
-extern char pc_item_type[];
-extern char pc_stats[];
-extern int cell_event_index;
-extern int g4338;
-extern int g433a;
-extern int g4354;
-extern int g43fe[];
-extern int g50de[];
-extern int g5186[];
-extern int g51c2;
-extern int g5264;
-extern int g5274;
-extern int g5276;
-extern int g527a;
-extern int game_state;
-extern int game_state_arg;
-extern int party_cell_x;
-extern int party_cell_y;
-extern int party_count;
-extern int party_facing;
-extern int party_level;
-extern int party_x;
-extern int party_y;
-extern int pc_gold[];
-extern int pc_hp[];
-extern int pc_hp_max[];
-extern int pc_stamina[];
-extern int pc_stamina_max[];
-extern int return_cmd;
-extern int view_pos_group[];
-extern long g51c0;
-f7038(p4, p6)
-{
-	int l2;
-	int l4;
-	char l36[32];
-	int l38;
-	int l40;
-	int l42;
-	long l46;
-	int l54[4];
-	l4 = g5186[p6];
-	access_scenario_record(6, l36, l4, 0);
-	l2 = 0;
-L7067:
-	if (l2 >= 8) goto L7f73;
-#asm
+f7038_:
+	db 055h,08bh,0ech,083h,0c4h,0cah,056h,08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,087h
+	db 086h,051h,089h,046h,0fch,0b8h,000h,000h,050h,0ffh,076h,0fch,08dh,046h,0dch,050h
+	db 0b8h,006h,000h,050h
+	call access_scenario_record_
+	db 083h,0c4h,008h,0c7h,046h,0feh,000h,000h
+l7067:
+	db 083h,07eh,0feh,008h,07ch,003h,0e9h,003h,00fh
 l7070:
 	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0dfh,02ah,0e4h
-	db 0e9h,0ddh,00eh
-#endasm
-	return 0;
-	if (l36[((l2 << 2) + 2)]) goto L70d1;
-	if (!g5264) {
-	f6d9d();
-	fc999(*(int *)(l36 + (l2 << 2)));
-	f6de9();
-	} else {
-	fc999(*(int *)(l36 + (l2 << 2)));
-	}
-	goto L70ec;
-L70d1:
-	f5c61(*(int *)(l36 + (l2 << 2)), ((unsigned char)l36[((l2 << 2) + 2)] - 1));
-L70ec:
-	goto L7f6d;
-	f5d9b(1541, 1);
-	g433a = (unsigned char)g51cc;
-	g4338 = 1;
-	g4354 = 0;
-	g5276 = 0;
-	game_state = 10;
-	return_cmd = 18;
-	return 1;
-	if (!l36[((l2 << 2) + 2)]) {
-	f5d9b(1542, 0);
-	}
-	g5276 = 1;
-	game_state = 5;
-	return_cmd = 18;
-	return 1;
-	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
-	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
-	if ((unsigned)l36[((l2 << 2) + 2)] <= 0) goto L71aa;
-	f5508((unsigned char)l36[((l2 << 2) + 2)], l38);
-	view_pos_group[l40] = l38;
-	f4572(view_pos_group[l40], l40);
-	f5690();
-	goto L71ba;
-L71aa:
-	view_pos_group[l40] = 0;
-	f5690();
-L71ba:
-	goto L7f6d;
-#asm
+	db 0e9h,0ddh,00eh,0b8h,000h,000h
+l7086:
+	db 05eh,08bh,0e5h,05dh,0c3h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh
+	db 080h,07fh,0deh,000h,075h,035h,083h,03eh,064h,052h,000h,075h,01ah
+	call f6d9d_
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch
+	call fc999_
+	db 059h
+	call f6de9_
+	db 0ebh,012h
+l70bd:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch
+	call fc999_
+	db 059h
+l70cf:
+	db 0ebh,01bh
+l70d1:
 	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
-	db 050h
+	db 048h,050h,0ffh,077h,0dch
+	call f5c61_
+	db 083h,0c4h,004h
+l70ec:
+	db 0e9h,07eh,00eh,0b8h,001h,000h,050h,0b8h,005h,006h,050h
+	call f5d9b_
+	db 083h,0c4h,004h,0a0h,0cch,051h,02ah,0e4h,0a3h,03ah,043h,0c7h,006h,038h,043h,001h
+	db 000h,0c7h,006h,054h,043h,000h,000h,0c7h,006h,076h,052h,000h,000h,0c7h,006h,03ah
+	db 036h,00ah,000h,0c7h,006h,0ceh,04fh,012h,000h,0b8h,001h,000h,0e9h,05dh,0ffh,08bh
+	db 046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh,0deh,000h,075h,00eh
+	db 0b8h,000h,000h,050h,0b8h,006h,006h,050h
+	call f5d9b_
+	db 083h,0c4h,004h
+l7148:
+	db 0c7h,006h,076h,052h,001h,000h,0c7h,006h,03ah,036h,005h,000h,0c7h,006h,0ceh,04fh
+	db 012h,000h,0b8h,001h,000h,0e9h,026h,0ffh,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh
+	db 0d8h,003h,0ddh,08bh,047h,0dch,0b9h,000h,001h,099h,0f7h,0f9h,089h,046h,0dah,089h
+	db 056h,0d8h,080h,07fh,0deh,000h,076h,02ah,050h,08ah,047h,0deh,02ah,0e4h,050h
+	call f5508_
+	db 083h,0c4h,004h,08bh,046h,0dah,08bh,04eh,0d8h,0d1h,0e1h,08bh,0d9h,089h,087h,062h
+	db 043h,0ffh,076h,0d8h,050h
+	call f4572_
+	db 083h,0c4h,004h
+	call f5690_
+	db 0ebh,010h
+l71aa:
+	db 08bh,046h,0d8h,0d1h,0e0h,08bh,0d8h,0c7h,087h,062h,043h,000h,000h
+	call f5690_
+l71ba:
+	db 0e9h,0b0h,00dh,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h
+	db 0deh,02ah,0e4h,050h
 	call f5a1e_
-	db 059h,0e9h,098h,00dh
-#endasm
-	if (g5264) goto L7204;
-	f6d9d();
-	l42 = npc_input_word(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
-#asm
+	db 059h,0e9h,098h,00dh,083h,03eh,064h,052h,000h,075h,028h
+	call f6d9d_
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 050h,0ffh,077h,0dch,0ffh,076h,004h
+	call npc_input_word_
+	db 083h,0c4h,006h,089h,046h,0d6h
 	call f6de9_
 	db 0ebh,020h
-#endasm
-L7204:
-	l42 = npc_input_word(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
-L7224:
-	if (l42 <= 1) goto L7243;
-	if (f7038(p4, l42) != 1) goto L7241;
-	return 1;
-L7241:
-	goto L7287;
-L7243:
-	if (!g5264) goto L7287;
-	get_message((*(int *)(l36 + (l2 << 2)) + 1), 20948);
-	if (strlen(20948) <= 0) goto L7287;
-	fc7d9(20948, 5);
-	f4f73(g5264);
-L7287:
-	goto L7f6d;
-#asm
+l7204:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 050h,0ffh,077h,0dch,0ffh,076h,004h
+	call npc_input_word_
+	db 083h,0c4h,006h,089h,046h,0d6h
+l7224:
+	db 083h,07eh,0d6h,001h,07eh,019h,0ffh,076h,0d6h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,045h,0feh
+l7241:
+	db 0ebh,044h
+l7243:
+	db 083h,03eh,064h,052h,000h,074h,03dh,0b8h,0d4h,051h,050h,08bh,046h,0feh,0d1h,0e0h
+	db 0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,040h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,0d4h,051h,050h
+	call strlen_
+	db 059h,03dh,000h,000h,07eh,016h,0b8h,005h,000h,050h,0b8h,0d4h,051h,050h
+	call fc7d9_
+	db 083h,0c4h,004h,0ffh,036h,064h,052h
+	call f4f73_
+	db 059h
+l7287:
+	db 0e9h,0e3h,00ch
 	call f5a69_
 	db 0e9h,0ddh,00ch,0a1h,09ah,04fh,0ebh,018h
-#endasm
-	party_y--;
-#asm
-	db 0ebh,026h
-#endasm
-	party_x--;
-#asm
-	db 0ebh,020h
-#endasm
-	party_y++;
-#asm
-	db 0ebh,01ah
-#endasm
-	party_x++;
-#asm
-	db 0ebh,014h
-#endasm
-L72ad:
-	;
-#asm
+l7295:
+	db 0ffh,00eh,0a2h,04fh,0ebh,026h
+l729b:
+	db 0ffh,00eh,0a4h,04fh,0ebh,020h
+l72a1:
+	db 0ffh,006h,0a2h,04fh,0ebh,01ah
+l72a7:
+	db 0ffh,006h,0a4h,04fh,0ebh,014h
 l72ad:
 	db 03dh,000h,000h,074h,0e3h,03dh,001h,000h,074h,0e4h,03dh,002h,000h,074h,0e5h,03dh
 	db 003h,000h,074h,0e6h
-#endasm
-L72c1:
-	party_facing = ((party_facing + 2) % 4);
-	fd90e(20384, 20382, 20380, party_x, party_y);
-	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
-	game_state = 5;
-	return_cmd = 18;
-	return 1;
-	l54[2] = npc_give_item_to_member(p4, *(int *)(l36 + (l2 << 2)), -1);
-	l40 = p4;
-	l38 = 0;
-#asm
-	db 0ebh,027h
-#endasm
-L7338:
-	l54[2] = npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
-	l40 = l38;
-	l38++;
-L735f:
-	if ((l38 < party_count) && (l54[2] == -1)) goto L7338;
-	if (l54[2] != -1) goto L737a;
-	return 0;
-L737a:
-	if (l36[((l2 << 2) + 2)] == 1) {
-	get_message(1547, 20948);
-	replace_char_with_string(20948, ((432 * l40) + 17384), 94);
-	f5d0c(20948, 1);
-	}
-	goto L7f6d;
-	if ((l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)))) == -1) goto L741d;
-	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l42 << 3))]] != 1) goto L7411;
-#asm
-	db 0ffh,076h,0d6h,0ffh,076h,004h
+l72c1:
+	db 0a1h,09ah,04fh,040h,040h,0b9h,004h,000h,099h,0f7h,0f9h,089h,016h,09ah,04fh,0ffh
+	db 036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h,0b8h
+	db 0a0h,04fh,050h
+	call fd90e_
+	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
+	db 0e4h,0a3h,0e8h,04eh,0c7h,006h,03ah,036h,005h,000h,0c7h,006h,0ceh,04fh,012h,000h
+	db 0b8h,001h,000h,0e9h,079h,0fdh,0b8h,0ffh,0ffh,050h,08bh,046h,0feh,0d1h,0e0h,0d1h
+	db 0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0ffh,076h,004h
+	call npc_give_item_to_member_
+	db 083h,0c4h,006h,089h,046h,0ceh,08bh,046h,004h,089h,046h,0d8h,0c7h,046h,0dah,000h
+	db 000h,0ebh,027h
+l7338:
+	db 0b8h,0ffh,0ffh,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh
+	db 077h,0dch,0ffh,076h,0dah
+	call npc_give_item_to_member_
+	db 083h,0c4h,006h,089h,046h,0ceh,08bh,046h,0dah,089h,046h,0d8h,0ffh,046h,0dah
+l735f:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,006h,083h,07eh,0ceh,0ffh,074h,0cah
+l736e:
+	db 083h,07eh,0ceh,0ffh,075h,006h,0b8h,000h,000h,0e9h,00ch,0fdh
+l737a:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh,0deh,001h,075h
+	db 034h,0b8h,0d4h,051h,050h,0b8h,00bh,006h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,05eh,000h,050h,0b8h,0b0h,001h,0f7h,06eh,0d8h,005h,0e8h,043h
+	db 050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,0d4h,051h,050h
+	call f5d0c_
+	db 083h,0c4h,004h
+l73bf:
+	db 0e9h,0abh,00bh,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0ffh,076h,004h
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0d6h,03dh,0ffh,0ffh,074h,03ch,0b8h,0b0h,001h,0f7h,06eh
+	db 004h,08bh,04eh,0d6h,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h
+	db 02ch,044h,02ah,0e4h,08bh,0d8h,080h,0bfh,0cch,000h,001h,075h,00eh,0ffh,076h,0d6h
+	db 0ffh,076h,004h
 	call f69db_
 	db 083h,0c4h,004h,0ebh,00ch
-#endasm
-L7411:
-	f6835(p4, l42);
-L741d:
-	goto L7f6d;
-	l46 = ((long)*(int *)(l36 + (l2 << 2)) * (unsigned char)l36[((l2 << 2) + 2)]);
-	*(long *)((char *)pc_gold + (432 * p4)) += l46;
-	g51c0 -= l46;
-	if (g51c0 < 0L) {
-	g51c2 = 0;
-	*(int *)&g51c0 = 0;
-	}
-	goto L7f6d;
-	l46 = ((long)*(int *)(l36 + (l2 << 2)) * 10);
-	if (l46 != 0L) goto L74d6;
-	l38 = 0;
-#asm
-	db 0ebh,017h
-#endasm
-L74b6:
-	*(int *)((char *)g43fe + (432 * l38)) = 0;
-	*(int *)((char *)pc_gold + (432 * l38)) = 0;
-	l38++;
-L74cd:
-	if (l38 < party_count) goto L74b6;
-L74d6:
-	;
-#asm
+l7411:
+	db 0ffh,076h,0d6h,0ffh,076h,004h
+	call f6835_
+	db 083h,0c4h,004h
+l741d:
+	db 0e9h,04dh,00bh,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,050h,08ah,047h,0deh,02ah,0e4h,08bh,0c8h,058h,08bh,0d9h,0f7h,0ebh,089h,056h
+	db 0d4h,089h,046h,0d2h,08bh,046h,0d2h,08bh,056h,0d4h,050h,052h,0b8h,0b0h,001h,0f7h
+	db 06eh,004h,08bh,0d8h,05ah,058h,001h,087h,0fch,043h,011h,097h,0feh,043h,08bh,046h
+	db 0d2h,08bh,056h,0d4h,029h,006h,0c0h,051h,019h,016h,0c2h,051h,083h,03eh,0c2h,051h
+	db 000h,07fh,009h,075h,009h,083h,03eh,0c0h,051h,000h,072h,002h
+l7479:
+	db 0ebh,00ch
+l747b:
+	db 0c7h,006h,0c2h,051h,000h,000h,0c7h,006h,0c0h,051h,000h,000h
+l7487:
+	db 0e9h,0e3h,00ah,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,0bbh,00ah,000h,0f7h,0ebh,089h,056h,0d4h,089h,046h,0d2h,083h,07eh,0d4h,000h
+	db 075h,004h,083h,07eh,0d2h,000h
+l74ad:
+	db 075h,027h,0c7h,046h,0dah,000h,000h,0ebh,017h
+l74b6:
+	db 0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,0c7h,087h,0feh,043h,000h,000h,0c7h,087h
+	db 0fch,043h,000h,000h,0ffh,046h,0dah
+l74cd:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07ch,0e0h
 l74d6:
 	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,0fch,043h,08bh,097h,0feh,043h
 	db 03bh,056h,0d4h,07fh,007h,075h,007h,03bh,046h,0d2h,072h,002h
-#endasm
-L74f2:
-	goto L7544;
-L74f4:
-	f5382(p4);
-	if (*(long *)((char *)pc_gold + (432 * p4)) >= l46) goto L7544;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L753e;
-	return 1;
-L753e:
-	return 0;
-L7544:
-	*(long *)((char *)pc_gold + (432 * p4)) -= l46;
-	g51c0 += l46;
-#asm
-	db 0e9h,0feh,009h
-#endasm
-	goto L7f6d;
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L75ad;
-	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L75ad:
-	goto L7f6d;
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L7616;
-	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-	set_bit(((game_state_arg * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L7616:
-	goto L7f6d;
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L7647;
-	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L7647:
-	goto L7f6d;
-	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L769b;
-	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
-	set_bit(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
-L769b:
-	goto L7f6d;
-	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L76ce;
-	return 0;
-L76ce:
-	goto L7f6d;
-	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2)))) goto L7700;
-	return 0;
-L7700:
-	goto L7f6d;
-	if (test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) goto L7726;
-	return 0;
-L7726:
-	goto L7f6d;
-	if (test_bit(21112, *(int *)(l36 + (l2 << 2)))) goto L774b;
-	return 0;
-L774b:
-	goto L7f6d;
-	if (l36[((l2 << 2) + 2)]) goto L7770;
-	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
-#asm
-	db 0ebh,038h
-#endasm
-L7770:
-	l54[2] = -1;
-	l38 = 0;
-	goto L7799;
-L777c:
-	l54[2] = f6d11(l38, *(int *)(l36 + (l2 << 2)));
-	l38++;
-L7799:
-	if (l38 >= party_count) goto L77a8;
-	if (l54[2] == -1) goto L777c;
-L77a8:
-	if (l54[2] != -1) goto L77b4;
-	return 0;
-L77b4:
-	goto L7f6d;
-	if (l36[((l2 << 2) + 2)]) goto L77d9;
-	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
-#asm
-	db 0ebh,038h
-#endasm
-L77d9:
-	l54[2] = -1;
-	l38 = 0;
-	goto L7802;
-L77e5:
-	l54[2] = f6d11(l38, *(int *)(l36 + (l2 << 2)));
-	l38++;
-L7802:
-	if (l38 >= party_count) goto L7811;
-	if (l54[2] == -1) goto L77e5;
-L7811:
-	if (l54[2] == -1) goto L781d;
-	return 0;
-L781d:
-	goto L7f6d;
-	if (random(100) <= *(int *)(l36 + (l2 << 2))) goto L7840;
-	return 0;
-L7840:
-	goto L7f6d;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0a1h,03ch
-	db 036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
+l74f2:
+	db 0ebh,050h
+l74f4:
+	db 0ffh,076h,004h
+	call f5382_
+	db 059h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,0fch,043h,08bh,097h,0feh
+	db 043h,03bh,056h,0d4h,07fh,007h,075h,007h,03bh,046h,0d2h,072h,002h
+l7517:
+	db 0ebh,02bh
+l7519:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,048h,0fbh
+l753e:
+	db 0b8h,000h,000h,0e9h,042h,0fbh
+l7544:
+	db 08bh,046h,0d2h,08bh,056h,0d4h,050h,052h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h
+	db 05ah,058h,029h,087h,0fch,043h,019h,097h,0feh,043h,08bh,046h,0d2h,08bh,056h,0d4h
+	db 001h,006h,0c0h,051h,011h,016h,0c2h,051h,0e9h,0feh,009h,0e9h,0fbh,009h,08bh,046h
+	db 0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,089h,046h,0d6h,03dh
+	db 000h,000h,07eh,025h,03dh,04fh,000h,07dh,020h,08ah,047h,0deh,02ah,0e4h,050h,0ffh
+	db 076h,0d6h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h
+	db 0ech,04eh,050h
+	call set_bit_
+	db 083h,0c4h,006h
+l75ad:
+	db 0e9h,0bdh,009h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,089h,046h,0d6h,03dh,000h,000h,07eh,050h,03dh,04fh,000h,07dh,04bh,08ah,047h
+	db 0deh,02ah,0e4h,050h,0ffh,076h,0d6h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
+	db 003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
+	call set_bit_
+	db 083h,0c4h,006h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h
+	db 0deh,02ah,0e4h,050h,0ffh,076h,0d6h,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h
+	db 003h,0c2h,0d1h,0e0h,005h,0f8h,033h,050h
+	call set_bit_
+	db 083h,0c4h,006h
+l7616:
+	db 0e9h,054h,009h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,089h,046h,0d6h,03dh,000h,000h,07eh,018h,03dh,00fh,000h,07dh,013h,08ah,047h
+	db 0deh,02ah,0e4h,050h,0ffh,076h,0d6h,0b8h,078h,052h,050h
+	call set_bit_
+	db 083h,0c4h,006h
+l7647:
+	db 0e9h,023h,009h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,089h,046h,0d6h,03dh,000h,000h,07eh,03bh,03dh,00fh,000h,07dh,036h,08ah,047h
+	db 0deh,02ah,0e4h,050h,0ffh,076h,0d6h,0b8h,078h,052h,050h
+	call set_bit_
+	db 083h,0c4h,006h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h
+	db 0deh,02ah,0e4h,050h,0ffh,076h,0d6h,0a1h,074h,052h,0d1h,0e0h,005h,0a0h,034h,050h
+	call set_bit_
+	db 083h,0c4h,006h
+l769b:
+	db 0e9h,0cfh,008h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech
+	db 04eh,050h
 	call test_bit_
-	db 083h,0c4h,004h,085h,0c0h,075h,025h
-#endasm
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7891;
-	return 1;
-L7891:
-	goto L7f6d;
-	if ((test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L78e3;
-	return 1;
-L78e3:
-	goto L7f6d;
-	if ((test_bit(21112, *(int *)(l36 + (l2 << 2)))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7927;
-	return 1;
-L7927:
-	goto L7f6d;
-	if ((test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L796c;
-	return 1;
-L796c:
-	goto L7f6d;
-	if ((random(100) >= *(int *)(l36 + (l2 << 2))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L79a3;
-	return 1;
-L79a3:
-	goto L7f6d;
-	l38 = 0;
-#asm
-	db 0ebh,05fh
-#endasm
-L79ad:
-	if (!pc_condition[(432 * l38)]) {
-	get_message(1548, 20948);
-	replace_char_with_string(20948, ((432 * l38) + 17384), 94);
-	f5d0c(20948, 1);
-	g4511[(432 * l38)]++;
-	f5078(l38, g527a);
-	}
-	l38++;
-L7a0c:
-	if (l38 < party_count) goto L79ad;
-	goto L7f6d;
-	l54[2] = *(int *)(l36 + (l2 << 2));
-	l38 = 0;
-#asm
-	db 0e9h,0d9h,000h
-#endasm
-L7a31:
-	if ((unsigned)pc_condition[(432 * l38)] >= 3) goto L7b07;
-	if (f6d11(l38, 245) == -1) goto L7a71;
-	l54[2] = (unsigned char)l36[((l2 << 2) + 2)];
-	l38 = party_count;
-	goto L7b07;
-L7a71:
-	get_message(1549, 20948);
-	replace_char_with_string(20948, ((432 * l38) + 17384), 94);
-	f5d0c(20948, 1);
-	*(int *)((char *)pc_hp + (432 * l38)) = (random(*(int *)((char *)pc_hp + (432 * l38))) + 1);
-	*(int *)((char *)pc_hp_max + (432 * l38)) -= (random(4) + 1);
-	if (*(int *)((char *)pc_hp_max + (432 * l38)) < 1) {
-	*(int *)((char *)pc_hp_max + (432 * l38)) = 1;
-	}
-	if (*(int *)((char *)pc_hp + (432 * l38)) > *(int *)((char *)pc_hp_max + (432 * l38))) {
-	*(int *)((char *)pc_hp + (432 * l38)) = *(int *)((char *)pc_hp_max + (432 * l38));
-	}
-	f5078(l38, g527a);
-L7b07:
-	l38++;
-L7b0a:
-	if (l38 < party_count) goto L7a31;
-	if (f7038(0, l54[2]) != 1) goto L7b2e;
-	return 1;
-L7b2e:
-	goto L7f6d;
-	l38 = 0;
-#asm
-	db 0e9h,0c5h,000h
-#endasm
-L7b39:
-	l54[0] = (*(int *)(l36 + (l2 << 2)) - 1);
-	l54[1] = ((unsigned char)l36[((l2 << 2) + 2)] - 1);
-	l54[3] = 0;
-L7b59:
-	l54[2] = l54[l54[3]];
-	if (l54[2] < 0) goto L7bed;
-	if (l54[2] > 7) {
-	l54[2] = random(8);
-	}
-	if ((unsigned)pc_stats[((432 * l38) + l54[2])] >= 18) goto L7bed;
-	pc_stats[((432 * l38) + l54[2])]++;
-	get_message(5015, 20948);
-	get_message((l54[2] + 5050), 21116);
-	replace_char_with_string(20948, ((432 * l38) + 17384), 94);
-	replace_char_with_string(20948, 21116, 36);
-	f5d0c(20948, 1);
-L7bed:
-	l54[3]++;
-	if (l54[3] < 2) goto L7b59;
-	l38++;
-L7bfe:
-	if (l38 < party_count) goto L7b39;
-	goto L7f6d;
-	l42 = 0;
-	l38 = 0;
-#asm
-	db 0ebh,00eh
-#endasm
-L7c19:
-	l42 += random(8);
-	l38++;
-L7c27:
-	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7c19;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh,0deh,000h,076h
-	db 027h
-#endasm
-	*(int *)((char *)pc_stamina + (432 * p4)) -= l42;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) < 0) {
-	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
-	g450c[(432 * p4)] = *(char *)&l42;
-	}
-	goto L7c95;
-L7c72:
-	*(int *)((char *)pc_stamina + (432 * p4)) += l42;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L7c95;
-	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
-L7c95:
-	f5078(p4, g527a);
-	goto L7f6d;
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7cca;
-	return 1;
-L7cca:
-	goto L7f6d;
-#asm
-	db 0b8h,001h,000h,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah
-	db 047h,0deh,02ah,0e4h,050h
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,000h,000h,0e9h,0b8h,0f9h
+l76ce:
+	db 0e9h,09ch,008h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech
+	db 04eh,050h
+	call test_bit_
+	db 083h,0c4h,004h,085h,0c0h,075h,006h,0b8h,000h,000h,0e9h,086h,0f9h
+l7700:
+	db 0e9h,06ah,008h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0b8h,078h,052h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,000h,000h,0e9h,060h,0f9h
+l7726:
+	db 0e9h,044h,008h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0b8h,078h,052h,050h
+	call test_bit_
+	db 083h,0c4h,004h,085h,0c0h,075h,006h,0b8h,000h,000h,0e9h,03bh,0f9h
+l774b:
+	db 0e9h,01fh,008h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh
+	db 0deh,000h,075h,011h,0ffh,077h,0dch,0ffh,076h,004h
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0ceh,0ebh,038h
+l7770:
+	db 0c7h,046h,0ceh,0ffh,0ffh,0c7h,046h,0dah,000h,000h,0ebh,01dh
+l777c:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0ffh,076h
+	db 0dah
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0ceh,0ffh,046h,0dah
+l7799:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,006h,083h,07eh,0ceh,0ffh,074h,0d4h
+l77a8:
+	db 083h,07eh,0ceh,0ffh,075h,006h,0b8h,000h,000h,0e9h,0d2h,0f8h
+l77b4:
+	db 0e9h,0b6h,007h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh
+	db 0deh,000h,075h,011h,0ffh,077h,0dch,0ffh,076h,004h
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0ceh,0ebh,038h
+l77d9:
+	db 0c7h,046h,0ceh,0ffh,0ffh,0c7h,046h,0dah,000h,000h,0ebh,01dh
+l77e5:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0ffh,076h
+	db 0dah
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0ceh,0ffh,046h,0dah
+l7802:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,006h,083h,07eh,0ceh,0ffh,074h,0d4h
+l7811:
+	db 083h,07eh,0ceh,0ffh,074h,006h,0b8h,000h,000h,0e9h,069h,0f8h
+l781d:
+	db 0e9h,04dh,007h,0b8h,064h,000h,050h
+	call random_
+	db 059h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,003h,0ddh,08bh,04fh,0dch,03bh
+	db 0c1h,07eh,006h,0b8h,000h,000h,0e9h,046h,0f8h
+l7840:
+	db 0e9h,02ah,007h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech
+	db 04eh,050h
+	call test_bit_
+	db 083h,0c4h,004h,085h,0c0h,075h,025h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
+	db 003h,0ddh,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,0f5h,0f7h
+l7891:
+	db 0e9h,0d9h,006h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0a1h,03ch,036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech
+	db 04eh,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,025h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh
+	db 0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,0a3h,0f7h
+l78e3:
+	db 0e9h,087h,006h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0b8h,078h,052h,050h
+	call test_bit_
+	db 083h,0c4h,004h,085h,0c0h,075h,025h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
+	db 003h,0ddh,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,05fh,0f7h
+l7927:
+	db 0e9h,043h,006h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h
+	db 0dch,0b8h,078h,052h,050h
+	call test_bit_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,025h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh
+	db 0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,01ah,0f7h
+l796c:
+	db 0e9h,0feh,005h,0b8h,064h,000h,050h
+	call random_
+	db 059h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,003h,0ddh,08bh,04fh,0dch,03bh
+	db 0c1h,07dh,01ah,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,0e3h,0f6h
+l79a3:
+	db 0e9h,0c7h,005h,0c7h,046h,0dah,000h,000h,0ebh,05fh
+l79ad:
+	db 0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,080h,0bfh,089h,045h,000h,075h,04dh,0b8h
+	db 0d4h,051h,050h,0b8h,00ch,006h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,05eh,000h,050h,0b8h,0b0h,001h,0f7h,06eh,0dah,005h,0e8h,043h
+	db 050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,0d4h,051h,050h
+	call f5d0c_
+	db 083h,0c4h,004h,0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,0feh,087h,011h,045h,0ffh
+	db 036h,07ah,052h,0ffh,076h,0dah
+	call f5078_
+	db 083h,0c4h,004h
+l7a09:
+	db 0ffh,046h,0dah
+l7a0c:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07ch,098h,0e9h,055h,005h,08bh,046h,0feh,0d1h
+	db 0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,089h,046h,0ceh,0c7h,046h,0dah
+	db 000h,000h,0e9h,0d9h,000h
+l7a31:
+	db 0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,080h,0bfh,089h,045h,003h,072h,003h,0e9h
+	db 0c4h,000h
+l7a43:
+	db 0b8h,0f5h,000h,050h,0ffh,076h,0dah
+	call f6d11_
+	db 083h,0c4h,004h,03dh,0ffh,0ffh,074h,01ch,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh
+	db 0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h,089h,046h,0ceh,0a1h,0ceh,043h,089h,046h
+	db 0dah,0e9h,096h,000h
+l7a71:
+	db 0b8h,0d4h,051h,050h,0b8h,00dh,006h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,05eh,000h,050h,0b8h,0b0h,001h,0f7h,06eh,0dah,005h,0e8h,043h
+	db 050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,0d4h,051h,050h
+	call f5d0c_
+	db 083h,0c4h,004h,0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,0ffh,0b7h,000h,044h
+	call random_
+	db 059h,040h,050h,0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,058h,089h,087h,000h,044h
+	db 0b8h,004h,000h,050h
+	call random_
+	db 059h,040h,050h,0b8h,0b0h,001h,0f7h,06eh,0dah,08bh,0d8h,058h,029h,087h,002h,044h
+	db 083h,0bfh,002h,044h,001h,07dh,006h,0c7h,087h,002h,044h,001h,000h
+l7ae8:
+	db 08bh,087h,000h,044h,03bh,087h,002h,044h,07eh,008h,08bh,087h,002h,044h,089h,087h
+	db 000h,044h
+l7afa:
+	db 0ffh,036h,07ah,052h,0ffh,076h,0dah
+	call f5078_
+	db 083h,0c4h,004h
+l7b07:
+	db 0ffh,046h,0dah
+l7b0a:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,003h,0e9h,01bh,0ffh
+l7b16:
+	db 0ffh,076h,0ceh,0b8h,000h,000h,050h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,058h,0f5h
+l7b2e:
+	db 0e9h,03ch,004h,0c7h,046h,0dah,000h,000h,0e9h,0c5h,000h
+l7b39:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,048h,089h
+	db 046h,0cah,08ah,047h,0deh,02ah,0e4h,048h,089h,046h,0cch,0c7h,046h,0d0h,000h,000h
+l7b59:
+	db 08bh,046h,0d0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0cah,089h,046h,0ceh,03dh
+	db 000h,000h,07dh,003h,0e9h,07dh,000h
+l7b70:
+	db 03dh,007h,000h,07eh,00bh,0b8h,008h,000h,050h
+	call random_
+	db 059h,089h,046h,0ceh
+l7b80:
+	db 0b8h,0b0h,001h,0f7h,06eh,0dah,003h,046h,0ceh,08bh,0d8h,080h,0bfh,014h,045h,012h
+	db 073h,05bh,0feh,087h,014h,045h,0b8h,0d4h,051h,050h,0b8h,097h,013h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,07ch,052h,050h,08bh,046h,0ceh,005h,0bah,013h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,05eh,000h,050h,0b8h,0b0h,001h,0f7h,06eh,0dah,005h,0e8h,043h
+	db 050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,024h,000h,050h,0b8h,07ch,052h,050h,0b8h,0d4h,051h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,0d4h,051h,050h
+	call f5d0c_
+	db 083h,0c4h,004h
+l7bed:
+	db 0ffh,046h,0d0h,08bh,046h,0d0h,03dh,002h,000h,07dh,003h,0e9h,05eh,0ffh
+l7bfb:
+	db 0ffh,046h,0dah
+l7bfe:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,003h,0e9h,02fh,0ffh
+l7c0a:
+	db 0e9h,060h,003h,0c7h,046h,0d6h,000h,000h,0c7h,046h,0dah,000h,000h,0ebh,00eh
+l7c19:
+	db 0b8h,008h,000h,050h
+	call random_
+	db 059h,001h,046h,0d6h,0ffh,046h,0dah
+l7c27:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,03bh,046h
+	db 0dah,07fh,0dfh,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh
+	db 0deh,000h,076h,027h,08bh,046h,0d6h,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h
+	db 058h,029h,087h,004h,044h,083h,0bfh,004h,044h,000h,07dh,00dh,0c7h,087h,004h,044h
+	db 000h,000h,08ah,046h,0d6h,088h,087h,00ch,045h
+l7c70:
+	db 0ebh,023h
+l7c72:
+	db 08bh,046h,0d6h,050h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,058h,001h,087h,004h
+	db 044h,08bh,087h,004h,044h,03bh,087h,006h,044h,07eh,008h,08bh,087h,006h,044h,089h
+	db 087h,004h,044h
+l7c95:
+	db 0ffh,036h,07ah,052h,0ffh,076h,004h
+	call f5078_
+	db 083h,0c4h,004h,0e9h,0c8h,002h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h
+	db 0ddh,08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,0bch,0f3h
+l7cca:
+	db 0e9h,0a0h,002h,0b8h,001h,000h,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
+	db 003h,0ddh,08ah,047h,0deh,02ah,0e4h,050h
 	call random_
 	db 059h,0d1h,0e0h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,003h,0ddh,08bh,04fh
 	db 0dch,003h,0c1h,050h
 	call f5c61_
-	db 083h,0c4h,004h,0e9h,06bh,002h
-#endasm
-	party_facing = *(int *)(l36 + (l2 << 2));
-	f5690();
-#asm
+	db 083h,0c4h,004h,0e9h,06bh,002h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h
+	db 0ddh,08bh,047h,0dch,0a3h,09ah,04fh
+	call f5690_
 	db 0b8h,004h,000h,050h
 	call f5a1e_
-	db 059h,0e9h,04ch,002h
-#endasm
-	l38 = 0;
-#asm
-	db 0ebh,077h
-#endasm
-L7d28:
-	switch ((unsigned char)l36[((l2 << 2) + 2)]) {
-case 0:
-	party_y++;
-	goto L7d66;
-case 1:
-	party_x++;
-	goto L7d66;
-case 2:
-	party_y--;
-	goto L7d66;
-case 3:
-	party_x--;
-	goto L7d66;
-	}
-L7d66:
-	fd90e(20384, 20382, 20380, party_x, party_y);
-	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
-	f5690();
-	f5a1e(4);
-	l38++;
-L7d9f:
-	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7d28;
-	goto L7f6d;
-	if ((fb2fd(p4)) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7de8;
-	return 1;
-L7de8:
-	goto L7f6d;
-	return 1;
-	party_x = 129;
-	party_y = 132;
-	party_cell_x = 1;
-	party_cell_y = 4;
-	party_level = 0;
-	party_facing = 0;
-	game_state_arg = 13;
-	game_state = 6;
-	return_cmd = 18;
-#asm
-	db 0b8h,001h,000h,0e9h,059h,0f2h
-#endasm
-	f6e7e(*(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
-	return;
-	l54[2] = -1;
-	l38 = 0;
-#asm
+	db 059h,0e9h,04ch,002h,0c7h,046h,0dah,000h,000h,0ebh,077h
+l7d28:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 0ebh,018h
+l7d3a:
+	db 0ffh,006h,0a2h,04fh,0ebh,026h
+l7d40:
+	db 0ffh,006h,0a4h,04fh,0ebh,020h
+l7d46:
+	db 0ffh,00eh,0a2h,04fh,0ebh,01ah
+l7d4c:
+	db 0ffh,00eh,0a4h,04fh,0ebh,014h
+l7d52:
+	db 03dh,000h,000h,074h,0e3h,03dh,001h,000h,074h,0e4h,03dh,002h,000h,074h,0e5h,03dh
+	db 003h,000h,074h,0e6h
+l7d66:
+	db 0ffh,036h,0a2h,04fh,0ffh,036h,0a4h,04fh,0b8h,09ch,04fh,050h,0b8h,09eh,04fh,050h
+	db 0b8h,0a0h,04fh,050h
+	call fd90e_
+	db 083h,0c4h,00ah,08bh,01eh,0a8h,04fh,08bh,036h,09ch,04fh,08ah,080h,0c0h,006h,02ah
+	db 0e4h,0a3h,0e8h,04eh
+	call f5690_
+	db 0b8h,004h,000h,050h
+	call f5a1e_
+	db 059h,0ffh,046h,0dah
+l7d9f:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0dch,03bh,046h
+	db 0dah,07eh,003h,0e9h,073h,0ffh
+l7db5:
+	db 0e9h,0b5h,001h,0ffh,076h,004h
+	call fb2fd_
+	db 059h,085h,0c0h,075h,025h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh
+	db 08ah,047h,0deh,02ah,0e4h,050h,0ffh,076h,004h
+	call f7038_
+	db 083h,0c4h,004h,03dh,001h,000h,075h,006h,0b8h,001h,000h,0e9h,09eh,0f2h
+l7de8:
+	db 0e9h,082h,001h,0b8h,001h,000h,0e9h,095h,0f2h,0c7h,006h,0a4h,04fh,081h,000h,0c7h
+	db 006h,0a2h,04fh,084h,000h,0c7h,006h,0a0h,04fh,001h,000h,0c7h,006h,09eh,04fh,004h
+	db 000h,0c7h,006h,09ch,04fh,000h,000h,0c7h,006h,09ah,04fh,000h,000h,0c7h,006h,03ch
+	db 036h,00dh,000h,0c7h,006h,03ah,036h,006h,000h,0c7h,006h,0ceh,04fh,012h,000h,0b8h
+	db 001h,000h,0e9h,059h,0f2h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh
+	db 08ah,047h,0deh,02ah,0e4h,050h,0ffh,077h,0dch
+	call f6e7e_
+	db 083h,0c4h,004h,0e9h,03ch,0f2h,0c7h,046h,0ceh,0ffh,0ffh,0c7h,046h,0dah,000h,000h
 	db 0ebh,04ah
-#endasm
-L7e56:
-	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) != -1) {
-	f6835(l38, l54[2]);
-	npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
-	}
-	l38++;
-L7ea0:
-	if ((l38 < party_count) && (l54[2] == -1)) goto L7e56;
-	goto L7f6d;
-	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
-	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
-	*(int *)((char *)g50de + ((l38 * 10) + (l40 << 1))) = (unsigned char)l36[((l2 << 2) + 2)];
-#asm
+l7e56:
+	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
+	db 050h,0ffh,076h,0dah
+	call f6d11_
+	db 083h,0c4h,004h,089h,046h,0ceh,03dh,0ffh,0ffh,074h,025h,050h,0ffh,076h,0dah
+	call f6835_
+	db 083h,0c4h,004h,0b8h,0ffh,0ffh,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
+	db 003h,0ddh,0ffh,077h,0dch,0ffh,076h,0dah
+	call npc_give_item_to_member_
+	db 083h,0c4h,006h
+l7e9d:
+	db 0ffh,046h,0dah
+l7ea0:
+	db 08bh,046h,0dah,03bh,006h,0ceh,043h,07dh,006h,083h,07eh,0ceh,0ffh,074h,0a7h
+l7eaf:
+	db 0e9h,0bbh,000h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h
+	db 0dch,0b9h,000h,001h,099h,0f7h,0f9h,089h,046h,0dah,089h,056h,0d8h,08ah,047h,0deh
+	db 02ah,0e4h,050h,08bh,046h,0dah,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h
+	db 08bh,0c8h,08bh,056h,0d8h,0d1h,0e2h,003h,0c2h,08bh,0d8h,058h,089h,087h,0deh,050h
 	db 0ebh,07ch,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh
 	db 02ah,0e4h,0a3h,042h,051h,0ebh,067h,083h,070h,08bh,070h,0efh,070h,029h,071h,060h
 	db 071h,0bdh,071h,0d5h,071h,08ah,072h,090h,072h,00dh,073h,0c2h,073h,020h,074h,08ah
@@ -546,10 +560,8 @@ L7ea0:
 	db 07eh
 l7f60:
 	db 03dh,02dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,006h,07fh
+l7f6d:
+	db 0ffh,046h,0feh,0e9h,0f4h,0f0h
+l7f73:
+	db 0e9h,010h,0f1h
 #endasm
-L7f6d:
-	l2++;
-	goto L7067;
-L7f73:
-	return;
-}

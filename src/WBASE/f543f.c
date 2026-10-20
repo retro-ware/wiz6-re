@@ -1,76 +1,117 @@
-#asm
-	extrn destroy_window_:near
-#endasm
-extern int copy_protection_ok;
-extern int g4f84;
-extern int main_window;
 /* Copy protection: draw three random icons, ask for their magic word (spell name, msg 4000+); -1 if wrong. */
-check_magic_word()
-{
-	char *win;
-	char x2[40];
-	int prompt;
-	char x44[38];
-	int word;
-	int x;
-	int l88;
-	int icon1;
-	int icon2;
-	int icon3;
-	int input_x;
-	if (copy_protection_ok != 1) goto L5453;
-	return 0;
-L5453:
-	erase_window(main_window, 0);
-	win = create_window(0, 19, 40, 5, 10, -1, 0, 0);
-	fill_window(win, 32, 3, 0);
-	defer_window_draw(win);
-	get_message(1050, &prompt);
-	print_centered(win, &prompt, 1, 18);
-	draw_glyph_at(win, 7, 2, 17);
-	draw_glyph_at(win, 33, 2, 19);
-	draw_glyph_at(win, 7, 4, 6);
-	draw_glyph_at(win, 33, 4, 8);
-	for (x = 8; x < 33; x++) {
-	draw_glyph_at(win, x, 2, 18);
-	draw_glyph_at(win, x, 4, 7);
-	}
-	draw_glyph_at(win, 7, 3, 4);
-	draw_glyph_at(win, 33, 3, 5);
-	l88 = 0;
-	defer_window_draw(win);
-	clear_window_area(win, 8, 3, 32, 3);
-	icon1 = random(8);
-	icon3 = random(8);
-	icon2 = (random(4) + ((icon3 / 4) << 2));
-	set_cursor(win, 10, 3);
-	put_char(win, (unsigned char)((icon1 + 104)), 4);
-	win[6]++;
-	put_char(win, (unsigned char)((icon2 + 112)), 5);
-	win[6]++;
-	put_char(win, (unsigned char)((icon3 + 120)), 2);
-	input_x = ((unsigned char)win[6] + 2);
-	resume_window_draw(win);
-	refresh_all_windows();
-	l88++;
-	clear_window_area(win, 16, 3, 32, 3);
-	set_cursor(win, input_x, 3);
-	get_message((((((icon2 << 3) + (icon3 << 6)) + icon1) % 79) + 4000), &word);
-	input_text_animated(win, &word, 15, 5, 0);
-	g4f84 = 17210;
 #asm
-	db 0fch,056h,057h,08dh,076h,0ach,08dh,07eh,0d4h
-#endasm
-#asm
+	public check_magic_word_
+	extrn clear_window_area_:near
+	extrn create_window_:near
+	extrn defer_window_draw_:near
+	extrn destroy_window_:near
+	extrn draw_glyph_at_:near
+	extrn erase_window_:near
+	extrn fill_window_:near
+	extrn get_message_:near
+	extrn input_text_animated_:near
+	extrn print_centered_:near
+	extrn put_char_:near
+	extrn random_:near
+	extrn refresh_all_windows_:near
+	extrn resume_window_draw_:near
+	extrn set_cursor_:near
+	extrn strcmp_:near
+check_magic_word_:
+	db 055h,08bh,0ech,083h,0c4h,0a0h,083h,03eh,0c0h,04fh,001h,075h,007h,0b8h,000h,000h
+l544f:
+	db 08bh,0e5h,05dh,0c3h
+l5453:
+	db 0b8h,000h,000h,050h,0ffh,036h,042h,033h
+	call erase_window_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,050h,0b8h,0ffh,0ffh,050h,0b8h,00ah,000h,050h
+	db 0b8h,005h,000h,050h,0b8h,028h,000h,050h,0b8h,013h,000h,050h,0b8h,000h,000h,050h
+	call create_window_
+	db 083h,0c4h,010h,089h,046h,0feh,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h
+	db 000h,050h,0ffh,076h,0feh
+	call fill_window_
+	db 083h,0c4h,008h,0ffh,076h,0feh
+	call defer_window_draw_
+	db 059h,08dh,046h,0d4h,050h,0b8h,01ah,004h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,012h,000h,050h,0b8h,001h,000h,050h,08dh,046h,0d4h,050h,0ffh
+	db 076h,0feh
+	call print_centered_
+	db 083h,0c4h,008h,0b8h,011h,000h,050h,0b8h,002h,000h,050h,0b8h,007h,000h,050h,0ffh
+	db 076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0b8h,013h,000h,050h,0b8h,002h,000h,050h,0b8h,021h,000h,050h,0ffh
+	db 076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0b8h,006h,000h,050h,0b8h,004h,000h,050h,0b8h,007h,000h,050h,0ffh
+	db 076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0b8h,008h,000h,050h,0b8h,004h,000h,050h,0b8h,021h,000h,050h,0ffh
+	db 076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0c7h,046h,0aah,008h,000h
+l551f:
+	db 0b8h,012h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,0aah,0ffh,076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0b8h,007h,000h,050h,0b8h,004h,000h,050h,0ffh,076h,0aah,0ffh,076h
+	db 0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0ffh,046h,0aah,08bh,046h,0aah,03dh,021h,000h,07ch,0cdh,0b8h,004h
+	db 000h,050h,0b8h,003h,000h,050h,0b8h,007h,000h,050h,0ffh,076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0b8h,005h,000h,050h,0b8h,003h,000h,050h,0b8h,021h,000h,050h,0ffh
+	db 076h,0feh
+	call draw_glyph_at_
+	db 083h,0c4h,008h,0c7h,046h,0a8h,000h,000h,0ffh,076h,0feh
+	call defer_window_draw_
+	db 059h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0b8h,003h,000h,050h,0b8h,008h,000h
+	db 050h,0ffh,076h,0feh
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,008h,000h,050h
+	call random_
+	db 059h,089h,046h,0a6h,0b8h,008h,000h,050h
+	call random_
+	db 059h,089h,046h,0a2h,0b8h,004h,000h,050h
+	call random_
+	db 059h,050h,08bh,046h,0a2h,0b9h,004h,000h,099h,0f7h,0f9h,08bh,0c8h,0d1h,0e0h,0d1h
+	db 0e0h,08bh,0c8h,058h,003h,0c1h,089h,046h,0a4h,0b8h,003h,000h,050h,0b8h,00ah,000h
+	db 050h,0ffh,076h,0feh
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,08bh,046h,0a6h,005h,068h,000h,02ah,0e4h,050h
+	db 0ffh,076h,0feh
+	call put_char_
+	db 083h,0c4h,006h,08bh,05eh,0feh,0feh,047h,006h,0b8h,005h,000h,050h,08bh,046h,0a4h
+	db 005h,070h,000h,02ah,0e4h,050h,0ffh,076h,0feh
+	call put_char_
+	db 083h,0c4h,006h,08bh,05eh,0feh,0feh,047h,006h,0b8h,002h,000h,050h,08bh,046h,0a2h
+	db 005h,078h,000h,02ah,0e4h,050h,0ffh,076h,0feh
+	call put_char_
+	db 083h,0c4h,006h,08bh,05eh,0feh,08ah,047h,006h,02ah,0e4h,040h,040h,089h,046h,0a0h
+	db 053h
+	call resume_window_draw_
+	db 059h
+	call refresh_all_windows_
+	db 0ffh,046h,0a8h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0b8h,003h,000h,050h,0b8h
+	db 010h,000h,050h,0ffh,076h,0feh
+	call clear_window_area_
+	db 083h,0c4h,00ah,0b8h,003h,000h,050h,0ffh,076h,0a0h,0ffh,076h,0feh
+	call set_cursor_
+	db 083h,0c4h,006h,08dh,046h,0ach,050h,08bh,046h,0a4h,0d1h,0e0h,0d1h,0e0h,0d1h,0e0h
+	db 08bh,056h,0a2h,0b9h,006h,000h,0d3h,0e2h,08bh,0cah,003h,0c1h,003h,046h,0a6h,0b9h
+	db 04fh,000h,099h,0f7h,0f9h,08bh,0c2h,005h,0a0h,00fh,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,000h,000h,050h,0b8h,005h,000h,050h,0b8h,00fh,000h,050h,08dh
+	db 046h,0ach,050h,0ffh,076h,0feh
+	call input_text_animated_
+	db 083h,0c4h,00ah,0c7h,006h,084h,04fh,03ah,043h,0fch,056h,057h,08dh,076h,0ach,08dh
+	db 07eh,0d4h
 l56cd:
 	db 036h,0ach,036h,0aah,03ch,000h,075h,0f8h,05fh,05eh,090h,090h,0b8h,000h,000h,050h
 	db 0ffh,076h,0feh
 	call destroy_window_
-	db 083h,0c4h,004h
+	db 083h,0c4h,004h,08dh,046h,0ach,050h,08dh,046h,0d4h,050h
+	call strcmp_
+	db 083h,0c4h,004h,085h,0c0h,074h,006h,0b8h,0ffh,0ffh,0e9h,051h,0fdh
+l56fe:
+	db 0c7h,006h,0c0h,04fh,001h,000h,0b8h,000h,000h,0e9h,045h,0fdh
 #endasm
-	if (!strcmp(&prompt, &word)) goto L56fe;
-	return -1;
-L56fe:
-	copy_protection_ok = 1;
-	return 0;
-}

@@ -1,324 +1,358 @@
-#asm
-	extrn $ldv:near
-#endasm
-extern char g44dc[];
-extern char g44e2[];
-extern char g44e4[];
-extern char g44e6[];
-extern char g450a[];
-extern char g4517[];
-extern char g4539[];
-extern char g453a[];
-extern char g4548[];
-extern char g4549[];
-extern char g458a[];
-extern char g458b[];
-extern char g4591[];
-extern char pc_class[];
-extern char pc_equipped[];
-extern char pc_item_count[];
-extern char pc_item_flags[];
-extern char pc_item_icon[];
-extern char pc_stats[];
-extern int g4fb8;
-extern int g4fba;
-extern int menu_clicked;
-extern int mouse_present;
-extern int pc_age_days[];
-extern int pc_hp[];
-extern int pc_hp_max[];
-extern int pc_item_id[];
-extern int pc_stamina[];
-extern int pc_stamina_max[];
 /* Equip menu: choose weapons and armor for each slot and recompute combat values. */
-do_equip_items(p4, p6, p8)
-char *p4;
-char *p6;
-{
-	int l2;
-	int l4;
-	int l6;
-	int l8;
-	int l10;
-	int l12;
-	int l48[18];
-	char x48[78];
-	int l128;
-	char x128[78];
-	int l208;
-	char x208[8];
-	int l218;
-	int l220;
-	int l222;
-	char x222[2];
-	char l225;
-	char l226;
-	char x226[1];
-	char l228;
-	char l229;
-	char l230;
-	char l231;
-	char x231[4];
-	char l236;
-	char l264[28];
-	char x264[30];
-	int l296;
-	int l298;
-	int l300;
-	int l302;
-	int l304;
-	register int rsi;
-	register int rdi;
-	l2 = 0;
-Ld3a7:
-	pc_equipped[((432 * p8) + l2)] = -1;
-	l48[l2] = 0;
-	l2++;
-	if (l2 < 8) goto Ld3a7;
-	l2 = 0;
-	goto Ld3fa;
-Ld3d7:
-	pc_item_flags[((432 * p8) + (l2 << 3))] = (char)((unsigned char)pc_item_flags[((432 * p8) + (l2 << 3))] & -2);
-	l2++;
-Ld3fa:
-	if ((unsigned char)pc_item_count[(432 * p8)] > l2) goto Ld3d7;
 #asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,08ah,045h,000h,0c6h,087h,08bh
-	db 045h,000h
-#endasm
-	l2 = 0;
-Ld424:
-	g453a[((432 * p8) + l2)] = 0;
-	l2++;
-	if (l2 < 14) goto Ld424;
-	l298 = (!(p8 % 2) ? g4fba : g4fb8);
-	set_cursor(l298, 3, (((p8 / 2) << 2) + 1));
-	put_char_hi(l298, 37, 4);
-	put_char_hi(l298, 38, 4);
-	fcdb3(p8);
-	draw_inventory_panel(p4, p8);
-	get_message(359, &l218);
-	l2 = 0;
-Ld4bf:
-	l12 = can_equip_item(p8, l2, ((char *)l48 + 16));
-	if (l12 <= 0) goto Ldac2;
-	fill_window(p6, 32, 3, 0);
-	refresh_window(p6);
-	get_message(350, &l128);
-	get_message((l2 + 351), &l208);
-	replace_char_with_string(&l128, &l208, 36);
-	set_cursor(p6, 2, 1);
-	print_string_hi(p6, &l128, 3);
-	p6[6]++;
-	l220 = (unsigned char)p6[6];
-	l222 = (unsigned char)p6[7];
-	if (mouse_present != 1) goto Ld57f;
-	print_string_hi(p6, &l218, 3);
-	goto Ld591;
-Ld57f:
-	print_string(p6, &l218, -5);
-Ld591:
-	l4 = 0;
-	goto Ld62c;
-Ld599:
-	set_cursor(p4, 21, (l48[(l4 + 8)] + 9));
-	put_char(p4, 100, 5);
-	print_string(p4, ((l48[(l4 + 8)] << 4) + 21982), 4);
-	set_click_region(l4, ((unsigned char)p4[2] + 21), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9), ((unsigned char)p4[2] + 36), (((unsigned char)p4[3] + l48[(l4 + 8)]) + 9));
-	l4++;
-Ld62c:
-	if (l4 < l12) goto Ld599;
-	set_click_region(l12, ((unsigned char)p6[2] + l220), ((unsigned char)p6[3] + l222), (((strlen(&l218) + (unsigned char)p6[2]) + l220) - 1), ((unsigned char)p6[3] + l222));
-	set_click_region((l12 + 1), 255, 0, 0, 0);
-	l10 = -1;
-Ld695:
-	if (mouse_present) goto Ld706;
-	if (l10 != -1) goto Ld6c7;
-	set_cursor(p6, l220, l222);
-	print_string(p6, &l218, -5);
-	goto Ld706;
-Ld6c7:
-	set_cursor(p4, 22, (l48[(l10 + 8)] + 9));
-	print_string(p4, ((l48[(l10 + 8)] << 4) + 21982), -5);
-Ld706:
-	l6 = get_menu_input(21822, 13720);
-	if (menu_clicked != 1) goto Ld736;
-	l10 = (l6 < l12 ? l6 : -1);
-	l6 = 5;
-	goto Ld80a;
-Ld736:
-	switch (l6) {
-case 2:
-	if (l10 != -1) goto Ld76c;
-	set_cursor(p6, l220, l222);
-	print_string_hi(p6, &l218, 3);
-	l10 = 0;
-	goto Ld799;
-Ld76c:
-	unhighlight_item_row(p4, l48[(l10 + 8)], 4, 0);
-	if ((l10 - 1) < 0) goto Ld794;
-	l10--;
-	goto Ld799;
-Ld794:
-	l10 = -1;
-Ld799:
-	goto Ld80a;
-case 4:
-	if (l10 != -1) goto Ld7cb;
-	set_cursor(p6, l220, l222);
-	print_string_hi(p6, &l218, 3);
-	l10 = 0;
-	goto Ld7fb;
-Ld7cb:
-	unhighlight_item_row(p4, l48[(l10 + 8)], 4, 0);
-	if ((l10 + 1) >= l12) goto Ld7f6;
-	l10++;
-	goto Ld7fb;
-Ld7f6:
-	l10 = -1;
-Ld7fb:
-	goto Ld80a;
-	}
-Ld80a:
-	if (l6 != 5) goto Ld695;
-	if (l10 == -1) goto Ldab6;
-	l8 = l48[(l10 + 8)];
-	pc_equipped[((432 * p8) + l2)] = *(char *)&l8;
-	pc_item_flags[((432 * p8) + (l8 << 3))] |= 1;
-	access_scenario_record(1, &l296, *(int *)((char *)pc_item_id + ((432 * p8) + (l8 << 3))), 0);
-	l48[l2] = (unsigned char)l228;
-	if ((l2) && (l2 != 1)) goto Lda1d;
-	g4549[(432 * p8)] -= l226;
-#asm
-	db 08ah,086h,018h,0ffh,08bh,076h,0feh,0b9h,004h,000h,0d3h,0e6h,08bh,0ceh,003h,0d9h
-	db 088h,087h,0e5h,044h
-#endasm
-	l4 = 0;
-Ld8b8:
-	g44dc[(((432 * p8) + (l2 << 4)) + l4)] = l264[(l4 + 14)];
-	l4++;
-	if (l4 < 8) goto Ld8b8;
-	l4 = ((unsigned char)g4539[(432 * p8)] / 5);
-	if ((pc_class[(432 * p8)] != 12) && (pc_class[(432 * p8)] != 13)) goto Ld934;
-	g44e2[((432 * p8) + (l2 << 4))] = (char)(((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4) + 5);
-	goto Ld95b;
-Ld934:
-	if (l4 <= 0) goto Ld95b;
-	g44e2[((432 * p8) + (l2 << 4))] = (char)((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4);
-Ld95b:
-	g44e4[((432 * p8) + (l2 << 4))] = l231;
-	if (l236 != 4) goto Ld99c;
-	g44e6[((432 * p8) + (l2 << 4))] = (char)(0 - (l225 * 5));
-	goto Ld9b8;
-Ld99c:
-	g44e6[((432 * p8) + (l2 << 4))] = (char)(g44e6[((432 * p8) + (l2 << 4))] - (l225 * 5));
-Ld9b8:
-	;
-#asm
+	public do_equip_items_
+	extrn $ldv:near
+	extrn access_scenario_record_:near
+	extrn add_skill_bonus_:near
+	extrn can_equip_item_:near
+	extrn draw_inventory_panel_:near
+	extrn draw_sheet_:near
+	extrn fc726_:near
+	extrn fcdb3_:near
+	extrn fill_window_:near
+	extrn get_menu_input_:near
+	extrn get_message_:near
+	extrn print_string_:near
+	extrn print_string_hi_:near
+	extrn put_char_:near
+	extrn put_char_hi_:near
+	extrn random_:near
+	extrn refresh_window_:near
+	extrn replace_char_with_string_:near
+	extrn run_menu_:near
+	extrn set_click_region_:near
+	extrn set_cursor_:near
+	extrn strlen_:near
+	extrn unhighlight_item_row_:near
+	extrn use_item_charge_:near
+do_equip_items_:
+	db 055h,08bh,0ech,081h,0c4h,0d0h,0feh,057h,056h,0c7h,046h,0feh,000h,000h
+ld3a7:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,0c6h,087h,0f8h,044h,0ffh
+	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,0c7h,047h,0d0h,000h,000h,0ffh,046h
+	db 0feh,08bh,046h,0feh,03dh,008h,000h,07ch,0d7h,0c7h,046h,0feh,000h,000h,0ebh,023h
+ld3d7:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h
+	db 0c1h,08bh,0d8h,08ah,087h,02fh,044h,02ah,0e4h,025h,0feh,0ffh,088h,087h,02fh,044h
+	db 0ffh,046h,0feh
+ld3fa:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08ah,087h,094h,045h,02ah,0e4h,03bh,046h
+	db 0feh,07fh,0cah,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,08ah,045h,000h
+	db 0c6h,087h,08bh,045h,000h,0c7h,046h,0feh,000h,000h
+ld424:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,0c6h,087h,03ah,045h,000h
+	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,00eh,000h,07ch,0e5h,08bh,046h,008h,0b9h,002h
+	db 000h,099h,0f7h,0f9h,08bh,0c2h,085h,0c0h,075h,005h,0a1h,0bah,04fh,0ebh,003h
+ld453:
+	db 0a1h,0b8h,04fh
+ld456:
+	db 089h,086h,0d6h,0feh,08bh,046h,008h,099h,0f7h,0f9h,0d1h,0e0h,0d1h,0e0h,040h,050h
+	db 0b8h,003h,000h,050h,0ffh,0b6h,0d6h,0feh
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,025h,000h,050h,0ffh,0b6h,0d6h,0feh
+	call put_char_hi_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,026h,000h,050h,0ffh,0b6h,0d6h,0feh
+	call put_char_hi_
+	db 083h,0c4h,006h,0ffh,076h,008h
+	call fcdb3_
+	db 059h,0ffh,076h,008h,0ffh,076h,004h
+	call draw_inventory_panel_
+	db 083h,0c4h,004h,08dh,086h,026h,0ffh,050h,0b8h,067h,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0c7h,046h,0feh,000h,000h
+ld4bf:
+	db 08dh,046h,0e0h,050h,0ffh,076h,0feh,0ffh,076h,008h
+	call can_equip_item_
+	db 083h,0c4h,006h,089h,046h,0f4h,03dh,000h,000h,07fh,003h,0e9h,0e8h,005h
+ld4da:
+	db 0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,006h
+	call fill_window_
+	db 083h,0c4h,008h,0ffh,076h,006h
+	call refresh_window_
+	db 059h,08dh,046h,080h,050h,0b8h,05eh,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,08dh,086h,030h,0ffh,050h,08bh,046h,0feh,005h,05fh,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,024h,000h,050h,08dh,086h,030h,0ffh,050h,08dh,046h,080h,050h
+	call replace_char_with_string_
+	db 083h,0c4h,006h,0b8h,001h,000h,050h,0b8h,002h,000h,050h,0ffh,076h,006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,046h,080h,050h,0ffh,076h,006h
+	call print_string_hi_
+	db 083h,0c4h,006h,08bh,05eh,006h,0feh,047h,006h,08bh,05eh,006h,08ah,047h,006h,02ah
+	db 0e4h,089h,086h,024h,0ffh,08ah,047h,007h,02ah,0e4h,089h,086h,022h,0ffh,083h,03eh
+	db 046h,008h,001h,075h,012h,0b8h,003h,000h,050h,08dh,086h,026h,0ffh,050h,053h
+	call print_string_hi_
+	db 083h,0c4h,006h,0ebh,012h
+ld57f:
+	db 0b8h,0fbh,0ffh,050h,08dh,086h,026h,0ffh,050h,0ffh,076h,006h
+	call print_string_
+	db 083h,0c4h,006h
+ld591:
+	db 0c7h,046h,0fch,000h,000h,0e9h,093h,000h
+ld599:
+	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0e0h,005h,009h,000h,050h
+	db 0b8h,015h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,005h,000h,050h,0b8h,064h,000h,050h,0ffh,076h,004h
+	call put_char_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,003h,0ddh
+	db 08bh,047h,0e0h,0b9h,004h,000h,0d3h,0e0h,005h,0deh,055h,050h,0ffh,076h,004h
+	call print_string_
+	db 083h,0c4h,006h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,04fh,0e0h,08bh
+	db 05eh,004h,08ah,047h,003h,02ah,0e4h,003h,0c1h,005h,009h,000h,050h,08ah,047h,002h
+	db 02ah,0e4h,005h,024h,000h,050h,08ah,047h,003h,02ah,0e4h,003h,0c1h,005h,009h,000h
+	db 050h,08ah,047h,002h,02ah,0e4h,005h,015h,000h,050h,0ffh,076h,0fch
+	call set_click_region_
+	db 083h,0c4h,00ah,0ffh,046h,0fch
+ld62c:
+	db 08bh,046h,0fch,03bh,046h,0f4h,07dh,003h,0e9h,062h,0ffh
+ld637:
+	db 08bh,05eh,006h,08ah,047h,003h,02ah,0e4h,003h,086h,022h,0ffh,050h,08dh,086h,026h
+	db 0ffh,050h
+	call strlen_
+	db 059h,050h,08bh,05eh,006h,08ah,047h,002h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h,003h
+	db 086h,024h,0ffh,048h,050h,08ah,047h,003h,02ah,0e4h,003h,086h,022h,0ffh,050h,003h
+	db 08eh,024h,0ffh,08bh,0c1h,050h,0ffh,076h,0f4h
+	call set_click_region_
+	db 083h,0c4h,00ah,0b8h,000h,000h,050h,050h,050h,0b8h,0ffh,000h,050h,08bh,046h,0f4h
+	db 040h,050h
+	call set_click_region_
+	db 083h,0c4h,00ah,0c7h,046h,0f6h,0ffh,0ffh
+ld695:
+	db 083h,03eh,046h,008h,000h,075h,06ah,083h,07eh,0f6h,0ffh,075h,025h,0ffh,0b6h,022h
+	db 0ffh,0ffh,0b6h,024h,0ffh,0ffh,076h,006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,08dh,086h,026h,0ffh,050h,0ffh,076h,006h
+	call print_string_
+	db 083h,0c4h,006h,0ebh,03fh
+ld6c7:
+	db 08bh,046h,0f6h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0e0h,005h,009h,000h,050h
+	db 0b8h,016h,000h,050h,0ffh,076h,004h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,0fbh,0ffh,050h,08bh,046h,0f6h,0d1h,0e0h,08bh,0d8h,003h,0ddh
+	db 08bh,047h,0e0h,0b9h,004h,000h,0d3h,0e0h,005h,0deh,055h,050h,0ffh,076h,004h
+	call print_string_
+	db 083h,0c4h,006h
+ld706:
+	db 0b8h,098h,035h,050h,0b8h,03eh,055h,050h
+	call get_menu_input_
+	db 083h,0c4h,004h,089h,046h,0fah,083h,03eh,0c4h,04fh,001h,075h,018h,0b8h,0ffh,0ffh
+	db 08bh,04eh,0fah,03bh,04eh,0f4h,07dh,002h,08bh,0c1h
+ld72b:
+	db 089h,046h,0f6h,0c7h,046h,0fah,005h,000h,0e9h,0d4h,000h
+ld736:
+	db 08bh,046h,0fah,0e9h,0c1h,000h
+ld73c:
+	db 083h,07eh,0f6h,0ffh,075h,02ah,0ffh,0b6h,022h,0ffh,0ffh,0b6h,024h,0ffh,0ffh,076h
+	db 006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,086h,026h,0ffh,050h,0ffh,076h,006h
+	call print_string_hi_
+	db 083h,0c4h,006h,0c7h,046h,0f6h,000h,000h,0ebh,02dh
+ld76c:
+	db 0b8h,000h,000h,050h,0b8h,004h,000h,050h,08bh,046h,0f6h,0d1h,0e0h,08bh,0d8h,003h
+	db 0ddh,0ffh,077h,0e0h,0ffh,076h,004h
+	call unhighlight_item_row_
+	db 083h,0c4h,008h,08bh,046h,0f6h,048h,07ch,005h,0ffh,04eh,0f6h,0ebh,005h
+ld794:
+	db 0c7h,046h,0f6h,0ffh,0ffh
+ld799:
+	db 0ebh,06fh
+ld79b:
+	db 083h,07eh,0f6h,0ffh,075h,02ah,0ffh,0b6h,022h,0ffh,0ffh,0b6h,024h,0ffh,0ffh,076h
+	db 006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,08dh,086h,026h,0ffh,050h,0ffh,076h,006h
+	call print_string_hi_
+	db 083h,0c4h,006h,0c7h,046h,0f6h,000h,000h,0ebh,030h
+ld7cb:
+	db 0b8h,000h,000h,050h,0b8h,004h,000h,050h,08bh,046h,0f6h,0d1h,0e0h,08bh,0d8h,003h
+	db 0ddh,0ffh,077h,0e0h,0ffh,076h,004h
+	call unhighlight_item_row_
+	db 083h,0c4h,008h,08bh,046h,0f6h,040h,03bh,046h,0f4h,07dh,005h,0ffh,046h,0f6h,0ebh
+	db 005h
+ld7f6:
+	db 0c7h,046h,0f6h,0ffh,0ffh
+ld7fb:
+	db 0ebh,00dh
+ld7fd:
+	db 03dh,002h,000h,075h,003h,0e9h,037h,0ffh
+ld805:
+	db 03dh,004h,000h,074h,091h
+ld80a:
+	db 083h,07eh,0fah,005h,074h,003h,0e9h,082h,0feh
+ld813:
+	db 083h,07eh,0f6h,0ffh,075h,003h,0e9h,09ah,002h
+ld81c:
+	db 08bh,046h,0f6h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0e0h,089h,046h,0f8h,08ah
+	db 046h,0f8h,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0c8h,003h,046h,0feh,08bh,0d8h
+	db 058h,088h,087h,0f8h,044h,08bh,046h,0f8h,0d1h,0e0h,0d1h,0e0h,0d1h,0e0h,003h,0c8h
+	db 08bh,0d9h,080h,08fh,02fh,044h,001h,0b8h,000h,000h,050h,0ffh,0b7h,028h,044h,08dh
+	db 086h,0d8h,0feh,050h,0b8h,001h,000h,050h
+	call access_scenario_record_
+	db 083h,0c4h,008h,08ah,086h,01ch,0ffh,02ah,0e4h,08bh,04eh,0feh,0d1h,0e1h,08bh,0d9h
+	db 003h,0ddh,089h,047h,0d0h,083h,07eh,0feh,000h,074h,00bh,08bh,046h,0feh,03dh,001h
+	db 000h,074h,003h,0e9h,090h,001h
+ld88d:
+	db 08ah,086h,01eh,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,058h,028h,087h
+	db 049h,045h,08ah,086h,018h,0ffh,08bh,076h,0feh,0b9h,004h,000h,0d3h,0e6h,08bh,0ceh
+	db 003h,0d9h,088h,087h,0e5h,044h,0c7h,046h,0fch,000h,000h
+ld8b8:
+	db 08bh,05eh,0fch,003h,0ddh,08ah,087h,006h,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,008h
+	db 08bh,0c8h,051h,08bh,056h,0feh,0b9h,004h,000h,0d3h,0e2h,059h,003h,0c2h,08bh,0c8h
+	db 003h,046h,0fch,08bh,0d8h,058h,088h,087h,0dch,044h,0ffh,046h,0fch,08bh,046h,0fch
+	db 03dh,008h,000h,07ch,0cbh,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08ah,087h,039h
+	db 045h,02ah,0e4h,0b9h,005h,000h,099h,0f7h,0f9h,089h,046h,0fch,080h,0bfh,087h,045h
+	db 00ch,074h,007h,080h,0bfh,087h,045h,00dh,075h,022h
+ld912:
+	db 08bh,046h,0feh,0b9h,004h,000h,0d3h,0e0h,003h,0d8h,08ah,087h,0e2h,044h,02ah,0e4h
+	db 08bh,0c8h,08bh,046h,0fch,003h,0c8h,08bh,0c1h,005h,005h,000h,088h,087h,0e2h,044h
+	db 0ebh,027h
+ld934:
+	db 083h,07eh,0fch,000h,07eh,021h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,056h,0feh,0b9h
+	db 004h,000h,0d3h,0e2h,08bh,0cah,003h,0c1h,08bh,0d8h,08ah,087h,0e2h,044h,02ah,0e4h
+	db 003h,046h,0fch,088h,087h,0e2h,044h
+ld95b:
+	db 08ah,086h,019h,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0c8h,051h,08bh,056h
+	db 0feh,0b9h,004h,000h,0d3h,0e2h,059h,003h,0c2h,08bh,0d8h,058h,088h,087h,0e4h,044h
+	db 080h,0beh,014h,0ffh,004h,075h,01ah,08ah,086h,01fh,0ffh,098h,08bh,0d0h,0d1h,0e0h
+	db 0d1h,0e0h,003h,0c2h,08bh,0c8h,0b8h,000h,000h,02bh,0c1h,088h,087h,0e6h,044h,0ebh
+	db 01ch
+ld99c:
+	db 08ah,087h,0e6h,044h,098h,050h,08ah,086h,01fh,0ffh,098h,08bh,0d0h,0d1h,0e0h,0d1h
+	db 0e0h,003h,0c2h,08bh,0c8h,058h,02bh,0c1h,088h,087h,0e6h,044h
 ld9b8:
 	db 08bh,086h,0f0h,0feh,089h,087h,0d8h,044h,08bh,086h,0f2h,0feh,089h,087h,0dah,044h
-	db 08ah,086h,020h,0ffh,088h,087h,0e7h,044h
-#endasm
-	set_cursor(l298, (l2 + 3), (((p8 / 2) << 2) + 1));
-	put_char_hi(l298, (unsigned char)(((unsigned char)pc_item_icon[((432 * p8) + (l8 << 3))] + 1)), 4);
-	goto Lda34;
-Lda1d:
-	g4548[((432 * p8) + l2)] -= l226;
-Lda34:
-	l4 = 1;
-Lda39:
-	add_skill_bonus(p8, l4, (unsigned char)l264[l4]);
-	l4++;
-	if (l4 < 14) goto Lda39;
-	g458a[(432 * p8)] = (char)((unsigned)g458a[(432 * p8)] < l230 ? l230 : g458a[(432 * p8)]);
-	g458b[(432 * p8)] = (char)((unsigned)g458b[(432 * p8)] < l229 ? l229 : g458b[(432 * p8)]);
-	if ((l2) || (!((unsigned char)pc_item_flags[((432 * p8) + (l8 << 3))] & 8))) goto Ldaaf;
-	l2++;
-Ldaaf:
-	fc726(p8);
-Ldab6:
-	draw_inventory_panel(p4, p8);
-Ldac2:
-	l2++;
-	if (l2 < 8) goto Ld4bf;
-	l2 = 0;
-Ldad5:
-	if (l48[l2] <= 0) goto Ldd7f;
-	fill_window(p6, 32, 3, 0);
-	refresh_window(p6);
-	get_message(380, 21902);
-	set_cursor(p6, (20 - ((strlen(21902) + 1) / 2)), 1);
-	print_string_hi(p6, 21902, 3);
-	set_cursor(p6, (20 - ((strlen((((unsigned char)pc_equipped[((432 * p8) + l2)] << 4) + 21982)) + 11) / 2)), 2);
-	print_string_hi(p6, (((unsigned char)pc_equipped[((432 * p8) + l2)] << 4) + 21982), 3);
-	p6[6]++;
-	put_char_hi(p6, 63, 3);
-	p6[6] += 2;
-	l304 = 1;
-	l302 = 1;
-	l300 = -1;
-	l10 = run_menu(p6, 381, &l304, (unsigned char)p6[6], 2, 3, 1, 5, 0);
-	if (l10 != 1) goto Ldd7f;
-	if (l48[l2] >= 9) goto Ldc46;
-	l4 = (l48[l2] - 1);
-	if ((unsigned)pc_stats[((432 * p8) + l4)] >= 20) goto Ldc43;
-	pc_stats[((432 * p8) + l4)]++;
-Ldc43:
-	goto Ldd55;
-Ldc46:
-	;
-#asm
+	db 08ah,086h,020h,0ffh,088h,087h,0e7h,044h,08bh,046h,008h,0b9h,002h,000h,099h,0f7h
+	db 0f9h,0d1h,0e0h,0d1h,0e0h,040h,050h,08bh,046h,0feh,040h,040h,040h,050h,0ffh,0b6h
+	db 0d6h,0feh
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,004h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,04eh,0f8h
+	db 0d1h,0e1h,0d1h,0e1h,0d1h,0e1h,003h,0c1h,08bh,0d8h,08ah,087h,02dh,044h,02ah,0e4h
+	db 040h,02ah,0e4h,050h,0ffh,0b6h,0d6h,0feh
+	call put_char_hi_
+	db 083h,0c4h,006h,0ebh,017h
+lda1d:
+	db 08ah,086h,01eh,0ffh,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0c8h,003h,046h,0feh
+	db 08bh,0d8h,058h,028h,087h,048h,045h
+lda34:
+	db 0c7h,046h,0fch,001h,000h
+lda39:
+	db 08bh,05eh,0fch,003h,0ddh,08ah,087h,0f8h,0feh,02ah,0e4h,050h,0ffh,076h,0fch,0ffh
+	db 076h,008h
+	call add_skill_bonus_
+	db 083h,0c4h,006h,0ffh,046h,0fch,08bh,046h,0fch,03dh,00eh,000h,07ch,0ddh,0b8h,0b0h
+	db 001h,0f7h,06eh,008h,08bh,0d8h,08ah,087h,08ah,045h,03ah,086h,01ah,0ffh,073h,006h
+	db 08ah,086h,01ah,0ffh,0ebh,004h
+lda74:
+	db 08ah,087h,08ah,045h
+lda78:
+	db 088h,087h,08ah,045h,08ah,087h,08bh,045h,050h,03ah,086h,01bh,0ffh,058h,073h,004h
+	db 08ah,086h,01bh,0ffh
+lda8c:
+	db 088h,087h,08bh,045h,083h,07eh,0feh,000h,075h,019h,08bh,046h,0f8h,0d1h,0e0h,0d1h
+	db 0e0h,0d1h,0e0h,003h,0d8h,08ah,087h,02fh,044h,02ah,0e4h,0a9h,008h,000h,074h,003h
+	db 0ffh,046h,0feh
+ldaaf:
+	db 0ffh,076h,008h
+	call fc726_
+	db 059h
+ldab6:
+	db 0ffh,076h,008h,0ffh,076h,004h
+	call draw_inventory_panel_
+	db 083h,0c4h,004h
+ldac2:
+	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07dh,003h,0e9h,0efh,0f9h
+ldad0:
+	db 0c7h,046h,0feh,000h,000h
+ldad5:
+	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0d0h,000h,07fh,003h,0e9h
+	db 098h,002h
+ldae7:
+	db 0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,020h,000h,050h,0ffh,076h,006h
+	call fill_window_
+	db 083h,0c4h,008h,0ffh,076h,006h
+	call refresh_window_
+	db 059h,0b8h,08eh,055h,050h,0b8h,07ch,001h,050h
+	call get_message_
+	db 083h,0c4h,004h,0b8h,001h,000h,050h,0b8h,08eh,055h,050h
+	call strlen_
+	db 059h,040h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,014h,000h,02bh,0c1h,050h
+	db 0ffh,076h,006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,08eh,055h,050h,0ffh,076h,006h
+	call print_string_hi_
+	db 083h,0c4h,006h,0b8h,002h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh
+	db 08bh,0d8h,08ah,087h,0f8h,044h,02ah,0e4h,0b9h,004h,000h,0d3h,0e0h,005h,0deh,055h
+	db 050h
+	call strlen_
+	db 059h,005h,00bh,000h,0b9h,002h,000h,099h,0f7h,0f9h,08bh,0c8h,0b8h,014h,000h,02bh
+	db 0c1h,050h,0ffh,076h,006h
+	call set_cursor_
+	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh
+	db 08bh,0d8h,08ah,087h,0f8h,044h,02ah,0e4h,0b9h,004h,000h,0d3h,0e0h,005h,0deh,055h
+	db 050h,0ffh,076h,006h
+	call print_string_hi_
+	db 083h,0c4h,006h,08bh,05eh,006h,0feh,047h,006h,0b8h,003h,000h,050h,0b8h,03fh,000h
+	db 050h,0ffh,076h,006h
+	call put_char_hi_
+	db 083h,0c4h,006h,08bh,05eh,006h,0feh,047h,006h,0feh,047h,006h,0c7h,086h,0d0h,0feh
+	db 001h,000h,0c7h,086h,0d2h,0feh,001h,000h,0c7h,086h,0d4h,0feh,0ffh,0ffh,0b8h,000h
+	db 000h,050h,0b8h,005h,000h,050h,0b8h,001h,000h,050h,0b8h,003h,000h,050h,0b8h,002h
+	db 000h,050h,08bh,05eh,006h,08ah,047h,006h,02ah,0e4h,050h,08dh,086h,0d0h,0feh,050h
+	db 0b8h,07dh,001h,050h,053h
+	call run_menu_
+	db 083h,0c4h,012h,089h,046h,0f6h,03dh,001h,000h,074h,003h,0e9h,06ch,001h
+ldc13:
+	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0d0h,009h,07dh,024h,08bh
+	db 047h,0d0h,048h,089h,046h,0fch,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0c8h,08bh,046h
+	db 0fch,003h,0c8h,08bh,0d9h,080h,0bfh,014h,045h,014h,073h,004h,0feh,087h,014h,045h
+ldc43:
+	db 0e9h,00fh,001h
 ldc46:
-	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0d0h,0e9h,0f0h,000h
-#endasm
-	if ((unsigned)g4591[(432 * p8)] >= 4) goto Ldc69;
-	g4591[(432 * p8)] = 4;
-Ldc69:
-	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,092h,045h,004h,073h,005h,0c6h
-	db 087h,092h,045h,004h
-#endasm
-Ldc80:
-	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,089h,045h,000h
-#endasm
-	l4 = 0;
-Ldc95:
-	g450a[((432 * p8) + l4)] = 0;
-	l4++;
-	if (l4 < 10) goto Ldc95;
-	*(int *)((char *)pc_hp + (432 * p8)) = *(int *)((char *)pc_hp_max + (432 * p8));
-	*(int *)((char *)pc_stamina + (432 * p8)) = *(int *)((char *)pc_stamina_max + (432 * p8));
-	goto Ldd55;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08bh,087h,0f0h,043h,08bh,097h,0f2h,043h
-	db 0b9h,06dh,001h,0bbh,000h,000h
+	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0d0h,0e9h,0f0h,000h,0b8h
+	db 0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,091h,045h,004h,073h,005h,0c6h,087h
+	db 091h,045h,004h
+ldc69:
+	db 0e9h,0e9h,000h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,092h,045h,004h
+	db 073h,005h,0c6h,087h,092h,045h,004h
+ldc80:
+	db 0e9h,0d2h,000h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,089h,045h,000h
+	db 0c7h,046h,0fch,000h,000h
+ldc95:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0fch,08bh,0d8h,0c6h,087h,00ah,045h,000h
+	db 0ffh,046h,0fch,08bh,046h,0fch,03dh,00ah,000h,07ch,0e5h,0b8h,0b0h,001h,0f7h,06eh
+	db 008h,08bh,0d8h,08bh,087h,002h,044h,089h,087h,000h,044h,08bh,087h,006h,044h,089h
+	db 087h,004h,044h,0e9h,08ah,000h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,08bh,087h
+	db 0f0h,043h,08bh,097h,0f2h,043h,0b9h,06dh,001h,0bbh,000h,000h
 	call $ldv
 	db 083h,0fah,000h,07ch,007h,075h,007h,03dh,012h,000h,077h,002h
-#endasm
-Ldcf0:
-	goto Ldd05;
-Ldcf2:
-	*(long *)((char *)pc_age_days + (432 * p8)) += -365L;
-Ldd05:
-	if ((unsigned)g4517[(432 * p8)] >= 18) goto Ldd18;
-	g4517[(432 * p8)]++;
-Ldd18:
-	goto Ldd55;
-	l4 = (random(5) + 2);
-	*(int *)((char *)pc_hp_max + (432 * p8)) += l4;
-	*(int *)((char *)pc_hp + (432 * p8)) += l4;
-#asm
-	db 0ebh,01ah,055h,0dch,06ch,0dch,083h,0dch,0cbh,0dch,01ah,0ddh
+ldcf0:
+	db 0ebh,013h
+ldcf2:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,081h,087h,0f0h,043h,093h,0feh,083h,097h
+	db 0f2h,043h,0ffh
+ldd05:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,017h,045h,012h,073h,004h,0feh
+	db 087h,017h,045h
+ldd18:
+	db 0ebh,03bh,0b8h,005h,000h,050h
+	call random_
+	db 059h,040h,040h,089h,046h,0fch,050h,0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,058h
+	db 001h,087h,002h,044h,001h,087h,000h,044h,0ebh,01ah,055h,0dch,06ch,0dch,083h,0dch
+	db 0cbh,0dch,01ah,0ddh
 ldd45:
 	db 02dh,009h,000h,03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,03bh,0ddh
+ldd55:
+	db 0b8h,0b0h,001h,0f7h,06eh,008h,003h,046h,0feh,08bh,0d8h,08ah,087h,0f8h,044h,02ah
+	db 0e4h,050h,0ffh,076h,008h
+	call use_item_charge_
+	db 083h,0c4h,004h,0ffh,076h,008h,0ffh,076h,006h,0ffh,076h,004h
+	call draw_sheet_
+	db 083h,0c4h,006h
+ldd7f:
+	db 0ffh,046h,0feh,08bh,046h,0feh,03dh,008h,000h,07dh,003h,0e9h,048h,0fdh
+ldd8d:
+	db 05eh,05fh,08bh,0e5h,05dh,0c3h
 #endasm
-Ldd55:
-	use_item_charge(p8, (unsigned char)pc_equipped[((432 * p8) + l2)]);
-	draw_sheet(p4, p6, p8);
-Ldd7f:
-	l2++;
-	if (l2 < 8) goto Ldad5;
-}

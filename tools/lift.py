@@ -448,6 +448,7 @@ class Lifter:
         self.scopies = set()    # sizes of structs copied by assignment (rep movsw)
         self.gptr = set()       # globals used as a base pointer
         self.vptr = set()       # word vars loaded after a complex right operand: a char * base
+        self.mptr = set()       # word memory operands used the same way: printed with a (char *) cast
         self.st_start = f.body
         prev_end = f.body
         self.find_switches()
@@ -652,6 +653,10 @@ class Lifter:
                         s.reg == X.X86_REG_CX and x[0] == 'v' and x[3] == 2 and x[1] in ('p', 'g') and \
                         y and y[0] not in ('v', 'c'):
                     self.vptr.add((x[1], x[2]))
+                if m == 'add' and d.reg == X.X86_REG_AX and s.type == X.X86_OP_REG and \
+                        s.reg == X.X86_REG_CX and x[0] == 'm' and x[3] == 2 and \
+                        y and y[0] not in ('v', 'c', 'm'):
+                    self.mptr.add(x)
                 self.setreg(d, v)
                 self.flags = ('soft', v)     # usable by a jcc, but needn't be consumed
                 self.carry = (R16.get(d.reg), ALU[m], x, y, a + i.size)
