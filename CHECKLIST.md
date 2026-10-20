@@ -74,7 +74,64 @@
 - [x] Promoted run 53 (a dead jump to the epilogue after a goto prints as return): 891 functions in C (719 asm-free; 954 left), sbuild all 12 OK
 - [x] Promoted run 54 (a function-final jmp to the epilogue after a jump-table dispatch is the end, not a default): 891 functions in C (720 asm-free; 951 left), sbuild all 12 OK
 - [x] Promoted run 55 (scratch si/di scan covers code after a mid-function epilogue): 891 functions in C (726 asm-free; 925 left), sbuild all 12 OK
-- [ ] Struct-returning functions (cgen's static return buffer, e.g. WMNPC 80ff, WMAZE 9f25, WMEXE 5eea, WTREA 5ac7): need the buffer placed in bss at the original address
+- [x] Promoted run 56 (lea si/di (struct copy addresses) keeps them cgen temps), sbuild all 12 OK
+- [x] Promoted run 57 (one-operand imul as (long)a * b for long helpers), sbuild all 12 OK
+- [x] Promoted run 58 (pointer = mem + computed int printed as pointer arithmetic), sbuild all 12 OK
+- [x] Promoted run 59 (byte assignment in a condition (test al,al); unsigned byte compares through pointers), sbuild all 12 OK
+- [x] Promoted run 60 (inc/dec of memory in a condition (if (--x > 0)); no stale flags after memory stores), sbuild all 12 OK
+- [x] Promoted run 61 (char-range constants in byte arithmetic (add al / add byte instead of cwde)), sbuild all 12 OK
+- [x] Promoted run 62 (char constants in ternary arms (mov al, K)), sbuild all 12 OK
+- [x] Promoted run 63 (long += K to memory (add/adc) when the base registers were forgotten), sbuild all 12 OK
+- [x] Promoted run 64 (boolean-chain ternaries whose false arm is a nested ternary), sbuild all 12 OK
+- [x] Promoted run 65 (switch on a call result (jmp to the dispatch reads ax)), sbuild all 12 OK
+- [x] Promoted run 66 (ternaries in cx/dx as the right operand ((a ? 1 : 0) + (b ? 1 : 0))), sbuild all 12 OK
+- [x] Promoted run 67 (ternaries in cx/dx with the else value loaded before the test), sbuild all 12 OK
+- [x] Promoted run 68 (long compare jumping to a far goto when its fall-through has other jumps), sbuild all 12 OK
+- [x] Promoted run 69 (calls returning a long (dx:ax), long assignment inside a condition), sbuild all 12 OK
+- [x] Promoted run 70 (structured if / if-else for simple bodies (cgen keeps CSE registers across the join)), sbuild all 12 OK
+- [x] Promoted run 71 (keep labels asm blocks jump to; unstructure a function whose mismatch no statement explains), sbuild all 12 OK
+- [x] Promoted run 72 (var + complex right operand types the var as char *), sbuild all 12 OK
+- [x] Promoted run 73 (char * operand hint only for parameters), sbuild all 12 OK
+- [x] Promoted run 74 (char * operand hint for word globals), sbuild all 12 OK
+- [x] Promoted run 75 (byte x = x op y printed as x op= y), sbuild all 12 OK
+- [x] Promoted run 76 (compound byte op only for signed loads), sbuild all 12 OK
+- [x] Promoted run 77 ((char *) cast on word array element + complex operand), sbuild all 12 OK
+- [x] Promoted run 78 (fix run 77 (mptr as list, exprs can hold lists)), sbuild all 12 OK
+- [x] Promoted run 79 (char * operand hints skip widened-byte right operands), sbuild all 12 OK
+- [x] Promoted run 80 ((rsi = E, p)[rsi + K] for register assignments used as an index), sbuild all 12 OK
+- [x] Promoted run 81 (lenient scratch si when our regvar si forces push di), sbuild all 12 OK
+- [x] Promoted run 82 (struct-returning dice maker as C (buffer in the module's own bss)), sbuild all 12 OK
+- [x] Promoted run 83 (lifted struct returns (rep movsw into the module's own bss buffer)), sbuild all 12 OK
+- [x] Promoted run 84 (struct copies whose source address is a constant), sbuild all 12 OK
+- [x] Promoted run 85 (si as kept index temp, pointer locals from bx, call arms in ternaries), sbuild all 12 OK
+- [x] Promoted run 86 (inline regvar assignment only before a [bx+si] use (fixes run 85 regressions)), sbuild all 12 OK
+- [x] Promoted run 87 (&global[i] pointer form only where the original stores bx), sbuild all 12 OK
+- [x] Promoted run 88 (offsets up to 0x400 into records from a global pointer table are fields), sbuild all 12 OK
+- [x] Promoted run 89 (boolchain lookahead restores skip state; for loops with the variable on the right), sbuild all 12 OK
+- [x] Promoted run 90 (do-while loops (cgen forgets registers before the test)), sbuild all 12 OK
+- [x] Promoted run 91 (lenient index temps scaled/copied after a ternary join; lenient retry for such regvars), sbuild all 12 OK
+- [x] Promoted run 92 (lift possible index-temp regvars both ways and keep the better; guard counts code-bearing asm blocks and catches lost C bodies), sbuild all 12 OK
+- [x] Promoted run 93 (a ternary arm that is an assignment of a constant (x = K)), sbuild all 12 OK
+- [x] Promoted run 94 (for loops right after a case label), sbuild all 12 OK
+- [x] Promoted run 95 (nested structured ifs (inner first) and joins shared with an else goto), sbuild all 12 OK
+- [x] Promoted run 96 (&& / || if/else blocks, dropped per function on an unexplained mismatch; render passes that choice on), sbuild all 12 OK
+- [x] Promoted run 97 (a retry in the other index-temp mode starts with && / || blocks again), sbuild all 12 OK
+- [x] Promoted run 98 (nested ternary joins counted through boolchain arms), sbuild all 12 OK
+- [x] Promoted run 99 (struct at an address passed by value), sbuild all 12 OK
+- [x] Promoted run 100 (prune knock-on demotions; pointer tables with element 0), sbuild all 12 OK
+- [x] Promoted run 101 (ternaries on long compares), sbuild all 12 OK
+- [x] Promoted run 102 (empty functions; ternary value register from the arm's last mov), sbuild all 12 OK
+- [x] Promoted run 103 (struct argument address printed as char pointer), sbuild all 12 OK
+- [x] Promoted run 104 (compound assignments where cgen rereads the stored value), sbuild all 12 OK
+- [x] Promoted run 105 (do-while loops that start with a structured if (per-function fallback)), sbuild all 12 OK
+- [x] Promoted run 106 (switch chains ending the function are not defaults), sbuild all 12 OK
+- [x] Promoted run 107 (long += from registers; long stores high word first), sbuild all 12 OK
+- [x] Promoted run 108 (late do loops per loop, holding for loops), sbuild all 12 OK
+- [x] Promoted run 109 (al keeps the byte it stored), sbuild all 12 OK
+- [x] Promoted run 110 (inline long multiply), sbuild all 12 OK
+- [x] Promoted run 111 (stores to a named global keep registers reading other globals), sbuild all 12 OK
+- [x] Promoted run 112 (ternaries in cx next to a pending call result): 895 functions in C (841 asm-free; 212 code-bearing asm blocks left, 58 hand-written functions stay asm), sbuild all 12 OK
+- [x] Struct-returning functions (cgen's static return buffer, e.g. WMNPC 80ff, WMAZE 9f25, WMEXE 5eea, WTREA 5ac7): C, with the buffer in the module's own bss (runs 82/83)
 
 ## Finish
 - [x] Build needs no original files: a copy of only src/ + tools/ (no gog/, orig/, work/) builds all 12 byte-identical
