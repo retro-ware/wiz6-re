@@ -43,7 +43,7 @@ extern int main_window;
 fd674(p4)
 {
 	char l80[80];
-	int l82;
+	char *l82;
 	char x82[15];
 	int l99;
 	int l101;
@@ -72,7 +72,9 @@ Ld73f:
 	fbb9a(l80);
 	l82 = strlen(l80);
 	l80[l82] = 32;
-	l80[(l82 + 1)] = 0;
+#asm
+	db 0c6h,047h,0b1h,000h
+#endasm
 	fc3eb(l80);
 	l82 = 0;
 	g5894 = -1;

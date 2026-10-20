@@ -7,7 +7,7 @@ npc_input_word(member, msg, p8)
 	char x52[18];
 	int l72;
 	char l152[80];
-	int l154;
+	char *l154;
 	int l156;
 	int l158;
 	get_message(msg, l152);
@@ -22,9 +22,12 @@ Ld588:
 	f4f73(g5264);
 	l154 = strlen(l50);
 	l50[l154] = 32;
-	l50[(l154 + 1)] = 0;
+#asm
+	db 0c6h,047h,0cfh,000h
+#endasm
 	fc3eb(l50);
 	l154 = 0;
+Ld5f3:
 	l158 = char_index((l154 + ((char *)l152 + 1)), 47);
 	l52 = l50;
 Ld612:
@@ -37,10 +40,12 @@ Ld644:
 	l52++;
 	goto Ld612;
 Ld649:
-	l154 = ((l154 + l158) + 2);
+	;
 #asm
-	db 08bh,09eh,066h,0ffh,003h,0ddh,080h,0bfh,068h,0ffh,000h,075h,08fh
+ld649:
+	db 08bh,086h,066h,0ffh,003h,086h,062h,0ffh,040h,040h,089h,086h,066h,0ffh
 #endasm
+	if (l152[l154]) goto Ld5f3;
 	if (p8 != 1) goto Ld66f;
 	return 1;
 Ld66f:

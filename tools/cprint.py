@@ -169,6 +169,7 @@ class Printer:
         self.names = names
         self.T = Types([s for s in lifter.sts if s.kind != 'raw'], self.img, lifter.f.locals)
         self.T.ptr |= {('g', a) for a in getattr(lifter, 'gptr', ())}
+        self.T.ptr |= getattr(lifter, 'vptr', set())
         for st in lifter.sts:      # a struct copy at global + index: that global is an array
             for e in (getattr(st, 'dst', None), getattr(st, 'src', None)) if st.kind == 'scopy' else ():
                 if e[0] == 'b' and e[1] == '+' and e[3][0] == 'c' and self.T.is_data(e[3][1]):
