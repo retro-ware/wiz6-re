@@ -20,10 +20,10 @@ f9edb(p4, p6)
 	*(int *)((char *)pc_spell_pts + ((432 * p6) + ((unsigned char)spell_table[(l2 * 6)] << 2))) -= ((unsigned char)g00e0[(l2 * 6)] * l4);
 	f817e(p6, l2, l4, g5322);
 	*(int *)((char *)pc_stamina + (432 * p6)) -= ((random(l4) + (unsigned char)g00df[(l2 * 6)]) + l4);
-	if (*(int *)((char *)pc_stamina + (432 * p6)) >= 0) goto L9fbe;
+	if (*(int *)((char *)pc_stamina + (432 * p6)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * p6)) = 0;
 	g450c[(432 * p6)] = (char)(random(6) + 6);
-L9fbe:
+	}
 	f5078(p6, g527a);
 L9fcb:
 	;

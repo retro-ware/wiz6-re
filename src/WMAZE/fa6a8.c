@@ -24,19 +24,19 @@ change_walls_event()
 	l2 = (((l10 << 6) + (l14 << 3)) + l12);
 	set_bitfield((maze_data + 96), l2, 2, fa68e(l4, 0));
 	set_bitfield((maze_data + 288), l2, 2, fa68e(l4, 1));
-	if (move_to_maze_cell_m(&l12, &l14, &l10, l6, (l8 - 1))) goto La808;
+	if (!move_to_maze_cell_m(&l12, &l14, &l10, l6, (l8 - 1))) {
 	l2 = (((l10 << 6) + (l14 << 3)) + l12);
 	set_bitfield((maze_data + 96), l2, 2, fa68e(l4, 2));
-La808:
-	if (move_to_maze_cell_m(&l12, &l14, &l10, (l6 - 1), l8)) goto La861;
+	}
+	if (!move_to_maze_cell_m(&l12, &l14, &l10, (l6 - 1), l8)) {
 	l2 = (((l10 << 6) + (l14 << 3)) + l12);
 	set_bitfield((maze_data + 288), l2, 2, fa68e(l4, 3));
-La861:
-	if (l16 != 1) goto La86a;
+	}
+	if (l16 == 1) {
 	redraw_maze_view();
-La86a:
-	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto La880;
+	}
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) > 0) {
 	play_sound(*(int *)(g4fa8 + (cell_event_index << 1)));
-La880:
+	}
 	set_event_flags(l18);
 }

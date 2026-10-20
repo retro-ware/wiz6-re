@@ -53,16 +53,15 @@ case 1:
 	if (party_level != 10) goto L58af;
 	redraw_maze_view();
 	play_sound(8);
-	if (party_cell_x >= 4) goto L5857;
+	if (party_cell_x < 4) {
 	party_level = 4;
 	party_cell_x += 4;
 	party_cell_y += 3;
-	goto L5867;
-L5857:
+	} else {
 	party_level = 5;
 	party_cell_x += -4;
 	party_cell_y += 3;
-L5867:
+	}
 	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);
 #asm
 	db 08ah,081h,0ech,001h,02ah,0e4h,003h,006h,09eh,04fh,0a3h,0a2h,04fh,050h,0ffh,036h

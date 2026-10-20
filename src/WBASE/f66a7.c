@@ -32,7 +32,7 @@ choose_pcfile_char()
 	i = 0;
 	goto L671b;
 L66ba:
-	if (roster_slot_used[i] != 1) goto L6718;
+	if (roster_slot_used[i] == 1) {
 	pcfile_record_io(&rec, i, 0);
 	strcpy(((count << 3) + 20602), &rec);
 	pclist_sex[count] = (unsigned char)l30;
@@ -40,7 +40,7 @@ L66ba:
 	pclist_class[count] = (unsigned char)l29;
 	pclist_pcindex[count] = i;
 	count++;
-L6718:
+	}
 	i++;
 L671b:
 	if (i < roster_slot_count) goto L66ba;
@@ -100,9 +100,9 @@ case 3:
 L69e6:
 	switch (i) {
 case 1:
-	if (on_cancel == 1) goto L69f6;
+	if (on_cancel != 1) {
 	on_cancel = 1;
-L69f6:
+	}
 	goto L6a4d;
 case 2:
 	if (on_cancel != 1) goto L6a05;
@@ -114,9 +114,9 @@ L6a05:
 L6a0e:
 	goto L6a4d;
 case 3:
-	if (on_cancel != 1) goto L6a1b;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-L6a1b:
+	}
 	goto L6a4d;
 case 4:
 	if (on_cancel != 1) goto L6a2a;

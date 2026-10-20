@@ -7,9 +7,9 @@ wait_key_or_click(p4)
 	print_centered(p4, 22416, 2, 18);
 	l2 = 1;
 L8d84:
-	if (!check_screen_click()) goto L8d90;
+	if (check_screen_click()) {
 	l2 = 0;
-L8d90:
+	}
 	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L8dae;
 	l2 = 0;
 L8dae:

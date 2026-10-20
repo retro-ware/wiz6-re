@@ -37,9 +37,9 @@ case 5:
 	goto Lb1b2;
 	}
 Lb1b2:
-	if (*(int *)((char *)g4ec8 + (l2 << 2)) <= 0) goto Lb1c8;
+	if (*(int *)((char *)g4ec8 + (l2 << 2)) > 0) {
 	l4 += l6;
-Lb1c8:
+	}
 	drv_op_c6(l4, 0, -1);
 	l2++;
 	if (l2 < 6) goto Lb13c;

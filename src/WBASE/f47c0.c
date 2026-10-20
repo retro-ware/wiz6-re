@@ -17,7 +17,7 @@ char *enabled;
 	item = 0;
 L47d9:
 	if (*(int *)(enabled + (item << 1)) == -1) goto L48d5;
-	if (*(int *)(enabled + (item << 1)) != 1) goto L48cf;
+	if (*(int *)(enabled + (item << 1)) == 1) {
 	x = (((count / cols) * row_step) + x0);
 	y = ((count % cols) + y0);
 	set_cursor(win, x, y);
@@ -26,7 +26,7 @@ L47d9:
 	*(int *)(texts + ((count << 1) + 300)) = item;
 	set_click_region(count, ((unsigned char)win[2] + x), ((unsigned char)win[3] + y), (((strlen(((count * 20) + texts)) + (unsigned char)win[2]) + x) - 1), ((unsigned char)win[3] + y));
 	count++;
-L48cf:
+	}
 	item++;
 	goto L47d9;
 L48d5:
@@ -36,10 +36,10 @@ L48d5:
 	drv_op_c2(g4fac);
 	drv_op_c2(picture_win);
 L4902:
-	if (mouse_present) goto L4953;
+	if (!mouse_present) {
 	set_cursor(win, (((sel / cols) * row_step) + x0), ((sel % cols) + y0));
 	print_string(win, ((sel * 20) + texts), (0 - color));
-L4953:
+	}
 	item = get_menu_choice_animated(20582, 13720);
 	if (menu_clicked != 1) goto L4976;
 	sel = item;
@@ -48,22 +48,22 @@ L4953:
 L4976:
 	switch (item) {
 case 1:
-	if ((sel - cols) < 0) goto L49b8;
+	if ((sel - cols) >= 0) {
 	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
 	sel -= cols;
-L49b8:
+	}
 	goto L4aa8;
 case 2:
-	if ((sel % cols) <= 0) goto L49fa;
+	if ((sel % cols) > 0) {
 	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
 	sel--;
-L49fa:
+	}
 	goto L4aa8;
 case 3:
-	if ((sel + cols) >= count) goto L4a3c;
+	if ((sel + cols) < count) {
 	redraw_menu_item(win, sel, row_step, cols, x0, y0, ((sel * 20) + texts));
 	sel += cols;
-L4a3c:
+	}
 	goto L4aa8;
 case 4:
 	if (((sel % cols) >= (cols - 1)) || ((sel + 1) >= count)) goto L4a89;

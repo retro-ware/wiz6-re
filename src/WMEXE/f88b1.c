@@ -19,9 +19,9 @@ f88b1(p4, p6, p8, p10, p12)
 	register int rsi;
 	l10 = (unsigned char)g019d[monster_groups[p4]];
 	l12 = (p6 < 0 ? -p6 : p6);
-	if (l12 <= l10) goto L88e6;
+	if (l12 > l10) {
 	l12 = l10;
-L88e6:
+	}
 	l14 = random((l10 - l12));
 	l2 = l14;
 	goto L8bc8;
@@ -52,9 +52,9 @@ l89ce:
 	db 0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,058h,088h,040h,027h
 #endasm
 	rsi = (44 * l2);
-	if ((l4 = (*(int *)((char *)monster_groups[p4] + rsi) - l6)) >= 1) goto L8a7f;
+	if ((l4 = (*(int *)((char *)monster_groups[p4] + rsi) - l6)) < 1) {
 	l4 = 1;
-L8a7f:
+	}
 	*(int *)((char *)monster_groups[p4] + rsi) = l4;
 	l16 = 3491;
 	goto L8b71;
@@ -110,9 +110,9 @@ L8b6c:
 	l16 = 3494;
 L8b71:
 	print_msg_centered(l16, 5, 3);
-	if (p4) goto L8b95;
+	if (!p4) {
 	draw_member_card_x(l2, 0);
-L8b95:
+	}
 	combat_delay((g4fc8 / 2));
 	goto L8bc5;
 L8ba5:

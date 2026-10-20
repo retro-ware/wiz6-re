@@ -25,9 +25,8 @@ draw_camp_scene(frame, dx, dy)
 	draw_camp_sprite(2, 0, 72, 248);
 	draw_camp_sprite(3, dx, 128, 192);
 	draw_camp_sprite(4, dy, 128, 192);
-	if (!frame) goto L4ee4;
+	if (frame) {
 	draw_camp_sprite(5, 0, 72, 248);
 	draw_camp_sprite(6, 0, 72, 248);
-L4ee4:
-	;
+	}
 }

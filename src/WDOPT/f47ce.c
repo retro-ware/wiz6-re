@@ -13,13 +13,12 @@ L47f3:
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L480d;
 	return;
 L480d:
-	if (g506a) goto L4827;
+	if (!g506a) {
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
-	goto L482a;
-L4827:
+	} else {
 	play_random_drip();
-L482a:
+	}
 	g506a = ((g506a + 1) % 10);
 	ticks--;
 	goto L47e2;

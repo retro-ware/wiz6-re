@@ -18,19 +18,19 @@ load_sound(n)
 	cur_sound = n;
 	stop_sound();
 	access_scenario_record(9, 13292, n, 0);
-	if (cur_sound_size != 0L) goto L4948;
+	if (cur_sound_size == 0L) {
 	n = g33ec;
 	access_scenario_record(9, &l32, n, 0);
 	cur_sound_size = l28;
-L4948:
+	}
 	strcpy(&fname, 20484);
 	l15 = (char)((n / 10) + 48);
 	l14 = (char)((n % 10) + 48);
-	if ((fd = open(make_data_path(&fname, 1), 0)) != -1) goto L4996;
+	if ((fd = open(make_data_path(&fname, 1), 0)) == -1) {
 	exit_game(15);
-L4996:
-	if (!load_sound_slot(fd, 0L, *(int *)&cur_sound_size, g33f2, 14)) goto L49bf;
+	}
+	if (load_sound_slot(fd, 0L, *(int *)&cur_sound_size, g33f2, 14)) {
 	exit_game(16);
-L49bf:
+	}
 	close(fd);
 }

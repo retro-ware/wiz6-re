@@ -8,12 +8,11 @@ pick_random_set_bit(bits)
 	l4 = (random(8) + 1);
 L76b2:
 	l2 = ((l2 + 1) % 8);
-	if (test_bit(bits, l2) != 1) goto L76d3;
+	if (test_bit(bits, l2) == 1) {
 	l4--;
-	goto L76d6;
-L76d3:
+	} else {
 	l6++;
-L76d6:
+	}
 	if ((l4 > 0) && (l6 < 100)) goto L76b2;
 	return l2;
 }

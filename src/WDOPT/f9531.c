@@ -38,9 +38,9 @@ case 5:
 	goto L95b2;
 	}
 L95b2:
-	if (*(int *)((char *)g4ec8 + (i << 2)) <= 0) goto L95c8;
+	if (*(int *)((char *)g4ec8 + (i << 2)) > 0) {
 	icon += frame;
-L95c8:
+	}
 	drv_op_c6(icon, 0, -1);
 	i++;
 	if (i < 6) goto L953c;

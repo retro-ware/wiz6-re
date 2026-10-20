@@ -39,9 +39,9 @@ char *p4;
 	goto L9b84;
 L9b66:
 	f99e6(p6, l2);
-	if (p10 != l2) goto L9b81;
+	if (p10 == l2) {
 	l28 = (g5324 - 1);
-L9b81:
+	}
 	l2++;
 L9b84:
 	if ((unsigned char)pc_item_count[(432 * p6)] > l2) goto L9b66;
@@ -49,16 +49,16 @@ L9b84:
 	goto L9bc3;
 L9b9e:
 	f99e6(p6, (l2 + 10));
-	if ((l2 + 10) != p10) goto L9bc0;
+	if ((l2 + 10) == p10) {
 	l28 = (g5324 - 1);
-L9bc0:
+	}
 	l2++;
 L9bc3:
 	if ((unsigned char)pc_swag_count[(432 * p6)] > l2) goto L9b9e;
 	p10 = l28;
-	if (p10 < g5324) goto L9be9;
+	if (p10 >= g5324) {
 	p10 = (g5324 - 1);
-L9be9:
+	}
 	refresh_all_windows();
 	l24 = 0;
 	set_click_region(0, ((unsigned char)l12[2] + 2), ((unsigned char)l12[3] + 2), ((unsigned char)l12[2] + 16), ((unsigned char)l12[3] + 2));
@@ -67,16 +67,15 @@ L9be9:
 	set_click_region(3, ((unsigned char)p4[2] + 7), ((unsigned char)p4[3] + 3), ((strlen(&l22) + (unsigned char)p4[2]) + 6), ((unsigned char)p4[3] + 3));
 	set_click_region(4, 255, 0, 0, 0);
 L9cc6:
-	if (l24 != 1) goto L9d03;
+	if (l24 == 1) {
 	set_cursor(p4, 7, 3);
 	print_string(p4, &l22, -3);
 	f9827(l12, p6, p10, 0);
-	goto L9d38;
-L9d03:
+	} else {
 	set_cursor(p4, 7, 3);
 	print_string_hi(p4, &l22, 3);
 	f9827(l12, p6, p10, 1);
-L9d38:
+	}
 	l2 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto L9d87;
 	switch (l2) {
@@ -97,9 +96,9 @@ case 3:
 L9d87:
 	switch (l2) {
 case 1:
-	if (l24 == 1) goto L9d97;
+	if (l24 != 1) {
 	l24 = 1;
-L9d97:
+	}
 	goto L9dee;
 case 2:
 	if (l24 != 1) goto L9da6;
@@ -111,9 +110,9 @@ L9da6:
 L9daf:
 	goto L9dee;
 case 3:
-	if (l24 != 1) goto L9dbc;
+	if (l24 == 1) {
 	l24 = 0;
-L9dbc:
+	}
 	goto L9dee;
 case 4:
 	if (l24 != 1) goto L9dcb;

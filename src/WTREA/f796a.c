@@ -54,7 +54,7 @@ L7a64:
 L7a83:
 	if (l72 != 1) goto L7be5;
 	g501c = 1;
-	if (realm != -1) goto L7b0d;
+	if (realm == -1) {
 	g5036 = 13;
 	g5034 = 3;
 	clear_window_area(l2, 13, 1, 20, 1);
@@ -63,8 +63,7 @@ L7a83:
 	clear_window_area(l2, 18, 5, 20, 5);
 	count = -1;
 	draw_chest_list_box(l4, 1);
-	goto L7bbc;
-L7b0d:
+	} else {
 	g5036 = (((realm / 3) * 6) + 1);
 	g5034 = (((realm % 3) << 1) + 1);
 	clear_window_area(l2, 13, 1, 20, 1);
@@ -73,7 +72,7 @@ L7b0d:
 	clear_window_area(l2, 18, 5, 20, 5);
 	count = count_known_realm_spells(member, realm, spells);
 	draw_chest_spell_list(l4, member, realm, 0, 0, count, spells);
-L7bbc:
+	}
 	g5056 = 99;
 	g5057 = 0;
 	g503c = 5;
@@ -168,12 +167,11 @@ L7e36:
 	draw_chest_spell_list(l4, member, realm, pos, 1, count, spells);
 	cost = (unsigned char)g00e0[(spells[pos] * 6)];
 	set_cursor(l2, 18, 5);
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) >= cost) goto L7ee5;
+	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost) {
 	print_string(l2, 20485, realm_colors[realm]);
-	goto L7f00;
-L7ee5:
+	} else {
 	print_int(l2, cost, 3, realm_colors[realm]);
-L7f00:
+	}
 	l6 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L7f83;
 	switch (l6) {
@@ -207,14 +205,14 @@ case 1:
 	l60 = 1;
 	goto L7fb7;
 case 2:
-	if (pos <= 0) goto L7f98;
+	if (pos > 0) {
 	pos--;
-L7f98:
+	}
 	goto L7fb7;
 case 4:
-	if ((pos + 1) >= count) goto L7fa6;
+	if ((pos + 1) < count) {
 	pos++;
-L7fa6:
+	}
 	goto L7fb7;
 	}
 L7fb7:
@@ -274,26 +272,25 @@ L8233:
 L824e:
 	l6 = get_chest_input(20670, 13720);
 	if (menu_clicked != 1) goto L82c5;
-	if ((l6 + 1) != level) goto L8273;
+	if ((l6 + 1) == level) {
 	l6 = 5;
-	goto L82bd;
-L8273:
+	} else {
 	set_cursor(l2, (level + 14), 3);
 	put_char(l2, (unsigned char)((level + 23)), 5);
 	level = (l6 < max_level ? (l6 + 1) : 0);
 	l6 = (level == 0 ? 5 : 0);
-L82bd:
+	}
 	l72 = 1;
 	goto L83b6;
 L82c5:
 	switch (l6) {
 case 1:
-	if (level <= 0) goto L8303;
+	if (level > 0) {
 	set_cursor(l2, (level + 14), 3);
 	put_char(l2, (unsigned char)((level + 23)), 5);
 	level--;
 	l72 = 1;
-L8303:
+	}
 	goto L83b6;
 case 3:
 	if (level) goto L836a;

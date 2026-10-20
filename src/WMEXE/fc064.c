@@ -34,13 +34,12 @@ Lc12b:
 	g505c = 0;
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
 	combat_delay((g4fc8 / 4));
-	if (random(100) >= l6) goto Lc1c0;
+	if (random(100) < l6) {
 	p4[43] = 1;
 	try_raise_skill(g435c, 16, 1);
 	print_msg_centered(3520, 6, 2);
-	goto Lc1d2;
-Lc1c0:
+	} else {
 	print_msg_centered(3521, 6, 2);
-Lc1d2:
+	}
 	combat_delay((g4fc8 / 4));
 }

@@ -18,17 +18,16 @@ L9ae4:
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
 	if (l2 != 8) goto L9b7c;
-	if (l4 <= 0) goto L9b72;
+	if (l4 > 0) {
 	l4--;
 	*(p6 + l4) = 0;
 	l6--;
 	set_cursor(p4, l6, l8);
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
-	goto L9b7a;
-L9b72:
+	} else {
 	play_sound(0);
-L9b7a:
+	}
 	goto L9be0;
 L9b7c:
 	if (l4 < p8) goto L9b8e;

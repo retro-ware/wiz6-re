@@ -58,9 +58,8 @@ l46fc:
 L4762:
 	if (group <= monster_group_count) goto L4649;
 	resume_window_draw(win);
-	if (refresh != 1) goto L478a;
+	if (refresh == 1) {
 	refresh_window(main_window);
 	refresh_window(win);
-L478a:
-	;
+	}
 }

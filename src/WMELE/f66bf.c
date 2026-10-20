@@ -36,30 +36,29 @@ L66fd:
 	pic = (unsigned char)g019b[monster_groups[g]];
 	l8 = 72;
 	l10 = 248;
-	if (row) goto L6733;
+	if (!row) {
 	get_monster_anim_chars(g, col, chars);
-	goto L6746;
-L6733:
+	} else {
 	chars[0] = g3810[(314 * pic)];
 	chars[(0 + 1)] = 0;
-L6746:
+	}
 	if (chars[0]) goto L674e;
 	return;
 L674e:
 	l6 = (col % 2);
-	if (random(10) != 9) goto L67bd;
+	if (random(10) == 9) {
 	g4348[((row * 5) + col)] = (char)random((unsigned char)g3814[(314 * pic)]);
 	g433e[((row * 5) + col)] = (char)random((unsigned char)g3815[(314 * pic)]);
-L67bd:
+	}
 	l24 = (unsigned char)chars[0];
 	l28 = (unsigned char)g36e4[(((314 * pic) + (l6 % 2)) + (l24 << 1))];
-	if (!g3813[(314 * pic)]) goto L6800;
+	if (g3813[(314 * pic)]) {
 	dx = 0;
-L6800:
+	}
 	l26 = (unsigned char)g3759[((314 * pic) + (l24 << 2))];
-	if (l26) goto L6836;
+	if (!l26) {
 	l26 = ((unsigned char)g00b0[((row * 5) + col)] - g);
-L6836:
+	}
 	if ((l30 = (((g37fa[(((314 * pic) + (row * 10)) + (col << 1))] + (unsigned char)g4348[((row * 5) + col)]) + dx) + l28)) >= 0) goto L688e;
 	l30 = 0;
 	goto L6899;

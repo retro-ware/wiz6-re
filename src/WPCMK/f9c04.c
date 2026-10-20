@@ -23,7 +23,7 @@ char *list_win;
 	l2 = 0;
 	goto L9c75;
 L9c16:
-	if (roster_slot_used[l2] != 1) goto L9c72;
+	if (roster_slot_used[l2] == 1) {
 	access_roster_record(21616, l2, 0);
 	strcpy(((count << 3) + 22224), 21616);
 	g5750[count] = (unsigned char)char_sex;
@@ -31,7 +31,7 @@ L9c16:
 	g5790[count] = (unsigned char)char_class;
 	g57b0[count] = l2;
 	count++;
-L9c72:
+	}
 	l2++;
 L9c75:
 	if (l2 < roster_slot_count) goto L9c16;
@@ -57,16 +57,15 @@ L9c88:
 	set_click_region(3, ((unsigned char)win[2] + 17), ((unsigned char)win[3] + 3), ((strlen(&cancel_text) + (unsigned char)win[2]) + 16), ((unsigned char)win[3] + 3));
 	set_click_region(4, 255, 0, 0, 0);
 L9e02:
-	if (on_cancel != 1) goto L9e3f;
+	if (on_cancel == 1) {
 	set_cursor(win, 17, 3);
 	print_string(win, &cancel_text, -5);
 	draw_roster_list(list_win, sel, 0, n);
-	goto L9e74;
-L9e3f:
+	} else {
 	set_cursor(win, 17, 3);
 	print_string_hi(win, &cancel_text, 3);
 	draw_roster_list(list_win, sel, 1, n);
-L9e74:
+	}
 	l2 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L9ec3;
 	switch (l2) {
@@ -87,9 +86,9 @@ case 3:
 L9ec3:
 	switch (l2) {
 case 1:
-	if (on_cancel == 1) goto L9ed3;
+	if (on_cancel != 1) {
 	on_cancel = 1;
-L9ed3:
+	}
 	goto L9f29;
 case 2:
 	if (on_cancel != 1) goto L9ee2;
@@ -101,9 +100,9 @@ L9ee2:
 L9eeb:
 	goto L9f29;
 case 3:
-	if (on_cancel != 1) goto L9ef8;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-L9ef8:
+	}
 	goto L9f29;
 case 4:
 	if (on_cancel != 1) goto L9f07;

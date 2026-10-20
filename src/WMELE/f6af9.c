@@ -22,9 +22,9 @@ L6b3f:
 	*(int *)((char *)g50b4 + ((row * 10) + (col << 1))) = 1;
 	*(int *)((char *)view_pos_group + ((row * 10) + (col << 1))) = g;
 	((char *)monster_groups[g] + (44 * i))[42] = (char)((row * 10) + col);
-	if (row) goto L6baa;
+	if (!row) {
 	choose_monster_frames(g, col);
-L6baa:
+	}
 	return 0;
 L6bb0:
 	i++;

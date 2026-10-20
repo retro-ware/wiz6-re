@@ -29,20 +29,18 @@ L565f:
 	print_chest_prompt(msg, (10 - ((strlen(&l106) + 6) / 2)));
 	l108 = (unsigned char)main_window[6];
 	l110 = (unsigned char)main_window[7];
-	if (refresh_all) goto L570a;
+	if (!refresh_all) {
 	refresh_window(main_window);
 	refresh_window(win);
-	goto L570d;
-L570a:
+	} else {
 	refresh_all_windows();
-L570d:
+	}
 	set_cursor(main_window, l108, l110);
-	if (mouse_present != 1) goto L5738;
+	if (mouse_present == 1) {
 	print_string_hi(main_window, &l16, 3);
-	goto L574a;
-L5738:
+	} else {
 	print_string(main_window, &l26, -5);
-L574a:
+	}
 	for (rsi = 0; rsi < party_count; rsi++) {
 	l112 = (((rsi % 2) * 9) + 2);
 	l114 = ((rsi / 2) + 1);

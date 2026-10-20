@@ -46,9 +46,9 @@ L5e1e:
 	item_row_color[l2] = g5680[l2];
 	slot = 0;
 L5e7d:
-	if ((unsigned char)pc_equipped[((432 * member) + slot)] != (l2 + 1)) goto L5e9d;
+	if ((unsigned char)pc_equipped[((432 * member) + slot)] == (l2 + 1)) {
 	pc_equipped[((432 * member) + slot)] = *(char *)&l2;
-L5e9d:
+	}
 	slot++;
 	if (slot < 8) goto L5e7d;
 	l2++;

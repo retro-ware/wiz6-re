@@ -9,9 +9,9 @@ get_menu_choice_blink(keys, regions)
 	int choice;
 	int frame0;
 	frame0 = anim_phase;
-	if (g502e == -1) goto L473e;
+	if (g502e != -1) {
 	blink_cursor_text();
-L473e:
+	}
 	menu_clicked = 0;
 L4744:
 	if (key_available(1)) goto L47ab;

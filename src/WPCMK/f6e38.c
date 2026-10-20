@@ -71,9 +71,9 @@ L6fbd:
 	set_bit(22008, spell, 1);
 	l2 = (((unsigned char)g00df[(spell * 6)] << 1) + 1);
 	l4 = (unsigned char)spell_table[(spell * 6)];
-	if ((unsigned char)g00e0[(spell * 6)] <= (*(int *)((char *)char_spell_points_max + (l4 << 2)) + l2)) goto L704c;
+	if ((unsigned char)g00e0[(spell * 6)] > (*(int *)((char *)char_spell_points_max + (l4 << 2)) + l2)) {
 	l2 = ((unsigned char)g00e0[(spell * 6)] - *(int *)((char *)char_spell_points_max + (l4 << 2)));
-L704c:
+	}
 	*(int *)((char *)char_spell_points_max + (l4 << 2)) += l2;
 	*(int *)((char *)char_spell_points + (l4 << 2)) += l2;
 	spell_picks_left[category]--;

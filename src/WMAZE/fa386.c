@@ -14,9 +14,9 @@ do_message_event()
 	if (g4f8a == party_facing) goto La3d4;
 	return;
 La3d4:
-	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto La3f0;
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) > 0) {
 	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);
-La3f0:
+	}
 	if (extract_bits(l2, 8, 1) != 1) goto La408;
 	return;
 La408:

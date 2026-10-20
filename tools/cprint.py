@@ -1,7 +1,7 @@
 """Print a lifted function (lift.Lifter statements) as Aztec C source."""
 import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from lift import sub_exprs, size_of, add_const
+from lift import sub_exprs, size_of, add_const, negate
 import skel, symnames
 
 UNSIGNED = {'u<': '<', 'u>=': '>=', 'u<=': '<=', 'u>': '>'}
@@ -507,7 +507,44 @@ class Printer:
                 group.append(g)
             for x in group:
                 x.forhead = a.s
+        # if (c) goto T; A..; [goto J; T: B..;] T/J: is if (!c) { A } [else { B }]: cgen keeps its CSE
+        # registers across a structured join but forgets them at a label
+        idx = {st.s: k for k, st in enumerate(sts)}
+        used = set(fors) | set(forend)
+        opens, elses, closes = {}, set(), {}
+
+        def plain(a, b, ok):
+            return a < b and all(sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') and x not in used and
+                                 (sts[x].s not in labels or sts[x].s in ok) and sts[x].s not in cases and
+                                 sts[x].s not in default for x in range(a, b))
         for k, st in enumerate(sts):
+            c = getattr(st, 'cond', None)
+            if st.kind != 'if' or k in used or st.s in self.L.nobool or c[0] in ('&&', '||') or \
+                    refs.get(st.target) != 1 or st.target in cases or st.target in default:
+                continue
+            kt = idx.get(st.target)
+            if kt is None or kt <= k + 1:
+                continue
+            g = sts[kt - 1]
+            kj = idx.get(g.target) if g.kind == 'goto' and kt - 1 not in used else None
+            if kj is not None and kj > kt and refs.get(g.target) == 1 and g.s not in labels and \
+                    g.target not in cases and g.target not in default and \
+                    plain(k + 1, kt - 1, ()) and plain(kt, kj, {st.target}):
+                elses.add(kt - 1)
+                closes[kj] = closes.get(kj, 0) + 1
+                labels.discard(g.target)
+                end = kj
+            elif g.kind != 'goto' and plain(k + 1, kt, ()):
+                closes[kt] = closes.get(kt, 0) + 1
+                end = kt
+            else:
+                continue
+            opens[k] = negate(c)
+            labels.discard(st.target)
+            for x in range(k, end):
+                sts[x].forhead = st.s       # a mismatch inside: print it with gotos next round
+        for k, st in enumerate(sts):
+            out += ['\t}'] * closes.get(k, 0)
             lab = []
             if st.s in labels:
                 lab.append('L%04x:' % st.s)
@@ -520,7 +557,11 @@ class Printer:
                 if st.kind in ('raw', 'endsw'):
                     out.append('\t;')
             kd = st.kind
-            if kd == 'raw':
+            if k in opens:
+                out.append('\tif (%s) {' % self.cond(opens[k]))
+            elif k in elses:
+                out.append('\t} else {')
+            elif kd == 'raw':
                 tg = self.tail_goto if k == len(sts) - 1 else None
                 if not tg or tg[0] > st.s:          # a lone final jmp needs no asm at all
                     out += self.raw(st)

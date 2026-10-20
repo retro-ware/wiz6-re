@@ -19,17 +19,16 @@ L57e5:
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
 	if (l2 != 8) goto L587d;
-	if (l4 <= 0) goto L5873;
+	if (l4 > 0) {
 	l4--;
 	*(p6 + l4) = 0;
 	l6--;
 	set_cursor(p4, l6, l8);
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
-	goto L587b;
-L5873:
+	} else {
 	play_sound(0);
-L587b:
+	}
 	goto L58e1;
 L587d:
 	if (l4 < p8) goto L588f;

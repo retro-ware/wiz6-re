@@ -21,12 +21,12 @@ L4806:
 	l15 = (char)((i / 10) + 48);
 	l14 = (char)((i % 10) + 48);
 	g4f84 = 20428;
-	if ((fd = open(make_data_path(&fname, 1), 0)) != -1) goto L489e;
+	if ((fd = open(make_data_path(&fname, 1), 0)) == -1) {
 	exit_game(10);
-L489e:
-	if (!load_sound_slot(fd, 0L, *(int *)((char *)sound_table + (i * 12)), *(int *)((char *)g334a + (i * 12)), i)) goto L48d5;
+	}
+	if (load_sound_slot(fd, 0L, *(int *)((char *)sound_table + (i * 12)), *(int *)((char *)g334a + (i * 12)), i)) {
 	exit_game(11);
-L48d5:
+	}
 	close(fd);
 L48dc:
 	i++;

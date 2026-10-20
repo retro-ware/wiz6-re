@@ -25,18 +25,17 @@ setup_game_windows()
 	g4fb0 = create_window(20, 19, 20, 5, 8, -1, 0, 0);
 	fill_window(g4fb0, 32, 3, 0);
 	defer_window_draw(g4fb0);
-	if (g4f88) goto L5e70;
+	if (!g4f88) {
 	draw_glyph_2x2(g4fb0, 13, 1, 5, 6, 7, 8);
 	draw_glyph_2x2(g4fb0, 10, 3, 1, 13, 3, 14);
 	draw_glyph_4x2(g4fb0, 12, 3, 17);
 	draw_glyph_2x2(g4fb0, 16, 3, 15, 10, 16, 12);
-	goto L5eec;
-L5e70:
+	} else {
 	draw_glyph_2x2(g4fb0, 13, 1, 5, 6, 7, 8);
 	draw_glyph_2x2(g4fb0, 10, 3, 1, 2, 3, 4);
 	draw_glyph_4x2(g4fb0, 12, 3, 25);
 	draw_glyph_2x2(g4fb0, 16, 3, 9, 10, 11, 12);
-L5eec:
+	}
 	for (i = 0; i < 4; i++) {
 	set_cursor(g4fb0, 1, (i + 1));
 	print_message((i + 1300), g4fb0, 18);

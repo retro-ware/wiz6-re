@@ -19,15 +19,14 @@ L46ab:
 L46cf:
 	;
 L46d3:
-	if (camp_anim_tick) goto L4701;
+	if (!camp_anim_tick) {
 	anim_phase = ((anim_phase + 1) % 2);
 	draw_camp_scene(anim_phase, camp_anim_dx, camp_anim_dy);
 	drv_op_c2(picture_win);
-	goto L4707;
-L4701:
+	} else {
 	delay_tick();
 	delay_tick();
-L4707:
+	}
 	camp_anim_tick = ((camp_anim_tick + 1) % 10);
 	goto L46ab;
 L4717:

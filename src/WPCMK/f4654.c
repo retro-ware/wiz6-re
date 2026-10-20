@@ -19,17 +19,16 @@ L468a:
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
 	if (ch != 8) goto L4724;
-	if (len <= 0) goto L471a;
+	if (len > 0) {
 	len--;
 	*(buf + len) = 0;
 	x--;
 	set_cursor(win, x, y);
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
-	goto L4722;
-L471a:
+	} else {
 	play_sound(0);
-L4722:
+	}
 	goto L4788;
 L4724:
 	if (len < maxlen) goto L4736;

@@ -5,6 +5,7 @@ extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
 extern char g44e6[];
+extern char g44e7[];
 extern char g450a[];
 extern char g4517[];
 extern char g4539[];
@@ -20,6 +21,8 @@ extern char pc_item_count[];
 extern char pc_item_flags[];
 extern char pc_item_icon[];
 extern char pc_stats[];
+extern int g44d8[];
+extern int g44da[];
 extern int g4fb8;
 extern int g4fba;
 extern int menu_clicked;
@@ -50,7 +53,8 @@ char *p6;
 	int l218;
 	int l220;
 	int l222;
-	char x222[2];
+	char x222[1];
+	char l224;
 	char l225;
 	char l226;
 	char x226[1];
@@ -61,7 +65,10 @@ char *p6;
 	char x231[4];
 	char l236;
 	char l264[28];
-	char x264[30];
+	char x264[4];
+	int l270;
+	int l272;
+	char x272[22];
 	int l296;
 	int l298;
 	int l300;
@@ -108,12 +115,11 @@ Ld4bf:
 	p6[6]++;
 	l220 = (unsigned char)p6[6];
 	l222 = (unsigned char)p6[7];
-	if (mouse_present != 1) goto Ld57f;
+	if (mouse_present == 1) {
 	print_string_hi(p6, &l218, 3);
-	goto Ld591;
-Ld57f:
+	} else {
 	print_string(p6, &l218, -5);
-Ld591:
+	}
 	for (l4 = 0; l4 < l12; l4++) {
 	set_cursor(p4, 21, (l48[(l4 + 8)] + 9));
 	put_char(p4, 100, 5);
@@ -197,18 +203,14 @@ Ld934:
 	g44e2[((432 * p8) + (l2 << 4))] = (char)((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4);
 Ld95b:
 	g44e4[((432 * p8) + (l2 << 4))] = l231;
-	if (l236 != 4) goto Ld99c;
+	if (l236 == 4) {
 	g44e6[((432 * p8) + (l2 << 4))] = (char)(0 - (l225 * 5));
-	goto Ld9b8;
-Ld99c:
+	} else {
 	g44e6[((432 * p8) + (l2 << 4))] = (char)(g44e6[((432 * p8) + (l2 << 4))] - (l225 * 5));
-Ld9b8:
-	;
-#asm
-ld9b8:
-	db 08bh,086h,0f0h,0feh,089h,087h,0d8h,044h,08bh,086h,0f2h,0feh,089h,087h,0dah,044h
-	db 08ah,086h,020h,0ffh,088h,087h,0e7h,044h
-#endasm
+	}
+	*(int *)((char *)g44d8 + ((432 * p8) + (l2 << 4))) = l272;
+	*(int *)((char *)g44da + ((432 * p8) + (l2 << 4))) = l270;
+	g44e7[((432 * p8) + (l2 << 4))] = l224;
 	set_cursor(l298, (l2 + 3), (((p8 / 2) << 2) + 1));
 	put_char_hi(l298, (unsigned char)(((unsigned char)pc_item_icon[((432 * p8) + (l8 << 3))] + 1)), 4);
 	goto Lda34;
@@ -249,9 +251,9 @@ Ldad5:
 	if (l10 != 1) goto Ldd7f;
 	if (l48[l2] >= 9) goto Ldc46;
 	l4 = (l48[l2] - 1);
-	if ((unsigned)pc_stats[((432 * p8) + l4)] >= 20) goto Ldc43;
+	if ((unsigned)pc_stats[((432 * p8) + l4)] < 20) {
 	pc_stats[((432 * p8) + l4)]++;
-Ldc43:
+	}
 	goto Ldd55;
 Ldc46:
 	;
@@ -259,9 +261,9 @@ Ldc46:
 ldc46:
 	db 08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,003h,0ddh,08bh,047h,0d0h,0e9h,0f0h,000h
 #endasm
-	if ((unsigned)g4591[(432 * p8)] >= 4) goto Ldc69;
+	if ((unsigned)g4591[(432 * p8)] < 4) {
 	g4591[(432 * p8)] = 4;
-Ldc69:
+	}
 	goto Ldd55;
 #asm
 	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,092h,045h,004h,073h,005h,0c6h
@@ -289,9 +291,9 @@ Ldcf0:
 Ldcf2:
 	*(long *)((char *)pc_age_days + (432 * p8)) += -365L;
 Ldd05:
-	if ((unsigned)g4517[(432 * p8)] >= 18) goto Ldd18;
+	if ((unsigned)g4517[(432 * p8)] < 18) {
 	g4517[(432 * p8)]++;
-Ldd18:
+	}
 	goto Ldd55;
 	l4 = (random(5) + 2);
 	*(int *)((char *)pc_hp_max + (432 * p8)) += l4;

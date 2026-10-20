@@ -55,12 +55,11 @@ L6156:
 L6179:
 	rsi++;
 	if (rsi < 10) goto L6156;
-	if (state == -1) goto L619d;
+	if (state != -1) {
 	put_char_hi(win, (unsigned char)((state + 37)), 1);
-	goto L61ae;
-L619d:
+	} else {
 	put_char_hi(win, 32, 3);
-L61ae:
+	}
 	set_cursor(win, (x + 3), (y + 2));
 	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * i)] << 1) + rsi) + 58)), 1);

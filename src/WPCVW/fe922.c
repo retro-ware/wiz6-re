@@ -17,9 +17,9 @@ fe922(p4, p6)
 	l30 = 0;
 	l2 = 17;
 Le993:
-	if ((unsigned)pc_skills[((432 * p6) + l2)] <= 0) goto Le9aa;
+	if ((unsigned)pc_skills[((432 * p6) + l2)] > 0) {
 	l30 = 1;
-Le9aa:
+	}
 	l2++;
 	if (l2 < 22) goto Le993;
 	l28 = 0;

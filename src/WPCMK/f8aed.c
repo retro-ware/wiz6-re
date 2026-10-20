@@ -84,31 +84,30 @@ case 13:
 L8d43:
 	l4 = (((l10 << 1) + l8) * 3);
 	l6 = (((l8 << 1) + l10) * 3);
-	if (l10 >= 8) goto L8d6e;
+	if (l10 < 8) {
 	l2--;
-L8d6e:
-	if (l10 <= 15) goto L8d7d;
+	}
+	if (l10 > 15) {
 	l2++;
 	l4 += l10;
-L8d7d:
-	if (l10 <= 17) goto L8d8c;
+	}
+	if (l10 > 17) {
 	l2++;
 	l4 += l10;
-L8d8c:
-	if (l8 <= 15) goto L8d98;
+	}
+	if (l8 > 15) {
 	l6 += l8;
-L8d98:
-	if (l8 <= 17) goto L8da4;
+	}
+	if (l8 > 17) {
 	l6 += l8;
-L8da4:
+	}
 	char_hp = l2;
 	char_hp_max = char_hp;
 	char_stamina = l4;
 	char_stamina_max = char_stamina;
 	char_load = 0;
 	char_carry_capacity = (l6 * 15);
-	if (char_race != 5) goto L8ddc;
+	if (char_race == 5) {
 	char_carry_capacity = ((char_carry_capacity << 1) / 3);
-L8ddc:
-	;
+	}
 }

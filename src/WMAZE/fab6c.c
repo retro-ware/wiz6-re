@@ -14,11 +14,11 @@ inflict_condition(p4, p6, p8, p10)
 	int l90;
 	if (((p8) && (random(100) <= (unsigned char)g453a[((432 * p4) + p8)])) || ((unsigned char)pc_condition[(432 * p4)] >= p10)) goto Lac1c;
 	pc_condition[(432 * p4)] = *(char *)&p10;
-	if (p10 < 3) goto Labd6;
+	if (p10 >= 3) {
 	*(int *)((char *)pc_hp + (432 * p4)) = 0;
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
 	play_sound(((unsigned char)pc_sex[(432 * p4)] + 8));
-Labd6:
+	}
 	get_message(p6, &l80);
 	*(char *)&l85 = 0;
 	*(char *)&l90 = 0;

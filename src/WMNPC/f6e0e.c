@@ -13,10 +13,10 @@ L6e14:
 	goto L6e14;
 L6e25:
 	l2 = (19 - ((strlen(p4) + 1) / 2));
-	if (*p4 != 94) goto L6e4e;
+	if (*p4 == 94) {
 	p4++;
 	l2 = g5268;
-L6e4e:
+	}
 	set_cursor(g5264, l2, loot_count);
 	g5268 = l2;
 	loot_count++;

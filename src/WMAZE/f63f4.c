@@ -61,9 +61,9 @@ L6464:
 L64cc:
 	heal_member(l2, (l12 > 0 ? ((unsigned char)g458e[(432 * l2)] + 1) : 0), (unsigned char)g458f[(432 * l2)], 6, 1);
 	g450c[(432 * l2)] = (char)random(5);
-	if ((unsigned)g458c[(432 * l2)] <= 0) goto L651e;
+	if ((unsigned)g458c[(432 * l2)] > 0) {
 	g458c[(432 * l2)]--;
-L651e:
+	}
 	l2++;
 L6521:
 	if (l2 < party_count) goto L64cc;
@@ -79,9 +79,9 @@ L6587:
 	goto L6464;
 L658a:
 	for (l2 = 0; l2 < party_count; l2++) {
-	if ((long)*(int *)((char *)pc_stamina + (432 * l2)) <= (((long)*(int *)((char *)pc_stamina_max + (432 * l2)) * 3) / 4L)) goto L65d1;
+	if ((long)*(int *)((char *)pc_stamina + (432 * l2)) > (((long)*(int *)((char *)pc_stamina_max + (432 * l2)) * 3) / 4L)) {
 	g450c[(432 * l2)] = 0;
-L65d1:
+	}
 	draw_member_status_m(l2);
 	}
 	return 0;

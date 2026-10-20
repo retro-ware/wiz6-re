@@ -46,7 +46,7 @@ Lcacf:
 	return -1;
 Lcad4:
 	if (g58d4 == -1) goto Lcb38;
-	if (g5894 == -1) goto Lcb24;
+	if (g5894 != -1) {
 	fbe7a(g5894, 1, &l82);
 	fc115(&l82);
 	fc95b(1605, &l82);
@@ -54,10 +54,9 @@ Lcad4:
 	g589c = g5894;
 	g589e = g5896;
 	g58a2 = 1;
-	goto Lcb32;
-Lcb24:
+	} else {
 	fc95b(1606, 20518);
-Lcb32:
+	}
 	return -1;
 Lcb38:
 	if ((g589a != -1) || (g5898 != -1)) goto Lcb79;

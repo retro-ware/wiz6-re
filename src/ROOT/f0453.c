@@ -32,11 +32,11 @@ l0485:
 L04c3:
 	goto L0485;
 L04c5:
-	if (orig >= 0L) goto L04de;
+	if (orig < 0L) {
 	rdi = len;
 	len++;
 	*(buf + rdi) = 45;
-L04de:
+	}
 	*(buf + len) = 0;
 	reverse_string(buf);
 }

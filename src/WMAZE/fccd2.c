@@ -54,11 +54,11 @@ Lcdda:
 	l4++;
 	goto Lcd6c;
 Lcddf:
-	if (l6 != 1) goto Lce03;
+	if (l6 == 1) {
 	show_maze_message(2045);
 	play_sound(0);
 	wait_animating_m((message_delay / 2));
-Lce03:
+	}
 	erase_window(main_window, 1);
 	return;
 }

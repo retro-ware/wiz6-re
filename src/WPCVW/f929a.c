@@ -18,9 +18,9 @@ do_skills_menu(p4, p6)
 	l52 = 0;
 	l2 = 17;
 L92af:
-	if ((unsigned)pc_skills[((432 * p6) + l2)] <= 0) goto L92c6;
+	if ((unsigned)pc_skills[((432 * p6) + l2)] > 0) {
 	l52 = 1;
-L92c6:
+	}
 	l2++;
 	if (l2 < 22) goto L92af;
 	l4 = create_window(20, 4, 20, 16, 25, -1, 0, 0);
@@ -31,9 +31,9 @@ L92f7:
 	}
 	l24[l26] = 0;
 	l14 = -1;
-	if (l52) goto L934c;
+	if (!l52) {
 	l20 = 0;
-L934c:
+	}
 	if (((l26 + 1) != 2) || (l52)) goto L9370;
 	l50 = count_enabled_before(l24, (l26 + 2));
 	goto L9382;

@@ -52,10 +52,10 @@ L5308:
 	goto L51e7;
 L530e:
 	set_click_region(n, 255, 0, 0, 0);
-	if (with_cancel != 1) goto L5382;
+	if (with_cancel == 1) {
 	set_click_region(n, ((unsigned char)main_window[2] + l283), ((unsigned char)main_window[3] + l285), (((strlen(&l281) + (unsigned char)main_window[2]) + l283) - 1), ((unsigned char)main_window[3] + l285));
 	set_click_region((n + 1), 255, 0, 0, 0);
-L5382:
+	}
 	sel = (with_cancel == 1 ? -1 : 0);
 L5391:
 	if (mouse_present) goto L540e;

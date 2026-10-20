@@ -35,9 +35,9 @@ L67b2:
 	l2 = 0;
 	goto L67d7;
 L67c7:
-	if (g50de[l2] == 36) goto L67d4;
+	if (g50de[l2] != 36) {
 	l10++;
-L67d4:
+	}
 	l2++;
 L67d7:
 	if (strlen(20702) > l2) goto L67c7;

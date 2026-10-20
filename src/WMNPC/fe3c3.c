@@ -9,9 +9,9 @@ extern int g6c7e;
 extern int g6c80;
 fe3c3(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32, p34, p36, p38, p40, p42, p44, p46, p48, p50, p52, p54, p56, p58, p60, p62, p64, p66, p68, p70, p72)
 {
-	if (g6aa6[((p4 * 3) + p8)]) goto Le40c;
+	if (!g6aa6[((p4 * 3) + p8)]) {
 	drv_op_c6((g6c7e ? (p16 + p4) : (p14 + p4)), 1, (g6c7e != 0 ? (p14 + p4) : -1));
-Le40c:
+	}
 	if (p4 >= 3) goto Le820;
 	if ((p6 != 2) && (p6 < 7)) goto Le452;
 	drv_op_c6((g6c80 ? (p20 + p4) : (p18 + p4)), 1, (g6c80 != 0 ? (p18 + p4) : -1));

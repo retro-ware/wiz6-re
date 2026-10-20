@@ -25,15 +25,15 @@ L5195:
 L5201:
 	result = 0;
 	roll = ((((random((power << 1)) + random((power << 1))) + random((power << 1))) + 3) / 2);
-	if (roll >= lock_level) goto L5246;
+	if (roll < lock_level) {
 	result = 1;
-L5246:
-	if (!jammed) goto L5251;
+	}
+	if (jammed) {
 	result = 2;
-L5251:
-	if (result) goto L525e;
+	}
+	if (!result) {
 	clear_maze_event(ev);
-L525e:
+	}
 	g502a = (result + 2113);
 	g502c = result;
 	return 0;

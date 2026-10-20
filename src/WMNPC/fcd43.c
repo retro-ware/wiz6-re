@@ -12,9 +12,9 @@ fcd43(p4, p6)
 	goto Lcdac;
 Lcd7c:
 	if (l80[0] != 36) goto Lcd9f;
-	if (f7038(g6a9c, (unsigned char)l80[(0 + 1)]) != 1) goto Lcd9d;
+	if (f7038(g6a9c, (unsigned char)l80[(0 + 1)]) == 1) {
 	g58c2 = 1;
-Lcd9d:
+	}
 	goto Lcdac;
 Lcd9f:
 	fc95b(p4, 20530);

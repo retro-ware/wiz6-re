@@ -24,9 +24,9 @@ npc_give_item_to_member(p4, p6, p8)
 	int l82;
 	int l84;
 	access_scenario_record(1, &l76, p6, 0);
-	if (p8 != -1) goto L6ab0;
+	if (p8 == -1) {
 	p8 = f66cf(l56, l54);
-L6ab0:
+	}
 	l84 = 1;
 	l80 = (unsigned char)pc_item_count[(432 * p4)];
 	l2 = (l80 - 1);
@@ -73,21 +73,21 @@ L6c01:
 #asm
 	db 0c6h,047h,007h,000h
 #endasm
-	if (!((unsigned char)l17 & 8)) goto L6c47;
+	if (((unsigned char)l17 & 8)) {
 	l78[7] |= 4;
-L6c47:
-	if (!((unsigned char)l17 & 4)) goto L6c58;
+	}
+	if (((unsigned char)l17 & 4)) {
 	l78[7] |= 8;
-L6c58:
-	if (!((unsigned char)l17 & 16)) goto L6c69;
+	}
+	if (((unsigned char)l17 & 16)) {
 	l78[7] |= 16;
-L6c69:
-	if (!((unsigned char)l17 & 32)) goto L6c7a;
+	}
+	if (((unsigned char)l17 & 32)) {
 	l78[7] |= 32;
-L6c7a:
-	if (!((unsigned char)l17 & 2)) goto L6c8b;
+	}
+	if (((unsigned char)l17 & 2)) {
 	l78[7] |= 64;
-L6c8b:
+	}
 	*(int *)((char *)pc_carried + (432 * p4)) = 0;
 	l2 = 0;
 	goto L6cbd;

@@ -10,11 +10,11 @@ f56a1(p4)
 	int l4;
 	char x4[2];
 	int l8;
-	if (p4) goto L56df;
+	if (!p4) {
 	get_message(2025, 20948);
 	erase_window(main_window, 1);
 	print_centered(main_window, 20948, 0, 18);
-L56df:
+	}
 	l8 = random(2);
 	l4 = random(4);
 	l2 = 0;

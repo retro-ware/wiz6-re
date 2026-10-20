@@ -22,29 +22,29 @@ update_combatant(g, i, p8, p10)
 	db 08bh,047h,006h,03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
 #endasm
 L524f:
-	if (*(int *)(c + 6) > 0) goto L526e;
+	if (*(int *)(c + 6) <= 0) {
 	*(int *)(c + 6) = 0;
 	c[16] = (char)(random(6) + 6);
-L526e:
+	}
 	l6 = ((p8 - p10) - (unsigned char)c[35]);
 	*(int *)(c + 2) += l6;
-	if (*(int *)(c + 2) <= *(int *)(c + 4)) goto L529b;
+	if (*(int *)(c + 2) > *(int *)(c + 4)) {
 	*(int *)(c + 2) = *(int *)(c + 4);
-L529b:
+	}
 	if (*(int *)(c + 2) > 0) goto L5353;
 	*(int *)(c + 2) = 0;
 	*(int *)(c + 6) = 0;
 	c[34] = 3;
 	died = 1;
 	if (!g) goto L5353;
-	if (c[42] == -1) goto L5328;
+	if (c[42] != -1) {
 	l12 = (c[42] / 10);
 	l14 = (c[42] % 10);
 	g4348[((l12 * 5) + l14)] = 0;
 	g433e[((l12 * 5) + l14)] = 0;
 	*(int *)((char *)view_pos_group + ((l12 * 10) + (l14 << 1))) = 0;
 	c[42] = -1;
-L5328:
+	}
 	if (!((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[220] & 1)) goto L5353;
 	set_bit(13464, (unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[218], 1);
 L5353:
@@ -55,9 +55,9 @@ L5358:
 L5371:
 	l8++;
 	if (l8 < 10) goto L5358;
-	if (c[19]) goto L5389;
+	if (!c[19]) {
 	c[35] = 0;
-L5389:
+	}
 	if ((l8 = c[41]) >= 0) goto L539b;
 #asm
 	db 040h,0ebh,00bh
@@ -74,11 +74,11 @@ L53a6:
 l53a6:
 	db 088h,047h,029h
 #endasm
-	if ((unsigned)c[36] <= 0) goto L53b5;
+	if ((unsigned)c[36] > 0) {
 	c[36]--;
-L53b5:
-	if (c[43] != 3) goto L53c2;
+	}
+	if (c[43] == 3) {
 	c[43] = 0;
-L53c2:
+	}
 	return died;
 }

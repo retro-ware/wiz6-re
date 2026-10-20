@@ -23,13 +23,12 @@ L9fee:
 	l4 = g54b4[(p8 + l2)];
 	if ((p10 != 1) || (l2)) goto La09f;
 	print_string(p4, ((l4 << 4) + 21744), 3);
-	if (g00cc[(unsigned char)g56d0[l4]] != 1) goto La08c;
+	if (g00cc[(unsigned char)g56d0[l4]] == 1) {
 	pad_to_column(p4, 15, 3);
 	print_int(p4, g56ee[l4], 3, 1);
-	goto La09d;
-La08c:
+	} else {
 	pad_to_column(p4, 18, 3);
-La09d:
+	}
 	goto La0f9;
 La09f:
 	print_string_hi(p4, ((l4 << 4) + 21744), 3);

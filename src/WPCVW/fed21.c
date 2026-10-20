@@ -49,22 +49,22 @@ case 13:
 	}
 Lede3:
 	l6 = (random(4) + ((l8 + l10) / 6));
-	if (l10 >= 8) goto Lee09;
+	if (l10 < 8) {
 	l4--;
-Lee09:
-	if (l10 <= 15) goto Lee12;
+	}
+	if (l10 > 15) {
 	l4++;
-Lee12:
-	if (l10 <= 17) goto Lee1b;
+	}
+	if (l10 > 17) {
 	l4++;
-Lee1b:
-	if (l4 >= 1) goto Lee26;
+	}
+	if (l4 < 1) {
 	l4 = 1;
-Lee26:
-	if (*(int *)((char *)pc_level + (432 * p8)) >= (unsigned char)g4597[(432 * p8)]) goto Lee4a;
+	}
+	if (*(int *)((char *)pc_level + (432 * p8)) < (unsigned char)g4597[(432 * p8)]) {
 	l4 = 1;
 	l6 = 1;
-Lee4a:
+	}
 	*(int *)((char *)pc_hp + (432 * p8)) += l4;
 	*(int *)((char *)pc_hp_max + (432 * p8)) += l4;
 	*(int *)((char *)pc_stamina + (432 * p8)) += l6;

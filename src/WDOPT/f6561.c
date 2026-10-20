@@ -23,14 +23,14 @@ L6579:
 	if (((g4fa8 + ev)[864] != 19) || (*(int *)((char *)pc_item_id + ((432 * p4) + (p6 << 3))) != *(int *)(g4fa8 + (ev << 1)))) goto L6692;
 	l10 = extract_bits(*(int *)((g4fa8 + (ev << 1)) + 576), 0, 8);
 	set_bit(((game_state_arg * 10) + 20204), l10, 0);
-	if (!(l10 = extract_bits(*(int *)((g4fa8 + (ev << 1)) + 576), 8, 8))) goto L6641;
+	if ((l10 = extract_bits(*(int *)((g4fa8 + (ev << 1)) + 576), 8, 8))) {
 	set_bit(((game_state_arg * 10) + 20204), l10, 1);
-L6641:
+	}
 	if ((unsigned)(g4fa8 + ev)[1584] <= 0) goto L6683;
 	if ((unsigned)(g4fa8 + ev)[1584] < 14) goto L6671;
-	if ((unsigned char)(g4fa8 + ev)[1584] == cur_sound) goto L6667;
+	if ((unsigned char)(g4fa8 + ev)[1584] != cur_sound) {
 	load_sound_dopt((unsigned char)(g4fa8 + ev)[1584]);
-L6667:
+	}
 	play_sound(14);
 	goto L6683;
 L6671:

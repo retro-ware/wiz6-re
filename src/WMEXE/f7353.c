@@ -30,12 +30,11 @@ draw_member_card_x(p4, p6)
 	l4 = 0;
 	l6 = ((p4 / 2) << 2);
 	set_cursor(l88, l4, l6);
-	if (p6) goto L73ba;
+	if (!p6) {
 	print_string_hi(l88, ((432 * p4) + 17384), 3);
-	goto L73d1;
-L73ba:
+	} else {
 	print_string(l88, ((432 * p4) + 17384), -4);
-L73d1:
+	}
 	for (rsi = strlen(((432 * p4) + 17384)); rsi < 7; rsi++) {
 	put_char_hi(l88, 32, 3);
 	}
@@ -59,12 +58,11 @@ L74e2:
 L7505:
 	rsi++;
 	if (rsi < 10) goto L74e2;
-	if (l2 == -1) goto L7529;
+	if (l2 != -1) {
 	put_char_hi(l88, (unsigned char)((l2 + 37)), 1);
-	goto L753a;
-L7529:
+	} else {
 	put_char_hi(l88, 32, 3);
-L753a:
+	}
 	set_cursor(l88, (l4 + 3), (l6 + 2));
 	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(l88, (unsigned char)(((((unsigned char)pc_class[(432 * p4)] << 1) + rsi) + 58)), 1);

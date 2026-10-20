@@ -15,9 +15,9 @@ skill_points_screen(p4)
 	l30 = 0;
 	l2 = 17;
 L609f:
-	if ((unsigned)char_skills[l2] <= 0) goto L60ae;
+	if ((unsigned)char_skills[l2] > 0) {
 	l30 = 1;
-L60ae:
+	}
 	l2++;
 	if (l2 < 22) goto L609f;
 	l28 = 0;

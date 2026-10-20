@@ -12,12 +12,12 @@ show_encounter_view()
 	int col;
 	int l8;
 	int l10;
-	if (g500e != 1) goto L6e57;
+	if (g500e == 1) {
 	get_message(2025, 20500);
 	erase_window(main_window, 1);
 	print_centered(main_window, 20500, 0, 18);
 	g500e = 0;
-L6e57:
+	}
 	l8 = random(4);
 	flash = 0;
 L6e67:

@@ -37,9 +37,9 @@ case 5:
 	goto La188;
 	}
 La188:
-	if (*(int *)((char *)g4ec8 + (l2 << 2)) <= 0) goto La19e;
+	if (*(int *)((char *)g4ec8 + (l2 << 2)) > 0) {
 	l4 += l6;
-La19e:
+	}
 	drv_op_c6(l4, 0, -1);
 	l2++;
 	if (l2 < 6) goto La112;

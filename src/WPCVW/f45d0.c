@@ -35,10 +35,10 @@ L470f:
 L4715:
 	set_click_region(l4, 255, 0, 0, 0);
 L4728:
-	if (mouse_present) goto L4779;
+	if (!mouse_present) {
 	set_cursor(p4, (((sel / p16) * p14) + p10), ((sel % p16) + p12));
 	print_string(p4, ((sel * 25) + l409), (0 - p18));
-L4779:
+	}
 	item = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto L479c;
 	sel = item;
@@ -47,22 +47,22 @@ L4779:
 L479c:
 	switch (item) {
 case 1:
-	if ((sel - p16) < 0) goto L47de;
+	if ((sel - p16) >= 0) {
 	unhighlight_menu_item(p4, sel, p14, p16, p10, p12, ((sel * 25) + l409));
 	sel -= p16;
-L47de:
+	}
 	goto L48ce;
 case 2:
-	if ((sel % p16) <= 0) goto L4820;
+	if ((sel % p16) > 0) {
 	unhighlight_menu_item(p4, sel, p14, p16, p10, p12, ((sel * 25) + l409));
 	sel--;
-L4820:
+	}
 	goto L48ce;
 case 3:
-	if ((sel + p16) >= l4) goto L4862;
+	if ((sel + p16) < l4) {
 	unhighlight_menu_item(p4, sel, p14, p16, p10, p12, ((sel * 25) + l409));
 	sel += p16;
-L4862:
+	}
 	goto L48ce;
 case 4:
 	if (((sel % p16) >= (p16 - 1)) || ((sel + 1) >= l4)) goto L48af;

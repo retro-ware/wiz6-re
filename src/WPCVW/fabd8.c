@@ -15,8 +15,7 @@ char *win;
 	clear_window_area(win, l12, l14, (l12 + 7), l14);
 	set_cursor(win, l12, l14);
 	input_line(win, &l10, 7, 5, 0);
-	if (!*(char *)&l10) goto Lac7f;
+	if (*(char *)&l10) {
 	strcpy(((432 * member) + 17384), &l10);
-Lac7f:
-	;
+	}
 }

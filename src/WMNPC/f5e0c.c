@@ -51,10 +51,10 @@ L5fad:
 	goto L5e8a;
 L5fb3:
 	set_click_region(l4, 255, 0, 0, 0);
-	if (p20 != 1) goto L6027;
+	if (p20 == 1) {
 	set_click_region(l4, ((unsigned char)main_window[2] + l281), ((unsigned char)main_window[3] + l283), (((strlen(&l279) + (unsigned char)main_window[2]) + l281) - 1), ((unsigned char)main_window[3] + l283));
 	set_click_region((l4 + 1), 255, 0, 0, 0);
-L6027:
+	}
 	p22 = (p20 == 1 ? -1 : p22);
 L6036:
 	if (mouse_present) goto L60b3;

@@ -112,9 +112,9 @@ L67b3:
 	refresh_all_windows();
 	if ((l6 = open(&l3632, 769)) != -1) goto L6822;
 	show_error(&l3798);
-	if (!l3716) goto L6819;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L6819:
+	}
 	return -1;
 L6822:
 	lseek(l6, 0L, 0);
@@ -132,9 +132,9 @@ L6822:
 	if ((l3592 = write(l6, 13304, 414)) > 0) goto L68fe;
 	show_error(&l3798);
 	close(l6);
-	if (!l3716) goto L68f8;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L68f8:
+	}
 	return -1;
 L68fe:
 	l4 = 0;
@@ -158,17 +158,17 @@ L6976:
 	if ((l3592 = write(l6, &l1850, g3304)) > 0) goto L69c5;
 	show_error(&l3798);
 	close(l6);
-	if (!l3716) goto L69bf;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L69bf:
+	}
 	return -1;
 L69c5:
 	if ((l3592 = write(l6, &l3590, g3306)) > 0) goto L6a14;
 	show_error(&l3798);
 	close(l6);
-	if (!l3716) goto L6a0e;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L6a0e:
+	}
 	return -1;
 L6a14:
 	l4++;
@@ -199,9 +199,9 @@ L6a17:
 	if ((l3592 = write(l6, &l72, 66)) > 0) goto L6b26;
 	show_error(&l3798);
 	close(l6);
-	if (!l3716) goto L6b20;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L6b20:
+	}
 	return -1;
 L6b26:
 	l2 = 0;
@@ -211,17 +211,17 @@ L6b2d:
 	if ((l3592 = write(l6, &l504, 432)) > 0) goto L6b96;
 	show_error(&l3798);
 	close(l6);
-	if (!l3716) goto L6b90;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L6b90:
+	}
 	return -1;
 L6b96:
 	l2++;
 L6b99:
 	if (l2 < party_count) goto L6b2d;
 	close(l6);
-	if (!l3716) goto L6bc7;
+	if (l3716) {
 	prompt_insert_disk(&l3738, l3718, l3840, 1);
-L6bc7:
+	}
 	return 0;
 }

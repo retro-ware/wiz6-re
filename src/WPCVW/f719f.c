@@ -9,8 +9,7 @@ draw_spell_list_frame(p4, p6)
 	}
 	put_glyph_at(p4, 0, 6, 70);
 	resume_window_draw(p4);
-	if (!p6) goto L7215;
+	if (p6) {
 	refresh_window(p4);
-L7215:
-	;
+	}
 }

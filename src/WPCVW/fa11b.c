@@ -6,9 +6,9 @@ char *p6;
 	rsi = 0;
 La122:
 	if (p8 != 1) goto La163;
-	if ((unsigned char)pc_stats[((432 * p4) + rsi)] <= (*(p6 + rsi) + -65)) goto La161;
+	if ((unsigned char)pc_stats[((432 * p4) + rsi)] > (*(p6 + rsi) + -65)) {
 	pc_stats[((432 * p4) + rsi)] = (char)(*(p6 + rsi) + -65);
-La161:
+	}
 	goto La19c;
 La163:
 	if ((unsigned char)pc_stats[((432 * p4) + rsi)] >= (*(p6 + rsi) + -65)) goto La19c;

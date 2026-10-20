@@ -32,12 +32,11 @@ case 7:
 	check_class_reqs(p4, l2, 20549);
 	goto La356;
 case 8:
-	if (pc_sex[(432 * p4)] != 1) goto La2c3;
+	if (pc_sex[(432 * p4)] == 1) {
 	check_class_reqs(p4, l2, 20558);
-	goto La2d0;
-La2c3:
+	} else {
 	class_allowed[l2] = 0;
-La2d0:
+	}
 	goto La356;
 case 9:
 	check_class_reqs(p4, l2, 20567);

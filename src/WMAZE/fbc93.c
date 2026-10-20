@@ -27,9 +27,9 @@ puzzle_event()
 	int l188;
 	int enabled[16];
 	int l222;
-	if ((unsigned)(g4fa8 + cell_event_index)[1584] <= 0) goto Lbcc9;
+	if ((unsigned)(g4fa8 + cell_event_index)[1584] > 0) {
 	show_message_text_m((*(int *)(g4fa8 + (cell_event_index << 1)) + (unsigned char)(g4fa8 + cell_event_index)[1584]), 0);
-Lbcc9:
+	}
 	l8 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	choices = extract_bits(l8, 0, 4);
 	steps = extract_bits(l8, 4, 4);
@@ -42,13 +42,12 @@ Lbcc9:
 	l10 = *(int *)(g4fa8 + (cell_event_index << 1));
 	erase_window(main_window, 0);
 	defer_window_draw(main_window);
-	if (l20 != 1) goto Lbda6;
+	if (l20 == 1) {
 	get_message(2038, answer);
-	goto Lbdb6;
-Lbda6:
+	} else {
 	get_message(l10, answer);
 	l10++;
-Lbdb6:
+	}
 	set_cursor(main_window, (20 - ((strlen(answer) + 1) / 2)), 0);
 	print_string_hi(main_window, answer, 3);
 	resume_window_draw(main_window);
@@ -79,19 +78,19 @@ Lbf3f:
 	refresh_window(g522a);
 	get_message(l10, &l188);
 	l6 = maze_menu_select(g522a, l10, enabled, (20 - (((strlen(&l188) << 1) + 4) / 2)), 1, (strlen(&l188) + 3), (((choices - 1) / 2) + 1), 5, 0);
-	if (l22 != 1) goto Lbfd3;
+	if (l22 == 1) {
 	enabled[l6] = 0;
-Lbfd3:
+	}
 	if ((choices - 1) != l6) goto Lbfef;
 	l2 = steps;
-	if (failed) goto Lbfed;
+	if (!failed) {
 	l26 = 1;
-Lbfed:
+	}
 	goto Lc040;
 Lbfef:
-	if (l16 <= 0) goto Lbffc;
+	if (l16 > 0) {
 	play_sound(l16);
-Lbffc:
+	}
 	if (((l4 = char_index(answer, (unsigned char)((l6 + 48)))) != -1) && ((l18) || (((unsigned char)answer[l2] + -48) == l6))) goto Lc040;
 	failed = 1;
 	if (l28 != 1) goto Lc040;

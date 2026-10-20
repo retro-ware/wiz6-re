@@ -62,21 +62,20 @@ lc8d0:
 	db 059h
 #endasm
 Lc8f7:
-	if (g5264[6]) goto Lc904;
+	if (!g5264[6]) {
 	g5264[6]++;
-Lc904:
-	if (l2 < 0) goto Lc936;
+	}
+	if (l2 >= 0) {
 	*(l86 + l2) = 0;
 	print_string(g5264, l86, p6);
 	g5264[6]++;
 	l86 += l2;
 	l86 += 1;
-	goto Lc953;
-Lc936:
+	} else {
 	print_string(g5264, l86, p6);
 	g5264[6]++;
 	*l86 = 0;
-Lc953:
+	}
 	goto Lc8a3;
 Lc956:
 	;

@@ -44,9 +44,9 @@ L4ed4:
 	*(struct s8 *)((char *)pc_item_id + ((432 * member) + (i << 3))) = *(struct s8 *)((char *)g4430 + ((432 * member) + (i << 3)));
 	eq = 0;
 L4f09:
-	if ((unsigned char)pc_equipped[((432 * member) + eq)] != (i + 1)) goto L4f29;
+	if ((unsigned char)pc_equipped[((432 * member) + eq)] == (i + 1)) {
 	pc_equipped[((432 * member) + eq)] = *(char *)&i;
-L4f29:
+	}
 	eq++;
 	if (eq < 8) goto L4f09;
 	i++;

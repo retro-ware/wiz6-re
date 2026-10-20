@@ -31,12 +31,11 @@ case 7:
 	check_class_eligible(l2, 21020, 0);
 	goto L73d7;
 case 8:
-	if (char_sex != 1) goto L733f;
+	if (char_sex == 1) {
 	check_class_eligible(l2, 21029, 0);
-	goto L734c;
-L733f:
+	} else {
 	class_eligible[l2] = 0;
-L734c:
+	}
 	goto L73d7;
 case 9:
 	check_class_eligible(l2, 21038, 0);

@@ -5,12 +5,11 @@ print_long(win, value, p8, width, color)
 	long_to_string(value, p8, buf);
 L051d:
 	if ((strlen(buf) - width) >= 0) goto L055b;
-	if (color < 16) goto L0546;
+	if (color >= 16) {
 	put_char_hi(win, 32, (color + -15));
-	goto L0556;
-L0546:
+	} else {
 	put_char(win, 32, color);
-L0556:
+	}
 	width--;
 	goto L051d;
 L055b:

@@ -27,14 +27,13 @@ L6989:
 	l18[0] = 2;
 	l18[1] = 1;
 	l18[2] = 0;
-	if ((p6 % 2)) goto L6a03;
+	if (!(p6 % 2)) {
 	l24 = 0;
 	l18[5] = 0;
-	goto L6a0d;
-L6a03:
+	} else {
 	l24 = 1;
 	l18[5] = 1;
-L6a0d:
+	}
 	goto L6a98;
 L6a10:
 	l26 = 1;
@@ -64,10 +63,10 @@ L6b5c:
 	animate_step();
 	if (view_anim_state != -2) goto L6b5c;
 	}
-	if (p16 != 1) goto L6ba0;
+	if (p16 == 1) {
 	g50fe[(p10 * 5)] = l18[4];
 	anim_cycle = 0;
 	combat_delay(2);
-L6ba0:
+	}
 	return;
 }

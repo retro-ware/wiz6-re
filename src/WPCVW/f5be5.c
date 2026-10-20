@@ -12,9 +12,9 @@ L5bf6:
 	if (*(int *)(p4 + rsi) != -1) goto L5c12;
 	return 0;
 L5c12:
-	if (*(int *)(p4 + rsi) != 1) goto L5c1a;
+	if (*(int *)(p4 + rsi) == 1) {
 	l4++;
-L5c1a:
+	}
 	l2++;
 	goto L5bf6;
 L5c1f:

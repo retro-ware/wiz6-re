@@ -14,9 +14,9 @@ pick_target_monster(attacker, group)
 	l6 = 0;
 	goto L5def;
 L5dce:
-	if (((char *)monster_groups[group] + (44 * l6))[42] == -1) goto L5dec;
+	if (((char *)monster_groups[group] + (44 * l6))[42] != -1) {
 	l10 = 0;
-L5dec:
+	}
 	l6++;
 L5def:
 	if ((unsigned char)g019d[monster_groups[group]] > l6) goto L5dce;

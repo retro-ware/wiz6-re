@@ -10,9 +10,9 @@ get_menu_input(p4, p6)
 	int l6;
 	l6 = 0;
 	l4 = anim_phase;
-	if (g553c == -1) goto L88ac;
+	if (g553c != -1) {
 	blink_cursor();
-L88ac:
+	}
 	menu_clicked = 0;
 L88b2:
 	if (key_available(1)) goto L8914;

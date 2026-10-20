@@ -9,9 +9,9 @@ do_level_up(p4, p6, p8)
 	int l2;
 	char x2[2];
 	(*(int *)((char *)pc_level + (432 * p8)))++;
-	if ((unsigned char)g4597[(432 * p8)] > *(int *)((char *)pc_level + (432 * p8))) goto Lf7a7;
+	if ((unsigned char)g4597[(432 * p8)] <= *(int *)((char *)pc_level + (432 * p8))) {
 	g4597[(432 * p8)] = 0;
-Lf7a7:
+	}
 	ff6e6(p8);
 	draw_sheet(p4, p6, p8);
 	fill_window(p6, 32, 3, 0);
@@ -25,9 +25,9 @@ Lf7a7:
 	fed21(p4, p6, p8);
 	feff8(p8);
 	roll_skill_points(p8);
-	if ((unsigned)pc_skill_points[(432 * p8)] <= 0) goto Lf885;
+	if ((unsigned)pc_skill_points[(432 * p8)] > 0) {
 	fe922(p6, p8);
-Lf885:
+	}
 	ff201(p8);
 	l2 = 0;
 Lf891:

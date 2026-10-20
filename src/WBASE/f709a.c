@@ -47,29 +47,29 @@ L7125:
 	enabled[choice] = 1;
 	}
 	l22 = -1;
-	if (party_count >= 1) goto L71b4;
+	if (party_count < 1) {
 	enabled[1] = 0;
 	enabled[2] = 0;
-L71b4:
-	if (party_count >= 2) goto L71c0;
+	}
+	if (party_count < 2) {
 	enabled[3] = 0;
-L71c0:
+	}
 	enabled[0] = 0;
 	i = 0;
 	goto L71de;
 L71cc:
-	if (roster_slot_used[i] != 1) goto L71db;
+	if (roster_slot_used[i] == 1) {
 	enabled[0] = 1;
-L71db:
+	}
 	i++;
 L71de:
 	if (i < roster_slot_count) goto L71cc;
-	if (party_count <= 5) goto L71f3;
+	if (party_count > 5) {
 	enabled[0] = 0;
-L71f3:
-	if (party_count <= 0) goto L71ff;
+	}
+	if (party_count > 0) {
 	enabled[4] = 0;
-L71ff:
+	}
 	sel = count_enabled_items(enabled, sel);
 	choice = run_menu(win, 1002, enabled, 2, 1, 19, 4, 5, sel);
 	destroy_window(win, 0);
@@ -77,24 +77,24 @@ L71ff:
 	switch (choice) {
 case 0:
 	add_party_member();
-	if (party_count != 6) goto L726a;
+	if (party_count == 6) {
 	sel = 3;
-L726a:
+	}
 	goto L733e;
 case 1:
-	if ((cur_member = choose_party_member(1202)) == -1) goto L7289;
+	if ((cur_member = choose_party_member(1202)) != -1) {
 	game_state = 17;
 	return_cmd = 4;
-L7289:
+	}
 	sel = 1;
 	goto L733e;
 case 2:
-	if ((cur_member = choose_party_member(1203)) == -1) goto L72a6;
+	if ((cur_member = choose_party_member(1203)) != -1) {
 	remove_party_member(cur_member);
-L72a6:
-	if (party_count <= 0) goto L72b2;
+	}
+	if (party_count > 0) {
 	sel = 2;
-L72b2:
+	}
 	goto L733e;
 case 5:
 	remove_all_members();

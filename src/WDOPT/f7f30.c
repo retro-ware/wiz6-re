@@ -38,8 +38,7 @@ L8052:
 	resume_window_draw(g4fb0);
 	erase_window(main_window, 0);
 	f0a42(bottom_line_win, 0);
-	if (g502a <= 0) goto L8092;
+	if (g502a > 0) {
 	show_result_message(g502a);
-L8092:
-	;
+	}
 }

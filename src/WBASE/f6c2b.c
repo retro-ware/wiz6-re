@@ -34,12 +34,11 @@ L6c41:
 	f0a42(bottom_line_win, 0);
 	refresh_all_windows();
 	set_cursor(main_window, cancel_x, cancel_y);
-	if (mouse_present != 1) goto L6d15;
+	if (mouse_present == 1) {
 	print_string_hi(main_window, &cancel_text, 3);
-	goto L6d27;
-L6d15:
+	} else {
 	print_string(main_window, &cancel_hilite, -5);
-L6d27:
+	}
 	for (rsi = 0; rsi < party_count; rsi++) {
 	x = (((rsi % 2) * 9) + 2);
 	y = ((rsi / 2) + 1);

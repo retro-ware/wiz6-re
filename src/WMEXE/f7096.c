@@ -56,9 +56,9 @@ L7180:
 	*(struct s8 *)((char *)pc_item_id + ((432 * g435c) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * g435c) + (l2 << 3)));
 	l4 = 0;
 L71b7:
-	if ((unsigned char)pc_equipped[((432 * g435c) + l4)] != (l2 + 1)) goto L71d8;
+	if ((unsigned char)pc_equipped[((432 * g435c) + l4)] == (l2 + 1)) {
 	pc_equipped[((432 * g435c) + l4)] = *(char *)&l2;
-L71d8:
+	}
 	l4++;
 	if (l4 < 8) goto L71b7;
 	l2++;

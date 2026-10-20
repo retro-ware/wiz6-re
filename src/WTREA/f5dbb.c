@@ -24,14 +24,14 @@ L5dd9:
 	g450a[((432 * p4) + p10)] = -1;
 	goto L5e7b;
 L5e45:
-	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) <= 250) goto L5e6e;
+	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) > 250) {
 	l6 = (250 - (unsigned char)g450a[((432 * p4) + p10)]);
-L5e6e:
+	}
 	g450a[((432 * p4) + p10)] = (char)((unsigned char)g450a[((432 * p4) + p10)] + l6);
 L5e7b:
-	if (p10 != 5) goto L5e92;
+	if (p10 == 5) {
 	g458c[(432 * p4)] = *(char *)&p12;
-L5e92:
+	}
 	get_message(p6, &l86);
 	*(char *)&l166 = 0;
 	*(char *)&l246 = 0;

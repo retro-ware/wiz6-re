@@ -12,9 +12,9 @@ L47d2:
 	if (*(int *)(flags + rsi) != -1) goto L47ee;
 	return 0;
 L47ee:
-	if (*(int *)(flags + rsi) != 1) goto L47f6;
+	if (*(int *)(flags + rsi) == 1) {
 	n++;
-L47f6:
+	}
 	i++;
 	goto L47d2;
 L47fb:

@@ -10,8 +10,7 @@ draw_list_frame(win, show)
 	}
 	draw_frame_glyph(win, 1, 4, 70);
 	resume_window_draw(win);
-	if (!show) goto L6470;
+	if (show) {
 	refresh_window(win);
-L6470:
-	;
+	}
 }

@@ -5,14 +5,14 @@ is_member_able(member)
 {
 	int ok;
 	ok = 1;
-	if (!pc_condition[(432 * member)]) goto L90ac;
+	if (pc_condition[(432 * member)]) {
 	ok = 0;
-L90ac:
+	}
 	if (((unsigned)g450c[(432 * member)] <= 0) && ((unsigned)g450d[(432 * member)] <= 0)) goto L90bf;
 	ok = 0;
 L90bf:
-	if (ok) goto L90cd;
+	if (!ok) {
 	play_sound(0);
-L90cd:
+	}
 	return ok;
 }

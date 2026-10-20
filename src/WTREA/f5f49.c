@@ -148,12 +148,12 @@ L62b0:
 L62e6:
 	if ((random(100) <= ((unsigned char)g4545[(432 * i)] + 50)) || ((unsigned)pc_condition[(432 * i)] >= 3)) goto L6397;
 	*(int *)((char *)pc_hp_max + (432 * i)) -= (random(4) + 1);
-	if (*(int *)((char *)pc_hp_max + (432 * i)) >= 1) goto L633a;
+	if (*(int *)((char *)pc_hp_max + (432 * i)) < 1) {
 	*(int *)((char *)pc_hp_max + (432 * i)) = 1;
-L633a:
-	if (*(int *)((char *)pc_hp + (432 * i)) <= *(int *)((char *)pc_hp_max + (432 * i))) goto L634c;
+	}
+	if (*(int *)((char *)pc_hp + (432 * i)) > *(int *)((char *)pc_hp_max + (432 * i))) {
 	*(int *)((char *)pc_hp + (432 * i)) = *(int *)((char *)pc_hp_max + (432 * i));
-L634c:
+	}
 	get_message(5266, &l80);
 	get_message(5269, 20722);
 	g5142 = 0;

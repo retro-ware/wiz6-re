@@ -15,12 +15,11 @@ delete_character(slot)
 	set_cursor(prompt_win, 5, 1);
 	print_message(1125, prompt_win, 18);
 	l42 = menu_select(prompt_win, 1126, &l40, ((unsigned char)prompt_win[6] + 1), 1, 4, 1, 5, 1);
-	if (l42) goto L9897;
+	if (!l42) {
 	roster_slot_used[slot] = 0;
 	stop_sound();
 	fd = open(make_data_path(21513, 0), 2);
 	write(fd, 20432, 24);
 	close(fd);
-L9897:
-	;
+	}
 }

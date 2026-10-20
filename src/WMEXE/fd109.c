@@ -24,16 +24,16 @@ Ld12b:
 	l2 = ((char *)monster_groups[g435e] + (44 * g435c));
 	if (((unsigned)l2[36] <= 0) || ((unsigned char)l2[37] != g435a)) goto Ld226;
 	if (l2[43]) goto Ld1dc;
-	if ((unsigned char)(l2 + (unsigned char)l2[33])[24] == g435a) goto Ld1b2;
+	if ((unsigned char)(l2 + (unsigned char)l2[33])[24] != g435a) {
 	l2[43] = 3;
 	clear_window(party_picture_win, 1);
 	combat_delay(2);
 	fb85f(3518, -1, 6);
 	combat_delay((g4fc8 / 2));
-Ld1b2:
-	if ((l6 = ((g435a - random(10)) + -5)) >= 1) goto Ld1d1;
+	}
+	if ((l6 = ((g435a - random(10)) + -5)) < 1) {
 	l6 = 1;
-Ld1d1:
+	}
 	l2[37] = *(char *)&l6;
 	goto Ld226;
 Ld1dc:
@@ -64,9 +64,9 @@ Ld29f:
 	if ((l2 + (unsigned char)l2[33])[24]) goto Ld2b2;
 	l2[33]++;
 Ld2b2:
-	if ((unsigned)l2[33] <= 3) goto Ld2bf;
+	if ((unsigned)l2[33] > 3) {
 	l2[33] = 3;
-Ld2bf:
+	}
 	g435c++;
 Ld2c3:
 	if ((unsigned char)g019d[monster_groups[g435e]] > g435c) goto Ld12b;

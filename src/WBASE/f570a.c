@@ -135,19 +135,18 @@ L58a1:
 L58b0:
 	if ((fd = open(&path, 0)) != -1) goto L58fd;
 	show_error_text(&disk_error_text, 1);
-	if (!l4134) goto L58f4;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L58f4:
+	}
 	return -1;
 L58fd:
 	erase_window(main_window, 0);
 	refresh_all_windows();
-	if (resume) goto L5926;
+	if (!resume) {
 	animate_and_show_two_lines(&entering_text, &title_text);
-	goto L592f;
-L5926:
+	} else {
 	show_status_text(&loading_text);
-L592f:
+	}
 	rsi = 13304;
 	rdi = &l4132;
 #asm
@@ -159,9 +158,9 @@ L592f:
 	if ((l506 = read(fd, 13304, 414)) > 0) goto L59a8;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L59a2;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L59a2:
+	}
 	return -1;
 L59a8:
 	for (l4 = 0; l4 < 4; l4++) {
@@ -180,17 +179,17 @@ L5a21:
 	if ((l506 = read(fd, &l1978, g3304)) > 0) goto L5a76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5a70;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5a70:
+	}
 	return -1;
 L5a76:
 	if ((l506 = read(fd, &l3718, g3306)) > 0) goto L5acb;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5ac5;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5ac5:
+	}
 	return -1;
 L5acb:
 	if (l4 >= 14) goto L5b13;
@@ -210,9 +209,9 @@ L5b16:
 	if ((l506 = read(fd, &l72, 66)) > 0) goto L5b76;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5b70;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5b70:
+	}
 	return -1;
 L5b76:
 	party_x = l70;
@@ -244,9 +243,9 @@ L5c3e:
 	if ((l506 = read(fd, &l504, 432)) > 0) goto L5c93;
 	show_error_text(&disk_error_text, 0);
 	close(fd);
-	if (!l4134) goto L5c8d;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5c8d:
+	}
 	return -1;
 L5c93:
 	member_portrait[party_count] = find_free_portrait_slot(party_count);
@@ -260,9 +259,9 @@ L5cc9:
 	if (l2 < l8) goto L5c3e;
 L5cd4:
 	close(fd);
-	if (!l4134) goto L5cf9;
+	if (l4134) {
 	prompt_insert_disk(&l4156, l4136, l4338, 1);
-L5cf9:
+	}
 	for (l2 = 0; l2 < party_count; l2++) {
 	load_portrait((unsigned char)pc_portrait[(432 * l2)], member_portrait[l2]);
 	draw_member_panel(l2);

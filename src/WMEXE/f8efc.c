@@ -14,26 +14,25 @@ f8efc(p4, p6, p8, p10)
 L8f11:
 	if ((p4) && (p4 != 6)) goto L8f5a;
 	rdi = (44 * g435c);
-	if (((char *)monster_groups[g435e] + rdi)[42] != -1) goto L8f4b;
+	if (((char *)monster_groups[g435e] + rdi)[42] == -1) {
 	l2 = (g435e == 1 ? 0 : 1);
-	goto L8f58;
-L8f4b:
+	} else {
 	l2 = (((char *)monster_groups[g435e] + rdi)[42] / 10);
-L8f58:
+	}
 	goto L8f7c;
 L8f5a:
 	l2 = 1;
 	rsi = 0;
 L8f62:
-	if (view_pos_group[rsi] != p4) goto L8f76;
+	if (view_pos_group[rsi] == p4) {
 	l2 = 0;
-L8f76:
+	}
 	rsi++;
 	if (rsi < 5) goto L8f62;
 L8f7c:
-	if (view_rows_open) goto L8f88;
+	if (!view_rows_open) {
 	l2 = 0;
-L8f88:
+	}
 	play_spell_animation(g435e, g435c, p8, l2, p4, p6, p10);
 	return;
 }

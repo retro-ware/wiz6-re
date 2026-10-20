@@ -12,9 +12,9 @@ Lae87:
 	if (*(int *)(p4 + rsi) != -1) goto Laea3;
 	return 0;
 Laea3:
-	if (*(int *)(p4 + rsi) != 1) goto Laeab;
+	if (*(int *)(p4 + rsi) == 1) {
 	l4++;
-Laeab:
+	}
 	l2++;
 	goto Lae87;
 Laeb0:

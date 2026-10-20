@@ -12,9 +12,9 @@ kill_party(p4)
 	redraw_maze_view();
 	show_maze_message(p4);
 	for (l2 = 0; l2 < party_count; l2++) {
-	if ((unsigned)pc_condition[(432 * l2)] >= 3) goto L5438;
+	if ((unsigned)pc_condition[(432 * l2)] < 3) {
 	play_sound(((unsigned char)pc_sex[(432 * l2)] + 8));
-L5438:
+	}
 	pc_condition[(432 * l2)] = 3;
 	*(int *)((char *)pc_hp + (432 * l2)) = 0;
 	*(int *)((char *)pc_stamina + (432 * l2)) = 0;

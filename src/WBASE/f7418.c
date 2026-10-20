@@ -19,17 +19,16 @@ L744e:
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
 	if (key != 8) goto L74e8;
-	if (len <= 0) goto L74de;
+	if (len > 0) {
 	len--;
 	*(buf + len) = 0;
 	x--;
 	set_cursor(win, x, y);
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
-	goto L74e6;
-L74de:
+	} else {
 	play_sound(0);
-L74e6:
+	}
 	goto L754c;
 L74e8:
 	if (len < maxlen) goto L74fa;

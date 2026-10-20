@@ -28,9 +28,9 @@ replace_item(p4, p6, p8, p10, p12)
 	draw_inventory_panel(p4, p6);
 	resume_window_draw(p4);
 	refresh_all_windows();
-	if (p10 <= p12) goto L9bfe;
+	if (p10 > p12) {
 	p10--;
-L9bfe:
+	}
 	set_cursor(p4, 22, (p10 + 9));
 	print_string(p4, ((p10 << 4) + 21982), -5);
 	pad_to_column(p4, 37, 0);

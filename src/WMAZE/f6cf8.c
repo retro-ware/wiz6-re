@@ -34,9 +34,9 @@ maze_party_menu()
 	for (l6 = 0; l6 <= 8; l6++) {
 	l36[l6] = 1;
 	}
-	if (party_count >= 2) goto L6db8;
+	if (party_count < 2) {
 	l26 = 0;
-L6db8:
+	}
 	l18 = -1;
 	l6 = maze_menu_select(l38, 2005, l36, 1, 1, 7, 3, 5, 0);
 	destroy_window(l38, 0);
@@ -46,11 +46,11 @@ case 0:
 	tick_effect_timers(1);
 	goto L6f16;
 case 1:
-	if ((cur_member = choose_party_member_m(2026, 1)) == -1) goto L6e31;
+	if ((cur_member = choose_party_member_m(2026, 1)) != -1) {
 	tick_effect_timers(1);
 	game_state = 17;
 	return_cmd = 5;
-L6e31:
+	}
 	goto L6f16;
 case 2:
 	if (((cur_member = choose_party_member_m(2029, 1)) == -1) || (!is_member_able(cur_member))) goto L6e67;
@@ -74,12 +74,12 @@ case 5:
 	reorder_party();
 	goto L6f16;
 case 6:
-	if (rest_party() != 1) goto L6eee;
+	if (rest_party() == 1) {
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = 0;
 	g4354 = 0;
 	game_state = 10;
-L6eee:
+	}
 	goto L6f16;
 case 7:
 	disk_options_menu();

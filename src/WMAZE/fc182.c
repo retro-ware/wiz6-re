@@ -39,9 +39,9 @@ Lc2ac:
 	if (msg_not_found) goto Lc312;
 	if (accepted[0] != 36) goto Lc2e6;
 	strcpy(accepted, ((char *)accepted + 1));
-	if (string_index(&reply, accepted) == -1) goto Lc2e4;
+	if (string_index(&reply, accepted) != -1) {
 	wrong = 0;
-Lc2e4:
+	}
 	goto Lc2ff;
 Lc2e6:
 	if (strcmp(&reply, accepted)) goto Lc2ff;
@@ -52,9 +52,9 @@ Lc2ff:
 	goto Lc2ac;
 Lc312:
 	swap_level_flags(*(int *)((g4fa8 + (cell_event_index << 1)) + 288), (unsigned char)(g4fa8 + cell_event_index)[1584], wrong);
-	if (wrong) goto Lc342;
+	if (!wrong) {
 	set_event_flags((l172 + 1));
-Lc342:
+	}
 	destroy_window(g522a, 0);
 	resume_window_draw(main_window);
 	resume_window_draw(bottom_line_win);

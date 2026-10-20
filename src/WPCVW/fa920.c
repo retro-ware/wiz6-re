@@ -18,10 +18,10 @@ char *win;
 	l10 = disk_header;
 	l10 = ((g3592 == 5) && (l10 > 0) ? (l10 + 2) : l10);
 	copy_through_char(&l30, 13632, 58);
-	if (!l10) goto La977;
+	if (l10) {
 	l8 = 1;
 	prompt_insert_disk(&l30, 0, 1, 1);
-La977:
+	}
 	l6 = create_window(20, 4, 20, 16, 30, -1, 0, 0);
 	fill_window(l6, 32, 3, 0);
 	defer_window_draw(l6);
@@ -39,10 +39,10 @@ La977:
 	set_click_region(2, ((unsigned char)win[2] + 18), ((unsigned char)win[3] + 2), ((unsigned char)win[2] + 18), ((unsigned char)win[3] + 2));
 	set_click_region(3, 255, 0, 0, 0);
 Laac5:
-	if ((unsigned char)pc_portrait[(432 * member)] == l4) goto Lab09;
+	if ((unsigned char)pc_portrait[(432 * member)] != l4) {
 	load_portrait((unsigned char)pc_portrait[(432 * member)], member_portrait[member]);
 	l4 = (unsigned char)pc_portrait[(432 * member)];
-Lab09:
+	}
 	draw_portrait(l6, member, 8, 6);
 	l2 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto Lab5b;
@@ -69,8 +69,7 @@ case 3:
 Laba6:
 	if (l2 != 5) goto Laac5;
 	destroy_window(l6, 0);
-	if (l8 != 1) goto Labd4;
+	if (l8 == 1) {
 	prompt_insert_disk(&l30, l10, 1, 1);
-Labd4:
-	;
+	}
 }

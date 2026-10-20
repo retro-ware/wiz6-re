@@ -60,12 +60,11 @@ L520a:
 L522d:
 	rsi++;
 	if (rsi < 10) goto L520a;
-	if (l2 == -1) goto L5251;
+	if (l2 != -1) {
 	put_char_hi(l88, (unsigned char)((l2 + 37)), 1);
-	goto L5262;
-L5251:
+	} else {
 	put_char_hi(l88, 32, 3);
-L5262:
+	}
 	set_cursor(l88, (l4 + 3), (l6 + 2));
 	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(l88, (unsigned char)(((((unsigned char)pc_class[(432 * p4)] << 1) + rsi) + 58)), 1);

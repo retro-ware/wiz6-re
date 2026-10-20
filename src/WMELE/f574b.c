@@ -81,15 +81,15 @@ L5821:
 	db 0c8h,040h,08bh,0c8h,058h,099h,0f7h,0f9h,089h,047h,0e6h
 #endasm
 L5877:
-	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170] <= 0) goto L58d7;
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170] > 0) {
 	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170]) / 100L) + (long)l28[(l2 + 1)]);
-L58d7:
-	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171] <= 0) goto L5937;
+	}
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171] > 0) {
 	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171]) / 100L) + (long)l28[(l2 + 1)]);
-L5937:
-	if (!g3813[((unsigned char)g019b[monster_groups[l2]] * 314)]) goto L5964;
+	}
+	if (g3813[((unsigned char)g019b[monster_groups[l2]] * 314)]) {
 	l28[(l2 + 1)] = 0;
-L5964:
+	}
 	l2++;
 L5967:
 	if (l2 <= monster_group_count) goto L576b;
@@ -130,11 +130,11 @@ l59da:
 	goto L5ae2;
 L5a93:
 	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] == -1) goto L5adf;
+	if (((char *)g43a6[l2] + rsi)[42] != -1) {
 	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
 	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)g50b4 + ((l6 * 10) + (l8 << 1))) = 1;
-L5adf:
+	}
 	l4++;
 L5ae2:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5a93;
@@ -143,12 +143,12 @@ L5ae2:
 	goto L5b65;
 L5b07:
 	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] == -1) goto L5b62;
+	if (((char *)g43a6[l2] + rsi)[42] != -1) {
 	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
 	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
 	((char *)g43a6[l2] + rsi)[42] = -1;
-L5b62:
+	}
 	l4++;
 L5b65:
 	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5b07;

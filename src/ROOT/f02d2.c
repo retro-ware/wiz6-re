@@ -3,8 +3,7 @@ destroy_window(win, refresh)
 {
 	unlink_window(win);
 	free(win);
-	if (!refresh) goto L02ec;
+	if (refresh) {
 	refresh_all_windows();
-L02ec:
-	;
+	}
 }

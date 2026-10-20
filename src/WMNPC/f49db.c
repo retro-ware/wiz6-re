@@ -29,30 +29,29 @@ L4a06:
 L4a0a:
 	l6 = 72;
 	l8 = 248;
-	if (p4) goto L4a2c;
+	if (!p4) {
 	f46b8(l2, p6, l20);
-	goto L4a3f;
-L4a2c:
+	} else {
 	l20[0] = g3810[(314 * l2)];
 	l20[(0 + 1)] = 0;
-L4a3f:
+	}
 	if (l20[0]) goto L4a47;
 	return;
 L4a47:
 	l4 = (p6 % 2);
-	if (random(10) != 9) goto L4ab6;
+	if (random(10) == 9) {
 	g4348[((p4 * 5) + p6)] = (char)random((unsigned char)g3814[(314 * l2)]);
 	g433e[((p4 * 5) + p6)] = (char)random((unsigned char)g3815[(314 * l2)]);
-L4ab6:
+	}
 	l22 = (unsigned char)l20[0];
 	l26 = (unsigned char)g36e4[(((314 * l2) + (l4 % 2)) + (l22 << 1))];
-	if (!g3813[(314 * l2)]) goto L4af9;
+	if (g3813[(314 * l2)]) {
 	p8 = 0;
-L4af9:
+	}
 	l24 = (unsigned char)g3759[((314 * l2) + (l22 << 2))];
-	if (l24) goto L4b2c;
+	if (!l24) {
 	l24 = (unsigned char)g00b0[((p4 * 5) + p6)];
-L4b2c:
+	}
 	if ((l28 = (((g37fa[(((314 * l2) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + p8) + l26)) >= 0) goto L4b84;
 	l28 = 0;
 	goto L4b8f;

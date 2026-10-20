@@ -13,9 +13,9 @@ L706c:
 	if (*(int *)(enabled + rsi) != -1) goto L7088;
 	return 0;
 L7088:
-	if (*(int *)(enabled + rsi) != 1) goto L7090;
+	if (*(int *)(enabled + rsi) == 1) {
 	count++;
-L7090:
+	}
 	i++;
 	goto L706c;
 L7095:

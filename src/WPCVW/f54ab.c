@@ -106,21 +106,21 @@ L58fc:
 	l2 = g0526[(unsigned char)pc_condition[(432 * member)]];
 	l2 = ((!l2) && ((unsigned)g450c[(432 * member)] > 0) ? 1 : l2);
 	l2 = ((l2 < 2) && ((unsigned)g450d[(432 * member)] > 0) ? 2 : l2);
-	if (!l2) goto L59bf;
+	if (l2) {
 	put_char_hi(win, (unsigned char)((l2 + 47)), 1);
-L59bf:
-	if ((unsigned)g4513[(432 * member)] <= 0) goto L59e4;
+	}
+	if ((unsigned)g4513[(432 * member)] > 0) {
 	put_char_hi(win, (unsigned char)((g0544 + 47)), 1);
-L59e4:
-	if ((unsigned)g450e[(432 * member)] <= 0) goto L5a09;
+	}
+	if ((unsigned)g450e[(432 * member)] > 0) {
 	put_char_hi(win, (unsigned char)((g053a + 47)), 1);
-L5a09:
+	}
 	if ((((unsigned)g450f[(432 * member)] <= 0) && ((unsigned)g4510[(432 * member)] <= 0)) && ((unsigned)g4512[(432 * member)] <= 0)) goto L5a3c;
 	put_char_hi(win, (unsigned char)((g053c + 47)), 1);
 L5a3c:
-	if ((unsigned char)win[6] != l4) goto L5a5d;
+	if ((unsigned char)win[6] == l4) {
 	put_char_hi(win, (unsigned char)((g0526[0] + 47)), 1);
-L5a5d:
+	}
 	print_msg_at(215, win, 10, 11, 13);
 	win[6]++;
 	print_long(win, *(int *)((char *)pc_gold + (432 * member)), *(int *)((char *)g43fe + (432 * member)), 7, 5);

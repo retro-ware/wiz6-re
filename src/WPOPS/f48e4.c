@@ -29,9 +29,9 @@ char *p8;
 	l8 = 0;
 	goto L4934;
 L490b:
-	if (((char *)monster_groups[p4] + (44 * l8))[42] != p6) goto L4931;
+	if (((char *)monster_groups[p4] + (44 * l8))[42] == p6) {
 	l10 = l8;
-L4931:
+	}
 	l8++;
 L4934:
 	if ((unsigned char)g019d[monster_groups[p4]] > l8) goto L490b;
@@ -49,11 +49,11 @@ L49be:
 	if (--l6 > 0) goto L4aec;
 	l2 = (unsigned char)g3648[((p6 * 30) + (rdi * 3))];
 	l4++;
-	if ((((unsigned char)g3746[((314 * rsi) + l2)] + (unsigned char)g3750[((314 * rsi) + l2)]) - 1) >= l4) goto L4a8c;
+	if ((((unsigned char)g3746[((314 * rsi) + l2)] + (unsigned char)g3750[((314 * rsi) + l2)]) - 1) < l4) {
 	l2 = (random((unsigned char)g373c[((314 * rsi) + rdi)]) + (unsigned char)g3732[((314 * rsi) + rdi)]);
 	g3648[((p6 * 30) + (rdi * 3))] = *(char *)&l2;
 	l4 = (unsigned char)g3746[((314 * rsi) + l2)];
-L4a8c:
+	}
 	g3649[((p6 * 30) + (rdi * 3))] = *(char *)&l4;
 	l6 = (random((unsigned char)g375c[((314 * rsi) + (l4 << 2))]) + (unsigned char)g375b[((314 * rsi) + (l4 << 2))]);
 L4aec:
@@ -63,9 +63,9 @@ L4b12:
 	if ((pic_slot_monster[rsi] != 40) || (rdi != 4)) goto L4b47;
 	*(p8 + l12) = 0;
 L4b47:
-	if (!*(p8 + l12)) goto L4b57;
+	if (*(p8 + l12)) {
 	l12++;
-L4b57:
+	}
 	rdi++;
 L4b58:
 	if ((unsigned char)g3816[(314 * rsi)] > rdi) goto L4955;

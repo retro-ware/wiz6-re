@@ -33,12 +33,11 @@ L5a49:
 	refresh_window(main_window);
 	refresh_window(win);
 	set_cursor(main_window, l108, l110);
-	if (mouse_present != 1) goto L5b0a;
+	if (mouse_present == 1) {
 	print_string_hi(main_window, &l96, 3);
-	goto L5b1c;
-L5b0a:
+	} else {
 	print_string(main_window, &l106, -5);
-L5b1c:
+	}
 	for (rsi = 0; rsi < party_count; rsi++) {
 	l112 = (((rsi % 2) * 9) + 2);
 	l114 = ((rsi / 2) + 1);

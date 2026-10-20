@@ -4,12 +4,12 @@ draw_gauge(win, x, y, p10, p12, glyph)
 	int level;
 	char glyphs[3];
 	char x5[1];
-	if ((level = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) <= 10) goto L5fe4;
+	if ((level = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) > 10) {
 	level = 10;
-L5fe4:
-	if (p10) goto L5fef;
+	}
+	if (!p10) {
 	level = 0;
-L5fef:
+	}
 	glyphs[0] = (char)(glyph + 9);
 	glyphs[1] = (char)(glyph + 4);
 	glyphs[2] = *(char *)&glyph;

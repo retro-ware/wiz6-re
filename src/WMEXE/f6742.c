@@ -88,8 +88,8 @@ case 0:
 	}
 L68ab:
 	add_sprite(l20, l2, ((unsigned char)g36e4[((314 * l2) + (l18 << 1))] + *(int *)((char *)g006a + ((p4 * 10) + (p6 << 1)))), (((unsigned char)g3717[((314 * l2) + l18)] + *(int *)((char *)g007e + ((p4 * 10) + (p6 << 1)))) - (p4 == 1 ? 8 : 0)), 72, 248, l4, l16);
-	if (anim_cycle) goto L695b;
+	if (!anim_cycle) {
 	(*(int *)((char *)g50fe + ((p4 * 10) + (p6 << 1))))++;
-L695b:
+	}
 	return;
 }

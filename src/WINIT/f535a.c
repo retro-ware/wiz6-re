@@ -15,12 +15,12 @@ extern int video_flags;
 /* Free the game windows and show the graveyard picture, wait for a key. */
 show_graveyard()
 {
-	if (!g4fa8) goto L5369;
+	if (g4fa8) {
 	free(g4fa8);
-L5369:
-	if (!maze_data) goto L5378;
+	}
+	if (maze_data) {
 	free(maze_data);
-L5378:
+	}
 	party_count = 0;
 	destroy_window(g4fb0, 0);
 	destroy_window(g4fac, 0);

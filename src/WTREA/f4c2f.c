@@ -8,9 +8,9 @@ get_chest_input(keys, hotspots)
 	int key;
 	int l4;
 	l4 = anim_phase;
-	if (g501c == -1) goto L4c45;
+	if (g501c != -1) {
 	blink_selection();
-L4c45:
+	}
 	menu_clicked = 0;
 L4c4b:
 	if (key_available(1)) goto L4cb2;

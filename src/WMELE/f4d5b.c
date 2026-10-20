@@ -30,9 +30,9 @@ l4d73:
 #endasm
 	rsi++;
 	if (rsi < 6) goto L4d73;
-	if (g4ed8 <= 0) goto L4da0;
+	if (g4ed8 > 0) {
 	g0190[monster_groups[rdi]] = g4eda;
-L4da0:
+	}
 	rsi = 0;
 L4da3:
 	;

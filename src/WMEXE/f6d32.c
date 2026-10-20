@@ -7,18 +7,17 @@ char *p8;
 	int l2;
 	int l4;
 	l4 = (((*p4 ? 1 : 0) + (*p6 ? 1 : 0)) + (*p8 ? 1 : 0));
-	if ((l2 = (20 - ((((strlen(p4) + strlen(p6)) + strlen(p8)) + l4) / 2))) >= 0) goto L6db3;
+	if ((l2 = (20 - ((((strlen(p4) + strlen(p6)) + strlen(p8)) + l4) / 2))) < 0) {
 	l2 = 0;
-L6db3:
+	}
 	set_cursor(party_picture_win, l2, (unsigned char)party_picture_win[7]);
-	if (!*p4) goto L6dd9;
+	if (*p4) {
 	print_wrapped(p4, p10);
-L6dd9:
-	if (!*p6) goto L6deb;
+	}
+	if (*p6) {
 	print_wrapped(p6, p12);
-L6deb:
-	if (!*p8) goto L6dfd;
+	}
+	if (*p8) {
 	print_wrapped(p8, p14);
-L6dfd:
-	;
+	}
 }

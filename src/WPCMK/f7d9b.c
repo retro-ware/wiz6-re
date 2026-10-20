@@ -12,14 +12,14 @@ roll_karma()
 	l2 = 1;
 L7de8:
 	g55a3 = (char)random(19);
-	if (char_sex != 1) goto L7dfe;
+	if (char_sex == 1) {
 	g55a3++;
-L7dfe:
+	}
 	set_cursor(sheet_win, 5, 12);
 	print_int(sheet_win, (unsigned char)g55a3, 2, 1);
-	if (!check_screen_click()) goto L7e34;
+	if (check_screen_click()) {
 	l2 = 0;
-L7e34:
+	}
 	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto L7e52;
 	l2 = 0;
 L7e52:

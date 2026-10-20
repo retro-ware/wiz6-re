@@ -9,8 +9,7 @@ f88c7(p4, p6)
 	}
 	f884b(p4, 1, 4, 70);
 	resume_window_draw(p4);
-	if (!p6) goto L8940;
+	if (p6) {
 	refresh_window(p4);
-L8940:
-	;
+	}
 }

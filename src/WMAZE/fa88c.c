@@ -7,9 +7,9 @@ set_flag_event()
 	int l4;
 	int l6;
 	int l8;
-	if ((unsigned)(g4fa8 + cell_event_index)[1584] <= 0) goto La8ad;
+	if ((unsigned)(g4fa8 + cell_event_index)[1584] > 0) {
 	play_sound((unsigned char)(g4fa8 + cell_event_index)[1584]);
-La8ad:
+	}
 	l2 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	l6 = extract_bits(l2, 15, 1);
 	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(g4fa8 + (cell_event_index << 1))) != l6) goto La92f;
@@ -31,8 +31,8 @@ case 2:
 	goto Laa02;
 	}
 Laa02:
-	if (extract_bits(l2, 14, 1) != 1) goto Laa4d;
+	if (extract_bits(l2, 14, 1) == 1) {
 	set_bit(((l8 * 10) + 13304), l4, test_bit(((l8 * 10) + 20204), l4));
-Laa4d:
+	}
 	return;
 }

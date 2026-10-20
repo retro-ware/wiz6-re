@@ -10,8 +10,7 @@ draw_list_frame_dopt(win, show)
 	}
 	draw_glyph_at_dopt(win, 1, 4, 70);
 	resume_window_draw(win);
-	if (!show) goto L6855;
+	if (show) {
 	refresh_window(win);
-L6855:
-	;
+	}
 }

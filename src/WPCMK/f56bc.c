@@ -75,12 +75,11 @@ L59b5:
 case 2:
 	set_cursor(cursor_win, 15, (row + 3));
 	put_char(cursor_win, 32, 7);
-	if (row <= 0) goto L59e8;
+	if (row > 0) {
 	row--;
-	goto L59ef;
-L59e8:
+	} else {
 	row = (count - 1);
-L59ef:
+	}
 	set_cursor(cursor_win, 15, (row + 3));
 	put_char(cursor_win, 100, 4);
 	goto L5b02;
@@ -102,12 +101,11 @@ L5a83:
 case 4:
 	set_cursor(cursor_win, 15, (row + 3));
 	put_char(cursor_win, 32, 7);
-	if ((row + 1) >= count) goto L5ab9;
+	if ((row + 1) < count) {
 	row++;
-	goto L5abe;
-L5ab9:
+	} else {
 	row = 0;
-L5abe:
+	}
 	set_cursor(cursor_win, 15, (row + 3));
 	put_char(cursor_win, 100, 4);
 	goto L5b02;

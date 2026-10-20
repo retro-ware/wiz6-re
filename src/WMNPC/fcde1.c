@@ -20,9 +20,9 @@ fcde1()
 	char x4[78];
 	int l84;
 	l2 = g5894;
-	if (*(int *)((char *)g58d8 + (l2 * 20)) >= 0) goto Lce09;
+	if (*(int *)((char *)g58d8 + (l2 * 20)) < 0) {
 	l2 += *(int *)((char *)g58d8 + (l2 * 20));
-Lce09:
+	}
 	l4 = fcdb0(l2);
 	switch (g5898) {
 case 0:
@@ -101,12 +101,11 @@ Ld01a:
 case 4:
 	if (g58b4 != 1) goto Ld064;
 	if (g58ca) goto Ld053;
-	if (g58a6 != 1) goto Ld042;
+	if (g58a6 == 1) {
 	fc95b(1639, 20538);
-	goto Ld050;
-Ld042:
+	} else {
 	fc95b(1631, 20539);
-Ld050:
+	}
 	return;
 Ld053:
 	fc95b(1627, 20540);
@@ -121,12 +120,11 @@ Ld07b:
 case 5:
 	if (g58b4 != 1) goto Ld0d3;
 	if (g58ca) goto Ld0c2;
-	if (g58a6 != 1) goto Ld0b1;
+	if (g58a6 == 1) {
 	fc95b(1640, 20543);
-	goto Ld0bf;
-Ld0b1:
+	} else {
 	fc95b(1631, 20544);
-Ld0bf:
+	}
 	return;
 Ld0c2:
 	fc95b(1627, 20545);

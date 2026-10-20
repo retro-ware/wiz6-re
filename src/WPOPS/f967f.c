@@ -12,10 +12,10 @@ char frame;
 #asm
 	db 08bh,046h,006h,089h,087h,00ah,051h,08bh,046h,008h,089h,087h,00ch,051h
 #endasm
-	if (pic == 255) goto L9715;
+	if (pic != 255) {
 	*(int *)((char *)g510a + (view_object_count * 11)) += (unsigned char)g36e4[((314 * pic) + ((unsigned char)frame << 1))];
 	*(int *)((char *)g510c + (view_object_count * 11)) += (unsigned char)g3717[((314 * pic) + (unsigned char)frame)];
-L9715:
+	}
 	g5113[(view_object_count * 11)] = frame;
 #asm
 	db 08bh,046h,00ch,089h,087h,00eh,051h,08bh,046h,00eh,089h,087h,010h,051h,08ah,046h

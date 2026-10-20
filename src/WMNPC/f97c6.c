@@ -9,9 +9,9 @@ f97c6()
 	view_pos_group = 4;
 	f4572(4, 0);
 	if (spell_disarm_result < 14) goto L9808;
-	if (spell_disarm_result == cur_sound) goto L9800;
+	if (spell_disarm_result != cur_sound) {
 	f4def(spell_disarm_result);
-L9800:
+	}
 	g5224 = 14;
 	goto L981e;
 L9808:

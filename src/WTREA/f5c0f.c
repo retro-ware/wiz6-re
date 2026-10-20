@@ -14,11 +14,11 @@ inflict_condition(member, msg, resist, condition)
 	int l90;
 	if (((resist) && (random(100) <= (unsigned char)g453a[((432 * member) + resist)])) || ((unsigned char)pc_condition[(432 * member)] >= condition)) goto L5cbf;
 	pc_condition[(432 * member)] = *(char *)&condition;
-	if (condition < 3) goto L5c79;
+	if (condition >= 3) {
 	*(int *)((char *)pc_hp + (432 * member)) = 0;
 	*(int *)((char *)pc_stamina + (432 * member)) = 0;
 	play_sound(((unsigned char)pc_sex[(432 * member)] + 8));
-L5c79:
+	}
 	get_message(msg, &l80);
 	*(char *)&l85 = 0;
 	*(char *)&l90 = 0;

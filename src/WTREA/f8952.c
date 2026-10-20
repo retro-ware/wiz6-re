@@ -69,10 +69,10 @@ L8b33:
 	refresh_all_windows();
 L8c09:
 	if (sel != -1) goto L8c52;
-	if (mouse_present) goto L8c36;
+	if (!mouse_present) {
 	set_cursor(win, l16, l18);
 	print_string(win, &l28, -3);
-L8c36:
+	}
 	clear_window_area(win, 2, 3, 17, 3);
 	goto L8d0c;
 L8c52:
@@ -91,9 +91,9 @@ L8d0c:
 	l8 = 5;
 	goto L8d62;
 L8d30:
-	if (sel == -1) goto L8d42;
+	if (sel != -1) {
 	draw_loot_line(list_win, sel);
-L8d42:
+	}
 	sel = (l8 < loot_count ? l8 : -1);
 	l8 = (sel == -1 ? 5 : 0);
 L8d62:
@@ -101,10 +101,10 @@ L8d62:
 L8d65:
 	switch (l8) {
 case 1:
-	if (sel == -1) goto L8d82;
+	if (sel != -1) {
 	draw_loot_line(list_win, sel);
 	sel = -1;
-L8d82:
+	}
 	goto L8e6a;
 case 2:
 	if (sel != -1) goto L8db2;
@@ -122,11 +122,11 @@ L8dc9:
 L8dce:
 	goto L8e6a;
 case 3:
-	if (sel != -1) goto L8dfc;
+	if (sel == -1) {
 	set_cursor(win, l16, l18);
 	print_string_hi(win, &l28, 3);
 	sel = 0;
-L8dfc:
+	}
 	goto L8e6a;
 case 4:
 	if (sel != -1) goto L8e2b;
@@ -161,9 +161,9 @@ L8edd:
 	l2 = 0;
 	goto L8f05;
 L8eef:
-	if (g5274[l2] != 1) goto L8f02;
+	if (g5274[l2] == 1) {
 	l32 = 1;
-L8f02:
+	}
 	l2++;
 L8f05:
 	if (l2 < loot_count) goto L8eef;

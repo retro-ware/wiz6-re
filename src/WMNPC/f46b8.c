@@ -30,13 +30,12 @@ L46cb:
 	rdi = (unsigned char)g3648[((p6 * 30) + (rsi * 3))];
 	l2++;
 	if ((((unsigned char)g3746[((314 * p4) + rdi)] + (unsigned char)g3750[((314 * p4) + rdi)]) - 1) >= l2) goto L47b6;
-	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) <= 0) goto L4755;
+	if (*(int *)((char *)g50de + ((p4 * 10) + (p6 << 1))) > 0) {
 	rdi = *(int *)((char *)g50de + ((p4 * 10) + (p6 << 1)));
-	goto L477e;
-L4755:
+	} else {
 	rdi = random((unsigned char)g373c[((314 * p4) + rsi)]);
 	rdi = (rdi + (unsigned char)g3732[((314 * p4) + rsi)]);
-L477e:
+	}
 	g3648[((p6 * 30) + (rsi * 3))] = rdi;
 	l2 = (unsigned char)g3746[((314 * p4) + rdi)];
 L47b6:
@@ -62,9 +61,9 @@ L48a8:
 	goto L48b4;
 	}
 L48b4:
-	if (!*(p8 + l6)) goto L48c4;
+	if (*(p8 + l6)) {
 	l6++;
-L48c4:
+	}
 	rsi++;
 L48c5:
 	if ((unsigned char)g3816[(314 * p4)] > rsi) goto L46cb;

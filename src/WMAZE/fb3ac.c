@@ -15,14 +15,13 @@ animate_door(p4, p6, p8, p10)
 	char l16[10];
 	int l18;
 	int l20;
-	if (p4 != 1) goto Lb3d2;
+	if (p4 == 1) {
 	l18 = 0;
 	l20 = (0 - g0022[p8]);
-	goto Lb3e7;
-Lb3d2:
+	} else {
 	l18 = g002a[p8];
 	l20 = g0022[p8];
-Lb3e7:
+	}
 	l2 = 0;
 Lb3ec:
 	anim_phase = ((anim_phase + 1) % 2);
@@ -35,9 +34,9 @@ Lb3ec:
 	drv_draw_text(l4, (((*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + (unsigned char)g36e4[((314 * l4) + (l6 << 1))]) + (l2 * l20)) - l18), (unsigned char)g3717[((314 * l4) + l6)], (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0032 + (p8 << 2))), (*(int *)((char *)g0052 + ((p8 * 6) + (p6 << 1))) + *(int *)((char *)g0034 + (p8 << 2))), 0, 0, l16);
 Lb4d9:
 	drv_op_c2(picture_win);
-	if (p10 <= 0) goto Lb4ee;
+	if (p10 > 0) {
 	play_sound(p10);
-Lb4ee:
+	}
 	l2++;
 	if (l2 < 7) goto Lb3ec;
 }

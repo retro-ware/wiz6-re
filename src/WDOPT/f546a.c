@@ -49,26 +49,26 @@ L54d8:
 	return;
 L5509:
 	rsi = (((l12 << 6) + (l10 << 3)) + l8);
-	if (get_bitfield((maze_data + 504), rsi, 4) != 1) goto L5560;
+	if (get_bitfield((maze_data + 504), rsi, 4) == 1) {
 	l20 = get_bitfield((maze_data + 888), rsi, 2);
 	mark_map_neighbor(l20, g5164, col, row);
-L5560:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 2) goto L559d;
+	}
+	if (get_bitfield((maze_data + 504), rsi, 4) == 2) {
 	l20 = get_bitfield((maze_data + 888), rsi, 2);
 	mark_map_neighbor(l20, g5166, col, row);
-L559d:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 13) goto L55ba;
+	}
+	if (get_bitfield((maze_data + 504), rsi, 4) == 13) {
 	l14 = g50f8;
-L55ba:
-	if (get_bitfield((maze_data + 504), rsi, 4) != 14) goto L55d7;
+	}
+	if (get_bitfield((maze_data + 504), rsi, 4) == 14) {
 	l14 = g5168;
-L55d7:
-	if ((l2 = test_bit((maze_data + 1082), rsi)) != 1) goto L55f3;
+	}
+	if ((l2 = test_bit((maze_data + 1082), rsi)) == 1) {
 	l14 = g516a;
-L55f3:
-	if ((l4 = test_bit((maze_data + 1178), rsi)) != 1) goto L560f;
+	}
+	if ((l4 = test_bit((maze_data + 1178), rsi)) == 1) {
 	l14 = pclist_sex;
-L560f:
+	}
 	if (l2 != 1) goto L5676;
 	switch (game_state_arg) {
 case 0:
@@ -111,9 +111,9 @@ case 12:
 	goto L56aa;
 	}
 L56aa:
-	if (l14 == -1) goto L56d1;
+	if (l14 != -1) {
 	*(int *)((char *)g50c6 + ((col * 10) + (row << 1))) = l14;
-L56d1:
+	}
 	l16 = -1;
 	l18 = get_wall_in_direction(0, l12, l8, l10, x, y);
 	switch (l18) {
@@ -131,9 +131,9 @@ L571b:
 	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2))) goto L574e;
 	l16 = g5170;
 L574e:
-	if (l16 == -1) goto L5775;
+	if (l16 != -1) {
 	*(int *)((char *)g50fe + ((col * 10) + (row << 1))) = l16;
-L5775:
+	}
 	l16 = -1;
 	l18 = get_wall_in_direction(3, l12, l8, l10, x, y);
 	switch (l18) {
@@ -151,8 +151,8 @@ L57bf:
 	if ((get_bitfield((maze_data + 504), rsi, 4) != 7) || (get_bitfield((maze_data + 888), rsi, 2) != 3)) goto L57f3;
 	l16 = g5176;
 L57f3:
-	if (l16 == -1) goto L581a;
+	if (l16 != -1) {
 	*(int *)((char *)g5132 + ((col * 10) + (row << 1))) = l16;
-L581a:
+	}
 	return;
 }

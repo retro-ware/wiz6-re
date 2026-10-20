@@ -25,15 +25,15 @@ create_character(name, slot)
 	choose_race();
 	choose_sex();
 	bonus_points = (random(6) + 5);
-	if (random(20)) goto L9404;
+	if (!random(20)) {
 	bonus_points += 8;
-L9404:
-	if (random(20)) goto L9415;
+	}
+	if (!random(20)) {
 	bonus_points += 8;
-L9415:
-	if (g56ce != 1) goto L9422;
+	}
+	if (g56ce == 1) {
 	bonus_points = 21;
-L9422:
+	}
 	draw_stats();
 	choose_class();
 	distribute_bonus_points();
@@ -44,9 +44,9 @@ L9422:
 	choose_portrait();
 	give_class_items();
 	draw_character_sheet();
-	if ((unsigned)skill_points_left <= 0) goto L9451;
+	if ((unsigned)skill_points_left > 0) {
 	skill_points_screen(prompt_win);
-L9451:
+	}
 	i = 0;
 L9456:
 	if ((unsigned)spell_picks_left[i] <= 0) goto L9471;
@@ -63,13 +63,12 @@ L9471:
 	set_cursor(prompt_win, 6, 1);
 	print_message(1103, prompt_win, 18);
 	l4 = menu_select(prompt_win, 1114, &l46, ((unsigned char)prompt_win[6] + 1), 1, 4, 1, 5, 0);
-	if (l4) goto L9554;
+	if (!l4) {
 	access_roster_record(21616, slot, 1);
 	roster_slot_used[slot] = 1;
 	stop_sound();
 	fd = open(make_data_path(21502, 0), 2);
 	write(fd, 20432, 24);
 	close(fd);
-L9554:
-	;
+	}
 }

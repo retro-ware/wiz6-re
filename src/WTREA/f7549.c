@@ -9,8 +9,7 @@ draw_chest_list_box(p4, p6)
 	}
 	put_glyph_at_c2(p4, 1, 4, 70);
 	resume_window_draw(p4);
-	if (!p6) goto L75c2;
+	if (p6) {
 	refresh_window(p4);
-L75c2:
-	;
+	}
 }

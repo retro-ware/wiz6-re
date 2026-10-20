@@ -17,19 +17,19 @@ f4def(p4)
 	cur_sound = p4;
 	stop_sound();
 	access_scenario_record(9, 13292, p4, 0);
-	if (cur_sound_size != 0L) goto L4e49;
+	if (cur_sound_size == 0L) {
 	p4 = g33ec;
 	access_scenario_record(9, &l32, p4, 0);
 	cur_sound_size = l28;
-L4e49:
+	}
 	strcpy(&l20, 20462);
 	l15 = (char)((p4 / 10) + 48);
 	l14 = (char)((p4 % 10) + 48);
-	if ((l34 = open(make_data_path(&l20, 1), 0)) != -1) goto L4e97;
+	if ((l34 = open(make_data_path(&l20, 1), 0)) == -1) {
 	exit_game(15);
-L4e97:
-	if (!load_sound_slot(l34, 0L, *(int *)&cur_sound_size, g33f2, 14)) goto L4ec0;
+	}
+	if (load_sound_slot(l34, 0L, *(int *)&cur_sound_size, g33f2, 14)) {
 	exit_game(16);
-L4ec0:
+	}
 	close(l34);
 }

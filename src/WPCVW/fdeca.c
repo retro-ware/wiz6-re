@@ -73,12 +73,11 @@ Le1ba:
 case 2:
 	set_cursor(p6, 15, (l4 + 3));
 	put_char(p6, 32, 7);
-	if (l4 <= 0) goto Le1ed;
+	if (l4 > 0) {
 	l4--;
-	goto Le1f4;
-Le1ed:
+	} else {
 	l4 = (p14 - 1);
-Le1f4:
+	}
 	set_cursor(p6, 15, (l4 + 3));
 	put_char(p6, 100, 4);
 	goto Le31b;
@@ -100,12 +99,11 @@ Le29c:
 case 4:
 	set_cursor(p6, 15, (l4 + 3));
 	put_char(p6, 32, 7);
-	if ((l4 + 1) >= p14) goto Le2d2;
+	if ((l4 + 1) < p14) {
 	l4++;
-	goto Le2d7;
-Le2d2:
+	} else {
 	l4 = 0;
-Le2d7:
+	}
 	set_cursor(p6, 15, (l4 + 3));
 	put_char(p6, 100, 4);
 	goto Le31b;

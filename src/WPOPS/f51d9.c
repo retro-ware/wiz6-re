@@ -10,9 +10,9 @@ get_combat_input(keys, hotspots)
 	int l4;
 	flush_keys();
 	l4 = anim_phase;
-	if (blink_state == -1) goto L51f2;
+	if (blink_state != -1) {
 	blink_cursor_text();
-L51f2:
+	}
 	menu_clicked = 0;
 L51f8:
 	if (key_available(1)) goto L523e;

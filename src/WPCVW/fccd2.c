@@ -1,20 +1,18 @@
+extern char g4518[];
+extern char g4591[];
 extern char g4597[];
 extern int pc_level[];
-fccd2(p4)
+fccd2(p4, p6, p8, p10)
 {
 	int l2;
-	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lcd03;
+	if (*(int *)((char *)pc_level + (432 * p4)) < (unsigned char)g4597[(432 * p4)]) {
 	l2 = ((unsigned)g4597[(432 * p4)] <= 20 ? (unsigned char)g4597[(432 * p4)] : 20);
-	goto Lcd14;
-Lcd03:
+	} else {
 	l2 = (*(int *)((char *)pc_level + (432 * p4)) > 20 ? 20 : *(int *)((char *)pc_level + (432 * p4)));
-Lcd14:
-	;
+	}
+	g4591[(432 * p4)] = (char)((((unsigned char)g4518[(432 * p4)] / 6) + (((l2 + p8) - p10) / p8)) - 1);
 #asm
-lcd14:
-	db 08ah,087h,018h,045h,02ah,0e4h,0b9h,006h,000h,099h,0f7h,0f9h,050h,08bh,046h,0feh
-	db 003h,046h,008h,02bh,046h,00ah,099h,0f7h,07eh,008h,08bh,0c8h,058h,003h,0c1h,048h
-	db 088h,087h,091h,045h,03ch,001h,073h,005h,0c6h,087h,091h,045h,001h
+	db 03ch,001h,073h,005h,0c6h,087h,091h,045h,001h
 #endasm
 Lcd41:
 	;

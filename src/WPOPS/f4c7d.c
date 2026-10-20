@@ -35,27 +35,26 @@ L4cb7:
 	l4 = (unsigned char)g019b[monster_groups[group]];
 	l8 = 72;
 	l10 = 248;
-	if (row) goto L4ced;
+	if (!row) {
 	build_monster_anim_frames(group, col, frames);
-	goto L4d00;
-L4ced:
+	} else {
 	frames[0] = g3810[(314 * l4)];
 	frames[(0 + 1)] = 0;
-L4d00:
+	}
 	if (frames[0]) goto L4d08;
 	return;
 L4d08:
 	l6 = (col % 2);
-	if (random(10) != 9) goto L4d77;
+	if (random(10) == 9) {
 	g4348[((row * 5) + col)] = (char)random((unsigned char)g3814[(314 * l4)]);
 	g433e[((row * 5) + col)] = (char)random((unsigned char)g3815[(314 * l4)]);
-L4d77:
+	}
 	l24 = (unsigned char)frames[0];
 	l28 = (unsigned char)g36e4[(((314 * l4) + (l6 % 2)) + (l24 << 1))];
 	l26 = (unsigned char)g3759[((314 * l4) + (l24 << 2))];
-	if (l26) goto L4de2;
+	if (!l26) {
 	l26 = ((unsigned char)g00b0[((row * 5) + col)] - group);
-L4de2:
+	}
 	if ((l30 = ((g37fa[(((314 * l4) + (row * 10)) + (col << 1))] + (unsigned char)g4348[((row * 5) + col)]) + l28)) >= 0) goto L4e37;
 	l30 = 0;
 	goto L4e42;

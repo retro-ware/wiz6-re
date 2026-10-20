@@ -71,13 +71,13 @@ L47db:
 	l8 = roll_dice_x(f5eea(1, 4, 0));
 	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) -= l8;
 	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2) -= l8;
-	if (*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) >= 1) goto L4a01;
+	if (*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) < 1) {
 	*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4) = 1;
-L4a01:
-	if (p8) goto L4a47;
+	}
+	if (!p8) {
 	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2);
 	*(int *)((char *)pc_hp_max + (432 * p10)) = *(int *)(((char *)monster_groups[p8] + (44 * p10)) + 4);
-L4a47:
+	}
 	l10 = 3752;
 L4a4c:
 	goto L4a5e;
@@ -93,29 +93,29 @@ L4a5e:
 	if (l8 <= 0) goto L4b58;
 	get_combatant_name(20492, p8, p10);
 	get_message(l10, 20572);
-	if (l8 <= 0) goto L4aa9;
+	if (l8 > 0) {
 	int_to_string(l8, 20652);
 	replace_char_with_string(20572, 20652, 36);
-L4aa9:
+	}
 	get_message(3750, 20652);
 	clear_msg_line(4);
 	print_combat_line(20492, 20652, 20572, (p8 == 0 ? 1 : 5), 5, 5);
-	if (p8) goto L4b09;
+	if (!p8) {
 	play_sound(((unsigned char)pc_sex[(432 * p10)] + 8));
 	draw_member_card_x(p10, 1);
-L4b09:
+	}
 	combat_delay((g4fc8 / 2));
 	if (*(int *)(((char *)monster_groups[p8] + (44 * p10)) + 2) > 0) goto L4b58;
 	do_damage_effect(p8, p10, 3486, 0, 3, l4, 6, 6, 3408, 0);
 L4b58:
 	goto L4c34;
 	l10 = (p8 == 0 ? 11 : 13);
-	if (random(100) <= ((unsigned char)((char *)group_monster_rec[p8] + l10)[148] - l4)) goto L4be3;
+	if (random(100) > ((unsigned char)((char *)group_monster_rec[p8] + l10)[148] - l4)) {
 	clear_msg_line(4);
 	print_msg_centered(3495, 5, 4);
 	combat_delay((g4fc8 / 4));
 	do_damage_effect(p8, p10, 3486, 0, 3, l4, 6, 6, 3408, 0);
-L4be3:
+	}
 	goto L4c34;
 #asm
 	db 0b8h,000h,000h,050h,0b8h,050h,00dh,050h,0ffh,076h,0fah,0b8h,003h,000h,050h,08bh

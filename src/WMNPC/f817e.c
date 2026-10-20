@@ -60,28 +60,28 @@ case 70:
 case 10:
 	l2 = f66cf(f80ff((p8 << 1), 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p10)) += l2;
-	if (*(int *)((char *)pc_stamina + (432 * p10)) <= *(int *)((char *)pc_stamina_max + (432 * p10))) goto L82cd;
+	if (*(int *)((char *)pc_stamina + (432 * p10)) > *(int *)((char *)pc_stamina_max + (432 * p10))) {
 	*(int *)((char *)pc_stamina + (432 * p10)) = *(int *)((char *)pc_stamina_max + (432 * p10));
-L82cd:
+	}
 	f5078(p10, g527a);
 	break;
 case 15:
-	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) >= 0) goto L830d;
+	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) < 0) {
 	l2 = 0;
-L830d:
+	}
 	g450d[(432 * p10)] = *(char *)&l2;
 	f5078(p10, g527a);
 	break;
 case 26:
-	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) > 0) goto L8347;
+	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) <= 0) {
 	l2 = 0;
 	g450f[(432 * p10)] = 0;
-L8347:
+	}
 	g458c[(432 * p10)] = *(char *)&l2;
-	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) > 0) goto L8377;
+	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) <= 0) {
 	l2 = 0;
 	g458c[(432 * p10)] = 0;
-L8377:
+	}
 	g450f[(432 * p10)] = *(char *)&l2;
 	f5078(p10, g527a);
 	break;
@@ -99,9 +99,9 @@ L83f3:
 	f5078(p10, g527a);
 	break;
 case 57:
-	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L8433;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) < 0) {
 	l2 = 0;
-L8433:
+	}
 	g4511[(432 * p10)] = *(char *)&l2;
 	f5078(p10, g527a);
 	break;
@@ -109,9 +109,9 @@ case 51:
 	l4 = 1;
 L844f:
 	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L849b;
-	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) >= 0) goto L8494;
+	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) < 0) {
 	l2 = 0;
-L8494:
+	}
 	g450a[((432 * p10) + l4)] = *(char *)&l2;
 L849b:
 	l4++;
@@ -121,9 +121,9 @@ L849b:
 case 64:
 	l2 = f66cf(f80ff(p8, 7, p8));
 	*(int *)((char *)pc_hp + (432 * p10)) += l2;
-	if (*(int *)((char *)pc_hp + (432 * p10)) <= *(int *)((char *)pc_hp_max + (432 * p10))) goto L8500;
+	if (*(int *)((char *)pc_hp + (432 * p10)) > *(int *)((char *)pc_hp_max + (432 * p10))) {
 	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)((char *)pc_hp_max + (432 * p10));
-L8500:
+	}
 	f5078(p10, g527a);
 	break;
 case 77:
@@ -139,14 +139,14 @@ L855c:
 case 80:
 	l2 = f66cf(f80ff(p8, 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p4)) += l2;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L85b6;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) > *(int *)((char *)pc_stamina_max + (432 * p4))) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
-L85b6:
+	}
 	l2 = f66cf(f80ff(p8, 2, 0));
 	*(int *)((char *)pc_hp + (432 * p4)) += l2;
-	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L8601;
+	if (*(int *)((char *)pc_hp + (432 * p4)) > *(int *)((char *)pc_hp_max + (432 * p4))) {
 	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
-L8601:
+	}
 	f5078(p4, g527a);
 	break;
 case 81:
@@ -154,9 +154,9 @@ case 81:
 L8616:
 	l4 = f66cf(f80ff(p8, 10, 0));
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) += l4;
-	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) <= *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) goto L866c;
+	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) > *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) {
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) = *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)));
-L866c:
+	}
 	l2++;
 	if (l2 < 6) goto L8616;
 	f5078(p4, g527a);

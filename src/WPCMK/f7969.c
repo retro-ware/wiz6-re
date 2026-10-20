@@ -65,26 +65,24 @@ case 4:
 L7bf3:
 	switch (l2) {
 case 1:
-	if (l20[l4] <= 0) goto L7c27;
+	if (l20[l4] > 0) {
 	char_stats[l4]--;
 	l20[l4]--;
 	bonus_points++;
 	play_sound(1);
 	draw_stats();
-	goto L7c2f;
-L7c27:
+	} else {
 	play_sound(0);
-L7c2f:
+	}
 	goto L7d48;
 case 2:
 	set_cursor(sheet_win, 7, (l4 + 5));
 	put_char(sheet_win, 32, 7);
-	if (l4 <= 0) goto L7c64;
+	if (l4 > 0) {
 	l4--;
-	goto L7c69;
-L7c64:
+	} else {
 	l4 = 6;
-L7c69:
+	}
 	set_cursor(sheet_win, 7, (l4 + 5));
 	put_char(sheet_win, 98, 7);
 	goto L7d48;
@@ -103,12 +101,11 @@ L7cc8:
 case 4:
 	set_cursor(sheet_win, 7, (l4 + 5));
 	put_char(sheet_win, 32, 7);
-	if (l4 >= 6) goto L7cfd;
+	if (l4 < 6) {
 	l4++;
-	goto L7d02;
-L7cfd:
+	} else {
 	l4 = 0;
-L7d02:
+	}
 	set_cursor(sheet_win, 7, (l4 + 5));
 	put_char(sheet_win, 98, 7);
 	goto L7d48;

@@ -54,26 +54,26 @@ case 70:
 case 10:
 	l2 = roll_dice_dopt(make_two_char_text((p8 << 1), 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p10)) += l2;
-	if (*(int *)((char *)pc_stamina + (432 * p10)) <= *(int *)((char *)pc_stamina_max + (432 * p10))) goto L61a3;
+	if (*(int *)((char *)pc_stamina + (432 * p10)) > *(int *)((char *)pc_stamina_max + (432 * p10))) {
 	*(int *)((char *)pc_stamina + (432 * p10)) = *(int *)((char *)pc_stamina_max + (432 * p10));
-L61a3:
+	}
 	break;
 case 15:
-	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) >= 0) goto L61d6;
+	if ((l2 = ((unsigned char)g450d[(432 * p10)] - (p8 * 25))) < 0) {
 	l2 = 0;
-L61d6:
+	}
 	g450d[(432 * p10)] = *(char *)&l2;
 	break;
 case 26:
-	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) > 0) goto L6203;
+	if ((l2 = ((unsigned char)g458c[(432 * p10)] - p8)) <= 0) {
 	l2 = 0;
 	g450f[(432 * p10)] = 0;
-L6203:
+	}
 	g458c[(432 * p10)] = *(char *)&l2;
-	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) > 0) goto L6233;
+	if ((l2 = ((unsigned char)g450f[(432 * p10)] - (p8 * 5))) <= 0) {
 	l2 = 0;
 	g458c[(432 * p10)] = 0;
-L6233:
+	}
 	g450f[(432 * p10)] = *(char *)&l2;
 	break;
 case 46:
@@ -89,18 +89,18 @@ L629d:
 L62a2:
 	break;
 case 57:
-	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) >= 0) goto L62d5;
+	if ((l2 = ((unsigned char)g4511[(432 * p10)] - (p8 * 25))) < 0) {
 	l2 = 0;
-L62d5:
+	}
 	g4511[(432 * p10)] = *(char *)&l2;
 	break;
 case 51:
 	l4 = 1;
 L62e4:
 	if (((((l4 != 1) && (l4 != 2)) && (l4 != 4)) && (l4 != 8)) && (l4 != 9)) goto L6330;
-	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) >= 0) goto L6329;
+	if ((l2 = ((unsigned char)g450a[((432 * p10) + l4)] - (p8 << 1))) < 0) {
 	l2 = 0;
-L6329:
+	}
 	g450a[((432 * p10) + l4)] = *(char *)&l2;
 L6330:
 	l4++;
@@ -109,9 +109,9 @@ L6330:
 case 64:
 	l2 = roll_dice_dopt(make_two_char_text(p8, 7, p8));
 	*(int *)((char *)pc_hp + (432 * p10)) += l2;
-	if (*(int *)((char *)pc_hp + (432 * p10)) <= *(int *)((char *)pc_hp_max + (432 * p10))) goto L6388;
+	if (*(int *)((char *)pc_hp + (432 * p10)) > *(int *)((char *)pc_hp_max + (432 * p10))) {
 	*(int *)((char *)pc_hp + (432 * p10)) = *(int *)((char *)pc_hp_max + (432 * p10));
-L6388:
+	}
 	break;
 case 77:
 	if ((pc_condition[(432 * p10)] != 3) || ((p8 * 3) <= (18 - (unsigned char)g4517[(432 * p10)]))) goto L63d7;
@@ -134,23 +134,23 @@ case 62:
 case 80:
 	l2 = roll_dice_dopt(make_two_char_text(p8, 8, p8));
 	*(int *)((char *)pc_stamina + (432 * p4)) += l2;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L6440;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) > *(int *)((char *)pc_stamina_max + (432 * p4))) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
-L6440:
+	}
 	l2 = roll_dice_dopt(make_two_char_text(p8, 2, 0));
 	*(int *)((char *)pc_hp + (432 * p4)) += l2;
-	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L648b;
+	if (*(int *)((char *)pc_hp + (432 * p4)) > *(int *)((char *)pc_hp_max + (432 * p4))) {
 	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
-L648b:
+	}
 	break;
 case 81:
 	l2 = 0;
 L6493:
 	l4 = roll_dice_dopt(make_two_char_text(p8, 10, 0));
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) += l4;
-	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) <= *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) goto L64e9;
+	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) > *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)))) {
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l2 << 2))) = *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2)));
-L64e9:
+	}
 	l2++;
 	if (l2 < 6) goto L6493;
 	break;

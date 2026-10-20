@@ -31,9 +31,9 @@ case 6:
 	goto Lf747;
 	}
 Lf747:
-	if (*(int *)((char *)pc_level + (432 * p4)) < l6) goto Lf75b;
+	if (*(int *)((char *)pc_level + (432 * p4)) >= l6) {
 	l4++;
-Lf75b:
+	}
 	l2++;
 	if (l2 < 7) goto Lf6f6;
 #asm

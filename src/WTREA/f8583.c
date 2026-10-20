@@ -31,12 +31,11 @@ give_item_to_member(member, loot)
 	char x87[1];
 	item_id = loot_item[loot];
 	access_scenario_record(1, &l78, item_id, 0);
-	if (g00cc[(unsigned char)l18] != 1) goto L85ca;
+	if (g00cc[(unsigned char)l18] == 1) {
 	l81 = g51e2[(loot << 1)];
-	goto L85d9;
-L85ca:
+	} else {
 	l81 = (char)roll_dice(l58, l56);
-L85d9:
+	}
 	l87 = 1;
 	slot = (unsigned char)pc_item_count[(432 * member)];
 	l2 = (slot - 1);
@@ -81,21 +80,21 @@ L873a:
 	*(int *)(entry + 2) = l48;
 	entry[6] += l81;
 	entry[7] = 0;
-	if (!((unsigned char)l19 & 8)) goto L877e;
+	if (((unsigned char)l19 & 8)) {
 	entry[7] |= 4;
-L877e:
-	if (!((unsigned char)l19 & 4)) goto L878f;
+	}
+	if (((unsigned char)l19 & 4)) {
 	entry[7] |= 8;
-L878f:
-	if (!((unsigned char)l19 & 16)) goto L87a0;
+	}
+	if (((unsigned char)l19 & 16)) {
 	entry[7] |= 16;
-L87a0:
-	if (!((unsigned char)l19 & 32)) goto L87b1;
+	}
+	if (((unsigned char)l19 & 32)) {
 	entry[7] |= 32;
-L87b1:
-	if (!((unsigned char)l19 & 2)) goto L87c2;
+	}
+	if (((unsigned char)l19 & 2)) {
 	entry[7] |= 64;
-L87c2:
+	}
 	*(int *)((char *)pc_carried + (432 * member)) = 0;
 	l2 = 0;
 	goto L87f4;

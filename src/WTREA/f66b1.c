@@ -10,13 +10,13 @@ pick_chest_trap(chest)
 L66ce:
 	if ((l2 <= 0) || (l4 >= 100)) goto L670a;
 	chest_trap++;
-	if (chest_trap <= 15) goto L66ef;
+	if (chest_trap > 15) {
 	chest_trap = 0;
 	l4++;
-L66ef:
-	if (test_bit((chest + 36), chest_trap) != 1) goto L6708;
+	}
+	if (test_bit((chest + 36), chest_trap) == 1) {
 	l2--;
-L6708:
+	}
 	goto L66ce;
 L670a:
 	get_message((chest_trap + 5300), 20682);

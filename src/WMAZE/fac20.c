@@ -21,19 +21,18 @@ Lac6d:
 	int_to_string(l2, &l42);
 	get_message(5231, &l22);
 	get_message(5232, &l62);
-	if (*(int *)((char *)pc_hp + (432 * p4)) >= l2) goto Lacaa;
+	if (*(int *)((char *)pc_hp + (432 * p4)) < l2) {
 	l2 = *(int *)((char *)pc_hp + (432 * p4));
-Lacaa:
+	}
 	*(int *)((char *)pc_hp + (432 * p4)) -= l2;
 	print_member_message(p4, &l22, &l42, &l62, 1, 5, 5, 5);
 	draw_member_status_m(p4);
-	if (*(int *)((char *)pc_hp + (432 * p4)) > 0) goto Lad05;
+	if (*(int *)((char *)pc_hp + (432 * p4)) <= 0) {
 	wait_animating_m(2);
 	inflict_condition(p4, 5264, 0, 3);
-	goto Lad15;
-Lad05:
+	} else {
 	play_sound(2);
 	wait_animating_m(message_delay);
-Lad15:
+	}
 	return;
 }

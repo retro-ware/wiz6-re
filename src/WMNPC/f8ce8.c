@@ -54,7 +54,7 @@ L8de2:
 L8e01:
 	if (l72 != 1) goto L8f63;
 	g522c = 1;
-	if (l64 != -1) goto L8e8b;
+	if (l64 == -1) {
 	g5228 = 13;
 	g5226 = 3;
 	clear_window_area(l2, 13, 1, 20, 1);
@@ -63,8 +63,7 @@ L8e01:
 	clear_window_area(l2, 18, 5, 20, 5);
 	l10 = -1;
 	f88c7(l4, 1);
-	goto L8f3a;
-L8e8b:
+	} else {
 	g5228 = (((l64 / 3) * 6) + 1);
 	g5226 = (((l64 % 3) << 1) + 1);
 	clear_window_area(l2, 13, 1, 20, 1);
@@ -73,7 +72,7 @@ L8e8b:
 	clear_window_area(l2, 18, 5, 20, 5);
 	l10 = f8bcd(p6, l64, l50);
 	f8c28(l4, p6, l64, 0, 0, l10, l50);
-L8f3a:
+	}
 	g524a = 99;
 	g524b = 0;
 	event_screen_dirty = 5;
@@ -168,12 +167,11 @@ L91b4:
 	f8c28(l4, p6, l64, l58, 1, l10, l50);
 	l66 = (unsigned char)g00e0[(l50[l58] * 6)];
 	set_cursor(l2, 18, 5);
-	if (*(int *)((char *)pc_spell_pts + ((432 * p6) + (l64 << 2))) >= l66) goto L9263;
+	if (*(int *)((char *)pc_spell_pts + ((432 * p6) + (l64 << 2))) < l66) {
 	print_string(l2, 20507, realm_colors[l64]);
-	goto L927e;
-L9263:
+	} else {
 	print_int(l2, l66, 3, realm_colors[l64]);
-L927e:
+	}
 	l6 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto L9301;
 	switch (l6) {
@@ -207,14 +205,14 @@ case 1:
 	l60 = 1;
 	goto L9335;
 case 2:
-	if (l58 <= 0) goto L9316;
+	if (l58 > 0) {
 	l58--;
-L9316:
+	}
 	goto L9335;
 case 4:
-	if ((l58 + 1) >= l10) goto L9324;
+	if ((l58 + 1) < l10) {
 	l58++;
-L9324:
+	}
 	goto L9335;
 	}
 L9335:
@@ -274,26 +272,25 @@ L95b1:
 L95cc:
 	l6 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto L9643;
-	if ((l6 + 1) != l54) goto L95f1;
+	if ((l6 + 1) == l54) {
 	l6 = 5;
-	goto L963b;
-L95f1:
+	} else {
 	set_cursor(l2, (l54 + 14), 3);
 	put_char(l2, (unsigned char)((l54 + 23)), 5);
 	l54 = (l6 < l56 ? (l6 + 1) : 0);
 	l6 = (l54 == 0 ? 5 : 0);
-L963b:
+	}
 	l72 = 1;
 	goto L9734;
 L9643:
 	switch (l6) {
 case 1:
-	if (l54 <= 0) goto L9681;
+	if (l54 > 0) {
 	set_cursor(l2, (l54 + 14), 3);
 	put_char(l2, (unsigned char)((l54 + 23)), 5);
 	l54--;
 	l72 = 1;
-L9681:
+	}
 	goto L9734;
 case 3:
 	if (l54) goto L96e8;

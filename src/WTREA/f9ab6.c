@@ -12,9 +12,9 @@ share_combat_gold()
 	l2 = 0;
 	goto L9add;
 L9ac8:
-	if (pc_condition[(432 * l2)]) goto L9ada;
+	if (!pc_condition[(432 * l2)]) {
 	alive++;
-L9ada:
+	}
 	l2++;
 L9add:
 	if (l2 < party_count) goto L9ac8;
@@ -26,9 +26,9 @@ L9add:
 	l2 = 0;
 	goto L9b73;
 L9b53:
-	if (pc_condition[(432 * l2)]) goto L9b70;
+	if (!pc_condition[(432 * l2)]) {
 	*(long *)((char *)pc_exp + (432 * l2)) += *(long *)(share + 0);
-L9b70:
+	}
 	l2++;
 L9b73:
 	if (l2 < party_count) goto L9b53;

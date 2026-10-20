@@ -53,12 +53,11 @@ L4d11:
 L4d34:
 	rsi++;
 	if (rsi < 10) goto L4d11;
-	if (l2 == -1) goto L4d58;
+	if (l2 != -1) {
 	put_char_hi(l88, (unsigned char)((l2 + 37)), 1);
-	goto L4d69;
-L4d58:
+	} else {
 	put_char_hi(l88, 32, 3);
-L4d69:
+	}
 	set_cursor(l88, (l4 + 3), (l6 + 2));
 	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(l88, (unsigned char)(((((unsigned char)pc_class[(432 * p4)] << 1) + rsi) + 58)), 1);

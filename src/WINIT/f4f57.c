@@ -18,9 +18,9 @@ show_title_sequence()
 	int skipped;
 	flush_keys();
 	load_sound(39);
-	if ((fd = open(make_data_path(20794, 1), 0)) != -1) goto L4f91;
+	if ((fd = open(make_data_path(20794, 1), 0)) == -1) {
 	exit_game(9);
-L4f91:
+	}
 	drv_op_ae(fd, 0L, 20906L, 0);
 	close(fd);
 	if (!(video_flags & 1)) goto L4fcd;
@@ -43,32 +43,32 @@ L5015:
 L501d:
 	skipped = 0;
 	play_sound(4);
-	if (skipped) goto L503b;
+	if (!skipped) {
 	skipped += wait_enter_key(2);
-L503b:
+	}
 	play_sound(13);
 	drv_op_be(fullscreen_win, 0);
 	draw_big_char(13, 91, 52);
 	draw_big_char(9, 107, 82);
 	drv_op_c2(fullscreen_win);
-	if (skipped) goto L508e;
+	if (!skipped) {
 	skipped += wait_enter_key(72);
-L508e:
+	}
 	key = 0;
 	drv_op_b6(-1);
 	drv_op_c2(fullscreen_win);
 	play_sound(14);
-	if (skipped) goto L50bc;
+	if (!skipped) {
 	skipped += wait_enter_key(10);
-L50bc:
+	}
 	play_sound(6);
 	draw_big_char(7, 76, 67);
 	draw_big_char(8, 76, 99);
 	drv_op_c2(fullscreen_win);
 	play_sound(7);
-	if (skipped) goto L5109;
+	if (!skipped) {
 	skipped += wait_enter_key(10);
-L5109:
+	}
 	glyph[0] = 7;
 	glyph_x[0] = 76;
 	start[0] = 0;
@@ -131,13 +131,13 @@ L5253:
 L5280:
 	if (--i >= 0) goto L520e;
 	drv_op_c2(fullscreen_win);
-	if (!check_screen_click()) goto L5299;
+	if (check_screen_click()) {
 	animating = 0;
-L5299:
-	if (!key_available(1)) goto L52b7;
+	}
+	if (key_available(1)) {
 	key = (unsigned char)(get_key(1));
 	animating = 0;
-L52b7:
+	}
 	frame += 2;
 L52bd:
 	if ((animating) && (((start[7] + glyph_y[7]) - min_y[7]) > frame)) goto L5201;

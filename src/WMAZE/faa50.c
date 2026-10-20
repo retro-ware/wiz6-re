@@ -11,17 +11,16 @@ char *p10;
 	set_cursor(g522a, (20 - (((((strlen(((432 * p4) + 17384)) + strlen(p6)) + strlen(p8)) + strlen(p10)) + l2) / 2)), 1);
 	print_string(g522a, ((432 * p4) + 17384), p12);
 	g522a[6]++;
-	if (!*p6) goto Lab2e;
+	if (*p6) {
 	print_string(g522a, p6, p14);
 	g522a[6]++;
-Lab2e:
-	if (!*p8) goto Lab4b;
+	}
+	if (*p8) {
 	print_string(g522a, p8, p16);
 	g522a[6]++;
-Lab4b:
-	if (!*p10) goto Lab68;
+	}
+	if (*p10) {
 	print_string(g522a, p10, p18);
 	g522a[6]++;
-Lab68:
-	;
+	}
 }

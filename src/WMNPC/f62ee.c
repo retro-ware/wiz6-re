@@ -46,10 +46,10 @@ L63e9:
 	set_click_region(rsi, ((unsigned char)l4[2] + l32), ((unsigned char)l4[3] + l34), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l32) - 1), ((unsigned char)l4[3] + l34));
 	}
 	set_click_region(party_count, 255, 0, 0, 0);
-	if (p6 != 1) goto L64f2;
+	if (p6 == 1) {
 	set_click_region(party_count, ((unsigned char)main_window[2] + l28), ((unsigned char)main_window[3] + l30), (((strlen(&l26) + (unsigned char)main_window[2]) + l28) - 1), ((unsigned char)main_window[3] + l30));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
-L64f2:
+	}
 	l6 = (p6 == 1 ? -1 : 0);
 L6501:
 	if (mouse_present) goto L6570;

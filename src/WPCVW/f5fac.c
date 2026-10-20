@@ -20,13 +20,12 @@ char *win;
 	int l102;
 	char x102[74];
 	int count;
-	if (swag) goto L5fd9;
+	if (!swag) {
 	draw_inventory_panel(sheet, member);
 	count = (unsigned char)pc_item_count[(432 * member)];
-	goto L5feb;
-L5fd9:
+	} else {
 	count = (unsigned char)pc_swag_count[(432 * member)];
-L5feb:
+	}
 	fill_window(win, 32, 3, 0);
 	refresh_window(win);
 	get_message(title_msg, &l88);
@@ -36,22 +35,20 @@ L5feb:
 	win[6]++;
 	l100 = (unsigned char)win[6];
 	l102 = (unsigned char)win[7];
-	if (mouse_present != 1) goto L6075;
+	if (mouse_present == 1) {
 	print_string_hi(win, &l98, 3);
-	goto L6086;
-L6075:
+	} else {
 	print_string(win, &l98, -5);
-L6086:
+	}
 	sel = -1;
 	l2 = 0;
 	goto L6108;
 L6092:
-	if (swag) goto L60d0;
+	if (!swag) {
 	set_click_region(l2, ((unsigned char)sheet[2] + 22), (((unsigned char)sheet[3] + l2) + 9), ((unsigned char)sheet[2] + 37), (((unsigned char)sheet[3] + l2) + 9));
-	goto L6105;
-L60d0:
+	} else {
 	set_click_region(l2, ((unsigned char)sheet[2] + 2), (((unsigned char)sheet[3] + l2) + 3), ((unsigned char)sheet[2] + 17), (((unsigned char)sheet[3] + l2) + 3));
-L6105:
+	}
 	l2++;
 L6108:
 	if (l2 < count) goto L6092;
@@ -112,8 +109,8 @@ L62e6:
 	}
 L62f5:
 	if (l6 != 5) goto L6167;
-	if (swag) goto L6310;
+	if (!swag) {
 	draw_inventory_panel(sheet, member);
-L6310:
+	}
 	return sel;
 }

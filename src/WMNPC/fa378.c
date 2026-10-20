@@ -30,9 +30,9 @@ char *p4;
 	if (g54b2 > 0) goto La415;
 	return -1;
 La415:
-	if (p8 < g54b2) goto La425;
+	if (p8 >= g54b2) {
 	p8 = (g54b2 - 1);
-La425:
+	}
 	l4 = 0;
 	set_click_region(0, ((unsigned char)p4[2] + 2), ((unsigned char)p4[3] + 2), ((unsigned char)p4[2] + 16), ((unsigned char)p4[3] + 2));
 	set_click_region(1, ((unsigned char)p4[2] + 1), (unsigned char)p4[3], ((unsigned char)p4[2] + 1), (unsigned char)p4[3]);
@@ -40,16 +40,15 @@ La425:
 	set_click_region(3, ((unsigned char)main_window[2] + l26), ((unsigned char)main_window[3] + l28), (((strlen(&l14) + (unsigned char)main_window[2]) + l26) - 1), ((unsigned char)main_window[3] + l28));
 	set_click_region(4, 255, 0, 0, 0);
 La502:
-	if (l4 != 1) goto La53f;
+	if (l4 == 1) {
 	set_cursor(main_window, l26, l28);
 	print_string(main_window, &l24, -3);
 	f9fcf(p4, p6, p8, 0);
-	goto La574;
-La53f:
+	} else {
 	set_cursor(main_window, l26, l28);
 	print_string_hi(main_window, &l14, 3);
 	f9fcf(p4, p6, p8, 1);
-La574:
+	}
 	l2 = f5994(21098, 13720);
 	if (menu_clicked != 1) goto La5c3;
 	switch (l2) {
@@ -70,9 +69,9 @@ case 3:
 La5c3:
 	switch (l2) {
 case 1:
-	if (l4 == 1) goto La5d3;
+	if (l4 != 1) {
 	l4 = 1;
-La5d3:
+	}
 	goto La62a;
 case 2:
 	if (l4 != 1) goto La5e2;
@@ -84,9 +83,9 @@ La5e2:
 La5eb:
 	goto La62a;
 case 3:
-	if (l4 != 1) goto La5f8;
+	if (l4 == 1) {
 	l4 = 0;
-La5f8:
+	}
 	goto La62a;
 case 4:
 	if (l4 != 1) goto La607;

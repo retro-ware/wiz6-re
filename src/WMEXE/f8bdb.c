@@ -11,9 +11,9 @@ f8bdb(p4, p6, p8, p10)
 	int l8;
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);
-	if (l6 <= l4) goto L8c10;
+	if (l6 > l4) {
 	l6 = l4;
-L8c10:
+	}
 	l8 = random((l4 - l6));
 	l2 = l8;
 	goto L8ee9;

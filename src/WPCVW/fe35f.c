@@ -124,14 +124,14 @@ Le787:
 	l2 = l8;
 	goto Le842;
 Le7c1:
-	if (g57fe[l2] != 1) goto Le83f;
+	if (g57fe[l2] == 1) {
 	set_cursor(p4, 1, (l14 + 3));
 	print_message((l2 + 5500), p4, l12);
 	set_cursor(p4, 16, (l14 + 3));
 	print_int(p4, (unsigned char)pc_skills[((432 * p8) + l2)], 3, 1);
 	*(int *)(p12 + (l14 << 1)) = l2;
 	l14++;
-Le83f:
+	}
 	l2++;
 Le842:
 	if (l2 <= l10) goto Le7c1;

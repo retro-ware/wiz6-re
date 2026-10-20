@@ -12,13 +12,12 @@ L4904:
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L491e;
 	return;
 L491e:
-	if (g502c) goto L4938;
+	if (!g502c) {
 	anim_phase = ((anim_phase + 1) % 2);
 	animate_treasure_view();
-	goto L493b;
-L4938:
+	} else {
 	play_ambient_sound();
-L493b:
+	}
 	g502c = ((g502c + 1) % 10);
 	seconds--;
 	goto L48f3;

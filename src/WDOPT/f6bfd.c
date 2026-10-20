@@ -55,7 +55,7 @@ L6cf7:
 L6d16:
 	if (redraw != 1) goto L6e78;
 	g502e = 1;
-	if (realm != -1) goto L6da0;
+	if (realm == -1) {
 	g5032 = 13;
 	g5030 = 3;
 	clear_window_area(win, 13, 1, 20, 1);
@@ -64,8 +64,7 @@ L6d16:
 	clear_window_area(win, 18, 5, 20, 5);
 	count = -1;
 	draw_list_frame_dopt(list_win, 1);
-	goto L6e4f;
-L6da0:
+	} else {
 	g5032 = (((realm / 3) * 6) + 1);
 	g5030 = (((realm % 3) << 1) + 1);
 	clear_window_area(win, 13, 1, 20, 1);
@@ -74,7 +73,7 @@ L6da0:
 	clear_window_area(win, 18, 5, 20, 5);
 	count = count_known_spells(member, realm, spells);
 	draw_spell_list(list_win, member, realm, 0, 0, count, spells);
-L6e4f:
+	}
 	g5052 = 99;
 	g5053 = 0;
 	g5038 = 5;
@@ -169,12 +168,11 @@ L70c9:
 	draw_spell_list(list_win, member, realm, sel, 1, count, spells);
 	cost = (unsigned char)g00e0[(spells[sel] * 6)];
 	set_cursor(win, 18, 5);
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) >= cost) goto L7178;
+	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < cost) {
 	print_string(win, 20500, realm_colors[realm]);
-	goto L7193;
-L7178:
+	} else {
 	print_int(win, cost, 3, realm_colors[realm]);
-L7193:
+	}
 	choice = get_menu_choice_blink(20668, 13720);
 	if (menu_clicked != 1) goto L7216;
 	switch (choice) {
@@ -208,14 +206,14 @@ case 1:
 	back = 1;
 	goto L724a;
 case 2:
-	if (sel <= 0) goto L722b;
+	if (sel > 0) {
 	sel--;
-L722b:
+	}
 	goto L724a;
 case 4:
-	if ((sel + 1) >= count) goto L7239;
+	if ((sel + 1) < count) {
 	sel++;
-L7239:
+	}
 	goto L724a;
 	}
 L724a:
@@ -275,26 +273,25 @@ L74c6:
 L74e1:
 	choice = get_menu_choice_blink(20668, 13720);
 	if (menu_clicked != 1) goto L7558;
-	if ((choice + 1) != level) goto L7506;
+	if ((choice + 1) == level) {
 	choice = 5;
-	goto L7550;
-L7506:
+	} else {
 	set_cursor(win, (level + 14), 3);
 	put_char(win, (unsigned char)((level + 23)), 5);
 	level = (choice < max_level ? (choice + 1) : 0);
 	choice = (level == 0 ? 5 : 0);
-L7550:
+	}
 	redraw = 1;
 	goto L7649;
 L7558:
 	switch (choice) {
 case 1:
-	if (level <= 0) goto L7596;
+	if (level > 0) {
 	set_cursor(win, (level + 14), 3);
 	put_char(win, (unsigned char)((level + 23)), 5);
 	level--;
 	redraw = 1;
-L7596:
+	}
 	goto L7649;
 case 3:
 	if (level) goto L75fd;

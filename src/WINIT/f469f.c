@@ -2,9 +2,9 @@
 read_file_bytes(name, buf, len)
 {
 	int fd;
-	if ((fd = open(make_data_path(name, 0), 0)) != -1) goto L46ca;
+	if ((fd = open(make_data_path(name, 0), 0)) == -1) {
 	exit_game(6);
-L46ca:
+	}
 	read(fd, buf, len);
 	close(fd);
 }

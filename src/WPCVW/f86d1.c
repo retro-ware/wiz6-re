@@ -29,10 +29,10 @@ L873e:
 	l4 = (l2 % 256);
 	*(int *)((char *)pc_spell_pts + ((432 * p8) + ((unsigned char)spell_table[(l4 * 6)] << 2))) -= ((unsigned char)g00e0[(l4 * 6)] * l6);
 	*(int *)((char *)pc_stamina + (432 * p8)) -= ((random(l6) + (unsigned char)g00df[(l4 * 6)]) + l6);
-	if (*(int *)((char *)pc_stamina + (432 * p8)) >= 0) goto L87fa;
+	if (*(int *)((char *)pc_stamina + (432 * p8)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * p8)) = 0;
 	g450c[(432 * p8)] = (char)(random(6) + 6);
-L87fa:
+	}
 	cast_spell(p8, l4, l6, g578e, p4, p6);
 L8813:
 	;

@@ -22,10 +22,10 @@ choose_portrait()
 	set_click_region(2, ((unsigned char)prompt_win[2] + 18), ((unsigned char)prompt_win[3] + 2), ((unsigned char)prompt_win[2] + 18), ((unsigned char)prompt_win[3] + 2));
 	set_click_region(3, 255, 0, 0, 0);
 L9248:
-	if ((unsigned char)char_portrait == l4) goto L925f;
+	if ((unsigned char)char_portrait != l4) {
 	load_portrait((unsigned char)char_portrait);
 	l4 = (unsigned char)char_portrait;
-L925f:
+	}
 	draw_portrait(menu_win, 8, 3);
 	l2 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L92af;

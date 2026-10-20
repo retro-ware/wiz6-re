@@ -34,27 +34,26 @@ L6373:
 	l4 = (unsigned char)g019b[monster_groups[l2]];
 	l8 = 72;
 	l10 = 248;
-	if (p4) goto L63a9;
+	if (!p4) {
 	build_monster_frames(l2, p6, l22);
-	goto L63bc;
-L63a9:
+	} else {
 	l22[0] = g3810[(314 * l4)];
 	l22[(0 + 1)] = 0;
-L63bc:
+	}
 	if (l22[0]) goto L63c4;
 	return;
 L63c4:
 	l6 = (p6 % 2);
-	if (random(10) != 9) goto L6433;
+	if (random(10) == 9) {
 	g4348[((p4 * 5) + p6)] = (char)random((unsigned char)g3814[(314 * l4)]);
 	g433e[((p4 * 5) + p6)] = (char)random((unsigned char)g3815[(314 * l4)]);
-L6433:
+	}
 	l24 = (unsigned char)l22[0];
 	l28 = (unsigned char)g36e4[(((314 * l4) + (l6 % 2)) + (l24 << 1))];
 	l26 = (unsigned char)g3759[((314 * l4) + (l24 << 2))];
-	if (l26) goto L649e;
+	if (!l26) {
 	l26 = ((unsigned char)g00b0[((p4 * 5) + p6)] - l2);
-L649e:
+	}
 	add_sprite(l26, l4, ((g37fa[(((314 * l4) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g4348[((p4 * 5) + p6)]) + l28), ((g37fb[(((314 * l4) + (p4 * 10)) + (p6 << 1))] + (unsigned char)g433e[((p4 * 5) + p6)]) + (unsigned char)g3717[((314 * l4) + l24)]), l8, l10, l6, l22);
 	return;
 }

@@ -49,9 +49,9 @@ open_treasure()
 L9641:
 	clear_window(party_picture_win, 0);
 L964f:
-	if (return_cmd != 21) goto L9659;
+	if (return_cmd == 21) {
 	mark_chest_opened();
-L9659:
+	}
 	refresh_all_windows();
 	*(int *)(gold + (0 + 6)) = 0;
 	*(int *)(gold + (0 + 4)) = 0;
@@ -70,9 +70,9 @@ case 4:
 	*(long *)(gold + 0) += ((long)*(int *)(chest + (l2 * 6)) * *(int *)(chest + ((l2 * 6) + 2)));
 	goto L9763;
 case 2:
-	if ((loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)))) <= 0) goto L974f;
+	if ((loot_item[loot_count] = (random(*(int *)(chest + ((l2 * 6) + 2))) + *(int *)(chest + (l2 * 6)))) > 0) {
 	loot_count++;
-L974f:
+	}
 	goto L9763;
 	}
 L9763:
@@ -82,9 +82,9 @@ L9763:
 	l2 = 0;
 	goto L9792;
 L977d:
-	if (pc_condition[(432 * l2)]) goto L978f;
+	if (!pc_condition[(432 * l2)]) {
 	alive++;
-L978f:
+	}
 	l2++;
 L9792:
 	if (l2 < party_count) goto L977d;
@@ -101,12 +101,11 @@ L97cd:
 	if (loot_item[l2] <= 0) goto L98f5;
 	access_scenario_record(1, &l118, loot_item[l2], 0);
 	replace_char_with_string(((l2 * 18) + 20974), &l118, 94);
-	if (g00cc[(unsigned char)l58] != 1) goto L9865;
+	if (g00cc[(unsigned char)l58] == 1) {
 	g51e2[l2] = (unsigned char)(roll_dice(l98, l96));
-	goto L9872;
-L9865:
+	} else {
 	g51e2[l2] = 1;
-L9872:
+	}
 	g5268[l2] = (g51e2[l2] * l88);
 	g525a[l2] = (unsigned char)l57;
 	g5274[l2] = (((unsigned char)l59 & 2) ? 1 : 0);
@@ -140,31 +139,31 @@ L9980:
 	l2++;
 L999a:
 	if (l2 < loot_count) goto L97cd;
-	if (*(long *)(gold + (0 + 4)) <= 0L) goto L9a00;
+	if (*(long *)(gold + (0 + 4)) > 0L) {
 	get_message(5002, 20590);
 	long_to_string(*(int *)(gold + (0 + 4)), *(int *)(gold + (0 + 6)), 20722);
 	replace_char_with_string(20590, 20722, 36);
 	show_centered_line(party_picture_win, g50c8, 20590, 0, 5);
-L9a00:
-	if (*(long *)(gold + 0) <= 0L) goto L9a5a;
+	}
+	if (*(long *)(gold + 0) > 0L) {
 	get_message(5003, 20590);
 	long_to_string(*(int *)(gold + 0), *(int *)(gold + (0 + 2)), 20722);
 	replace_char_with_string(20590, 20722, 36);
 	show_centered_line(party_picture_win, g50c8, 20590, 1, 4);
-L9a5a:
+	}
 	l2 = 0;
 	goto L9a8f;
 L9a61:
-	if (pc_condition[(432 * l2)]) goto L9a8c;
+	if (!pc_condition[(432 * l2)]) {
 	*(long *)((char *)pc_exp + (432 * l2)) += *(long *)(gold + 0);
 	*(long *)((char *)pc_gold + (432 * l2)) += *(long *)(gold + (0 + 4));
-L9a8c:
+	}
 	l2++;
 L9a8f:
 	if (l2 < party_count) goto L9a61;
-	if (loot_count <= 0) goto L9aa2;
+	if (loot_count > 0) {
 	distribute_loot();
-L9aa2:
+	}
 	g501e = 0;
 	animate_treasure_view();
 	wait_animating(2);

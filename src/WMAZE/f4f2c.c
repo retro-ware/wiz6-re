@@ -66,10 +66,10 @@ L5055:
 	set_click_region(rsi, ((unsigned char)l4[2] + l112), ((unsigned char)l4[3] + l114), (((strlen(((432 * rsi) + 17384)) + (unsigned char)l4[2]) + l112) - 1), ((unsigned char)l4[3] + l114));
 	}
 	set_click_region(party_count, 255, 0, 0, 0);
-	if (p6 != 1) goto L515e;
+	if (p6 == 1) {
 	set_click_region(party_count, ((unsigned char)main_window[2] + l108), ((unsigned char)main_window[3] + l110), (((strlen(&l26) + (unsigned char)main_window[2]) + l108) - 1), ((unsigned char)main_window[3] + l110));
 	set_click_region((party_count + 1), 255, 0, 0, 0);
-L515e:
+	}
 	l6 = (p6 == 1 ? -1 : 0);
 L516d:
 	if (mouse_present) goto L51dc;

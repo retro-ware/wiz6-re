@@ -13,12 +13,12 @@ draw_stats()
 	sheet_win[6]++;
 	print_int(sheet_win, (unsigned char)char_stats[rsi], 2, 1);
 	}
-	if (bonus_points < 0) goto L70f8;
+	if (bonus_points >= 0) {
 	set_cursor(sheet_win, 10, 11);
 	print_message(1107, sheet_win, -7);
 	sheet_win[6]++;
 	print_int(sheet_win, bonus_points, 2, 7);
-L70f8:
+	}
 	print_msg_at(212, sheet_win, 10, 5, 4);
 	sheet_win[6]++;
 	print_int(sheet_win, char_hp, 4, 6);

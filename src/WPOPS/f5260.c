@@ -33,10 +33,10 @@ L539f:
 L53a5:
 	set_click_region(n, 255, 0, 0, 0);
 L53b8:
-	if (mouse_present) goto L5409;
+	if (!mouse_present) {
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string(win, ((sel * 20) + labels), (0 - color));
-L5409:
+	}
 	item = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L542c;
 	sel = item;
@@ -45,25 +45,25 @@ L5409:
 L542c:
 	switch (item) {
 case 1:
-	if ((sel - rows) < 0) goto L5487;
+	if ((sel - rows) >= 0) {
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 20) + labels), 3);
 	sel -= rows;
-L5487:
+	}
 	goto L55b3;
 case 2:
-	if ((sel % rows) <= 0) goto L54d9;
+	if ((sel % rows) > 0) {
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 20) + labels), 3);
 	sel--;
-L54d9:
+	}
 	goto L55b3;
 case 3:
-	if ((sel + rows) >= n) goto L5534;
+	if ((sel + rows) < n) {
 	set_cursor(win, (((sel / rows) * col_width) + x0), ((sel % rows) + y0));
 	print_string_hi(win, ((sel * 20) + labels), 3);
 	sel += rows;
-L5534:
+	}
 	goto L55b3;
 case 4:
 	if (((sel % rows) >= (rows - 1)) || ((sel + 1) >= n)) goto L5594;

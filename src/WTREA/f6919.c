@@ -22,14 +22,14 @@ L69d9:
 	letters = (((((unsigned char)g452b[(432 * member)] / 10) + l6) - game_state_arg) + 1);
 	accuracy = (((((unsigned char)g452b[(432 * member)] / 2) + l6) + 15) - game_state_arg);
 L6a09:
-	if (letters >= 1) goto L6a14;
+	if (letters < 1) {
 	letters = 1;
-L6a14:
-	if (accuracy >= 5) goto L6a1f;
+	}
+	if (accuracy < 5) {
 	accuracy = 5;
-L6a1f:
-	if (accuracy <= 95) goto L6a2a;
+	}
+	if (accuracy > 95) {
 	accuracy = 95;
-L6a2a:
+	}
 	reveal_trap_letters(win, member, letters, accuracy);
 }

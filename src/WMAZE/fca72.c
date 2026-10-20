@@ -29,16 +29,16 @@ case 1:
 	set_bitfield((maze_data + 288), l14, 2, 1);
 	goto Lcbce;
 case 2:
-	if (move_to_maze_cell_m(&l10, &l12, &l8, l4, (l6 - 1))) goto Lcb5e;
+	if (!move_to_maze_cell_m(&l10, &l12, &l8, l4, (l6 - 1))) {
 	l14 = (((l8 << 6) + (l12 << 3)) + l10);
 	set_bitfield((maze_data + 96), l14, 2, 1);
-Lcb5e:
+	}
 	goto Lcbce;
 case 3:
-	if (move_to_maze_cell_m(&l10, &l12, &l8, (l4 - 1), l6)) goto Lcbaf;
+	if (!move_to_maze_cell_m(&l10, &l12, &l8, (l4 - 1), l6)) {
 	l14 = (((l8 << 6) + (l12 << 3)) + l10);
 	set_bitfield((maze_data + 288), l14, 2, 1);
-Lcbaf:
+	}
 	goto Lcbce;
 	}
 Lcbce:

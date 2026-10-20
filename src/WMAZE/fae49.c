@@ -30,17 +30,17 @@ Lae8b:
 	event_screen_dirty = 1;
 	if ((unsigned)(g4fa8 + cell_event_index)[1584] <= 0) goto Laed5;
 	if ((unsigned)(g4fa8 + cell_event_index)[1584] < 14) goto Laec2;
-	if ((unsigned char)(g4fa8 + cell_event_index)[1584] == cur_sound) goto Laeb8;
+	if ((unsigned char)(g4fa8 + cell_event_index)[1584] != cur_sound) {
 	load_sound_bank((unsigned char)(g4fa8 + cell_event_index)[1584]);
-Laeb8:
+	}
 	play_sound(14);
 	goto Laed5;
 Laec2:
 	play_sound((unsigned char)(g4fa8 + cell_event_index)[1584]);
 Laed5:
-	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto Laef1;
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) > 0) {
 	show_message_text_m(*(int *)(g4fa8 + (cell_event_index << 1)), 0);
-Laef1:
+	}
 	defer_window_draw(main_window);
 	defer_window_draw(bottom_line_win);
 	g522a = create_window(0, 19, 40, 5, 20, -1, 0, 0);

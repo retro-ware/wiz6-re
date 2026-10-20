@@ -40,7 +40,7 @@ L6914:
 	l72 = 1;
 L692d:
 	if (l72 != 1) goto L6a78;
-	if (l64 != -1) goto L69bd;
+	if (l64 == -1) {
 	put_char_at(l2, 1, 12, 99);
 	clear_window_area(l2, 11, 12, 18, 12);
 	set_cursor(l2, 11, 12);
@@ -48,8 +48,7 @@ L692d:
 	clear_window_area(l2, 6, 14, 8, 14);
 	l10 = -1;
 	draw_list_box(l4, 1);
-	goto L6a73;
-L69bd:
+	} else {
 	put_char_at(p4, (((l64 / 3) * 10) + 1), (((l64 % 3) << 1) + 14), 99);
 	clear_window_area(l2, 11, 12, 18, 12);
 	set_cursor(l2, 11, 12);
@@ -57,7 +56,7 @@ L69bd:
 	clear_window_area(l2, 6, 14, 8, 14);
 	l10 = list_realm_spells(l64, l50);
 	draw_spell_list(l4, l64, 0, 0, l10, l50);
-L6a73:
+	}
 	l72 = 0;
 L6a78:
 	l6 = get_menu_input(21534, 13720);
@@ -137,12 +136,11 @@ L6caf:
 	draw_spell_list(l4, l64, l58, 1, l10, l50);
 	l66 = (unsigned char)g00e0[(l50[l58] * 6)];
 	set_cursor(l2, 6, 14);
-	if (*(int *)((char *)char_spell_points + (l64 << 2)) >= l66) goto L6d25;
+	if (*(int *)((char *)char_spell_points + (l64 << 2)) < l66) {
 	print_string(l2, 20953, realm_colors[l64]);
-	goto L6d40;
-L6d25:
+	} else {
 	print_int(l2, l66, 3, realm_colors[l64]);
-L6d40:
+	}
 	l6 = get_menu_input(21534, 13720);
 	if (menu_clicked != 1) goto L6dbd;
 	switch (l6) {
@@ -175,14 +173,14 @@ case 1:
 	l60 = 1;
 	goto L6df1;
 case 2:
-	if (l58 <= 0) goto L6dd2;
+	if (l58 > 0) {
 	l58--;
-L6dd2:
+	}
 	goto L6df1;
 case 4:
-	if ((l58 + 1) >= l10) goto L6de0;
+	if ((l58 + 1) < l10) {
 	l58++;
-L6de0:
+	}
 	goto L6df1;
 	}
 L6df1:

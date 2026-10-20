@@ -51,10 +51,10 @@ L5c87:
 	goto L5b56;
 L5c8d:
 	set_click_region(l4, 255, 0, 0, 0);
-	if (p20 != 1) goto L5d01;
+	if (p20 == 1) {
 	set_click_region(l4, ((unsigned char)main_window[2] + l658), ((unsigned char)main_window[3] + l660), (((strlen(&l656) + (unsigned char)main_window[2]) + l658) - 1), ((unsigned char)main_window[3] + l660));
 	set_click_region((l4 + 1), 255, 0, 0, 0);
-L5d01:
+	}
 	l6 = (p20 == 1 ? -1 : 0);
 L5d10:
 	if (mouse_present) goto L5d94;

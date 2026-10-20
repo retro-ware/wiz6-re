@@ -18,17 +18,16 @@ L948f:
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
 	if (l2 != 8) goto L9529;
-	if (l4 <= 0) goto L951f;
+	if (l4 > 0) {
 	l4--;
 	*(p6 + l4) = 0;
 	l6--;
 	set_cursor(p4, l6, l8);
 	put_char(p4, 32, 1);
 	set_cursor(p4, l6, l8);
-	goto L9527;
-L951f:
+	} else {
 	play_sound(0);
-L9527:
+	}
 	goto L958d;
 L9529:
 	if (l4 < p8) goto L953b;

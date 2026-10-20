@@ -60,18 +60,18 @@ Ld518:
 	l10 = *(int *)((g4fa8 + (event << 1)) + 288);
 	l4 = (unsigned char)(g4fa8 + event)[1584];
 	l8 = extract_bits(l4, 0, 5);
-	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) <= 95) goto Ld61c;
+	if ((l6 = (*(int *)((char *)pc_level + (432 * member)) + (unsigned char)g452b[(432 * member)])) > 95) {
 	l6 = 95;
-Ld61c:
-	if ((tumblers = ((l8 / 3) + 1)) <= 6) goto Ld633;
+	}
+	if ((tumblers = ((l8 / 3) + 1)) > 6) {
 	tumblers = 6;
-Ld633:
+	}
 	l70 = 0;
 	l4 = *(int *)((g4fa8 + (event << 1)) + 576);
-	if (extract_bits(l4, (party_facing << 1), 2) != 2) goto Ld67e;
+	if (extract_bits(l4, (party_facing << 1), 2) == 2) {
 	lock_tumblers[((party_x + party_y) % tumblers)] = 100;
 	l70 = 1;
-Ld67e:
+	}
 	get_message(2111, l52);
 	set_cursor(main_window, 21, 0);
 	print_string_hi(main_window, l52, 3);
@@ -87,13 +87,12 @@ Ld6c1:
 	set_cursor(win, ((l2 * 3) + 1), 3);
 	print_int(win, rolls[l2], 2, 1);
 	set_cursor(win, ((l2 * 3) + 1), 1);
-	if (rolls[l2] <= lock_tumblers[l2]) goto Ld757;
+	if (rolls[l2] > lock_tumblers[l2]) {
 	l72 = 6;
-	goto Ld763;
-Ld757:
+	} else {
 	l72 = 12;
 	result = (l70 + 1);
-Ld763:
+	}
 	print_string(win, l52, l72);
 	}
 	resume_window_draw(win);
@@ -106,9 +105,9 @@ Ld7ac:
 	if ((result != 1) || (((pc_class[(432 * member)] != 3) && (pc_class[(432 * member)] != 6)) && (pc_class[(432 * member)] != 13))) goto Ld7f1;
 	try_skill_gain(member, 15, 1);
 Ld7f1:
-	if (random(3)) goto Ld804;
+	if (!random(3)) {
 	fce13(event);
-Ld804:
+	}
 	goto Ld836;
 Ld806:
 	fce81(event);

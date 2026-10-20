@@ -31,9 +31,9 @@ fb53d()
 	db 080h,020h,001h,099h,0f7h,0f9h,089h,056h,0dch
 #endasm
 	l28 = (((party_facing - l34) + 4) % 4);
-	if (l28 != 3) goto Lb599;
+	if (l28 == 3) {
 	l28 = -1;
-Lb599:
+	}
 	rsi = cell_event_index;
 #asm
 	db 08ah,080h,030h,006h,02ah,0e4h,089h,046h,0e6h
@@ -63,49 +63,48 @@ Lb6a3:
 	switch (l34) {
 case 0:
 	set_bitfield((maze_data + 96), l4, 2, l18);
-	if (l22 != 1) goto Lb6f3;
+	if (l22 == 1) {
 	set_door_feature(l8, l10, 0, l24, 0);
 	set_door_feature(l8, (l10 + 1), 2, l24, 0);
-Lb6f3:
+	}
 	goto Lb870;
 case 1:
 	set_bitfield((maze_data + 288), l4, 2, l18);
-	if (l22 != 1) goto Lb743;
+	if (l22 == 1) {
 	set_door_feature(l8, l10, 1, l24, 0);
 	set_door_feature((l8 + 1), l10, 3, l24, 0);
-Lb743:
+	}
 	goto Lb870;
 case 2:
-	if (l22 != 1) goto Lb779;
+	if (l22 == 1) {
 	set_door_feature(l8, l10, 2, l24, 0);
 	set_door_feature(l8, (l10 - 1), 0, l24, 0);
-Lb779:
-	if (move_to_maze_cell_m(&l14, &l16, &l12, l8, (l10 - 1))) goto Lb7c7;
+	}
+	if (!move_to_maze_cell_m(&l14, &l16, &l12, l8, (l10 - 1))) {
 	l4 = (((l12 << 6) + (l16 << 3)) + l14);
 	set_bitfield((maze_data + 96), l4, 2, l18);
-Lb7c7:
+	}
 	goto Lb870;
 case 3:
-	if (l22 != 1) goto Lb800;
+	if (l22 == 1) {
 	set_door_feature(l8, l10, 3, l24, 0);
 	set_door_feature((l8 - 1), l10, 1, l24, 0);
-Lb800:
-	if (move_to_maze_cell_m(&l14, &l16, &l12, (l8 - 1), l10)) goto Lb84e;
+	}
+	if (!move_to_maze_cell_m(&l14, &l16, &l12, (l8 - 1), l10)) {
 	l4 = (((l12 << 6) + (l16 << 3)) + l14);
 	set_bitfield((maze_data + 288), l4, 2, l18);
-Lb84e:
+	}
 	goto Lb870;
 	}
 Lb870:
 	if (!l20) goto Lb960;
 	if (l22 != 1) goto Lb94e;
 	if ((l28) || (l24)) goto Lb8bb;
-	if (party_facing != l36) goto Lb8ab;
+	if (party_facing == l36) {
 	animate_door(1, l32, l30, l26);
-	goto Lb8b8;
-Lb8ab:
+	} else {
 	shake_view(7, l26);
-Lb8b8:
+	}
 	goto Lb94c;
 Lb8bb:
 	if (((l28 != 1) || (l24)) && ((l28 != -1) || (l24 != 1))) goto Lb8fa;
@@ -133,17 +132,15 @@ Lb94e:
 Lb95e:
 	goto Lb986;
 Lb960:
-	if (l22 != 1) goto Lb976;
+	if (l22 == 1) {
 	shake_view(7, 3);
-	goto Lb97e;
-Lb976:
+	} else {
 	play_sound(4);
-Lb97e:
+	}
 	wait_animating_m(2);
 Lb986:
 	rsi = cell_event_index;
-	if ((unsigned)(g4fa8 + rsi)[1440] <= 0) goto Lb99d;
+	if ((unsigned)(g4fa8 + rsi)[1440] > 0) {
 	set_event_flags(2);
-Lb99d:
-	;
+	}
 }

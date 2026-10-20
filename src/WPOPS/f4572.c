@@ -1,8 +1,8 @@
 extern int game_state;
 ovmain()
 {
-	if (game_state != 12) goto L457c;
+	if (game_state == 12) {
 	start_combat_round();
-L457c:
+	}
 	return 0;
 }

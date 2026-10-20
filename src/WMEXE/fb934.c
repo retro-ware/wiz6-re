@@ -16,17 +16,17 @@ char *p4;
 	l12 = 25;
 	l6 = 1;
 	for (l10 = 0; l10 < 6; l10++) {
-	if (*(int *)(p4 + 2) <= l12) goto Lb970;
+	if (*(int *)(p4 + 2) > l12) {
 	l6++;
-Lb970:
+	}
 	l12 = (l12 << 1);
 	}
-	if ((l6 = ((int)(((long)l6 * *(int *)(p4 + 6)) / (long)*(int *)(p4 + 8)) + 1)) >= 1) goto Lb9b0;
+	if ((l6 = ((int)(((long)l6 * *(int *)(p4 + 6)) / (long)*(int *)(p4 + 8)) + 1)) < 1) {
 	l6 = 1;
-Lb9b0:
-	if (l6 <= 6) goto Lb9bb;
+	}
+	if (l6 > 6) {
 	l6 = 6;
-Lb9bb:
+	}
 	l8 = (l6 << 2);
 	l14 = 0;
 	switch (*(int *)(p4 + 10)) {
@@ -55,17 +55,17 @@ case 8:
 	l14 = (random(6) + (*(int *)(p4 + 8) / 4));
 	goto Lbff6;
 case 10:
-	if (fb85f(3345, -1, 6, ((unsigned)p4[14] > 0 ? 1 : 0))) goto Lbbe3;
+	if (!fb85f(3345, -1, 6, ((unsigned)p4[14] > 0 ? 1 : 0))) {
 	f8efc(l2, 0, 16, 0);
 	f8149(l2, (0 - (l6 + 1)), 2, 4, l6, 10, l8);
-Lbbe3:
+	}
 	l14 = (random(4) + (*(int *)(p4 + 8) / 10));
 	goto Lbff6;
 case 12:
-	if (fb85f(3346, -1, 5, ((unsigned)p4[14] > 0 ? 1 : 0))) goto Lbc96;
+	if (!fb85f(3346, -1, 5, ((unsigned)p4[14] > 0 ? 1 : 0))) {
 	f8efc(l2, 0, 16, 0);
 	f83f3(l2, (0 - (l6 + 1)), 3479, 10, l6, l8, 1, 4, 7, 0, (l6 * 10), 2, (l6 * 10), 0, 0);
-Lbc96:
+	}
 	l14 = (random(4) + (*(int *)(p4 + 8) / 10));
 	goto Lbff6;
 case 4:
@@ -99,16 +99,16 @@ case 9:
 	l14 = (random(3) + (*(int *)(p4 + 8) / 10));
 	goto Lbff6;
 case 11:
-	if (fb85f(3347, -1, 3, ((unsigned)p4[14] > 0 ? 1 : 0))) goto Lbfb0;
+	if (!fb85f(3347, -1, 3, ((unsigned)p4[14] > 0 ? 1 : 0))) {
 	f8efc(l2, 0, 16, 0);
 	f825f(l2, -10, 3473, 10, 1, l8, 0, l6, 1, l6, 0, 0);
-Lbfb0:
+	}
 	l14 = (random(3) + (*(int *)(p4 + 8) / 8));
 	goto Lbff6;
 	}
 Lbff6:
-	if (g5116) goto Lc00b;
+	if (!g5116) {
 	combat_delay((g4fc8 / 2));
-Lc00b:
+	}
 	return l14;
 }

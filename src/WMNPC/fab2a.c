@@ -54,9 +54,9 @@ Lab35:
 	if ((*(long *)(l31 + 0) < 0L) || (*(long *)((char *)pc_gold + (432 * member)) < *(long *)(l31 + 0))) goto Lacd9;
 	*(long *)((char *)pc_gold + (432 * member)) -= *(long *)(l31 + 0);
 	g51c0 += *(long *)(l31 + 0);
-	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((*(long *)(l31 + 0) / 10L) / (long)(unsigned char)g51cf))) <= 100) goto Lacc0;
+	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((*(long *)(l31 + 0) / 10L) / (long)(unsigned char)g51cf))) > 100) {
 	l2 = 100;
-Lacc0:
+	}
 	g4550[((432 * member) + g5274)] = *(char *)&l2;
 	goto Laceb;
 Lacd9:
@@ -81,9 +81,9 @@ Lad83:
 	fa645(1529);
 	return;
 Ladd5:
-	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((l89 / 20L) / (long)(unsigned char)g51cf))) <= 100) goto Lae20;
+	if ((l2 = (int)((long)g4550[((432 * member) + g5274)] + ((l89 / 20L) / (long)(unsigned char)g51cf))) > 100) {
 	l2 = 100;
-Lae20:
+	}
 	g4550[((432 * member) + g5274)] = *(char *)&l2;
 	f6835(member, l6);
 	f5078(member, g527a);

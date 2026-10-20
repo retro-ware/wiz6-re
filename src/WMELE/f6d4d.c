@@ -35,8 +35,7 @@ default:
 	}
 L6deb:
 	view_anim_state++;
-	if (view_anim_state != 12) goto L6dfd;
+	if (view_anim_state == 12) {
 	view_anim_state = -3;
-L6dfd:
-	;
+	}
 }

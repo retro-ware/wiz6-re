@@ -13,12 +13,11 @@ choose_class()
 	compute_eligible_classes();
 	l4 = 0;
 L7853:
-	if (class_eligible[l4] != 1) goto L786a;
+	if (class_eligible[l4] == 1) {
 	l44[l4] = 1;
-	goto L7873;
-L786a:
+	} else {
 	l44[l4] = 0;
-L7873:
+	}
 	l4++;
 	if (l4 <= 13) goto L7853;
 	l16 = -1;

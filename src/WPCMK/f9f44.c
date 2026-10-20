@@ -24,16 +24,16 @@ L9fc4:
 	enabled[l2] = 1;
 	}
 	l26 = -1;
-	if (find_free_roster_slot() != -1) goto La002;
+	if (find_free_roster_slot() == -1) {
 	enabled[0] = 0;
-La002:
+	}
 	l4 = 0;
 	l2 = 0;
 	goto La020;
 La00e:
-	if (roster_slot_used[l2] != 1) goto La01d;
+	if (roster_slot_used[l2] == 1) {
 	l4 = 1;
-La01d:
+	}
 	l2++;
 La020:
 	if (l2 < roster_slot_count) goto La00e;
@@ -47,21 +47,21 @@ La020:
 #endasm
 	do_create_character();
 	goto La131;
-	if ((sel = select_roster_character(prompt_win, menu_win, 1129)) == -1) goto La09f;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1129)) != -1) {
 	view_character(g57b0[sel]);
-La09f:
+	}
 	goto La131;
-	if ((sel = select_roster_character(prompt_win, menu_win, 1121)) == -1) goto La0c8;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1121)) != -1) {
 	delete_character(g57b0[sel]);
-La0c8:
+	}
 	goto La131;
-	if ((sel = select_roster_character(prompt_win, menu_win, 1122)) == -1) goto La0f0;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1122)) != -1) {
 	rename_character(g57b0[sel]);
-La0f0:
+	}
 	goto La131;
-	if ((sel = select_roster_character(prompt_win, menu_win, 1123)) == -1) goto La118;
+	if ((sel = select_roster_character(prompt_win, menu_win, 1123)) != -1) {
 	change_portrait(g57b0[sel]);
-La118:
+	}
 	goto La131;
 #asm
 	db 073h,0a0h,079h,0a0h,0a2h,0a0h,0cah,0a0h,0f2h,0a0h

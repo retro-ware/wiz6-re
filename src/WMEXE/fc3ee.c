@@ -21,14 +21,13 @@ Lc428:
 	l4 = -1;
 Lc42d:
 	get_combatant_name(20492, g435e, g435c);
-	if (p4 <= p6) goto Lc45c;
+	if (p4 > p6) {
 	get_message(3513, 20652);
 	l2 = -2;
-	goto Lc46f;
-Lc45c:
+	} else {
 	get_message(3514, 20652);
 	l2 = 2;
-Lc46f:
+	}
 	g505c = 0;
 	print_combat_line(20492, 20652, 20572, 1, 14, 0);
 	combat_delay(3);
@@ -39,9 +38,9 @@ Lc49a:
 	p4 += l2;
 	goto Lc49a;
 Lc4c0:
-	if (!l4) goto Lc4d6;
+	if (l4) {
 	swap_members((p6 + l4), p6);
-Lc4d6:
+	}
 	combat_delay((g4fc8 / 2));
 	return;
 }

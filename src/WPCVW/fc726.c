@@ -53,9 +53,9 @@ lc7b3:
 	rdi++;
 	goto Lc837;
 Lc817:
-	if ((unsigned char)pc_equipped[((432 * p4) + rdi)] != (l12 - 1)) goto Lc836;
+	if ((unsigned char)pc_equipped[((432 * p4) + rdi)] == (l12 - 1)) {
 	pc_equipped[((432 * p4) + rdi)] = *(char *)&l12;
-Lc836:
+	}
 	rdi++;
 Lc837:
 	if (rdi < 8) goto Lc817;

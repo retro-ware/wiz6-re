@@ -39,12 +39,11 @@ choose_combat_item(win, member)
 L7281:
 	access_scenario_record(1, &item, *(int *)((char *)pc_item_id + ((432 * member) + (pos << 3))), 0);
 	strcpy(((pos << 4) + ((char *)l264 + 20)), &item);
-	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (pos << 3))]] != 1) goto L7304;
+	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (pos << 3))]] == 1) {
 	*(int *)(l264 + (pos << 1)) = (unsigned char)pc_item_qty[((432 * member) + (pos << 3))];
-	goto L7313;
-L7304:
+	} else {
 	*(int *)(l264 + (pos << 1)) = 0;
-L7313:
+	}
 	pos++;
 L7316:
 	if ((unsigned char)pc_item_count[(432 * member)] > pos) goto L7281;
@@ -57,16 +56,15 @@ L7316:
 	set_click_region(3, ((unsigned char)l2[2] + 7), ((unsigned char)l2[3] + 3), ((strlen(&l274) + (unsigned char)l2[2]) + 6), ((unsigned char)l2[3] + 3));
 	set_click_region(4, 255, 0, 0, 0);
 L741b:
-	if (on_cancel != 1) goto L7463;
+	if (on_cancel == 1) {
 	set_cursor(l2, 7, 3);
 	print_string(l2, &l274, -3);
 	draw_item_list(l4, member, pos, 0, ((char *)l264 + 20), l264);
-	goto L74a3;
-L7463:
+	} else {
 	set_cursor(l2, 7, 3);
 	print_string_hi(l2, &l274, 3);
 	draw_item_list(l4, member, pos, 1, ((char *)l264 + 20), l264);
-L74a3:
+	}
 	l6 = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L74f2;
 	switch (l6) {
@@ -87,9 +85,9 @@ case 3:
 L74f2:
 	switch (l6) {
 case 1:
-	if (on_cancel == 1) goto L7502;
+	if (on_cancel != 1) {
 	on_cancel = 1;
-L7502:
+	}
 	goto L7565;
 case 2:
 	if (on_cancel != 1) goto L7511;
@@ -101,9 +99,9 @@ L7511:
 L751a:
 	goto L7565;
 case 3:
-	if (on_cancel != 1) goto L7527;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-L7527:
+	}
 	goto L7565;
 case 4:
 	if (on_cancel != 1) goto L7536;

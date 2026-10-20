@@ -45,18 +45,18 @@ maze_main_loop()
 	if ((cell_event_index < 0) || ((unsigned char)(g4fa8 + party_level)[1728] <= cell_event_index)) goto L7045;
 	cell_event_index = (unsigned char)(g4fa8 + party_level)[1728];
 L7045:
-	if (return_cmd == 23) goto L7062;
+	if (return_cmd != 23) {
 	flood_mark_cells(party_level, party_cell_x, party_cell_y, 0);
-L7062:
+	}
 	init_maze_screen();
 	refresh_all_windows();
 	return_cmd = 5;
 	game_state = 5;
 	g503e = 1;
 L707a:
-	if (g5032 != 1) goto L7084;
+	if (g5032 == 1) {
 	redraw_maze_view();
-L7084:
+	}
 	if ((l10 = test_bit(19976, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x))) != 1) goto L70d9;
 	*(int *)g4f84 = f467b(f46e8(party_level));
 	g4338 = l10;
@@ -115,9 +115,9 @@ L71d7:
 	l4 = 0;
 	goto L720e;
 L71e8:
-	if (pc_condition[(432 * l4)]) goto L71fa;
+	if (!pc_condition[(432 * l4)]) {
 	l12++;
-L71fa:
+	}
 	if (((unsigned)g450c[(432 * l4)] <= 0) && ((unsigned)g450d[(432 * l4)] <= 0)) goto L720b;
 	l14++;
 L720b:
@@ -144,10 +144,10 @@ L725f:
 	game_state = 10;
 	return;
 L72a0:
-	if (g503c != 1) goto L72b0;
+	if (g503c == 1) {
 	refresh_all_windows();
 	g503c = 0;
-L72b0:
+	}
 	if (((game_state_arg != 5) && ((game_state_arg != 12) || (party_level <= 8))) || (test_bit((maze_data + 1082), (((party_level << 6) + (party_cell_y << 3)) + party_cell_x)) != 1)) goto L7311;
 	erase_window(main_window, 1);
 	delay_long();

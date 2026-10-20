@@ -20,9 +20,9 @@ heal_member(p4, p6, p8, p10, p12)
 	int l6;
 	if ((unsigned)pc_condition[(432 * p4)] >= 3) goto L63f0;
 	*(int *)((char *)pc_hp + (432 * p4)) += (((random(p6) + ((unsigned char)g458a[(432 * p4)] * p10)) - ((unsigned char)g458b[(432 * p4)] * p10)) - ((unsigned char)g458c[(432 * p4)] * p10));
-	if (*(int *)((char *)pc_hp + (432 * p4)) <= *(int *)((char *)pc_hp_max + (432 * p4))) goto L6262;
+	if (*(int *)((char *)pc_hp + (432 * p4)) > *(int *)((char *)pc_hp_max + (432 * p4))) {
 	*(int *)((char *)pc_hp + (432 * p4)) = *(int *)((char *)pc_hp_max + (432 * p4));
-L6262:
+	}
 	if (*(int *)((char *)pc_hp + (432 * p4)) > 0) goto L628b;
 	*(int *)((char *)pc_hp + (432 * p4)) = 0;
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
@@ -30,10 +30,10 @@ L6262:
 	play_sound(((unsigned char)pc_sex[(432 * p4)] + 8));
 	goto L63e9;
 L628b:
-	if (*(int *)((char *)pc_stamina + (432 * p4)) > 0) goto L62b9;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) <= 0) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
 	g450c[(432 * p4)] = (char)(random(6) + 6);
-L62b9:
+	}
 	if (p8 <= 0) goto L631f;
 	l6 = (int)(((long)*(int *)((char *)pc_stamina_max + (432 * p4)) * p8) / 100L);
 	*(int *)((char *)pc_stamina + (432 * p4)) = (((random((l6 / 2)) + *(int *)((char *)pc_stamina + (432 * p4))) + (l6 / 2)) + 1);
@@ -46,9 +46,9 @@ L631f:
 L6324:
 	if (((l6 = (unsigned char)g450a[((432 * p4) + l4)]) <= 0) || (l6 == 255)) goto L635a;
 	l6 -= p10;
-	if (l6 >= 0) goto L6353;
+	if (l6 < 0) {
 	l6 = 0;
-L6353:
+	}
 	g450a[((432 * p4) + l4)] = *(char *)&l6;
 L635a:
 	l4++;
@@ -60,13 +60,13 @@ L6385:
 	if (p12 <= 0) goto L63e9;
 	l4 = 0;
 L6390:
-	if ((unsigned)g4504[((432 * p4) + l4)] >= 1) goto L63a7;
+	if ((unsigned)g4504[((432 * p4) + l4)] < 1) {
 	g4504[((432 * p4) + l4)] = 1;
-L63a7:
+	}
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l4 << 2))) += random(((unsigned char)g4504[((432 * p4) + l4)] + 1));
-	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l4 << 2))) <= *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l4 << 2)))) goto L63de;
+	if (*(int *)((char *)pc_spell_pts + ((432 * p4) + (l4 << 2))) > *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l4 << 2)))) {
 	*(int *)((char *)pc_spell_pts + ((432 * p4) + (l4 << 2))) = *(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l4 << 2)));
-L63de:
+	}
 	l4++;
 	if (l4 < 6) goto L6390;
 L63e9:

@@ -10,17 +10,16 @@ char *p10;
 	set_cursor(party_picture_win, (20 - (((((strlen(((432 * p4) + 17384)) + strlen(p6)) + strlen(p8)) + strlen(p10)) + l2) / 2)), 1);
 	print_string(party_picture_win, ((432 * p4) + 17384), p12);
 	party_picture_win[6]++;
-	if (!*p6) goto L5bd1;
+	if (*p6) {
 	print_string(party_picture_win, p6, p14);
 	party_picture_win[6]++;
-L5bd1:
-	if (!*p8) goto L5bee;
+	}
+	if (*p8) {
 	print_string(party_picture_win, p8, p16);
 	party_picture_win[6]++;
-L5bee:
-	if (!*p10) goto L5c0b;
+	}
+	if (*p10) {
 	print_string(party_picture_win, p10, p18);
 	party_picture_win[6]++;
-L5c0b:
-	;
+	}
 }

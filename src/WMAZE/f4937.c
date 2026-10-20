@@ -35,9 +35,9 @@ L49cf:
 	rdi = (unsigned char)(g4fa8 + rsi)[1728];
 L49db:
 	if ((rdi >= 144) || ((unsigned char)(g4fa8 + rdi)[1296] != rsi)) goto L4a2f;
-	if ((unsigned)(g4fa8 + rdi)[864] <= 0) goto L4a2c;
+	if ((unsigned)(g4fa8 + rdi)[864] > 0) {
 	set_bit(20072, (((rsi << 6) + ((unsigned char)(g4fa8 + rdi)[1152] << 3)) + (unsigned char)(g4fa8 + rdi)[1008]), 1);
-L4a2c:
+	}
 	rdi++;
 	goto L49db;
 L4a2f:
@@ -49,15 +49,15 @@ L4a2f:
 L4a4d:
 	l2 = get_bitfield((maze_data + 1274), ((rsi * 5) + rdi), 3);
 	l4 = get_bitfield((maze_data + 1298), ((rsi * 5) + rdi), 3);
-	if ((l4 + l2) <= 0) goto L4aa5;
+	if ((l4 + l2) > 0) {
 	flood_mark_cells(rsi, l2, l4, 1);
-L4aa5:
+	}
 	rsi++;
 	if (rsi < 12) goto L4a4d;
 	}
-	if (game_state_arg == 8) goto L4abe;
+	if (game_state_arg != 8) {
 	g4eca = 0;
-L4abe:
+	}
 	game_state = 5;
 	return;
 }

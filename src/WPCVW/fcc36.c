@@ -12,13 +12,11 @@ fcc36(p4)
 	l2 = 0;
 Lcc42:
 	g453a[((432 * p4) + l2)] = 0;
-	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lcc7e;
+	if (*(int *)((char *)pc_level + (432 * p4)) < (unsigned char)g4597[(432 * p4)]) {
 	l4 = ((unsigned)g4597[(432 * p4)] <= 16 ? ((unsigned char)g4597[(432 * p4)] - 1) : 16);
-	goto Lcc90;
-Lcc7e:
+	} else {
 	l4 = (*(int *)((char *)pc_level + (432 * p4)) <= 16 ? (*(int *)((char *)pc_level + (432 * p4)) - 1) : 16);
-Lcc90:
-	;
+	}
 #asm
 lcc90:
 	db 08bh,05eh,008h,08bh,076h,0feh,08ah,000h,098h,005h,0d0h,0ffh,0f7h,06eh,0fch,050h

@@ -17,19 +17,19 @@ L8ee4:
 	get_message(p6, 21902);
 	if (msg_not_found) goto L8f9d;
 	l10 = 21902;
-	if (*l10 != 33) goto L8f0e;
+	if (*l10 == 33) {
 	l10++;
 	l2++;
-L8f0e:
-	if (*l10 != 64) goto L8f1e;
+	}
+	if (*l10 == 64) {
 	l10++;
 	l2 = 13;
-L8f1e:
-	if (l2 != 13) goto L8f37;
+	}
+	if (l2 == 13) {
 	wait_key_or_click(p4);
 	draw_text_frame(l8);
 	l2 = 1;
-L8f37:
+	}
 	l2++;
 	l4 = (20 - ((strlen(l10) + 1) / 2));
 	if (*l10 != 36) goto L8f64;

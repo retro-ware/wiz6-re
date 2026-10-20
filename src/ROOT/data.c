@@ -79,13 +79,7 @@ g00e3_ label byte
 	db 003h,002h,008h,002h,001h,002h,003h,002h,001h,002h,002h,005h,001h,000h,008h,002h
 	db 003h,004h,003h,002h,009h,002h,003h,008h,001h,003h,009h,002h,003h,004h,003h,002h
 	db 006h,002h,004h,007h,003h,002h,001h,002h,004h,008h,001h,001h,005h,002h,004h,008h
-	db 003h,002h,004h,002h,005h,00ah,001h,000h,005h
-	public g018c_
-g018c_ label byte
-	db 002h,005h
-	public g018e_
-g018e_ label byte
-	db 008h
+	db 003h,002h,004h,002h,005h,00ah,001h,000h,005h,002h,005h,008h
 	public g018f_
 g018f_ label byte
 	db 003h
@@ -94,19 +88,7 @@ g0190_ label byte
 	db 002h
 	public g0191_
 g0191_ label byte
-	db 001h
-	public g0192_
-g0192_ label byte
-	db 002h
-	public g0193_
-g0193_ label byte
-	db 005h
-	public g0194_
-g0194_ label byte
-	db 00ch
-	public g0195_
-g0195_ label byte
-	db 001h,000h,008h,002h,006h
+	db 001h,002h,005h,00ch,001h,000h,008h,002h,006h
 	public g019a_
 g019a_ label byte
 	db 008h

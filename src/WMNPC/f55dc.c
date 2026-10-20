@@ -34,8 +34,7 @@ default:
 	}
 L567a:
 	view_anim_state++;
-	if (view_anim_state != 12) goto L568c;
+	if (view_anim_state == 12) {
 	view_anim_state = -3;
-L568c:
-	;
+	}
 }

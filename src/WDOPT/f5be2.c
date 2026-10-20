@@ -102,9 +102,9 @@ L5e5c:
 	}
 	draw_map_party(center, center, g51b4);
 	drv_op_c2(picture_win);
-	if (!check_screen_click()) goto L5fba;
+	if (check_screen_click()) {
 	waiting = 0;
-L5fba:
+	}
 	if ((!key_available(1)) || ((char)get_key(1) != 13)) goto L5fd7;
 	waiting = 0;
 L5fd7:

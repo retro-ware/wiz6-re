@@ -39,9 +39,9 @@ case 5:
 case 6:
 	p4++;
 	if (*(unsigned char *)p4 < 14) goto L9da3;
-	if ((unsigned char)*p4 == cur_sound) goto L9d99;
+	if ((unsigned char)*p4 != cur_sound) {
 	load_sound_bank((unsigned char)*p4);
-L9d99:
+	}
 	play_sound(14);
 	goto L9daf;
 L9da3:
@@ -53,9 +53,9 @@ L9daf:
 L9dcf:
 	goto L9d12;
 L9dd2:
-	if (g522c <= 4) goto L9de1;
+	if (g522c > 4) {
 	end_text_page_m(0);
-L9de1:
+	}
 	l2 = (20 - ((strlen(p4) + 1) / 2));
 	switch ((unsigned char)*p4) {
 case 36:

@@ -94,17 +94,17 @@ case 10:
 	goto Ld04f;
 	}
 Ld04f:
-	if ((unsigned)g4517[(432 * p4)] <= 15) goto Ld080;
+	if ((unsigned)g4517[(432 * p4)] > 15) {
 	add_skill_bonus(p4, 6, 5);
 	add_skill_bonus(p4, 11, 5);
-Ld080:
-	if ((unsigned)g4515[(432 * p4)] <= 15) goto Ld0a0;
+	}
+	if ((unsigned)g4515[(432 * p4)] > 15) {
 	add_skill_bonus(p4, 9, 5);
-Ld0a0:
-	if ((unsigned)g4519[(432 * p4)] <= 15) goto Ld0d1;
+	}
+	if ((unsigned)g4519[(432 * p4)] > 15) {
 	add_skill_bonus(p4, 7, 5);
 	add_skill_bonus(p4, 4, 5);
-Ld0d1:
+	}
 	switch ((unsigned char)pc_class[(432 * p4)]) {
 case 0:
 case 4:
@@ -148,10 +148,10 @@ Ld161:
 	g44e2[(432 * p4)] = (char)(l4 + 5);
 	goto Ld263;
 Ld23d:
-	if (l2 <= 0) goto Ld256;
+	if (l2 > 0) {
 	g44db[(432 * p4)] = (char)((l2 / 4) + 1);
 	g44e7[(432 * p4)] |= 64;
-Ld256:
+	}
 	if (l4 <= 0) goto Ld263;
 	g44e2[(432 * p4)] = *(char *)&l4;
 Ld263:

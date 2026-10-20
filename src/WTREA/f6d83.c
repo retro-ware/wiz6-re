@@ -16,12 +16,12 @@ try_spell_disarm(p4, p6, p8, p10)
 	defer_window_draw(bottom_line_win);
 	clear_window(party_picture_win, 0);
 	refresh_all_windows();
-	if ((l4 = (((p10 * 10) + 50) - (game_state_arg * 5))) <= 95) goto L6de6;
+	if ((l4 = (((p10 * 10) + 50) - (game_state_arg * 5))) > 95) {
 	l4 = 95;
-L6de6:
-	if (l4 >= 5) goto L6df1;
+	}
+	if (l4 < 5) {
 	l4 = 5;
-L6df1:
+	}
 	l2 = random(100);
 	if (l2 >= l4) goto L6e3d;
 	chest_trap = 0;

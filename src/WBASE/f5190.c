@@ -11,9 +11,9 @@ L519b:
 	i = 0;
 	goto L51bf;
 L51a7:
-	if (member_portrait[i] != slot) goto L51bc;
+	if (member_portrait[i] == slot) {
 	used = 1;
-L51bc:
+	}
 	i++;
 L51bf:
 	if (i < count) goto L51a7;

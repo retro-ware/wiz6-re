@@ -71,9 +71,9 @@ case 11:
 case 13:
 case 14:
 case 15:
-	if (!((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4)) goto Lc9ac;
+	if (((unsigned char)pc_item_flags[((432 * p4) + (l2 << 3))] & 4)) {
 	l6 = 1;
-Lc9ac:
+	}
 	goto Lc9dd;
 	}
 Lc9dd:
@@ -100,9 +100,9 @@ Lcae9:
 Lcb08:
 	l4 = 0;
 Lcb0d:
-	if ((unsigned char)pc_equipped[((432 * p4) + l4)] != l2) goto Lcb28;
+	if ((unsigned char)pc_equipped[((432 * p4) + l4)] == l2) {
 	l6 = -1;
-Lcb28:
+	}
 	l4++;
 	if (l4 < 8) goto Lcb0d;
 	if (l6 != p6) goto Lcbd3;

@@ -104,7 +104,7 @@ Lc829:
 	g505c = 0;
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, 0);
 	if (l8 <= 0) goto Lc9a0;
-	if (((char *)monster_groups[g435e] + (44 * g435c))[42] == -1) goto Lc91b;
+	if (((char *)monster_groups[g435e] + (44 * g435c))[42] != -1) {
 	l14 = (((char *)monster_groups[g435e] + (44 * g435c))[42] / 10);
 	l16 = (((char *)monster_groups[g435e] + (44 * g435c))[42] % 10);
 	anim_cycle = 0;
@@ -113,12 +113,12 @@ Lc829:
 	*(int *)((char *)view_pos_group + ((l14 * 10) + (l16 << 1))) = 0;
 	g4348[((l14 * 5) + l16)] = 0;
 	g433e[((l14 * 5) + l16)] = 0;
-Lc91b:
+	}
 	((char *)monster_groups[g435e] + (44 * g435c))[42] = -1;
-	if (l8 != 1) goto Lc96a;
+	if (l8 == 1) {
 	((char *)monster_groups[g435e] + (44 * g435c))[34] = 3;
 	*(int *)(((char *)monster_groups[g435e] + (44 * g435c)) + 2) = 0;
-Lc96a:
+	}
 	for (l14 = 0; l14 < 4; l14++) {
 	((char *)monster_groups[g435e] + ((44 * g435c) + l14))[24] = 0;
 	}
@@ -137,9 +137,9 @@ Lc9bd:
 	if (g435e) goto Lca10;
 	l4 = 7;
 Lc9e7:
-	if (test_bit(((432 * g435c) + 17639), l4) != 1) goto Lca09;
+	if (test_bit(((432 * g435c) + 17639), l4) == 1) {
 	*(int *)(l2 + 10) = l4;
-Lca09:
+	}
 	if (--l4 >= 0) goto Lc9e7;
 	goto Lca40;
 Lca10:
@@ -157,9 +157,9 @@ lca15:
 Lca3b:
 	if (--l4 >= 0) goto Lca15;
 Lca40:
-	if (*(int *)(l2 + 10) != 255) goto Lca4f;
+	if (*(int *)(l2 + 10) == 255) {
 	*(int *)(l2 + 10) = 8;
-Lca4f:
+	}
 	l2[28] = 0;
 	l2[31] = *(char *)&g435e;
 	l2[32] = (char)random((unsigned char)g019d[monster_groups[g435e]]);
@@ -312,8 +312,8 @@ ld057:
 	db 03dh,009h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,045h,0d0h
 #endasm
 Ld064:
-	if (g435e) goto Ld079;
+	if (!g435e) {
 	draw_member_card_x(g435c, 0);
-Ld079:
+	}
 	return;
 }

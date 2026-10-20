@@ -57,7 +57,7 @@ L7923:
 L793c:
 	if (l72 != 1) goto L7ab1;
 	g553c = 1;
-	if (realm != -1) goto L79cc;
+	if (realm == -1) {
 	g5754 = l2;
 	g5756 = 1;
 	g5758 = 12;
@@ -67,8 +67,7 @@ L793c:
 	clear_window_area(l2, 6, 14, 8, 14);
 	l10 = -1;
 	draw_spell_list_frame(l4, 1);
-	goto L7a88;
-L79cc:
+	} else {
 	g5754 = p4;
 	g5756 = (((realm / 3) * 10) + 1);
 	g5758 = (((realm % 3) << 1) + 14);
@@ -78,7 +77,7 @@ L79cc:
 	clear_window_area(l2, 6, 14, 8, 14);
 	l10 = count_known_spells(member, realm, l50);
 	draw_spell_list(l4, member, realm, 0, 0, l10, l50);
-L7a88:
+	}
 	g5772 = 99;
 	g5773 = 0;
 	g578c = 5;
@@ -173,12 +172,11 @@ L7d14:
 	draw_spell_list(l4, member, realm, l58, 1, l10, l50);
 	l66 = (unsigned char)g00e0[(l50[l58] * 6)];
 	set_cursor(l2, 6, 14);
-	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) >= l66) goto L7dc3;
+	if (*(int *)((char *)pc_spell_pts + ((432 * member) + (realm << 2))) < l66) {
 	print_string(l2, 20478, realm_colors[realm]);
-	goto L7dde;
-L7dc3:
+	} else {
 	print_int(l2, l66, 3, realm_colors[realm]);
-L7dde:
+	}
 	l6 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto L7e61;
 	switch (l6) {
@@ -212,14 +210,14 @@ case 1:
 	l60 = 1;
 	goto L7e95;
 case 2:
-	if (l58 <= 0) goto L7e76;
+	if (l58 > 0) {
 	l58--;
-L7e76:
+	}
 	goto L7e95;
 case 4:
-	if ((l58 + 1) >= l10) goto L7e84;
+	if ((l58 + 1) < l10) {
 	l58++;
-L7e84:
+	}
 	goto L7e95;
 	}
 L7e95:
@@ -285,26 +283,25 @@ L813b:
 L8156:
 	l6 = get_menu_input(21822, 13720);
 	if (menu_clicked != 1) goto L81cc;
-	if ((l6 + 1) != power) goto L817b;
+	if ((l6 + 1) == power) {
 	l6 = 5;
-	goto L81c4;
-L817b:
+	} else {
 	set_cursor(l2, (power + 2), 12);
 	put_char(l2, (unsigned char)((power + 23)), 5);
 	power = (l6 < l56 ? (l6 + 1) : 0);
 	l6 = (power == 0 ? 5 : 0);
-L81c4:
+	}
 	l72 = 1;
 	goto L82be;
 L81cc:
 	switch (l6) {
 case 1:
-	if (power <= 0) goto L8209;
+	if (power > 0) {
 	set_cursor(l2, (power + 2), 12);
 	put_char(l2, (unsigned char)((power + 23)), 5);
 	power--;
 	l72 = 1;
-L8209:
+	}
 	goto L82be;
 case 3:
 	if (power) goto L8273;

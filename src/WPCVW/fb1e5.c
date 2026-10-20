@@ -37,32 +37,29 @@ char *p4;
 	p4[6]++;
 	print_int(p4, (g4548[(432 * p6)] + l180), 2, 4);
 	print_string(p4, 20882, 15);
-	if (l180 < 0) goto Lb2b0;
+	if (l180 >= 0) {
 	l90 = (l180 == 0 ? 9 : 4);
 	put_char(p4, 43, l90);
 	print_int(p4, l180, 1, l90);
-	goto Lb2c5;
-Lb2b0:
+	} else {
 	print_int(p4, l180, 2, 6);
-Lb2c5:
+	}
 	put_char(p4, 41, 15);
 	set_cursor(p4, 21, 6);
 	l2 = 0;
 Lb2ec:
 	put_char_hi(p4, 32, 3);
-	if ((unsigned char)g44fa[((432 * p6) + l2)] == 255) goto Lb33a;
+	if ((unsigned char)g44fa[((432 * p6) + l2)] != 255) {
 	l6 = (unsigned char)pc_item_icon[((432 * p6) + ((unsigned char)g44fa[((432 * p6) + l2)] << 3))];
-	goto Lb34c;
-Lb33a:
+	} else {
 	l6 = (l2 != 0 ? (l2 + 120) : 120);
-Lb34c:
+	}
 	put_char_hi(p4, (unsigned char)((l6 + 1)), 4);
-	if (l2 >= 5) goto Lb379;
+	if (l2 < 5) {
 	put_char_hi(p4, 28, 1);
-	goto Lb38a;
-Lb379:
+	} else {
 	put_char_hi(p4, 32, 3);
-Lb38a:
+	}
 	l2++;
 	if (l2 < 6) goto Lb2ec;
 	l90 = 11;
@@ -75,18 +72,18 @@ Lb38a:
 	l2 = 0;
 	goto Lb5c8;
 Lb421:
-	if (g57fc) goto Lb469;
+	if (!g57fc) {
 	access_scenario_record(1, &l164, *(int *)((char *)pc_item_id + ((432 * p6) + (l2 << 3))), 0);
 	strcpy(((l2 << 4) + 21982), &l164);
-Lb469:
+	}
 	l6 = 32;
 	l90 = 9;
 	l4 = 0;
 Lb478:
-	if ((unsigned char)pc_equipped[((432 * p6) + l4)] != l2) goto Lb4ac;
+	if ((unsigned char)pc_equipped[((432 * p6) + l4)] == l2) {
 	l6 = 23;
 	l90 = (l4 >= 2 ? (l4 == 2 ? 3 : 7) : 6);
-Lb4ac:
+	}
 	l4++;
 	if (l4 < 8) goto Lb478;
 	set_cursor(p4, 21, (l2 + 9));
@@ -94,13 +91,12 @@ Lb4ac:
 	item_row_color[l2] = l90;
 	print_string(p4, ((l2 << 4) + 21982), item_row_color[l2]);
 	pad_to_column(p4, 34, 0);
-	if (g00cc[(unsigned char)pc_item_type[((432 * p6) + (l2 << 3))]] != 1) goto Lb576;
+	if (g00cc[(unsigned char)pc_item_type[((432 * p6) + (l2 << 3))]] == 1) {
 	set_cursor(p4, 34, (l2 + 9));
 	print_int(p4, (unsigned char)pc_item_qty[((432 * p6) + (l2 << 3))], 3, 1);
-	goto Lb587;
-Lb576:
+	} else {
 	pad_to_column(p4, 37, 0);
-Lb587:
+	}
 	set_cursor(p4, 38, (l2 + 9));
 	put_char_hi(p4, (unsigned char)(((unsigned char)pc_item_icon[((432 * p6) + (l2 << 3))] + 1)), 4);
 	l2++;

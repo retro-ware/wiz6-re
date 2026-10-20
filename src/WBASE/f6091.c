@@ -54,12 +54,11 @@ L61fa:
 L621d:
 	rsi++;
 	if (rsi < 10) goto L61fa;
-	if (state == -1) goto L6241;
+	if (state != -1) {
 	put_char_hi(win, (unsigned char)((state + 37)), 1);
-	goto L6252;
-L6241:
+	} else {
 	put_char_hi(win, 32, 3);
-L6252:
+	}
 	set_cursor(win, (x + 3), (y + 2));
 	for (rsi = 0; rsi < 2; rsi++) {
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * i)] << 1) + rsi) + 58)), 1);

@@ -25,12 +25,11 @@ do_change_class(p4, p6, p8)
 	l44 = 1;
 	l4 = 0;
 La637:
-	if (class_allowed[l4] != 1) goto La64e;
+	if (class_allowed[l4] == 1) {
 	l42[l4] = 1;
-	goto La657;
-La64e:
+	} else {
 	l42[l4] = 0;
-La657:
+	}
 	l4++;
 	if (l4 <= 13) goto La637;
 	l14 = -1;

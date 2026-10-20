@@ -36,8 +36,7 @@ default:
 	}
 L51b2:
 	view_anim_state++;
-	if (view_anim_state != 12) goto L51c4;
+	if (view_anim_state == 12) {
 	view_anim_state = -3;
-L51c4:
-	;
+	}
 }

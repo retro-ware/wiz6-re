@@ -15,13 +15,12 @@ L5366:
 	g5038 = 1;
 	return;
 L5386:
-	if (g5036) goto L53a0;
+	if (!g5036) {
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
-	goto L53a3;
-L53a0:
+	} else {
 	f4655();
-L53a3:
+	}
 	g5036 = ((g5036 + 1) % 10);
 	p4--;
 	goto L534f;

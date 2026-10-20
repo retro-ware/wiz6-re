@@ -98,17 +98,17 @@ case 10:
 	goto L85d8;
 	}
 L85d8:
-	if ((unsigned)g559f <= 15) goto L85fb;
+	if ((unsigned)g559f > 15) {
 	add_class_rating(6, 5);
 	add_class_rating(11, 5);
-L85fb:
-	if ((unsigned)g559d <= 15) goto L8610;
+	}
+	if ((unsigned)g559d > 15) {
 	add_class_rating(9, 5);
-L8610:
-	if ((unsigned)g55a1 <= 15) goto L8633;
+	}
+	if ((unsigned)g55a1 > 15) {
 	add_class_rating(7, 5);
 	add_class_rating(4, 5);
-L8633:
+	}
 	for (l2 = 0; l2 < 2; l2++) {
 	g556d[(l2 << 4)] = 0;
 	g556c[(l2 << 4)] = 0;
@@ -129,36 +129,36 @@ L8633:
 	g556a = (char)(l4 + 5);
 	goto L8706;
 L86e2:
-	if (l2 <= 0) goto L86fa;
+	if (l2 > 0) {
 	g5563[0] = (char)((l2 / 4) + 1);
 	g556f[0] |= 64;
-L86fa:
+	}
 	if (l4 <= 0) goto L8706;
 	g556a = *(char *)&l4;
 L8706:
-	if ((unsigned)char_stats <= 15) goto L8711;
+	if ((unsigned)char_stats > 15) {
 	g5560[0]++;
-L8711:
-	if ((unsigned)char_stats <= 17) goto L871c;
+	}
+	if ((unsigned)char_stats > 17) {
 	g5560[0]++;
-L871c:
-	if ((unsigned)g55a0 <= 15) goto L8728;
+	}
+	if ((unsigned)g55a0 > 15) {
 	g556e[0] += -5;
-L8728:
-	if ((unsigned)g55a0 <= 17) goto L8739;
+	}
+	if ((unsigned)g55a0 > 17) {
 	g556e[0] += -5;
 	g557e += -5;
-L8739:
+	}
 	g55d0[0] = 10;
-	if ((unsigned)g55a1 <= 15) goto L8749;
+	if ((unsigned)g55a1 > 15) {
 	g55d0[0]--;
-L8749:
-	if ((unsigned)g55a1 <= 17) goto L8754;
+	}
+	if ((unsigned)g55a1 > 17) {
 	g55d0[0]--;
-L8754:
-	if (char_race != 5) goto L8763;
+	}
+	if (char_race == 5) {
 	g55d0[0] -= 2;
-L8763:
+	}
 	g55d2 = 0;
 	for (l2 = 3; l2 < 8; l2++) {
 	g55d0[l2] = g55d0[0];

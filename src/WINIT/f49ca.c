@@ -3,9 +3,9 @@ show_credits()
 {
 	int win;
 	int fd;
-	if ((fd = open(make_data_path(20496, 1), 0)) != -1) goto L49f9;
+	if ((fd = open(make_data_path(20496, 1), 0)) == -1) {
 	exit_game(3);
-L49f9:
+	}
 	drv_op_ae(fd, 0L, 20906L, 0);
 	close(fd);
 	win = create_window(0, 0, 40, 25, 1, -1, 2, 0);

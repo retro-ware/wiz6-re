@@ -39,10 +39,10 @@ case 7:
 	goto L7684;
 	}
 L7684:
-	if (text[0]) goto L7692;
+	if (!text[0]) {
 	text[0] = 32;
 	text[(0 + 1)] = 0;
-L7692:
+	}
 	set_cursor(win, x, row);
 	print_string(win, text, color);
 }

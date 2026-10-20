@@ -20,21 +20,20 @@ L482e:
 	g5026 = ((g5026 + 1) % 2);
 L4843:
 	render_maze_view();
-	if (g501e != 1) goto L4896;
+	if (g501e == 1) {
 	l2 = (((g5024 * 3) + g5026) + 1);
 	l12[0] = *(char *)&l2;
 	l12[(0 + 1)] = 0;
 	drv_draw_text(3, (unsigned char)g3a92[(l2 << 1)], (unsigned char)g3ac5[l2], 72, 248, 0, 0, l12);
-L4896:
-	if (g5020 < 0) goto L48a8;
+	}
+	if (g5020 >= 0) {
 	g5020 = animate_chest_lid(g5020);
-L48a8:
-	if (g5022 < 0) goto L48c4;
+	}
+	if (g5022 >= 0) {
 	g5022 = animate_chest_trap(g502a, g5028, g5022);
-L48c4:
+	}
 	drv_op_c2(picture_win);
-	if (g5020 != 1) goto L48db;
+	if (g5020 == 1) {
 	play_sound(5);
-L48db:
-	;
+	}
 }

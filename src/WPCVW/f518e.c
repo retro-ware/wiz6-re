@@ -29,24 +29,24 @@ L5201:
 	if (l18 > 66L) goto L5232;
 	l12 = 5;
 	l10 = 10;
-	if (l8 <= 3) goto L5224;
+	if (l8 > 3) {
 	l8 = 3;
-L5224:
-	if (l6 <= 3) goto L522f;
+	}
+	if (l6 > 3) {
 	l6 = 3;
-L522f:
+	}
 	goto L52f9;
 L5232:
 	if (l18 > 75L) goto L5281;
 	l14 = 1;
 	l12 = 10;
 	l10 = 20;
-	if (l8 <= 2) goto L525a;
+	if (l8 > 2) {
 	l8 = 2;
-L525a:
-	if (l6 <= 2) goto L5265;
+	}
+	if (l6 > 2) {
 	l6 = 2;
-L5265:
+	}
 	l4 = (*(int *)((char *)pc_stamina_max + (432 * p4)) / 100);
 	l2 = -7;
 	goto L52f9;

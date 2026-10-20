@@ -100,10 +100,10 @@ L5888:
 L58bc:
 	switch (key) {
 case 1:
-	if (sel == -1) goto L58dc;
+	if (sel != -1) {
 	draw_monster_groups(g438c, 1);
 	sel = -1;
-L58dc:
+	}
 	goto L59d1;
 case 2:
 	if (sel != -1) goto L590f;
@@ -121,11 +121,11 @@ L5928:
 L592d:
 	goto L59d1;
 case 3:
-	if (sel != -1) goto L595e;
+	if (sel == -1) {
 	set_cursor(win, 7, 3);
 	print_string_hi(win, &l170, 3);
 	sel = 0;
-L595e:
+	}
 	goto L59d1;
 case 4:
 	if (sel != -1) goto L5990;

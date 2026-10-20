@@ -189,10 +189,9 @@ l12d6:
 #endasm
 L12e3:
 	want = ((g3592 == 5) && (disk > 0) ? (disk - 2) : disk);
-	if (want == disk_header) goto L1329;
+	if (want != disk_header) {
 	copy_through_char(&label, 13632, 58);
 	prompt_insert_disk(&label, disk, 1, 1);
 	refresh_all_windows();
-L1329:
-	;
+	}
 }

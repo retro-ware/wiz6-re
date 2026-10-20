@@ -146,12 +146,12 @@ Lf492:
 Lf49d:
 	if (l16 <= 0) goto Lf557;
 	l14 = 0;
-	if (l12 <= 13) goto Lf4b4;
+	if (l12 > 13) {
 	l14++;
-Lf4b4:
-	if (l12 <= 16) goto Lf4bd;
+	}
+	if (l12 > 16) {
 	l14++;
-Lf4bd:
+	}
 	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf4e6;
 	(*(int *)((char *)pc_spell_pts_max + ((432 * p4) + (l2 << 2))))++;
 	goto Lf557;

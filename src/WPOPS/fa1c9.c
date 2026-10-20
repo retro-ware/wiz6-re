@@ -112,40 +112,40 @@ La3fb:
 La44f:
 	g5260 = get_front_wall(l2, l4, l6, l8, l10, -1);
 	g5262 = get_front_wall(l2, l4, l6, l8, l10, 1);
-	if (g50c4[view_depth] != 1) goto La4fd;
+	if (g50c4[view_depth] == 1) {
 	draw_wall_column(view_depth, g525a, 1, 72, 248, 122, 122, 0, 0, 91, 23, 23, 26, 26, 29, 32, 32, 29, 178, 178, 199, 199, 242, 257, 278, 278, 299, 299, 314, 314, 329, 150, 150, 214, 214);
-La4fd:
+	}
 	hide_behind_front(view_depth, g525a);
-	if (g50c4[view_depth] != 1) goto La559;
+	if (g50c4[view_depth] == 1) {
 	draw_side_walls(view_depth, g525c, 7, 4, 15, 19, 83, 87, 106, 114, 193, 196, 272, 275, 293, 296);
-La559:
+	}
 	hide_behind_left(view_depth, g525c);
-	if (g50c4[view_depth] != 1) goto La5b5;
+	if (g50c4[view_depth] == 1) {
 	draw_side_walls(view_depth, g525e, 13, 7, 19, 15, 87, 83, 110, 118, 196, 193, 275, 272, 296, 293);
-La5b5:
+	}
 	hide_behind_right(view_depth, g525e);
-	if (g50bc[view_depth] != 1) goto La5f1;
+	if (g50bc[view_depth] == 1) {
 	draw_floor_ceiling(view_depth, 0, 126, 146, 154, 174, 218, 238);
-La5f1:
-	if (g50ac[view_depth] != 1) goto La693;
+	}
+	if (g50ac[view_depth] == 1) {
 	draw_wall_column(view_depth, g5260, 0, 72, g0042[view_depth], 130, 142, 3, 12, 94, 35, 62, 41, 68, 47, 80, 53, 74, 181, 190, 202, 211, 245, 260, 281, 290, 302, 311, 317, 326, 332, 158, 170, 222, 234);
-La693:
+	}
 	hide_left_center(view_depth, g5260);
-	if (g50b4[view_depth] != 1) goto La743;
+	if (g50b4[view_depth] == 1) {
 	draw_wall_column(view_depth, g5260, 0, g0042[view_depth], 248, 134, 138, 6, 9, 97, 38, 59, 44, 65, 50, 77, 56, 71, 184, 187, 205, 208, 248, 263, 284, 287, 305, 308, 320, 323, 335, 162, 166, 226, 230);
-La743:
+	}
 	hide_left_far(view_depth, g5260);
-	if (g50cc[view_depth] != 1) goto La7f3;
+	if (g50cc[view_depth] == 1) {
 	draw_wall_column(view_depth, g5262, 2, 72, g004a[view_depth], 138, 134, 9, 6, 100, 59, 38, 65, 44, 71, 56, 77, 50, 187, 184, 208, 205, 251, 266, 287, 284, 308, 305, 323, 320, 338, 166, 162, 230, 226);
-La7f3:
+	}
 	hide_right_far(view_depth, g5262);
-	if (g50d4[view_depth] != 1) goto La8a3;
+	if (g50d4[view_depth] == 1) {
 	draw_wall_column(view_depth, g5262, 2, g004a[view_depth], 248, 142, 130, 12, 3, 103, 62, 35, 68, 41, 74, 53, 80, 47, 190, 181, 211, 202, 254, 269, 290, 281, 311, 302, 326, 317, 341, 170, 158, 234, 222);
-La8a3:
+	}
 	hide_right_center(view_depth, g5262);
-	if (g50dc[view_depth] != 1) goto La8df;
+	if (g50dc[view_depth] == 1) {
 	draw_floor_ceiling(view_depth, 2, 146, 126, 174, 154, 238, 218);
-La8df:
+	}
 	view_depth++;
 	goto La352;
 La8e6:

@@ -11,9 +11,9 @@ fb85f(p4, p6, p8, p10)
 	get_combatant_name(20492, g435e, g435c);
 	get_message(p4, 20652);
 	g505c = 0;
-	if (p6 < 0) goto Lb89c;
+	if (p6 >= 0) {
 	get_message(p6, 20572);
-Lb89c:
+	}
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), p8, p8);
 	if (p10 != 1) goto Lb8f7;
 	combat_delay(2);

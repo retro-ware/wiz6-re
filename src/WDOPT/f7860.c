@@ -66,12 +66,11 @@ do_use_item(member)
 L79a6:
 	access_scenario_record(1, &item, *(int *)((char *)pc_item_id + ((432 * member) + (sel << 3))), 0);
 	strcpy(((sel << 4) + 20966), &item);
-	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (sel << 3))]] != 1) goto L7a24;
+	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (sel << 3))]] == 1) {
 	g5346[sel] = (unsigned char)pc_item_qty[((432 * member) + (sel << 3))];
-	goto L7a31;
-L7a24:
+	} else {
 	g5346[sel] = 0;
-L7a31:
+	}
 	g51ba[g51b8] = sel;
 	g51b8++;
 	sel++;
@@ -83,12 +82,11 @@ L7a65:
 	slot = (sel + 10);
 	access_scenario_record(1, &item, *(int *)((char *)pc_item_id + ((432 * member) + (slot << 3))), 0);
 	strcpy(((slot << 4) + 20966), &item);
-	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (slot << 3))]] != 1) goto L7aec;
+	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (slot << 3))]] == 1) {
 	g5346[slot] = (unsigned char)pc_item_qty[((432 * member) + (slot << 3))];
-	goto L7af9;
-L7aec:
+	} else {
 	g5346[slot] = 0;
-L7af9:
+	}
 	g51ba[g51b8] = slot;
 	g51b8++;
 	sel++;
@@ -103,16 +101,15 @@ L7b0f:
 	set_click_region(3, ((unsigned char)win[2] + 7), ((unsigned char)win[3] + 3), ((strlen(&cancel_text) + (unsigned char)win[2]) + 6), ((unsigned char)win[3] + 3));
 	set_click_region(4, 255, 0, 0, 0);
 L7c12:
-	if (on_cancel != 1) goto L7c4f;
+	if (on_cancel == 1) {
 	set_cursor(win, 7, 3);
 	print_string(win, &cancel_text, -3);
 	draw_item_list(list_win, member, sel, 0);
-	goto L7c84;
-L7c4f:
+	} else {
 	set_cursor(win, 7, 3);
 	print_string_hi(win, &cancel_text, 3);
 	draw_item_list(list_win, member, sel, 1);
-L7c84:
+	}
 	choice = get_menu_choice_blink(20668, 13720);
 	if (menu_clicked != 1) goto L7cd3;
 	switch (choice) {
@@ -133,9 +130,9 @@ case 3:
 L7cd3:
 	switch (choice) {
 case 1:
-	if (on_cancel == 1) goto L7ce3;
+	if (on_cancel != 1) {
 	on_cancel = 1;
-L7ce3:
+	}
 	goto L7d3a;
 case 2:
 	if (on_cancel != 1) goto L7cf2;
@@ -147,9 +144,9 @@ L7cf2:
 L7cfb:
 	goto L7d3a;
 case 3:
-	if (on_cancel != 1) goto L7d08;
+	if (on_cancel == 1) {
 	on_cancel = 0;
-L7d08:
+	}
 	goto L7d3a;
 case 4:
 	if (on_cancel != 1) goto L7d17;
@@ -175,10 +172,10 @@ L7d3a:
 	if ((g51b6 = choose_target_member(2032)) != -1) goto L7dd4;
 	spell = -1;
 L7dd4:
-	if (spell == -1) goto L7df9;
+	if (spell != -1) {
 	use_item_charge(member, sel);
 	f6054(member, spell, level, g51b6);
-L7df9:
+	}
 	goto L7ed1;
 L7dfc:
 	if ((l23 != 4) || (game_state_arg != l68)) goto L7ea2;
@@ -190,13 +187,12 @@ L7dfc:
 	goto L7ed1;
 L7ea2:
 	if (l23 != 5) goto L7ec5;
-	if (game_state_arg != 8) goto L7eb7;
+	if (game_state_arg == 8) {
 	g4eca = 1;
-	goto L7ec3;
-L7eb7:
+	} else {
 	g502a = 2055;
 	g502c = 1;
-L7ec3:
+	}
 	goto L7ed1;
 L7ec5:
 	g502a = 2046;
@@ -211,8 +207,7 @@ L7edf:
 	resume_window_draw(g4fb0);
 	erase_window(main_window, 0);
 	f0a42(bottom_line_win, 0);
-	if (g502a <= 0) goto L7f2c;
+	if (g502a > 0) {
 	show_result_message(g502a);
-L7f2c:
-	;
+	}
 }

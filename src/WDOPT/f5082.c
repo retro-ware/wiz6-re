@@ -8,9 +8,9 @@ show_result_message(msg)
 	refresh_all_windows();
 	get_message(msg, 20588);
 	print_centered(main_window, 20588, 0, 18);
-	if (!g502c) goto L50c8;
+	if (g502c) {
 	play_sound(0);
-L50c8:
+	}
 	wait_animated_dopt((message_delay / 2));
 	erase_window(main_window, 0);
 }

@@ -29,24 +29,24 @@ L4693:
 	if (l18 > 66L) goto L46c4;
 	l12 = 5;
 	l10 = 10;
-	if (l8 <= 3) goto L46b6;
+	if (l8 > 3) {
 	l8 = 3;
-L46b6:
-	if (l6 <= 3) goto L46c1;
+	}
+	if (l6 > 3) {
 	l6 = 3;
-L46c1:
+	}
 	goto L478b;
 L46c4:
 	if (l18 > 75L) goto L4713;
 	l14 = 1;
 	l12 = 10;
 	l10 = 20;
-	if (l8 <= 2) goto L46ec;
+	if (l8 > 2) {
 	l8 = 2;
-L46ec:
-	if (l6 <= 2) goto L46f7;
+	}
+	if (l6 > 2) {
 	l6 = 2;
-L46f7:
+	}
 	l4 = (*(int *)((char *)pc_stamina_max + (432 * p4)) / 100);
 	l2 = -7;
 	goto L478b;

@@ -15,11 +15,11 @@ fbaed()
 	l2 = (((l10 << 6) + (l8 << 3)) + l6);
 	set_bitfield((maze_data + 504), l2, 4, *(int *)(g4fa8 + (cell_event_index << 1)));
 	set_bitfield((maze_data + 888), l2, 2, (unsigned char)(g4fa8 + cell_event_index)[1584]);
-	if (extract_bits(l4, 10, 1) != 1) goto Lbbb2;
+	if (extract_bits(l4, 10, 1) == 1) {
 	redraw_maze_view();
-Lbbb2:
-	if (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) <= 0) goto Lbbcc;
+	}
+	if (*(int *)((g4fa8 + (cell_event_index << 1)) + 288) > 0) {
 	play_sound(*(int *)((g4fa8 + (cell_event_index << 1)) + 288));
-Lbbcc:
+	}
 	set_event_flags(extract_bits(l4, 11, 2));
 }

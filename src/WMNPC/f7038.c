@@ -66,14 +66,13 @@ l7070:
 #endasm
 	return 0;
 	if (l36[((l2 << 2) + 2)]) goto L70d1;
-	if (g5264) goto L70bd;
+	if (!g5264) {
 	f6d9d();
 	fc999(*(int *)(l36 + (l2 << 2)));
 	f6de9();
-	goto L70cf;
-L70bd:
+	} else {
 	fc999(*(int *)(l36 + (l2 << 2)));
-L70cf:
+	}
 	goto L70ec;
 L70d1:
 	f5c61(*(int *)(l36 + (l2 << 2)), ((unsigned char)l36[((l2 << 2) + 2)] - 1));
@@ -87,9 +86,9 @@ L70ec:
 	game_state = 10;
 	return_cmd = 18;
 	return 1;
-	if (l36[((l2 << 2) + 2)]) goto L7148;
+	if (!l36[((l2 << 2) + 2)]) {
 	f5d9b(1542, 0);
-L7148:
+	}
 	g5276 = 1;
 	game_state = 5;
 	return_cmd = 18;
@@ -185,11 +184,11 @@ L735f:
 	if (l54[2] != -1) goto L737a;
 	return 0;
 L737a:
-	if (l36[((l2 << 2) + 2)] != 1) goto L73bf;
+	if (l36[((l2 << 2) + 2)] == 1) {
 	get_message(1547, 20948);
 	replace_char_with_string(20948, ((432 * l40) + 17384), 94);
 	f5d0c(20948, 1);
-L73bf:
+	}
 	goto L7f6d;
 	if ((l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)))) == -1) goto L741d;
 	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l42 << 3))]] != 1) goto L7411;
@@ -205,10 +204,10 @@ L741d:
 	l46 = ((long)*(int *)(l36 + (l2 << 2)) * (unsigned char)l36[((l2 << 2) + 2)]);
 	*(long *)((char *)pc_gold + (432 * p4)) += l46;
 	g51c0 -= l46;
-	if (g51c0 >= 0L) goto L7487;
+	if (g51c0 < 0L) {
 	g51c2 = 0;
 	*(int *)&g51c0 = 0;
-L7487:
+	}
 	goto L7f6d;
 	l46 = ((long)*(int *)(l36 + (l2 << 2)) * 10);
 	if (l46 != 0L) goto L74d6;
@@ -354,13 +353,13 @@ L79a3:
 	db 0ebh,05fh
 #endasm
 L79ad:
-	if (pc_condition[(432 * l38)]) goto L7a09;
+	if (!pc_condition[(432 * l38)]) {
 	get_message(1548, 20948);
 	replace_char_with_string(20948, ((432 * l38) + 17384), 94);
 	f5d0c(20948, 1);
 	g4511[(432 * l38)]++;
 	f5078(l38, g527a);
-L7a09:
+	}
 	l38++;
 L7a0c:
 	if (l38 < party_count) goto L79ad;
@@ -382,12 +381,12 @@ L7a71:
 	f5d0c(20948, 1);
 	*(int *)((char *)pc_hp + (432 * l38)) = (random(*(int *)((char *)pc_hp + (432 * l38))) + 1);
 	*(int *)((char *)pc_hp_max + (432 * l38)) -= (random(4) + 1);
-	if (*(int *)((char *)pc_hp_max + (432 * l38)) >= 1) goto L7ae8;
+	if (*(int *)((char *)pc_hp_max + (432 * l38)) < 1) {
 	*(int *)((char *)pc_hp_max + (432 * l38)) = 1;
-L7ae8:
-	if (*(int *)((char *)pc_hp + (432 * l38)) <= *(int *)((char *)pc_hp_max + (432 * l38))) goto L7afa;
+	}
+	if (*(int *)((char *)pc_hp + (432 * l38)) > *(int *)((char *)pc_hp_max + (432 * l38))) {
 	*(int *)((char *)pc_hp + (432 * l38)) = *(int *)((char *)pc_hp_max + (432 * l38));
-L7afa:
+	}
 	f5078(l38, g527a);
 L7b07:
 	l38++;
@@ -408,9 +407,9 @@ L7b39:
 L7b59:
 	l54[2] = l54[l54[3]];
 	if (l54[2] < 0) goto L7bed;
-	if (l54[2] <= 7) goto L7b80;
+	if (l54[2] > 7) {
 	l54[2] = random(8);
-L7b80:
+	}
 	if ((unsigned)pc_stats[((432 * l38) + l54[2])] >= 18) goto L7bed;
 	pc_stats[((432 * l38) + l54[2])]++;
 	get_message(5015, 20948);
@@ -440,10 +439,10 @@ L7c27:
 	db 027h
 #endasm
 	*(int *)((char *)pc_stamina + (432 * p4)) -= l42;
-	if (*(int *)((char *)pc_stamina + (432 * p4)) >= 0) goto L7c70;
+	if (*(int *)((char *)pc_stamina + (432 * p4)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
 	g450c[(432 * p4)] = *(char *)&l42;
-L7c70:
+	}
 	goto L7c95;
 L7c72:
 	*(int *)((char *)pc_stamina + (432 * p4)) += l42;
@@ -525,10 +524,10 @@ L7de8:
 	db 0ebh,04ah
 #endasm
 L7e56:
-	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) == -1) goto L7e9d;
+	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) != -1) {
 	f6835(l38, l54[2]);
 	npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
-L7e9d:
+	}
 	l38++;
 L7ea0:
 	if ((l38 < party_count) && (l54[2] == -1)) goto L7e56;

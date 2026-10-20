@@ -111,40 +111,40 @@ Lec58:
 Lecac:
 	g5300 = fd777(l2, l4, l6, l8, l10, -1);
 	g5302 = fd777(l2, l4, l6, l8, l10, 1);
-	if (g5164[pclist_race] != 1) goto Led5a;
+	if (g5164[pclist_race] == 1) {
 	fdfbb(pclist_race, g52fa, 1, 72, 248, 122, 122, 0, 0, 91, 23, 23, 26, 26, 29, 32, 32, 29, 178, 178, 199, 199, 242, 257, 278, 278, 299, 299, 314, 314, 329, 150, 150, 214, 214);
-Led5a:
+	}
 	fe7e1(pclist_race, g52fa);
-	if (g5164[pclist_race] != 1) goto Ledb6;
+	if (g5164[pclist_race] == 1) {
 	fe503(pclist_race, g52fc, 7, 4, 15, 19, 83, 87, 106, 114, 193, 196, 272, 275, 293, 296);
-Ledb6:
+	}
 	fe844(pclist_race, g52fc);
-	if (g5164[pclist_race] != 1) goto Lee12;
+	if (g5164[pclist_race] == 1) {
 	fe503(pclist_race, g52fe, 13, 7, 19, 15, 87, 83, 110, 118, 196, 193, 275, 272, 296, 293);
-Lee12:
+	}
 	fe875(pclist_race, g52fe);
-	if (g515c[pclist_race] != 1) goto Lee4e;
+	if (g515c[pclist_race] == 1) {
 	fe6f2(pclist_race, 0, 126, 146, 154, 174, 218, 238);
-Lee4e:
-	if (g514c[pclist_race] != 1) goto Leef0;
+	}
+	if (g514c[pclist_race] == 1) {
 	fdfbb(pclist_race, g5300, 0, 72, g0042[pclist_race], 130, 142, 3, 12, 94, 35, 62, 41, 68, 47, 80, 53, 74, 181, 190, 202, 211, 245, 260, 281, 290, 302, 311, 317, 326, 332, 158, 170, 222, 234);
-Leef0:
+	}
 	fe8a6(pclist_race, g5300);
-	if (g5154[pclist_race] != 1) goto Lefa0;
+	if (g5154[pclist_race] == 1) {
 	fdfbb(pclist_race, g5300, 0, g0042[pclist_race], 248, 134, 138, 6, 9, 97, 38, 59, 44, 65, 50, 77, 56, 71, 184, 187, 205, 208, 248, 263, 284, 287, 305, 308, 320, 323, 335, 162, 166, 226, 230);
-Lefa0:
+	}
 	fe8d3(pclist_race, g5300);
-	if (g516c[pclist_race] != 1) goto Lf050;
+	if (g516c[pclist_race] == 1) {
 	fdfbb(pclist_race, g5302, 2, 72, g004a[pclist_race], 138, 134, 9, 6, 100, 59, 38, 65, 44, 71, 56, 77, 50, 187, 184, 208, 205, 251, 266, 287, 284, 308, 305, 323, 320, 338, 166, 162, 230, 226);
-Lf050:
+	}
 	fe905(pclist_race, g5302);
-	if (g5174[pclist_race] != 1) goto Lf100;
+	if (g5174[pclist_race] == 1) {
 	fdfbb(pclist_race, g5302, 2, g004a[pclist_race], 248, 142, 130, 12, 3, 103, 62, 35, 68, 41, 74, 53, 80, 47, 190, 181, 211, 202, 254, 269, 290, 281, 311, 302, 326, 317, 341, 170, 158, 234, 222);
-Lf100:
+	}
 	fe937(pclist_race, g5302);
-	if (g517c[pclist_race] != 1) goto Lf13c;
+	if (g517c[pclist_race] == 1) {
 	fe6f2(pclist_race, 2, 146, 126, 174, 154, 238, 218);
-Lf13c:
+	}
 	pclist_race++;
 	goto Lebaf;
 Lf143:

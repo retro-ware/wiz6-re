@@ -29,11 +29,11 @@ f9f8c()
 	int l26;
 	int l28;
 	int l30;
-	if (*(int *)(g4fa8 + (cell_event_index << 1)) <= 0) goto L9fbf;
+	if (*(int *)(g4fa8 + (cell_event_index << 1)) > 0) {
 	show_maze_message(*(int *)(g4fa8 + (cell_event_index << 1)));
 	wait_animating_m(message_delay);
 	erase_window(main_window, 1);
-L9fbf:
+	}
 	l30 = *(int *)((g4fa8 + (cell_event_index << 1)) + 288);
 	l14 = *(int *)((g4fa8 + (cell_event_index << 1)) + 576);
 	for (l2 = 0; l2 < 4; l2++) {
@@ -47,15 +47,14 @@ L9fbf:
 	for (l2 = 0; l2 < l16; l2++) {
 	l22 = f9f54(l12);
 	if ((l24 != 1) || (l22 == party_facing)) goto La0f7;
-	if (l26 != 1) goto La0ad;
+	if (l26 == 1) {
 	l20 = (((l22 - party_facing) + 4) % 4);
-	goto La0bf;
-La0ad:
+	} else {
 	l20 = (((party_facing - l22) + 4) % 4);
-La0bf:
-	if (l18) goto La0c8;
+	}
+	if (!l18) {
 	l20--;
-La0c8:
+	}
 	for (l4 = 0; l4 < l20; l4++) {
 	wait_animating_m(l30);
 	party_facing = (((party_facing + l26) + 4) % 4);
@@ -71,12 +70,11 @@ La0f7:
 	g4f90 = party_cell_y;
 	g4f8e = party_level;
 	g4f8c = party_facing;
-	if (l28 != 1) goto La14c;
+	if (l28 == 1) {
 	step_position(party_facing, (random(l18) + 1));
-	goto La159;
-La14c:
+	} else {
 	step_position(party_facing, l18);
-La159:
+	}
 	if (move_to_maze_cell_m(20384, 20382, 20380, party_x, party_y) != 1) goto La18b;
 	kill_party(2022, 4);
 	return;

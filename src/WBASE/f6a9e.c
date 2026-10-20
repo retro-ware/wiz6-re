@@ -14,7 +14,7 @@ add_party_member()
 	char x22[410];
 	int rec;
 	int pick;
-	if ((pick = choose_pcfile_char()) == -1) goto L6b2a;
+	if ((pick = choose_pcfile_char()) != -1) {
 	pcindex = pclist_pcindex[pick];
 	pcfile_record_io(&rec, pcindex, 0);
 	roster_slot_used[pcindex] = 2;
@@ -24,6 +24,5 @@ add_party_member()
 	*(struct s432 *)((char *)party + (432 * party_count)) = *(struct s432 *)(char *)(&rec);
 	draw_member_panel(party_count);
 	party_count++;
-L6b2a:
-	;
+	}
 }

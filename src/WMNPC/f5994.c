@@ -8,9 +8,9 @@ f5994(p4, p6)
 	int l2;
 	int l4;
 	l4 = anim_phase;
-	if (g522c == -1) goto L59aa;
+	if (g522c != -1) {
 	f591a();
-L59aa:
+	}
 	flush_keys();
 	menu_clicked = 0;
 L59b3:

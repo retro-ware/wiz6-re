@@ -33,14 +33,13 @@ L9df5:
 	return;
 L9e4e:
 	if ((*(int *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3))) != *(int *)((char *)pc_item_id + ((432 * p8) + (l4 << 3)))) || (g00cc[(unsigned char)pc_item_type[((432 * p8) + (g43ca << 3))]] != 1)) goto L9f4e;
-	if ((l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))])) > 250) goto L9f12;
+	if ((l6 = ((unsigned char)pc_item_qty[((432 * p8) + (g43ca << 3))] + (unsigned char)pc_item_qty[((432 * p8) + (l4 << 3))])) <= 250) {
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = *(char *)&l6;
 	remove_item(p8, l4);
-	goto L9f4c;
-L9f12:
+	} else {
 	pc_item_qty[((432 * p8) + (g43ca << 3))] = -6;
 	pc_item_qty[((432 * p8) + (l4 << 3))] = (char)(l6 + -250);
-L9f4c:
+	}
 	goto L9f6d;
 L9f4e:
 	if (try_combine_recipe(p4, p8, g43ca, l4)) goto L9f6d;

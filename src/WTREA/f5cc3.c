@@ -21,19 +21,18 @@ L5d10:
 	int_to_string(damage, &l42);
 	get_message(5231, &l22);
 	get_message(5232, &l62);
-	if (*(int *)((char *)pc_hp + (432 * member)) >= damage) goto L5d4d;
+	if (*(int *)((char *)pc_hp + (432 * member)) < damage) {
 	damage = *(int *)((char *)pc_hp + (432 * member));
-L5d4d:
+	}
 	*(int *)((char *)pc_hp + (432 * member)) -= damage;
 	print_member_message(member, &l22, &l42, &l62, 1, 5, 5, 5);
 	draw_member_status(member);
-	if (*(int *)((char *)pc_hp + (432 * member)) > 0) goto L5da8;
+	if (*(int *)((char *)pc_hp + (432 * member)) <= 0) {
 	wait_animating(4);
 	inflict_condition(member, 5264, 0, 3);
-	goto L5db8;
-L5da8:
+	} else {
 	play_sound(2);
 	wait_animating(message_delay);
-L5db8:
+	}
 	return;
 }

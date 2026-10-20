@@ -43,9 +43,9 @@ Lc8f8:
 #endasm
 	do_teleport_event();
 	goto Lca0f;
-	if (!g5034) goto Lc93e;
+	if (g5034) {
 	f9f8c();
-Lc93e:
+	}
 	goto Lca0f;
 #asm
 	call do_message_event_
@@ -108,13 +108,13 @@ Lca0f:
 	if (game_state == 5) goto Lca18;
 	return;
 Lca18:
-	if (g5232 != 1) goto Lca23;
+	if (g5232 == 1) {
 	cell_event_index++;
-Lca23:
+	}
 	goto Lc8f8;
 Lca26:
-	if (event_screen_dirty != 1) goto Lca30;
+	if (event_screen_dirty == 1) {
 	refresh_all_windows();
-Lca30:
+	}
 	return;
 }

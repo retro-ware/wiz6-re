@@ -45,21 +45,21 @@ L4900:
 	l4 = 0;
 	goto L4923;
 L490c:
-	if (!pic_slot_loaded[(l2 + l4)]) goto L4920;
+	if (pic_slot_loaded[(l2 + l4)]) {
 	l12 = 0;
-L4920:
+	}
 	l4++;
 L4923:
 	if (l4 <= l8) goto L490c;
-	if (l12 != 1) goto L4937;
+	if (l12 == 1) {
 	l6 = l2;
-L4937:
+	}
 	l2++;
 L493a:
 	if ((7 - l8) > l2) goto L48bd;
-	if (l6 == -1) goto L4960;
+	if (l6 != -1) {
 	pic_slot_monster[l6] = -1;
 	load_monster_pic_mele(p4, l6);
-L4960:
+	}
 	return l6;
 }

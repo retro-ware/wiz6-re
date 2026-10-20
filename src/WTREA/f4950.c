@@ -15,12 +15,11 @@ L4978:
 	anim_phase = ((anim_phase + 1) % 2);
 	animate_treasure_view();
 	set_cursor(g502e, 39, 4);
-	if (l2 >= 2) goto L49bc;
+	if (l2 < 2) {
 	put_char(g502e, 32, 1);
-	goto L49ce;
-L49bc:
+	} else {
 	put_char_hi(g502e, 126, 1);
-L49ce:
+	}
 	l2 = ((l2 + 1) % 4);
 	goto L49e0;
 L49dd:

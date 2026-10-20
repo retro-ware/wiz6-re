@@ -42,9 +42,9 @@ L83a2:
 	movmem(((432 * p8) + 17776), &l28, 12);
 	setmem(((432 * p8) + 17776), 12, 0);
 	l8 = (((unsigned char)pc_skills[((432 * p8) + l12)] / 18) + 1);
-	if ((unsigned)pc_skills[((432 * p8) + l12)] < 98) goto L83f9;
+	if ((unsigned)pc_skills[((432 * p8) + l12)] >= 98) {
 	l8 = 7;
-L83f9:
+	}
 	l4 = 0;
 	l2 = 0;
 L8403:
@@ -86,9 +86,9 @@ L859e:
 	set_bit(((432 * p8) + 17776), l6, 1);
 	l2 = ((random(((unsigned char)pc_skills[((432 * p8) + l12)] / 20)) + ((unsigned char)g00df[(l6 * 6)] << 1)) + 1);
 	l4 = (unsigned char)spell_table[(l6 * 6)];
-	if ((*(int *)((char *)pc_spell_pts_max + ((432 * p8) + (l4 << 2))) + l2) >= (unsigned char)g00e0[(l6 * 6)]) goto L8699;
+	if ((*(int *)((char *)pc_spell_pts_max + ((432 * p8) + (l4 << 2))) + l2) < (unsigned char)g00e0[(l6 * 6)]) {
 	l2 = ((unsigned char)g00e0[(l6 * 6)] - *(int *)((char *)pc_spell_pts_max + ((432 * p8) + (l4 << 2))));
-L8699:
+	}
 	*(int *)((char *)pc_spell_pts_max + ((432 * p8) + (l4 << 2))) += l2;
 	*(int *)((char *)pc_spell_pts + ((432 * p8) + (l4 << 2))) += l2;
 	g4500[((432 * p8) + p10)]--;

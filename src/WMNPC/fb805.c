@@ -13,10 +13,10 @@ Lb837:
 	if ((l44[((l2 * 6) + 4)] != 2) || (*(int *)(l44 + (l2 * 6)) <= 0)) goto Lb8b9;
 Lb852:
 	if ((l4 >= 29) || (*(int *)(l44 + ((l2 * 6) + 2)) <= 0)) goto Lb8b9;
-	if (random(100) >= (unsigned char)l44[((l2 * 6) + 5)]) goto Lb8a2;
+	if (random(100) < (unsigned char)l44[((l2 * 6) + 5)]) {
 	g5856[l4] = *(int *)(l44 + (l2 * 6));
 	l4++;
-Lb8a2:
+	}
 	(*(int *)(l44 + (l2 * 6)))++;
 	(*(int *)(l44 + ((l2 * 6) + 2)))--;
 	goto Lb852;

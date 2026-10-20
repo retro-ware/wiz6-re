@@ -12,30 +12,26 @@ f83f3(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32)
 	int l14;
 	int l16;
 	g500a = 4;
-	if (p16 <= 0) goto L8419;
+	if (p16 > 0) {
 	l10 = f80cc(p4, p10, p16);
-	goto L841f;
-L8419:
+	} else {
 	l10 = p16;
-L841f:
-	if (p18 <= 0) goto L8439;
+	}
+	if (p18 > 0) {
 	l12 = f80cc(p4, p10, p18);
-	goto L843f;
-L8439:
+	} else {
 	l12 = p18;
-L843f:
-	if (p24 <= 0) goto L8459;
+	}
+	if (p24 > 0) {
 	l14 = f80cc(p4, p10, p24);
-	goto L845f;
-L8459:
+	} else {
 	l14 = p24;
-L845f:
-	if (p26 <= 0) goto L8479;
+	}
+	if (p26 > 0) {
 	l16 = f80cc(p4, p10, p26);
-	goto L847f;
-L8479:
+	} else {
 	l16 = p26;
-L847f:
+	}
 	if ((((l10 == p16) && (l12 == p18)) && (l14 == p24)) && (l16 == p26)) goto L84a7;
 	show_combat_msg(3213);
 L84a7:
@@ -47,16 +43,16 @@ L84a7:
 L84fe:
 	do_status_effect(p4, p6, p8, p10, p20, p14, l14, l16, p28, 3408, 0);
 L8527:
-	if (p4) goto L853a;
+	if (!p4) {
 	draw_member_card_x(p6, 0);
-L853a:
+	}
 	goto L861a;
 L853d:
 	l4 = (unsigned char)g019d[monster_groups[p4]];
 	l6 = (p6 < 0 ? -p6 : p6);
-	if (l6 <= l4) goto L856b;
+	if (l6 > l4) {
 	l6 = l4;
-L856b:
+	}
 	l8 = random((l4 - l6));
 	l2 = l8;
 	goto L860c;
@@ -68,9 +64,9 @@ L857f:
 L85cd:
 	do_status_effect(p4, l2, p8, p10, p20, p14, l14, l16, p28, 3408, 0);
 L85f6:
-	if (p4) goto L8609;
+	if (!p4) {
 	draw_member_card_x(l2, 0);
-L8609:
+	}
 	l2++;
 L860c:
 	if ((l8 + l6) > l2) goto L857f;

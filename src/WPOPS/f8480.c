@@ -24,16 +24,16 @@ choose_group_actions(group, target_group)
 	goto L8a27;
 L848f:
 	monster = ((char *)monster_groups[group] + (44 * i));
-	if ((l10 = ((random(10) + ((char *)monster_groups[group] + (44 * i))[41]) + (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[211])) >= 1) goto L84f0;
+	if ((l10 = ((random(10) + ((char *)monster_groups[group] + (44 * i))[41]) + (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[211])) < 1) {
 	l10 = 1;
-L84f0:
+	}
 	l12 = (l10 / (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[213]);
-	if (!((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[220] & 2)) goto L8515;
+	if (((unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[220] & 2)) {
 	monster[36] = 1;
-L8515:
-	if ((unsigned)monster[36] <= 0) goto L854f;
+	}
+	if ((unsigned)monster[36] > 0) {
 	monster[37] = (char)((random((l10 / 2)) + random(20)) + (l10 / 2));
-L854f:
+	}
 	monster[33] = 0;
 	monster[28] = (char)pick_random_row(group);
 	l22 = 0;
@@ -65,9 +65,9 @@ L85f2:
 	l16 = 0;
 	l26 = -1;
 L867a:
-	if (l18 >= l22) goto L8699;
+	if (l18 < l22) {
 	l26 = (unsigned char)((char *)group_monster_rec[group] + l16)[138];
-L8699:
+	}
 	l16++;
 	if (l22 >= 15) goto L86a8;
 	l22 += 5;
@@ -117,16 +117,16 @@ L8816:
 	if ((group < 3 ? 0 : 2) >= (unsigned char)((char *)group_monster_rec[group] + (l20 << 4))[81]) goto L886f;
 	l18 = 6;
 L886f:
-	if ((unsigned char)g019d[monster_groups[target_group]] >= l18) goto L8888;
+	if ((unsigned char)g019d[monster_groups[target_group]] < l18) {
 	l18 = (unsigned char)g019d[monster_groups[target_group]];
-L8888:
+	}
 	l16 = 0;
 	l22 = 0;
 	goto L88b3;
 L8894:
-	if ((unsigned)((char *)monster_groups[target_group] + (44 * l22))[34] >= 3) goto L88b0;
+	if ((unsigned)((char *)monster_groups[target_group] + (44 * l22))[34] < 3) {
 	l16++;
-L88b0:
+	}
 	l22++;
 L88b3:
 	if (l22 < l18) goto L8894;

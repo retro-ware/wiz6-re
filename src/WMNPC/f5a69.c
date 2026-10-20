@@ -14,12 +14,11 @@ L5a8e:
 	f55dc();
 	if (view_anim_state != -2) goto L5ae3;
 	set_cursor(g5264, 39, g5262);
-	if (l2 >= 2) goto L5ac4;
+	if (l2 < 2) {
 	put_char(g5264, 32, 1);
-	goto L5ad6;
-L5ac4:
+	} else {
 	put_char_hi(g5264, 126, 1);
-L5ad6:
+	}
 	l2 = ((l2 + 1) % 4);
 L5ae3:
 	goto L5a77;

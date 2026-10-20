@@ -17,9 +17,9 @@ f5508(p4, p6)
 	strcpy(&l22, 20474);
 	l19 = (char)((p4 / 10) + 48);
 	l18 = (char)((p4 % 10) + 48);
-	if ((pic_fd = open(make_data_path(&l22, 1), 0)) != -1) goto L557a;
+	if ((pic_fd = open(make_data_path(&l22, 1), 0)) == -1) {
 	exit_game(21);
-L557a:
+	}
 	drv_op_ae(pic_fd, 0L, *(int *)((char *)g36e2 + (314 * p6)), *(int *)((char *)g36e4 + (314 * p6)), p6);
 	close(pic_fd);
 	l2 = 0;

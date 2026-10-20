@@ -262,12 +262,12 @@ Lbe04:
 	l4 = 0;
 	l2 = 0;
 Lbe0e:
-	if (test_bit(&l8, l2) != 1) goto Lbe6d;
+	if (test_bit(&l8, l2) == 1) {
 	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + 7));
 	get_message((l2 + 3050), 21902);
 	print_string(l6, 21902, 5);
 	l4++;
-Lbe6d:
+	}
 	l2++;
 	if (l2 < 8) goto Lbe0e;
 Lbe78:
@@ -325,9 +325,9 @@ Lc029:
 	print_string(l6, 21902, 14);
 	set_cursor(l6, 7, 4);
 	int_to_string(l9, 21902);
-	if (l9 < 0) goto Lc1be;
+	if (l9 >= 0) {
 	put_char(l6, 43, 5);
-Lc1be:
+	}
 	print_string(l6, 21902, 5);
 Lc1cf:
 	l168 = 5;
@@ -339,56 +339,55 @@ Lc1d5:
 	print_string(l6, 21902, 14);
 	set_cursor(l6, 17, l168);
 	int_to_string(((unsigned char)l14 - (unsigned char)l13), 21902);
-	if (((unsigned char)l14 - (unsigned char)l13) < 0) goto Lc27f;
+	if (((unsigned char)l14 - (unsigned char)l13) >= 0) {
 	put_char(l6, 43, 5);
-Lc27f:
+	}
 	print_string(l6, 21902, 5);
 	l168 = 5;
 Lc296:
-	if (!l22[5]) goto Lc2f4;
+	if (l22[5]) {
 	set_cursor(l6, 1, l168);
 	get_message(465, 21902);
 	print_string(l6, 21902, 3);
 	set_cursor(l6, 15, l168);
 	fb659(l6, (unsigned char)l22[5], 1);
 	l168++;
-Lc2f4:
+	}
 	if (!l52) goto Lc3b7;
 	l126 = (l52 % 256);
 	get_message((l126 + 4000), 21902);
 	set_cursor(l6, 1, l168);
 	print_string(l6, 21902, 4);
 	set_cursor(l6, 16, l168);
-	if (pc_item_qty[((432 * p6) + (p8 << 3))]) goto Lc388;
+	if (!pc_item_qty[((432 * p6) + (p8 << 3))]) {
 	get_message(480, 21902);
 	print_string(l6, 21902, 1);
-	goto Lc3b3;
-Lc388:
+	} else {
 	print_int(l6, (unsigned char)pc_item_qty[((432 * p6) + (p8 << 3))], 3, 1);
-Lc3b3:
+	}
 	l168++;
 Lc3b7:
 	if ((l168 <= 3) || (l168 >= 8)) goto Lc3c9;
 	l168++;
 Lc3c9:
-	if (!l12) goto Lc427;
+	if (l12) {
 	get_message(469, 21902);
 	set_cursor(l6, 1, l168);
 	print_string(l6, 21902, 7);
 	set_cursor(l6, 15, l168);
 	fb659(l6, (unsigned char)l12, 1);
 	l168++;
-Lc427:
+	}
 	if (!l122[6]) goto Lc49e;
 	l4 = 0;
 	l2 = 0;
 Lc437:
-	if ((unsigned)l34[l2] <= 0) goto Lc490;
+	if ((unsigned)l34[l2] > 0) {
 	set_cursor(l6, (((l4 / 3) << 3) + 3), ((l4 % 3) + l168));
 	get_message((l2 + 470), 21902);
 	print_string(l6, 21902, 5);
 	l4++;
-Lc490:
+	}
 	l2++;
 	if (l2 < 8) goto Lc437;
 	goto Lc61c;
@@ -427,9 +426,9 @@ Lc661:
 	refresh_window(p4);
 	l170 = 1;
 Lc6e2:
-	if (!check_screen_click()) goto Lc6ef;
+	if (check_screen_click()) {
 	l170 = 0;
-Lc6ef:
+	}
 	if ((key_available(1) != 1) || ((char)get_key(1) != 13)) goto Lc70e;
 	l170 = 0;
 Lc70e:

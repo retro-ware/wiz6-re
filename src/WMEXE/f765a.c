@@ -13,9 +13,9 @@ animate_step()
 	switch (view_anim_state) {
 case -3:
 	drv_op_c2(picture_win);
-	if (g5112 != 1) goto L767d;
+	if (g5112 == 1) {
 	play_sound(5);
-L767d:
+	}
 	g5112 = 0;
 	anim_phase = ((anim_phase + 1) % 2);
 	anim_cycle = ((anim_cycle + 1) % 3);
@@ -43,8 +43,7 @@ default:
 	}
 L7724:
 	view_anim_state++;
-	if (view_anim_state != 12) goto L7736;
+	if (view_anim_state == 12) {
 	view_anim_state = -3;
-L7736:
-	;
+	}
 }

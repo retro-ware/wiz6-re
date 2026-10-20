@@ -4,12 +4,12 @@ f4fac(p4, p6, p8, p10, p12, p14)
 	char x3[1];
 	register int rsi;
 	rsi = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1);
-	if (rsi <= 10) goto L4fe0;
+	if (rsi > 10) {
 	rsi = 10;
-L4fe0:
-	if (p10) goto L4fe9;
+	}
+	if (!p10) {
 	rsi = 0;
-L4fe9:
+	}
 	l3[0] = (char)(p14 + 9);
 	l3[1] = (char)(p14 + 4);
 	l3[2] = *(char *)&p14;

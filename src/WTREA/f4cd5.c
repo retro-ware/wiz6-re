@@ -3,12 +3,12 @@ draw_vital_bar(win, x, y, p10, p12, glyph_base)
 	int l2;
 	char glyphs[3];
 	char x5[1];
-	if ((l2 = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) <= 10) goto L4d09;
+	if ((l2 = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) > 10) {
 	l2 = 10;
-L4d09:
-	if (p10) goto L4d14;
+	}
+	if (!p10) {
 	l2 = 0;
-L4d14:
+	}
 	glyphs[0] = (char)(glyph_base + 9);
 	glyphs[1] = (char)(glyph_base + 4);
 	glyphs[2] = *(char *)&glyph_base;

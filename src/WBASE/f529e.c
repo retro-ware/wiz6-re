@@ -20,17 +20,16 @@ L52d4:
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
 	if (key != 8) goto L536d;
-	if (len <= 0) goto L5362;
+	if (len > 0) {
 	len--;
 	*(buf + len) = 0;
 	x--;
 	set_cursor(win, x, y);
 	put_char(win, 32, 1);
 	set_cursor(win, x, y);
-	goto L536a;
-L5362:
+	} else {
 	play_sound(0);
-L536a:
+	}
 	goto L53dd;
 L536d:
 	if (len < maxlen) goto L537f;

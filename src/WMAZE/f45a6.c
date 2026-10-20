@@ -12,14 +12,14 @@ extern int party_level;
 extern int party_x;
 alloc_maze_buffers()
 {
-	if (maze_data) goto L45be;
+	if (!maze_data) {
 	maze_data = malloc(g3304);
 	g4eeb = 1;
-L45be:
-	if (g4fa8) goto L45d5;
+	}
+	if (!g4fa8) {
 	g4fa8 = malloc(g3306);
 	g4eea = 1;
-L45d5:
+	}
 	if (g4eeb != 1) goto L45fe;
 #asm
 	db 0ffh,036h,004h,033h,0a1h,0aah,04fh,08ch,0dah,052h,050h,0a1h,03ch,036h,0d1h,0e0h

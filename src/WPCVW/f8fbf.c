@@ -44,38 +44,37 @@ case 2:
 case 3:
 	if (test_bit(&l20, (unsigned char)pc_class[(432 * p8)]) != 1) goto L910e;
 	l76 = (l46 % 256);
-	if (((unsigned char)g00df[(l76 * 6)] << 1) <= *(int *)((char *)pc_level + (432 * p8))) goto L90dc;
+	if (((unsigned char)g00df[(l76 * 6)] << 1) > *(int *)((char *)pc_level + (432 * p8))) {
 	show_text_pages(p6, 725);
-	goto L910c;
-L90dc:
+	} else {
 	set_bit(((432 * p8) + 17776), l76, 1);
 	show_text_pages(p6, 720);
 	remove_item(p8, p10);
-L910c:
+	}
 	goto L911b;
 L910e:
 	show_text_pages(p6, 730);
 L911b:
 	goto L9229;
 case 4:
-	if (game_state_arg != l50) goto L91b9;
+	if (game_state_arg == l50) {
 	set_bit(((l50 * 10) + 20204), (unsigned char)l48, 0);
 	set_bit(((l50 * 10) + 13304), (unsigned char)l48, 0);
 	set_bit(((l50 * 10) + 20204), (unsigned char)l47, 1);
 	set_bit(((l50 * 10) + 13304), (unsigned char)l47, 1);
 	use_item_charge(p8, p10);
-L91b9:
+	}
 	goto L9229;
 case 5:
-	if (game_state_arg != 8) goto L91c8;
+	if (game_state_arg == 8) {
 	g4eca = 1;
-L91c8:
+	}
 	goto L9229;
 case 6:
 	l80 = choose_item(p4, p6, 408, p8, 0);
-	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) != 388) goto L920c;
+	if (*(int *)((char *)pc_item_id + ((432 * p8) + (l80 << 3))) == 388) {
 	show_text_pages(p6, 18520);
-L920c:
+	}
 	goto L9229;
 	}
 L9229:

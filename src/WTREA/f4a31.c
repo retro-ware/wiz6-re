@@ -38,9 +38,9 @@ case 5:
 L4ab5:
 	goto L4a37;
 L4ab7:
-	if (g5030 <= 4) goto L4ac6;
+	if (g5030 > 4) {
 	end_text_page(0);
-L4ac6:
+	}
 	x = (20 - ((strlen(text) + 1) / 2));
 	switch ((unsigned char)*text) {
 case 36:

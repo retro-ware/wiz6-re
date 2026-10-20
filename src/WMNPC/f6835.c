@@ -43,9 +43,9 @@ L6900:
 	*(struct s8 *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * p4) + (l2 << 3)));
 	l4 = 0;
 L6935:
-	if ((unsigned char)pc_equipped[((432 * p4) + l4)] != (l2 + 1)) goto L6955;
+	if ((unsigned char)pc_equipped[((432 * p4) + l4)] == (l2 + 1)) {
 	pc_equipped[((432 * p4) + l4)] = *(char *)&l2;
-L6955:
+	}
 	l4++;
 	if (l4 < 8) goto L6935;
 	l2++;

@@ -24,14 +24,14 @@ Lad36:
 	g450a[((432 * p4) + p10)] = -1;
 	goto Lade5;
 Ladaf:
-	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) <= 250) goto Ladd8;
+	if (((unsigned char)g450a[((432 * p4) + p10)] + l6) > 250) {
 	l6 = (250 - (unsigned char)g450a[((432 * p4) + p10)]);
-Ladd8:
+	}
 	g450a[((432 * p4) + p10)] = (char)((unsigned char)g450a[((432 * p4) + p10)] + l6);
 Lade5:
-	if (p10 != 5) goto Ladfc;
+	if (p10 == 5) {
 	g458c[(432 * p4)] = *(char *)&p12;
-Ladfc:
+	}
 	get_message(p6, &l86);
 	*(char *)&l166 = 0;
 	*(char *)&l246 = 0;

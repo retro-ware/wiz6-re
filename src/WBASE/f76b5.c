@@ -71,14 +71,13 @@ do_game_configuration()
 	set_click_region(10, 255, 0, 0, 0);
 	resume_window_draw(win);
 	refresh_all_windows();
-	if (mouse_present) goto L7a2b;
+	if (!mouse_present) {
 	set_cursor(main_window, done_x, done_y);
 	print_string(main_window, &done_hilite, -5);
-	goto L7a4d;
-L7a2b:
+	} else {
 	set_cursor(main_window, done_x, done_y);
 	print_string_hi(main_window, &done_text, 3);
-L7a4d:
+	}
 	sel = -1;
 L7a52:
 	if (mouse_present) goto L7ac2;
@@ -107,12 +106,11 @@ L7b0e:
 	draw_setting_value(win, sel, (sel - (sel == 5 ? 4 : 3)), (sel == 5 ? 7 : 4));
 L7b39:
 	prev_sel = sel;
-	if (return_cmd != 25) goto L7b59;
+	if (return_cmd == 25) {
 	choice = get_menu_choice(20582, 13720);
-	goto L7b6a;
-L7b59:
+	} else {
 	choice = get_menu_choice_animated(20582, 13720);
-L7b6a:
+	}
 	if (menu_clicked != 1) goto L7ba1;
 	if (choice != 8) goto L7b83;
 	sel = 1;
@@ -124,12 +122,11 @@ L7b83:
 L7ba1:
 	switch (choice) {
 case 2:
-	if (sel != -1) goto L7bb4;
+	if (sel == -1) {
 	sel = 7;
-	goto L7bb7;
-L7bb4:
+	} else {
 	sel--;
-L7bb7:
+	}
 	goto L7d10;
 case 4:
 	if (sel != -1) goto L7bc7;
@@ -201,26 +198,26 @@ L7d9b:
 	stop_sound();
 	if (changed != 1) goto L7e36;
 	get_message(2258, &l110);
-	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) != -1) goto L7df0;
+	if ((scenario_hdr_fd = open(make_data_path(20552, 0), 2)) == -1) {
 	exit_game(19);
-L7df0:
+	}
 	lseek(scenario_hdr_fd, 0L, 0);
-	if ((written = write(scenario_hdr_fd, 13304, 414)) != -1) goto L7e2e;
+	if ((written = write(scenario_hdr_fd, 13304, 414)) == -1) {
 	show_error_text(&l110, 0);
-L7e2e:
+	}
 	close(scenario_hdr_fd);
 L7e36:
 	g4fc8 = (unsigned char)cfg_delay;
 	if ((!(video_flags & 4096)) || (cfg_input != 1)) goto L7e5f;
-	if (mouse_present) goto L7e57;
+	if (!mouse_present) {
 	drv_op_96();
-L7e57:
+	}
 	mouse_present = 1;
 	goto L7e6f;
 L7e5f:
-	if (mouse_present != 1) goto L7e69;
+	if (mouse_present == 1) {
 	drv_mouse_shutdown();
-L7e69:
+	}
 	mouse_present = 0;
 L7e6f:
 	clear_click_flag();

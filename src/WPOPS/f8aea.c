@@ -22,12 +22,12 @@ start_combat_round()
 	resume_window_draw(g438c);
 	f0a42(main_window, 0);
 	f0a42(bottom_line_win, 0);
-	if ((unsigned)g019d[g43b4] <= 0) goto L8bab;
+	if ((unsigned)g019d[g43b4] > 0) {
 	destroy_window(picture_win, 0);
 	picture_win = create_window(9, 4, 22, 12, 2, -1, 2, 0);
 	g4fae = create_window(9, 16, 22, 2, 16, -1, 0, 0);
 	draw_ally_group();
-L8bab:
+	}
 	choose_party_actions(g438a);
 	if (!g4fae) goto L8c15;
 	destroy_window(g4fae, 0);

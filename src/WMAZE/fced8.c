@@ -47,21 +47,21 @@ force_lock(member, event)
 	l8 = extract_bits(l4, 0, 5);
 	l60 = 0;
 	l4 = *(int *)((g4fa8 + (event << 1)) + 576);
-	if (extract_bits(l4, (party_facing << 1), 2) != 2) goto Ld09e;
+	if (extract_bits(l4, (party_facing << 1), 2) == 2) {
 	l60 = 1;
-Ld09e:
+	}
 	get_message(2112, &l52);
 	set_cursor(main_window, 21, 0);
 	print_string_hi(main_window, &l52, 3);
-	if ((target = ((18 - ((unsigned char)pc_stats[(432 * member)] - l8)) + l8)) >= 1) goto Ld0fa;
+	if ((target = ((18 - ((unsigned char)pc_stats[(432 * member)] - l8)) + l8)) < 1) {
 	target = 1;
-Ld0fa:
-	if (target <= 18) goto Ld105;
+	}
+	if (target > 18) {
 	target = 18;
-Ld105:
-	if (!l60) goto Ld110;
+	}
+	if (l60) {
 	target = 18;
-Ld110:
+	}
 	defer_window_draw(win);
 	set_cursor(win, 1, 3);
 	for (l2 = 0; l2 < target; l2++) {
@@ -94,12 +94,12 @@ Ld1cb:
 Ld220:
 	draw_member_status_m(member);
 Ld227:
-	if ((strength = ((((random(l6) + random(l6)) + random(l6)) + random(l6)) / 4)) >= 1) goto Ld268;
+	if ((strength = ((((random(l6) + random(l6)) + random(l6)) + random(l6)) / 4)) < 1) {
 	strength = 1;
-Ld268:
-	if (strength <= 18) goto Ld273;
+	}
+	if (strength > 18) {
 	strength = 18;
-Ld273:
+	}
 	set_cursor(win, 1, 1);
 	for (l2 = 0; l2 < strength; l2++) {
 	put_char(win, 97, (l60 == 1 ? 4 : 6));
@@ -112,13 +112,13 @@ Ld273:
 Ld2f4:
 	if ((l62 == 1) && (!check_screen_click())) goto Ld157;
 	result = (strength >= target ? 0 : 1);
-	if (!l60) goto Ld320;
+	if (l60) {
 	result = 2;
-Ld320:
+	}
 	if (!result) goto Ld33b;
-	if (random(3)) goto Ld339;
+	if (!random(3)) {
 	fce13(event);
-Ld339:
+	}
 	goto Ld342;
 Ld33b:
 	fce81(event);

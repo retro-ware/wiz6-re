@@ -27,17 +27,17 @@ flee_party(p4)
 	l6 = 0;
 	set_bit(&l106, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x), 1);
 	l2 = party_facing;
-	if (game_state_arg != g4f98) goto L78e3;
+	if (game_state_arg == g4f98) {
 	l2 = ((g4f8c + 2) % 4);
-L78e3:
+	}
 	l4 = (((party_facing + 3) % 4) == l2 ? 3 : 1);
 L7901:
 	if (party_facing == l2) goto L792f;
 	party_facing = ((party_facing + l4) % 4);
 	redraw_maze_view();
-	if (l6) goto L7925;
+	if (!l6) {
 	l6 = show_fleeing_msg();
-L7925:
+	}
 	wait_animating_m(2);
 	goto L7901;
 L792f:
@@ -48,18 +48,18 @@ L7934:
 	if ((l8 == -1) || (random(4))) goto L79ba;
 	party_facing = ((party_facing + l8) % 4);
 	if (try_step(&l106)) goto L7983;
-	if (l6) goto L7979;
+	if (!l6) {
 	l6 = show_fleeing_msg();
-L7979:
+	}
 	show_prev_position();
 	l10 = 1;
 	goto L79ba;
 L7983:
 	party_facing = ((party_facing + 2) % 4);
 	if (try_step(&l106)) goto L79b4;
-	if (l6) goto L79aa;
+	if (!l6) {
 	l6 = show_fleeing_msg();
-L79aa:
+	}
 	show_prev_position();
 	l10 = 1;
 	goto L79ba;
@@ -83,9 +83,9 @@ L7a23:
 L7a3b:
 	set_bit(&l106, (((party_level << 6) + (party_cell_y << 3)) + party_cell_x), 1);
 	redraw_maze_view();
-	if (l6) goto L7a71;
+	if (!l6) {
 	l6 = show_fleeing_msg();
-L7a71:
+	}
 	wait_animating_m(2);
 	l8 = (random(2) ? 1 : 3);
 	p4--;

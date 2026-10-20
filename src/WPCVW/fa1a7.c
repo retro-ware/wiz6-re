@@ -8,9 +8,9 @@ char *p8;
 	class_allowed[p6] = 1;
 	rsi = 0;
 La1be:
-	if ((unsigned char)pc_stats[((432 * p4) + rsi)] >= (*(p8 + rsi) + -65)) goto La1ee;
+	if ((unsigned char)pc_stats[((432 * p4) + rsi)] < (*(p8 + rsi) + -65)) {
 	class_allowed[p6] = 0;
-La1ee:
+	}
 	rsi++;
 	if (rsi < 7) goto La1be;
 }

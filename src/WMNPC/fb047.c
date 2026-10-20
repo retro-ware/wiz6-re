@@ -39,9 +39,9 @@ lb0ae:
 #endasm
 	chance = 0;
 Lb0e0:
-	if (chance <= 95) goto Lb0eb;
+	if (chance > 95) {
 	chance = 95;
-Lb0eb:
+	}
 	roll = (random(100) + g5892);
 	g5892 = ((random(10) + g5892) + 5);
 	get_message(((unsigned char)pc_sex[(432 * member)] + 1570), 20948);
@@ -51,9 +51,9 @@ Lb0eb:
 	fa206();
 	if ((g54b2 > 0) && (random(100) >= 20)) goto Lb1d1;
 	l6 = (random(100) * (unsigned char)g51cf);
-	if ((long)l6 <= g51c0) goto Lb19d;
+	if ((long)l6 > g51c0) {
 	l6 = *(int *)&g51c0;
-Lb19d:
+	}
 	g51c0 -= (long)l6;
 	*(long *)((char *)pc_gold + (432 * member)) += (long)l6;
 	get_message(1574, 20948);
@@ -75,9 +75,9 @@ Lb233:
 	get_message(1576, 20948);
 	replace_char_with_string(20948, ((432 * member) + 17384), 94);
 	f5d0c(20948, 1);
-	if ((l6 = (g4550[((432 * member) + g5274)] - (random(25) + 25))) >= -100) goto Lb2a9;
+	if ((l6 = (g4550[((432 * member) + g5274)] - (random(25) + 25))) < -100) {
 	l6 = -100;
-Lb2a9:
+	}
 	g4550[((432 * member) + g5274)] = *(char *)&l6;
 	f7f76(member, 10, 0, 0, 0);
 	return;

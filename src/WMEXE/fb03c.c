@@ -40,9 +40,9 @@ char *p4;
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, realm_colors[(unsigned char)spell_table[(l6 * 6)]]);
 	g50fc = 0;
 	g5118 = 0;
-	if (random((((unsigned char)g0191[monster_groups[g435e]] + *(int *)p4) + 1)) >= (unsigned char)g0191[monster_groups[g435e]]) goto Lb12f;
+	if (random((((unsigned char)g0191[monster_groups[g435e]] + *(int *)p4) + 1)) < (unsigned char)g0191[monster_groups[g435e]]) {
 	g5118 = 1;
-Lb12f:
+	}
 	if (g435e) goto Lb21a;
 	if (((pc_class[(432 * g435c)] != 5) && (pc_class[(432 * g435c)] != 4)) && (pc_class[(432 * g435c)] != 13)) goto Lb182;
 	l14 = ((((unsigned char)g4535[(432 * g435c)] / 3) + 90) - ((unsigned char)g00df[(l6 * 6)] * l4));
@@ -99,17 +99,17 @@ Lb366:
 	combat_delay((g4fc8 / 2));
 	goto Lb3e7;
 Lb397:
-	if (g50fc != 1) goto Lb3d8;
+	if (g50fc == 1) {
 	combat_delay(2);
 	print_msg_centered(3202, 4, 2);
 	combat_delay((g4fc8 / 2));
 	p4[31] = *(char *)&g435e;
 	p4[32] = *(char *)&g435c;
-Lb3d8:
+	}
 	do_cast_spell(p4, l6, l4);
 Lb3e7:
-	if (g435e) goto Lb425;
+	if (!g435e) {
 	*(int *)((char *)pc_spell_pts + ((432 * g435c) + ((unsigned char)spell_table[(l6 * 6)] << 2))) -= ((unsigned char)g00e0[(l6 * 6)] * l4);
-Lb425:
+	}
 	return ((random(l4) + (unsigned char)g00df[(l6 * 6)]) + l4);
 }

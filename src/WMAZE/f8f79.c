@@ -37,9 +37,9 @@ case 5:
 	goto L8ffa;
 	}
 L8ffa:
-	if (*(int *)((char *)g4ec8 + (l2 << 2)) <= 0) goto L9010;
+	if (*(int *)((char *)g4ec8 + (l2 << 2)) > 0) {
 	l4 += l6;
-L9010:
+	}
 	drv_op_c6(l4, 0, -1);
 	l2++;
 	if (l2 < 6) goto L8f84;

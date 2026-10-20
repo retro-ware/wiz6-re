@@ -123,14 +123,14 @@ L5f30:
 	i = l8;
 	goto L5fe2;
 L5f69:
-	if (g5670[i] != 1) goto L5fdf;
+	if (g5670[i] == 1) {
 	set_cursor(win, 1, (count + 3));
 	print_message((i + 5500), win, l12);
 	set_cursor(win, 16, (count + 3));
 	print_int(win, (unsigned char)char_skills[i], 3, 1);
 	*(int *)(p10 + (count << 1)) = i;
 	count++;
-L5fdf:
+	}
 	i++;
 L5fe2:
 	if (i <= l10) goto L5f69;

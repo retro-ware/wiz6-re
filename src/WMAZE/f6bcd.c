@@ -32,9 +32,9 @@ case 0:
 	save_game();
 	goto L6ce6;
 case 1:
-	if (save_game() == -1) goto L6cb1;
+	if (save_game() != -1) {
 	game_state = 7;
-L6cb1:
+	}
 	goto L6ce6;
 case 2:
 	game_state = 7;

@@ -15,9 +15,9 @@ get_message(msg, buf)
 	msg_not_found = 1;
 	return;
 L077a:
-	if ((unsigned char)entry[5] == msg_block_num) goto L078c;
+	if ((unsigned char)entry[5] != msg_block_num) {
 	load_message_block((unsigned char)entry[5]);
-L078c:
+	}
 	pos = *(int *)(entry + 2);
 	n = *(int *)entry;
 L079a:
@@ -30,13 +30,13 @@ L07b6:
 	pos++;
 	n = len;
 	dst = raw;
-	if ((pos + n) <= 1024) goto L080b;
+	if ((pos + n) > 1024) {
 	movmem((pos + 7230), dst, (1024 - pos));
 	n -= (1024 - pos);
 	dst += (1024 - pos);
 	load_message_block((msg_block_num + 1));
 	pos = 0;
-L080b:
+	}
 	movmem((pos + 7230), dst, n);
 	raw[len] = 0;
 	decode_text(raw, buf);

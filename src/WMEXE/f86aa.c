@@ -17,9 +17,9 @@ f86aa(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24)
 	combat_delay((g4fc8 / 2));
 	return;
 L8717:
-	if (p8 != 5) goto L8722;
+	if (p8 == 5) {
 	l4 = 2;
-L8722:
+	}
 	if (p8 != 11) goto L872d;
 	l4 = 3;
 L872d:

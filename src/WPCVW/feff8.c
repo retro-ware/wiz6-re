@@ -47,12 +47,12 @@ case 13:
 	goto Lf08b;
 	}
 Lf08b:
-	if (l6 >= 8) goto Lf094;
+	if (l6 < 8) {
 	l4--;
-Lf094:
-	if (*(int *)((char *)pc_level + (432 * p4)) >= (unsigned char)g4597[(432 * p4)]) goto Lf0b3;
+	}
+	if (*(int *)((char *)pc_level + (432 * p4)) < (unsigned char)g4597[(432 * p4)]) {
 	l4 = 0;
-Lf0b3:
+	}
 	g4596[(432 * p4)] = (char)(g4596[(432 * p4)] - l4);
 #asm
 	db 080h,0bfh,096h,045h,000h,07dh,005h,0c6h,087h,096h,045h,000h
@@ -80,15 +80,15 @@ lf146:
 #endasm
 Lf153:
 	l8 = 10;
-	if ((unsigned)g4519[(432 * p4)] <= 15) goto Lf16a;
+	if ((unsigned)g4519[(432 * p4)] > 15) {
 	l8--;
-Lf16a:
-	if ((unsigned)g4519[(432 * p4)] <= 17) goto Lf174;
+	}
+	if ((unsigned)g4519[(432 * p4)] > 17) {
 	l8--;
-Lf174:
-	if (pc_race[(432 * p4)] != 5) goto Lf181;
+	}
+	if (pc_race[(432 * p4)] == 5) {
 	l8 -= 2;
-Lf181:
+	}
 	if ((pc_class[(432 * p4)] != 13) && (pc_class[(432 * p4)] != 12)) goto Lf1bb;
 	l2 = (*(int *)((char *)pc_level + (432 * p4)) <= 20 ? (*(int *)((char *)pc_level + (432 * p4)) / 2) : 20);
 	l2 += ((unsigned char)g452c[(432 * p4)] / 10);

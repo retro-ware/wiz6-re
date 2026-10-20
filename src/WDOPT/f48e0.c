@@ -31,12 +31,11 @@ L48f6:
 	refresh_window(main_window);
 	refresh_window(win);
 	set_cursor(main_window, cancel_x, cancel_y);
-	if (mouse_present != 1) goto L49c5;
+	if (mouse_present == 1) {
 	print_string_hi(main_window, &cancel_text, 3);
-	goto L49d7;
-L49c5:
+	} else {
 	print_string(main_window, &cancel_hilite, -5);
-L49d7:
+	}
 	for (rsi = 0; rsi < party_count; rsi++) {
 	x = (((rsi % 2) * 9) + 2);
 	y = ((rsi / 2) + 1);

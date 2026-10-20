@@ -18,10 +18,10 @@ cast_spell_on_chest(win, win2, member)
 	*(int *)((char *)pc_spell_pts + ((432 * member) + ((unsigned char)spell_table[(spell * 6)] << 2))) -= ((unsigned char)g00e0[(spell * 6)] * level);
 	cast_chest_spell(member, spell, level, g51d4, win, win2);
 	*(int *)((char *)pc_stamina + (432 * member)) -= ((random(level) + (unsigned char)g00df[(spell * 6)]) + level);
-	if (*(int *)((char *)pc_stamina + (432 * member)) >= 0) goto L8519;
+	if (*(int *)((char *)pc_stamina + (432 * member)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * member)) = 0;
 	g450c[(432 * member)] = (char)(random(6) + 6);
-L8519:
+	}
 	draw_member_status(member);
 L8520:
 	;

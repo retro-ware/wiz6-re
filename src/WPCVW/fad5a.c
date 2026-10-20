@@ -64,25 +64,25 @@ Lae8f:
 	enabled[4] = 1;
 	l38 = 0;
 Laecf:
-	if (party_count >= 2) goto Laee0;
+	if (party_count < 2) {
 	l16 = 0;
 	enabled[2] = 0;
-Laee0:
-	if (pc_item_count[(432 * member)]) goto Laefe;
+	}
+	if (!pc_item_count[(432 * member)]) {
 	enabled[3] = 0;
 	enabled[7] = 0;
 	enabled[6] = 0;
-Laefe:
-	if ((unsigned)pc_item_count[(432 * member)] >= 2) goto Laf0a;
+	}
+	if ((unsigned)pc_item_count[(432 * member)] < 2) {
 	enabled[5] = 0;
-Laf0a:
+	}
 	if ((*(long *)((char *)pc_gold + (432 * member)) != 0L) || (pc_item_count[(432 * member)])) goto Laf24;
 	enabled[2] = 0;
 Laf24:
-	if (is_member_able(member)) goto Laf39;
+	if (!is_member_able(member)) {
 	enabled[1] = 0;
 	enabled[6] = 0;
-Laf39:
+	}
 	l12 = -1;
 	flush_keys();
 	choice = run_menu(menu, 301, enabled, 2, 1, 6, 2, 5, count_enabled_before(enabled, 11));
@@ -97,9 +97,9 @@ case 2:
 	do_trade_items(sheet, menu, member);
 	goto Lb111;
 case 3:
-	if ((g43ca = choose_item(sheet, menu, 450, member, 0)) == -1) goto Lafe7;
+	if ((g43ca = choose_item(sheet, menu, 450, member, 0)) != -1) {
 	show_item_info(menu, member, g43ca, 0);
-Lafe7:
+	}
 	goto Lb111;
 case 7:
 	if ((g43ca = choose_item(sheet, menu, 402, member, 0)) == -1) goto Lb049;
@@ -111,9 +111,9 @@ Lb03c:
 Lb049:
 	goto Lb111;
 case 6:
-	if ((g43ca = choose_item(sheet, menu, 400, member, 0)) == -1) goto Lb07b;
+	if ((g43ca = choose_item(sheet, menu, 400, member, 0)) != -1) {
 	do_use_item(sheet, menu, member, g43ca);
-Lb07b:
+	}
 	goto Lb111;
 case 5:
 	do_merge_items(sheet, menu, member);
@@ -128,13 +128,12 @@ case 8:
 	do_skills_menu(menu, member);
 	goto Lb111;
 case 10:
-	if ((cur_member = choose_member(sheet, menu, 500, member)) == -1) goto Lb0e6;
+	if ((cur_member = choose_member(sheet, menu, 500, member)) != -1) {
 	member = cur_member;
 	g57fc = 0;
-	goto Lb0ec;
-Lb0e6:
+	} else {
 	cur_member = member;
-Lb0ec:
+	}
 	goto Lb111;
 	}
 Lb111:

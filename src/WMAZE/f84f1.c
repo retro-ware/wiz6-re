@@ -12,10 +12,10 @@ char p10;
 #asm
 	db 08bh,046h,006h,089h,087h,0d0h,050h,08bh,046h,008h,089h,087h,0d2h,050h
 #endasm
-	if (p4 == 255) goto L8587;
+	if (p4 != 255) {
 	*(int *)((char *)g50d0 + (g50ce * 11)) += (unsigned char)g36e4[((314 * p4) + ((unsigned char)p10 << 1))];
 	*(int *)((char *)g50d2 + (g50ce * 11)) += (unsigned char)g3717[((314 * p4) + (unsigned char)p10)];
-L8587:
+	}
 	g50d9[(g50ce * 11)] = p10;
 #asm
 	db 08bh,046h,00ch,089h,087h,0d4h,050h,08bh,046h,00eh,089h,087h,0d6h,050h,08ah,046h

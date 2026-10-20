@@ -29,21 +29,20 @@ l6c38:
 	db 059h
 #endasm
 L6c5f:
-	if (party_picture_win[6]) goto L6c6c;
+	if (!party_picture_win[6]) {
 	party_picture_win[6]++;
-L6c6c:
-	if (l2 < 0) goto L6c9e;
+	}
+	if (l2 >= 0) {
 	*(l86 + l2) = 0;
 	print_string(party_picture_win, l86, p6);
 	party_picture_win[6]++;
 	l86 += l2;
 	l86 += 1;
-	goto L6cbb;
-L6c9e:
+	} else {
 	print_string(party_picture_win, l86, p6);
 	party_picture_win[6]++;
 	*l86 = 0;
-L6cbb:
+	}
 	goto L6c0b;
 L6cbe:
 	;

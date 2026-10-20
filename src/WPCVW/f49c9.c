@@ -50,12 +50,11 @@ L4b30:
 L4b53:
 	i++;
 	if (i < 10) goto L4b30;
-	if (l2 == -1) goto L4b77;
+	if (l2 != -1) {
 	put_char_hi(win, (unsigned char)((l2 + 37)), 1);
-	goto L4b88;
-L4b77:
+	} else {
 	put_char_hi(win, 32, 3);
-L4b88:
+	}
 	set_cursor(win, (l4 + 3), (l6 + 2));
 	for (i = 0; i < 2; i++) {
 	put_char_hi(win, (unsigned char)(((((unsigned char)pc_class[(432 * member)] << 1) + i) + 58)), 1);

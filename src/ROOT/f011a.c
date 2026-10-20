@@ -9,9 +9,9 @@ char color;
 	register int i;
 	size = ((flags & 2) ? 20 : (((width << 1) * height) + 20));
 	win = malloc(size);
-	if (win) goto L0151;
+	if (!win) {
 	exit_game(11);
-L0151:
+	}
 	*win = *(char *)&width;
 	win[1] = *(char *)&height;
 	win[2] = x;
@@ -65,11 +65,11 @@ L0298:
 	}
 L02ac:
 	link_window(win);
-	if ((flags & 2)) goto L02c1;
+	if (!(flags & 2)) {
 	blank_window(win);
-L02c1:
-	if (!refresh) goto L02ca;
+	}
+	if (refresh) {
 	refresh_all_windows();
-L02ca:
+	}
 	return win;
 }

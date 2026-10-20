@@ -11,15 +11,15 @@ init_class_ratings()
 	int l4;
 	l2 = (unsigned char)g559f;
 	l4 = 0;
-	if (l2 <= 15) goto L8e62;
+	if (l2 > 15) {
 	l4++;
-L8e62:
-	if (char_race != 5) goto L8e6c;
+	}
+	if (char_race == 5) {
 	l4++;
-L8e6c:
-	if (char_race != 6) goto L8e76;
+	}
+	if (char_race == 6) {
 	l4--;
-L8e76:
+	}
 	switch ((unsigned char)char_class) {
 case 0:
 case 3:

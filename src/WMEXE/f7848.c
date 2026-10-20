@@ -18,9 +18,9 @@ kill_combatant(p4, p6)
 	if (((g435e) || (g435c < 0)) || (g435c >= party_count)) goto L7880;
 	*(long *)((char *)g43f8 + (g435c * 432)) += 1L;
 L7880:
-	if (!((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[220] & 1)) goto L78ab;
+	if (((unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[220] & 1)) {
 	set_bit(13464, (unsigned char)(*(char **)((char *)group_monster_rec + (p4 << 1)))[218], 1);
-L78ab:
+	}
 	if (((char *)monster_groups[p4] + (44 * p6))[42] == -1) goto L7936;
 	l2 = (((char *)monster_groups[p4] + (44 * p6))[42] / 10);
 	l4 = (((char *)monster_groups[p4] + (44 * p6))[42] % 10);

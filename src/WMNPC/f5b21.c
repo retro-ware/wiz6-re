@@ -48,9 +48,9 @@ case 5:
 L5bdd:
 	goto L5b27;
 L5be0:
-	if (loot_count <= g5262) goto L5bf1;
+	if (loot_count > g5262) {
 	f5af3(0);
-L5bf1:
+	}
 	l2 = (20 - ((strlen(p4) + 1) / 2));
 	switch ((unsigned char)*p4) {
 case 36:

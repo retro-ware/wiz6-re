@@ -6,12 +6,12 @@ draw_gauge_mele(win, x, y, p10, p12, glyph)
 	char l4;
 	char l5;
 	char x5[1];
-	if ((level = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) <= 10) goto L5f09;
+	if ((level = ((int)((((long)p10 * 100) / (long)p12) / 10L) + 1)) > 10) {
 	level = 10;
-L5f09:
-	if (p10) goto L5f14;
+	}
+	if (!p10) {
 	level = 0;
-L5f14:
+	}
 	l5 = (char)(glyph + 9);
 	l4 = (char)(glyph + 4);
 	l3 = *(char *)&glyph;

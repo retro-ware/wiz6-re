@@ -38,9 +38,9 @@ case 5:
 	goto L8a0b;
 	}
 L8a0b:
-	if (*(int *)((char *)g4ec8 + (i << 2)) <= 0) goto L8a21;
+	if (*(int *)((char *)g4ec8 + (i << 2)) > 0) {
 	icon += frame;
-L8a21:
+	}
 	drv_op_c6(icon, 0, -1);
 	i++;
 	if (i < 6) goto L8995;

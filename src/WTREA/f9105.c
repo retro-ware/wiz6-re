@@ -93,10 +93,10 @@ L93dd:
 case 0:
 	if ((member = choose_party_member(5223, 0)) == -1) goto L9431;
 	if (tried[member]) goto L9429;
-	if (!is_member_able(member)) goto L9427;
+	if (is_member_able(member)) {
 	inspect_chest(trap_win, member);
 	tried[member] = 1;
-L9427:
+	}
 	goto L9431;
 L9429:
 	play_sound(0);

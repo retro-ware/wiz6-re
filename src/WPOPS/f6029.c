@@ -9,8 +9,7 @@ draw_combat_list_box(p4, p6)
 	}
 	put_combat_glyph_at(p4, 1, 4, 70);
 	resume_window_draw(p4);
-	if (!p6) goto L60a2;
+	if (p6) {
 	refresh_window(p4);
-L60a2:
-	;
+	}
 }

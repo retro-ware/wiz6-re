@@ -14,14 +14,13 @@ L9c41:
 	if (g5036) goto L9cb8;
 	anim_phase = ((anim_phase + 1) % 2);
 	redraw_maze_view();
-	if (l2 >= 2) goto L9c85;
+	if (l2 < 2) {
 	set_cursor(g522a, 39, 4);
 	put_char(g522a, 32, 1);
-	goto L9ca9;
-L9c85:
+	} else {
 	set_cursor(g522a, 39, 4);
 	put_char_hi(g522a, 126, 1);
-L9ca9:
+	}
 	l2 = ((l2 + 1) % 4);
 	goto L9cbb;
 L9cb8:

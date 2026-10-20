@@ -22,10 +22,10 @@ L6afa:
 	count = 0;
 	l2 = 0;
 L6b2a:
-	if (test_bit((chest + 36), l2) != 1) goto L6b51;
+	if (test_bit((chest + 36), l2) == 1) {
 	traps[count] = l2;
 	count++;
-L6b51:
+	}
 	l2++;
 	if (l2 < 16) goto L6b2a;
 	sel = 0;
@@ -51,14 +51,14 @@ case 2:
 L6c4c:
 	switch (l2) {
 case 2:
-	if (sel <= 0) goto L6c5a;
+	if (sel > 0) {
 	sel--;
-L6c5a:
+	}
 	goto L6c74;
 case 4:
-	if ((sel + 1) >= count) goto L6c68;
+	if ((sel + 1) < count) {
 	sel++;
-L6c68:
+	}
 	goto L6c74;
 	}
 L6c74:
@@ -77,12 +77,12 @@ L6cff:
 	chance += ((unsigned char)g4518[(432 * member)] << 1);
 	try_skill_gain(member, 15, 2);
 L6d33:
-	if (chance <= 95) goto L6d3e;
+	if (chance > 95) {
 	chance = 95;
-L6d3e:
-	if (chance >= 5) goto L6d49;
+	}
+	if (chance < 5) {
 	chance = 5;
-L6d49:
+	}
 	l4 = random(100);
 	if (l4 >= chance) goto L6d5f;
 	return 1;

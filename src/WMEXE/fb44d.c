@@ -65,18 +65,17 @@ Lb542:
 	if (pc_class[(432 * g435c)] != 6) goto Lb5ad;
 	l4 = ((((unsigned char)g4528[(432 * g435c)] / 15) + 2) - (unsigned char)g00df[(l6 * 6)]);
 	try_raise_skill(g435c, 12, 1);
-	if (l4 >= 0) goto Lb5a2;
+	if (l4 < 0) {
 	l4 = 0;
-Lb5a2:
+	}
 	if (l4 <= 6) goto Lb5ad;
 	l4 = 6;
 Lb5ad:
-	if (l4) goto Lb5c3;
+	if (!l4) {
 	get_message(3305, 20652);
-	goto Lb5d1;
-Lb5c3:
+	} else {
 	get_message(3304, 20652);
-Lb5d1:
+	}
 	goto Lb5e6;
 Lb5d3:
 	get_message(3312, 20652);
@@ -94,11 +93,11 @@ Lb60c:
 Lb628:
 	get_message(3316, 20652);
 Lb636:
-	if (l21 != 7) goto Lb655;
+	if (l21 == 7) {
 	g4352 = 1;
 	l16 = -1;
 	get_message(3312, 20652);
-Lb655:
+	}
 	print_combat_line(20492, 20652, 20572, 1, 14, 11);
 	goto Lb675;
 Lb675:
@@ -138,13 +137,13 @@ Lb7c9:
 	combat_delay((g4fc8 / 2));
 	goto Lb84a;
 Lb7fa:
-	if (g50fc != 1) goto Lb83b;
+	if (g50fc == 1) {
 	combat_delay(2);
 	print_msg_centered(3202, 4, 2);
 	combat_delay((g4fc8 / 2));
 	p4[31] = *(char *)&g435e;
 	p4[32] = *(char *)&g435c;
-Lb83b:
+	}
 	do_cast_spell(p4, l6, l4);
 Lb84a:
 	goto Lb85a;

@@ -16,11 +16,11 @@ L722b:
 	if ((*(minimums + stat) + -65) <= l2) goto L7252;
 	l2++;
 	points--;
-	if (apply != 1) goto L7250;
+	if (apply == 1) {
 	char_stats[stat]++;
 	bonus_points--;
 	draw_stats();
-L7250:
+	}
 	goto L722b;
 L7252:
 	stat++;

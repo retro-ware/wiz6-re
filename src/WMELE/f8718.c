@@ -6,9 +6,9 @@ extern int g52f2;
 /* Draw floor and ceiling pieces of one depth row. */
 draw_floor_ceiling(p4, p6, p8, p10, p12, p14, p16, p18)
 {
-	if (pclist_race[((p4 * 3) + p6)]) goto L8761;
+	if (!pclist_race[((p4 * 3) + p6)]) {
 	drv_op_c6((g52f2 ? (p10 + p4) : (p8 + p4)), 1, (g52f2 != 0 ? (p8 + p4) : -1));
-L8761:
+	}
 	if (g5182[((p4 * 3) + p6)]) goto L8803;
 	if (*(int *)((char *)g5126 + ((p4 * 6) + (p6 << 1)))) goto L87c7;
 	drv_op_c6((g52f2 ? (p14 + p4) : (p12 + p4)), 1, (g52f2 != 0 ? (p12 + p4) : -1));
