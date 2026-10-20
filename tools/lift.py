@@ -419,6 +419,9 @@ class Lifter:
             if rv is not None and v == rv and lv[0] in ('v', 'm'):
                 self.R[r] = lv
                 continue
+            if rv is not None and rv[0] == 'lo' and v == rv[1] and size_of(lv) == 1 and lv[0] in ('v', 'm'):
+                self.R[r] = lv          # mov [x], al: al now holds the byte x (ah is not known)
+                continue
             for x in sub_exprs(v):
                 if x[0] == 'v' and (x[1], x[2]) == key or \
                         mem and (x[0] in ('m', 'la') or x[0] == 'v' and x[1] == 'g'):
