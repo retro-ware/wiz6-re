@@ -649,7 +649,7 @@ class Lifter:
                 x, y = self.val(d), self.val(s)
                 v = ('b', ALU[m], x, y)
                 if m == 'add' and d.reg == X.X86_REG_AX and s.type == X.X86_OP_REG and \
-                        s.reg == X.X86_REG_CX and x[0] == 'v' and x[3] == 2 and x[1] == 'p' and \
+                        s.reg == X.X86_REG_CX and x[0] == 'v' and x[3] == 2 and x[1] in ('p', 'g') and \
                         y and y[0] not in ('v', 'c'):
                     self.vptr.add((x[1], x[2]))
                 self.setreg(d, v)

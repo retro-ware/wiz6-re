@@ -108,7 +108,8 @@
 	global g43aa_:byte,10
 	global g43b4_:byte,2
 	global group_monster_rec_:byte,2
-	global g43b8_:byte,12
+	global g43b8_:byte,10
+	global g43c2_:byte,2
 	global treasure_id_:byte,2
 	global combat_gold_:byte,2
 	global g43c8_:byte,2

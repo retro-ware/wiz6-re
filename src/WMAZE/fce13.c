@@ -1,11 +1,10 @@
+extern char *g4fa8;
 extern int party_facing;
-fce13()
+fce13(p4)
 {
 	int l2;
 	char *l4;
-#asm
-	db 08bh,04eh,004h,0d1h,0e1h,0a1h,0a8h,04fh,003h,0c1h,005h,040h,002h,089h,046h,0fch
-#endasm
+	l4 = ((g4fa8 + (p4 << 1)) + 576);
 	l2 = (party_facing << 1);
 	*(l4 + (l2 / 8)) = (char)(*(l4 + (l2 / 8)) & ~(1 << (l2 % 8)));
 #asm
