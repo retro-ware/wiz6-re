@@ -19,13 +19,9 @@ Lc41e:
 	l162[(l166 - l164)] = 32;
 	l162[((l166 - l164) + 1)] = 0;
 	fc2bf(l162);
-	l2 = 0;
-	goto Lc48f;
-Lc475:
+	for (l2 = 0; strlen(l162) > l2; l2++) {
 	*(p4 + (l168 + l2)) = l162[l2];
-	l2++;
-Lc48f:
-	if (strlen(l162) > l2) goto Lc475;
+	}
 	l168 += strlen(l162);
 Lc4aa:
 	l164 = l166;

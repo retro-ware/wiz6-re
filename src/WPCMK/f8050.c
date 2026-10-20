@@ -44,14 +44,10 @@ add_starting_item(item_id)
 	slot[7] |= 64;
 	}
 	char_load = 0;
-	l2 = 0;
-	goto L8151;
-L8125:
+	for (l2 = 0; (unsigned char)char_item_count > l2; l2++) {
 	if ((l80 = (unsigned char)g54b6[(l2 << 3)]) < 1) {
 	l80 = 1;
 	}
 	char_load += (*(int *)((char *)g54b2 + (l2 << 3)) * l80);
-	l2++;
-L8151:
-	if ((unsigned char)char_item_count > l2) goto L8125;
+	}
 }

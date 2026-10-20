@@ -24,14 +24,10 @@ load_monster_pic_dopt(mon, slot)
 	}
 	drv_op_ae(pic_fd, 0L, *(int *)((char *)g36e2 + (314 * slot)), *(int *)((char *)g36e4 + (314 * slot)), slot);
 	close(pic_fd);
-	i = 0;
-	goto L5340;
-L5329:
+	for (i = 0; (unsigned char)g3812[(314 * slot)] >= i; i++) {
 	pic_slot_monster[(slot + i)] = *(char *)&mon;
 	pic_slot_loaded[(slot + i)] = 1;
-	i++;
-L5340:
-	if ((unsigned char)g3812[(314 * slot)] >= i) goto L5329;
+	}
 L5353:
 	;
 }

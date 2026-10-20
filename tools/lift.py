@@ -1250,7 +1250,8 @@ class Lifter:
                 x.operands[0].type == X.X86_OP_REG and x.operands[0].reg == X.X86_REG_AX and \
                 x.operands[1].type == X.X86_OP_IMM
         save = (dict(self.R), self.flags, len(self.sts), dict(self.pend), self.cur,
-                list(self.stack), self.side, self.st_start, self.carry, {k: list(v) for k, v in self.out.items()})
+                list(self.stack), self.side, self.st_start, self.carry, {k: list(v) for k, v in self.out.items()},
+                self.skip, self.skip_to, set(self.nolabel))
         tests = [(c, t, i.address + i.size)]        # (cond, target, start of the next test)
         p, T = i.address + i.size, None
         try:
@@ -1279,7 +1280,8 @@ class Lifter:
             T = None
         ok = T is not None and len(tests) > 1 and len(self.sts) == save[2] and self.pend == save[3]
         self.R, self.flags, _, self.pend, self.cur = dict(save[0]), save[1], None, save[3], save[4]
-        self.stack, self.side, self.st_start, self.carry, self.out = save[5:]
+        self.stack, self.side, self.st_start, self.carry, self.out = save[5:10]
+        self.skip, self.skip_to, self.nolabel = save[10:]     # a long compare stepped inside moves these
         del self.sts[save[2]:]
         if not ok:
             return False

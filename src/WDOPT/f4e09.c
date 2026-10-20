@@ -38,9 +38,7 @@ L4e99:
 	if (eq < 8) goto L4e1f;
 	*(int *)((char *)pc_item_id + ((432 * member) + (slot << 3))) = 0;
 	pc_item_count[(432 * member)]--;
-	i = slot;
-	goto L4f37;
-L4ed4:
+	for (i = slot; (unsigned char)pc_item_count[(432 * member)] > i; i++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * member) + (i << 3))) = *(struct s8 *)((char *)g4430 + ((432 * member) + (i << 3)));
 	eq = 0;
 L4f09:
@@ -49,19 +47,13 @@ L4f09:
 	}
 	eq++;
 	if (eq < 8) goto L4f09;
-	i++;
-L4f37:
-	if ((unsigned char)pc_item_count[(432 * member)] > i) goto L4ed4;
+	}
 	goto L4fa9;
 L4f4c:
 	pc_swag_count[(432 * member)]--;
-	i = slot;
-	goto L4f93;
-L4f60:
+	for (i = slot; ((unsigned char)pc_swag_count[(432 * member)] + 10) > i; i++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * member) + (i << 3))) = *(struct s8 *)((char *)g4430 + ((432 * member) + (i << 3)));
-	i++;
-L4f93:
-	if (((unsigned char)pc_swag_count[(432 * member)] + 10) > i) goto L4f60;
+	}
 L4fa9:
 	;
 }

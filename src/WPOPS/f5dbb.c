@@ -22,17 +22,13 @@ L5def:
 	if (l10 != 1) goto L5e61;
 	l8 = 0;
 L5e10:
-	l6 = 0;
-	goto L5e49;
-L5e17:
+	for (l6 = 0; (unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l6; l6++) {
 	if ((g5043[((group * 9) + l6)]) && (l8 != attacker)) goto L5e43;
 	g5043[((group * 9) + l6)] = 1;
 	return l6;
 L5e43:
 	l8++;
-	l6++;
-L5e49:
-	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l6) goto L5e17;
+	}
 	goto L5e10;
 L5e61:
 	l8 = 0;

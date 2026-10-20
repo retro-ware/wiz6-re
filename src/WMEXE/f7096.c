@@ -50,9 +50,7 @@ L7143:
 	if (l4 < 8) goto L70ca;
 	*(int *)((char *)pc_item_id + ((432 * g435c) + (p4 << 3))) = 0;
 	pc_item_count[(432 * g435c)]--;
-	l2 = p4;
-	goto L71e6;
-L7180:
+	for (l2 = p4; (unsigned char)pc_item_count[(432 * g435c)] > l2; l2++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * g435c) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * g435c) + (l2 << 3)));
 	l4 = 0;
 L71b7:
@@ -61,9 +59,7 @@ L71b7:
 	}
 	l4++;
 	if (l4 < 8) goto L71b7;
-	l2++;
-L71e6:
-	if ((unsigned char)pc_item_count[(432 * g435c)] > l2) goto L7180;
+	}
 	calc_carried_weight_x(g435c);
 	*(struct s14 *)(char *)(&l18) = *(struct s14 *)(char *)(get_load_category_x(g435c));
 	g458d[(432 * g435c)] = l8;

@@ -22,15 +22,11 @@ Lbd9a:
 	l4 = ((unsigned char)g58db[((p4 * 20) + l6)] + -48);
 	strncpy(p6, ((p4 * 20) + 22746), (l6 - l4));
 	*(p6 + (l6 - l4)) = 0;
-	l2 = (l6 + 2);
-	goto Lbe59;
-Lbe22:
+	for (l2 = (l6 + 2); strlen(((p4 * 20) + 22746)) > l2; l2++) {
 	l4 = strlen(p6);
 	*(p6 + l4) = g58da[((p4 * 20) + l2)];
 	(p6 + l4)[1] = 0;
-	l2++;
-Lbe59:
-	if (strlen(((p4 * 20) + 22746)) > l2) goto Lbe22;
+	}
 Lbe75:
 	;
 }

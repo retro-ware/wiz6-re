@@ -1,6 +1,3 @@
-#asm
-	extrn clear_window_area_:near
-#endasm
 extern char g00cc[];
 extern char g44fa[];
 extern char g4548[];
@@ -69,9 +66,7 @@ Lb2ec:
 	print_int(p4, (g454a[((432 * p6) + l2)] + l8), 3, ((l90 + 8) % 16));
 	l90 = 15;
 	}
-	l2 = 0;
-	goto Lb5c8;
-Lb421:
+	for (l2 = 0; (unsigned char)pc_item_count[(432 * p6)] > l2; l2++) {
 	if (!g57fc) {
 	access_scenario_record(1, &l164, *(int *)((char *)pc_item_id + ((432 * p6) + (l2 << 3))), 0);
 	strcpy(((l2 << 4) + 21982), &l164);
@@ -99,18 +94,10 @@ Lb478:
 	}
 	set_cursor(p4, 38, (l2 + 9));
 	put_char_hi(p4, (unsigned char)(((unsigned char)pc_item_icon[((432 * p6) + (l2 << 3))] + 1)), 4);
-	l2++;
-Lb5c8:
-	if ((unsigned char)pc_item_count[(432 * p6)] > l2) goto Lb421;
-#asm
-lb5de:
-	db 0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,080h,0bfh,094h,045h,00ah,073h,01fh,0b8h
-	db 012h,000h,050h,0b8h,024h,000h,050h,08ah,087h,094h,045h,02ah,0e4h,005h,009h,000h
-	db 050h,0b8h,015h,000h,050h,0ffh,076h,004h
-	call clear_window_area_
-	db 083h,0c4h,00ah
-#endasm
-Lb60c:
+	}
+	if ((unsigned)pc_item_count[(432 * p6)] < 10) {
+	clear_window_area(p4, 21, ((unsigned char)pc_item_count[(432 * p6)] + 9), 36, 18);
+	}
 	for (l2 = (unsigned char)pc_item_count[(432 * p6)]; l2 < 10; l2++) {
 	set_cursor(p4, 38, (l2 + 9));
 	put_char_hi(p4, 32, 3);

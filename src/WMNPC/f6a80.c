@@ -89,19 +89,11 @@ L6c01:
 	l78[7] |= 64;
 	}
 	*(int *)((char *)pc_carried + (432 * p4)) = 0;
-	l2 = 0;
-	goto L6cbd;
-L6ca0:
+	for (l2 = 0; (unsigned char)pc_item_count[(432 * p4)] > l2; l2++) {
 	*(int *)((char *)pc_carried + (432 * p4)) += f6a0e(l2, p4);
-	l2++;
-L6cbd:
-	if ((unsigned char)pc_item_count[(432 * p4)] > l2) goto L6ca0;
-	l2 = 0;
-	goto L6cf8;
-L6cd7:
+	}
+	for (l2 = 0; (unsigned char)pc_swag_count[(432 * p4)] > l2; l2++) {
 	*(int *)((char *)pc_carried + (432 * p4)) += f6a0e((l2 + 10), p4);
-	l2++;
-L6cf8:
-	if ((unsigned char)pc_swag_count[(432 * p4)] > l2) goto L6cd7;
+	}
 	return 0;
 }

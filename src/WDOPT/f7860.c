@@ -61,9 +61,7 @@ do_use_item(member)
 	draw_list_frame_dopt(list_win, 0);
 	refresh_all_windows();
 	g51b8 = 0;
-	sel = 0;
-	goto L7a47;
-L79a6:
+	for (sel = 0; (unsigned char)pc_item_count[(432 * member)] > sel; sel++) {
 	access_scenario_record(1, &item, *(int *)((char *)pc_item_id + ((432 * member) + (sel << 3))), 0);
 	strcpy(((sel << 4) + 20966), &item);
 	if (g00cc[(unsigned char)pc_item_type[((432 * member) + (sel << 3))]] == 1) {
@@ -73,12 +71,8 @@ L79a6:
 	}
 	g51ba[g51b8] = sel;
 	g51b8++;
-	sel++;
-L7a47:
-	if ((unsigned char)pc_item_count[(432 * member)] > sel) goto L79a6;
-	sel = 0;
-	goto L7b0f;
-L7a65:
+	}
+	for (sel = 0; (unsigned char)pc_swag_count[(432 * member)] > sel; sel++) {
 	slot = (sel + 10);
 	access_scenario_record(1, &item, *(int *)((char *)pc_item_id + ((432 * member) + (slot << 3))), 0);
 	strcpy(((slot << 4) + 20966), &item);
@@ -89,9 +83,7 @@ L7a65:
 	}
 	g51ba[g51b8] = slot;
 	g51b8++;
-	sel++;
-L7b0f:
-	if ((unsigned char)pc_swag_count[(432 * member)] > sel) goto L7a65;
+	}
 	get_message(2035, &cancel_text);
 	sel = 0;
 	on_cancel = 0;

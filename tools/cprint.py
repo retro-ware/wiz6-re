@@ -526,7 +526,11 @@ class Printer:
         ops = {'<': int.__lt__, '<=': int.__le__, '>': int.__gt__, '>=': int.__ge__, '!=': int.__ne__}
         for j, st in enumerate(sts):
             c = getattr(st, 'cond', None)
-            if st.kind != 'if' or j < 3 or c[0] not in ops or c[1][0] != 'v':
+            if st.kind != 'if' or j < 3 or c[0] not in ops:
+                continue
+            if c[1][0] != 'v' and c[2][0] == 'v':     # K > v: the variable on the right
+                c = ({'<': '>', '>': '<', '<=': '>=', '>=': '<='}.get(c[0], c[0]), c[2], c[1])
+            if c[1][0] != 'v':
                 continue
             k = next((x for x in range(j) if sts[x].s == st.target), None)
             if k is None or k < 1 or refs.get(st.target) != 1 or st.target in cases or st.target in default:
@@ -624,7 +628,7 @@ class Printer:
                     out.append('\treturn;' if self.tail_goto[1] == self.f.epi else '\tgoto L%04x;' % self.tail_goto[1])
             elif k in fors:
                 c, op = fors[k][0].cond, '++' if fors[k][1].op == '+' else '--'
-                out.append('\tfor (%s = %s; %s; %s%s) {' % (self.lvx(st.lv), self.ex(st.rv), self.cond(c), self.ex(c[1]), op))
+                out.append('\tfor (%s = %s; %s; %s%s) {' % (self.lvx(st.lv), self.ex(st.rv), self.cond(c), self.ex(fors[k][1].lv), op))
             elif k in forend:
                 if forend[k]:
                     out.append('\t}')

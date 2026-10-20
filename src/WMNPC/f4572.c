@@ -15,9 +15,7 @@ f4572(p4, p6)
 	int l2;
 	register int rsi;
 	register int rdi;
-	rsi = 0;
-	goto L469d;
-L4580:
+	for (rsi = 0; (unsigned char)g3816[(314 * p4)] > rsi; rsi++) {
 	if (((unsigned)g3813[(314 * p4)] <= 0) || ((unsigned char)g3813[(314 * p4)] == 255)) goto L45bd;
 	rdi = ((unsigned char)g3813[(314 * p4)] / 25);
 	l2 = ((unsigned char)g3813[(314 * p4)] % 25);
@@ -34,7 +32,5 @@ L4614:
 	g3648[((p6 * 30) + (rsi * 3))] = rdi;
 	g3649[((p6 * 30) + (rsi * 3))] = *(char *)&l2;
 	g364a[((p6 * 30) + (rsi * 3))] = (char)(random((unsigned char)g375c[((314 * p4) + (l2 << 2))]) + (unsigned char)g375b[((314 * p4) + (l2 << 2))]);
-	rsi++;
-L469d:
-	if ((unsigned char)g3816[(314 * p4)] > rsi) goto L4580;
+	}
 }

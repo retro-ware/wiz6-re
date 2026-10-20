@@ -1,14 +1,14 @@
-#asm
-	extrn place_group_sprites_:near
-#endasm
 extern int combat_over;
 extern int g4368;
 extern int g436a;
 extern int g436e;
 extern int g4370;
+extern int group_monster_rec[];
 extern int monster_group_count;
 extern int monster_groups[];
 extern int return_cmd;
+struct s222 { int w[111]; };
+struct s416 { int w[208]; };
 /* Drop empty monster groups, renumber the rest; end combat when none are left. */
 compact_monster_groups()
 {
@@ -16,8 +16,6 @@ compact_monster_groups()
 	int i;
 	int count;
 	char x6[6];
-	register int rsi;
-	register int rdi;
 	count = 0;
 	g = 1;
 	goto L5713;
@@ -26,22 +24,16 @@ L55ff:
 	if ((unsigned)(*(char **)((char *)monster_groups + (g << 1)))[413] <= 0) goto L5710;
 	count++;
 	if (count == g) goto L5672;
-#asm
-	db 08bh,0f3h,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0a8h,043h,08ch,0d9h,08eh,0c1h,0b9h,0d0h
-	db 000h,0f3h,0a5h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,0b7h,0b6h,043h,08bh,046h
-	db 0fah,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0b6h,043h,08ch,0d9h,08eh,0c1h,0b9h,06fh,000h
-	db 0f3h,0a5h,0ffh,076h,0fah
-	call place_group_sprites_
-	db 059h
-#endasm
+	*(struct s416 *)(*(char **)((char *)monster_groups + (count << 1))) = *(struct s416 *)(*(char **)((char *)monster_groups + (g << 1)));
+	*(struct s222 *)(*(char **)((char *)group_monster_rec + (count << 1))) = *(struct s222 *)(*(char **)((char *)group_monster_rec + (g << 1)));
+	place_group_sprites(count);
 	(*(char **)((char *)monster_groups + (g << 1)))[413] = 0;
 	goto L5710;
 L5672:
 	i = 0;
 	goto L56f7;
 L567a:
-	rsi = (44 * i);
-	if ((((char *)monster_groups[count] + rsi)[42] != 11) || (g4368)) goto L56b7;
+	if ((((char *)monster_groups[count] + (44 * i))[42] != 11) || (g4368)) goto L56b7;
 	g436e = 0;
 	g4368 = count;
 #asm
@@ -49,8 +41,7 @@ L567a:
 #endasm
 	choose_monster_frames(count, 3);
 L56b7:
-	rsi = (44 * i);
-	if ((((char *)monster_groups[count] + rsi)[42] != 12) || (g436a)) goto L56f4;
+	if ((((char *)monster_groups[count] + (44 * i))[42] != 12) || (g436a)) goto L56f4;
 	g4370 = 0;
 	g436a = count;
 #asm
@@ -67,9 +58,9 @@ L5713:
 	if (g <= monster_group_count) goto L55ff;
 	monster_group_count = count;
 	if (monster_group_count) goto L573f;
-	if (return_cmd == 8) goto L5739;
+	if (return_cmd != 8) {
 	return_cmd = 15;
-L5739:
+	}
 	combat_over = 1;
 L573f:
 	load_group_pics();

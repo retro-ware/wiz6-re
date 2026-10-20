@@ -19,9 +19,7 @@ choose_monster_frames(g, pos)
 	register int pic;
 	register int i;
 	pic = (unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[411];
-	i = 0;
-	goto L504c;
-L4f23:
+	for (i = 0; (unsigned char)g3816[(314 * pic)] > i; i++) {
 	if (((((unsigned)g3813[(314 * pic)] <= 0) || ((unsigned char)g3813[(314 * pic)] == 255)) || (pic_slot_monster[pic] == 46)) || (pic_slot_monster[pic] == 36)) goto L4f6d;
 	frame = ((unsigned char)g3813[(314 * pic)] / 25);
 	step = ((unsigned char)g3813[(314 * pic)] % 25);
@@ -37,7 +35,5 @@ L4fc4:
 	g3648[((pos * 30) + (i * 3))] = *(char *)&frame;
 	g3649[((pos * 30) + (i * 3))] = *(char *)&step;
 	g364a[((pos * 30) + (i * 3))] = (char)(random((unsigned char)g375c[((314 * pic) + (step << 2))]) + (unsigned char)g375b[((314 * pic) + (step << 2))]);
-	i++;
-L504c:
-	if ((unsigned char)g3816[(314 * pic)] > i) goto L4f23;
+	}
 }

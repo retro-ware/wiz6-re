@@ -22,12 +22,8 @@ f5508(p4, p6)
 	}
 	drv_op_ae(pic_fd, 0L, *(int *)((char *)g36e2 + (314 * p6)), *(int *)((char *)g36e4 + (314 * p6)), p6);
 	close(pic_fd);
-	l2 = 0;
-	goto L55c5;
-L55ae:
+	for (l2 = 0; (unsigned char)g3812[(314 * p6)] >= l2; l2++) {
 	pic_slot_monster[(p6 + l2)] = *(char *)&p4;
 	pic_slot_loaded[(p6 + l2)] = 1;
-	l2++;
-L55c5:
-	if ((unsigned char)g3812[(314 * p6)] >= l2) goto L55ae;
+	}
 }

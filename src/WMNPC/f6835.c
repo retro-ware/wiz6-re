@@ -37,9 +37,7 @@ L68c5:
 	if (l4 < 8) goto L684b;
 	*(int *)((char *)pc_item_id + ((432 * p4) + (p6 << 3))) = 0;
 	pc_item_count[(432 * p4)]--;
-	l2 = p6;
-	goto L6963;
-L6900:
+	for (l2 = p6; (unsigned char)pc_item_count[(432 * p4)] > l2; l2++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * p4) + (l2 << 3)));
 	l4 = 0;
 L6935:
@@ -48,19 +46,13 @@ L6935:
 	}
 	l4++;
 	if (l4 < 8) goto L6935;
-	l2++;
-L6963:
-	if ((unsigned char)pc_item_count[(432 * p4)] > l2) goto L6900;
+	}
 	goto L69d5;
 L6978:
 	pc_swag_count[(432 * p4)]--;
-	l2 = p6;
-	goto L69bf;
-L698c:
+	for (l2 = p6; ((unsigned char)pc_swag_count[(432 * p4)] + 10) > l2; l2++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * p4) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * p4) + (l2 << 3)));
-	l2++;
-L69bf:
-	if (((unsigned char)pc_swag_count[(432 * p4)] + 10) > l2) goto L698c;
+	}
 L69d5:
 	;
 }

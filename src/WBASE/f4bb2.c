@@ -24,14 +24,10 @@ load_monster_pic_slot(mon, slot)
 	}
 	drv_op_ae(pic_fd, 0L, *(int *)((char *)g36e2 + (314 * slot)), *(int *)((char *)g36e4 + (314 * slot)), slot);
 	close(pic_fd);
-	i = 0;
-	goto L4c7f;
-L4c68:
+	for (i = 0; (unsigned char)g3812[(314 * slot)] >= i; i++) {
 	pic_slot_monster[(slot + i)] = *(char *)&mon;
 	pic_slot_loaded[(slot + i)] = 1;
-	i++;
-L4c7f:
-	if ((unsigned char)g3812[(314 * slot)] >= i) goto L4c68;
+	}
 L4c92:
 	;
 }

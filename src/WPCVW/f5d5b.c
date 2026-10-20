@@ -38,9 +38,7 @@ L5de2:
 	if (slot < 8) goto L5d68;
 	*(int *)((char *)pc_item_id + ((432 * member) + (item << 3))) = 0;
 	pc_item_count[(432 * member)]--;
-	l2 = item;
-	goto L5eab;
-L5e1e:
+	for (l2 = item; (unsigned char)pc_item_count[(432 * member)] > l2; l2++) {
 	*(struct s8 *)((char *)pc_item_id + ((432 * member) + (l2 << 3))) = *(struct s8 *)((char *)g4430 + ((432 * member) + (l2 << 3)));
 	strcpy(((l2 << 4) + 21982), ((l2 << 4) + 21998));
 	item_row_color[l2] = g5680[l2];
@@ -51,7 +49,5 @@ L5e7d:
 	}
 	slot++;
 	if (slot < 8) goto L5e7d;
-	l2++;
-L5eab:
-	if ((unsigned char)pc_item_count[(432 * member)] > l2) goto L5e1e;
+	}
 }

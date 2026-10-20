@@ -1,12 +1,3 @@
-#asm
-	extrn f5a1e_:near
-	extrn f5a69_:near
-	extrn f5c61_:near
-	extrn f69db_:near
-	extrn f6de9_:near
-	extrn random_:near
-	extrn test_bit_:near
-#endasm
 extern char *g4fa8;
 extern char g00cc[];
 extern char g450c[];
@@ -21,6 +12,7 @@ extern int g433a;
 extern int g4354;
 extern int g43fe[];
 extern int g50de[];
+extern int g5142;
 extern int g5186[];
 extern int g51c2;
 extern int g5264;
@@ -59,12 +51,10 @@ f7038(p4, p6)
 	l2 = 0;
 L7067:
 	if (l2 >= 8) goto L7f73;
-#asm
-l7070:
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0dfh,02ah,0e4h
-	db 0e9h,0ddh,00eh
-#endasm
+	switch ((unsigned char)l36[((l2 << 2) + 3)]) {
+case 0:
 	return 0;
+case 1:
 	if (l36[((l2 << 2) + 2)]) goto L70d1;
 	if (!g5264) {
 	f6d9d();
@@ -78,6 +68,7 @@ L70d1:
 	f5c61(*(int *)(l36 + (l2 << 2)), ((unsigned char)l36[((l2 << 2) + 2)] - 1));
 L70ec:
 	goto L7f6d;
+case 2:
 	f5d9b(1541, 1);
 	g433a = (unsigned char)g51cc;
 	g4338 = 1;
@@ -86,6 +77,7 @@ L70ec:
 	game_state = 10;
 	return_cmd = 18;
 	return 1;
+case 3:
 	if (!l36[((l2 << 2) + 2)]) {
 	f5d9b(1542, 0);
 	}
@@ -93,35 +85,30 @@ L70ec:
 	game_state = 5;
 	return_cmd = 18;
 	return 1;
+case 4:
 	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
 	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
-	if ((unsigned)l36[((l2 << 2) + 2)] <= 0) goto L71aa;
+	if ((unsigned)l36[((l2 << 2) + 2)] > 0) {
 	f5508((unsigned char)l36[((l2 << 2) + 2)], l38);
 	view_pos_group[l40] = l38;
 	f4572(view_pos_group[l40], l40);
 	f5690();
-	goto L71ba;
-L71aa:
+	} else {
 	view_pos_group[l40] = 0;
 	f5690();
-L71ba:
+	}
 	goto L7f6d;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh,02ah,0e4h
-	db 050h
-	call f5a1e_
-	db 059h,0e9h,098h,00dh
-#endasm
-	if (g5264) goto L7204;
+case 5:
+	f5a1e((unsigned char)l36[((l2 << 2) + 2)]);
+	goto L7f6d;
+case 6:
+	if (!g5264) {
 	f6d9d();
 	l42 = npc_input_word(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
-#asm
-	call f6de9_
-	db 0ebh,020h
-#endasm
-L7204:
+	f6de9();
+	} else {
 	l42 = npc_input_word(p4, *(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
-L7224:
+	}
 	if (l42 <= 1) goto L7243;
 	if (f7038(p4, l42) != 1) goto L7241;
 	return 1;
@@ -135,33 +122,24 @@ L7243:
 	f4f73(g5264);
 L7287:
 	goto L7f6d;
-#asm
-	call f5a69_
-	db 0e9h,0ddh,00ch,0a1h,09ah,04fh,0ebh,018h
-#endasm
+case 7:
+	f5a69();
+	goto L7f6d;
+case 8:
+	switch (party_facing) {
+case 0:
 	party_y--;
-#asm
-	db 0ebh,026h
-#endasm
+	goto L72c1;
+case 1:
 	party_x--;
-#asm
-	db 0ebh,020h
-#endasm
+	goto L72c1;
+case 2:
 	party_y++;
-#asm
-	db 0ebh,01ah
-#endasm
+	goto L72c1;
+case 3:
 	party_x++;
-#asm
-	db 0ebh,014h
-#endasm
-L72ad:
-	;
-#asm
-l72ad:
-	db 03dh,000h,000h,074h,0e3h,03dh,001h,000h,074h,0e4h,03dh,002h,000h,074h,0e5h,03dh
-	db 003h,000h,074h,0e6h
-#endasm
+	goto L72c1;
+	}
 L72c1:
 	party_facing = ((party_facing + 2) % 4);
 	fd90e(20384, 20382, 20380, party_x, party_y);
@@ -169,12 +147,11 @@ L72c1:
 	game_state = 5;
 	return_cmd = 18;
 	return 1;
+case 9:
 	l54[2] = npc_give_item_to_member(p4, *(int *)(l36 + (l2 << 2)), -1);
 	l40 = p4;
 	l38 = 0;
-#asm
-	db 0ebh,027h
-#endasm
+	goto L735f;
 L7338:
 	l54[2] = npc_give_item_to_member(l38, *(int *)(l36 + (l2 << 2)), -1);
 	l40 = l38;
@@ -190,17 +167,16 @@ L737a:
 	f5d0c(20948, 1);
 	}
 	goto L7f6d;
+case 10:
 	if ((l42 = f6d11(p4, *(int *)(l36 + (l2 << 2)))) == -1) goto L741d;
 	if (g00cc[(unsigned char)pc_item_type[((432 * p4) + (l42 << 3))]] != 1) goto L7411;
-#asm
-	db 0ffh,076h,0d6h,0ffh,076h,004h
-	call f69db_
-	db 083h,0c4h,004h,0ebh,00ch
-#endasm
+	f69db(p4, l42);
+	goto L741d;
 L7411:
 	f6835(p4, l42);
 L741d:
 	goto L7f6d;
+case 11:
 	l46 = ((long)*(int *)(l36 + (l2 << 2)) * (unsigned char)l36[((l2 << 2) + 2)]);
 	*(long *)((char *)pc_gold + (432 * p4)) += l46;
 	g51c0 -= l46;
@@ -209,28 +185,15 @@ L741d:
 	*(int *)&g51c0 = 0;
 	}
 	goto L7f6d;
+case 12:
 	l46 = ((long)*(int *)(l36 + (l2 << 2)) * 10);
 	if (l46 != 0L) goto L74d6;
-	l38 = 0;
-#asm
-	db 0ebh,017h
-#endasm
-L74b6:
+	for (l38 = 0; l38 < party_count; l38++) {
 	*(int *)((char *)g43fe + (432 * l38)) = 0;
 	*(int *)((char *)pc_gold + (432 * l38)) = 0;
-	l38++;
-L74cd:
-	if (l38 < party_count) goto L74b6;
+	}
 L74d6:
-	;
-#asm
-l74d6:
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,0fch,043h,08bh,097h,0feh,043h
-	db 03bh,056h,0d4h,07fh,007h,075h,007h,03bh,046h,0d2h,072h,002h
-#endasm
-L74f2:
-	goto L7544;
-L74f4:
+	if (*(long *)((char *)pc_gold + (432 * p4)) >= l46) goto L7544;
 	f5382(p4);
 	if (*(long *)((char *)pc_gold + (432 * p4)) >= l46) goto L7544;
 	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L753e;
@@ -240,49 +203,55 @@ L753e:
 L7544:
 	*(long *)((char *)pc_gold + (432 * p4)) -= l46;
 	g51c0 += l46;
-#asm
-	db 0e9h,0feh,009h
-#endasm
 	goto L7f6d;
+case 13:
+	goto L7f6d;
+case 14:
 	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L75ad;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L75ad:
 	goto L7f6d;
+case 15:
 	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 79)) goto L7616;
 	set_bit(((game_state_arg * 10) + 20204), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((game_state_arg * 10) + 13304), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7616:
 	goto L7f6d;
+case 16:
 	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L7647;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L7647:
 	goto L7f6d;
+case 17:
 	if (((l42 = *(int *)(l36 + (l2 << 2))) <= 0) || (l42 >= 15)) goto L769b;
 	set_bit(21112, l42, (unsigned char)l36[((l2 << 2) + 2)]);
 	set_bit(((g5274 << 1) + 13472), l42, (unsigned char)l36[((l2 << 2) + 2)]);
 L769b:
 	goto L7f6d;
+case 18:
 	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) goto L76ce;
 	return 0;
 L76ce:
 	goto L7f6d;
+case 19:
 	if (test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2)))) goto L7700;
 	return 0;
 L7700:
 	goto L7f6d;
+case 20:
 	if (test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) goto L7726;
 	return 0;
 L7726:
 	goto L7f6d;
+case 21:
 	if (test_bit(21112, *(int *)(l36 + (l2 << 2)))) goto L774b;
 	return 0;
 L774b:
 	goto L7f6d;
+case 22:
 	if (l36[((l2 << 2) + 2)]) goto L7770;
 	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
-#asm
-	db 0ebh,038h
-#endasm
+	goto L77a8;
 L7770:
 	l54[2] = -1;
 	l38 = 0;
@@ -298,11 +267,10 @@ L77a8:
 	return 0;
 L77b4:
 	goto L7f6d;
+case 23:
 	if (l36[((l2 << 2) + 2)]) goto L77d9;
 	l54[2] = f6d11(p4, *(int *)(l36 + (l2 << 2)));
-#asm
-	db 0ebh,038h
-#endasm
+	goto L7811;
 L77d9:
 	l54[2] = -1;
 	l38 = 0;
@@ -318,40 +286,39 @@ L7811:
 	return 0;
 L781d:
 	goto L7f6d;
+case 24:
 	if (random(100) <= *(int *)(l36 + (l2 << 2))) goto L7840;
 	return 0;
 L7840:
 	goto L7f6d;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,0ffh,077h,0dch,0a1h,03ch
-	db 036h,08bh,0d0h,0d1h,0e0h,0d1h,0e0h,003h,0c2h,0d1h,0e0h,005h,0ech,04eh,050h
-	call test_bit_
-	db 083h,0c4h,004h,085h,0c0h,075h,025h
-#endasm
-	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7891;
+case 25:
+	if ((test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2)))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7891;
 	return 1;
 L7891:
 	goto L7f6d;
+case 26:
 	if ((test_bit(((game_state_arg * 10) + 20204), *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L78e3;
 	return 1;
 L78e3:
 	goto L7f6d;
+case 27:
 	if ((test_bit(21112, *(int *)(l36 + (l2 << 2)))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7927;
 	return 1;
 L7927:
 	goto L7f6d;
+case 28:
 	if ((test_bit(21112, *(int *)(l36 + (l2 << 2))) != 1) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L796c;
 	return 1;
 L796c:
 	goto L7f6d;
+case 29:
 	if ((random(100) >= *(int *)(l36 + (l2 << 2))) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L79a3;
 	return 1;
 L79a3:
 	goto L7f6d;
+case 30:
 	l38 = 0;
-#asm
-	db 0ebh,05fh
-#endasm
+	goto L7a0c;
 L79ad:
 	if (!pc_condition[(432 * l38)]) {
 	get_message(1548, 20948);
@@ -364,11 +331,10 @@ L79ad:
 L7a0c:
 	if (l38 < party_count) goto L79ad;
 	goto L7f6d;
+case 31:
 	l54[2] = *(int *)(l36 + (l2 << 2));
 	l38 = 0;
-#asm
-	db 0e9h,0d9h,000h
-#endasm
+	goto L7b0a;
 L7a31:
 	if ((unsigned)pc_condition[(432 * l38)] >= 3) goto L7b07;
 	if (f6d11(l38, 245) == -1) goto L7a71;
@@ -396,10 +362,9 @@ L7b0a:
 	return 1;
 L7b2e:
 	goto L7f6d;
+case 32:
 	l38 = 0;
-#asm
-	db 0e9h,0c5h,000h
-#endasm
+	goto L7bfe;
 L7b39:
 	l54[0] = (*(int *)(l36 + (l2 << 2)) - 1);
 	l54[1] = ((unsigned char)l36[((l2 << 2) + 2)] - 1);
@@ -424,20 +389,12 @@ L7bed:
 L7bfe:
 	if (l38 < party_count) goto L7b39;
 	goto L7f6d;
+case 33:
 	l42 = 0;
-	l38 = 0;
-#asm
-	db 0ebh,00eh
-#endasm
-L7c19:
+	for (l38 = 0; *(int *)(l36 + (l2 << 2)) > l38; l38++) {
 	l42 += random(8);
-	l38++;
-L7c27:
-	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7c19;
-#asm
-	db 08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,080h,07fh,0deh,000h,076h
-	db 027h
-#endasm
+	}
+	if ((unsigned)l36[((l2 << 2) + 2)] <= 0) goto L7c72;
 	*(int *)((char *)pc_stamina + (432 * p4)) -= l42;
 	if (*(int *)((char *)pc_stamina + (432 * p4)) < 0) {
 	*(int *)((char *)pc_stamina + (432 * p4)) = 0;
@@ -451,30 +408,22 @@ L7c72:
 L7c95:
 	f5078(p4, g527a);
 	goto L7f6d;
+case 34:
 	if (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1) goto L7cca;
 	return 1;
 L7cca:
 	goto L7f6d;
-#asm
-	db 0b8h,001h,000h,050h,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah
-	db 047h,0deh,02ah,0e4h,050h
-	call random_
-	db 059h,0d1h,0e0h,08bh,04eh,0feh,0d1h,0e1h,0d1h,0e1h,08bh,0d9h,003h,0ddh,08bh,04fh
-	db 0dch,003h,0c1h,050h
-	call f5c61_
-	db 083h,0c4h,004h,0e9h,06bh,002h
-#endasm
+case 35:
+	f5c61(((random((unsigned char)l36[((l2 << 2) + 2)]) << 1) + *(int *)(l36 + (l2 << 2))), 1);
+	goto L7f6d;
+case 36:
 	party_facing = *(int *)(l36 + (l2 << 2));
 	f5690();
-#asm
-	db 0b8h,004h,000h,050h
-	call f5a1e_
-	db 059h,0e9h,04ch,002h
-#endasm
+	f5a1e(4);
+	goto L7f6d;
+case 37:
 	l38 = 0;
-#asm
-	db 0ebh,077h
-#endasm
+	goto L7d9f;
 L7d28:
 	switch ((unsigned char)l36[((l2 << 2) + 2)]) {
 case 0:
@@ -499,11 +448,14 @@ L7d66:
 L7d9f:
 	if (*(int *)(l36 + (l2 << 2)) > l38) goto L7d28;
 	goto L7f6d;
+case 38:
 	if ((fb2fd(p4)) || (f7038(p4, (unsigned char)l36[((l2 << 2) + 2)]) != 1)) goto L7de8;
 	return 1;
 L7de8:
 	goto L7f6d;
+case 39:
 	return 1;
+case 40:
 	party_x = 129;
 	party_y = 132;
 	party_cell_x = 1;
@@ -513,16 +465,14 @@ L7de8:
 	game_state_arg = 13;
 	game_state = 6;
 	return_cmd = 18;
-#asm
-	db 0b8h,001h,000h,0e9h,059h,0f2h
-#endasm
+	return 1;
+case 41:
 	f6e7e(*(int *)(l36 + (l2 << 2)), (unsigned char)l36[((l2 << 2) + 2)]);
 	return;
+case 42:
 	l54[2] = -1;
 	l38 = 0;
-#asm
-	db 0ebh,04ah
-#endasm
+	goto L7ea0;
 L7e56:
 	if ((l54[2] = f6d11(l38, (unsigned char)l36[((l2 << 2) + 2)])) != -1) {
 	f6835(l38, l54[2]);
@@ -532,21 +482,15 @@ L7e56:
 L7ea0:
 	if ((l38 < party_count) && (l54[2] == -1)) goto L7e56;
 	goto L7f6d;
+case 43:
 	l38 = (*(int *)(l36 + (l2 << 2)) / 256);
 	l40 = (*(int *)(l36 + (l2 << 2)) % 256);
 	*(int *)((char *)g50de + ((l38 * 10) + (l40 << 1))) = (unsigned char)l36[((l2 << 2) + 2)];
-#asm
-	db 0ebh,07ch,08bh,046h,0feh,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,003h,0ddh,08ah,047h,0deh
-	db 02ah,0e4h,0a3h,042h,051h,0ebh,067h,083h,070h,08bh,070h,0efh,070h,029h,071h,060h
-	db 071h,0bdh,071h,0d5h,071h,08ah,072h,090h,072h,00dh,073h,0c2h,073h,020h,074h,08ah
-	db 074h,06fh,075h,072h,075h,0b0h,075h,019h,076h,04ah,076h,09eh,076h,0d1h,076h,003h
-	db 077h,029h,077h,04eh,077h,0b7h,077h,020h,078h,043h,078h,094h,078h,0e6h,078h,02ah
-	db 079h,06fh,079h,0a6h,079h,018h,07ah,031h,07bh,00dh,07ch,0a5h,07ch,0cdh,07ch,002h
-	db 07dh,021h,07dh,0b8h,07dh,0ebh,07dh,0f1h,07dh,02dh,07eh,04ah,07eh,0b2h,07eh,0f1h
-	db 07eh
-l7f60:
-	db 03dh,02dh,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,006h,07fh
-#endasm
+	goto L7f6d;
+case 44:
+	g5142 = (unsigned char)l36[((l2 << 2) + 2)];
+	goto L7f6d;
+	}
 L7f6d:
 	l2++;
 	goto L7067;

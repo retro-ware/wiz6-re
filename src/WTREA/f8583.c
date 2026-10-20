@@ -96,19 +96,11 @@ L873a:
 	entry[7] |= 64;
 	}
 	*(int *)((char *)pc_carried + (432 * member)) = 0;
-	l2 = 0;
-	goto L87f4;
-L87d7:
+	for (l2 = 0; (unsigned char)pc_item_count[(432 * member)] > l2; l2++) {
 	*(int *)((char *)pc_carried + (432 * member)) += get_slot_weight(l2, member);
-	l2++;
-L87f4:
-	if ((unsigned char)pc_item_count[(432 * member)] > l2) goto L87d7;
-	l2 = 0;
-	goto L882f;
-L880e:
+	}
+	for (l2 = 0; (unsigned char)pc_swag_count[(432 * member)] > l2; l2++) {
 	*(int *)((char *)pc_carried + (432 * member)) += get_slot_weight((l2 + 10), member);
-	l2++;
-L882f:
-	if ((unsigned char)pc_swag_count[(432 * member)] > l2) goto L880e;
+	}
 	return 0;
 }

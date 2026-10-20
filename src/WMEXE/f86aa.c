@@ -21,16 +21,12 @@ L8717:
 	if (p8 != 11) goto L872d;
 	l4 = 3;
 L872d:
-	l2 = 0;
-	goto L8795;
-L8734:
+	for (l2 = 0; (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413] > l2; l2++) {
 	l6 = p12;
 	if ((l4 <= 0) || (*(int *)((char *)monster_groups[p4] + (44 * l2)) <= (p16 * l4))) goto L8768;
 	l6 = -100;
 L8768:
 	f825f(p4, l2, p6, p8, p10, l6, p14, p16, p18, p20, p22, p24);
-	l2++;
-L8795:
-	if ((unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413] > l2) goto L8734;
+	}
 	return;
 }
