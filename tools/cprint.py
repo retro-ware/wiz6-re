@@ -161,6 +161,34 @@ class Types:
         return 'int '
 
 
+def compound(lv, rv):
+    """rv as lv op y: (op, y), else None."""
+    if rv[0] == 'lo':
+        rv = rv[1]
+    if rv[0] != 'b' or rv[1] not in ('+', '-', '*', '&', '|', '^', '<<', '>>'):
+        return None
+    me = lambda e: (e[2] if e[0] == 'x' else e) == lv
+    if rv[1] == '+':
+        terms, e = [], rv
+        while e[0] == 'b' and e[1] == '+':
+            terms.insert(0, e[3])
+            e = e[2]
+        terms.insert(0, e)
+        hit = [k for k, t in enumerate(terms) if me(t)]
+        if len(hit) != 1 or len(terms) < 2:
+            return None
+        rest = terms[:hit[0]] + terms[hit[0] + 1:]
+        y = rest[0]
+        for t in rest[1:]:
+            y = ('b', '+', y, t)
+        return '+', y
+    if me(rv[2]):
+        return rv[1], rv[3]
+    if rv[1] in ('*', '&', '|', '^') and me(rv[3]):
+        return rv[1], rv[2]
+    return None
+
+
 class Printer:
     def __init__(self, lifter, names):
         self.L = lifter
@@ -677,6 +705,10 @@ class Printer:
                         rv[1][2][0] == 'x' and rv[1][2][1] and rv[1][2][2] == st.lv and st.lv[0] == 'm':
                     # byte x = x op y: the compound form keeps the address registers for the next statement
                     out.append('\t%s %s= %s;' % (self.lvx(st.lv), rv[1][1], self.ex(rv[1][3])))
+                elif st.s in getattr(self.L, 'opasg', ()) and compound(st.lv, rv):
+                    # x = x op y as x op= y: cgen then forgets the value it stored (the next test rereads x)
+                    op, y = compound(st.lv, rv)
+                    out.append('\t%s %s= %s;' % (self.lvx(st.lv), op, self.ex(self.byte_k(y) if size_of(st.lv) == 1 else y)))
                 else:
                     out.append('\t%s = %s;' % (self.lvx(st.lv), self.ex(self.byte_k(rv) if size_of(st.lv) == 1 else rv)))
             elif kd == 'cas':

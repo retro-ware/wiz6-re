@@ -17,10 +17,9 @@ update_combatant(g, i, p8, p10)
 	died = 0;
 	if ((unsigned)c[16] <= 0) goto L524f;
 	l2 = (int)(((long)*(int *)(c + 8) * 5) / 100L);
-	*(int *)(c + 6) = ((random(l2) + *(int *)(c + 6)) + 1);
-#asm
-	db 08bh,047h,006h,03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
-#endasm
+	*(int *)(c + 6) += (random(l2) + 1);
+	if (*(int *)(c + 6) <= *(int *)(c + 8)) goto L524f;
+	*(int *)(c + 6) = *(int *)(c + 8);
 L524f:
 	if (*(int *)(c + 6) <= 0) {
 	*(int *)(c + 6) = 0;

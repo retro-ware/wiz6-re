@@ -35,6 +35,7 @@ def render(iname):
             L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))
             L.noandif = st.get('noandif', False)     # as liftloop lifted it
+            L.opasg = set(st.get('opasg', []))
             L.run()
             src, missing = Printer(L, names).source()
             if missing:

@@ -225,10 +225,9 @@ case 8:
 case 1:
 	if (*(int *)(l2 + 10) != 3) goto Lcf5e;
 	l4 = (int)(((long)*(int *)(l2 + 8) * 5) / 100L);
-	*(int *)(l2 + 6) = ((random(l4) + *(int *)(l2 + 6)) + 1);
-#asm
-	db 08bh,047h,006h,03bh,047h,008h,07eh,006h,08bh,047h,008h,089h,047h,006h
-#endasm
+	*(int *)(l2 + 6) += (random(l4) + 1);
+	if (*(int *)(l2 + 6) <= *(int *)(l2 + 8)) goto Lcf5e;
+	*(int *)(l2 + 6) = *(int *)(l2 + 8);
 Lcf5e:
 	goto Ld064;
 case 2:

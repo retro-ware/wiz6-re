@@ -36,11 +36,9 @@ L628b:
 	}
 	if (p8 <= 0) goto L631f;
 	l6 = (int)(((long)*(int *)((char *)pc_stamina_max + (432 * p4)) * p8) / 100L);
-	*(int *)((char *)pc_stamina + (432 * p4)) = (((random((l6 / 2)) + *(int *)((char *)pc_stamina + (432 * p4))) + (l6 / 2)) + 1);
-#asm
-	db 08bh,087h,004h,044h,03bh,087h,006h,044h,07eh,008h,08bh,087h,006h,044h,089h,087h
-	db 004h,044h
-#endasm
+	*(int *)((char *)pc_stamina + (432 * p4)) += ((random((l6 / 2)) + (l6 / 2)) + 1);
+	if (*(int *)((char *)pc_stamina + (432 * p4)) <= *(int *)((char *)pc_stamina_max + (432 * p4))) goto L631f;
+	*(int *)((char *)pc_stamina + (432 * p4)) = *(int *)((char *)pc_stamina_max + (432 * p4));
 L631f:
 	l4 = 0;
 L6324:

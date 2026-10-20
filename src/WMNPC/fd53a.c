@@ -37,7 +37,7 @@ Ld644:
 	l52++;
 	goto Ld612;
 Ld649:
-	l154 = ((l154 + l158) + 2);
+	l154 += (l158 + 2);
 #asm
 	db 08bh,09eh,066h,0ffh,003h,0ddh,080h,0bfh,068h,0ffh,000h,075h,08fh
 #endasm

@@ -14,7 +14,7 @@ import capstone as cs
 from x86dis import Image
 from lift import Lifter
 import structret
-from cprint import Printer, st_targets
+from cprint import Printer, st_targets, compound
 from aztobj import Obj
 import cmpobj
 import skel
@@ -68,6 +68,7 @@ class Loop:
             L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))
             L.noandif = st.get('noandif', False)     # && / || conditions structured as if/else
+            L.opasg = set(st.get('opasg', []))       # x = x op y printed as x op= y
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -222,6 +223,8 @@ class Loop:
         for x in L.sts:
             if x.kind != 'raw' and not getattr(x, 'epi', False) and any(x.s <= b < x.e for b in bad):
                 dem.add(x.s)
+        if self.opassign(st, L, dem):
+            return True
         if self.unmerge(st, L, dem):
             return True
         dem -= set(st['demote'])
@@ -265,6 +268,25 @@ class Loop:
         st['demote'], st['noscratch'] = [], mode
         t.append(mode)
         return True
+
+    @staticmethod
+    def opassign(st, L, dem):
+        """A mismatch right after x = x op y: print that one as x op= y (cgen then rereads x). If the
+        compound form mismatches itself, drop it again. True to lift again."""
+        opa, bad = st.setdefault('opasg', []), st.setdefault('noopasg', [])
+        back = [x for x in dem if x in opa]
+        for x in back:
+            opa.remove(x)
+            bad.append(x)
+        prev = {b.s: a for a, b in zip(L.sts, L.sts[1:]) if a.e == b.s}
+        new = [p.s for p in (prev.get(x) for x in sorted(dem)) if p is not None and p.kind == 'asg' and
+               p.s not in opa and p.s not in bad and compound(p.lv, p.rv)]
+        opa += new
+        if not opa:
+            del st['opasg']
+        if not bad:
+            del st['noopasg']
+        return bool(back or new)
 
     @staticmethod
     def prune(st):
