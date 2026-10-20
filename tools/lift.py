@@ -1177,7 +1177,8 @@ class Lifter:
             if ac and not (j is not None and (j.mnemonic == 'push' and j.op_str == 'ax' or
                                               j.mnemonic == 'mov' and j.op_str.endswith(', ax'))):
                 return False        # a call arm is a value only if T uses ax (else: if (c) f(x);)
-            if b is not None and self.tcount.get(t) == len(conds) + g['n'].get(t, 0) + self.pending(t):
+            if b is not None and self.tcount.get(t) == len(conds) + g['n'].get(t, 0) + self.pending(t) + \
+                    getattr(self, 'join', {}).get(t, 0):
                 # cgen loads the else value first and skips the then value when cond fails;
                 # ax reloaded between jumps is a nested ternary in the then arm
                 vals, groups = self.armvals, []
@@ -1307,13 +1308,14 @@ class Lifter:
             B, gF = self.val(get(F).operands[1]), {'n': {}, 'nl': set()}
         else:       # F: a nested ternary (or other register-only value) up to J
             self.armvals = getattr(self, 'armvals', [])
-            outer_join, self.join = getattr(self, 'join', {}), {J: 1}     # T's jmp J, absorbed by us
+            outer_join = getattr(self, 'join', {})
+            self.join = dict(outer_join); self.join[J] = outer_join.get(J, 0) + 1     # T's jmp J, absorbed by us
             B, gF = self.arm(F, J), self.got
             self.join = outer_join
             if B is None:
                 return False
         if any(self.tcount.get(a, 0) != n for a, n in hits.items()) or \
-                self.tcount.get(J) != 1 + gF['n'].get(J, 0) + getattr(self, 'join', {}).get(J, 0) or \
+                self.tcount.get(J) != 1 + gF['n'].get(J, 0) + getattr(self, 'join', {}).get(J, 0) + self.pending(J) or \
                 F not in hits or any(s in self.targets and s not in hits for s in starts):
             return False
         TRUE, FALSE = ('true',), ('false',)
