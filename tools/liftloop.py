@@ -176,6 +176,11 @@ class Loop:
         # map the mismatch to statements
         ko = keys(self.img.code[s - self.img.cbase:e - self.img.cbase], s)
         ku = keys(ours, s)
+        if not st.get('noscratch') and 'push di' in [k[2] for k in ku[:6]] and \
+                'push di' not in [k[2] for k in ko[:6]] and 'push si' in [k[2] for k in ko[:6]]:
+            # our regvar si needed a copy in di: si was cgen's index temp, reused across a label
+            st['noscratch'], st['demote'] = 'lenient', []
+            return True
         sm = difflib.SequenceMatcher(None, [k[2] for k in ko], [k[2] for k in ku], autojunk=False)
         bad = set()
         for tag, i1, i2, j1, j2 in sm.get_opcodes():

@@ -179,9 +179,10 @@ class Func:
         self.epi_end = self.epi + len(pat) if self.epi is not None else None
         self.scratch = {r for r in self.regs if self._is_scratch(r)}
 
-    def _is_scratch(self, r):
+    def _is_scratch(self, r, lenient=False):
         """si/di saved by the prologue but used only as cgen's own index temp: every write is
-        `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call."""
+        `mov r, reg16/mem16`, read only as a memory index before the next label, jmp or call.
+        lenient: an index read may also follow a label (cgen kept the temp across it)."""
         X86 = {'si': X.X86_REG_SI, 'di': X.X86_REG_DI}[r]
         # the whole body but the epilogue (an early return can put it mid-function)
         lo, hi = self.body, self.e
@@ -218,7 +219,7 @@ class Func:
                 if not live:            # the struct copy of a by-value argument or an assignment
                     return False
             elif idx:
-                if not live or reg:
+                if reg or not (live or lenient):
                     return False
             elif reg:
                 if live and (i.mnemonic in ('shl', 'sal') and reg == [0] or i.mnemonic == 'mov' and reg == [1]):
@@ -241,7 +242,9 @@ class Lifter:
         self.nomerge = nomerge  # no || / && chains from compares on a kept register
         self.nobool = set(nobool)   # if statements not to merge into && / || conditions
         self.f = Func(img, s, e)
-        if noscratch:           # this function's si/di are register variables after all
+        if noscratch == 'lenient':      # si/di are index temps even where one is reused after a label
+            self.f.scratch = {r for r in self.f.regs if self.f._is_scratch(r, True)}
+        elif noscratch:         # this function's si/di are register variables after all
             self.f.scratch = set()
         self.demote = set(demote)
         self.sts = []
