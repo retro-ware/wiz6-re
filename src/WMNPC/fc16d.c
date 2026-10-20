@@ -5,7 +5,7 @@ char *p4;
 {
 	char l82[82];
 	int l84;
-	char *l86;
+	int l86;
 	int l126[20];
 	char x126[2];
 	int l130;
@@ -19,9 +19,7 @@ char *p4;
 Lc19f:
 	if ((*(int *)(l82 + 0) = char_index((l86 + ((char *)l82 + 2)), 47)) == -1) goto Lc1d5;
 	l126[l84] = l86;
-#asm
-	db 003h,046h,0aeh,040h,089h,046h,0aah
-#endasm
+	l86 = ((l86 + *(int *)(l82 + 0)) + 1);
 	l84++;
 	goto Lc19f;
 Lc1d5:
