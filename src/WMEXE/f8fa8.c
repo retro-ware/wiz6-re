@@ -2,9 +2,6 @@
 	extrn int_to_string_:near
 	extrn roll_dice_x_:near
 #endasm
-extern char g019a[];
-extern char g019c[];
-extern char g019d[];
 extern int g435e;
 extern int g4fc8;
 extern int g5116;
@@ -25,7 +22,7 @@ f8fa8(p4, p6, p8, p10, p12, p14, p16)
 	g5116 = 0;
 	if ((g435e) && (g435e != 6)) goto L9005;
 	l4 = 6;
-	if ((unsigned)g019d[monster_groups[l4]] <= 0) goto L9003;
+	if ((unsigned)(*(char **)((char *)monster_groups + (l4 << 1)))[413] <= 0) goto L9003;
 	print_msg_centered(3217, 6, 2);
 	return;
 L9003:
@@ -87,11 +84,8 @@ l90ce:
 #endasm
 L90d0:
 	access_scenario_record(4, group_monster_rec[l4], l422, 0);
-	g019a[monster_groups[l4]] = *(char *)&l422;
-#asm
-	db 08ah,086h,058h,0feh,08bh,04eh,0fch,0d1h,0e1h,08bh,0d9h,08bh,09fh,0b6h,043h,088h
-	db 047h,076h
-#endasm
+	(*(char **)((char *)monster_groups + (l4 << 1)))[410] = *(char *)&l422;
+	(*(char **)((char *)group_monster_rec + (l4 << 1)))[118] = *(char *)&l424;
 	*(int *)((*(char **)((char *)group_monster_rec + (l4 << 1))) + 116) = (l424 - 1);
 #asm
 	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,08fh,0b6h,043h,083h,0c1h,074h,083h,0ech
@@ -100,15 +94,11 @@ L90d0:
 	db 083h,0c4h,004h,08bh,04eh,0fch,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h
 	db 09dh,001h
 #endasm
-	if ((unsigned)g019d[monster_groups[l4]] >= 1) goto L916e;
-	g019d[monster_groups[l4]] = 1;
+	if ((unsigned)(*(char **)((char *)monster_groups + (l4 << 1)))[413] >= 1) goto L916e;
+	(*(char **)((char *)monster_groups + (l4 << 1)))[413] = 1;
 L916e:
-	;
-#asm
-l916e:
-	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h,009h
-	db 076h,005h,0c6h,087h,09dh,001h,009h
-#endasm
+	if ((unsigned)(*(char **)((char *)monster_groups + (l4 << 1)))[413] <= 9) goto L9185;
+	(*(char **)((char *)monster_groups + (l4 << 1)))[413] = 9;
 L9185:
 	l2 = 0;
 L918a:
@@ -130,7 +120,7 @@ l91ad:
 #endasm
 	l2++;
 	if (l2 < 4) goto L91ad;
-	g019c[monster_groups[l4]] = 0;
+	(*(char **)((char *)monster_groups + (l4 << 1)))[412] = 0;
 	l2 = 0;
 	goto L9311;
 L91e3:
@@ -167,7 +157,7 @@ l91e3:
 	((char *)monster_groups[l4] + rsi)[24] = 0;
 	l2++;
 L9311:
-	if ((unsigned char)g019d[monster_groups[l4]] > l2) goto L91e3;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (l4 << 1)))[413] > l2) goto L91e3;
 #asm
 l932a:
 	db 0b8h,00ch,050h,050h,08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah
@@ -175,8 +165,8 @@ l932a:
 	call int_to_string_
 	db 083h,0c4h,004h
 #endasm
-	strcpy(20652, ((char *)group_monster_rec[l4] + ((g019d[monster_groups[l4]] == 1 ? 0 : 1) << 4)));
-	get_message((g019d[monster_groups[l4]] == 1 ? 3215 : 3216), 20572);
+	strcpy(20652, ((char *)group_monster_rec[l4] + (((*(char **)((char *)monster_groups + (l4 << 1)))[413] == 1 ? 0 : 1) << 4)));
+	get_message(((*(char **)((char *)monster_groups + (l4 << 1)))[413] == 1 ? 3215 : 3216), 20572);
 	set_cursor(party_picture_win, (20 - ((((strlen(20492) + strlen(20652)) + strlen(20572)) + 3) / 2)), 2);
 	print_combat_line(20492, 20652, 20572, 1, 6, 6);
 	return;

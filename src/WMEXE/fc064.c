@@ -1,4 +1,3 @@
-extern char g019d[];
 extern char g4515[];
 extern char g452c[];
 extern char g505c;
@@ -19,7 +18,7 @@ char *p4;
 	if (g435e) goto Lc0db;
 	l6 = ((*(int *)((char *)pc_level + (432 * g435c)) + (unsigned char)g452c[(432 * g435c)]) + 50);
 	for (l2 = 1; l2 <= monster_group_count; l2++) {
-	l6 -= (((unsigned char)g019d[monster_groups[l2]] + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[122]) + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[135]);
+	l6 -= (((unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[413] + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[122]) + (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[135]);
 	}
 	goto Lc12b;
 Lc0db:

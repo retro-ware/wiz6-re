@@ -1,6 +1,3 @@
-extern char g019b[];
-extern char g019c[];
-extern char g019d[];
 extern char g3813[];
 extern int bottom_line_win;
 extern int g43a6[];
@@ -54,7 +51,7 @@ L57e6:
 L581e:
 	l4++;
 L5821:
-	if ((unsigned char)g019d[monster_groups[l2]] > l4) goto L5781;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[413] > l4) goto L5781;
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[168] <= 0) goto L5877;
 #asm
 	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh
@@ -68,7 +65,7 @@ L5877:
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171] > 0) {
 	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[171]) / 100L) + (long)l28[(l2 + 1)]);
 	}
-	if (g3813[((unsigned char)g019b[monster_groups[l2]] * 314)]) {
+	if (g3813[((unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[411] * 314)]) {
 	l28[(l2 + 1)] = 0;
 	}
 	l2++;
@@ -81,8 +78,8 @@ L597c:
 	clear_window(party_picture_win, 0);
 	refresh_all_windows();
 	wait_animating_view(1);
-	strcpy(20500, ((char *)group_monster_rec[l2] + (((g019d[monster_groups[l2]] == 1 ? 0 : 1) << 4) + ((unsigned char)g019c[monster_groups[l2]] << 5))));
-	get_message((g019d[monster_groups[l2]] == 1 ? 3510 : 3511), 20580);
+	strcpy(20500, ((char *)group_monster_rec[l2] + ((((*(char **)((char *)monster_groups + (l2 << 1)))[413] == 1 ? 0 : 1) << 4) + ((unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[412] << 5))));
+	get_message(((*(char **)((char *)monster_groups + (l2 << 1)))[413] == 1 ? 3510 : 3511), 20580);
 	set_cursor(party_picture_win, (20 - (((strlen(20500) + strlen(20580)) + 1) / 2)), 0);
 	print_string(party_picture_win, 20500, 6);
 	print_string(party_picture_win, 20580, 14);
@@ -98,7 +95,7 @@ L5a93:
 	}
 	l4++;
 L5ae2:
-	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5a93;
+	if ((unsigned char)(*(char **)((char *)g43a6 + (l2 << 1)))[413] > l4) goto L5a93;
 	show_encounter_view(1);
 	l4 = 0;
 	goto L5b65;
@@ -112,7 +109,7 @@ L5b07:
 	}
 	l4++;
 L5b65:
-	if ((unsigned char)g019d[g43a6[l2]] > l4) goto L5b07;
+	if ((unsigned char)(*(char **)((char *)g43a6 + (l2 << 1)))[413] > l4) goto L5b07;
 	redraw_view_background();
 	l6 = l28[(l2 + 1)];
 	l28[(l2 + 1)] = l28[l2];

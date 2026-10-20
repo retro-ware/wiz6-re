@@ -1,5 +1,4 @@
 extern char *g43b8;
-extern char g018e[];
 extern char g44e6[];
 extern char g44f6[];
 extern char g44f9[];
@@ -499,7 +498,7 @@ L5b48:
 L5b4a:
 	l96 = 0;
 L5b4f:
-	if (((p8 != 4) && (p8 != 8)) || (random(100) >= (unsigned char)g018e[monster_groups[l78]])) goto L5b99;
+	if (((p8 != 4) && (p8 != 8)) || (random(100) >= (unsigned char)(*(char **)((char *)monster_groups + (l78 << 1)))[398])) goto L5b99;
 	print_msg_centered(3214, 14, 3);
 	play_sound(7);
 	goto L5e60;

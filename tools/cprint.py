@@ -247,12 +247,16 @@ class Printer:
         return n
 
     def loaded_base(self, b, d):
-        """b starts with a pointer loaded from memory and d is small: d is a field offset."""
-        if (d & 0xffff) >= 0x100:
-            return False
+        """b starts with a pointer loaded from memory: a small d (or a bigger one into a record from
+        a global pointer table) is a field offset."""
         if b[0] == 'b' and b[1] == '+':
             b = b[2]
-        return b[0] == 'm' and b[3] == 2
+        if b[0] != 'm' or b[3] != 2:
+            return False
+        if (d & 0xffff) < 0x100:
+            return True
+        # a bigger offset into a record whose pointer comes from a global pointer table (g[i])
+        return (d & 0xffff) < 0x400 and self.T.is_data(b[2]) and b[1][0] != 'c'
 
     def is_ptr_expr(self, e):
         if e[0] == 'v':

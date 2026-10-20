@@ -1,5 +1,4 @@
 extern char g00b0[];
-extern char g019b[];
 extern char g36e4[];
 extern char g3717[];
 extern char g3759[];
@@ -33,7 +32,7 @@ queue_monster_sprite(row, col, dx)
 L66f9:
 	return;
 L66fd:
-	pic = (unsigned char)g019b[monster_groups[g]];
+	pic = (unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[411];
 	l8 = 72;
 	l10 = 248;
 	if (!row) {

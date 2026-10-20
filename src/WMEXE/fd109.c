@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int g435a;
 extern int g435c;
 extern int g435e;
@@ -69,7 +68,7 @@ Ld2b2:
 	}
 	g435c++;
 Ld2c3:
-	if ((unsigned char)g019d[monster_groups[g435e]] > g435c) goto Ld12b;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > g435c) goto Ld12b;
 #asm
 ld2dd:
 	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h,000h
@@ -79,16 +78,8 @@ ld2dd:
 Ld2f2:
 	l4 = 0;
 Ld2f7:
-	;
-#asm
-ld2f7:
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,076h,0fch,08ah,080h
-	db 092h,001h,02ah,0e4h,089h,046h,0fah,08ah,080h,096h,001h,02ah,0e4h,03bh,006h,05ah
-	db 043h,074h,003h
-#endasm
-	goto Ld492;
-Ld31d:
-	if (l6 <= 0) goto Ld492;
+	l6 = (unsigned char)((char *)monster_groups[g435e] + l4)[402];
+	if (((unsigned char)((char *)monster_groups[g435e] + l4)[406] != g435a) || (l6 <= 0)) goto Ld492;
 	clear_window(party_picture_win, 1);
 	combat_delay(2);
 	switch (l4) {

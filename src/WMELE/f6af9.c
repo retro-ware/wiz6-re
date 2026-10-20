@@ -1,5 +1,3 @@
-extern char g019b[];
-extern char g019d[];
 extern char g3810[];
 extern int g50b4[];
 extern int monster_group_count;
@@ -12,7 +10,7 @@ place_group_at(g, row, col)
 	if (g <= monster_group_count) goto L6b10;
 	return -1;
 L6b10:
-	if ((row != 1) || (g3810[((unsigned char)g019b[monster_groups[g]] * 314)])) goto L6b3a;
+	if ((row != 1) || (g3810[((unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[411] * 314)])) goto L6b3a;
 	return -1;
 L6b3a:
 	i = 0;
@@ -29,6 +27,6 @@ L6b3f:
 L6bb0:
 	i++;
 L6bb1:
-	if ((unsigned char)g019d[monster_groups[g]] > i) goto L6b3f;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[413] > i) goto L6b3f;
 	return -1;
 }

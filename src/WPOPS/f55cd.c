@@ -1,7 +1,4 @@
 extern char *g438c;
-extern char g019c[];
-extern char g019d[];
-extern char g019e[];
 extern int g43aa[];
 extern int g43b8[];
 extern int menu_clicked;
@@ -60,15 +57,15 @@ L577e:
 	goto L5888;
 L57b4:
 	set_cursor(g438c, 0, sel);
-	put_char(g438c, (unsigned char)(((unsigned char)g019d[g43aa[sel]] + 48)), -7);
+	put_char(g438c, (unsigned char)(((unsigned char)(*(char **)((char *)g43aa + (sel << 1)))[413] + 48)), -7);
 	put_char(g438c, 32, -7);
-	print_string(g438c, ((char *)g43b8[sel] + (((g019d[g43aa[sel]] == 1 ? 0 : 1) << 4) + ((unsigned char)g019c[g43aa[sel]] << 5))), -7);
+	print_string(g438c, ((char *)g43b8[sel] + ((((*(char **)((char *)g43aa + (sel << 1)))[413] == 1 ? 0 : 1) << 4) + ((unsigned char)(*(char **)((char *)g43aa + (sel << 1)))[412] << 5))), -7);
 L5848:
 	if ((unsigned)g438c[6] >= 19) goto L5863;
 	put_char(g438c, 32, -7);
 	goto L5848;
 L5863:
-	put_char(g438c, (unsigned char)(((unsigned char)g019e[g43aa[sel]] + 48)), -7);
+	put_char(g438c, (unsigned char)(((unsigned char)(*(char **)((char *)g43aa + (sel << 1)))[414] + 48)), -7);
 L5888:
 	key = get_combat_input(17270, 13720);
 	if (menu_clicked != 1) goto L58bc;

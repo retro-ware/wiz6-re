@@ -1,6 +1,5 @@
 extern char g00df[];
 extern char g00e2[];
-extern char g019d[];
 extern int group_monster_rec[];
 extern int monster_group_count;
 extern int monster_groups[];
@@ -55,7 +54,7 @@ L85d9:
 	l24 = -1;
 	monster[31] = *(char *)&target_group;
 L85f2:
-	monster[32] = (char)random((unsigned char)g019d[monster_groups[target_group]]);
+	monster[32] = (char)random((unsigned char)(*(char **)((char *)monster_groups + (target_group << 1)))[413]);
 	if ((unsigned)((char *)monster_groups[(unsigned char)monster[31]] + ((unsigned char)monster[32] * 44))[34] >= 3) goto L85f2;
 	if (random(100) >= (unsigned char)(*(char **)((char *)group_monster_rec + (group << 1)))[168]) goto L878b;
 	l24 = 3;
@@ -117,8 +116,8 @@ L8816:
 	if ((group < 3 ? 0 : 2) >= (unsigned char)((char *)group_monster_rec[group] + (l20 << 4))[81]) goto L886f;
 	l18 = 6;
 L886f:
-	if ((unsigned char)g019d[monster_groups[target_group]] < l18) {
-	l18 = (unsigned char)g019d[monster_groups[target_group]];
+	if ((unsigned char)(*(char **)((char *)monster_groups + (target_group << 1)))[413] < l18) {
+	l18 = (unsigned char)(*(char **)((char *)monster_groups + (target_group << 1)))[413];
 	}
 	l16 = 0;
 	l22 = 0;
@@ -176,5 +175,5 @@ L8a0a:
 L8a24:
 	i++;
 L8a27:
-	if ((unsigned char)g019d[monster_groups[group]] > i) goto L848f;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > i) goto L848f;
 }

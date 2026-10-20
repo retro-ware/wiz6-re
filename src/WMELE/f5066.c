@@ -1,5 +1,4 @@
 extern char g00ba[];
-extern char g019d[];
 extern char g433e[];
 extern char g4348[];
 extern int monster_groups[];
@@ -40,7 +39,7 @@ L514f:
 L51c4:
 	i++;
 L51c7:
-	if ((unsigned char)g019d[monster_groups[g]] > i) goto L5075;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[413] > i) goto L5075;
 	redraw_view_background();
 	wait_animating_view(4);
 }

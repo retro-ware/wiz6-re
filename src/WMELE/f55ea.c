@@ -1,7 +1,6 @@
 #asm
 	extrn place_group_sprites_:near
 #endasm
-extern char g019d[];
 extern int combat_over;
 extern int g4368;
 extern int g436a;
@@ -24,19 +23,18 @@ compact_monster_groups()
 	goto L5713;
 L55ff:
 	update_group(g);
-	if ((unsigned)g019d[monster_groups[g]] <= 0) goto L5710;
+	if ((unsigned)(*(char **)((char *)monster_groups + (g << 1)))[413] <= 0) goto L5710;
 	count++;
 	if (count == g) goto L5672;
-	rsi = monster_groups[g];
-	rdi = monster_groups[count];
 #asm
-	db 08ch,0d9h,08eh,0c1h,0b9h,0d0h,000h,0f3h,0a5h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h
-	db 08bh,0b7h,0b6h,043h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0b6h,043h,08ch
-	db 0d9h,08eh,0c1h,0b9h,06fh,000h,0f3h,0a5h,0ffh,076h,0fah
+	db 08bh,0f3h,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0a8h,043h,08ch,0d9h,08eh,0c1h,0b9h,0d0h
+	db 000h,0f3h,0a5h,08bh,046h,0feh,0d1h,0e0h,08bh,0d8h,08bh,0b7h,0b6h,043h,08bh,046h
+	db 0fah,0d1h,0e0h,08bh,0d8h,08bh,0bfh,0b6h,043h,08ch,0d9h,08eh,0c1h,0b9h,06fh,000h
+	db 0f3h,0a5h,0ffh,076h,0fah
 	call place_group_sprites_
 	db 059h
 #endasm
-	g019d[monster_groups[g]] = 0;
+	(*(char **)((char *)monster_groups + (g << 1)))[413] = 0;
 	goto L5710;
 L5672:
 	i = 0;
@@ -62,7 +60,7 @@ L56b7:
 L56f4:
 	i++;
 L56f7:
-	if ((unsigned char)g019d[monster_groups[count]] > i) goto L567a;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (count << 1)))[413] > i) goto L567a;
 L5710:
 	g++;
 L5713:

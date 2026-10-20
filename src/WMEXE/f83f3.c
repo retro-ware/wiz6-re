@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int g500a;
 extern int monster_groups[];
 f83f3(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24, p26, p28, p30, p32)
@@ -48,7 +47,7 @@ L8527:
 	}
 	goto L861a;
 L853d:
-	l4 = (unsigned char)g019d[monster_groups[p4]];
+	l4 = (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413];
 	l6 = (p6 < 0 ? -p6 : p6);
 	if (l6 > l4) {
 	l6 = l4;

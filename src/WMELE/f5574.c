@@ -1,5 +1,4 @@
 extern char *g43b8;
-extern char g019b[];
 extern char g4326[];
 extern int cur_sound;
 extern int group_monster_rec[];
@@ -14,7 +13,7 @@ load_group_pics()
 	g4326[i] = 0;
 	}
 	for (g = 1; g <= monster_group_count; g++) {
-	g019b[monster_groups[g]] = (char)f4858((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[209]);
+	(*(char **)((char *)monster_groups + (g << 1)))[411] = (char)f4858((unsigned char)(*(char **)((char *)group_monster_rec + (g << 1)))[209]);
 	}
 	if (((unsigned)g43b8[210] <= 0) || ((unsigned char)g43b8[210] == cur_sound)) goto L55e6;
 	load_sound_mele((unsigned char)g43b8[210]);

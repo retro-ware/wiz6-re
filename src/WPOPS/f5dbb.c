@@ -1,5 +1,4 @@
 extern char g0092[];
-extern char g019d[];
 extern char g5043[];
 extern int monster_groups[];
 extern int view_pos_group[];
@@ -19,7 +18,7 @@ L5dce:
 	}
 	l6++;
 L5def:
-	if ((unsigned char)g019d[monster_groups[group]] > l6) goto L5dce;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l6) goto L5dce;
 	if (l10 != 1) goto L5e61;
 	l8 = 0;
 L5e10:
@@ -33,7 +32,7 @@ L5e43:
 	l8++;
 	l6++;
 L5e49:
-	if ((unsigned char)g019d[monster_groups[group]] > l6) goto L5e17;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l6) goto L5e17;
 	goto L5e10;
 L5e61:
 	l8 = 0;
@@ -57,7 +56,7 @@ L5f36:
 L5f39:
 	l6++;
 L5f3c:
-	if ((unsigned char)g019d[monster_groups[group]] > l6) goto L5ec4;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l6) goto L5ec4;
 L5f55:
 	l4++;
 	if (l4 < 5) goto L5e81;

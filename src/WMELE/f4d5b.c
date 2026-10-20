@@ -1,8 +1,6 @@
 #asm
 	extrn movmem_:near
 #endasm
-extern char g0190[];
-extern char g019d[];
 extern char g458c[];
 extern char g4eda;
 extern char pc_condition[];
@@ -20,28 +18,18 @@ fill_party_group()
 	register int rsi;
 	register int rdi;
 	rdi = 0;
-	g019d[monster_groups[rdi]] = *(char *)&party_count;
+	(*(char **)((char *)monster_groups + (rdi << 1)))[413] = *(char *)&party_count;
 	rsi = rdi;
 L4d73:
-	;
-#asm
-l4d73:
-	db 08bh,0c7h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,080h,08ch,001h,000h
-#endasm
+	((char *)monster_groups[rdi] + rsi)[396] = 0;
 	rsi++;
 	if (rsi < 6) goto L4d73;
 	if (g4ed8 > 0) {
-	g0190[monster_groups[rdi]] = g4eda;
+	(*(char **)((char *)monster_groups + (rdi << 1)))[400] = g4eda;
 	}
-	rsi = 0;
-L4da3:
-	;
-#asm
-l4da3:
-	db 08bh,0c7h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,080h,092h,001h,000h
-#endasm
-	rsi++;
-	if (rsi < 4) goto L4da3;
+	for (rsi = 0; rsi < 4; rsi++) {
+	((char *)monster_groups[rdi] + rsi)[402] = 0;
+	}
 	rsi = 0;
 	goto L4ef6;
 L4dbe:

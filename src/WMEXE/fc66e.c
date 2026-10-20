@@ -6,8 +6,6 @@
 	extrn test_bit_:near
 #endasm
 extern char *group_monster_rec;
-extern char g019a[];
-extern char g019d[];
 extern char g433e[];
 extern char g4348[];
 extern char g4515[];
@@ -89,7 +87,7 @@ lc7bc:
 #endasm
 	if ((unsigned)((char *)monster_groups[(unsigned char)l2[31]] + ((unsigned char)l2[32] * 44))[20] <= 0) goto Lc829;
 	l4 = 3218;
-	if ((unsigned char)g019a[monster_groups[g435e]] != 151) goto Lc824;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[410] != 151) goto Lc824;
 	l2[43] = 3;
 	l2[36] = 1;
 	l8 = 2;
@@ -162,7 +160,7 @@ Lca40:
 	}
 	l2[28] = 0;
 	l2[31] = *(char *)&g435e;
-	l2[32] = (char)random((unsigned char)g019d[monster_groups[g435e]]);
+	l2[32] = (char)random((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413]);
 	clear_window(party_picture_win, 1);
 	combat_delay(2);
 	get_combatant_name(20492, g435e, g435c);

@@ -1,7 +1,6 @@
 #asm
 	extrn clamp_toward_x_:near
 #endasm
-extern char g019d[];
 extern int g4fc8;
 extern int group_monster_rec[];
 extern int monster_groups[];
@@ -17,7 +16,7 @@ f88b1(p4, p6, p8, p10, p12)
 	int l14;
 	int l16;
 	register int rsi;
-	l10 = (unsigned char)g019d[monster_groups[p4]];
+	l10 = (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413];
 	l12 = (p6 < 0 ? -p6 : p6);
 	if (l12 > l10) {
 	l12 = l10;

@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int monster_groups[];
 find_most_wounded(monster, group)
 char *monster;
@@ -16,6 +15,6 @@ L83be:
 L841a:
 	l2++;
 L841d:
-	if ((unsigned char)g019d[monster_groups[group]] > l2) goto L83be;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (group << 1)))[413] > l2) goto L83be;
 	return best_damage;
 }

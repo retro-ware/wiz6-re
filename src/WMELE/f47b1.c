@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int combat_over;
 extern int monster_group_count;
 extern int monster_groups[];
@@ -14,7 +13,7 @@ clear_combat_groups()
 	setmem(monster_groups[rsi], 416, 0);
 	}
 	for (rsi = 0; rsi < 7; rsi++) {
-	g019d[monster_groups[rsi]] = 0;
+	(*(char **)((char *)monster_groups + (rsi << 1)))[413] = 0;
 	}
 	monster_group_count = 0;
 	combat_over = 0;

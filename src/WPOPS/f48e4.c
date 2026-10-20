@@ -1,5 +1,3 @@
-extern char g019b[];
-extern char g019d[];
 extern char g3648[];
 extern char g3649[];
 extern char g364a[];
@@ -24,7 +22,7 @@ char *p8;
 	int l12;
 	register int rsi;
 	register int rdi;
-	rsi = (unsigned char)g019b[monster_groups[p4]];
+	rsi = (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[411];
 	l10 = 0;
 	l8 = 0;
 	goto L4934;
@@ -34,7 +32,7 @@ L490b:
 	}
 	l8++;
 L4934:
-	if ((unsigned char)g019d[monster_groups[p4]] > l8) goto L490b;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413] > l8) goto L490b;
 	l12 = 0;
 	rdi = 0;
 	goto L4b58;

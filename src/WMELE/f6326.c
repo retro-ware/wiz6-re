@@ -1,5 +1,3 @@
-extern char g019b[];
-extern char g019d[];
 extern char g3648[];
 extern char g3649[];
 extern char g364a[];
@@ -25,7 +23,7 @@ char *out;
 	int len;
 	register int pic;
 	register int i;
-	pic = (unsigned char)g019b[monster_groups[g]];
+	pic = (unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[411];
 	member = 0;
 	l8 = 0;
 	goto L6376;
@@ -35,7 +33,7 @@ L634d:
 	}
 	l8++;
 L6376:
-	if ((unsigned char)g019d[monster_groups[g]] > l8) goto L634d;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[413] > l8) goto L634d;
 	len = 0;
 	i = 0;
 	goto L659a;

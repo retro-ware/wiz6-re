@@ -1,12 +1,8 @@
 #asm
-	extrn f4858_:near
-	extrn load_sound_mele_:near
 	extrn random_:near
 	extrn roll_dice_:near
 #endasm
 extern char cfg_level;
-extern char g019a[];
-extern char g019d[];
 extern int cur_sound;
 extern int g4338;
 extern int game_state_arg;
@@ -22,20 +18,11 @@ generate_monster_group(mon, n)
 	register int rdi;
 	monster_group_count++;
 	access_scenario_record(4, group_monster_rec[n], mon, 0);
-	g019a[monster_groups[n]] = *(char *)&mon;
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08ah,087h,0d1h,000h,02ah
-	db 0e4h,050h
-	call f4858_
-	db 059h,08bh,04eh,006h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h,09bh,001h
-#endasm
+	(*(char **)((char *)monster_groups + (n << 1)))[410] = *(char *)&mon;
+	(*(char **)((char *)monster_groups + (n << 1)))[411] = (char)f4858((unsigned char)(*(char **)((char *)group_monster_rec + (n << 1)))[209]);
 	if (n != 1) goto L49ef;
-#asm
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,080h,0bfh,0d2h,000h,000h
-	db 076h,00dh,08ah,087h,0d2h,000h,02ah,0e4h,050h
-	call load_sound_mele_
-	db 059h
-#endasm
+	if ((unsigned)(*(char **)((char *)group_monster_rec + (n << 1)))[210] <= 0) goto L49e9;
+	load_sound_mele((unsigned char)(*(char **)((char *)group_monster_rec + (n << 1)))[210]);
 	goto L49ef;
 L49e9:
 	cur_sound = -1;
@@ -60,21 +47,13 @@ l4a26:
 	db 083h,0c4h,004h,08bh,04eh,006h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h
 	db 09dh,001h
 #endasm
-	if ((unsigned)g019d[monster_groups[n]] >= 1) goto L4a6f;
-	g019d[monster_groups[n]] = 1;
+	if ((unsigned)(*(char **)((char *)monster_groups + (n << 1)))[413] >= 1) goto L4a6f;
+	(*(char **)((char *)monster_groups + (n << 1)))[413] = 1;
 L4a6f:
-	;
-#asm
-l4a6f:
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h,009h
-	db 076h,005h,0c6h,087h,09dh,001h,009h
-#endasm
+	if ((unsigned)(*(char **)((char *)monster_groups + (n << 1)))[413] <= 9) goto L4a86;
+	(*(char **)((char *)monster_groups + (n << 1)))[413] = 9;
 L4a86:
-	;
-#asm
-l4a86:
-	db 08bh,046h,006h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,0c6h,087h,09ch,001h,001h
-#endasm
+	(*(char **)((char *)monster_groups + (n << 1)))[412] = 1;
 	i = 0;
 L4a9b:
 	;
@@ -147,7 +126,7 @@ case 2:
 L4c82:
 	i++;
 L4c85:
-	if ((unsigned char)g019d[monster_groups[n]] > i) goto L4af9;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (n << 1)))[413] > i) goto L4af9;
 	i = (((game_state_arg + 1) / 2) + 1);
 	if (g4338 <= 0) goto L4cb6;
 	i++;

@@ -1,5 +1,3 @@
-extern char g018f[];
-extern char g019d[];
 extern int g4fc8;
 extern int g500a;
 extern int monster_groups[];
@@ -11,7 +9,7 @@ f86aa(p4, p6, p8, p10, p12, p14, p16, p18, p20, p22, p24)
 	g500a = 2;
 	l4 = 0;
 	if ((p10 != 3) || (p14 != 1)) goto L872d;
-	if ((p8 != 5) || (((unsigned char)g018f[monster_groups[p4]] / 5) <= p16)) goto L8717;
+	if ((p8 != 5) || (((unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[399] / 5) <= p16)) goto L8717;
 	clear_msg_line(2);
 	print_msg_centered(3212, 5, 2);
 	combat_delay((g4fc8 / 2));
@@ -33,6 +31,6 @@ L8768:
 	f825f(p4, l2, p6, p8, p10, l6, p14, p16, p18, p20, p22, p24);
 	l2++;
 L8795:
-	if ((unsigned char)g019d[monster_groups[p4]] > l2) goto L8734;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413] > l2) goto L8734;
 	return;
 }

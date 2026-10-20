@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int g4fc8;
 extern int group_monster_rec[];
 extern int monster_groups[];
@@ -9,7 +8,7 @@ f8bdb(p4, p6, p8, p10)
 	int l4;
 	int l6;
 	int l8;
-	l4 = (unsigned char)g019d[monster_groups[p4]];
+	l4 = (unsigned char)(*(char **)((char *)monster_groups + (p4 << 1)))[413];
 	l6 = (p6 < 0 ? -p6 : p6);
 	if (l6 > l4) {
 	l6 = l4;

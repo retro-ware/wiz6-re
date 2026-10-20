@@ -2,7 +2,6 @@ extern char cfg_level;
 extern char g00df[];
 extern char g00e0[];
 extern char g00e1[];
-extern char g0191[];
 extern char g019d[];
 extern char g451b[];
 extern char g4529[];
@@ -40,7 +39,7 @@ char *p4;
 	print_combat_line(20492, 20652, 20572, (g435e == 0 ? 1 : 6), 14, realm_colors[(unsigned char)spell_table[(l6 * 6)]]);
 	g50fc = 0;
 	g5118 = 0;
-	if (random((((unsigned char)g0191[monster_groups[g435e]] + *(int *)p4) + 1)) < (unsigned char)g0191[monster_groups[g435e]]) {
+	if (random((((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[401] + *(int *)p4) + 1)) < (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[401]) {
 	g5118 = 1;
 	}
 	if (g435e) goto Lb21a;

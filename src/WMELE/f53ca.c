@@ -1,4 +1,3 @@
-extern char g019d[];
 extern int group_monster_rec[];
 extern int monster_groups[];
 /* Update every combatant of group g for the end of a round. */
@@ -25,7 +24,7 @@ L541f:
 L545f:
 	i++;
 L5462:
-	if ((unsigned char)g019d[monster_groups[g]] > i) goto L53df;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[413] > i) goto L53df;
 #asm
 l547b:
 	db 08ah,046h,0feh,08bh,04eh,004h,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h,087h

@@ -1,5 +1,4 @@
 extern char g00b0[];
-extern char g019b[];
 extern char g36e4[];
 extern char g3717[];
 extern char g3759[];
@@ -31,7 +30,7 @@ queue_combatant_sprite(p4, p6)
 L636f:
 	return;
 L6373:
-	l4 = (unsigned char)g019b[monster_groups[l2]];
+	l4 = (unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[411];
 	l8 = 72;
 	l10 = 248;
 	if (!p4) {

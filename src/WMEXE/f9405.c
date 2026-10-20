@@ -11,18 +11,6 @@
 	extrn f8bdb_:near
 	extrn roll_dice_x_:near
 #endasm
-extern char g018c[];
-extern char g018e[];
-extern char g018f[];
-extern char g0190[];
-extern char g0191[];
-extern char g0192[];
-extern char g0193[];
-extern char g0194[];
-extern char g0195[];
-extern char g019a[];
-extern char g019c[];
-extern char g019d[];
 extern int g4352;
 extern int g435a;
 extern int g435c;
@@ -91,7 +79,7 @@ l9452:
 	call f8149_
 	db 083h,0c4h,00eh,0e9h,009h,01bh
 #endasm
-	g018c[monster_groups[g435e]] = (char)clamp_toward_x((p8 * 15), (unsigned char)g018c[monster_groups[g435e]], 0);
+	(*(char **)((char *)monster_groups + (g435e << 1)))[396] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[396], 0);
 #asm
 	db 0e9h,0ceh,01ah
 #endasm
@@ -119,15 +107,12 @@ l9452:
 #endasm
 	f8efc(l6, 0, 0, 1);
 	f8149(l6, -10, 2, 4, p8, 1, l10);
-	l2 = (unsigned char)g0192[monster_groups[l6]];
+	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[402];
 	if (l2 < p8) {
 	l2 = p8;
 	}
-	g0192[monster_groups[l6]] = (char)(l2 + 1);
-#asm
-	db 0a1h,05ah,043h,040h,08bh,04eh,0fah,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h
-	db 087h,096h,001h
-#endasm
+	(*(char **)((char *)monster_groups + (l6 << 1)))[402] = (char)(l2 + 1);
+	(*(char **)((char *)monster_groups + (l6 << 1)))[406] = (char)(g435a + 1);
 	goto Lb021;
 	f8efc((g435e == 0 ? 1 : 0), 0, 0, 1);
 #asm
@@ -181,7 +166,7 @@ L97a1:
 	}
 	l2++;
 L97ea:
-	if ((unsigned char)g019d[monster_groups[g435e]] > l2) goto L97a1;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > l2) goto L97a1;
 	goto Lb021;
 #asm
 	db 0b8h,000h,000h,050h,0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08ah
@@ -223,7 +208,7 @@ L97ea:
 	call f83f3_
 	db 083h,0c4h,01eh,0e9h,0d5h,016h
 #endasm
-	g018e[monster_groups[g435e]] = (char)clamp_toward_x((p8 * 15), (unsigned char)g018e[monster_groups[g435e]], 0);
+	(*(char **)((char *)monster_groups + (g435e << 1)))[398] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[398], 0);
 #asm
 	db 0e9h,09ah,016h
 #endasm
@@ -236,7 +221,7 @@ L97ea:
 	call f83f3_
 	db 083h,0c4h,01eh,0e9h,048h,016h
 #endasm
-	g018f[monster_groups[g435e]] = (char)clamp_toward_x((p8 * 15), (unsigned char)g018f[monster_groups[g435e]], 0);
+	(*(char **)((char *)monster_groups + (g435e << 1)))[399] = (char)clamp_toward_x((p8 * 15), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[399], 0);
 #asm
 	db 0e9h,00dh,016h
 #endasm
@@ -250,15 +235,12 @@ L97ea:
 #endasm
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3477, 6, p8, l10, 1, 4, 5, 0, (p8 * 10), 2, p8, 0, 0);
-	l2 = (unsigned char)g0193[monster_groups[l6]];
+	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[403];
 	if (l2 < p8) {
 	l2 = p8;
 	}
-	g0193[monster_groups[l6]] = (char)(l2 + 1);
-#asm
-	db 0a1h,05ah,043h,040h,08bh,04eh,0fah,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h
-	db 087h,097h,001h
-#endasm
+	(*(char **)((char *)monster_groups + (l6 << 1)))[403] = (char)(l2 + 1);
+	(*(char **)((char *)monster_groups + (l6 << 1)))[407] = (char)(g435a + 1);
 	goto Lb021;
 	f8efc(l6, 0, 4, 0);
 #asm
@@ -271,28 +253,17 @@ L97ea:
 	clear_msg_line(3);
 	print_msg_centered(3224, 3, 3);
 	combat_delay((g4fc8 / 2));
-	l2 = 0;
-L9b5e:
-	;
-#asm
-l9b5e:
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,08bh,076h,0feh,08ah,080h
-	db 092h,001h,02ah,0e4h,02bh,046h,008h,089h,046h,0fch,03dh,000h,000h,07dh,005h
-#endasm
+	for (l2 = 0; l2 < 4; l2++) {
+	if ((l4 = ((unsigned char)((char *)monster_groups[g435e] + l2)[402] - p8)) >= 0) goto L9b82;
 	l4 = 0;
 L9b82:
-	;
-#asm
-l9b82:
-	db 08ah,046h,0fch,088h,080h,092h,001h
-#endasm
-	l2++;
-	if (l2 < 4) goto L9b5e;
-	if ((unsigned)g018f[monster_groups[g435e]] <= 0) goto L9bf1;
-	if ((l4 = ((unsigned char)g018f[monster_groups[g435e]] - (p8 * 10))) < 0) {
+	((char *)monster_groups[g435e] + l2)[402] = *(char *)&l4;
+	}
+	if ((unsigned)(*(char **)((char *)monster_groups + (g435e << 1)))[399] <= 0) goto L9bf1;
+	if ((l4 = ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[399] - (p8 * 10))) < 0) {
 	l4 = 0;
 	}
-	g018f[monster_groups[g435e]] = *(char *)&l4;
+	(*(char **)((char *)monster_groups + (g435e << 1)))[399] = *(char *)&l4;
 	clear_msg_line(3);
 	print_msg_centered((l4 == 0 ? 3225 : 3226), 3, 3);
 L9bf1:
@@ -312,15 +283,12 @@ L9c9e:
 	goto Lb021;
 	f8efc(l6, 0, 3, 0);
 	f83f3(l6, -10, 3480, 5, p8, l10, 2, 3, 8, 0, p8, 4, p8, 0, 0);
-	l2 = (unsigned char)g0194[monster_groups[l6]];
+	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[404];
 	if (l2 < p8) {
 	l2 = p8;
 	}
-	g0194[monster_groups[l6]] = (char)(l2 + 1);
-#asm
-	db 0a1h,05ah,043h,040h,08bh,04eh,0fah,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h
-	db 087h,098h,001h
-#endasm
+	(*(char **)((char *)monster_groups + (l6 << 1)))[404] = (char)(l2 + 1);
+	(*(char **)((char *)monster_groups + (l6 << 1)))[408] = (char)(g435a + 1);
 	goto Lb021;
 	f8efc(l6, 0, 3, 1);
 #asm
@@ -396,15 +364,12 @@ l9e24:
 #endasm
 	f8efc(l6, 0, 3, 1);
 	f8149(l6, -10, 1, 6, p8, 8, l10);
-	l2 = (unsigned char)g0195[monster_groups[l6]];
+	l2 = (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[405];
 	if (l2 < p8) {
 	l2 = p8;
 	}
-	g0195[monster_groups[l6]] = (char)(l2 + 1);
-#asm
-	db 0a1h,05ah,043h,040h,08bh,04eh,0fah,0d1h,0e1h,08bh,0d9h,08bh,09fh,0a8h,043h,088h
-	db 087h,099h,001h
-#endasm
+	(*(char **)((char *)monster_groups + (l6 << 1)))[405] = (char)(l2 + 1);
+	(*(char **)((char *)monster_groups + (l6 << 1)))[409] = (char)(g435a + 1);
 	goto Lb021;
 	f8efc(l6, l8, 4, 1);
 	l4 = f7af7(l6, p8, 0, l10);
@@ -416,7 +381,7 @@ La012:
 	((char *)monster_groups[l6] + (44 * l2))[38] = (char)clamp_toward_x(l4, ((char *)monster_groups[l6] + (44 * l2))[38], 0);
 	l2++;
 La052:
-	if ((unsigned char)g019d[monster_groups[l6]] > l2) goto La012;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[413] > l2) goto La012;
 	goto Lb021;
 	if ((g435e) && (g435e != 6)) goto La09d;
 	f8fa8(212, 213, 214, 215, 216, 217, p8);
@@ -464,7 +429,7 @@ La1bf:
 	((char *)monster_groups[g435e] + (44 * l2))[39] = (char)clamp_toward_x(l4, ((char *)monster_groups[g435e] + (44 * l2))[39], 1);
 	l2++;
 La23c:
-	if ((unsigned char)g019d[monster_groups[g435e]] > l2) goto La1bf;
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > l2) goto La1bf;
 	goto Lb021;
 	f8efc(l6, l8, 16, 0);
 #asm
@@ -480,7 +445,7 @@ La23c:
 #endasm
 La2a7:
 	if (random(100) < (((p8 * 10) + 80) - (game_state_arg * 5))) {
-	g019c[monster_groups[l2]] = 0;
+	(*(char **)((char *)monster_groups + (l2 << 1)))[412] = 0;
 	}
 	l2++;
 La2ed:
@@ -585,7 +550,7 @@ La5c7:
 	}
 	goto La7ae;
 La6db:
-	if (((unsigned char)g019a[monster_groups[g435e]] != 150) && ((unsigned char)g019a[monster_groups[g435e]] != 153)) goto La70c;
+	if (((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[410] != 150) && ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[410] != 153)) goto La70c;
 	f8fa8(211, 211, 211, 211, 211, 211, 1);
 	goto La7ae;
 La70c:
@@ -608,7 +573,7 @@ default:
 	}
 La7ae:
 	goto Lb021;
-	g0191[monster_groups[l6]] = (char)clamp_toward_x((p8 << 1), (unsigned char)g0191[monster_groups[l6]], 0);
+	(*(char **)((char *)monster_groups + (l6 << 1)))[401] = (char)clamp_toward_x((p8 << 1), (unsigned char)(*(char **)((char *)monster_groups + (l6 << 1)))[401], 0);
 #asm
 	db 0e9h,03ch,008h
 #endasm
@@ -796,7 +761,7 @@ Lae36:
 #asm
 	db 0e9h,029h,001h
 #endasm
-	g0190[monster_groups[g435e]] = (char)clamp_toward_x((p8 * 10), (unsigned char)g0190[monster_groups[g435e]], 0);
+	(*(char **)((char *)monster_groups + (g435e << 1)))[400] = (char)clamp_toward_x((p8 * 10), (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[400], 0);
 	if (!g435e) {
 	g4ed8 += (p8 * 50);
 	g4eda = clamp_toward_x((p8 * 10), g4eda, 0);

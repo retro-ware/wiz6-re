@@ -1,4 +1,3 @@
-extern char g019b[];
 extern char g3648[];
 extern char g3649[];
 extern char g364a[];
@@ -19,7 +18,7 @@ choose_monster_frames(g, pos)
 	int step;
 	register int pic;
 	register int i;
-	pic = (unsigned char)g019b[monster_groups[g]];
+	pic = (unsigned char)(*(char **)((char *)monster_groups + (g << 1)))[411];
 	i = 0;
 	goto L504c;
 L4f23:
