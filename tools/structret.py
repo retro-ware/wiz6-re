@@ -31,7 +31,19 @@ def buffer(img, s, e):
     for o in BUF:
         struct.pack_into('<H', want, o, b)
     struct.pack_into('<H', want, HI, b + 2)
-    return b if bytes(want) == code and b == img.bss[0] else None
+    return b if bytes(want) == code and img.bss[0] <= b < img.bss[1] else None
+
+def accepted(img, state):
+    """Function addresses (hex keys) whose struct buffers ln will place where the original has them:
+    they chain from the bss start in buffer order. Returns (keys, first free bss address)."""
+    b0, keys = img.bss[0], set()
+    for buf, size, k in sorted((v['structret'], v.get('sretsize', SIZE), k) for k, v in state.items()
+                               if v['status'] == 'ok' and v.get('structret')):
+        if buf == b0:
+            keys.add(k)
+            b0 += size
+    return keys, b0
+
 
 
 def source(name):

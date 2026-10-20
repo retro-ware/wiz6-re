@@ -73,9 +73,8 @@ def labels(img, addrs):
     write(R + '/src/%s/data.c' % img.name, out)
     sp = R + '/work/lift/%s/state.json' % img.name
     st = json.load(open(sp)) if os.path.exists(sp) else {}
-    # a struct-returning function's own static buffer sits at the bss start (structret.py)
-    b0 = img.bss[0] + sum(structret.SIZE for v in st.values()
-                          if v['status'] == 'ok' and v.get('structret') == img.bss[0])
+    # struct-returning functions' own static buffers sit at the bss start in function order
+    b0 = structret.accepted(img, st)[1]
     if img.bss[1] > b0:
         cuts = sorted({b0} | {a for a in bl if a >= b0}) + [img.bss[1]]
         # asm 'global' keeps source order; cc's own symtab order is hashed

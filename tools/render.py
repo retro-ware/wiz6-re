@@ -23,15 +23,15 @@ def render(iname):
     names = Names(img)
     sp = R + '/work/lift/%s/state.json' % iname
     state = json.load(open(sp)) if os.path.exists(sp) else {}
-    n = 0
+    n, ok = 0, structret.accepted(img, state)[0]
     for s, e in img.ranges():
         st = state.get('%04x' % s)
         path = R + '/src/%s/f%04x.c' % (iname, s)
-        if st and st['status'] == 'ok' and st.get('structret'):
+        if st and st['status'] == 'ok' and '%04x' % s in ok and structret.buffer(img, s, e) is not None:
             write(path, structret.source(img.fname(s)))
             n += 1
             continue
-        if st and st['status'] == 'ok':
+        if st and st['status'] == 'ok' and (not st.get('structret') or '%04x' % s in ok):
             L = Lifter(img, s, e, names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
                        st.get('nobool', []))
             L.run()

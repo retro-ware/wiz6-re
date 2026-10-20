@@ -449,6 +449,7 @@ class Lifter:
         self.skip = None
         self.structs = set()    # (function, size): calls returning a struct passed on by value
         self.scopies = set()    # sizes of structs copied by assignment (rep movsw)
+        self.sret = None        # (frame offset, words, buffer): the function returns that local struct
         self.gptr = set()       # globals used as a base pointer
         self.vptr = set()       # word vars loaded after a complex right operand: a char * base
         self.mptr = []          # word memory operands used the same way: printed with a (char *) cast (may hold lists)
@@ -591,6 +592,8 @@ class Lifter:
                 if self.R.get('dx') == lc:
                     del self.R['dx']
                 self.side = None
+        if m == 'lea' and self.struct_return(i):
+            return
         if m == 'mov':
             d, s = ops
             if d.type == X.X86_OP_REG and d.reg == X.X86_REG_CX and s.type == X.X86_OP_IMM and \
@@ -895,6 +898,32 @@ class Lifter:
         self.out.setdefault(t, []).extend(dict(self.R) for _ in range(n))
         self.nolabel.add(f)
         self.skip_to = last.address + last.size
+        return True
+
+    def struct_return(self, i):
+        """lea si,[bp-X]; mov di,B; mov cx,ds; mov es,cx; mov cx,N; rep movsw; mov ax,B into the
+        epilogue: return of the local struct at bp-X through cgen's static buffer B (own bss)."""
+        d, s = i.operands
+        if d.reg != X.X86_REG_SI or s.type != X.X86_OP_MEM or s.mem.base != X.X86_REG_BP or \
+                s.mem.index != 0 or self.stack or self.side is not None:
+            return False
+        p, seq = i.address + i.size, []
+        for w in ('mov di, ', 'mov cx, ds', 'mov es, cx', 'mov cx, ', 'rep movsw', 'mov ax, '):
+            x = self.f.seen.get(p)
+            if x is None or not ('%s %s' % (x.mnemonic, x.op_str)).startswith(w) or p in self.targets:
+                return False
+            seq.append(x)
+            p += x.size
+        b, n, r = seq[0].operands[1], seq[3].operands[1], seq[5].operands[1]
+        if X.X86_OP_IMM not in (b.type, n.type, r.type) or len({b.type, n.type, r.type}) != 1 or \
+                b.imm != r.imm or p != self.f.epi or not self.img.bss[0] <= b.imm < self.img.bss[1]:
+            return False
+        off = s.mem.disp if s.mem.disp < 0 else s.mem.disp - 0x10000 if s.mem.disp & 0x8000 else 0
+        if off >= 0:            # a parameter struct: not a local return value
+            return False
+        self.sret = (off, n.imm, b.imm)
+        self.R['ax'] = ('sret', off, n.imm)
+        self.skip_to = p
         return True
 
     def struct_copy(self, i):

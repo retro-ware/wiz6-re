@@ -1,6 +1,4 @@
 #asm
-	global g4ff8_:byte,16
-	global g5008_:byte,2
 	global g500a_:byte,82
 	global g505c_:byte,80
 	global g50ac_:byte,80

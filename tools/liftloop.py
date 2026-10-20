@@ -62,7 +62,7 @@ class Loop:
         if b is not None:       # returns a struct through the module's own bss: fixed C
             open('%s/f%04x.c' % (self.dir, s), 'wb').write(
                 ('\r\n'.join(structret.source(self.img.fname(s))) + '\r\n').encode('latin1'))
-            st.update(status='ok', raw=0, stmts=1, structret=b)
+            st.update(status='ok', raw=0, stmts=1, structret=b, sretsize=structret.SIZE)
             return None
         for _ in range(50):
             L = Lifter(self.img, s, e, self.names, st['demote'], st.get('noscratch', False), st.get('nomerge', False),
@@ -179,6 +179,9 @@ class Loop:
         if not diffs and len(ours) == e - s:
             st['status'] = 'ok'
             st.pop('why', None)
+            st.pop('structret', None)
+            if L.sret and any(x.kind == 'ret' and x.rv and x.rv[0] == 'sret' for x in L.sts):
+                st['structret'], st['sretsize'] = L.sret[2], 2 * L.sret[1]     # its buffer is our bss
             return False
         # map the mismatch to statements
         ko = keys(self.img.code[s - self.img.cbase:e - self.img.cbase], s)

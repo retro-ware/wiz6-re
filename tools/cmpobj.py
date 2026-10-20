@@ -40,6 +40,8 @@ def resolve(o, t, addr, daddr, iname):
     k = t[0]
     if k == 'lcl':
         typ, fl, v = o.lcls[t[1]]
+        if typ == 9:            # the module's own bss (a struct return buffer): placed by ln
+            return None
         return (daddr + v if daddr is not None else None) if typ == 3 else addr + v
     if k == 'code':
         return addr + t[1]

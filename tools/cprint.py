@@ -219,6 +219,9 @@ class Printer:
 
     def var(self, v):
         n = self.name(v)
+        sr = self.L.sret
+        if sr and v[1] == 'l' and v[3] == 2 and sr[0] <= v[2] < sr[0] + 2 * sr[1] and not (v[2] - sr[0]) & 1:
+            return 'sr.w[%d]' % ((v[2] - sr[0]) // 2)
         if v[1] == 'p' and v[3] == 1 and v[2] in self.T.pbytes:
             return '%s.b0' % n
         if v[1] == 'p' and v[3] == 1 and v[2] - 1 in self.T.pbytes:
@@ -280,6 +283,11 @@ class Printer:
         if e[0] == 'b' and e[1] == '+' and e[3][0] == 'c' and self.T.is_data(e[3][1]):
             return self.addr(('m', e[2], e[3][1], 1))
         return self.ptr(e)
+
+    def reg_used(self, r):
+        """Some lifted statement names the register variable r."""
+        v = ('v', 'r', r, 2)
+        return any(v in sub_exprs(e) for st in self.L.sts if st.kind != 'raw' for e in st_exprs(st))
 
     def lvx(self, e):
         """e printed as an assignment target: no comma forms (not an lvalue in C)."""
@@ -363,6 +371,8 @@ class Printer:
             if size == 1:
                 return '%s[%s]' % (n, self.ex(idx))
             return '*(%s *)(%s + %s)' % (CTYPE[size], n, self.ex(idx))
+        if k == 'sret':         # the local struct the function returns
+            return 'sr'
         if k == 'sv':           # a struct a call returned, passed by value
             return self.ex(e[1])
         if k == '=':
@@ -680,8 +690,19 @@ class Printer:
         # locals: the first declared lies closest to bp
         lk = sorted({w for (k, w) in list(T.sizes) + list(T.ptr) if k == 'l'} | set(T.larr),
                     reverse=True)
+        sr = self.L.sret
+        if sr:                  # the returned struct replaces the locals it covers
+            lk = sorted({w for w in lk if not sr[0] <= w < sr[0] + 2 * sr[1]} | {sr[0]}, reverse=True)
         locs, pos = [], 0
         for off in lk:
+            if sr and off == sr[0]:
+                if off + 2 * sr[1] > pos:
+                    raise ValueError('overlapping locals')
+                if off + 2 * sr[1] < pos:
+                    locs.append('\tchar x%d[%d];' % (-pos, pos - off - 2 * sr[1]))
+                locs.append('\tstruct r%d sr;' % sr[1])
+                pos = off
+                continue
             if off in T.elem_of or off in T.arr_alias or off in T.hi_of or ('l', off) in T.hi16:
                 continue
             if off in T.larr:        # an array fills the gap up to the next variable
@@ -710,7 +731,7 @@ class Printer:
         bp_used = T.larr or any(k in ('p', 'l') for k, w in list(T.sizes) + list(T.ptr))
         frame = ['#asm', '$20004 equ 1', '#endasm'] if f.frame and not bp_used and not locs else []
         regs = ['\tregister %s%s;' % (T.ctype(('r', r)), self.ln('r' + r)) for r in ('si', 'di')
-                if r in f.regs and r not in f.scratch]
+                if r in f.regs and r not in f.scratch and not (sr and not self.reg_used(r))]
         head = []
         own = self.img.fname(f.s) + '_'
         ext = sorted(self.asm_ext - {own})
@@ -722,10 +743,13 @@ class Printer:
             head.append('struct s%d { int w[%d]; };' % (n, n // 2))
         for fn, n in sorted(self.L.structs):
             head.append('struct s%d %s();' % (n, fn))
+        if sr:
+            head.append('struct r%d { int w[%d]; };' % (sr[1], sr[1]))
         doc = symnames.doc(self.img.name, f.s)
         if doc:
             head.append('/* %s */' % doc.replace('*/', '* /'))
-        head.append('%s(%s)' % (self.img.fname(f.s), ', '.join(self.ln('p%d' % o) for o in params)))
+        head.append('%s%s(%s)' % ('struct r%d ' % sr[1] if sr else '', self.img.fname(f.s),
+                                  ', '.join(self.ln('p%d' % o) for o in params)))
         head += decl
         head.append('{')
         self.body_at = len(head) + len(locs) + len(regs) + len(frame)
