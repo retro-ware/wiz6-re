@@ -23,12 +23,12 @@ L8f11:
 L8f5a:
 	l2 = 1;
 	rsi = 0;
-L8f62:
+	do {
 	if (view_pos_group[rsi] == p4) {
 	l2 = 0;
 	}
 	rsi++;
-	if (rsi < 5) goto L8f62;
+	} while (rsi < 5);
 L8f7c:
 	if (!view_rows_open) {
 	l2 = 0;

@@ -6,12 +6,12 @@ char *p6;
 	register int rsi;
 	l2 = 0;
 	rsi = 0;
-L66fa:
+	do {
 	if (((unsigned char)spell_table[(rsi * 6)] == p4) && (test_bit(22008, rsi) == 1)) {
 	*(int *)(p6 + (l2 << 1)) = rsi;
 	l2++;
 	}
 	rsi++;
-	if (rsi < 82) goto L66fa;
+	} while (rsi < 82);
 	return l2;
 }

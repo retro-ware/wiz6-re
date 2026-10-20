@@ -4,10 +4,10 @@ char *p4;
 {
 	register int rsi;
 	rsi = 0;
-L71e6:
+	do {
 	if ((unsigned char)char_stats[rsi] < (*(p4 + rsi) + -65)) {
 	char_stats[rsi] = (char)(*(p4 + rsi) + -65);
 	}
 	rsi++;
-	if (rsi < 8) goto L71e6;
+	} while (rsi < 8);
 }

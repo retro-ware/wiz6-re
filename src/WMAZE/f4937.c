@@ -46,14 +46,14 @@ L4a2f:
 	setmem(19976, 96, 0);
 	for (rdi = 0; rdi < 5; rdi++) {
 	rsi = 0;
-L4a4d:
+	do {
 	l2 = get_bitfield((maze_data + 1274), ((rsi * 5) + rdi), 3);
 	l4 = get_bitfield((maze_data + 1298), ((rsi * 5) + rdi), 3);
 	if ((l4 + l2) > 0) {
 	flood_mark_cells(rsi, l2, l4, 1);
 	}
 	rsi++;
-	if (rsi < 12) goto L4a4d;
+	} while (rsi < 12);
 	}
 	if (game_state_arg != 8) {
 	g4eca = 0;

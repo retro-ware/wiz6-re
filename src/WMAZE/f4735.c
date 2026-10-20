@@ -15,7 +15,7 @@ L4787:
 	set_bit(19976, rdi, p10);
 	if (p10) goto L4844;
 	rsi = 0;
-L47a1:
+	do {
 	l2 = get_bitfield((maze_data + 1274), ((p4 * 5) + rsi), 3);
 	l4 = get_bitfield((maze_data + 1298), ((p4 * 5) + rsi), 3);
 	if ((l2 == p6) && (l4 == p8)) {
@@ -23,7 +23,7 @@ L47a1:
 	set_bitfield((maze_data + 1298), ((p4 * 5) + rsi), 3, 0);
 	}
 	rsi++;
-	if (rsi < 5) goto L47a1;
+	} while (rsi < 5);
 L4844:
 	if ((!get_bitfield((maze_data + 96), rdi, 2)) && (p8 < 7)) {
 	flood_mark_cells(p4, p6, (p8 + 1), p10);

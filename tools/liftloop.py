@@ -69,6 +69,7 @@ class Loop:
                        st.get('nobool', []))
             L.noandif = st.get('noandif', False)     # && / || conditions structured as if/else
             L.opasg = set(st.get('opasg', []))       # x = x op y printed as x op= y
+            L.nolatedo = st.get('nolatedo', False)   # no do loops starting with a structured if
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -223,6 +224,9 @@ class Loop:
         for x in L.sts:
             if x.kind != 'raw' and not getattr(x, 'epi', False) and any(x.s <= b < x.e for b in bad):
                 dem.add(x.s)
+        if dem & getattr(P, 'latedo', set()) and not st.get('nolatedo'):
+            st['nolatedo'], st['demote'] = True, []
+            return True
         if self.opassign(st, L, dem):
             return True
         if self.unmerge(st, L, dem):
@@ -263,7 +267,8 @@ class Loop:
             if st['lenient_score'] >= score:
                 return False
             mode = 'lenient'
-        for k in ('demote', 'nobool', 'nomerge', 'noandif', 'why', 'structret', 'sretsize'):
+        for k in ('demote', 'nobool', 'nomerge', 'noandif', 'why', 'structret', 'sretsize', 'nolatedo', 'opasg',
+                  'noopasg', 'pruned', 'untried'):
             st.pop(k, None)
         st['demote'], st['noscratch'] = [], mode
         t.append(mode)

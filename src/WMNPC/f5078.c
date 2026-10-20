@@ -54,12 +54,12 @@ L5122:
 	put_char_hi(l88, (unsigned char)((l2 + 37)), 1);
 	l2 = -1;
 	rsi = 0;
-L520a:
+	do {
 	if (((unsigned)g450a[((432 * p4) + rsi)] > 0) && (g0532[rsi] > l2)) {
 	l2 = g0532[rsi];
 	}
 	rsi++;
-	if (rsi < 10) goto L520a;
+	} while (rsi < 10);
 	if (l2 != -1) {
 	put_char_hi(l88, (unsigned char)((l2 + 37)), 1);
 	} else {
@@ -71,14 +71,14 @@ L520a:
 	}
 	set_cursor(l88, (l4 + 3), (l6 + 1));
 	rsi = 0;
-L52be:
+	do {
 	if (((unsigned char)pc_equipped[((432 * p4) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))) > 0)) {
 	put_char_hi(l88, (unsigned char)(((unsigned char)pc_item_icon[((432 * p4) + ((unsigned char)pc_equipped[((432 * p4) + rsi)] << 3))] + 1)), 4);
 	} else {
 	put_char_hi(l88, (unsigned char)((rsi + 37)), 4);
 	}
 	rsi++;
-	if (rsi < 2) goto L52be;
+	} while (rsi < 2);
 	f4fac(l88, (l4 + 5), (l6 + 1), *(int *)((char *)pc_hp + (432 * p4)), *(int *)((char *)pc_hp_max + (432 * p4)), 86);
 	f4fac(l88, (l4 + 6), (l6 + 1), *(int *)((char *)pc_stamina + (432 * p4)), *(int *)((char *)pc_stamina_max + (432 * p4)), 99);
 }

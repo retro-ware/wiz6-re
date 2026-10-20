@@ -36,6 +36,7 @@ def render(iname):
                        st.get('nobool', []))
             L.noandif = st.get('noandif', False)     # as liftloop lifted it
             L.opasg = set(st.get('opasg', []))
+            L.nolatedo = st.get('nolatedo', False)
             L.run()
             src, missing = Printer(L, names).source()
             if missing:

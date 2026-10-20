@@ -48,12 +48,12 @@ draw_member_panel(i)
 	put_char_hi(win, (unsigned char)((state + 37)), 1);
 	state = -1;
 	rsi = 0;
-L61fa:
+	do {
 	if (((unsigned)g450a[((432 * i) + rsi)] > 0) && (g0532[rsi] > state)) {
 	state = g0532[rsi];
 	}
 	rsi++;
-	if (rsi < 10) goto L61fa;
+	} while (rsi < 10);
 	if (state != -1) {
 	put_char_hi(win, (unsigned char)((state + 37)), 1);
 	} else {
@@ -65,14 +65,14 @@ L61fa:
 	}
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
-L62ae:
+	do {
 	if (((unsigned char)pc_equipped[((432 * i) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * i) + ((unsigned char)pc_equipped[((432 * i) + rsi)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * i) + ((unsigned char)pc_equipped[((432 * i) + rsi)] << 3))] + 1)), 4);
 	} else {
 	put_char_hi(win, (unsigned char)((rsi + 37)), 4);
 	}
 	rsi++;
-	if (rsi < 2) goto L62ae;
+	} while (rsi < 2);
 	draw_gauge(win, (x + 5), (y + 1), *(int *)((char *)pc_hp + (432 * i)), *(int *)((char *)pc_hp_max + (432 * i)), 86);
 	draw_gauge(win, (x + 6), (y + 1), *(int *)((char *)pc_stamina + (432 * i)), *(int *)((char *)pc_stamina_max + (432 * i)), 99);
 }

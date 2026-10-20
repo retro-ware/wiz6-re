@@ -11,7 +11,7 @@ f9827(p4, p6, p8, p10)
 	f88c7(p4, 0);
 	defer_window_draw(p4);
 	rsi = -2;
-L9845:
+	do {
 	if (((p8 + rsi) >= 0) && ((p8 + rsi) < g5324)) {
 	set_cursor(p4, 2, (rsi + 2));
 	l2 = g5326[(p8 + rsi)];
@@ -34,7 +34,7 @@ L9845:
 	put_char_hi(p4, (unsigned char)(((unsigned char)pc_item_icon[((432 * p6) + (l2 << 3))] + 1)), 4);
 	}
 	rsi++;
-	if (rsi <= 2) goto L9845;
+	} while (rsi <= 2);
 	resume_window_draw(p4);
 	refresh_window(p4);
 }

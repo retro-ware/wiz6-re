@@ -6,12 +6,12 @@ char *p8;
 	register int rsi;
 	n = 0;
 	rsi = 0;
-L633f:
+	do {
 	if (((unsigned char)spell_table[(rsi * 6)] == realm) && (test_bit(((432 * member) + 17776), rsi) == 1)) {
 	*(int *)(p8 + (n << 1)) = rsi;
 	n++;
 	}
 	rsi++;
-	if (rsi < 82) goto L633f;
+	} while (rsi < 82);
 	return n;
 }

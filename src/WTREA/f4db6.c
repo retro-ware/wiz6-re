@@ -47,12 +47,12 @@ draw_member_status(member)
 	put_char_hi(win, (unsigned char)((l2 + 37)), 1);
 	l2 = -1;
 	rsi = 0;
-L4f1f:
+	do {
 	if (((unsigned)g450a[((432 * member) + rsi)] > 0) && (g0532[rsi] > l2)) {
 	l2 = g0532[rsi];
 	}
 	rsi++;
-	if (rsi < 10) goto L4f1f;
+	} while (rsi < 10);
 	if (l2 != -1) {
 	put_char_hi(win, (unsigned char)((l2 + 37)), 1);
 	} else {
@@ -64,14 +64,14 @@ L4f1f:
 	}
 	set_cursor(win, (x + 3), (y + 1));
 	rsi = 0;
-L4fd3:
+	do {
 	if (((unsigned char)pc_equipped[((432 * member) + rsi)] != 255) && (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + rsi)] << 3))] + 1)), 4);
 	} else {
 	put_char_hi(win, (unsigned char)((rsi + 37)), 4);
 	}
 	rsi++;
-	if (rsi < 2) goto L4fd3;
+	} while (rsi < 2);
 	draw_vital_bar(win, (x + 5), (y + 1), *(int *)((char *)pc_hp + (432 * member)), *(int *)((char *)pc_hp_max + (432 * member)), 86);
 	draw_vital_bar(win, (x + 6), (y + 1), *(int *)((char *)pc_stamina + (432 * member)), *(int *)((char *)pc_stamina_max + (432 * member)), 99);
 }

@@ -613,20 +613,33 @@ class Printer:
                                  sts[x].s not in default for x in range(a, b))
         # L: A..; if (c) goto L: do { A } while (c); cgen forgets its registers before the test
         dos = {}
-        for j, st in enumerate(sts):
-            k = idx.get(st.target) if st.kind == 'if' else None
-            if k is None or k >= j or refs.get(st.target) != 1 or \
-                    st.target in asm_t or st.s in labels or st.s in cases or \
-                    st.s in default or sts[k].s in self.L.nobool or \
-                    sts[k].kind not in ('asg', 'cas', 'inc', 'expr', 'scopy') or \
-                    k + 1 < j and not plain(k + 1, j, ()) or \
-                    any(x in used or getattr(sts[x], 'forhead', None) is not None for x in range(k, j + 1)):
-                continue
-            dos[k], dos[j] = None, st.cond
-            used |= set(range(k, j + 1))
-            labels.discard(st.target)
-            for x in range(k, j + 1):
-                sts[x].forhead = sts[k].s
+        self.latedo = set()     # statements of the do loops found after the ifs
+
+        def find_dos(late):
+            # late: after the ifs are structured, a loop may start with one (L: if (..) {..} ..)
+            for j, st in enumerate(sts):
+                k = idx.get(st.target) if st.kind == 'if' else None
+                # (the ifs structured inside the loop mark their own statements)
+                inner = {None} | ({sts[x].s for x in range(k, j) if x in opens} if late and k is not None else set())
+                if k is None or k >= j or refs.get(st.target) != 1 or \
+                        st.target in asm_t or st.s in labels or st.s in cases or \
+                        st.s in default or sts[k].s in self.L.nobool or \
+                        not (sts[k].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') or
+                             late and k in opens and ends.get(k, j) < j) or \
+                        k + 1 < j and not plain(k + 1, j, ()) or \
+                        any(x in used or getattr(sts[x], 'forhead', None) not in inner for x in range(k, j + 1)) or \
+                        late and any(x in opens and ends.get(x, j) >= j for x in range(k, j)):
+                    continue
+                if late and getattr(self.L, 'nolatedo', False):
+                    continue
+                if late:
+                    self.latedo |= {sts[x].s for x in range(k, j + 1)}
+                dos[k], dos[j] = None, st.cond
+                used.update(range(k, j + 1))
+                labels.discard(st.target)
+                for x in range(k, j + 1):
+                    sts[x].forhead = sts[k].s
+        find_dos(False)
         # inner blocks first: an if/else may hold structured ifs (cgen keeps its registers there too)
         # A join two jumps reach (if (c) goto J inside the else of an if whose then ends in goto J)
         # is tried speculatively; when not all its jumps end up absorbed, everything is redone
@@ -656,6 +669,7 @@ class Printer:
             if not bad:
                 break
             self._nospec |= bad
+        find_dos(True)
         for k, st in enumerate(sts):
             out += ['\t}'] * closes.get(k, 0)
             lab = []

@@ -7,10 +7,10 @@ char *p8;
 	register int rsi;
 	class_allowed[p6] = 1;
 	rsi = 0;
-La1be:
+	do {
 	if ((unsigned char)pc_stats[((432 * p4) + rsi)] < (*(p8 + rsi) + -65)) {
 	class_allowed[p6] = 0;
 	}
 	rsi++;
-	if (rsi < 7) goto La1be;
+	} while (rsi < 7);
 }

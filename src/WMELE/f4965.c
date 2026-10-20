@@ -84,16 +84,12 @@ L4c85:
 	if (n >= i) goto L4d55;
 	i = 0;
 	mon = -1;
-L4cf1:
+	do {
 	if (((unsigned)((char *)group_monster_rec[n] + i)[166] > 0) && (random(l4) < (unsigned char)((char *)group_monster_rec[n] + i)[166])) {
 	mon = (unsigned char)((char *)group_monster_rec[n] + i)[164];
 	}
 	i++;
-#asm
-	db 083h,07eh,0feh,002h,07dh,006h
-#endasm
-	if (mon == -1) goto L4cf1;
-L4d41:
+	} while ((i < 2) && (mon == -1));
 	if (mon == -1) goto L4d55;
 	generate_monster_group(mon, (n + 1));
 L4d55:

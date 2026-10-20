@@ -44,12 +44,12 @@ draw_member_card(win, member)
 	put_char_hi(win, (unsigned char)((l2 + 37)), 1);
 	l2 = -1;
 	i = 0;
-L4b30:
+	do {
 	if (((unsigned)g450a[((432 * member) + i)] > 0) && (g0532[i] > l2)) {
 	l2 = g0532[i];
 	}
 	i++;
-	if (i < 10) goto L4b30;
+	} while (i < 10);
 	if (l2 != -1) {
 	put_char_hi(win, (unsigned char)((l2 + 37)), 1);
 	} else {
@@ -61,14 +61,14 @@ L4b30:
 	}
 	set_cursor(win, (l4 + 3), (l6 + 1));
 	i = 0;
-L4be4:
+	do {
 	if (((unsigned char)pc_equipped[((432 * member) + i)] != 255) && (*(int *)((char *)pc_item_id + ((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))) > 0)) {
 	put_char_hi(win, (unsigned char)(((unsigned char)pc_item_icon[((432 * member) + ((unsigned char)pc_equipped[((432 * member) + i)] << 3))] + 1)), 4);
 	} else {
 	put_char_hi(win, (unsigned char)((i + 37)), 4);
 	}
 	i++;
-	if (i < 2) goto L4be4;
+	} while (i < 2);
 	draw_gauge(win, (l4 + 5), (l6 + 1), *(int *)((char *)pc_hp + (432 * member)), *(int *)((char *)pc_hp_max + (432 * member)), 86);
 	draw_gauge(win, (l4 + 6), (l6 + 1), *(int *)((char *)pc_stamina + (432 * member)), *(int *)((char *)pc_stamina_max + (432 * member)), 99);
 }
