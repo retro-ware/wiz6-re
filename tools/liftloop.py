@@ -69,7 +69,7 @@ class Loop:
                        st.get('nobool', []))
             L.noandif = st.get('noandif', False)     # && / || conditions structured as if/else
             L.opasg = set(st.get('opasg', []))       # x = x op y printed as x op= y
-            L.nolatedo = st.get('nolatedo', False)   # no do loops starting with a structured if
+            L.nolatedo = set(st.get('nolatedo', []))     # loops left out of the late do pass (see check)
             try:
                 L.run()
                 P = Printer(L, self.names)
@@ -224,8 +224,10 @@ class Loop:
         for x in L.sts:
             if x.kind != 'raw' and not getattr(x, 'epi', False) and any(x.s <= b < x.e for b in bad):
                 dem.add(x.s)
-        if dem & getattr(P, 'latedo', set()) and not st.get('nolatedo'):
-            st['nolatedo'], st['demote'] = True, []
+        late = [h for h, x in getattr(P, 'latedo', {}).items() if x & dem]
+        if late:
+            # a do loop starting with a structured if mismatched: cgen kept the goto form there
+            st['nolatedo'], st['demote'] = st.get('nolatedo', []) + late, []
             return True
         if self.opassign(st, L, dem):
             return True

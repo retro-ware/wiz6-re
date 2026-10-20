@@ -24,7 +24,7 @@ L92af:
 	l2++;
 	if (l2 < 22) goto L92af;
 	l4 = create_window(20, 4, 20, 16, 25, -1, 0, 0);
-L92f7:
+	do {
 	l28 = draw_skills_page(l4, p4, p6, l26, &l48);
 	for (l2 = 0; l2 <= 4; l2++) {
 	l24[l2] = 1;
@@ -42,11 +42,7 @@ L92f7:
 	fill_window(p4, 32, 3, 0);
 	refresh_window(p4);
 	l26 = run_menu(p4, 600, l24, 2, 1, 10, 2, 5, l50);
-#asm
-	db 083h,07eh,0e6h,004h,074h,003h
-#endasm
-	goto L92f7;
-L93d2:
+	} while (l26 != 4);
 	fill_window(p4, 32, 3, 0);
 	destroy_window(l4, 1);
 }

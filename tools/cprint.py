@@ -613,32 +613,41 @@ class Printer:
                                  sts[x].s not in default for x in range(a, b))
         # L: A..; if (c) goto L: do { A } while (c); cgen forgets its registers before the test
         dos = {}
-        self.latedo = set()     # statements of the do loops found after the ifs
+        self.latedo = {}        # head -> statements of the do loops found after the ifs
 
         def find_dos(late):
             # late: after the ifs are structured, a loop may start with one (L: if (..) {..} ..)
             for j, st in enumerate(sts):
                 k = idx.get(st.target) if st.kind == 'if' else None
-                # (the ifs structured inside the loop mark their own statements)
-                inner = {None} | ({sts[x].s for x in range(k, j) if x in opens} if late and k is not None else set())
-                if k is None or k >= j or refs.get(st.target) != 1 or \
+                if k is None or k >= j:
+                    continue
+                # (the ifs structured and the for loops found inside the loop mark their own statements)
+                nh = {sts[h].s for h in fors if k < h < j and idx[fors[h][0].s] < j} if late else set()
+                inner = {None} | nh | ({sts[x].s for x in range(k, j) if x in opens} if late else set())
+                fh = lambda x: getattr(sts[x], 'forhead', None)
+                body = plain(k + 1, j, ()) if not late else \
+                    all((sts[x].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') or ends.get(x, j + 1) <= j or fh(x) in nh) and
+                        (sts[x].s not in labels or fh(x) in nh) and sts[x].s not in cases and sts[x].s not in default
+                        for x in range(k + 1, j))
+                if refs.get(st.target) != 1 or \
                         st.target in asm_t or st.s in labels or st.s in cases or \
                         st.s in default or sts[k].s in self.L.nobool or \
                         not (sts[k].kind in ('asg', 'cas', 'inc', 'expr', 'scopy') or
                              late and k in opens and ends.get(k, j) < j) or \
-                        k + 1 < j and not plain(k + 1, j, ()) or \
-                        any(x in used or getattr(sts[x], 'forhead', None) not in inner for x in range(k, j + 1)) or \
+                        k + 1 < j and not body or \
+                        any(x in used and fh(x) not in nh or fh(x) not in inner for x in range(k, j + 1)) or \
                         late and any(x in opens and ends.get(x, j) >= j for x in range(k, j)):
                     continue
-                if late and getattr(self.L, 'nolatedo', False):
+                if late and sts[k].s in getattr(self.L, 'nolatedo', ()):
                     continue
                 if late:
-                    self.latedo |= {sts[x].s for x in range(k, j + 1)}
+                    self.latedo[sts[k].s] = {sts[x].s for x in range(k, j + 1)}
                 dos[k], dos[j] = None, st.cond
                 used.update(range(k, j + 1))
                 labels.discard(st.target)
                 for x in range(k, j + 1):
-                    sts[x].forhead = sts[k].s
+                    if fh(x) not in nh:
+                        sts[x].forhead = sts[k].s
         find_dos(False)
         # inner blocks first: an if/else may hold structured ifs (cgen keeps its registers there too)
         # A join two jumps reach (if (c) goto J inside the else of an if whose then ends in goto J)
