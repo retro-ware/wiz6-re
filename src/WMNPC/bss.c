@@ -11,7 +11,9 @@
 	global g51ae_:byte,4
 	global g51b2_:byte,2
 	global g51b4_:byte,2
-	global g51b6_:byte,6
+	global g51b6_:byte,2
+	global g51b8_:byte,2
+	global g51ba_:byte,2
 	global trap_guess_letters_:byte,2
 	global g51be_:byte,2
 	global g51c0_:byte,2

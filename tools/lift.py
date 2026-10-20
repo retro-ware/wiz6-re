@@ -617,6 +617,8 @@ class Lifter:
                 self.setreg(d, self.val(s))
             else:
                 self.store(self.memop(d), self.val(s), s)
+        elif m == 'push' and i.op_str == 'ax' and self.long_mul(i):
+            return
         elif m == 'push':
             v = self.val(ops[0])
             p = self.f.seen.get(i.address - 2)
@@ -838,6 +840,37 @@ class Lifter:
         self.sts.pop()
         self.st_start = p.s
         self.emit('cas', lv=L, op=op, rv=E2)
+
+    def long_mul(self, i):
+        """push ax; push dx; mul H; mov cx,ax; pop ax; mul L; add cx,ax; pop ax; mul L; add dx,cx:
+        dx:ax * the long at L (H its high word), inline."""
+        want = ['push dx', 'mul H', 'mov cx, ax', 'pop ax', 'mul L', 'add cx, ax', 'pop ax', 'mul L', 'add dx, cx']
+        p, ms = i.address + i.size, {}
+        for w in want:
+            x = self.f.seen.get(p)
+            if x is None or p in self.targets:
+                return False
+            if w.startswith('mul '):
+                if x.mnemonic != 'mul' or x.operands[0].type != X.X86_OP_MEM or x.operands[0].size != 2:
+                    return False
+                o = ms.setdefault(w[4], x.operands[0])
+                if (o.mem.base, o.mem.index, o.mem.disp) != (x.operands[0].mem.base, x.operands[0].mem.index,
+                                                              x.operands[0].mem.disp):
+                    return False
+            elif x.mnemonic + ' ' + x.op_str != w:
+                return False
+            last, p = x, p + x.size
+        A = pair(self.R['ax'], self.R['dx']) if 'ax' in self.R and 'dx' in self.R else None
+        B = pair(self.memop(ms['L']), self.memop(ms['H']))
+        if A is None or B is None or (ms['H'].mem.disp - ms['L'].mem.disp) & 0xffff != 2:
+            return False
+        E = ('b', '*', A, B)
+        self.R = dict(self.R, ax=('L0', E), dx=('L1', E))
+        self.R.pop('cx', None)
+        self.flags = None
+        self.cur = last
+        self.skip_to = p
+        return True
 
     def long_shift(self, i):
         """mov cx,N; L: shl lo,1; rcl hi,1; loop L (or sar/shr hi,1; rcr lo,1): a long shift."""

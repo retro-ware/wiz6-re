@@ -4,6 +4,7 @@
 extern char g00cc[];
 extern char pc_item_flags[];
 extern char pc_item_qty[];
+extern int g51ba;
 extern int g51be;
 extern int g527a;
 extern int pc_gold[];
@@ -39,10 +40,7 @@ fa805(p4, p6, p8)
 	l82 = 1;
 	}
 	if (g00cc[(unsigned char)l18] != 1) goto La8b2;
-#asm
-	db 08bh,046h,0aeh,099h,050h,052h,0f7h,066h,0c4h,08bh,0c8h,058h,0f7h,066h,0c2h,003h
-	db 0c8h,058h,0f7h,066h,0c2h,003h,0d1h,089h,056h,0c4h,089h,046h,0c2h
-#endasm
+	*(long *)(l62 + 0) = ((long)l82 * *(long *)(l62 + 0));
 	goto La900;
 La8b2:
 	;
@@ -58,14 +56,7 @@ la8b2:
 	db 089h,056h,0c4h,089h,046h,0c2h
 #endasm
 La900:
-	;
-#asm
-la900:
-	db 0a1h,0bah,051h,099h,050h,052h,0f7h,066h,0c4h,08bh,0c8h,058h,0f7h,066h,0c2h,003h
-	db 0c8h,058h,0f7h,066h,0c2h,003h,0d1h,0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 089h,056h,0c4h,089h,046h,0c2h
-#endasm
+	*(long *)(l62 + 0) = (((long)g51ba * *(long *)(l62 + 0)) / 100L);
 	if (((!((unsigned char)l19 & 2)) || (l84 == trap_guess_letters)) || (l84 == g51be)) goto La94e;
 	fa645(1529);
 	return l2;
