@@ -1,6 +1,3 @@
-#asm
-	extrn $ldv:near
-#endasm
 extern char cfg_level;
 extern char g450c[];
 extern char g458c[];
@@ -26,13 +23,8 @@ rest_party()
 	show_maze_message(2036);
 	g5038 = 0;
 	l8 = 8;
-	*(int *)&g4f78 += (int)(g4f80 - g4f7c);
-#asm
-	db 011h,016h,07ah,04fh,0a1h,078h,04fh,08bh,016h,07ah,04fh,0b9h,03ch,000h,0bbh,000h
-	db 000h
-	call $ldv
-	db 089h,046h,0f6h
-#endasm
+	g4f78 += (g4f80 - g4f7c);
+	l10 = (int)(g4f78 / 60L);
 	l12 = 0;
 L643c:
 	if (l10 < 4) goto L6456;
@@ -41,11 +33,7 @@ L643c:
 	g4f78 += -240L;
 	goto L643c;
 L6456:
-	;
-#asm
-l6456:
-	db 0a1h,080h,04fh,08bh,016h,082h,04fh,089h,016h,07eh,04fh,0a3h,07ch,04fh
-#endasm
+	g4f7c = g4f80;
 L6464:
 	if (((l8 <= 0) || (g5038)) || (game_state != 5)) goto L658a;
 	for (l2 = 0; l2 < party_count; l2++) {

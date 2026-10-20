@@ -9,6 +9,7 @@ extern int group_monster_rec[];
 extern int monster_groups[];
 extern int party_count;
 extern int view_pos_group[];
+extern long combat_gold;
 /* Mark a combatant dead and remove its sprite. */
 kill_combatant(p4, p6)
 {
@@ -40,11 +41,7 @@ L7936:
 	for (l2 = 0; l2 < 4; l2++) {
 	((char *)monster_groups[p4] + ((44 * p6) + l2))[24] = 0;
 	}
-	if ((p4 < 1) || (p4 > 5)) goto L7a11;
-#asm
-	db 08bh,046h,004h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0b6h,043h,08bh,047h,040h,08bh,057h
-	db 042h,001h,006h,0c6h,043h,011h,016h,0c8h,043h
-#endasm
-L7a11:
-	;
+	if ((p4 >= 1) && (p4 <= 5)) {
+	combat_gold += *(long *)((*(char **)((char *)group_monster_rec + (p4 << 1))) + 64);
+	}
 }

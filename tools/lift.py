@@ -681,9 +681,10 @@ class Lifter:
                 self.flags = ('soft', v)     # usable by a jcc, but needn't be consumed
                 self.carry = (R16.get(d.reg), ALU[m], x, y, a + i.size)
             else:
+                R = dict(self.R)    # the adc may add the high word from a register (dx of a long)
                 self.emit('cas', lv=self.memop(d), op=ALU[m], rv=self.val(s))
                 self.flags = None
-                self.carry = (None, ALU[m], None, None, a + i.size)
+                self.carry = (None, ALU[m], None, None, a + i.size, R)
         elif m in ('adc', 'sbb'):
             self.long_carry(i)
         elif m in ('inc', 'dec'):
@@ -782,6 +783,22 @@ class Lifter:
                     elif v in (('L1', E), p.lv) or v == p.rv and p.rv[0] != 'c':
                         self.R[k] = p.lv
                 return
+        nx = self.f.seen.get(self.cur.address + self.cur.size)
+        if r == 'dx' and 'ax' in self.R and nx is not None and nx.mnemonic == 'mov' and nx.op_str.endswith(', ax') and \
+                nx.operands[0].type == X.X86_OP_MEM and nx.address not in self.targets:
+            # mov [X+2],dx; mov [X],ax with dx:ax a long: one long store
+            lo, ax = self.memop(nx.operands[0]), self.R['ax']
+            L, E = pair(lo, lv), pair(ax, rv)
+            if L is not None and E is not None:
+                self.cur = nx
+                self.emit('asg', lv=L, rv=E)
+                self.skip_to = nx.address + nx.size
+                for k, v in self.R.items():      # the pair now holds the two stored words
+                    if v == ('L0', E) or v == ax and ax[0] != 'c':
+                        self.R[k] = lo
+                    elif v == ('L1', E) or v == rv and rv[0] != 'c':
+                        self.R[k] = lv
+                return
         self.emit('asg', lv=lv, rv=rv).src = r
 
     def long_carry(self, i):
@@ -808,7 +825,11 @@ class Lifter:
             hi = ('m', p.lv[1], (p.lv[2] + 2) & 0xffff, 2)
         else:
             hi = self.memop(d)
-        L, E2 = pair(p.lv, hi), pair(p.rv, self.val(s))
+        if s.type == X.X86_OP_REG and len(c) > 5 and R16.get(s.reg) in c[5] and R16.get(s.reg) not in self.R:
+            sv = c[5][R16.get(s.reg)]
+        else:
+            sv = self.val(s)
+        L, E2 = pair(p.lv, hi), pair(p.rv, sv)
         if L is None or E2 is None:
             raise Unlift('long ' + i.mnemonic)
         self.sts.pop()

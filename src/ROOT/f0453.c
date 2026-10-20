@@ -25,13 +25,7 @@ l0485:
 	call $lrm
 	db 005h,030h,000h,083h,0d2h,000h,08bh,0feh,046h,08bh,05eh,008h,088h,001h
 #endasm
-	value = (value / 10L);
-#asm
-	db 083h,0fah,000h,07fh,007h,075h,007h,03dh,000h,000h,076h,002h
-#endasm
-L04c3:
-	goto L0485;
-L04c5:
+	if ((value = (value / 10L)) > 0L) goto L0485;
 	if (orig < 0L) {
 	rdi = len;
 	len++;
