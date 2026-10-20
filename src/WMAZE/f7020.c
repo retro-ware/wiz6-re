@@ -1,7 +1,3 @@
-#asm
-	extrn defer_window_draw_:near
-	extrn maze_party_menu_:near
-#endasm
 extern char *g4f84;
 extern char *g4fa8;
 extern char g450c[];
@@ -75,29 +71,8 @@ L713b:
 	l4 = 0;
 	goto L71cb;
 L7143:
-	;
-#asm
-l7143:
-	db 0b8h,0b0h,001h,0f7h,06eh,0fch,08bh,0d8h,080h,0bfh,089h,045h,003h,072h,003h,0e9h
-	db 073h,000h
-#endasm
-L7155:
-	if (((g4f80 % 60L) / 10L) != (long)l4) goto L7187;
-#asm
-	db 0b8h,001h,000h,0ebh,003h
-#endasm
-L7187:
-	;
-#asm
-l7187:
-	db 0b8h,000h,000h
-#endasm
-L718a:
-	;
-#asm
-l718a:
-	db 089h,046h,0f8h
-#endasm
+	if ((unsigned)pc_condition[(432 * l4)] >= 3) goto L71c8;
+	l8 = (((g4f80 % 60L) / 10L) == (long)l4 ? 1 : 0);
 	if (!l8) goto L71b3;
 	*(int *)((char *)pc_stamina + (432 * l4)) -= ((unsigned char)g458d[(432 * l4)] + 1);
 	if (*(int *)((char *)pc_stamina + (432 * l4)) >= 0) goto L71b3;
@@ -172,13 +147,14 @@ L735b:
 	set_click_region(4, 21, 20, 27, 23);
 	set_click_region(5, 255, 0, 0, 0);
 	l2 = get_maze_input(20510, 13720);
-#asm
-	db 0e9h,0b8h,001h
-#endasm
+	switch (l2) {
+case 0:
 	g5036 = 0;
 	move_party(0);
 	tick_effect_timers(1);
 	goto L75ca;
+case 1:
+case 3:
 	g5036 = 0;
 	if (g4f88) goto L7460;
 	party_facing = ((party_facing + l2) % 4);
@@ -195,34 +171,28 @@ L7460:
 L7471:
 	tick_effect_timers(1);
 	goto L75ca;
+case 2:
 	g4f88 = ((g4f88 + 1) % 2);
-#asm
-	db 0ffh,036h,0b0h,04fh
-	call defer_window_draw_
-	db 059h,083h,03eh,088h,04fh,000h,074h,003h,0e9h,07eh,000h
-#endasm
-L749c:
+	defer_window_draw(g4fb0);
+	if (!g4f88) {
 	f6f30(g4fb0, 13, 1, 5, 6, 7, 8);
 	f6f30(g4fb0, 10, 3, 1, 13, 3, 14);
 	f6fa3(g4fb0, 12, 3, 17);
 	f6f30(g4fb0, 16, 3, 15, 10, 16, 12);
-	goto L7596;
-L751a:
+	} else {
 	f6f30(g4fb0, 13, 1, 5, 6, 7, 8);
 	f6f30(g4fb0, 10, 3, 1, 2, 3, 4);
 	f6fa3(g4fb0, 12, 3, 25);
 	f6f30(g4fb0, 16, 3, 9, 10, 11, 12);
-L7596:
+	}
 	resume_window_draw(g4fb0);
 	refresh_window(g4fb0);
 	g5032 = 1;
 	goto L75ca;
-#asm
-	call maze_party_menu_
-	db 0ebh,017h,005h,074h,01eh,074h,07ch,074h,01eh,074h,0aeh,075h
-l75bd:
-	db 03dh,005h,000h,073h,008h,093h,0d1h,0e3h,02eh,0ffh,0a7h,0b3h,075h
-#endasm
+case 4:
+	maze_party_menu();
+	goto L75ca;
+	}
 L75ca:
 	if (game_state == 5) goto L707a;
 	return;

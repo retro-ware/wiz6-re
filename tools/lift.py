@@ -897,6 +897,9 @@ class Lifter:
             self.st_start = p.s
         self.cur = last
         self.flags = None
+        if n == 1 and a[0] != '=' and self.ternary(last, (op, a, b), t):
+            self.nolabel.add(f)         # ax = (long == long) ? A : B
+            return True
         jm = get(f) if n == 2 else None
         if jm is not None and jm.mnemonic == 'jmp' and jm.operands[0].type == X.X86_OP_IMM and \
                 t == jm.address + jm.size and self.tcount.get(t, 0) >= 2:
