@@ -214,6 +214,7 @@ class Machine:
         if mode == 0:
             b = scenario_record(typ, index)
             self.wr(buf, b)    # a short read leaves the rest of buf as it was
+            self.writes.update(range(buf, buf + len(b)))   # mem_write bypasses the write hook
         else:
             self.log.append(['recwrite', typ, index])
 
