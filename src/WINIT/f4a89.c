@@ -1,3 +1,5 @@
+extern char g3569;
+extern char g356a;
 extern char cfg_delay;
 extern char cfg_gmode;
 extern char cfg_input;
@@ -77,16 +79,7 @@ case 8:
 L4b7b:
 	stop_sound();
 	l10 = (unsigned char)g3568;
-#asm
-	db 0b8h,000h,000h,083h,07eh,0f6h,000h,074h,014h,0a0h,069h,035h,02ah,0e4h,086h,0e0h
-	db 02ah,0c0h,050h,0a0h,06ah,035h,02ah,0e4h,08bh,0c8h,058h,003h,0c1h
-#endasm
-L4ba3:
-	;
-#asm
-l4ba3:
-	db 089h,046h,0f4h
-#endasm
+	l12 = (l10 ? (((unsigned char)g3569 << 8) + (unsigned char)g356a) : 0);
 	start_sound(-1, l12, 0, ((l10 << 8) + 255));
 	video_flags = init_video(l2);
 	g4fc2 = stop_sound();

@@ -61,7 +61,5 @@ L5f55:
 L5f74:
 	play_sound(0);
 	goto L5f74;
-#asm
-	db 0b8h,000h,000h,0e9h,0bah,0feh
-#endasm
+	return 0;
 }

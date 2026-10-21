@@ -37,10 +37,7 @@ La00e:
 	l2++;
 La020:
 	if (l2 < roster_slot_count) goto La00e;
-	enabled[1] = l4;
-#asm
-	db 089h,046h,0deh,089h,046h,0e0h,089h,046h,0e2h
-#endasm
+	enabled[4] = enabled[3] = enabled[2] = enabled[1] = l4;
 	choice = menu_select(prompt_win, 1130, enabled, 4, 1, 12, 2, 5, count_enabled_options(enabled, 5));
 	switch (choice) {
 case 0:

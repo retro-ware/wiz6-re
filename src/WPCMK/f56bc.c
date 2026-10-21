@@ -60,9 +60,7 @@ L5946:
 case 1:
 	if (added[row] <= 0) goto L59ad;
 	char_skills[*(int *)(skills + (row << 1))]--;
-#asm
-	db 08bh,0d8h,003h,0ddh,0ffh,04fh,0e8h
-#endasm
+	added[row]--;
 	points++;
 	play_sound(1);
 	print_skill_value(cursor_win, (row + 3), (unsigned char)char_skills[*(int *)(skills + (row << 1))]);
@@ -86,9 +84,7 @@ case 2:
 case 3:
 	if (((unsigned)char_skills[*(int *)(skills + (row << 1))] >= 100) || (points <= 0)) goto L5a7b;
 	char_skills[*(int *)(skills + (row << 1))]++;
-#asm
-	db 08bh,0d8h,003h,0ddh,0ffh,047h,0e8h
-#endasm
+	added[row]++;
 	points--;
 	play_sound(1);
 	print_skill_value(cursor_win, (row + 3), (unsigned char)char_skills[*(int *)(skills + (row << 1))]);

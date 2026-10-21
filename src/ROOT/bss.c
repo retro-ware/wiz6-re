@@ -32,7 +32,9 @@
 	global g33ec_:byte,4
 	global cur_sound_size_:byte,2
 	global g33f2_:byte,374
-	global g3568_:byte,40
+	global g3568_:byte,1
+	global g3569_:byte,1
+	global g356a_:byte,38
 	global sound_mode_:byte,1
 	global cfg_delay_:byte,1
 	global g3592_:byte,1
