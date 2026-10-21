@@ -22,7 +22,7 @@ def base(rnd):
     s['monsterGroupCount'] = ng
     s['g4fc8'] = pick(rnd, 0, 10, (0, 1, 3, 32767))
     s['actGroup'] = rnd.choice([0, 0, 1, 2, 3, 6])
-    s['actMember'] = pick(rnd, 0, 8, (-1, 9))
+    s['actMember'] = rnd.randint(0, 8)
     s['animCycle'] = rnd.randint(0, 2)
     for r in range(2):
         for c in range(5):
@@ -159,3 +159,26 @@ f8149 = Spec('WMEXE', 0x8149, mk(lambda r, g, i: [g, _who(r, g), _cnt(r), _sides
 f825f = Spec('WMEXE', 0x825f, mk(lambda r, g, i: [g, _who(r, g), MSG(r), r.randint(0, 13), r.randint(0, 9), _mod(r), r.randint(0, 2), _cnt(r), _sides(r), _base(r), 0, 0]), MEXE_UI, void=True)
 f83f3 = Spec('WMEXE', 0x83f3, mk(lambda r, g, i: [g, _who(r, g), MSG(r), r.randint(0, 13), pick(r, 0, 3, (0, -1)), _mod(r), _cnt(r), _sides(r), r.randint(0, 9), r.randint(0, 2), _cnt(r), _sides(r), _base(r), 0, 0]), MEXE_UI, void=True)
 f86aa = Spec('WMEXE', 0x86aa, mk(lambda r, g, i: [g, MSG(r), r.choice([5, 11, r.randint(0, 13)]), r.choice([3, r.randint(0, 9)]), _mod(r), r.randint(0, 2), _cnt(r), _sides(r), _base(r), 0, 0]), MEXE_UI, void=True)
+
+
+def fighter_addr(g, i):
+    import layout as L
+    return L.PTRS['monsterGroups'][3] + g * 416 + 44 * i
+
+
+def _f7254(rnd):
+    s = base(rnd)
+    g, i = _gi(rnd)
+    n = pick(rnd, 0, 50, (0, -1, 32767, -32768))
+    return s, [g, i, n], [fighter_addr(g, i), n]
+
+
+f4572 = Spec('WMEXE', 0x4572, mk(lambda r, g, i: [r.randint(0, 1), pick(r, 0, 200, (0, -1, 32767)), pick(r, 1, 200, (1, -1, 32767))]), MEXE_UI)
+f77d4 = Spec('WMEXE', 0x77d4, lambda r: (dict(base(r), **{'party[%d].Level' % m: pick(r, 1, 20, (0, -1, 32767)) for m in range(6)},
+                                              **{'party[%d].Skills[%d]' % (m, k): pick(r, 0, 100, (0, 99, 100, 127, 128, 255)) for m in range(6) for k in range(30)}),
+                                         [r.randint(0, 5), r.randint(0, 29), pick(r, 0, 10, (0, -1, 100))]), MEXE_UI, void=True)
+f7254 = Spec('WMEXE', 0x7254, _f7254, MEXE_UI, void=True)
+f8861 = Spec('WMEXE', 0x8861, mk(lambda r, g, i: [pick(r, 0, 50, (0, -1)), pick(r, -100, 100, (0, 32767, -32768)), r.choice([0, 1, 2])]), MEXE_UI)
+fc4e7 = Spec('WMEXE', 0xc4e7, mk(lambda r, g, i: [pick(r, 0, 5, (6,))]), MEXE_UI)
+fc546 = Spec('WMEXE', 0xc546, mk(lambda r, g, i: [g, pick(r, 0, 8, (-1, 9))]), MEXE_UI)
+f7816 = Spec('WMEXE', 0x7816, mk(lambda r, g, i: [r.randint(0, 81), pick(r, 1, 6, (0, -1))]), MEXE_UI)

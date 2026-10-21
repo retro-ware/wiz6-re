@@ -36,13 +36,15 @@ def run_case(m, spec, rnd):
     for g, (a, ty, n, heap) in L.PTRS.items():
         for i in range(n):
             m.w16(a + 2 * i, heap + i * L.size(ty))
-    state, args = spec.make(rnd)
+    made = spec.make(rnd)
+    state, args = made[:2]
+    cargs = made[2] if len(made) > 2 else args       # the C's args, when they differ (pointers)
     seeds = [rnd.randrange(1, 0x7600) for _ in range(3)]
     for p, v in state.items():
         write(m, p, v)
     m.seeds(seeds)
     before = m.rd(0, 0x10000)
-    ret = m.call(spec.addr, args)
+    ret = m.call(spec.addr, cargs)
     after = m.rd(0, 0x10000)
     out, unmapped = {}, set()
     for o in range(0x10000):
