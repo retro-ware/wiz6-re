@@ -5,6 +5,10 @@ extern char g3592;
 extern char party[];
 extern int bottom_line_win;
 extern int disk_header;
+extern int far_buffers_a[];
+extern int far_buffers_b[];
+extern int g07d4[];
+extern int g080c[];
 extern int g3304;
 extern int g3306;
 extern int g3318;
@@ -17,9 +21,11 @@ extern int g4f92;
 extern int g4f94;
 extern int g4f96;
 extern int g4f98;
+extern int g4fa8;
 extern int g4fb0;
 extern int game_state_arg;
 extern int main_window;
+extern int maze_data;
 extern int party_cell_x;
 extern int party_cell_y;
 extern int party_count;
@@ -119,15 +125,8 @@ L67b3:
 L6822:
 	lseek(l6, 0L, 0);
 	show_maze_text(&l3838);
-#asm
-	db 0ffh,036h,004h,033h,0a1h,03ch,036h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,0d4h
-	db 007h,0ffh,0b7h,0d2h,007h,0a1h,0aah,04fh,08ch,0dah,052h,050h
-	call copy_far_
-	db 083h,0c4h,00ah,0ffh,036h,006h,033h,0a1h,03ch,036h,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
-	db 0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h,0a1h,0a8h,04fh,08ch,0dah,052h,050h
-	call copy_far_
-	db 083h,0c4h,00ah
-#endasm
+	copy_far((char far *)(char *)maze_data, *(int *)((char *)far_buffers_a + (game_state_arg << 2)), *(int *)((char *)g07d4 + (game_state_arg << 2)), g3304);
+	copy_far((char far *)(char *)g4fa8, *(int *)((char *)far_buffers_b + (game_state_arg << 2)), *(int *)((char *)g080c + (game_state_arg << 2)), g3306);
 	movmem(((game_state_arg * 10) + 20204), ((game_state_arg * 10) + 13304), 10);
 	if ((l3592 = write(l6, 13304, 414)) > 0) goto L68fe;
 	show_error(&l3798);

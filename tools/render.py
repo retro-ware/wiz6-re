@@ -27,6 +27,11 @@ def render(iname):
     for s, e in img.ranges():
         st = state.get('%04x' % s)
         path = R + '/src/%s/f%04x.c' % (iname, s)
+        hand = R + '/hand/%s/f%04x.c' % (iname, s)
+        if os.path.exists(hand):        # lifted by hand: hand/ wins over the lift state
+            write(path, open(hand).read().replace('\r', '').rstrip('\n').split('\n'))
+            n += 1
+            continue
         if st and st['status'] == 'ok' and '%04x' % s in ok and structret.buffer(img, s, e) is not None:
             write(path, structret.source(img.fname(s)))
             n += 1

@@ -1,47 +1,30 @@
-#asm
-	public level_up_entry_
-	extrn check_level_up_:near
-	extrn defer_window_draw_:near
-	extrn erase_window_:near
-	extrn f0a42_:near
-	extrn fill_window_:near
-	extrn get_message_:near
-	extrn put_char_hi_:near
-	extrn resume_window_draw_:near
-	extrn set_cursor_:near
-level_up_entry_:
-	db 055h,08bh,0ech,083h,0c4h,0fch,0c7h,006h,0ceh,04fh,005h,000h,0c7h,006h,03ah,036h
-	db 005h,000h,0b8h,03eh,055h,050h,0b8h,02ch,001h,050h
-	call get_message_
-	db 083h,0c4h,004h,0c7h,046h,0feh,000h,000h,0ebh,00ah
-lfa37:
-	db 0ffh,076h,0feh
-	call check_level_up_
-	db 059h,0ffh,046h,0feh
-lfa41:
-	db 08bh,046h,0feh,03bh,006h,0ceh,043h,07ch,0edh,0ffh,036h,0b0h,04fh
-	call resume_window_draw_
-	db 059h,0ffh,036h,042h,033h
-	call resume_window_draw_
-	db 059h,0ffh,036h,0b2h,04fh
-	call resume_window_draw_
-	db 059h,0b8h,000h,000h,050h,0ffh,036h,042h,033h
-	call erase_window_
-	db 083h,0c4h,004h,0b8h,000h,000h,050h,0b8h,003h,000h,050h,0b8h,01ah,000h,050h,0ffh
-	db 036h,0b6h,04fh
-	call fill_window_
-	db 083h,0c4h,008h,0ffh,036h,0b6h,04fh
-	call defer_window_draw_
-	db 059h,0c7h,046h,0fch,000h,000h
-lfa93:
-	db 0ffh,076h,0fch,0b8h,013h,000h,050h,0ffh,036h,0b6h,04fh
-	call set_cursor_
-	db 083h,0c4h,006h,0b8h,003h,000h,050h,0b8h,01bh,000h,050h,0ffh,036h,0b6h,04fh
-	call put_char_hi_
-	db 083h,0c4h,006h,0ffh,046h,0fch,08bh,046h,0fch,03dh,005h,000h,07ch,0d2h,0ffh,036h
-	db 0b6h,04fh
-	call resume_window_draw_
-	db 059h,0b8h,000h,000h,050h,0ffh,036h,0b2h,04fh
-	call f0a42_
-	db 083h,0c4h,004h,08bh,0e5h,05dh,0c3h
-#endasm
+extern int bottom_line_win;
+extern int g4fb0;
+extern int game_state;
+extern int main_window;
+extern int party_count;
+extern int party_picture_win;
+extern int return_cmd;
+level_up_entry()
+{
+	int l2;
+	int l4;
+	return_cmd = 5;
+	game_state = 5;
+	get_message(300, 21822);
+	for (l2 = 0; l2 < party_count; l2++) {
+	check_level_up(l2);
+	}
+	resume_window_draw(g4fb0);
+	resume_window_draw(main_window);
+	resume_window_draw(bottom_line_win);
+	erase_window(main_window, 0);
+	fill_window(party_picture_win, 26, 3, 0);
+	defer_window_draw(party_picture_win);
+	for (l4 = 0; l4 < 5; l4++) {
+	set_cursor(party_picture_win, 19, l4);
+	put_char_hi(party_picture_win, 27, 3);
+	}
+	resume_window_draw(party_picture_win);
+	f0a42(bottom_line_win, 0);
+}

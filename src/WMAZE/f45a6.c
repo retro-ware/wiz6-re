@@ -1,12 +1,14 @@
-#asm
-	extrn copy_far_:near
-#endasm
 extern char *maze_data;
 extern char g4eea;
 extern char g4eeb;
+extern int far_buffers_a[];
+extern int far_buffers_b[];
+extern int g07d4[];
+extern int g080c[];
 extern int g3304;
 extern int g3306;
 extern int g4fa8;
+extern int game_state_arg;
 extern int party_cell_x;
 extern int party_cell_y;
 extern int party_level;
@@ -22,22 +24,12 @@ alloc_maze_buffers()
 	g4fa8 = malloc(g3306);
 	g4eea = 1;
 	}
-	if (g4eeb != 1) goto L45fe;
-#asm
-	db 0ffh,036h,004h,033h,0a1h,0aah,04fh,08ch,0dah,052h,050h,0a1h,03ch,036h,0d1h,0e0h
-	db 0d1h,0e0h,08bh,0d8h,0ffh,0b7h,0d4h,007h,0ffh,0b7h,0d2h,007h
-	call copy_far_
-	db 083h,0c4h,00ah
-#endasm
-L45fe:
-	if (g4eea != 1) goto L4627;
-#asm
-	db 0ffh,036h,006h,033h,0a1h,0a8h,04fh,08ch,0dah,052h,050h,0a1h,03ch,036h,0d1h,0e0h
-	db 0d1h,0e0h,08bh,0d8h,0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h
-	call copy_far_
-	db 083h,0c4h,00ah
-#endasm
-L4627:
+	if (g4eeb == 1) {
+	copy_far(*(int *)((char *)far_buffers_a + (game_state_arg << 2)), *(int *)((char *)g07d4 + (game_state_arg << 2)), (char far *)(char *)maze_data, g3304);
+	}
+	if (g4eea == 1) {
+	copy_far(*(int *)((char *)far_buffers_b + (game_state_arg << 2)), *(int *)((char *)g080c + (game_state_arg << 2)), (char far *)(char *)g4fa8, g3306);
+	}
 	g4eeb = 0;
 	g4eea = 0;
 	party_x = ((unsigned char)(maze_data + party_level)[480] + party_cell_x);

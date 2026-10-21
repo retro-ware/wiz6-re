@@ -31,7 +31,8 @@
 	global g334e_:byte,158
 	global g33ec_:byte,4
 	global cur_sound_size_:byte,2
-	global g33f2_:byte,414
+	global g33f2_:byte,374
+	global g3568_:byte,40
 	global sound_mode_:byte,1
 	global cfg_delay_:byte,1
 	global g3592_:byte,1
@@ -273,7 +274,8 @@
 	global g4fba_:byte,2
 	global picture_win_:byte,2
 	global fullscreen_win_:byte,2
-	global copy_protection_ok_:byte,4
+	global copy_protection_ok_:byte,2
+	global g4fc2_:byte,2
 	global menu_clicked_:byte,2
 	global video_flags_:byte,2
 	global g4fc8_:byte,2

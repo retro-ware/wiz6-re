@@ -1,6 +1,4 @@
-#asm
-	extrn movmem_:near
-#endasm
+extern char g450a[];
 extern char g458c[];
 extern char g4eda;
 extern char pc_condition[];
@@ -39,12 +37,7 @@ L4dbe:
 	*(int *)(((char *)monster_groups[rdi] + (44 * rsi)) + 8) = *(int *)((char *)pc_stamina_max + (432 * rsi));
 	*(int *)(((char *)monster_groups[rdi] + (44 * rsi)) + 6) = *(int *)((char *)pc_stamina + (432 * rsi));
 	((char *)monster_groups[rdi] + (44 * rsi))[34] = pc_condition[(432 * rsi)];
-#asm
-	db 0b8h,00ah,000h,050h,08bh,0c7h,0d1h,0e0h,08bh,0d8h,08bh,087h,0a8h,043h,003h,0c2h
-	db 005h,00eh,000h,050h,0b8h,0b0h,001h,0f7h,0eeh,005h,00ah,045h,050h
-	call movmem_
-	db 083h,0c4h,006h
-#endasm
+	movmem(g450a + (432 * rsi), ((char *)monster_groups[rdi] + (44 * rsi)) + 14, 10);
 	((char *)monster_groups[rdi] + (44 * rsi))[35] = g458c[(432 * rsi)];
 	((char *)monster_groups[rdi] + (44 * rsi))[42] = -1;
 	rsi++;

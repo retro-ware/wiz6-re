@@ -20,7 +20,6 @@ advance_monster_groups()
 	int l12;
 	int l28[8];
 	char x28[800];
-	register int rsi;
 	defer_window_draw(main_window);
 	defer_window_draw(bottom_line_win);
 	l2 = 1;
@@ -30,34 +29,21 @@ L576b:
 	l4 = 0;
 	goto L5821;
 L5781:
-	rsi = (44 * l4);
-	if (((((char *)monster_groups[l2] + rsi)[34]) || (((char *)monster_groups[l2] + rsi)[16])) || (((char *)monster_groups[l2] + rsi)[17])) goto L581e;
+	if (((((char *)monster_groups[l2] + (44 * l4))[34]) || (((char *)monster_groups[l2] + (44 * l4))[16])) || (((char *)monster_groups[l2] + (44 * l4))[17])) goto L581e;
 	l12 = 0;
-	l10 = 0;
-L57b6:
-	;
-#asm
-l57b6:
-	db 0b8h,02ch,000h,0f7h,06eh,0fch,003h,046h,0f6h,08bh,0f0h,08bh,046h,0feh,0d1h,0e0h
-	db 08bh,0d8h,08bh,09fh,0a8h,043h,080h,078h,00eh,000h,076h,014h,0b8h,02ch,000h,0f7h
-	db 06eh,0fch,08bh,0f0h,08bh,040h,002h,0b9h,004h,000h,099h,0f7h,0f9h,001h,046h,0f4h
-#endasm
-L57e6:
-	l10++;
-	if (l10 < 10) goto L57b6;
-	rsi = (44 * l4);
-	if (*(int *)(((char *)monster_groups[l2] + rsi) + 2) <= l12) goto L581e;
-	l28[(l2 + 1)] += (*(int *)(((char *)monster_groups[l2] + rsi) + 2) - l12);
+	for (l10 = 0; l10 < 10; l10++) {
+	if ((unsigned)((char *)monster_groups[l2])[((44 * l4) + l10) + 14] > 0) {
+	l12 += (*(int *)(((char *)monster_groups[l2] + (44 * l4)) + 2) / 4);
+	}
+	}
+	if (*(int *)(((char *)monster_groups[l2] + (44 * l4)) + 2) <= l12) goto L581e;
+	l28[(l2 + 1)] += (*(int *)(((char *)monster_groups[l2] + (44 * l4)) + 2) - l12);
 L581e:
 	l4++;
 L5821:
 	if ((unsigned char)(*(char **)((char *)monster_groups + (l2 << 1)))[413] > l4) goto L5781;
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[168] <= 0) goto L5877;
-#asm
-	db 08bh,0d8h,003h,0ddh,08bh,047h,0e6h,050h,08bh,046h,0feh,0d1h,0e0h,08bh,0f0h,08bh
-	db 0b4h,0b6h,043h,08ah,084h,0a8h,000h,02ah,0e4h,0b9h,00ah,000h,099h,0f7h,0f9h,08bh
-	db 0c8h,040h,08bh,0c8h,058h,099h,0f7h,0f9h,089h,047h,0e6h
-#endasm
+	l28[(l2 + 1)] /= (((unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[168] / 10) + 1);
 L5877:
 	if ((unsigned)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170] > 0) {
 	l28[(l2 + 1)] = (int)((((long)l28[(l2 + 1)] * (unsigned char)(*(char **)((char *)group_monster_rec + (l2 << 1)))[170]) / 100L) + (long)l28[(l2 + 1)]);
@@ -87,10 +73,9 @@ L597c:
 	l4 = 0;
 	goto L5ae2;
 L5a93:
-	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] != -1) {
-	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
-	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
+	if (((char *)g43a6[l2] + (44 * l4))[42] != -1) {
+	l6 = (((char *)g43a6[l2] + (44 * l4))[42] / 10);
+	l8 = (((char *)g43a6[l2] + (44 * l4))[42] % 10);
 	*(int *)((char *)g50b4 + ((l6 * 10) + (l8 << 1))) = 1;
 	}
 	l4++;
@@ -100,12 +85,11 @@ L5ae2:
 	l4 = 0;
 	goto L5b65;
 L5b07:
-	rsi = (44 * l4);
-	if (((char *)g43a6[l2] + rsi)[42] != -1) {
-	l6 = (((char *)g43a6[l2] + rsi)[42] / 10);
-	l8 = (((char *)g43a6[l2] + rsi)[42] % 10);
+	if (((char *)g43a6[l2] + (44 * l4))[42] != -1) {
+	l6 = (((char *)g43a6[l2] + (44 * l4))[42] / 10);
+	l8 = (((char *)g43a6[l2] + (44 * l4))[42] % 10);
 	*(int *)((char *)view_pos_group + ((l6 * 10) + (l8 << 1))) = 0;
-	((char *)g43a6[l2] + rsi)[42] = -1;
+	((char *)g43a6[l2] + (44 * l4))[42] = -1;
 	}
 	l4++;
 L5b65:

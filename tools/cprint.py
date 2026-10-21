@@ -447,6 +447,8 @@ class Printer:
             return '(long)%s' % self.ex(e[1])
         if k == 'U':
             return '(long)(unsigned)%s' % self.ex(e[1])
+        if k == 'far':
+            return '(char far *)(char *)%s' % self.ex(e[1])
         if k == 'cl':
             return '%dL' % (e[1] - (1 << 32) if e[1] & 0x80000000 else e[1])
         if k == 'L0':

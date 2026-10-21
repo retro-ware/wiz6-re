@@ -1,6 +1,5 @@
-#asm
-	extrn swapmem_:near
-#endasm
+struct s44 { int w[22]; };
+extern char party[];
 extern char *monster_groups;
 extern char g458a[];
 extern char g458b[];
@@ -43,17 +42,8 @@ L5d71:
 	goto L5e43;
 L5d7b:
 	if ((unsigned)pc_condition[(432 * i)] <= pc_condition[(432 * j)]) goto L5e40;
-#asm
-l5d9c:
-	db 0b8h,0b0h,001h,050h,081h,0c3h,0e8h,043h,08bh,0c3h,050h,0b8h,0b0h,001h,0f7h,06eh
-	db 0feh,005h,0e8h,043h,050h
-	call swapmem_
-	db 083h,0c4h,006h,0b8h,02ch,000h,050h,0b8h,02ch,000h,0f7h,06eh,0fch,08bh,0c8h,0a1h
-	db 0a8h,043h,003h,0c1h,050h,0b8h,02ch,000h,0f7h,06eh,0feh,08bh,0c8h,0a1h,0a8h,043h
-	db 003h,0c1h,050h
-	call swapmem_
-	db 083h,0c4h,006h
-#endasm
+	swapmem(party + (432 * i), party + (432 * j), 432);
+	swapmem((struct s44 *)monster_groups + i, (struct s44 *)monster_groups + j, sizeof(struct s44));
 	tmp = member_pcfile_index[i];
 	member_pcfile_index[i] = member_pcfile_index[j];
 	member_pcfile_index[j] = tmp;

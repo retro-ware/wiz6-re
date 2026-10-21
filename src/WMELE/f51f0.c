@@ -57,22 +57,8 @@ L5358:
 	if (!c[19]) {
 	c[35] = 0;
 	}
-	if ((l8 = c[41]) >= 0) goto L539b;
-#asm
-	db 040h,0ebh,00bh
-#endasm
-L539b:
-	;
-#asm
-l539b:
-	db 08bh,046h,0f8h,050h,03dh,000h,000h,058h,07eh,001h,048h
-#endasm
-L53a6:
-	;
-#asm
-l53a6:
-	db 088h,047h,029h
-#endasm
+	l8 = c[41];
+	c[41] = (l8 < 0 ? (l8 + 1) : (l8 > 0 ? (l8 - 1) : l8));
 	if ((unsigned)c[36] > 0) {
 	c[36]--;
 	}

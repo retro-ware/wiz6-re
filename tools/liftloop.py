@@ -54,7 +54,7 @@ class Loop:
         """Write the C for s; returns (printer, lifter, line->statement) or None (stays asm)."""
         e = self.ranges[s]
         st = self.st(s)
-        head = keys(self.img.code[s - self.img.cbase:min(e, s + 16) - self.img.cbase], s)[:6]
+        head = keys(self.img.code[s - self.img.cbase:min(e, s + 40) - self.img.cbase], s)[:6]
         if any(k[2] in ('push ds', 'push es') for k in head):
             st['status'], st['why'] = 'asm', 'handwritten'
             return None

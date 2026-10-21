@@ -8,7 +8,8 @@
 	global pclist_pcindex_:byte,1
 	global g515b_:byte,43
 	global g5186_:byte,40
-	global g51ae_:byte,4
+	global g51ae_:byte,2
+	global g51b0_:byte,2
 	global g51b2_:byte,2
 	global g51b4_:byte,2
 	global g51b6_:byte,2
@@ -17,7 +18,8 @@
 	global trap_guess_letters_:byte,2
 	global g51be_:byte,2
 	global g51c0_:byte,2
-	global g51c2_:byte,10
+	global g51c2_:byte,2
+	global g51c4_:byte,8
 	global g51cc_:byte,1
 	global g51cd_:byte,1
 	global g51ce_:byte,1

@@ -36,17 +36,13 @@ L567a:
 	if ((((char *)monster_groups[count] + (44 * i))[42] != 11) || (g4368)) goto L56b7;
 	g436e = 0;
 	g4368 = count;
-#asm
-	db 0c6h,040h,02ah,003h
-#endasm
+	((char *)monster_groups[count] + (44 * i))[42] = 3;
 	choose_monster_frames(count, 3);
 L56b7:
 	if ((((char *)monster_groups[count] + (44 * i))[42] != 12) || (g436a)) goto L56f4;
 	g4370 = 0;
 	g436a = count;
-#asm
-	db 0c6h,040h,02ah,004h
-#endasm
+	((char *)monster_groups[count] + (44 * i))[42] = 4;
 	choose_monster_frames(count, 4);
 L56f4:
 	i++;

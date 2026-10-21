@@ -1,19 +1,25 @@
-#asm
-	public ovmain_
-	extrn treasure_after_combat_:near
-	extrn treasure_found_:near
-ovmain_:
-	db 0c7h,006h,01ch,050h,0ffh,0ffh,0c7h,006h,01eh,050h,000h,000h,0c7h,006h,020h,050h
-	db 0ffh,0ffh,0c7h,006h,022h,050h,0ffh,0ffh,083h,03eh,03ah,036h,00fh,075h,00bh,0c7h
-	db 006h,03ah,036h,016h,000h
-	call treasure_after_combat_
-	db 0ebh,018h
-l459c:
-	db 083h,03eh,03ah,036h,015h,075h,00bh,0c7h,006h,03ah,036h,016h,000h
-	call treasure_found_
-	db 0ebh,006h
-l45ae:
-	db 0c7h,006h,03ah,036h,016h,000h
-l45b4:
-	db 0b8h,000h,000h,0c3h
-#endasm
+extern int g501c;
+extern int g501e;
+extern int g5020;
+extern int g5022;
+extern int game_state;
+ovmain()
+{
+	g501c = -1;
+	g501e = 0;
+	g5020 = -1;
+	g5022 = -1;
+	if (game_state != 15) goto L459c;
+	game_state = 22;
+	treasure_after_combat();
+	goto L45b4;
+L459c:
+	if (game_state != 21) goto L45ae;
+	game_state = 22;
+	treasure_found();
+	goto L45b4;
+L45ae:
+	game_state = 22;
+L45b4:
+	return 0;
+}

@@ -99,6 +99,7 @@ class Unlift(Exception):
 #   ('?', cond, a, b)           cond ? a : b
 #   ('sx', a)                   dx after cwd (sign of a); feeds idiv, or pairs with a as (long)a
 #   ('L', a) / ('U', a)         int / unsigned widened to long
+#   ('far', a)                  near pointer cast to (char far *)
 #   ('cl', v)                   long constant
 #   ('L0', E) / ('L1', E)       low / high word of the long E (a register pair)
 def is_var(e):
@@ -619,6 +620,9 @@ class Lifter:
                 return
             if i.op_str == 'cx, ds' and self.struct_copy(i):
                 return
+            if i.op_str == 'dx, ds':    # the segment half of a near pointer cast to far
+                self.R['dx'] = ('ds',)
+                return
             if d.type == X.X86_OP_REG:
                 self.setreg(d, self.val(s))
             else:
@@ -1090,6 +1094,8 @@ class Lifter:
             E = pair(args[k], args[k + 1])
             if args[k + 1] == ('cz',) and args[k][0] != 'c' and size_of(args[k]) == 2:
                 args[k:k + 2] = [('U', args[k])]
+            elif args[k + 1] == ('ds',) and size_of(args[k]) == 2:
+                args[k:k + 2] = [('far', args[k])]
             elif args[k + 1][0] == 'ch' and args[k][0] == 'c':
                 args[k:k + 2] = [('cl', args[k][1] | args[k + 1][1] << 16)]
             elif E is not None and (args[k][0] == 'L0' or E[0] == 'L'):
@@ -1686,7 +1692,7 @@ def size_of(e):
         return 1
     if e[0] == 'la':
         return e[2]
-    if e[0] in ('L', 'U', 'cl', 'lc'):
+    if e[0] in ('L', 'U', 'cl', 'lc', 'far'):
         return 4
     if e[0] == 'b' and 4 in (size_of(e[2]), size_of(e[3])):
         return 4
