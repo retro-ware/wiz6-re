@@ -35,6 +35,12 @@ GLOBALS = {
     'g4fcc': (0x4fcc, 'int16'),
     'combatOver': (0x4356, 'int16'),
     'viewRowsOpen': (0x433c, 'int16'),
+    'g4354': (0x4354, 'int16'),
+    'gameStateArg': (0x363c, 'int16'),
+    'memberPortrait': (0x43d0, '[6]uint8'),
+    'memberPcfileIndex': (0x43dc, '[6]int16'),
+    'mexeSpellSound': (0x5114, 'int16'),    # WMEXE g5114
+    'mexeFizzle': (0x5118, 'int16'),        # WMEXE g5118
 }
 # Overlay globals: {ovl: {Go global: (DS offset, type)}}; overlay BSS overlaps between overlays.
 OVL_GLOBALS = {
@@ -44,6 +50,8 @@ OVL_GLOBALS = {
 PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
     'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),
     'groupMonsterRec': (0x43b6, 'MonsterRec', 7, 0x7000),
+    'mazeA': (0x4faa, 'MapA', 0, 0x7700),    # maze_data
+    'mazeB': (0x4fa8, 'MapB', 0, 0x7c80),    # g4fa8
 }
 
 
@@ -109,8 +117,8 @@ def table(ovl=None):
         for p, o, s, sg in leaves(ty, g, a):
             t[p] = (o, s, sg)
     for g, (_, ty, n, heap) in PTRS.items():
-        for i in range(n):
-            for p, o, s, sg in leaves(ty, '%s[%d]' % (g, i), heap + i * size(ty)):
+        for i in range(n or 1):   # n 0: a single pointer, paths without [i]
+            for p, o, s, sg in leaves(ty, '%s[%d]' % (g, i) if n else g, heap + i * size(ty)):
                 t[p] = (o, s, sg)
     return t
 

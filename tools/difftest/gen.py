@@ -45,7 +45,7 @@ def write(m, p, v):
 def run_case(m, spec, rnd):
     m.reset()
     for g, (a, ty, n, heap) in L.PTRS.items():
-        for i in range(n):
+        for i in range(n or 1):
             m.w16(a + 2 * i, heap + i * L.size(ty))
     made = spec.make(rnd)
     state, args = made[:2]
