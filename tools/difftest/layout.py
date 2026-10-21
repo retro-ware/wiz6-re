@@ -46,6 +46,12 @@ GLOBALS = {
 OVL_GLOBALS = {
     'WPCMK': {'newPC': (0x5470, 'PC'), 'bonusPoints': (0x56ac, 'int16'),
               'classEligible': (0x56ae, '[14]bool16'), 'pcmkSkillShown': (0x5670, '[30]bool16')},
+    'WPCVW': {'pvClassAllowed': (0x57e0, '[14]bool16')},
+}
+# Overlay globals: {ovl: {Go global: (DS offset, type)}}; overlay BSS overlaps between overlays.
+OVL_GLOBALS = {
+    'WPCMK': {'newPC': (0x5470, 'PC'), 'bonusPoints': (0x56ac, 'int16'),
+              'classEligible': (0x56ae, '[14]bool16')},
 }
 PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
     'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),

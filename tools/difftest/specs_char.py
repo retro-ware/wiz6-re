@@ -1,6 +1,7 @@
 """Character (WPCMK, WPCVW, WBASE, root helpers) case specs."""
 import layout as L
 from specs import pick, Spec, STUB_FX, SCRATCH
+from specs_combat import ITEMS
 
 # WPCMK overlay functions that only draw, wait or read input.
 PCMK_UI = (0x7068, 0x4b6d, 0x4b9c, 0x4bed, 0x4c13, 0x4ffd, 0x5022, 0x5058, 0x507f, 0x50a8,
@@ -76,3 +77,70 @@ def _f55ad(rnd):
 
 pcmk_55ad = Spec('WPCMK', 0x55ad, _f55ad, PCMK_UI, void=True)
 pcmk_66ea = Spec('WPCMK', 0x66ea, lambda r: (lambda k: (newpc(r), [k], [k, SCRATCH]))(r.randint(0, 6)), PCMK_UI)
+
+
+# ---- WPCVW: character view, level up, equipping
+PCVW_UI = (0xe8b6, 0x8817, 0x8891, 0x8d3a, 0x93f8, 0x54ab, 0xb1e5, 0x53fa, 0x49c9, 0x6ac3,
+           0x4ca8, 0x48e8, 0x8dd4, 0x8ea4, 0x9fa8, 0xa8ab, 0xa78d, 0xd331, 0x8937, 0x4595, 0x45d0)
+
+
+def party6(rnd):
+    s = {}
+    for m in range(6):
+        s.update(pc(rnd, 'party[%d]' % m))
+        p = 'party[%d].' % m
+        s[p + 'MaxLoad'] = pick(rnd, 1, 3000, (1, 32767))
+        n = s[p + 'ItemCount'] = pick(rnd, 1, 10, (1, 10))
+        s[p + 'SwagCount'] = pick(rnd, 1, 12, (1, 12))
+        for k in range(8):
+            s[p + 'Equipped[%d]' % k] = rnd.choice([255, 255, rnd.randint(0, n - 1)])
+        for k in range(22):
+            s[p + 'Items[%d].ID' % k] = rnd.choice(ITEMS)
+            s[p + 'Items[%d].Type' % k] = rnd.randint(0, 17)
+            s[p + 'Items[%d].Icon' % k] = rnd.choice([11, 12, 13, 22, 23, 83, rnd.randint(0, 100)])
+            s[p + 'Items[%d].Qty' % k] = pick(rnd, 0, 20, (0, 1, 255))
+    s['partyCount'] = rnd.randint(1, 6)
+    for c in range(14):
+        s['pvClassAllowed[%d]' % c] = rnd.randint(0, 1)
+    return s
+
+
+def mkp(args, cargs=None):
+    def make(rnd):
+        m = rnd.randint(0, 5)
+        st = party6(rnd)
+        a = args(rnd, m, st)
+        return (st, a) + ((cargs(a),) if cargs else ())
+    return make
+
+
+M = lambda r, m, s: [m]
+win2 = lambda a: [0, 0] + a     # sheet, menu window pointers first in the C
+pcvw_f6e6 = Spec('WPCVW', 0xf6e6, mkp(M), PCVW_UI, void=True)
+pcvw_f568 = Spec('WPCVW', 0xf568, mkp(M, win2), PCVW_UI, void=True)
+pcvw_ed21 = Spec('WPCVW', 0xed21, mkp(M, win2), PCVW_UI, void=True)
+pcvw_eff8 = Spec('WPCVW', 0xeff8, mkp(M), PCVW_UI, void=True)
+pcvw_ea8d = Spec('WPCVW', 0xea8d, mkp(M), PCVW_UI, void=True)
+pcvw_ea25 = Spec('WPCVW', 0xea25, mkp(lambda r, m, s: [m, pick(r, 0, 25, (0, 255)), r.choice([1, 2, 3, 4]), r.choice([1, 2, 3]), r.randint(0, 29)]), PCVW_UI)
+pcvw_f201 = Spec('WPCVW', 0xf201, mkp(M), PCVW_UI, void=True)
+pcvw_c8c2 = Spec('WPCVW', 0xc8c2, mkp(lambda r, m, s: [m, r.randint(0, 7)], lambda a: a + [SCRATCH]), PCVW_UI)
+pcvw_cdb3 = Spec('WPCVW', 0xcdb3, mkp(M), PCVW_UI, void=True)
+pcvw_c726 = Spec('WPCVW', 0xc726, mkp(M), PCVW_UI, void=True)
+pcvw_5370 = Spec('WPCVW', 0x5370, mkp(M), PCVW_UI, void=True)
+pcvw_a1f9 = Spec('WPCVW', 0xa1f9, mkp(M), PCVW_UI, void=True)
+pcvw_76ee = Spec('WPCVW', 0x76ee, mkp(lambda r, m, s: [m, r.randint(0, 6)], lambda a: a + [SCRATCH]), PCVW_UI)
+pcvw_5c24 = Spec('WPCVW', 0x5c24, mkp(lambda r, m, s: [m, r.randint(0, 1)]), PCVW_UI, void=True)
+pcvw_5d5b = Spec('WPCVW', 0x5d5b, mkp(lambda r, m, s: [m, r.randint(0, s['party[%d].ItemCount' % m] - 1)]), PCVW_UI, void=True)
+pcvw_5ec7 = Spec('WPCVW', 0x5ec7, mkp(lambda r, m, s: [m, r.randint(0, s['party[%d].SwagCount' % m] - 1)]), PCVW_UI, void=True)
+pcvw_5f53 = Spec('WPCVW', 0x5f53, mkp(lambda r, m, s: [m, r.randint(0, s['party[%d].ItemCount' % m] - 1)]), PCVW_UI, void=True)
+pcvw_6aec = Spec('WPCVW', 0x6aec, mkp(lambda r, m, s: [pick(r, 0, 50, (0, -1)), pick(r, -100, 100, (0, 32767, -32768)), r.choice([0, 1, 2])]), PCVW_UI)
+
+
+def _a11b(rnd):
+    s = party6(rnd)
+    t = ''.join(chr(65 + rnd.randint(0, 20)) for _ in range(8))
+    m, lower = rnd.randint(0, 5), rnd.randint(0, 1)
+    return s, [m, lower] + [ord(c) - 65 for c in t], [m, SCRATCH, lower], {SCRATCH: t.encode() + b'\0'}
+
+
+pcvw_a11b = Spec('WPCVW', 0xa11b, _a11b, PCVW_UI, void=True)
