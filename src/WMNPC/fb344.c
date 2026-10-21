@@ -1,6 +1,3 @@
-#asm
-	extrn random_:near
-#endasm
 extern char g451a[];
 extern char g4550[];
 extern char g51c4[];
@@ -138,28 +135,7 @@ Lb6ac:
 	if (((g4550[((432 * l50) + g5274)] + (unsigned char)g451a[(432 * l50)]) + g52d0) >= 0) goto Lb7ac;
 	if (!((unsigned char)g51d3 & 16)) goto Lb70a;
 Lb70a:
-	;
-#asm
-lb70a:
-	db 0b8h,064h,000h,050h
-	call random_
-	db 059h,050h,0b8h,0b0h,001h,0f7h,06eh,0ceh,08bh,0d8h,08ah,087h,01ah,045h,02ah,0e4h
-	db 08bh,0c8h,058h,003h,0c1h,003h,006h,0d0h,052h,003h,01eh,074h,052h,080h,0bfh,050h
-	db 045h,000h,07dh,00fh,050h,08ah,087h,050h,045h,098h,08bh,0c8h,0f7h,0d8h,08bh,0c8h
-	db 058h,0ebh,009h
-#endasm
-Lb744:
-	;
-#asm
-lb744:
-	db 050h,08ah,087h,050h,045h,098h,08bh,0c8h,058h
-#endasm
-Lb74d:
-	;
-#asm
-lb74d:
-	db 03bh,0c1h,07dh,05bh
-#endasm
+	if (((random(100) + (unsigned char)g451a[(432 * l50)]) + g52d0) >= (g4550[((432 * l50) + g5274)] < 0 ? -g4550[((432 * l50) + g5274)] : g4550[((432 * l50) + g5274)])) goto Lb7ac;
 	if (random(2) != 1) goto Lb793;
 	f5d9b(1541, 1);
 	g433a = (unsigned char)g51cc;

@@ -25,6 +25,7 @@ Ld588:
 	l50[(l154 + 1)] = 0;
 	fc3eb(l50);
 	l154 = 0;
+	do {
 	l158 = char_index((l154 + ((char *)l152 + 1)), 47);
 	l52 = l50;
 Ld612:
@@ -38,9 +39,7 @@ Ld644:
 	goto Ld612;
 Ld649:
 	l154 += (l158 + 2);
-#asm
-	db 08bh,09eh,066h,0ffh,003h,0ddh,080h,0bfh,068h,0ffh,000h,075h,08fh
-#endasm
+	} while (l152[l154]);
 	if (p8 != 1) goto Ld66f;
 	return 1;
 Ld66f:

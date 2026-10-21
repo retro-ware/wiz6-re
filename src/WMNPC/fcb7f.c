@@ -1,6 +1,3 @@
-#asm
-	extrn random_:near
-#endasm
 extern char g4550[];
 extern int g5274;
 extern int g5894;
@@ -74,12 +71,7 @@ case 9:
 	fc95b(1615, 20529);
 	if (random(2) != 1) goto Lcd1f;
 	if (g4550[((432 * g6a9c) + g5274)] >= 50) goto Lcd1f;
-#asm
-	db 08ah,087h,050h,045h,098h,08bh,0c8h,051h,0b8h,003h,000h,050h
-	call random_
-	db 059h,059h,003h,0c1h,040h,050h,0b8h,0b0h,001h,0f7h,02eh,09ch,06ah,08bh,0c8h,003h
-	db 006h,074h,052h,08bh,0d8h,058h,088h,087h,050h,045h
-#endasm
+	g4550[((432 * g6a9c) + g5274)] += (random(3) + 1);
 Lcd1f:
 	break;
 	}

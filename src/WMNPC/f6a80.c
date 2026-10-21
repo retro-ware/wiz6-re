@@ -19,7 +19,7 @@ npc_give_item_to_member(p4, p6, p8)
 	int l56;
 	char x56[18];
 	int l76;
-	char *l78;
+	unsigned char *l78;
 	int l80;
 	int l82;
 	int l84;
@@ -69,10 +69,8 @@ L6c01:
 	l78[4] = l16;
 	l78[5] = l15;
 	*(int *)(l78 + 2) = l46;
-	l78[6] = (char)((unsigned char)l78[6] + p8);
-#asm
-	db 0c6h,047h,007h,000h
-#endasm
+	l78[6] += p8;
+	l78[7] = 0;
 	if (((unsigned char)l17 & 8)) {
 	l78[7] |= 4;
 	}

@@ -115,27 +115,21 @@ Lc67f:
 Lc6d3:
 	l2 = fbea1(p4, &l4);
 	if (l2 == -1) goto Lc773;
-	if (g6a82 != 4) goto Lc706;
+	if (g6a82 == 4) {
 	g58b4 = 1;
 	if (!l2) {
 	g58ca = 0;
 	}
-	goto Lc72e;
-Lc706:
-	if (g6a82 != 1) goto Lc71b;
+	} else if (g6a82 == 1) {
 	if (!l2) {
 	g58cc = 0;
 	}
-	goto Lc72e;
-Lc71b:
-	if ((g6a82 != 6) || (l2)) goto Lc72e;
+	} else if ((g6a82 == 6) && (!l2)) {
 	g58cc = 0;
-Lc72e:
-	if (l2) goto Lc737;
-#asm
-	db 0a3h,0ceh,058h
-#endasm
-Lc737:
+	}
+	if (!l2) {
+	g58ce = l2;
+	}
 	if ((g5894 == -1) || (!g5894)) {
 	g5894 = l2;
 	g5896 = l4;

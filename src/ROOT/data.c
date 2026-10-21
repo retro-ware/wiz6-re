@@ -46,8 +46,10 @@ g00b0_ label byte
 	db 019h,01eh,01eh,014h,014h,00ah,00fh,00fh,005h,005h
 	public g00ba_
 g00ba_ label byte
-	db 000h,001h,002h,001h,002h,00ch,001h,002h,003h,004h,058h,02ch,016h,00bh,00bh,016h
-	db 02ch,058h
+	db 000h,001h,002h,001h,002h,00ch,001h,002h,003h,004h
+	public g00c4_
+g00c4_ label byte
+	db 058h,02ch,016h,00bh,00bh,016h,02ch,058h
 	public g00cc_
 g00cc_ label byte
 	db 000h,000h,001h,000h,001h,000h,000h,000h,000h,000h,000h,000h,001h,000h,000h,001h
