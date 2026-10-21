@@ -16,23 +16,23 @@
 - [x] Automatic lifter (asm -> C) with compile/compare loop (tools/lift.py, cprint.py, liftloop.py)
 - [x] Promotion of matching C into src/ with data/bss labels (tools/promote.py); build stays byte-identical
 - [~] Lifter coverage: longs (dx:ax pairs, add/adc, shift loops, compare chains, $ldv/$lrm/$lud/$lum) done; long returns, string literals/data, struct-ish locals ("locals beyond frame") open
-- [ ] Shrink #asm islands inside "ok" functions (raw statements left)
+- [x] Shrink #asm islands inside "ok" functions: hand/IMG/fXXXX.c overrides; left: WBASE 543f (real inline asm), WMELE 6e12 (1 island), WMEXE 9405 (2 islands); see work/hand/TODO
 
 ## Root (WROOT.EXE game code 0000-36DC)
 - [~] all root C-able functions in C (39/105 ok; the rest are hand-written asm: ds/es, lcall, int, in/out, cs: data; or frameless fragments on the caller's frame)
 
 ## Overlays (functions in C / total; all 12 files still byte-identical after promotion)
-- [~] WINIT 15/16
+- [x] WINIT 16/16
 - [x] WBASE 46/46 (570a needs cc -L500: "Local table full"; now used for every compile)
-- [~] WMELE 57/60
-- [~] WDOPT 67/69
-- [~] WPCMK 74/75
-- [x] WPOPS 61/61 (51c8 split off f511c: a frameless routine after its epilogue)
-- [~] WTREA 79/84
-- [~] WMAZE 123/128
-- [x] WMEXE 92/92
-- [~] WMNPC 133/139
-- [~] WPCVW 99/101
+- [x] WMELE 61/61
+- [x] WDOPT 69/69
+- [x] WPCMK 75/75
+- [x] WPOPS 62/62 (51c8 split off f511c: a frameless routine after its epilogue)
+- [x] WTREA 85/85
+- [x] WMAZE 128/128
+- [x] WMEXE 93/93
+- [x] WMNPC 140/140
+- [x] WPCVW 101/101
 - [x] Promoted run 1: 733 functions in C, sbuild all 12 OK
 - [x] Promoted run 2 (global-array typing): 773 functions in C, sbuild all 12 OK
 - [x] Promoted run 4 (overlapping locals, void-call flush): 797 functions in C (327 asm-free), sbuild all 12 OK
