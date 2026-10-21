@@ -1,5 +1,5 @@
 long atol();
-input_number(p4, p6, p8)
+long input_number(p4, p6, p8)
 char *p4;
 {
 	int l2;
@@ -24,9 +24,5 @@ char *p4;
 	if (!l23[(0 + 4)]) goto L9698;
 	*(long *)(l23 + 0) = atol(((char *)l23 + 4));
 L9698:
-	;
-#asm
-l9698:
-	db 08bh,046h,0e9h,08bh,056h,0ebh
-#endasm
+	return *(long *)(l23 + 0);
 }

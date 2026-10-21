@@ -1,3 +1,6 @@
+struct s14 { int w[7]; };
+struct s14 get_load_category();
+extern char g458d[];
 extern char g450c[];
 extern char g450d[];
 extern char g450e[];
@@ -41,8 +44,7 @@ char *win;
 	int l84;
 	int l86;
 	char x86[2];
-	int l90;
-	char x90[12];
+	struct s14 load;
 	register int rsi;
 	register int rdi;
 	l86 = ((member_portrait[member] * 9) + 72);
@@ -125,13 +127,9 @@ char *win;
 	win[6]++;
 	print_long(win, *(int *)((char *)pc_gold + (432 * member)), *(int *)((char *)g43fe + (432 * member)), 7, 5);
 	calc_carried_weight(member);
-	get_load_category(member);
-#asm
-	db 056h,057h,08bh,0f0h,08dh,07eh,09ah,08ch,0d9h,08eh,0c1h,0b9h,007h,000h,0f3h,0a5h
-	db 05fh,05eh,08ah,046h,0a4h,050h,0b8h,0b0h,001h,0f7h,06eh,006h,08bh,0d8h,058h,088h
-	db 087h,08dh,045h
-#endasm
-	l4 = l90;
+	load = get_load_category(member);
+	g458d[(432 * member)] = *(char *)&load.w[5];
+	l4 = load.w[6];
 	print_msg_at(216, win, 10, 12, (l4 == 9 ? 8 : l4));
 	print_int(win, (*(int *)((char *)pc_carried + (432 * member)) / 10), 3, l4);
 	put_char(win, 47, (l4 == 9 ? 8 : l4));

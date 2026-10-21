@@ -4,7 +4,7 @@ extern char g4517[];
 extern char g4518[];
 extern char g4519[];
 extern char pc_class[];
-extern char pc_skill_points[];
+extern unsigned char pc_skill_points[];
 roll_skill_points(p4)
 {
 	int l2;
@@ -57,17 +57,10 @@ case 13:
 	goto Lecf6;
 	}
 Lecf6:
-	if ((unsigned char)pc_skill_points[(432 * p4)] <= l12) goto Led18;
-#asm
-	db 08ah,087h,090h,045h,02ah,0e4h,02bh,046h,0f4h,088h,087h,090h,045h
-#endasm
-	goto Led1d;
-Led18:
-	;
-#asm
-led18:
-	db 0c6h,087h,090h,045h,000h
-#endasm
-Led1d:
+	if ((unsigned char)pc_skill_points[(432 * p4)] > l12) {
+	pc_skill_points[(432 * p4)] -= l12;
+	} else {
+	pc_skill_points[(432 * p4)] = 0;
+	}
 	;
 }

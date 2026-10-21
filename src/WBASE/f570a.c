@@ -1,5 +1,3 @@
-#asm
-#endasm
 extern long far_buffers_a[];
 extern long far_buffers_b[];
 extern char cfg_delay;

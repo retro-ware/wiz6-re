@@ -24,12 +24,7 @@ Lf94f:
 	goto Lf9be;
 Lf978:
 	l70 = (*(int *)((char *)pc_level + (432 * p4)) + -16);
-#asm
-	db 08bh,046h,0f8h,08bh,056h,0fah,02bh,046h,0f4h,01bh,056h,0f6h,050h,052h,08bh,046h
-	db 0bah,099h,08bh,0c8h,08bh,0dah,05ah,058h,050h,052h,0f7h,0e3h,08bh,0d8h,058h,0f7h
-	db 0e1h,003h,0d8h,058h,0f7h,0e1h,003h,0d3h,003h,046h,0f8h,013h,056h,0fah,089h,056h
-	db 0feh,089h,046h,0fch
-#endasm
+	l4 = (((*(long *)(l72 + 64) - *(long *)(l72 + 60)) * l70) + *(long *)(l72 + 64));
 Lf9be:
 	if (*(long *)((char *)pc_exp + (432 * p4)) < l4) goto Lf9ed;
 	do_level_up(*(int *)(l72 + 0), l74, p4);

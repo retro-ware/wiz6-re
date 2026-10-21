@@ -58,9 +58,7 @@ Le132:
 case 1:
 	if (l24[l4] <= 0) goto Le1b2;
 	pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]--;
-#asm
-	db 08bh,0deh,003h,0ddh,0ffh,04fh,0e8h
-#endasm
+	l24[l4]--;
 	l26++;
 	play_sound(1);
 	print_number_col16(p6, (l4 + 3), (unsigned char)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]);
@@ -84,9 +82,7 @@ case 2:
 case 3:
 	if (((unsigned)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))] >= 100) || (l26 <= 0)) goto Le294;
 	pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]++;
-#asm
-	db 08bh,0deh,003h,0ddh,0ffh,047h,0e8h
-#endasm
+	l24[l4]++;
 	l26--;
 	play_sound(1);
 	print_number_col16(p6, (l4 + 3), (unsigned char)pc_skills[((432 * p8) + *(int *)(p12 + (l4 << 1)))]);

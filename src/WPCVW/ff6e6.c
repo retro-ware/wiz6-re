@@ -1,3 +1,4 @@
+extern char pc_rank[];
 extern int pc_level[];
 ff6e6(p4)
 {
@@ -36,10 +37,8 @@ Lf747:
 	}
 	l2++;
 	if (l2 < 7) goto Lf6f6;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08ah,087h,088h,045h,02ah,0e4h,03bh,046h
-	db 0fch,07dh,007h,08ah,046h,0fch,088h,087h,088h,045h
-#endasm
-Lf780:
-	;
+Lf76c:
+	if ((unsigned char)pc_rank[(432 * p4)] < l4) {
+	pc_rank[(432 * p4)] = l4;
+	}
 }

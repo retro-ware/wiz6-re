@@ -1,6 +1,7 @@
-#asm
-	extrn fa4b1_:near
-#endasm
+extern char g4597[];
+extern char pc_rank[];
+extern long pc_exp[];
+extern char pc_race[];
 extern char pc_class[];
 extern int class_allowed[];
 extern int pc_level[];
@@ -42,27 +43,15 @@ La637:
 	destroy_window(l46, 0);
 	if (l2 <= 0) goto La789;
 	pc_class[(432 * p8)] = (char)(l2 - 1);
-	if (*(int *)((char *)pc_level + (432 * p8)) >= 250) goto La727;
-#asm
-	db 08ah,087h,00ch,044h,088h,087h,097h,045h
-#endasm
-	goto La72c;
-La727:
-	;
-#asm
-la727:
-	db 0c6h,087h,097h,045h,000h
-#endasm
-La72c:
-	;
-#asm
-la72c:
-	db 0c7h,087h,00ch,044h,001h,000h,0c6h,087h,088h,045h,000h,0c7h,087h,0f6h,043h,000h
-	db 000h,0c7h,087h,0f4h,043h,000h,000h,08ah,087h,085h,045h,02ah,0e4h,050h,0ffh,076h
-	db 008h
-	call fa4b1_
-	db 083h,0c4h,004h
-#endasm
+	if (*(int *)((char *)pc_level + (432 * p8)) < 250) {
+	g4597[(432 * p8)] = *((char *)pc_level + (432 * p8));
+	} else {
+	g4597[(432 * p8)] = 0;
+	}
+	*(int *)((char *)pc_level + (432 * p8)) = 1;
+	pc_rank[(432 * p8)] = 0;
+	*(long *)((char *)pc_exp + (432 * p8)) = 0;
+	fa4b1(p8, (unsigned char)pc_race[(432 * p8)]);
 	fa368(p8, (unsigned char)pc_class[(432 * p8)]);
 	draw_sheet(p4, p6, p8);
 	do_equip_items(p4, p6, p8);

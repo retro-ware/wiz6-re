@@ -1,8 +1,3 @@
-#asm
-	extrn clear_window_area_:near
-	extrn play_sound_:near
-	extrn resume_window_draw_:near
-#endasm
 extern char g00cc[];
 extern char pc_item_count[];
 extern char pc_item_flags[];
@@ -29,6 +24,7 @@ do_swag_menu(p4, p6, p8)
 	int l106;
 	l32 = 0;
 	l4 = create_window(20, 4, 20, 16, 25, -1, 0, 0);
+	for (;;) {
 	fill_window(l4, 0, 1, 0);
 	put_frame_char(l4, 0, 0, 14);
 	put_frame_char(l4, 19, 0, 10);
@@ -87,14 +83,8 @@ L6643:
 	l2++;
 L6684:
 	if ((unsigned char)pc_swag_count[(432 * p8)] > l2) goto L6543;
-#asm
-l669a:
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,080h,0bfh,095h,045h,00ch,073h,01fh,0b8h
-	db 00eh,000h,050h,0b8h,010h,000h,050h,08ah,087h,095h,045h,02ah,0e4h,040h,040h,040h
-	db 050h,0b8h,001h,000h,050h,0ffh,076h,0fch
-	call clear_window_area_
-	db 083h,0c4h,00ah
-#endasm
+L669a:
+	if ((unsigned)pc_swag_count[(432 * p8)] < 12) clear_window_area(l4, 1, ((unsigned char)pc_swag_count[(432 * p8)] + 3), 16, 14);
 L66c8:
 	l2 = (unsigned char)pc_swag_count[(432 * p8)];
 	goto L6703;
@@ -127,19 +117,16 @@ L6790:
 	fill_window(p6, 32, 3, 0);
 	refresh_window(p6);
 	l6 = run_menu(p6, 751, l26, 2, 1, 8, 2, 5, count_enabled_before(l26, 3));
-	goto L6a43;
+	switch (l6) {
+	case 0:
 	defer_window_draw(l4);
 	fill_window(p6, 32, 3, 0);
 	refresh_all_windows();
 	g43ca = choose_item(p4, p6, 760, p8, 0);
-	if (g43ca == -1) goto L68f7;
-	if (!((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1)) goto L6856;
-#asm
-	db 0b8h,000h,000h,050h
-	call play_sound_
-	db 059h,0e9h,0a1h,000h
-#endasm
-L6856:
+	if (g43ca != -1) {
+	if ((unsigned char)pc_item_flags[((432 * p8) + (g43ca << 3))] & 1) {
+	play_sound(0);
+	} else {
 	l28 = ((unsigned char)pc_swag_count[(432 * p8)] + 10);
 	*(struct s8 *)((char *)pc_item_id + ((432 * p8) + (l28 << 3))) = *(struct s8 *)((char *)pc_item_id + ((432 * p8) + (g43ca << 3)));
 	strcpy((((unsigned char)pc_swag_count[(432 * p8)] << 4) + 22162), ((g43ca << 4) + 21982));
@@ -148,58 +135,35 @@ L6856:
 	defer_window_draw(p4);
 	draw_inventory_panel(p4, p8);
 	resume_window_draw(p4);
-L68f7:
-	;
-#asm
-l68f7:
-	db 0ffh,076h,0fch
-	call resume_window_draw_
-	db 059h,0e9h,05fh,001h
-#endasm
+	}
+	}
+	resume_window_draw(l4);
+	break;
+	case 1:
 	l30 = choose_item(l4, p6, 761, p8, 1);
-	if (l30 == -1) goto L69bd;
+	if (l30 != -1) {
 	l28 = (l30 + 10);
 	*(struct s8 *)((char *)pc_item_id + ((432 * p8) + ((unsigned char)pc_item_count[(432 * p8)] << 3))) = *(struct s8 *)((char *)pc_item_id + ((432 * p8) + (l28 << 3)));
 	strcpy((((unsigned char)pc_item_count[(432 * p8)] << 4) + 21982), ((l30 << 4) + 22162));
 	pc_item_count[(432 * p8)]++;
 	remove_swag_item(p8, l30);
 	draw_inventory_panel(p4, p8);
-L69bd:
-	;
-#asm
-l69bd:
-	db 0e9h,0a0h,000h
-#endasm
-	if ((l30 = choose_item(l4, p6, 762, p8, 1)) == -1) goto L6a19;
+	}
+	break;
+	case 2:
+	if ((l30 = choose_item(l4, p6, 762, p8, 1)) != -1) {
 	l28 = (l30 + 10);
-	if (!((unsigned char)pc_item_flags[((432 * p8) + (l28 << 3))] & 64)) goto L6a0d;
+	if ((unsigned char)pc_item_flags[((432 * p8) + (l28 << 3))] & 64) {
 	play_sound(0);
-	goto L6a19;
-L6a0d:
+	} else {
 	remove_swag_item(p8, l30);
-L6a19:
-	;
-#asm
-l6a19:
-	db 0ebh,045h
-#endasm
+	}
+	}
+	break;
+	case 3:
 	fill_window(p6, 32, 3, 0);
 	destroy_window(l4, 1);
-L6a3d:
 	return;
-L6a43:
-	;
-#asm
-l6a43:
-	db 03dh,000h,000h,075h,003h,0e9h,0a0h,0fdh
-l6a4b:
-	db 03dh,001h,000h,075h,003h,0e9h,0aeh,0feh
-l6a53:
-	db 03dh,002h,000h,075h,003h,0e9h,065h,0ffh
-l6a5b:
-	db 03dh,003h,000h,074h,0bbh
-l6a60:
-	db 0e9h,0e7h,0f8h
-#endasm
-	goto L6a3d;
+	}
+	}
 }

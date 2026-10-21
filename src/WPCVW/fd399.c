@@ -1,3 +1,7 @@
+extern char g44d8[];
+extern char g44da[];
+extern char g44e5[];
+extern char g44e7[];
 extern char g44dc[];
 extern char g44e2[];
 extern char g44e4[];
@@ -81,10 +85,9 @@ Ld3d7:
 	l2++;
 Ld3fa:
 	if ((unsigned char)pc_item_count[(432 * p8)] > l2) goto Ld3d7;
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,008h,08bh,0d8h,0c6h,087h,08ah,045h,000h,0c6h,087h,08bh
-	db 045h,000h
-#endasm
+Ld40d:
+	g458a[(432 * p8)] = 0;
+	g458b[(432 * p8)] = 0;
 	l2 = 0;
 Ld424:
 	g453a[((432 * p8) + l2)] = 0;
@@ -188,10 +191,7 @@ Ld80a:
 	l48[l2] = (unsigned char)l228;
 	if ((l2) && (l2 != 1)) goto Lda1d;
 	g4549[(432 * p8)] -= l226;
-#asm
-	db 08ah,086h,018h,0ffh,08bh,076h,0feh,0b9h,004h,000h,0d3h,0e6h,08bh,0ceh,003h,0d9h
-	db 088h,087h,0e5h,044h
-#endasm
+	g44e5[((432 * p8) + (rsi = (l2 << 4)))] = *((char *)&l296 + 64);
 	l4 = 0;
 Ld8b8:
 	g44dc[(((432 * p8) + (l2 << 4)) + l4)] = l264[(l4 + 14)];
@@ -206,18 +206,14 @@ Ld934:
 	g44e2[((432 * p8) + (l2 << 4))] = (char)((unsigned char)g44e2[((432 * p8) + (l2 << 4))] + l4);
 Ld95b:
 	g44e4[((432 * p8) + (l2 << 4))] = l231;
-	if (l236 != 4) goto Ld99c;
+	if (l236 == 4) {
 	g44e6[((432 * p8) + (l2 << 4))] = (char)(0 - (l225 * 5));
-	goto Ld9b8;
-Ld99c:
+	} else {
 	g44e6[((432 * p8) + (l2 << 4))] -= (l225 * 5);
-Ld9b8:
-	;
-#asm
-ld9b8:
-	db 08bh,086h,0f0h,0feh,089h,087h,0d8h,044h,08bh,086h,0f2h,0feh,089h,087h,0dah,044h
-	db 08ah,086h,020h,0ffh,088h,087h,0e7h,044h
-#endasm
+	}
+	*(int *)(g44d8 + ((432 * p8) + (l2 << 4))) = *(int *)((char *)&l296 + 24);
+	*(int *)(g44da + ((432 * p8) + (l2 << 4))) = *(int *)((char *)&l296 + 26);
+	g44e7[((432 * p8) + (l2 << 4))] = *((char *)&l296 + 72);
 	set_cursor(l298, (l2 + 3), (((p8 / 2) << 2) + 1));
 	put_char_hi(l298, (unsigned char)(((unsigned char)pc_item_icon[((432 * p8) + (l8 << 3))] + 1)), 4);
 	goto Lda34;
