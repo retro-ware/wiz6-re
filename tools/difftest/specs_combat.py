@@ -432,3 +432,13 @@ def _f62ce(rnd):
 f724f = Spec('WMELE', 0x724f, _mele, MELE_UI, void=True)
 f574b = Spec('WMELE', 0x574b, _mele, MELE_UI, void=True)
 f62ce = Spec('WMELE', 0x62ce, _f62ce, MELE_UI, void=True)
+
+
+def _f70ce(rnd):
+    s, a = _mele(rnd)
+    s['meleNewFight'] = rnd.randint(0, 1)
+    s['viewRowsOpen'] = rnd.randint(0, 1)
+    return s, a
+
+
+f70ce = Spec('WMELE', 0x70ce, _f70ce, MELE_UI, void=True)
