@@ -394,3 +394,41 @@ def _fd109(rnd):
 
 
 fd109 = Spec('WMEXE', 0xd109, _fd109, MEXE_UI, void=True)
+
+
+# --- WMELE: round end, encounter start
+MELE_UI = (0x5ed5,   # draw_gauge_mele
+           0x6fb6,   # end_encounter (frees the groups)
+           0x6e12,   # show_encounter_view
+           0x45a6,   # wait_animating_view
+           0x45f1, 0x46cd, 0x5574,   # sound and picture loading
+           0x66bf, 0x65bf, 0x6913, 0x6d4d, 0x6e01)   # view sprites and drawing
+
+
+def _mele(rnd):
+    s = rich(rnd)
+    for g in range(1, 7):
+        s['monsterGroups[%d].PicSlot' % g] = rnd.randint(0, 9)
+    for k in range(10):
+        s['monsterPics[%d].Unk309[0]' % k] = rnd.choice([0, 0, 0, 1])
+    s['combatOver'] = rnd.choice([0, 0, 1])
+    s['returnCmd'] = rnd.choice([0, 5, 13, 18])
+    for g in range(7):
+        for k in range(6):
+            s['monsterGroups[%d].B396[%d]' % (g, k)] = rnd.choice([0, 0, rnd.randint(1, 255)])
+        for k in range(4):
+            s['monsterGroups[%d].B402[%d]' % (g, k)] = rnd.choice([0, 0, rnd.randint(1, 5)])
+    return s, []
+
+
+def _f62ce(rnd):
+    s = rich(rnd)
+    s['g433a'] = rnd.choice(MONSTERS + [128, 151, 153])
+    s['g4338'] = rnd.randint(0, 1)
+    s['g4354'] = 0
+    return s, []
+
+
+f724f = Spec('WMELE', 0x724f, _mele, MELE_UI, void=True)
+f574b = Spec('WMELE', 0x574b, _mele, MELE_UI, void=True)
+f62ce = Spec('WMELE', 0x62ce, _f62ce, MELE_UI, void=True)

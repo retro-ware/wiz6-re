@@ -35,19 +35,26 @@ GLOBALS = {
     'g4fcc': (0x4fcc, 'int16'),
     'combatOver': (0x4356, 'int16'),
     'viewRowsOpen': (0x433c, 'int16'),
-    'rosterSlotUsed': (0x4fd8, '[16]uint8'),
     'g4354': (0x4354, 'int16'),
     'gameStateArg': (0x363c, 'int16'),
     'memberPortrait': (0x43d0, '[6]int16'),   # C int[6]; the Go port keeps uint8 (slots 0..5)
     'memberPcfileIndex': (0x43dc, '[6]int16'),
     'mexeSpellSound': (0x5114, 'int16'),    # WMEXE g5114
     'mexeFizzle': (0x5118, 'int16'),        # WMEXE g5118
+    'monsterPics': (0x36de, '[10]MonsterPicRec'),
+    'picSlotLoaded': (0x4322, '[10]uint8'),
+    'picSlotMonster': (0x432c, '[10]int8'),    # -1: none (Go int)
+    'viewAnimState': (0x4358, 'int16'),
+    'rosterSlotUsed': (0x4fd8, '[16]uint8'),
+    'levelFlags': (0x4eec, '[14][10]uint8'),
 }
 # Overlay globals: {ovl: {Go global: (DS offset, type)}}; overlay BSS overlaps between overlays.
 OVL_GLOBALS = {
+    'WMELE': {'meleAnnounce': (0x500e, 'int16'), 'meleNPCFirst': (0x5010, 'int16'),
+              'meleNewFight': (0x5012, 'int16'), 'meleFlash': (0x50b4, '[2][5]int16')},
     'WPCMK': {'newPC': (0x5470, 'PC'), 'bonusPoints': (0x56ac, 'int16'),
               'classEligible': (0x56ae, '[14]bool16'), 'pcmkSkillShown': (0x5670, '[30]bool16')},
-    'WPCVW': {'pvClassAllowed': (0x57e0, '[14]bool16')},
+    'WPCVW': {'pvClassAllowed': (0x57e0, '[14]bool16'), 'pvSpellTarget': (0x578e, 'int16')},
 }
 PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
     'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),
