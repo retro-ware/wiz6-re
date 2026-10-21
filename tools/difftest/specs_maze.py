@@ -242,9 +242,18 @@ def _lock(rnd):
     return s, [rnd.randint(0, s['partyCount'] - 1), s['cellEventIndex']]
 
 
-# force_lock, pick_lock and locked_door_menu loop until Enter or a click: not testable
-# with the stubbed input (open).
-fdb1e = Spec('WMAZE', 0xdb1e, lambda r: (events_here(r, mz(r), (3, 7, 7, 1)), []), MZ_STUBS + (0xd8a9,), void=True)
+def stop_after(rnd, n=12):
+    """Scripted keys: a few non-Enter keys, then Enter."""
+    return [rnd.choice([32, 65, 27, 0]) for _ in range(rnd.randint(0, n))] + [13]
+
+
+def _lockk(rnd):
+    s, a = _lock(rnd)
+    return s, a, a, {}, stop_after(rnd)
+
+
+fced8 = Spec('WMAZE', 0xced8, _lockk, MZ_STUBS)
+fd3b3 = Spec('WMAZE', 0xd3b3, _lockk, MZ_STUBS)
 
 
 # WDOPT (spells and items outside combat)
@@ -299,3 +308,28 @@ def _flood(rnd):
 f4735 = Spec('WMAZE', 0x4735, _flood, MZ_STUBS, void=True)
 f9a24 = Spec('WMAZE', 0x9a24, lambda r: (base(r), [r.randint(0, 5), r.randint(0, 29), pick(r, 0, 10, (0, -1, 300))]),
              MZ_STUBS, void=True)
+
+
+KEYS = [8, 9, 10, 11, 13, 27, 32] + [ord(c) for c in '123456FPEfpeYN']
+
+
+def script(rnd, n=20):
+    """Random scripted keys from the menus' alphabet."""
+    return [rnd.choice(KEYS) for _ in range(rnd.randint(1, n))]
+
+
+from emu import message_text
+PROMPTS = {0x501e: message_text(2000) + b'\0', 0x5028: message_text(2001) + b'\0'}   # init_maze_screen's key sets
+
+
+def _menu(rnd):
+    s, a = _lock(rnd)
+    for k in range(6):   # written first: an input equal to the result would not be recorded
+        del s['lockTumblers[%d]' % k]
+    return s, [a[1]], [a[1]], PROMPTS, script(rnd) + [11, 10, 10, 13] * 3   # then EXIT
+
+
+fd8a9 = Spec('WMAZE', 0xd8a9, _menu, MZ_STUBS, void=True, texts=True)
+
+fdb1e = Spec('WMAZE', 0xdb1e, lambda r: (events_here(r, mz(r), (3, 7, 7, 1)), [], [], PROMPTS,
+                                         script(r) + [11, 10, 10, 13] * 3), MZ_STUBS, void=True, texts=True)

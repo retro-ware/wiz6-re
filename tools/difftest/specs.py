@@ -18,8 +18,9 @@ class Spec:
     """ovl, addr: the original function. make(rnd) -> (state {field: value}, args
     [, cargs [, raw {DS offset: bytes}]]): args go to Go, cargs (default args) to the C.
     stubs: overlay functions to stub. void: no return value."""
-    def __init__(self, ovl, addr, make, stubs=(), void=False):
-        self.ovl, self.addr, self.make, self.stubs, self.void = ovl, addr, make, stubs, void
+    def __init__(self, ovl, addr, make, stubs=(), void=False, texts=False):
+        """texts: get_message gives the real message text (menus that match keys to it)."""
+        self.ovl, self.addr, self.make, self.stubs, self.void, self.texts = ovl, addr, make, stubs, void, texts
         self.stub_fx = STUB_FX.get(ovl, {})
 
 

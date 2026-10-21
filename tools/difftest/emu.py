@@ -9,7 +9,7 @@ random/random_word stay emulated and are logged; message, number and sound calls
 logged as observable output.
 """
 import os, struct
-from unicorn import Uc, UC_ARCH_X86, UC_MODE_16, UC_HOOK_CODE, UC_HOOK_MEM_READ, UcError
+from unicorn import Uc, UC_ARCH_X86, UC_MODE_16, UC_HOOK_CODE, UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE, UcError
 from unicorn.x86_const import *
 
 APP = os.path.join(os.path.dirname(__file__), '../../gog/x/app')
@@ -27,12 +27,14 @@ ROOT_REAL = {
     0x2881, 0x28af, 0x28da, 0x2925, 0x2962,  # bit helpers
     0x040e, 0x0453, 0x04f1,                  # reverse_string, long_to_string, int_to_string
     0x00fe,                                  # copy_far
+    0x3350,                                  # char_index
 }
 ROOT_LOGGED = {          # stubbed, but the call is recorded: addr -> (tag, arg index)
     0x075b: ('msg', 0),  # get_message(n, buf)
     0x083f: ('msg', 0),  # print_message(n, win, color)
     0x0aaa: ('snd', 0),  # play_sound(n)
 }
+KEY_AVAILABLE, GET_KEY = 0x2643, 0x2724   # fed from Machine.keys (a case's scripted keys)
 LONG_TO_STRING = 0x0453   # (long n, buf); int_to_string goes through it
 
 
@@ -58,8 +60,35 @@ def scenario_record(typ, index):
     return _SCEN['SCENARIO.DBS'][off:off + size]
 
 
+MSG_NOT_FOUND = 0x3042
+_MSGS = {}
+
+
+def message_text(n):
+    """Message n of MSG.DBS decoded as get_message does, or None if not indexed."""
+    if not _MSGS:
+        import sys
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+        import msgdump
+        hdr, dbs, misc = (open(os.path.join(APP, f), 'rb').read() for f in ('MSG.HDR', 'MSG.DBS', 'MISC.HDR'))
+        tree = struct.unpack('<%dh' % (len(misc) // 2), misc)
+        for i in range(struct.unpack_from('<H', hdr)[0]):
+            first, off, cnt, blk = struct.unpack_from('<HHBB', hdr, 2 + i * 6)
+            pos = blk * 1024 + off
+            for k in range(cnt + 1):
+                ln = dbs[pos]
+                try:
+                    _MSGS[first + k] = bytes(msgdump.decode(dbs[pos + 1:pos + 1 + ln], tree))
+                except StopIteration:
+                    _MSGS[first + k] = b''
+                pos += 1 + ln
+    return _MSGS.get(n)
+
+
 class Machine:
     reads = set()
+    keys = []
+    texts = False   # get_message writes the real text (else an empty one)
     def __init__(self, ovl, stubs=(), stub_ret=None, stub_fx=None):
         """ovl: overlay name; stubs: overlay function addresses to stub;
         stub_ret: {addr: ax} return values of stubs (default 0)."""
@@ -84,7 +113,12 @@ class Machine:
         self.uc.mem_map(0, 0x100000)
         self.uc.hook_add(UC_HOOK_CODE, self._hook, begin=SEG * 16, end=SEG * 16 + 0xffff)
         self.uc.hook_add(UC_HOOK_MEM_READ, self._read, begin=DSEG * 16, end=DSEG * 16 + 0xffff)
+        self.uc.hook_add(UC_HOOK_MEM_WRITE, self._write, begin=DSEG * 16, end=DSEG * 16 + 0xffff)
         self.reset()
+
+    def _write(self, uc, access, addr, size, value, _):
+        for k in range(size):
+            self.writes.add(addr - DSEG * 16 + k)
 
     def _read(self, uc, access, addr, size, value, _):
         for k in range(size):
@@ -147,9 +181,28 @@ class Machine:
         elif ip in ROOT_LOGGED:
             tag, k = ROOT_LOGGED[ip]
             self.log.append([tag, self._arg(k)])
-            if ip == 0x075b:   # empty message text
+            if ip == 0x075b and self.texts:   # the real text (msg_not_found as the C sets it)
+                t = message_text(self._arg(0))
+                if t is None:
+                    self.w16(MSG_NOT_FOUND, 1)
+                else:
+                    self.wr(self._arg(1) & 0xffff, t + b'\0')
+                    self.w16(MSG_NOT_FOUND, 0)
+            elif ip == 0x075b:   # empty message text
                 self.wr(self._arg(1) & 0xffff, b'\0')
             self._ret(0)
+        elif ip == KEY_AVAILABLE:     # scripted input: the case's keys
+            if not self.keys:
+                self.idle_polls += 1
+                if self.idle_polls > 3000:   # waiting for input that never comes
+                    uc.emu_stop()
+                    return
+            self._ret(1 if self.keys else 0)
+        elif ip == GET_KEY:
+            if not self.keys:          # input exhausted: not a valid case
+                uc.emu_stop()
+                return
+            self._ret(self.keys.pop(0))
         elif ip < 0x37FA and ip not in ROOT_REAL and self._isentry(ip):
             self._ret(0)
         elif ip in self.stubs:
@@ -170,7 +223,8 @@ class Machine:
     def call(self, fn, args, max_insns=5_000_000):
         """Near-call CS:fn with int args (cdecl); returns ax (signed)."""
         uc = self.uc
-        self.rng, self.log, self.reads = [], [], set()
+        self.rng, self.log, self.reads, self.writes = [], [], set(), set()
+        self.idle_polls = 0
         sp = 0xAFEE
         words = [SENTINEL] + [a & 0xffff for a in args]
         sp -= 2 * len(words)

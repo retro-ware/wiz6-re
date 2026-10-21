@@ -31,7 +31,8 @@ IGNORE = [(0, 0x10), (0x43a8, 0x43c4), (0x4fa8, 0x4fc0),  # pointers: groups, wi
 IGNORE_OVL = {'WMEXE': [(0x4ff8, 0x500a),    # struct-return statics (f5eea's dice, get_load_category_x)
                         (0x500c, 0x50fc)],   # text buffers
               'WMELE': [(0x5014, 0x50b4)],   # text buffers
-              'WMAZE': [(0x501a, 0x501e)],
+              'WMAZE': [(0x501a, 0x501e),
+                        (0x10, 0x40)],         # stubbed create_window's null window, drawn into
               'WDOPT': [(0x5026, 0x502a)]}         # make_two_char_text's struct-return static         # sound file name in the overlay data
 
 
@@ -54,6 +55,9 @@ def run_case(m, spec, rnd):
     state, args = made[:2]
     cargs = made[2] if len(made) > 2 else args       # the C's args, when they differ (pointers)
     raw = made[3] if len(made) > 3 else {}           # {DS offset: bytes} the C's pointer args point at
+    keys = list(made[4]) if len(made) > 4 else []    # scripted input: get_key's returns
+    m.keys = list(keys)
+    m.texts = spec.texts
     seeds = [rnd.randrange(1, 0x7600) for _ in range(3)]
     for p, v in state.items():
         write(m, p, v)
@@ -70,14 +74,19 @@ def run_case(m, spec, rnd):
                 out[BYOFF[o]] = read(m, BYOFF[o])
             else:
                 unmapped.add(o)
+    for o in m.writes:   # written back unchanged: Go may write it too
+        if o in BYOFF and not any(a <= o < b for a, b in IGNORE + IGNORE_OVL.get(spec.ovl, [])):
+            out[BYOFF[o]] = read(m, BYOFF[o])
     # the input: every named field the call read (as stored, i.e. wrapped)
     state = {p: int.from_bytes(before[TABLE[p][0]:TABLE[p][0] + TABLE[p][1]], 'little', signed=TABLE[p][2])
-             for p in sorted({BYOFF[o] for o in m.reads if o in BYOFF} | (KEEP & set(made[0])))}
+             for p in sorted({BYOFF[o] for o in m.reads if o in BYOFF} | (KEEP & set(made[0])) |
+                             # set fields written back unchanged: Go must start from the same value
+                             {BYOFF[o] for o in m.writes if o in BYOFF and BYOFF[o] in made[0]})}
     for o in m.reads:
         if o not in BYOFF and 0x6be <= o < 0x9000 and not any(a <= o < b for a, b in IGNORE + IGNORE_OVL.get(spec.ovl, [])):
             unmapped_reads.add(o)
     return dict(args=args, seeds=seeds, state=state, ret=None if spec.void else ret, out=out,
-                rng=m.rng, log=m.log), unmapped
+                rng=m.rng, log=m.log, **({'keys': keys} if keys else {}), **({'texts': True} if spec.texts else {})), unmapped
 
 
 def main():
