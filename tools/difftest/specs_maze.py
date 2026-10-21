@@ -242,9 +242,8 @@ def _lock(rnd):
     return s, [rnd.randint(0, s['partyCount'] - 1), s['cellEventIndex']]
 
 
-fced8 = Spec('WMAZE', 0xced8, _lock, MZ_STUBS)
-fd3b3 = Spec('WMAZE', 0xd3b3, _lock, MZ_STUBS)
-fd8a9 = Spec('WMAZE', 0xd8a9, lambda r: (_lock(r)[0], [r.randint(0, 143)]), MZ_STUBS, void=True)
+# force_lock, pick_lock and locked_door_menu loop until Enter or a click: not testable
+# with the stubbed input (open).
 fdb1e = Spec('WMAZE', 0xdb1e, lambda r: (events_here(r, mz(r), (3, 7, 7, 1)), []), MZ_STUBS + (0xd8a9,), void=True)
 
 
@@ -284,3 +283,19 @@ def _slot(rnd):
 
 f4faf = Spec('WDOPT', 0x4faf, _slot, DOPT_UI, void=True)
 f4e09 = Spec('WDOPT', 0x4e09, _slot, DOPT_UI, void=True)
+
+
+def _flood(rnd):
+    s = mz(rnd)
+    for k in range(192):     # sparser walls: bigger regions
+        if rnd.random() < 0.5:
+            s['mazeA.Walls0[%d]' % k] = 0
+            s['mazeA.Walls1[%d]' % k] = 0
+    for k in range(96):
+        s['reachableCells[%d]' % k] = rnd.choice([0, 0, 255, rnd.randint(0, 255)])
+    return s, [rnd.randint(0, 11), rnd.randint(-8, 7), rnd.randint(-8, 7), rnd.randint(0, 1)]
+
+
+f4735 = Spec('WMAZE', 0x4735, _flood, MZ_STUBS, void=True)
+f9a24 = Spec('WMAZE', 0x9a24, lambda r: (base(r), [r.randint(0, 5), r.randint(0, 29), pick(r, 0, 10, (0, -1, 300))]),
+             MZ_STUBS, void=True)
