@@ -80,6 +80,7 @@ def base(rnd):
     for m in range(6):
         p = 'party[%d].' % m
         fill(s, rnd, 'party[%d]' % m, 'PC')
+        s[p + 'ItemCount'] = rnd.randint(0, 22)
         s[p + 'Condition'] = rnd.choice([0] * 6 + [1, 2, 3, 4, 5, 255])
         s[p + 'HPMax'] = pick(rnd, 1, 200, (0, 32767))
         s[p + 'HP'] = pick(rnd, 0, 200, (0, -5, 32767))
@@ -167,3 +168,62 @@ def _fae49(rnd):
 
 
 fae49 = Spec('WMAZE', 0xae49, _fae49, MAZE_UI + (0x9e51,), void=True)
+
+
+L.GLOBALS.update({
+    'returnCmd': (0x4fce, 'int16'),
+    'g4338': (0x4338, 'int16'),
+    'g433a': (0x433a, 'int16'),
+    'treasureID': (0x43c4, 'int16'),
+    'g363e': (0x363e, 'int16'),
+    'reachableCells': (0x4e08, '[96]uint8'),
+    'eventCells': (0x4e68, '[96]uint8'),
+})
+
+
+def events_here(rnd, s, kinds=range(1, 26)):
+    """A run of events from cellEventIndex on in the party's block, most on its cell."""
+    st = rnd.randint(0, 130)
+    s['cellEventIndex'] = st
+    for e in range(st, min(144, st + rnd.randint(1, 6))):
+        s['mazeB.Unk1296[%d]' % e] = s['partyBlock']
+        if rnd.random() < 0.8:
+            s['mazeB.X[%d]' % e], s['mazeB.Y[%d]' % e] = s['cellX'], s['cellY']
+        k = s['mazeB.Kind[%d]' % e] = rnd.choice(kinds)
+        d = s['mazeB.DirBits[%d]' % e]
+        if k in (10, 21, 23):     # target block < 12
+            s['mazeB.DirBits[%d]' % e] = (d & ~0x3c0) | (rnd.randint(0, 11) << 6)
+        if k in (11, 22):     # flag bits < 80, map < 14
+            s['mazeB.Data[%d]' % e] = rnd.randint(0, 79)
+            s['mazeB.Unk288[%d]' % e] = rnd.randint(0, 79)
+        if k == 4:      # encounter table < 24
+            s['mazeB.Param[%d]' % e] = rnd.randint(0, 23)
+        if k == 24:     # header bit
+            s['mazeB.Data[%d]' % e] = rnd.randint(0, 1000)
+        if k == 11:
+            s['mazeB.DirBits[%d]' % e] = (d & ~0xfff) | (rnd.randint(0, 13) << 8) | rnd.randint(0, 79)
+        if rnd.random() < 0.7:   # mostly not flagged yet
+            f = s['mazeB.FlagBit[%d]' % e]
+            s['levelFlags[%d][%d]' % (s['gameStateArg'], f >> 3)] &= ~(1 << (f & 7)) & 255
+    return s
+
+
+def mz(rnd):
+    s = maze(rnd, base(rnd))
+    s['gameState'] = 5
+    for k in range(4):
+        s['curEvent[%d]' % k] = rnd.choice([0, 0, 1, 2, 3])
+    for k in ('G4f8c', 'G4f8e', 'G4f90', 'G4f92', 'G4f94', 'G4f96', 'G4f98'):
+        s['saveState.' + k] = rnd.randint(0, 13 if k == 'G4f98' else 7)
+    s['mzG5034'] = rnd.randint(0, 1)
+    return s
+
+
+MZ_STUBS = MAZE_UI + (0x9e51, 0xbc93, 0xc182)   # + show_message_text_m, puzzle_event, riddle_event (input)
+
+f5949 = Spec('WMAZE', 0x5949, lambda r: (mz(r), [r.randint(-1, 2)]), MZ_STUBS, void=True)
+f56f4 = Spec('WMAZE', 0x56f4, lambda r: (mz(r), [r.randint(0, 3)]), MZ_STUBS)
+f7868 = Spec('WMAZE', 0x7868, lambda r: (mz(r), [r.randint(1, 14)]), MZ_STUBS, void=True)
+fc8eb = Spec('WMAZE', 0xc8eb, lambda r: (events_here(r, mz(r)), []), MZ_STUBS, void=True)
+fa4f5 = Spec('WMAZE', 0xa4f5, lambda r: (events_here(r, mz(r), (8,)), []), MZ_STUBS, void=True)
+fccd2 = Spec('WMAZE', 0xccd2, lambda r: (events_here(r, mz(r)), []), MZ_STUBS, void=True)
