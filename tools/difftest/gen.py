@@ -14,7 +14,11 @@ BYOFF = {}
 for _p, (_o, _s, _sg) in TABLE.items():
     for _k in range(_s):
         BYOFF[_o + _k] = _p
-IGNORE = [(0, 0x10), (0x500c, 0x50fc), (0x9000, 0x10000)]   # WMEXE text buffers; the stack
+# Scratch the Go port keeps in locals: low DS (null window pointers), the stack, and
+# per overlay its text buffers and temporaries.
+IGNORE = [(0, 0x10), (0x9000, 0x10000)]
+IGNORE_OVL = {'WMEXE': [(0x5006, 0x500a),    # f5eea's dice
+                        (0x500c, 0x50fc)]}   # text buffers
 
 
 def read(m, p):
@@ -42,7 +46,7 @@ def run_case(m, spec, rnd):
     after = m.rd(0, 0x10000)
     out, unmapped = {}, set()
     for o in range(0x10000):
-        if before[o] != after[o] and not any(a <= o < b for a, b in IGNORE):
+        if before[o] != after[o] and not any(a <= o < b for a, b in IGNORE + IGNORE_OVL.get(spec.ovl, [])):
             if o in BYOFF:
                 out[BYOFF[o]] = read(m, BYOFF[o])
             else:
@@ -50,7 +54,7 @@ def run_case(m, spec, rnd):
     # the input: every named field the call read (as stored, i.e. wrapped)
     state = {p: int.from_bytes(before[TABLE[p][0]:TABLE[p][0] + TABLE[p][1]], 'little', signed=TABLE[p][2])
              for p in sorted({BYOFF[o] for o in m.reads if o in BYOFF})}
-    return dict(args=args, seeds=seeds, state=state, ret=ret, out=out,
+    return dict(args=args, seeds=seeds, state=state, ret=None if spec.void else ret, out=out,
                 rng=m.rng, log=m.log), unmapped
 
 
