@@ -226,3 +226,27 @@ def base_party(rnd):
 base_6b30 = Spec('WBASE', 0x6b30, lambda r: (lambda s: (s, [r.randint(0, s['partyCount'] - 1)]))(base_party(r)), BASE_UI, void=True)
 base_6fd4 = Spec('WBASE', 0x6fd4, lambda r: (base_party(r), []), BASE_UI, void=True)
 base_5190 = Spec('WBASE', 0x5190, lambda r: (base_party(r), [r.randint(0, 6)]), BASE_UI)
+
+
+# ---- ROOT helpers (run in any overlay; the buffer is party[0].Skills, 30 bytes)
+SKILLS0 = 0x43e8 + 0x134
+
+
+def _bits(rnd):
+    return {'party[0].Skills[%d]' % k: rnd.randint(0, 255) for k in range(30)}
+
+
+def _bf(rnd, val=False):
+    w = rnd.choice([1, 2, 3, 4, 5, 6, 7, 8])
+    i = rnd.randint(0, (28 * 8 - w) // w)
+    a = [i, w] + ([pick(rnd, 0, (1 << w) - 1, (-1, 255, 1 << w))] if val else [])
+    return _bits(rnd), a, [SKILLS0] + a
+
+
+root_09e2 = Spec('WPCMK', 0x09e2, lambda r: ({}, [pick(r, 1, 100, (0, 1, -1, 2, 32767, -32768, 1000))]))
+root_2556 = Spec('WPCMK', 0x2556, lambda r: ({}, []))
+root_2881 = Spec('WPCMK', 0x2881, lambda r: (lambda a: (_bits(r), a, [SKILLS0] + a))([r.randint(0, 239), r.randint(0, 1)]), void=True)
+root_28af = Spec('WPCMK', 0x28af, lambda r: (lambda a: (_bits(r), a, [SKILLS0] + a))([r.randint(0, 239)]))
+root_28da = Spec('WPCMK', 0x28da, lambda r: _bf(r, True), void=True)
+root_2925 = Spec('WPCMK', 0x2925, _bf)
+root_2962 = Spec('WPCMK', 0x2962, lambda r: ({}, [pick(r, 0, 65535, (0, -1, 32767, -32768)), r.randint(0, 15), r.randint(1, 15)]))
