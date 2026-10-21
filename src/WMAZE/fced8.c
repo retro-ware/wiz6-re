@@ -1,6 +1,4 @@
-#asm
-	extrn $ldv:near
-#endasm
+extern int pc_stamina_max[];
 extern char *g4fa8;
 extern char g450c[];
 extern char pc_stats[];
@@ -71,18 +69,7 @@ force_lock(member, event)
 	l62 = 1;
 Ld157:
 	defer_window_draw(win);
-#asm
-	db 0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,004h,044h,0bbh,064h,000h,0f7h
-	db 0ebh,050h,052h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08bh,087h,006h,044h,099h
-	db 08bh,0c8h,08bh,0dah,05ah,058h
-	call $ldv
-	db 050h,052h,0b8h,0b0h,001h,0f7h,06eh,004h,08bh,0d8h,08ah,087h,014h,045h,02ah,0e4h
-	db 099h,08bh,0c8h,08bh,0dah,05ah,058h,050h,052h,0f7h,0e3h,08bh,0d8h,058h,0f7h,0e1h
-	db 003h,0d8h,058h,0f7h,0e1h,003h,0d3h,0b9h,064h,000h,0bbh,000h,000h
-	call $ldv
-	db 089h,046h,0fah,03dh,000h,000h,07eh,00ch
-#endasm
-	if (random(50)) goto Ld227;
+	if (((l6 = (int)((((long)*(int *)((char *)pc_stamina + (432 * member)) * 100) / (long)*(int *)((char *)pc_stamina_max + (432 * member)) * (long)(unsigned char)pc_stats[(432 * member)]) / 100L)) > 0) && (random(50))) goto Ld227;
 Ld1cb:
 	(*(int *)((char *)pc_stamina + (432 * member)))--;
 	if ((l6 > 0) && (*(int *)((char *)pc_stamina + (432 * member)) > 0)) goto Ld220;

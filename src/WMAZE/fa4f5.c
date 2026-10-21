@@ -21,10 +21,9 @@ check_secret_detect()
 	l2 = 0;
 	goto La5bf;
 La53f:
+	do {
 	l4 = random(party_count);
-#asm
-	db 08bh,046h,0fch,0d1h,0e0h,08bh,0d8h,003h,0ddh,083h,07fh,0f0h,000h,075h,0e6h
-#endasm
+	} while (l16[l4]);
 	l16[l4] = 1;
 	if (((!pc_condition[(432 * l4)]) && (!g450c[(432 * l4)])) && (!g450d[(432 * l4)])) goto La586;
 	goto La5bc;

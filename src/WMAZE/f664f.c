@@ -1,6 +1,3 @@
-#asm
-	extrn copy_far_:near
-#endasm
 extern char g3592;
 extern char party[];
 extern int bottom_line_win;
@@ -140,15 +137,8 @@ L68fe:
 	goto L6a17;
 L6906:
 	if (l4 >= 14) goto L6950;
-#asm
-	db 0ffh,036h,004h,033h,016h,08dh,086h,0c6h,0f8h,050h,08bh,046h,0fch,0d1h,0e0h,0d1h
-	db 0e0h,08bh,0d8h,0ffh,0b7h,0d4h,007h,0ffh,0b7h,0d2h,007h
-	call copy_far_
-	db 083h,0c4h,00ah,0ffh,036h,006h,033h,016h,08dh,086h,0fah,0f1h,050h,08bh,046h,0fch
-	db 0d1h,0e0h,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h
-	call copy_far_
-	db 083h,0c4h,00ah
-#endasm
+	copy_far(((long *)far_buffers_a)[l4], (char far *)&l1850, g3304);
+	copy_far(((long *)far_buffers_b)[l4], (char far *)&l3590, g3306);
 	goto L6976;
 L6950:
 	setmem(&l1850, 1346, 0);

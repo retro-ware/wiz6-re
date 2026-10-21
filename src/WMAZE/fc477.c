@@ -1,9 +1,6 @@
-#asm
-	extrn random_:near
-#endasm
 extern char *g4fa8;
 extern char g450a[];
-extern char g450c[];
+extern unsigned char g450c[];
 extern char g450d[];
 extern char g450f[];
 extern char g458c[];
@@ -94,12 +91,7 @@ Lc6cf:
 	goto Lc8bf;
 case 8:
 	if ((*(int *)((char *)pc_stamina + (432 * l6)) = clamp_value((*(int *)((char *)pc_stamina + (432 * l6)) - l14), 0, *(int *)((char *)pc_stamina_max + (432 * l6)))) > 0) goto Lc733;
-#asm
-	db 08ah,087h,00ch,045h,02ah,0e4h,08bh,0c8h,051h,0b8h,006h,000h,050h
-	call random_
-	db 059h,059h,003h,0c1h,005h,006h,000h,050h,0b8h,0b0h,001h,0f7h,06eh,0fah,08bh,0d8h
-	db 058h,088h,087h,00ch,045h
-#endasm
+	g450c[(432 * l6)] += (random(6) + 6);
 Lc733:
 	goto Lc8bf;
 case 9:
@@ -136,7 +128,7 @@ case 13:
 Lc876:
 	goto Lc8bf;
 case 14:
-	if ((unsigned char)g450c[(432 * l6)] >= l14) goto Lc892;
+	if (g450c[(432 * l6)] >= l14) goto Lc892;
 	g450c[(432 * l6)] = *(char *)&l14;
 Lc892:
 	goto Lc8bf;

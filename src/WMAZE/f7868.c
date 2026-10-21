@@ -42,7 +42,7 @@ L7901:
 	goto L7901;
 L792f:
 	l8 = -1;
-L7934:
+	do {
 	l10 = 0;
 	save_position();
 	if ((l8 == -1) || (random(4))) goto L79ba;
@@ -89,11 +89,7 @@ L7a3b:
 	wait_animating_m(2);
 	l8 = (random(2) ? 1 : 3);
 	p4--;
-#asm
-	db 083h,07eh,004h,000h,07eh,01eh
-#endasm
-	if (f7bd2(party_cell_x, party_cell_y, party_level, cell_event_index) == -1) goto L7934;
-L7ab7:
+	} while ((p4 > 0) && (f7bd2(party_cell_x, party_cell_y, party_level, cell_event_index) == -1));
 	tick_effect_timers(2);
 	wait_animating_m((message_delay / 4));
 	erase_window(main_window, 1);

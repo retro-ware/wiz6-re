@@ -32,10 +32,7 @@ f72d1()
 	}
 	l2 = 0;
 L731f:
-	sprite_list[l2] = malloc(24);
-#asm
-	db 08bh,0d8h,0c6h,047h,014h,0ffh
-#endasm
+	((char *)(sprite_list[l2] = malloc(24)))[20] = -1;
 	l2++;
 	if (l2 < 12) goto L731f;
 	for (l2 = 0; l2 < 3; l2++) {

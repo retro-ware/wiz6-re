@@ -1,6 +1,7 @@
 #asm
-	extrn copy_far_:near
 #endasm
+extern long far_buffers_a[];
+extern long far_buffers_b[];
 extern char cfg_delay;
 extern char cfg_gmode;
 extern char cfg_input;
@@ -187,15 +188,8 @@ L5a76:
 	return -1;
 L5acb:
 	if (l4 >= 14) goto L5b13;
-#asm
-	db 0b8h,042h,005h,050h,08bh,046h,0fch,0d1h,0e0h,0d1h,0e0h,08bh,0d8h,0ffh,0b7h,0d4h
-	db 007h,0ffh,0b7h,0d2h,007h,016h,08dh,086h,046h,0f8h,050h
-	call copy_far_
-	db 083h,0c4h,00ah,0b8h,0cch,006h,050h,08bh,046h,0fch,0d1h,0e0h,0d1h,0e0h,08bh,0d8h
-	db 0ffh,0b7h,00ch,008h,0ffh,0b7h,00ah,008h,016h,08dh,086h,07ah,0f1h,050h
-	call copy_far_
-	db 083h,0c4h,00ah
-#endasm
+	copy_far((char far *)&l1978, far_buffers_a[l4], 1346);
+	copy_far((char far *)&l3718, far_buffers_b[l4], 1740);
 L5b13:
 	l4++;
 L5b16:
