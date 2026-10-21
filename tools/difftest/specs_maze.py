@@ -81,6 +81,9 @@ def base(rnd):
     for m in range(6):
         p = 'party[%d].' % m
         fill(s, rnd, 'party[%d]' % m, 'PC')
+        for k in range(22):     # real item records and types
+            s[p + 'Items[%d].ID' % k] = rnd.randint(0, 400)
+            s[p + 'Items[%d].Type' % k] = rnd.randint(0, 17)
         s[p + 'ItemCount'] = rnd.randint(0, 10)
         s[p + 'SwagCount'] = rnd.randint(0, 12)
         s[p + 'Condition'] = rnd.choice([0] * 6 + [1, 2, 3, 4, 5, 255])
@@ -259,7 +262,7 @@ fd3b3 = Spec('WMAZE', 0xd3b3, _lockk, MZ_STUBS)
 
 
 # WDOPT (spells and items outside combat)
-L.GLOBALS.update({'dpResultMsg': (0x502a, 'int16'), 'dpResultBeep': (0x502c, 'int16')})
+L.OVL_GLOBALS.setdefault('WDOPT', {}).update({'dpResultMsg': (0x502a, 'int16'), 'dpResultBeep': (0x502c, 'int16'), 'dpTarget': (0x51b6, 'int16')})
 STUB_FX['WDOPT'] = {0x45ac: lambda m: m.w16(0x4336, m._arg(0))}   # load_sound_dopt sets cur_sound
 DOPT_UI = (0x45ac, 0x4688, 0x46ae, 0x4728, 0x47ce, 0x483f, 0x489b, 0x48e0, 0x5273, 0x5be2,
            0x6737, 0x6760, 0x6789, 0x67dc, 0x6880, 0x6953, 0x6b3d, 0x6bfd, 0x76d5,
@@ -355,3 +358,49 @@ def _ev(kind):
 
 fbc93 = Spec('WMAZE', 0xbc93, _ev(12), TXT_STUBS, void=True, texts=True)
 fc182 = Spec('WMAZE', 0xc182, _ev(13), TXT_STUBS, void=True, texts=True)
+
+
+DOPT_INPUT = (0x4728, 0x48e0, 0x6bfd)   # get_menu_choice_blink, choose_target_member, choose_spell
+DOPT_DRAW = (0x45ac, 0x5273, 0x5be2, 0x95f3, 0x9e83)   # disk loads, overhead map, maze view
+NAV = [8, 9, 10, 11, 13, 13, 27]
+
+
+def _cast(rnd):
+    s = dp(rnd)
+    m = rnd.randint(0, s['partyCount'] - 1)
+    p = 'party[%d].' % m
+    for k in range(12):
+        s[p + 'KnownSpells[%d]' % k] = rnd.choice([0, 255, rnd.randint(0, 255)])
+    for k in range(6):
+        s[p + 'SP[%d].Cur' % k] = rnd.randint(0, 60)
+    keys = [rnd.choice(NAV + [ord(c) for c in '1234567']) for _ in range(rnd.randint(0, 25))]
+    return s, [m], [m], {}, keys + [13] * 10 + [27] * 10
+
+
+f7f30 = Spec('WDOPT', 0x7f30, _cast, DOPT_DRAW, void=True, texts=True)
+f7860 = Spec('WDOPT', 0x7860, _cast, DOPT_DRAW, void=True, texts=True)
+
+
+# Random encounters
+f467b = Spec('WMAZE', 0x467b, lambda r: (mz(r), [r.randint(0, 23)]), MZ_STUBS)
+f46e8 = Spec('WMAZE', 0x46e8, lambda r: (mz(r), [r.randint(0, 11)]), MZ_STUBS)
+
+# The main loop: moves, turns and steps by script; Enter opens the party menu, whose stub
+# ends the loop (game state 0).
+STUB_FX['WMAZE'][0x6cf8] = lambda m: m.w16(0x363a, 0)
+
+
+def _loop(rnd):
+    s = events_here(rnd, mz(rnd))
+    s['returnCmd'] = rnd.choice([5, 23])
+    s['g4f88'] = rnd.randint(0, 1)
+    s['g4f8a'] = rnd.randint(-1, 3)
+    for m in range(6):
+        s['party[%d].Status[2]' % m] = rnd.choice([0, 0, 0, 5])
+        s['party[%d].Status[3]' % m] = rnd.choice([0, 0, 0, 5])
+    keys = [rnd.choice([9, 9, 9, 10, 11, 8, 32]) for _ in range(rnd.randint(0, 40))]
+    return s, [], [], {}, keys + [13]
+
+
+# open: main loop hangs in Go (keys run out?)
+# f7020 = Spec('WMAZE', 0x7020, _loop, TXT_STUBS + (0x6cf8,), void=True, texts=True)
