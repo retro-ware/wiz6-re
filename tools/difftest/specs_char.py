@@ -276,3 +276,21 @@ def _8fbf(rnd):
 
 
 pcvw_8fbf = Spec('WPCVW', 0x8fbf, _8fbf, PCVW_UI, void=True)
+PCVW_UI += (0xe922,)    # spend_skill_points: input loop
+
+
+def _lvl(rnd):
+    s = party6(rnd)
+    m = rnd.randint(0, 5)
+    p = 'party[%d].' % m
+    s[p + 'Level'] = pick(rnd, 1, 20, (1, 15, 16, 17, 30))
+    s[p + 'Exp'] = rnd.choice([0, rnd.randint(0, 5000), rnd.randint(0, 300000), rnd.randint(0, 3000000)])
+    for k in range(4):
+        s[p + 'SpellsLearn[%d]' % k] = rnd.choice([0, 0, 1])
+    for r in range(6):
+        s[p + 'SP[%d].Max' % r] = rnd.choice([0, rnd.randint(1, 30)])
+    return s, [m]
+
+
+pcvw_f784 = Spec('WPCVW', 0xf784, lambda r: (lambda s, a: (s, a, [0, 0] + a))(*_lvl(r)), PCVW_UI, void=True)
+pcvw_f8c6 = Spec('WPCVW', 0xf8c6, _lvl, PCVW_UI, void=True)
