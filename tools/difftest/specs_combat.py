@@ -336,3 +336,61 @@ def _fc3ee(rnd):
 
 fc3ee = Spec('WMEXE', 0xc3ee, _fc3ee, MEXE_UI, void=True)
 f8fa8 = Spec('WMEXE', 0x8fa8, mk(lambda r, g, i: [r.choice(MONSTERS) for _ in range(6)] + [pick(r, 1, 6, (0, 7))]), MEXE_UI, void=True)
+
+
+def _fc66e(rnd):
+    """perform_action: the actor's statuses and chosen action (B24[6])."""
+    s, _ = actor_case(rnd)
+    a = 'monsterGroups[%d].Members[%d].' % (s['actGroup'], s['actMember'])
+    for k in (1, 2, 3, 4, 6, 7, 8):
+        s[a + 'Status[%d]' % k] = rnd.choice([0, 0, 0, 0, rnd.randint(1, 20)])
+    s[a + 'Condition'] = rnd.choice([0, 0, 0, 0, 1, 2])
+    act = rnd.choice([0, 0, 1, 2, 3, 3, 4, 4, 5, 6, 7, 8])
+    s[a + 'B24[6]'] = act
+    s[a + 'B33'] = rnd.randint(0, 3)
+    s[a + 'B24[4]'], s[a + 'B24[5]'] = rnd.randint(0, 1), rnd.randint(0, 1)
+    if act == 0:   # attack kinds index the 10 per-kind armour bytes
+        s[a + 'W10'], s[a + 'W12'] = rnd.randint(0, 9), rnd.randint(0, 9)
+    elif act == 3:
+        _cast(rnd, s)
+    elif act == 4:
+        _use(rnd, s)
+    elif act == 5:
+        s[a + 'W10'] = rnd.randint(0, s['partyCount'] - 1)
+        s['actGroup'] = 0
+    if s['actGroup'] == 0:
+        s['actMember'] = min(s['actMember'], 5)
+    return s, []
+
+
+fc66e = Spec('WMEXE', 0xc66e, _fc66e, MEXE_UI, void=True)
+
+
+def _fd109(rnd):
+    """run_combat_round: initiatives (B37) and per-slot initiative marks (B24[0..3])."""
+    s = rich(rnd)
+    s['gameState'] = 13
+    for g in range(s['monsterGroupCount'] + 1):
+        for i in range(6 if g == 0 else 9):
+            a = 'monsterGroups[%d].Members[%d].' % (g, i)
+            if a + 'Level' not in s:
+                continue
+            s[a + 'B35[1]'] = rnd.choice([0, 1, 1, 1])          # +36: acts this round
+            s[a + 'B35[2]'] = rnd.choice([0, rnd.randint(1, 100)])  # +37
+            s[a + 'B33'] = rnd.randint(0, 3)
+            for k in range(4):
+                s[a + 'B24[%d]' % k] = rnd.choice([0, rnd.randint(1, 100)])
+            s[a + 'B24[6]'] = rnd.choice([0, 0, 1, 1, 5 if g == 0 else 1, 6, 7])
+            s[a + 'W10'], s[a + 'W12'] = rnd.randint(0, 9), rnd.randint(0, 9)
+            s[a + 'B24[4]'], s[a + 'B24[5]'] = rnd.randint(0, 1), rnd.randint(0, 1)
+            if s[a + 'B24[6]'] == 5:
+                s[a + 'W10'] = rnd.randint(0, s['partyCount'] - 1)
+            s[a + 'Toggle'] = rnd.choice([0, 0, 0, 3])
+    for g in range(1, s['monsterGroupCount'] + 1):
+        for k in range(4):
+            s['monsterGroups[%d].B402[%d]' % (g, k)] = rnd.choice([0, 0, 0, rnd.randint(1, 5)])
+        s['monsterGroups[%d].B406' % g] = rnd.randint(1, 100)
+    return s, []
+
+
+fd109 = Spec('WMEXE', 0xd109, _fd109, MEXE_UI, void=True)
