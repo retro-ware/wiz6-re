@@ -36,9 +36,31 @@ ROOT_LOGGED = {          # stubbed, but the call is recorded: addr -> (tag, arg 
 LONG_TO_STRING = 0x0453   # (long n, buf); int_to_string goes through it
 
 
+class Crash(Exception):
+    """The original faulted (e.g. divide by zero) or ran away: not a valid case."""
+
+
+ACCESS_RECORD = 0x0882   # access_scenario_record(type, buf, index, mode)
+_SCEN = {}
+
+
+def scenario_record(typ, index):
+    """SCENARIO.DBS record (none of this scenario's types are packed)."""
+    if not _SCEN:
+        for f in ('SCENARIO.DBS', 'DISK.HDR', 'MASTER.HDR'):
+            _SCEN[f] = open(os.path.join(APP, f), 'rb').read()
+    disk, master = _SCEN['DISK.HDR'], _SCEN['MASTER.HDR']
+    remap = {2: 0x2c, 3: 0x2c, 5: 0x3c, 7: 0x7c, 4: 0x17c, 8: 0x27c}
+    if typ in remap:
+        index = disk[remap[typ] + index]
+    size = struct.unpack_from('<H', master, 2 * typ)[0]
+    off = index * size + struct.unpack_from('<I', disk, 4 + 4 * typ)[0]
+    return _SCEN['SCENARIO.DBS'][off:off + size]
+
+
 class Machine:
     reads = set()
-    def __init__(self, ovl, stubs=(), stub_ret=None):
+    def __init__(self, ovl, stubs=(), stub_ret=None, stub_fx=None):
         """ovl: overlay name; stubs: overlay function addresses to stub;
         stub_ret: {addr: ax} return values of stubs (default 0)."""
         exe = open(os.path.join(APP, 'WROOT.EXE'), 'rb').read()
@@ -57,6 +79,7 @@ class Machine:
         self.ovbss = (dbase + dsz, bsz)
         self.stubs = set(stubs)
         self.stub_ret = stub_ret or {}
+        self.stub_fx = stub_fx or {}   # addr -> f(machine): a stub's lasting effect
         self.uc = Uc(UC_ARCH_X86, UC_MODE_16)
         self.uc.mem_map(0, 0x100000)
         self.uc.hook_add(UC_HOOK_CODE, self._hook, begin=SEG * 16, end=SEG * 16 + 0xffff)
@@ -118,7 +141,10 @@ class Machine:
             self.rng[-1].append(struct.unpack('<h', struct.pack('<H', uc.reg_read(UC_X86_REG_AX)))[0])
         elif ip == LONG_TO_STRING:
             self.log.append(['num', (self._arg(0) & 0xffff) | (self._arg(1) << 16)])
-        if ip in ROOT_LOGGED:
+        if ip == ACCESS_RECORD:
+            self._record(self._arg(0), self._arg(1) & 0xffff, self._arg(2), self._arg(3))
+            self._ret(0)
+        elif ip in ROOT_LOGGED:
             tag, k = ROOT_LOGGED[ip]
             self.log.append([tag, self._arg(k)])
             if ip == 0x075b:   # empty message text
@@ -127,7 +153,16 @@ class Machine:
         elif ip < 0x37FA and ip not in ROOT_REAL and self._isentry(ip):
             self._ret(0)
         elif ip in self.stubs:
+            if ip in self.stub_fx:
+                self.stub_fx[ip](self)
             self._ret(self.stub_ret.get(ip, 0))
+
+    def _record(self, typ, buf, index, mode):
+        if mode == 0:
+            b = scenario_record(typ, index)
+            self.wr(buf, b)    # a short read leaves the rest of buf as it was
+        else:
+            self.log.append(['recwrite', typ, index])
 
     def _isentry(self, ip):
         return ip in self.root_entries
@@ -143,10 +178,19 @@ class Machine:
         for r, v in ((UC_X86_REG_CS, SEG), (UC_X86_REG_DS, DSEG), (UC_X86_REG_ES, DSEG),
                      (UC_X86_REG_SS, DSEG), (UC_X86_REG_SP, sp), (UC_X86_REG_BP, 0)):
             uc.reg_write(r, v)
-        uc.emu_start(SEG * 16 + fn, SEG * 16 + SENTINEL, count=max_insns)
+        try:
+            uc.emu_start(SEG * 16 + fn, SEG * 16 + SENTINEL, count=max_insns)
+        except UcError as e:
+            bp, chain = uc.reg_read(UC_X86_REG_BP), []
+            for _ in range(4):     # callers, by the bp chain
+                if not bp:
+                    break
+                chain.append('%04x' % self.r16(bp + 2, False))
+                bp = self.r16(bp, False)
+            raise Crash('%s at %04x from %s' % (e, uc.reg_read(UC_X86_REG_IP), ' '.join(chain)))
         ip = uc.reg_read(UC_X86_REG_IP)
         if ip != SENTINEL:
-            raise RuntimeError('did not return (ip %04x)' % ip)
+            raise Crash('did not return (ip %04x)' % ip)
         return struct.unpack('<h', struct.pack('<H', uc.reg_read(UC_X86_REG_AX)))[0]
 
 

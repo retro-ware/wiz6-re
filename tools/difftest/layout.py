@@ -27,6 +27,14 @@ GLOBALS = {
     'monsterJitterY': (0x433e, '[2][5]uint8'),
     'animCycle': (0x3644, 'int16'),
     'mexeEffect': (0x50fe, '[2][5]int16'),  # WMEXE g50fe
+    'mexeBackfire': (0x50fc, 'int16'),      # WMEXE g50fc
+    'mexeDelayed': (0x5116, 'int16'),       # WMEXE g5116
+    'partyCounters': (0x4ec8, '[6]PartyCounter'),
+    'g4352': (0x4352, 'int16'),
+    'initiative': (0x435a, 'int16'),
+    'g4fcc': (0x4fcc, 'int16'),
+    'combatOver': (0x4356, 'int16'),
+    'viewRowsOpen': (0x433c, 'int16'),
 }
 PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
     'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),
@@ -100,3 +108,8 @@ def table():
             for p, o, s, sg in leaves(ty, '%s[%d]' % (g, i), heap + i * size(ty)):
                 t[p] = (o, s, sg)
     return t
+
+
+def decode(ty, b, prefix):
+    """{path: value} for the scalars of record bytes b of type ty."""
+    return {prefix + p: int.from_bytes(b[o:o + n], 'little', signed=sg) for p, o, n, sg in leaves(ty)}

@@ -45,7 +45,8 @@ def base(rnd):
         s[c + 'Toggle'] = rnd.choice([0] * 10 + [1, -1])
         s[c + 'Pos'] = -1
         s[c + 'Level'] = pick(rnd, 1, 20)
-        s[c + 'Stamina'] = rnd.randint(0, 100)
+        s[c + 'StaminaMax'] = rnd.randint(1, 100)
+        s[c + 'Stamina'] = rnd.randint(0, s[c + 'StaminaMax'])
         for k in range(10):
             s[c + 'Status[%d]' % k] = rnd.choice([0, 0, 0, rnd.randint(1, 10), 240, 250, 255])
     for k in range(6):
@@ -66,7 +67,8 @@ def base(rnd):
             s[c + 'Pos'] = rnd.choice([-1, rnd.randint(0, 1) * 10 + rnd.randint(0, 4)])
             for k in range(4):
                 s[c + 'B24[%d]' % k] = rnd.randint(-3, 9)
-            s[c + 'Stamina'] = rnd.randint(0, 100)
+            s[c + 'StaminaMax'] = rnd.randint(1, 100)
+            s[c + 'Stamina'] = rnd.randint(0, s[c + 'StaminaMax'])
             s[c + 'B35[1]'] = rnd.randint(-3, 9)
             s[c + 'B35[2]'] = rnd.randint(-3, 9)
             for k in range(10):
@@ -87,6 +89,11 @@ def base(rnd):
 class Spec:
     def __init__(self, ovl, addr, make, stubs=(), void=False):
         self.ovl, self.addr, self.make, self.stubs, self.void = ovl, addr, make, stubs, void
+        self.stub_fx = STUB_FX.get(ovl, {})
+
+
+# Lasting effects of stubbed functions on mechanics state.
+STUB_FX = {'WMEXE': {0x774b: lambda m: m.w16(0x5116, 1)}}   # combat_delay sets g5116
 
 
 # WMEXE overlay functions that only draw, animate, wait or poll input.
@@ -182,3 +189,110 @@ f8861 = Spec('WMEXE', 0x8861, mk(lambda r, g, i: [pick(r, 0, 50, (0, -1)), pick(
 fc4e7 = Spec('WMEXE', 0xc4e7, mk(lambda r, g, i: [pick(r, 0, 5, (6,))]), MEXE_UI)
 fc546 = Spec('WMEXE', 0xc546, mk(lambda r, g, i: [g, pick(r, 0, 8, (-1, 9))]), MEXE_UI)
 f7816 = Spec('WMEXE', 0x7816, mk(lambda r, g, i: [r.randint(0, 81), pick(r, 1, 6, (0, -1))]), MEXE_UI)
+
+
+import layout as L
+from emu import scenario_record
+
+MONSTERS = [i for i in range(256) if scenario_record(4, i)[0] >= 65]
+ITEMS = [i for i in range(600) if len(scenario_record(1, i)) == 74 and scenario_record(1, i)[0] >= 65
+         and scenario_record(1, i)[60] < 18]   # the rest are not real items
+
+
+def rich(rnd):
+    """base() plus equipped party members and real monster records."""
+    s = base(rnd)
+    for m in range(6):
+        p = 'party[%d].' % m
+        for k in range(8):
+            s[p + 'Stats[%d]' % k] = pick(rnd, 3, 20, (0, 1, 25, 255))
+        for k in range(30):
+            s[p + 'Skills[%d]' % k] = pick(rnd, 0, 60, (0, 100, 255))
+        for k in range(8):
+            s[p + 'AC[%d]' % k] = pick(rnd, 0, 10, (0, 255, 128))
+        s[p + 'Level'] = pick(rnd, 1, 20, (0, 255))
+        s[p + 'Class'] = rnd.randint(0, 13)
+        s[p + 'Race'] = rnd.randint(0, 10)
+        s[p + 'ToHit'] = pick(rnd, -5, 10, (-128, 127))
+        s[p + 'MaxLoad'] = rnd.randint(1, 2000)
+        s[p + 'Carried'] = rnd.randint(0, 2500)
+        s[p + 'Stamina'] = rnd.randint(0, 100)
+        s[p + 'StaminaMax'] = rnd.randint(1, 100)
+        s[p + 'Condition'] = s['monsterGroups[0].Members[%d].Condition' % m] & 0xff
+        n = rnd.randint(0, 10)
+        s[p + 'ItemCount'] = n
+        for k in range(n):
+            iid = rnd.choice(ITEMS)
+            rec = scenario_record(1, iid)
+            q = p + 'Items[%d].' % k
+            s[q + 'ID'] = iid
+            s[q + 'Type'] = rec[60]
+            s[q + 'Icon'] = rec[61]
+            s[q + 'Qty'] = pick(rnd, 1, 20, (0, 255))
+            s[q + 'Flags'] = rnd.choice([0, 1, 8, 9])
+        for k in range(8):
+            s[p + 'Equipped[%d]' % k] = rnd.randint(0, n - 1) if n and rnd.random() < 0.6 else 255
+        for h in range(2):
+            q = p + 'Hands[%d].' % h
+            e = s[p + 'Equipped[%d]' % h]
+            if e != 255:
+                rec = scenario_record(1, s[p + 'Items[%d].ID' % e])
+                s.update(L.decode('Dice', rec[24:28], q + 'Damage'))
+                for k in range(8):
+                    s[q + 'Data[%d]' % k] = rec[46 + k]
+                s[q + 'B0C'], s[q + 'B0D'] = rec[65], rec[64]
+                s[q + 'Flags'] = rec[72]
+            else:
+                s[q + 'Damage.Base'], s[q + 'Damage.Count'], s[q + 'Damage.Sides'] = 0, 2, 2
+                s[q + 'Flags'] = rnd.choice([32, 96])
+            s[q + 'ToHit'] = pick(rnd, -5, 10, (-128, 127))
+    for g in range(1, 7):
+        mid = rnd.choice(MONSTERS)
+        s['monsterGroups[%d].MonsterID' % g] = mid
+        s.update(L.decode('MonsterRec', scenario_record(4, mid), 'groupMonsterRec[%d]' % g))
+    for k in range(6):
+        s['partyCounters[%d].A' % k] = rnd.randint(0, 3)
+        s['partyCounters[%d].B' % k] = rnd.randint(0, 3)
+    s['initiative'] = rnd.randint(1, 100)
+    s['g4fcc'] = rnd.choice([0] * 9 + [1])
+    s['g4352'] = rnd.randint(0, 1)
+    return s
+
+
+def _f4c48(rnd):
+    s = rich(rnd)
+    ag = rnd.choice([0, 0, 0, 1, 2, 3, 6])
+    am = rnd.randint(0, s['partyCount'] - 1) if ag == 0 else rnd.randint(0, 8)
+    s['actGroup'], s['actMember'] = ag, am
+    tg = rnd.choice([1, 2, 3]) if ag in (0, 6) else rnd.choice([0, 0, 6])
+    a = 'monsterGroups[%d].Members[%d].' % (ag, am)
+    s[a + 'B31'] = tg
+    s[a + 'B32'] = rnd.randint(0, (s['partyCount'] if tg == 0 else 9) - 1)
+    s[a + 'Condition'] = 0
+    if ag == 0:
+        s['party[%d].Condition' % am] = 0
+    t = 'monsterGroups[%d].Members[%d].' % (tg, s[a + 'B32'])
+    s[t + 'Condition'] = rnd.choice([0, 0, 0, 1, 2])
+    s[t + 'Toggle'] = 0
+    slot, kind = rnd.choice([0, 0, 1]), pick(rnd, 0, 8, (3, 4, 6, 8))
+    if ag == 0 and kind == 4 and s['party[%d].Equipped[%d]' % (am, slot)] == 255:
+        kind = 0   # throwing needs an item (the C would index item 255)
+    return s, [slot, kind], [fighter_addr(ag, am), slot, kind]
+
+
+f4c48 = Spec('WMEXE', 0x4c48, _f4c48, MEXE_UI, void=True)
+
+
+SCRATCH = 0x9100   # DS buffer for pointer args (in the ignored stack area, far below sp)
+
+
+def _f47a3(rnd):
+    s, (slot, kind), (actor, _, _) = _f4c48(rnd)
+    ag, am = s['actGroup'], s['actMember']
+    a = 'monsterGroups[%d].Members[%d].' % (ag, am)
+    g, i = s[a + 'B31'], s[a + 'B32']
+    fx = [rnd.choice([0, 0, 0, rnd.randint(1, 100), 100, 255]) for _ in range(9)]
+    return s, [g, i] + fx, [actor, SCRATCH, g, i], {SCRATCH + 4: bytes(fx)}
+
+
+f47a3 = Spec('WMEXE', 0x47a3, _f47a3, MEXE_UI, void=True)
