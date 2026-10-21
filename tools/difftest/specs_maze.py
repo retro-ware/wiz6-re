@@ -41,6 +41,7 @@ L.GLOBALS.update({
     'mzG503c': (0x503c, 'int16'),
     'mzG503e': (0x503e, 'int16'),
     'eventScreenDirty': (0x5230, 'int16'),
+    'msgNotFound': (0x3042, 'int16'),
     'mzG5232': (0x5232, 'int16'),
 })
 
@@ -136,7 +137,7 @@ STUB_FX['WMAZE'] = {0x9948: lambda m: m.w16(0x4336, m._arg(0))}   # load_sound_b
 # WMAZE functions that only draw, animate, wait or poll input.
 MAZE_UI = (0x4ac7, 0x4ba8,   # draw_vital_bar_m, draw_member_status_m
            0x533b,           # wait_animating_m
-           0x9a66, 0x9c19, 0x9cde,   # wait_key_animating, wait_more_prompt_m, end_text_page_m
+           0x9c19, 0x9cde,           # wait_more_prompt_m, end_text_page_m
            0x98cb, 0x903b, 0x8f79,   # view drawing
            0xb3ac, 0xb500, 0x9948)   # animate_door, shake_view, load_sound_bank (disk)
 
@@ -221,6 +222,7 @@ def mz(rnd):
 
 
 MZ_STUBS = MAZE_UI + (0x9e51, 0xbc93, 0xc182)   # + show_message_text_m, puzzle_event, riddle_event (input)
+TXT_STUBS = MAZE_UI + (0x9e51,)
 
 f5949 = Spec('WMAZE', 0x5949, lambda r: (mz(r), [r.randint(-1, 2)]), MZ_STUBS, void=True)
 f56f4 = Spec('WMAZE', 0x56f4, lambda r: (mz(r), [r.randint(0, 3)]), MZ_STUBS)
@@ -333,3 +335,23 @@ fd8a9 = Spec('WMAZE', 0xd8a9, _menu, MZ_STUBS, void=True, texts=True)
 
 fdb1e = Spec('WMAZE', 0xdb1e, lambda r: (events_here(r, mz(r), (3, 7, 7, 1)), [], [], PROMPTS,
                                          script(r) + [11, 10, 10, 13] * 3), MZ_STUBS, void=True, texts=True)
+
+
+def _ev(kind):
+    def make(rnd):
+        s = events_here(rnd, mz(rnd), (kind,))
+        e = s['cellEventIndex']
+        s['mazeB.Data[%d]' % e] = rnd.randint(1, 9000)
+        if kind == 12:   # a puzzle has choices (0 would print and return the C's uninitialized stack)
+            d = s['mazeB.DirBits[%d]' % e] & ~0xf
+            s['mazeB.DirBits[%d]' % e] = d | rnd.randint(1, 15)
+        keys = [rnd.choice(KEYS + [ord(c) for c in 'abcdeghilmnorstu']) for _ in range(rnd.randint(0, 30))]
+        if kind == 13 and rnd.random() < 0.5:   # type an accepted answer
+            t = message_text((s['mazeB.DirBits[%d]' % e] & 255) + s['mazeB.Data[%d]' % e]) or b''
+            keys = list(t.lstrip(b'$')[:20])
+        return s, [], [], PROMPTS, keys + [13] * 40
+    return make
+
+
+fbc93 = Spec('WMAZE', 0xbc93, _ev(12), TXT_STUBS, void=True, texts=True)
+fc182 = Spec('WMAZE', 0xc182, _ev(13), TXT_STUBS, void=True, texts=True)

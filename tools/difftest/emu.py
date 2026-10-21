@@ -27,7 +27,7 @@ ROOT_REAL = {
     0x2881, 0x28af, 0x28da, 0x2925, 0x2962,  # bit helpers
     0x040e, 0x0453, 0x04f1,                  # reverse_string, long_to_string, int_to_string
     0x00fe,                                  # copy_far
-    0x3350,                                  # char_index
+    0x3350, 0x3384,                          # char_index, string_index
 }
 ROOT_LOGGED = {          # stubbed, but the call is recorded: addr -> (tag, arg index)
     0x075b: ('msg', 0),  # get_message(n, buf)
