@@ -31,9 +31,10 @@ IGNORE = [(0, 0x10), (0x43a8, 0x43c4), (0x4fa8, 0x4fc0),  # pointers: groups, wi
 IGNORE_OVL = {'WMEXE': [(0x4ff8, 0x500a),    # struct-return statics (f5eea's dice, get_load_category_x)
                         (0x500c, 0x50fc)],   # text buffers
               'WMELE': [(0x5014, 0x50b4)],   # text buffers
-              'WMAZE': [(0x501a, 0x501e),
+              'WMAZE': [(0x501a, 0x5032),   # sound file name, key prompt texts (Go strings)
                         (0x10, 0x40)],         # stubbed create_window's null window, drawn into
-              'WDOPT': [(0x5026, 0x502a)]}         # make_two_char_text's struct-return static         # sound file name in the overlay data
+              'WDOPT': [(0x5026, 0x502a),
+                        (0x502e, 0x51b6), (0x51b8, 0x5380)]}   # menu, spell and item list buffers         # make_two_char_text's struct-return static         # sound file name in the overlay data
 
 
 def read(m, p):
