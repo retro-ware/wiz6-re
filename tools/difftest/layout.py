@@ -36,6 +36,7 @@ GLOBALS = {
     'combatOver': (0x4356, 'int16'),
     'viewRowsOpen': (0x433c, 'int16'),
     'g4354': (0x4354, 'int16'),
+    'gameState': (0x363a, 'int16'),
     'gameStateArg': (0x363c, 'int16'),
     'memberPortrait': (0x43d0, '[6]int16'),   # C int[6]; the Go port keeps uint8 (slots 0..5)
     'memberPcfileIndex': (0x43dc, '[6]int16'),
