@@ -87,7 +87,10 @@ def main():
 
 
 def gen(name, n):
+    global TABLE, BYOFF
     spec = SPECS[name]
+    TABLE = L.table(spec.ovl)
+    BYOFF = {o + k: p for p, (o, sz, _) in TABLE.items() for k in range(sz)}
     m = Machine(spec.ovl, spec.stubs, stub_fx=spec.stub_fx)
     rnd = pyrandom.Random(name)
     cases, unmapped = [], set()

@@ -8,7 +8,7 @@ import os, re
 
 GO = os.path.expanduser('~/Projects/wiz6-go/internal')
 PRIM = {'int8': (1, True), 'uint8': (1, False), 'int16': (2, True), 'uint16': (2, False),
-        'int32': (4, True), 'uint32': (4, False)}
+        'int32': (4, True), 'uint32': (4, False), 'bool16': (2, False)}
 
 # Go global -> (DS offset, type). Pointer arrays (monsterGroups, groupMonsterRec) are
 # placed by the harness: HEAP[name] is where element 0 goes.
@@ -35,6 +35,11 @@ GLOBALS = {
     'g4fcc': (0x4fcc, 'int16'),
     'combatOver': (0x4356, 'int16'),
     'viewRowsOpen': (0x433c, 'int16'),
+}
+# Overlay globals: {ovl: {Go global: (DS offset, type)}}; overlay BSS overlaps between overlays.
+OVL_GLOBALS = {
+    'WPCMK': {'newPC': (0x5470, 'PC'), 'bonusPoints': (0x56ac, 'int16'),
+              'classEligible': (0x56ae, '[14]bool16')},
 }
 PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
     'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),
@@ -97,10 +102,10 @@ assert size('PC') == 432 and size('MonsterGroup') == 416 and size('MonsterRec') 
 assert size('Combatant') == 44 and size('ScenarioHeader') == 414
 
 
-def table():
+def table(ovl=None):
     """path -> (DS offset, size, signed) for every scalar the tests can name."""
     t = {}
-    for g, (a, ty) in GLOBALS.items():
+    for g, (a, ty) in list(GLOBALS.items()) + list(OVL_GLOBALS.get(ovl, {}).items()):
         for p, o, s, sg in leaves(ty, g, a):
             t[p] = (o, s, sg)
     for g, (_, ty, n, heap) in PTRS.items():
