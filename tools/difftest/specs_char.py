@@ -62,3 +62,17 @@ def _f81ad(rnd):
 
 
 pcmk_81ad = Spec('WPCMK', 0x81ad, _f81ad, PCMK_UI, void=True)
+
+
+def _f55ad(rnd):
+    masks = [''.join(rnd.choice('01') for _ in range(n)) for n in (10, 7, 5, 8)]
+    raw, ptrs, o = {}, [], SCRATCH
+    for m in masks:
+        raw[o] = m.encode() + b'\0'
+        ptrs.append(o)
+        o += 16
+    return newpc(rnd), [int(c) for m in masks for c in m], ptrs, raw
+
+
+pcmk_55ad = Spec('WPCMK', 0x55ad, _f55ad, PCMK_UI, void=True)
+pcmk_66ea = Spec('WPCMK', 0x66ea, lambda r: (lambda k: (newpc(r), [k], [k, SCRATCH]))(r.randint(0, 6)), PCMK_UI)

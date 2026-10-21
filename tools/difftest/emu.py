@@ -16,7 +16,7 @@ APP = os.path.join(os.path.dirname(__file__), '../../gog/x/app')
 SEG = 0x1000
 DSEG = SEG + 0xFD8
 OVBASE, OVDATA = 0x4572, 0x4FEE
-SENTINEL = 0xFFF0        # CS offset of the fake return address
+SENTINEL = 0xFD70        # CS offset of the fake return address (past every overlay's code; CS:FD80 on is DS:0)
 RANDOM, RANDOM_RET = 0x09e2, 0x09fa
 SEEDS = 0x1d3b           # cs: three int seeds
 
