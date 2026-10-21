@@ -35,9 +35,10 @@ GLOBALS = {
     'g4fcc': (0x4fcc, 'int16'),
     'combatOver': (0x4356, 'int16'),
     'viewRowsOpen': (0x433c, 'int16'),
+    'rosterSlotUsed': (0x4fd8, '[16]uint8'),
     'g4354': (0x4354, 'int16'),
     'gameStateArg': (0x363c, 'int16'),
-    'memberPortrait': (0x43d0, '[6]uint8'),
+    'memberPortrait': (0x43d0, '[6]int16'),   # C int[6]; the Go port keeps uint8 (slots 0..5)
     'memberPcfileIndex': (0x43dc, '[6]int16'),
     'mexeSpellSound': (0x5114, 'int16'),    # WMEXE g5114
     'mexeFizzle': (0x5118, 'int16'),        # WMEXE g5118

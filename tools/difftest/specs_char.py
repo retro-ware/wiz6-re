@@ -206,3 +206,23 @@ def _9c8e(rnd):
 
 
 pcvw_9c8e = Spec('WPCVW', 0x9c8e, _9c8e, PCVW_UI)
+
+
+# ---- WBASE: party management
+BASE_UI = (0x6091, 0x5072, 0x4617, 0x469f, 0x473a, 0x4785, 0x47c0, 0x6be6, 0x63f7, 0x6475)
+
+
+def base_party(rnd):
+    s = {k: v for k, v in party6(rnd).items() if not k.startswith('pv')}
+    s['partyCount'] = rnd.randint(1, 6)
+    for m in range(6):
+        s['memberPcfileIndex[%d]' % m] = rnd.randint(0, 15)
+        s['memberPortrait[%d]' % m] = rnd.randint(0, 5)
+    for k in range(16):
+        s['rosterSlotUsed[%d]' % k] = rnd.randint(0, 2)
+    return s
+
+
+base_6b30 = Spec('WBASE', 0x6b30, lambda r: (lambda s: (s, [r.randint(0, s['partyCount'] - 1)]))(base_party(r)), BASE_UI, void=True)
+base_6fd4 = Spec('WBASE', 0x6fd4, lambda r: (base_party(r), []), BASE_UI, void=True)
+base_5190 = Spec('WBASE', 0x5190, lambda r: (base_party(r), [r.randint(0, 6)]), BASE_UI)
