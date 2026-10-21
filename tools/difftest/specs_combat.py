@@ -182,6 +182,7 @@ f7816 = Spec('WMEXE', 0x7816, mk(lambda r, g, i: [r.randint(0, 81), pick(r, 1, 6
 
 MONSTERS = [i for i in range(256) if scenario_record(4, i)[0] >= 65]
 ITEMS = [i for i in range(600) if len(scenario_record(1, i)) == 74 and scenario_record(1, i)[0] >= 65
+         and all(32 <= c < 127 for c in scenario_record(1, i)[:16].split(b"\0")[0])
          and scenario_record(1, i)[60] < 18]   # the rest are not real items
 
 
@@ -301,11 +302,37 @@ def on_actor(fn=lambda r, s: []):
 
 f88b1 = Spec('WMEXE', 0x88b1, mk(lambda r, g, i: [g, _who(r, g), _mod(r), pick(r, 1, 30, (0, -1)), r.randint(0, 2)]), MEXE_UI, void=True)
 f8bdb = Spec('WMEXE', 0x8bdb, mk(lambda r, g, i: [g, _who(r, g), pick(r, 1, 30, (0, -1)), _mod(r)]), MEXE_UI, void=True)
-fc064 = Spec('WMEXE', 0xc064, on_actor(), MEXE_UI, void=True)
+def _fc064(rnd):   # members 6-8: the C's try_raise_skill corrupts memory past party (Go skips it)
+    while True:
+        made = on_actor()(rnd)
+        if made[0]['actMember'] < 6:
+            return made
+fc064 = Spec('WMEXE', 0xc064, _fc064, MEXE_UI, void=True)
 fc1e4 = Spec('WMEXE', 0xc1e4, on_actor(), MEXE_UI, void=True)
 fb934 = Spec('WMEXE', 0xb934, on_actor(), MEXE_UI)
-fb03c = Spec('WMEXE', 0xb03c, on_actor(), MEXE_UI)
-fb44d = Spec('WMEXE', 0xb44d, on_actor(), MEXE_UI, void=True)
+def _cast(r, s):
+    a = 'monsterGroups[%d].Members[%d].' % (s['actGroup'], s['actMember'])
+    s[a + 'W10'] = pick(r, 1, 6, (0, 7)) << 8 | r.randint(0, 81)
+    return []
+
+
+def _use(r, s):
+    a = 'monsterGroups[%d].Members[%d].' % (s['actGroup'], s['actMember'])
+    if s['actGroup'] == 0:
+        s[a + 'W10'] = r.randint(0, max(s['party[%d].ItemCount' % s['actMember']] - 1, 0))
+    else:
+        s[a + 'W10'] = pick(r, 1, 6, (0, 7)) << 8 | r.randint(0, 81)
+    return []
+
+
+fb03c = Spec('WMEXE', 0xb03c, on_actor(_cast), MEXE_UI)
+fb44d = Spec('WMEXE', 0xb44d, on_actor(_use), MEXE_UI, void=True)
 f9405 = Spec('WMEXE', 0x9405, on_actor(lambda r, s: [r.randint(0, 81), pick(r, 1, 6, (0, 7))]), MEXE_UI, void=True)
-fc3ee = Spec('WMEXE', 0xc3ee, mk(lambda r, g, i: [r.randint(0, 5), r.randint(0, 5)]), MEXE_UI, void=True)
+def _fc3ee(rnd):
+    s = rich(rnd)
+    s['actGroup'], s['actMember'] = 0, rnd.randint(0, s['partyCount'] - 1)
+    return s, [s['actMember'], rnd.randint(0, s['partyCount'] - 1)]
+
+
+fc3ee = Spec('WMEXE', 0xc3ee, _fc3ee, MEXE_UI, void=True)
 f8fa8 = Spec('WMEXE', 0x8fa8, mk(lambda r, g, i: [r.choice(MONSTERS) for _ in range(6)] + [pick(r, 1, 6, (0, 7))]), MEXE_UI, void=True)
