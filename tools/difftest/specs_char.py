@@ -84,6 +84,18 @@ PCVW_UI = (0xe8b6, 0x8817, 0x8891, 0x8d3a, 0x93f8, 0x54ab, 0xb1e5, 0x53fa, 0x49c
            0x4ca8, 0x48e8, 0x8dd4, 0x8ea4, 0x9fa8, 0xa8ab, 0xa78d, 0xd331, 0x8937, 0x4595, 0x45d0)
 
 
+def _choose_spell(m):
+    """choose_spell stub: the lowest spell set in the member's known spells (learn_new_spell
+    sets them to the offered ones)."""
+    b = m.rd(0x43e8 + 432 * m._arg(2) + 0x188, 12)
+    bits = [i for i in range(82) if b[i >> 3] >> (i & 7) & 1]
+    m.stub_ret[0x780a] = bits[0] if bits else -1
+
+
+STUB_FX['WPCVW'] = {0x780a: _choose_spell}
+PCVW_UI += (0x780a,)
+
+
 def party6(rnd):
     s = {}
     for m in range(6):
@@ -144,3 +156,31 @@ def _a11b(rnd):
 
 
 pcvw_a11b = Spec('WPCVW', 0xa11b, _a11b, PCVW_UI, void=True)
+
+
+def _6b3c(rnd):
+    s = party6(rnd)
+    for k in range(6):
+        s['partyCounters[%d].A' % k] = pick(rnd, 0, 500, (0, 32767, -1))
+        s['partyCounters[%d].B' % k] = pick(rnd, 0, 100, (0, -1, 32767))
+    for m in range(6):
+        s['party[%d].Condition' % m] = rnd.choice([0, 0, 2, 3, rnd.randint(0, 8)])
+    a = [rnd.randint(0, 5), rnd.choice([53, 68, 41, 30, 38, 70, 10, 15, 26, 46, 57, 51, 64, 77, 80, 81, 73, rnd.randint(0, 81)]),
+         pick(rnd, 1, 7, (0, 1, 7, 255)), rnd.randint(0, 5)]
+    if a[1] == 54:     # choose_item: UI
+        a[1] = 53
+    return s, a, a + [0, 0]
+
+
+pcvw_6b3c = Spec('WPCVW', 0x6b3c, _6b3c, PCVW_UI, void=True)
+
+
+def _8353(rnd):
+    s = party6(rnd)
+    m = rnd.randint(0, 5)
+    s['party[%d].SpellsLearn[0]' % m] = s['party[%d].SpellsLearn[1]' % m] = 1
+    a = [m, rnd.randint(0, 3)]
+    return s, a, [0, 0] + a
+
+
+pcvw_8353 = Spec('WPCVW', 0x8353, _8353, PCVW_UI, void=True)
