@@ -30,7 +30,9 @@ IGNORE = [(0, 0x10), (0x43a8, 0x43c4), (0x4fa8, 0x4fc0),  # pointers: groups, wi
            (0x9000, 0x10000)]
 IGNORE_OVL = {'WMEXE': [(0x4ff8, 0x500a),    # struct-return statics (f5eea's dice, get_load_category_x)
                         (0x500c, 0x50fc)],   # text buffers
-              'WMAZE': [(0x501a, 0x501e)]}         # sound file name in the overlay data
+              'WMELE': [(0x5014, 0x50b4)],   # text buffers
+              'WMAZE': [(0x501a, 0x501e)],
+              'WDOPT': [(0x5026, 0x502a)]}         # make_two_char_text's struct-return static         # sound file name in the overlay data
 
 
 def read(m, p):

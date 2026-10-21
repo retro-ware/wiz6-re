@@ -80,7 +80,8 @@ def base(rnd):
     for m in range(6):
         p = 'party[%d].' % m
         fill(s, rnd, 'party[%d]' % m, 'PC')
-        s[p + 'ItemCount'] = rnd.randint(0, 22)
+        s[p + 'ItemCount'] = rnd.randint(0, 10)
+        s[p + 'SwagCount'] = rnd.randint(0, 12)
         s[p + 'Condition'] = rnd.choice([0] * 6 + [1, 2, 3, 4, 5, 255])
         s[p + 'HPMax'] = pick(rnd, 1, 200, (0, 32767))
         s[p + 'HP'] = pick(rnd, 0, 200, (0, -5, 32767))
@@ -227,3 +228,59 @@ f7868 = Spec('WMAZE', 0x7868, lambda r: (mz(r), [r.randint(1, 14)]), MZ_STUBS, v
 fc8eb = Spec('WMAZE', 0xc8eb, lambda r: (events_here(r, mz(r)), []), MZ_STUBS, void=True)
 fa4f5 = Spec('WMAZE', 0xa4f5, lambda r: (events_here(r, mz(r), (8,)), []), MZ_STUBS, void=True)
 fccd2 = Spec('WMAZE', 0xccd2, lambda r: (events_here(r, mz(r)), []), MZ_STUBS, void=True)
+
+
+L.GLOBALS.update({'lockTumblers': (0x5234, '[6]int16')})
+
+
+def _lock(rnd):
+    s = events_here(rnd, mz(rnd), (7,))
+    for k in range(6):
+        s['lockTumblers[%d]' % k] = rnd.randint(0, 40)
+    for m in range(6):
+        s['party[%d].StaminaMax' % m] = rnd.randint(1, 200)
+    return s, [rnd.randint(0, s['partyCount'] - 1), s['cellEventIndex']]
+
+
+fced8 = Spec('WMAZE', 0xced8, _lock, MZ_STUBS)
+fd3b3 = Spec('WMAZE', 0xd3b3, _lock, MZ_STUBS)
+fd8a9 = Spec('WMAZE', 0xd8a9, lambda r: (_lock(r)[0], [r.randint(0, 143)]), MZ_STUBS, void=True)
+fdb1e = Spec('WMAZE', 0xdb1e, lambda r: (events_here(r, mz(r), (3, 7, 7, 1)), []), MZ_STUBS + (0xd8a9,), void=True)
+
+
+# WDOPT (spells and items outside combat)
+L.GLOBALS.update({'dpResultMsg': (0x502a, 'int16'), 'dpResultBeep': (0x502c, 'int16')})
+STUB_FX['WDOPT'] = {0x45ac: lambda m: m.w16(0x4336, m._arg(0))}   # load_sound_dopt sets cur_sound
+DOPT_UI = (0x45ac, 0x4688, 0x46ae, 0x4728, 0x47ce, 0x483f, 0x489b, 0x48e0, 0x5273, 0x5be2,
+           0x6737, 0x6760, 0x6789, 0x67dc, 0x6880, 0x6953, 0x6b3d, 0x6bfd, 0x76d5,
+           0x8aa9, 0x9531, 0x95f3, 0x9e83)
+SPELLS = (53, 68, 41, 30, 38, 70, 10, 15, 26, 46, 57, 51, 64, 77, 39, 60, 62, 80, 81)
+
+
+def dp(rnd, kinds=(7, 19, 3)):
+    s = events_here(rnd, mz(rnd), kinds)
+    for e in range(144):
+        if s['mazeB.Kind[%d]' % e] == 19:
+            s['mazeB.DirBits[%d]' % e] = rnd.randint(0, 79) | rnd.randint(0, 79) << 8
+            if rnd.random() < 0.6:
+                s['mazeB.Data[%d]' % e] = s['party[0].Items[0].ID']
+    return s
+
+
+f6054 = Spec('WDOPT', 0x6054, lambda r: (dp(r), [r.randint(0, 5), r.choice(SPELLS + (r.randint(0, 81),)),
+                                                  r.randint(1, 7), r.randint(0, 5)]), DOPT_UI, void=True)
+f517b = Spec('WDOPT', 0x517b, lambda r: (dp(r), [r.randint(1, 7)]), DOPT_UI)
+f6561 = Spec('WDOPT', 0x6561, lambda r: (dp(r), [0, 0] if r.random() < 0.5 else [r.randint(0, 5), r.randint(0, 9)]), DOPT_UI)
+def _slot(rnd):
+    """A member and one of its items or swag."""
+    s = base(rnd)
+    m = rnd.randint(0, 5)
+    p = 'party[%d].' % m
+    s[p + 'ItemCount'], s[p + 'SwagCount'] = rnd.randint(1, 10), rnd.randint(1, 12)
+    if rnd.random() < 0.5:
+        return s, [m, rnd.randint(0, s[p + 'ItemCount'] - 1)]
+    return s, [m, 10 + rnd.randint(0, s[p + 'SwagCount'] - 1)]
+
+
+f4faf = Spec('WDOPT', 0x4faf, _slot, DOPT_UI, void=True)
+f4e09 = Spec('WDOPT', 0x4e09, _slot, DOPT_UI, void=True)
