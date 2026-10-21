@@ -1,0 +1,102 @@
+"""Field names <-> data-segment offsets.
+
+Struct layouts are read from the Go port's typed records (packed, in declaration
+order, as encoding/binary lays them out; checked against their +0xNN comments).
+GLOBALS maps each Go global the tests use to its DS address and type.
+"""
+import os, re
+
+GO = os.path.expanduser('~/Projects/wiz6-go/internal')
+PRIM = {'int8': (1, True), 'uint8': (1, False), 'int16': (2, True), 'uint16': (2, False),
+        'int32': (4, True), 'uint32': (4, False)}
+
+# Go global -> (DS offset, type). Pointer arrays (monsterGroups, groupMonsterRec) are
+# placed by the harness: HEAP[name] is where element 0 goes.
+GLOBALS = {
+    'party': (0x43e8, '[6]PC'),
+    'combatGold': (0x43c6, 'int32'),
+    'partyCount': (0x43ce, 'int16'),
+    'g4fc8': (0x4fc8, 'int16'),
+    'actMember': (0x435c, 'int16'),
+    'actGroup': (0x435e, 'int16'),
+    'monsterGroupCount': (0x4360, 'int16'),
+    'mexeMsgMode': (0x500a, 'int16'),      # WMEXE g500a
+    'hdr': (0x33f8, 'ScenarioHeader'),
+    'viewPosGroup': (0x4362, '[2][5]int16'),
+    'monsterJitterX': (0x4348, '[2][5]uint8'),
+    'monsterJitterY': (0x433e, '[2][5]uint8'),
+    'animCycle': (0x3644, 'int16'),
+    'mexeEffect': (0x50fe, '[2][5]int16'),  # WMEXE g50fe
+}
+PTRS = {   # pointer array global -> (DS offset of the pointers, element type, count, heap)
+    'monsterGroups': (0x43a8, 'MonsterGroup', 7, 0x6000),
+    'groupMonsterRec': (0x43b6, 'MonsterRec', 7, 0x7000),
+}
+
+
+def _parse():
+    types = {}
+    for f in ('dbs/records.go', 'game/state.go'):
+        src = open(os.path.join(GO, f)).read()
+        for m in re.finditer(r'^type (\w+) struct \{\n(.*?)^\}', src, re.S | re.M):
+            fields = []
+            for line in m.group(2).splitlines():
+                line = line.split('//')[0].strip()
+                if not line:
+                    continue
+                mm = re.match(r'([\w, ]+?)\s+((?:\[\d+\])*[\w.]+)$', line)
+                if not mm:          # slices etc.: not a fixed record
+                    fields = None
+                    break
+                for n in mm.group(1).split(','):
+                    fields.append((n.strip(), mm.group(2).replace('dbs.', '')))
+            if fields is not None:
+                types[m.group(1)] = fields
+        for m in re.finditer(r'^\s*(\w+)\s*= dbs\.(\w+)$', src, re.M):
+            types.setdefault(m.group(1), types.get(m.group(2)))
+    return types
+
+
+TYPES = _parse()
+
+
+def leaves(t, path='', off=0):
+    """Yield (path, offset, size, signed) for every scalar of type t."""
+    m = re.match(r'\[(\d+)\](.*)', t)
+    if m:
+        n, et = int(m.group(1)), m.group(2)
+        sz = size(et)
+        for i in range(n):
+            yield from leaves(et, '%s[%d]' % (path, i), off + i * sz)
+    elif t in PRIM:
+        yield (path, off) + PRIM[t]
+    else:
+        for n, ft in TYPES[t]:
+            yield from leaves(ft, path + '.' + n, off)
+            off += size(ft)
+
+
+_sz = {}
+
+
+def size(t):
+    if t not in _sz:
+        _sz[t] = sum(s for _, _, s, _ in leaves(t))
+    return _sz[t]
+
+
+assert size('PC') == 432 and size('MonsterGroup') == 416 and size('MonsterRec') == 222
+assert size('Combatant') == 44 and size('ScenarioHeader') == 414
+
+
+def table():
+    """path -> (DS offset, size, signed) for every scalar the tests can name."""
+    t = {}
+    for g, (a, ty) in GLOBALS.items():
+        for p, o, s, sg in leaves(ty, g, a):
+            t[p] = (o, s, sg)
+    for g, (_, ty, n, heap) in PTRS.items():
+        for i in range(n):
+            for p, o, s, sg in leaves(ty, '%s[%d]' % (g, i), heap + i * size(ty)):
+                t[p] = (o, s, sg)
+    return t
