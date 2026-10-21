@@ -184,3 +184,25 @@ def _8353(rnd):
 
 
 pcvw_8353 = Spec('WPCVW', 0x8353, _8353, PCVW_UI, void=True)
+pcvw_a4b1 = Spec('WPCVW', 0xa4b1, mkp(lambda r, m, s: [m, r.randint(0, 10)]), PCVW_UI, void=True)
+pcvw_a368 = Spec('WPCVW', 0xa368, mkp(lambda r, m, s: [m, r.randint(0, 13)]), PCVW_UI, void=True)
+RECIPES = [(390, 396), (407, 407), (408, 408), (393, 440), (393, 441), (442, 441), (443, 440), (444, 446), (448, 405)]
+
+
+def _9c8e(rnd):
+    s = party6(rnd)
+    m = rnd.randint(0, 5)
+    p = 'party[%d].' % m
+    n = s[p + 'ItemCount'] = rnd.randint(2, 10)
+    a, b = rnd.sample(range(n), 2)
+    if rnd.random() < 0.7:
+        x, y = rnd.choice(RECIPES)
+        if rnd.random() < 0.5:
+            x, y = y, x
+        s[p + 'Items[%d].ID' % a], s[p + 'Items[%d].ID' % b] = x, y
+    for k in range(8):
+        s[p + 'Equipped[%d]' % k] = rnd.choice([255, 255, rnd.randint(0, n - 1)])
+    return s, [m, a, b], [0, m, a, b]
+
+
+pcvw_9c8e = Spec('WPCVW', 0x9c8e, _9c8e, PCVW_UI)
