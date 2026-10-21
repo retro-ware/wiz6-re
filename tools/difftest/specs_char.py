@@ -2,6 +2,7 @@
 import layout as L
 from specs import pick, Spec, STUB_FX, SCRATCH
 from specs_combat import ITEMS
+from emu import scenario_record
 
 # WPCMK overlay functions that only draw, wait or read input.
 PCMK_UI = (0x7068, 0x4b6d, 0x4b9c, 0x4bed, 0x4c13, 0x4ffd, 0x5022, 0x5058, 0x507f, 0x50a8,
@@ -250,3 +251,28 @@ root_28af = Spec('WPCMK', 0x28af, lambda r: (lambda a: (_bits(r), a, [SKILLS0] +
 root_28da = Spec('WPCMK', 0x28da, lambda r: _bf(r, True), void=True)
 root_2925 = Spec('WPCMK', 0x2925, _bf)
 root_2962 = Spec('WPCMK', 0x2962, lambda r: ({}, [pick(r, 0, 65535, (0, -1, 32767, -32768)), r.randint(0, 15), r.randint(1, 15)]))
+
+
+USABLE = [i for i in ITEMS if scenario_record(1, i)[69] > 0 or scenario_record(1, i)[28:30] != b'\0\0']
+STUB_FX['WPCVW'][0x5fac] = lambda m: None    # choose_item: the first item (0)
+PCVW_UI += (0x5fac, 0x897d)                  # choose_item, choose_member: 0
+
+
+def _8fbf(rnd):
+    s = party6(rnd)
+    m = rnd.randint(0, 5)
+    i = rnd.randint(0, s['party[%d].ItemCount' % m] - 1)
+    s['party[%d].Items[%d].ID' % (m, i)] = rnd.choice(USABLE)
+    s['party[%d].Items[0].ID' % m] = rnd.choice([395, 403, 388, rnd.choice(ITEMS)])
+    s['gameStateArg'] = rnd.choice([8, rnd.randint(0, 13)])
+    for k in range(6):
+        s['partyCounters[%d].A' % k] = pick(rnd, 0, 500, (0, 32767, -1))
+        s['partyCounters[%d].B' % k] = pick(rnd, 0, 100, (0, -1, 32767))
+    for mp in range(14):
+        for b in range(10):
+            s['levelFlags[%d][%d]' % (mp, b)] = rnd.randint(0, 255)
+            s['hdr.LevelFlags[%d][%d]' % (mp, b)] = rnd.randint(0, 255)
+    return s, [m, i], [0, 0, m, i]
+
+
+pcvw_8fbf = Spec('WPCVW', 0x8fbf, _8fbf, PCVW_UI, void=True)
