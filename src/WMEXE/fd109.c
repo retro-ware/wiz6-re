@@ -17,9 +17,7 @@ run_combat_round()
 Ld11c:
 	g435e = 0;
 Ld122:
-	g435c = 0;
-	goto Ld2c3;
-Ld12b:
+	for (g435c = 0; (unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > g435c; g435c++) {
 	l2 = ((char *)monster_groups[g435e] + (44 * g435c));
 	if (((unsigned)l2[36] <= 0) || ((unsigned char)l2[37] != g435a)) goto Ld226;
 	if (l2[43]) goto Ld1dc;
@@ -66,16 +64,8 @@ Ld2b2:
 	if ((unsigned)l2[33] > 3) {
 	l2[33] = 3;
 	}
-	g435c++;
-Ld2c3:
-	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] > g435c) goto Ld12b;
-#asm
-ld2dd:
-	db 0a1h,05eh,043h,0d1h,0e0h,08bh,0d8h,08bh,09fh,0a8h,043h,080h,0bfh,09dh,001h,000h
-	db 077h,003h
-#endasm
-	goto Ld4a0;
-Ld2f2:
+	}
+	if ((unsigned char)(*(char **)((char *)monster_groups + (g435e << 1)))[413] <= 0) goto Ld4a0;
 	l4 = 0;
 Ld2f7:
 	l6 = (unsigned char)((char *)monster_groups[g435e] + l4)[402];

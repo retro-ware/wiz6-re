@@ -43,28 +43,15 @@ L8a8c:
 	for (l10 = 0; l10 < 4; l10++) {
 	((char *)monster_groups[p4] + ((44 * l2) + l10))[24] = (char)((unsigned char)((char *)monster_groups[p4] + ((44 * l2) + l10))[24] / 2);
 	}
-	if (((char *)monster_groups[p4] + (44 * l2))[41] >= 0) goto L8b6c;
-#asm
-	db 080h,078h,029h,000h,07dh,008h,08ah,040h,029h,098h,0f7h,0d8h,0ebh,004h
-#endasm
-L8b2b:
-	;
-#asm
-l8b2b:
-	db 08ah,040h,029h,098h
-#endasm
-L8b2f:
-	;
-#asm
-l8b2f:
-	db 0b9h,00ah,000h,099h,0f7h,0f9h,089h,046h,0f6h,03dh,003h,000h,07eh,005h
-#endasm
+	if (((char *)monster_groups[p4] + (44 * l2))[41] < 0) {
+	if ((l10 = ((((char *)monster_groups[p4] + (44 * l2))[41] < 0 ? -((char *)monster_groups[p4] + (44 * l2))[41] : ((char *)monster_groups[p4] + (44 * l2))[41]) / 10)) > 3) {
 	l10 = 3;
-L8b42:
-	if (l10 <= 0) goto L8b6c;
+	}
+	while (l10 > 0) {
 	((char *)monster_groups[p4] + ((44 * l2) + (4 - l10)))[24] = 0;
 	l10--;
-	goto L8b42;
+	}
+	}
 L8b6c:
 	l16 = 3494;
 L8b71:

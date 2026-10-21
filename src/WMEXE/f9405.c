@@ -434,17 +434,9 @@ case 79:
 	if ((((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 22) && (g4352)) || (((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 20) || ((*(char **)((char *)group_monster_rec + (l6 << 1)))[208] == 21))) goto La946;
 	l10 = -100;
 La946:
-	;
-#asm
-la946:
-	db 0b8h,02ch,000h,0f7h,06eh,0f8h,08bh,0f0h,08bh,046h,0fah,0d1h,0e0h,08bh,0d8h,08bh
-	db 09fh,0a8h,043h,08bh,040h,002h,099h,0d1h,0e0h,0d1h,0d2h,0d1h,0e0h,0d1h,0d2h,0d1h
-	db 0e0h,0d1h,0d2h,050h,052h,08bh,040h,004h,099h,08bh,0c8h,08bh,0dah,05ah,058h
-	call $ldv
-	db 089h,046h,0fch,03dh,002h,000h,07dh,005h
-#endasm
+	if ((l4 = (int)(((long)*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 2) << 3) / (long)*(int *)(((char *)monster_groups[l6] + (44 * l8)) + 4))) < 2) {
 	l4 = 2;
-La985:
+	}
 	f8149(l6, l8, 1, l4, p8, 0, l10);
 	goto Lb021;
 case 10:
