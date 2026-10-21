@@ -6,7 +6,13 @@ import gzip, json, os, random as pyrandom, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from emu import Machine, Crash
 import layout as L
+import glob, importlib
 import specs
+
+SPECS = {}
+for _f in sorted(glob.glob(os.path.join(os.path.dirname(__file__), 'specs_*.py'))):
+    _m = importlib.import_module(os.path.basename(_f)[:-3])
+    SPECS.update({k: v for k, v in vars(_m).items() if isinstance(v, specs.Spec)})
 
 OUT = os.path.expanduser('~/Projects/wiz6-go/internal/game/testdata/diff')
 TABLE = L.table()
@@ -75,13 +81,13 @@ def main():
     n = int(sys.argv[2]) if len(sys.argv) > 2 else 1000
     names = sys.argv[1].split(',')
     if names == ['all']:
-        names = sorted(k for k, v in vars(specs).items() if isinstance(v, specs.Spec))
+        names = sorted(SPECS)
     for name in names:
         gen(name, n)
 
 
 def gen(name, n):
-    spec = getattr(specs, name)
+    spec = SPECS[name]
     m = Machine(spec.ovl, spec.stubs, stub_fx=spec.stub_fx)
     rnd = pyrandom.Random(name)
     cases, unmapped = [], set()
